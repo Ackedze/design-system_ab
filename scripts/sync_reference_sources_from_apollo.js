@@ -151,10 +151,7 @@ function mergeLibraries(existingReference, generatedLibrariesByName) {
     if (generatedLibrary) {
       merged.push(generatedLibrary);
       consumedNames.add(libraryName);
-      continue;
     }
-
-    merged.push(existingLibrary);
   }
 
   const remainingGeneratedLibraries = Array.from(generatedLibrariesByName.values())
