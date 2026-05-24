@@ -1,0 +1,93 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "primaryIntent": {
+            "type": "string",
+            "enum": [
+                "check_rules",
+                "check_pattern",
+                "composite_check",
+                "find_examples",
+                "inventory_by_metadata",
+                "rewrite_with_sources",
+                "generate_ui_text",
+                "compare_variants",
+                "create_pattern",
+                "explain_guideline",
+                "unknown"
+            ]
+        },
+        "confidence": {
+            "type": "string",
+            "enum": [
+                "high",
+                "medium",
+                "low"
+            ]
+        },
+        "action": {
+            "type": "string",
+            "enum": [
+                "check",
+                "generate",
+                "search",
+                "rewrite",
+                "explain",
+                "compare",
+                "inventory",
+                "unknown"
+            ]
+        },
+        "userText": {
+            "type": "string"
+        },
+        "component": {
+            "type": "string"
+        },
+        "metadataField": {
+            "type": "string"
+        },
+        "metadataValue": {
+            "type": "string"
+        },
+        "needsPattern": {
+            "type": "boolean"
+        },
+        "needsRag": {
+            "type": "boolean"
+        },
+        "needsRules": {
+            "type": "boolean"
+        },
+        "needsDictionary": {
+            "type": "boolean"
+        },
+        "needsExamples": {
+            "type": "boolean"
+        },
+        "isComposite": {
+            "type": "boolean"
+        },
+        "taskSummary": {
+            "type": "string",
+            "maxLength": 160
+        }
+    },
+    "required": [
+        "primaryIntent",
+        "confidence",
+        "action",
+        "userText",
+        "component",
+        "metadataField",
+        "metadataValue",
+        "needsPattern",
+        "needsRag",
+        "needsRules",
+        "needsDictionary",
+        "needsExamples",
+        "isComposite",
+        "taskSummary"
+    ]
+}
