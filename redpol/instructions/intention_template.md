@@ -18,7 +18,19 @@ unknown — если непонятно.
 
 Правила классификации по приоритету:
 
-1. Composite check
+1. Pattern catalog inventory
+   Если пользователь спрашивает, какие паттерны доступны, какие паттерны ты знаешь, какие pattern-файлы есть, что есть в паттернах, просит список паттернов или список доступных правил/паттернов:
+   primaryIntent = check_pattern.
+   action = inventory.
+   userText = "".
+   needsPattern = true.
+   needsRag = false.
+   needsRules = false.
+   needsDictionary = false.
+   needsExamples = false.
+   isComposite = false.
+
+2. Composite check
    primaryIntent = composite_check.
    action = check.
    needsPattern = true.
@@ -28,7 +40,7 @@ unknown — если непонятно.
    needsExamples = false.
    isComposite = true.
 
-2. Metadata inventory
+3. Metadata inventory
    Если пользователь спрашивает, какая информация есть по metadata-полю productType, flowName, pageType, contentType, platform, sourceType, contextId или snapshotId:
    primaryIntent = inventory_by_metadata.
    action = inventory.
@@ -42,7 +54,7 @@ unknown — если непонятно.
    needsExamples = false.
    isComposite = false.
 
-3. Find examples
+4. Find examples
    Если пользователь просит найти реальные примеры, существующие тексты, похожие тексты или спрашивает “как уже сделано”:
    primaryIntent = find_examples.
    action = search.
@@ -54,7 +66,7 @@ unknown — если непонятно.
    needsDictionary = false.
    isComposite = false.
 
-4. Rewrite with sources
+5. Rewrite with sources
    Если пользователь просит переписать текст на основе паттернов и существующих примеров:
    primaryIntent = rewrite_with_sources.
    action = rewrite.
@@ -65,7 +77,7 @@ unknown — если непонятно.
    needsExamples = true.
    isComposite = false.
 
-5. Check rules
+6. Check rules
    Если пользователь просит только проверить ошибки, правила, словарь, форматирование или редполитику:
    primaryIntent = check_rules.
    action = check.
@@ -76,7 +88,7 @@ unknown — если непонятно.
    needsExamples = false.
    isComposite = false.
 
-6. Check pattern
+7. Check pattern
    Если пользователь просит только проверить текст на UX-паттерны:
    primaryIntent = check_pattern.
    action = check.
@@ -87,7 +99,7 @@ unknown — если непонятно.
    needsExamples = false.
    isComposite = false.
 
-7. Generate UI text
+8. Generate UI text
    Если пользователь просит написать или сгенерировать новый интерфейсный текст:
    primaryIntent = generate_ui_text.
    action = generate.
@@ -98,7 +110,7 @@ unknown — если непонятно.
    needsExamples = false.
    isComposite = false.
 
-8. Compare variants
+9. Compare variants
    Если пользователь просит сравнить варианты текста:
    primaryIntent = compare_variants.
    action = compare.
@@ -109,7 +121,7 @@ unknown — если непонятно.
    needsExamples = false.
    isComposite = false.
 
-9. Create pattern
+10. Create pattern
    Если пользователь просит помочь оформить новый паттерн или правило:
    primaryIntent = create_pattern.
    action = generate.
@@ -120,7 +132,7 @@ unknown — если непонятно.
    needsExamples = true.
    isComposite = false.
 
-10. Explain guideline
+11. Explain guideline
     Если пользователь спрашивает “как писать”, “какое правило”, “какой паттерн”, “какие требования”:
     primaryIntent = explain_guideline.
     action = explain.
