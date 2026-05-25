@@ -121,25 +121,34 @@
 
 Как вызывать инструменты:
 
-У reading_patterns_tool и reading_rag_tool строгая схема входа.
+У reading_patterns_tool и reading_rag_tool строгая схема входа child-flow tool.
 
-Передавай только аргументы:
+Передавай только один верхнеуровневый аргумент:
 
-- input_value
-- order
+- flow_tweak_data
 
-Всегда указывай:
-"order": "Descending"
+Внутри flow_tweak_data передавай входной текст дочернего flow по точному ключу:
 
-Если нужно передать intent, task, filters, keywords или expectedOutput, упакуй их в JSON-строку внутри input_value.
+- для reading_patterns_tool: "TextInput-6XQ2y~input_value";
+- для reading_rag_tool: "TextInput-JlNx6~input_value".
 
-Не передавай intent, task, filters, keywords, pattern_type или expected_output как отдельные аргументы tool.
+Значением этого ключа должна быть JSON-строка с userRequest, intent, task, filters, keywords, expectedOutput и responseMode.
 
-Пример input_value для reading_patterns_tool:
-{"userRequest":"как писать текст в кнопках?","intent":"writing_guideline","task":"Найти правила для текста в кнопках","keywords":["кнопка","текст кнопки","button text","CTA"],"expectedOutput":["rules","requirements","antiPatterns","examples"],"responseMode":"compact"}
+Не передавай input_value, order, intent, task, filters, keywords, pattern_type или expected_output как отдельные верхнеуровневые аргументы tool.
 
-Пример input_value для reading_rag_tool:
-{"userRequest":"сгенерируй текст ошибки","intent":"generate_ui_text","task":"Найти context и snapshot-примеры похожих ошибок","lookForContext":true,"lookForSnapshots":true,"filters":{"contentType":"error"},"responseMode":"compact"}
+Пример вызова reading_patterns_tool:
+{
+  "flow_tweak_data": {
+    "TextInput-6XQ2y~input_value": "{\"userRequest\":\"как писать текст в кнопках?\",\"intent\":\"writing_guideline\",\"task\":\"Найти правила для текста в кнопках\",\"keywords\":[\"кнопка\",\"текст кнопки\",\"button text\",\"CTA\"],\"expectedOutput\":[\"rules\",\"requirements\",\"antiPatterns\",\"examples\"],\"responseMode\":\"compact\"}"
+  }
+}
+
+Пример вызова reading_rag_tool:
+{
+  "flow_tweak_data": {
+    "TextInput-JlNx6~input_value": "{\"userRequest\":\"сгенерируй текст ошибки\",\"intent\":\"generate_ui_text\",\"task\":\"Найти context и snapshot-примеры похожих ошибок\",\"lookForContext\":true,\"lookForSnapshots\":true,\"filters\":{\"contentType\":\"error\"},\"responseMode\":\"compact\"}"
+  }
+}
 
 Оценка достаточности данных:
 
