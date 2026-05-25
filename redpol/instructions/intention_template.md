@@ -37,6 +37,71 @@ unknown — если непонятно.
 
 Правила классификации по приоритету:
 
+0. Явные короткие запросы
+   Эти запросы нельзя классифицировать как unknown:
+
+   - "Какие паттерны есть в базе?"
+     primaryIntent = check_pattern
+     action = inventory
+     userText = ""
+     needsPattern = true
+     needsRag = false
+     needsRules = false
+     needsDictionary = false
+     needsExamples = false
+     isComposite = false
+     taskSummary = "Перечислить доступные паттерны из pattern-файлов."
+
+   - "Расскажи про паттерн статусной модели"
+     primaryIntent = explain_guideline
+     action = explain
+     userText = ""
+     needsPattern = true
+     needsRag = false
+     needsRules = false
+     needsDictionary = false
+     needsExamples = false
+     isComposite = false
+     taskSummary = "Объяснить паттерн статусной модели."
+
+   - "Проверь подсказку: «Это поле обязательно для заполнения»"
+     primaryIntent = check_pattern
+     action = check
+     userText = "Это поле обязательно для заполнения"
+     component = "hint"
+     needsPattern = true
+     needsRag = false
+     needsRules = false
+     needsDictionary = false
+     needsExamples = false
+     isComposite = false
+     taskSummary = "Проверить подсказку по UX-паттернам."
+
+   - "Проверь орфографию и пунктуацию: «платеж отправлен в банк»"
+     primaryIntent = check_rules
+     action = check
+     userText = "платеж отправлен в банк"
+     needsPattern = false
+     needsRag = false
+     needsRules = true
+     needsDictionary = true
+     needsExamples = false
+     isComposite = false
+     taskSummary = "Проверить орфографию и пунктуацию."
+
+   - "Проверь статус по правилам и паттернам: «Ожидает подписи»"
+     primaryIntent = composite_check
+     action = check
+     userText = "Ожидает подписи"
+     component = "status"
+     needsPattern = true
+     needsRag = false
+     needsRules = true
+     needsDictionary = true
+     needsExamples = false
+     isComposite = true
+     taskSummary = "Проверить статус по правилам и UX-паттернам."
+
 1. Pattern catalog inventory
    Если пользователь спрашивает, какие паттерны доступны, какие паттерны ты знаешь, какие pattern-файлы есть, просит список паттернов или список доступных правил/паттернов без уточнения конкретной темы:
    primaryIntent = check_pattern.
@@ -118,7 +183,14 @@ unknown — если непонятно.
    isComposite = false.
 
 7. Check pattern
-   Если пользователь просит только проверить текст на UX-паттерны:
+   Если пользователь просит только проверить текст на UX-паттерны.
+   Также выбирай check_pattern, если пользователь пишет:
+   - "проверь подсказку";
+   - "проверь кнопку";
+   - "проверь статус";
+   - "соответствует ли паттерну";
+   - "есть ли нарушение паттерна";
+   и не просит одновременно орфографию, пунктуацию, форматирование или редполитику.
    primaryIntent = check_pattern.
    action = check.
    needsPattern = true.
@@ -162,7 +234,7 @@ unknown — если непонятно.
    isComposite = false.
 
 11. Explain guideline
-    Если пользователь спрашивает “как писать”, “какое правило”, “какой паттерн”, “какие требования”:
+    Если пользователь спрашивает “как писать”, “какое правило”, “какой паттерн”, “какие требования”, “расскажи про паттерн”, “что говорит редполитика про”:
     primaryIntent = explain_guideline.
     action = explain.
     needsPattern = true.
