@@ -1,11 +1,12 @@
 # Apollo Stats
 
-Каталог локальной статистики проверок Apollo.
+Каталог статистики проверок Apollo.
 
 ```text
 apollo-stats/
   User-Name/
-    User-Name_06-06-2026_12-13-42.json
+    06-06-2026/
+      User-Name_06-06-2026_12-13-42.json
 ```
 
 Один файл соответствует одному успешному нажатию `Проверить`.
@@ -14,7 +15,7 @@ apollo-stats/
 
 `currentComponents` используется как инвентаризация и не входит в `problemOccurrenceCount`.
 
-MVP сохраняет файлы локально через `services/apollo-stats-collector`. Автоматические commit и push отключены.
+Production-отчёты автоматически публикует Supabase Edge Function. Локальный `services/apollo-stats-collector` используется только для изолированной отладки и сохраняет файлы в той же структуре.
 
 Корневой каталог сохранения:
 
