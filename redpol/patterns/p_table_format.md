@@ -9,6 +9,7 @@
 - sourceType: editorial-guideline
 - patternKey: tables.data-formatting
 - tags: tables, data-formatting, alignment, columns, cells, headers, numeric-data, text-data
+- figmaLink: https://www.figma.com/design/ZFrXVVpF3gAmx6qvXvy51k/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0----%D0%A4%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D0%B2-%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D0%B5?m=auto&t=yxdKGIY4gfsWChEc-7
 
 ---
 
@@ -24,13 +25,13 @@
 
 В ячейку таблицы можно положить один из следующих типовов данных.
 
-| Тип данных | Примеры | Базовое правило |
-|---|---|---|
-| Текстовые данные | Назначение, статус, название, ссылка | Выравниваются по левому краю |
-| Числовые данные с размерностью | Сумма, процентная ставка | Выравниваются по правому краю |
-| Числовые данные без размерности | Номер телефона, дата, номер счёта | Выравниваются по левому краю |
-| Графика | Миниатюра карточки, IconView, картинка | Выравнивается по левому краю |
-| Интерфейсные элементы | Чекбоксы, шевроны, кнопки действий | Выравниваются по левому или правому краю |
+| Тип данных                      | Примеры                                | Базовое правило                          |
+| ------------------------------- | -------------------------------------- | ---------------------------------------- |
+| Текстовые данные                | Назначение, статус, название, ссылка   | Выравниваются по левому краю             |
+| Числовые данные с размерностью  | Сумма, процентная ставка               | Выравниваются по правому краю            |
+| Числовые данные без размерности | Номер телефона, дата, номер счёта      | Выравниваются по левому краю             |
+| Графика                         | Миниатюра карточки, IconView, картинка | Выравнивается по левому краю             |
+| Интерфейсные элементы           | Чекбоксы, шевроны, кнопки действий     | Выравниваются по левому или правому краю |
 
 ---
 
@@ -149,14 +150,14 @@
 
 **Примеры:**
 
-| Колонка | Тип данных | Выравнивание значения | Выравнивание заголовка |
-|---|---|---:|---:|
-| Покупатель | Текст | Слева | Слева |
-| ИНН | Число без размерности | Слева | Слева |
-| Номер | Число без размерности | Слева | Слева |
-| Дата открытия | Дата | Слева | Слева |
-| Статус | Текст | Слева | Слева |
-| Сумма, ₽ | Число с размерностью | Справа | Справа |
+| Колонка       | Тип данных            | Выравнивание значения | Выравнивание заголовка |
+| ------------- | --------------------- | --------------------: | ---------------------: |
+| Покупатель    | Текст                 |                 Слева |                  Слева |
+| ИНН           | Число без размерности |                 Слева |                  Слева |
+| Номер         | Число без размерности |                 Слева |                  Слева |
+| Дата открытия | Дата                  |                 Слева |                  Слева |
+| Статус        | Текст                 |                 Слева |                  Слева |
+| Сумма, ₽      | Число с размерностью  |                Справа |                 Справа |
 
 ---
 
@@ -372,21 +373,21 @@ Paragraph/14–20 Primary Small
 
 ## 11. Краткий набор правил для валидатора
 
-| ID | Правило | Проверка | Где лучше проверять |
-|---|---|---|---|
-| table-data-align-text-left | Текстовые данные выравниваются по левому краю | Тип колонки = text → align left | Figma / rule-based |
-| table-data-align-dimension-right | Числа с размерностью выравниваются по правому краю | amount, percent, currency, metric → align right | Figma / rule-based |
-| table-data-align-number-without-dimension-left | Числа без размерности выравниваются по левому краю | date, phone, account, inn, document number → align left | Figma / rule-based + dictionary |
-| table-data-align-graphics-left | Графика выравнивается по левому краю | image/icon/avatar → align left | Figma |
-| table-header-inherits-cell-alignment | Заголовок наследует выравнивание ячеек | header align = cell align | Figma |
-| table-cell-vertical-align-top | Ячейки выравниваются по верхнему краю | vertical align = top | Figma |
-| table-cell-no-bottom-align | Нельзя выравнивать ячейки по нижнему краю | vertical align ≠ bottom | Figma |
-| table-header-no-wrap-basic-wide | В базовой и широкой таблице заголовок не переносится | header lines ≤ 1 | Figma |
-| table-header-ellipsis | Длинный заголовок скрывается через эллипсис | overflow = ellipsis | Figma / design review |
-| table-header-tooltip | При ховере показывается полный заголовок | tooltip exists | Figma / implementation |
-| table-no-repeated-units | Не повторять размерность в каждой ячейке, если она вынесена в заголовок | ₽/%/см повторяется в колонке | LLM / rule-based |
-| table-text-max-line-width | Максимальная строка текста — 480 px или 60–70 знаков | width / chars count | Figma / rule-based |
-| table-cell-max-3-lines | В ячейке не больше 3 строк | text lines ≤ 3 | Figma |
+| ID                                             | Правило                                                                 | Проверка                                                | Где лучше проверять             |
+| ---------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------- |
+| table-data-align-text-left                     | Текстовые данные выравниваются по левому краю                           | Тип колонки = text → align left                         | Figma / rule-based              |
+| table-data-align-dimension-right               | Числа с размерностью выравниваются по правому краю                      | amount, percent, currency, metric → align right         | Figma / rule-based              |
+| table-data-align-number-without-dimension-left | Числа без размерности выравниваются по левому краю                      | date, phone, account, inn, document number → align left | Figma / rule-based + dictionary |
+| table-data-align-graphics-left                 | Графика выравнивается по левому краю                                    | image/icon/avatar → align left                          | Figma                           |
+| table-header-inherits-cell-alignment           | Заголовок наследует выравнивание ячеек                                  | header align = cell align                               | Figma                           |
+| table-cell-vertical-align-top                  | Ячейки выравниваются по верхнему краю                                   | vertical align = top                                    | Figma                           |
+| table-cell-no-bottom-align                     | Нельзя выравнивать ячейки по нижнему краю                               | vertical align ≠ bottom                                 | Figma                           |
+| table-header-no-wrap-basic-wide                | В базовой и широкой таблице заголовок не переносится                    | header lines ≤ 1                                        | Figma                           |
+| table-header-ellipsis                          | Длинный заголовок скрывается через эллипсис                             | overflow = ellipsis                                     | Figma / design review           |
+| table-header-tooltip                           | При ховере показывается полный заголовок                                | tooltip exists                                          | Figma / implementation          |
+| table-no-repeated-units                        | Не повторять размерность в каждой ячейке, если она вынесена в заголовок | ₽/%/см повторяется в колонке                            | LLM / rule-based                |
+| table-text-max-line-width                      | Максимальная строка текста — 480 px или 60–70 знаков                    | width / chars count                                     | Figma / rule-based              |
+| table-cell-max-3-lines                         | В ячейке не больше 3 строк                                              | text lines ≤ 3                                          | Figma                           |
 
 ---
 

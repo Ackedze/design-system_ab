@@ -11,7 +11,7 @@
 - updatedAt: 2026-06-04
 - sourceType: component-guideline
 - tags: status-screen, result-screen, success, warning, error, empty-state, technical-error, processing
-- figmaLink:
+- figmaLink: https://www.figma.com/design/qcgIgPLxYU7DRjOQuudahy/%E2%9C%85-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82----StatusScreen?m=auto&t=yxdKGIY4gfsWChEc-7
 - sections: 10
 
 ## Section 1: Определение

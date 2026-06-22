@@ -10,7 +10,8 @@
 - sourceType: component-guideline
 - patternKey: components.amount
 - tags: amount, currency, numeric-data, tables, table-lists, side-panel, input, typography, color, formatting
-- sourceFile: ✅ Компонент __ Amount (26-May-2026-12.58pm).pdf
+- sourceFile: ✅ Компонент \_\_ Amount (26-May-2026-12.58pm).pdf
+- figmaLink: https://www.figma.com/design/VcHkzjFmNGCbKpO2YFCogJ/%E2%9C%85-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82----Amount?m=auto&t=yxdKGIY4gfsWChEc-7
 
 ---
 
@@ -32,12 +33,12 @@
 
 Компонент Amount состоит из обязательной и опциональных частей.
 
-| Часть | Название | Обязательность | Описание |
-|---|---|---|---|
-| 1 | Major | Обязательная | Основная целая часть суммы |
-| 2 | Minor | Опциональная | Дробная часть суммы |
-| 3 | Currency | Опциональная | Валюта |
-| 4 | Addon | Опциональная | Контейнер для дополнительного элемента |
+| Часть | Название | Обязательность | Описание                               |
+| ----- | -------- | -------------- | -------------------------------------- |
+| 1     | Major    | Обязательная   | Основная целая часть суммы             |
+| 2     | Minor    | Опциональная   | Дробная часть суммы                    |
+| 3     | Currency | Опциональная   | Валюта                                 |
+| 4     | Addon    | Опциональная   | Контейнер для дополнительного элемента |
 
 Пример структуры:
 
@@ -175,10 +176,10 @@ currency :: opacity :: true → не использовать
 
 Для основной суммы используется `Medium`.
 
-| Тип значения | Начертание |
-|---|---|
-| Основная сумма | Medium |
-| Второстепенное значение | Regular |
+| Тип значения            | Начертание |
+| ----------------------- | ---------- |
+| Основная сумма          | Medium     |
+| Второстепенное значение | Regular    |
 
 В обычной таблице не используем `Regular` для отображения основной суммы.
 
@@ -269,10 +270,10 @@ Amount → align right
 
 Для остальных значений лучше использовать `Medium`.
 
-| Тип значения | Начертание |
-|---|---|
-| Общая сумма | Bold |
-| Остальные суммы | Medium |
+| Тип значения    | Начертание |
+| --------------- | ---------- |
+| Общая сумма     | Bold       |
+| Остальные суммы | Medium     |
 
 ---
 
@@ -357,30 +358,30 @@ minor :: opacity :: true → не использовать
 
 ## 11. Краткий набор правил для валидатора
 
-| ID | Правило | Проверка | Где лучше проверять |
-|---|---|---|---|
-| amount-structure-major-required | Major-часть обязательна | Amount содержит Major | Figma / component props |
-| amount-minor-optional | Minor-часть опциональна | Minor включается через props | Figma / component props |
-| amount-currency-optional | Currency опциональна | Currency включается через props | Figma / component props |
-| amount-addon-slot | Addon вставляется через слот | Addon используется как slot replacement | Figma |
-| amount-addon-height-match-major-line | Высота Addon соответствует высоте строки Major | addon height = major line-height | Figma |
-| amount-no-minor-opacity | Не использовать opacity для Minor | minor opacity = false | Figma / component props |
-| amount-no-currency-opacity-in-table | В таблицах не использовать opacity для Currency | currency opacity = false | Figma / component props |
-| amount-headline-no-opacity | В заголовочных стилях не использовать Opacity | opacity = false при Headline-System | Figma |
-| amount-use-math-space | Между разрядами используется математический пробел | regex / unicode spacing | rule-based |
-| amount-use-math-minus | Для отрицательных значений используется математический минус | знак `−`, не `-`, `–`, `—` | rule-based |
-| amount-positive-color-only-in-tables | text/positive только для пополнений в таблицах и табличных списках | color = text/positive только в допустимом контексте | Figma / LLM-context |
-| amount-negative-primary-not-red | Для списаний не использовать красный цвет | negative amount color = text/primary | Figma |
-| amount-table-align-right | Amount в таблицах выравнивается по правому краю | horizontal align = right | Figma |
-| amount-table-main-medium | Основная сумма в таблице — Medium | font-weight = Medium | Figma |
-| amount-table-secondary-regular | Второстепенная сумма в таблице — Regular | font-weight = Regular | Figma |
-| amount-table-currency-not-duplicated | Не дублировать валюту в значениях, если она вынесена в заголовок | currency in header + currency in cells | rule-based / LLM |
-| amount-table-positive-main-only | Если в колонке два значения, text/positive только у основного значения со знаком `+` | secondary positive not colored | Figma / LLM-context |
-| amount-tablebulkactions-no-signs | В TableBulkActions не использовать `+` и `−` | signs are absent | rule-based |
-| amount-tablebulkactions-primary-only | В TableBulkActions использовать только text/primary | color = text/primary | Figma |
-| amount-steps-regular-only | В steps использовать только Regular | font-weight = Regular | Figma |
-| amount-input-no-minor-opacity | В input не использовать opacity для Minor | minor opacity = false | Figma |
-| amount-sidepanel-match-source-format | В сайд-панели формат и цвет повторяют страницу | side panel amount equals source pattern | LLM / design review |
+| ID                                   | Правило                                                                              | Проверка                                            | Где лучше проверять     |
+| ------------------------------------ | ------------------------------------------------------------------------------------ | --------------------------------------------------- | ----------------------- |
+| amount-structure-major-required      | Major-часть обязательна                                                              | Amount содержит Major                               | Figma / component props |
+| amount-minor-optional                | Minor-часть опциональна                                                              | Minor включается через props                        | Figma / component props |
+| amount-currency-optional             | Currency опциональна                                                                 | Currency включается через props                     | Figma / component props |
+| amount-addon-slot                    | Addon вставляется через слот                                                         | Addon используется как slot replacement             | Figma                   |
+| amount-addon-height-match-major-line | Высота Addon соответствует высоте строки Major                                       | addon height = major line-height                    | Figma                   |
+| amount-no-minor-opacity              | Не использовать opacity для Minor                                                    | minor opacity = false                               | Figma / component props |
+| amount-no-currency-opacity-in-table  | В таблицах не использовать opacity для Currency                                      | currency opacity = false                            | Figma / component props |
+| amount-headline-no-opacity           | В заголовочных стилях не использовать Opacity                                        | opacity = false при Headline-System                 | Figma                   |
+| amount-use-math-space                | Между разрядами используется математический пробел                                   | regex / unicode spacing                             | rule-based              |
+| amount-use-math-minus                | Для отрицательных значений используется математический минус                         | знак `−`, не `-`, `–`, `—`                          | rule-based              |
+| amount-positive-color-only-in-tables | text/positive только для пополнений в таблицах и табличных списках                   | color = text/positive только в допустимом контексте | Figma / LLM-context     |
+| amount-negative-primary-not-red      | Для списаний не использовать красный цвет                                            | negative amount color = text/primary                | Figma                   |
+| amount-table-align-right             | Amount в таблицах выравнивается по правому краю                                      | horizontal align = right                            | Figma                   |
+| amount-table-main-medium             | Основная сумма в таблице — Medium                                                    | font-weight = Medium                                | Figma                   |
+| amount-table-secondary-regular       | Второстепенная сумма в таблице — Regular                                             | font-weight = Regular                               | Figma                   |
+| amount-table-currency-not-duplicated | Не дублировать валюту в значениях, если она вынесена в заголовок                     | currency in header + currency in cells              | rule-based / LLM        |
+| amount-table-positive-main-only      | Если в колонке два значения, text/positive только у основного значения со знаком `+` | secondary positive not colored                      | Figma / LLM-context     |
+| amount-tablebulkactions-no-signs     | В TableBulkActions не использовать `+` и `−`                                         | signs are absent                                    | rule-based              |
+| amount-tablebulkactions-primary-only | В TableBulkActions использовать только text/primary                                  | color = text/primary                                | Figma                   |
+| amount-steps-regular-only            | В steps использовать только Regular                                                  | font-weight = Regular                               | Figma                   |
+| amount-input-no-minor-opacity        | В input не использовать opacity для Minor                                            | minor opacity = false                               | Figma                   |
+| amount-sidepanel-match-source-format | В сайд-панели формат и цвет повторяют страницу                                       | side panel amount equals source pattern             | LLM / design review     |
 
 ---
 

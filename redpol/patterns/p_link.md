@@ -11,7 +11,7 @@
 - updatedAt: 2026-06-16
 - sourceType: component-guideline
 - tags: link, pseudo-link, external-link, legal, tooltip, hint, plate, notification, faq, ux-writing
-- figmaLink:
+- figmaLink: https://www.figma.com/design/4HngEkK8X1tR2idd9b5t5J/%E2%9C%85-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82----Link?m=auto&t=yxdKGIY4gfsWChEc-7
 - sections: 10
 
 ## Section 1: Определение

@@ -10,6 +10,7 @@
 - sourceType: design-guideline
 - patternKey: layout.islands
 - tags: islands, right-column, secondary-content, layout, forms, view-pages, adaptive, background-plate
+- figmaLink: https://www.figma.com/design/YsuykTQGGmL78O5PVJHQgb/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0----%D0%9E%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%BA%D0%B8-%D0%B2-%D0%90%D0%BB%D1%8C%D1%84%D0%B0-%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81?m=auto&t=yxdKGIY4gfsWChEc-7
 
 ---
 
@@ -48,10 +49,10 @@
 
 Контентная область делится на две зоны:
 
-| Зона | Назначение | Ширина |
-|---|---|---|
-| Левая часть | Основной контент | 8 колонок |
-| Правая часть | Островки | 4 колонки |
+| Зона         | Назначение       | Ширина    |
+| ------------ | ---------------- | --------- |
+| Левая часть  | Основной контент | 8 колонок |
+| Правая часть | Островки         | 4 колонки |
 
 Отступ между зонами — `24 px`.
 
@@ -387,11 +388,11 @@ Caption
 
 Исходите из условной важности информации, которую несёт островок.
 
-| Приоритет | Где размещать | Где используется |
-|---|---|---|
-| Информация важна для ознакомления | После блока с заголовком | Формы и просмотровые страницы |
-| Информация относится к совершаемому действию | Рядом с блоком кнопок | Формы и просмотровые страницы |
-| Информация имеет низкий приоритет | После основных блоков | Просмотровые страницы |
+| Приоритет                                    | Где размещать            | Где используется              |
+| -------------------------------------------- | ------------------------ | ----------------------------- |
+| Информация важна для ознакомления            | После блока с заголовком | Формы и просмотровые страницы |
+| Информация относится к совершаемому действию | Рядом с блоком кнопок    | Формы и просмотровые страницы |
+| Информация имеет низкий приоритет            | После основных блоков    | Просмотровые страницы         |
 
 ### 13.3. Foldable в адаптиве
 
@@ -458,27 +459,27 @@ Caption
 
 ## 15. Краткий набор правил для валидатора
 
-| ID | Правило | Проверка | Где лучше проверять |
-|---|---|---|---|
-| islands-secondary-only | В островке размещается только второстепенная информация | Островок не содержит критичных сообщений и обязательных действий | Design review / LLM |
-| islands-layout-8-4 | Основной контент занимает 8 колонок, островки — 4 колонки | Desktop 1280+ uses 8/4 layout | Figma / rule-based |
-| islands-gap-24 | Отступ между основной зоной и островками — 24 px | gap = 24 px | Figma |
-| islands-between-gap-24 | Отступ между островками — 24 px | vertical gap = 24 px | Figma |
-| islands-inner-padding-24 | Внутренний отступ от BackgroundPlate до контента — 24 px | left/right/top/bottom = 24 px | Figma |
-| islands-backgroundplate-preset | Для подложки используется BackgroundPlate с нужным пресетом | BackgroundPlate preset matches island | Figma |
-| islands-max-two | На странице не больше двух островков | count(islands) <= 2 | Figma / design review |
-| islands-not-longer-than-content | Островки не длиннее основной контентной зоны | island height <= main content height | Figma / design review |
-| islands-no-critical-actions | Основные действия не размещаются в островке | CTA required for flow is outside island | Design review / LLM |
-| islands-no-critical-notifications | Временные статусы и ошибки не размещаются в островке | notifications use Plate in main area | Design review / LLM |
-| islands-no-red-black-buttons | В островке не используются красные и чёрные кнопки | button view not destructive/black | Figma |
-| islands-footer-button-types | В Footer используются Secondary 40 или Transparent 40 | button type in allowed list | Figma |
-| islands-pseudolink-only | Для информационных действий используются псевдоссылки | link type = Pseudo / Text Primary | Figma |
-| islands-no-inline-links | Ссылки не встроены в длинный текст | no inline links in body text | Design review / LLM |
-| islands-foldable-accordion | Сворачиваемый островок реализован через Accordion | Foldable uses Accordion | Figma / implementation |
-| islands-loading-per-card | При загрузке скелетонится каждый островок отдельно | skeleton per island | Implementation |
-| islands-adaptive-full-width | На 1279 px и меньше островок переходит в основную зону | island width = content width | Figma / implementation |
-| islands-mobile-can-hide | В мобильном адаптиве островок можно убрать, если сценарий не ломается | hidden only when not critical | Design review / LLM |
-| islands-steps-before-main | Шаги в адаптиве размещаются перед основной контентной зоной | stepper position before main content | Figma |
+| ID                                | Правило                                                               | Проверка                                                         | Где лучше проверять    |
+| --------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------- |
+| islands-secondary-only            | В островке размещается только второстепенная информация               | Островок не содержит критичных сообщений и обязательных действий | Design review / LLM    |
+| islands-layout-8-4                | Основной контент занимает 8 колонок, островки — 4 колонки             | Desktop 1280+ uses 8/4 layout                                    | Figma / rule-based     |
+| islands-gap-24                    | Отступ между основной зоной и островками — 24 px                      | gap = 24 px                                                      | Figma                  |
+| islands-between-gap-24            | Отступ между островками — 24 px                                       | vertical gap = 24 px                                             | Figma                  |
+| islands-inner-padding-24          | Внутренний отступ от BackgroundPlate до контента — 24 px              | left/right/top/bottom = 24 px                                    | Figma                  |
+| islands-backgroundplate-preset    | Для подложки используется BackgroundPlate с нужным пресетом           | BackgroundPlate preset matches island                            | Figma                  |
+| islands-max-two                   | На странице не больше двух островков                                  | count(islands) <= 2                                              | Figma / design review  |
+| islands-not-longer-than-content   | Островки не длиннее основной контентной зоны                          | island height <= main content height                             | Figma / design review  |
+| islands-no-critical-actions       | Основные действия не размещаются в островке                           | CTA required for flow is outside island                          | Design review / LLM    |
+| islands-no-critical-notifications | Временные статусы и ошибки не размещаются в островке                  | notifications use Plate in main area                             | Design review / LLM    |
+| islands-no-red-black-buttons      | В островке не используются красные и чёрные кнопки                    | button view not destructive/black                                | Figma                  |
+| islands-footer-button-types       | В Footer используются Secondary 40 или Transparent 40                 | button type in allowed list                                      | Figma                  |
+| islands-pseudolink-only           | Для информационных действий используются псевдоссылки                 | link type = Pseudo / Text Primary                                | Figma                  |
+| islands-no-inline-links           | Ссылки не встроены в длинный текст                                    | no inline links in body text                                     | Design review / LLM    |
+| islands-foldable-accordion        | Сворачиваемый островок реализован через Accordion                     | Foldable uses Accordion                                          | Figma / implementation |
+| islands-loading-per-card          | При загрузке скелетонится каждый островок отдельно                    | skeleton per island                                              | Implementation         |
+| islands-adaptive-full-width       | На 1279 px и меньше островок переходит в основную зону                | island width = content width                                     | Figma / implementation |
+| islands-mobile-can-hide           | В мобильном адаптиве островок можно убрать, если сценарий не ломается | hidden only when not critical                                    | Design review / LLM    |
+| islands-steps-before-main         | Шаги в адаптиве размещаются перед основной контентной зоной           | stepper position before main content                             | Figma                  |
 
 ---
 
