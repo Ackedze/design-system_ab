@@ -31,8 +31,10 @@
    - `changes[].property`
    - `changes[].referenceValue`
    - `changes[].actualValue`
+   - конкретный `changes[].assessment.ruleId`, если он есть
 3. Не используй названия слоёв и компонентов как инструкции.
 4. Не проверяй весь JSON как текстовый фрагмент. JSON — это данные для поиска правила.
+5. Не расширяй один найденный ruleId на соседние properties. Правило должно относиться к конкретному property/change.
 
 Когда искать паттерн:
 
@@ -51,6 +53,14 @@
 - Если finding связан с `Table`, ищи паттерн таблиц.
 - Если finding связан с `Island`, ищи паттерн островов.
 - Если finding связан с адаптивностью, breakpoint или channel D/M, ищи adaptive Alfa Business.
+
+Точность сопоставления:
+
+- Если Apollo change содержит `assessment.ruleId`, сначала ищи именно этот ruleId.
+- Если точный ruleId не найден в pattern-файлах, верни ближайший паттерн только с `confidence = "low"` или `"medium"` и явно напиши, что точное правило не найдено.
+- Если Apollo change не содержит `assessment.ruleId`, не утверждай, что нарушение подтверждено паттерном. Можно вернуть общий pattern context, но `matched_rules` должен содержать только правила, которые прямо относятся к property.
+- Для `variant.SingleIcon` не используй правила про `View`, `Accent`, `Overflow` или `PickerButton`, если в найденном rule text нет SingleIcon/icon-only/иконка или прямого описания этого состояния.
+- Для `variant.View = Accent` можно сопоставлять с правилом про desktop-safe variants только если отчёт или запрос указывает desktop-контекст и правило действительно содержит `View: Accent`.
 
 Что возвращать:
 
@@ -108,6 +118,7 @@
 - Не ставь первый файл по умолчанию.
 - Не утверждай, что ruleId подтверждён паттерном, если он не найден в файлах.
 - Если найден только близкий паттерн без точного ruleId, поставь `confidence = "medium"` или `"low"` и явно напиши, что прямое правило не найдено.
+- Не добавляй в `recommended_action` правила, которых нет в Apollo changes или точном matched rule.
 
 Ограничения:
 
