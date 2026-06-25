@@ -1,0 +1,89 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "primaryIntent": {
+            "type": "string",
+            "enum": [
+                "analyze_report",
+                "summarize_report",
+                "explain_finding",
+                "find_pattern_context",
+                "find_examples",
+                "unknown"
+            ]
+        },
+        "confidence": {
+            "type": "string",
+            "enum": [
+                "high",
+                "medium",
+                "low"
+            ]
+        },
+        "action": {
+            "type": "string",
+            "enum": [
+                "analyze",
+                "summarize",
+                "explain",
+                "search",
+                "unknown"
+            ]
+        },
+        "inputType": {
+            "type": "string",
+            "enum": [
+                "apollo_agent_report",
+                "apollo_full_report",
+                "apollo_finding",
+                "follow_up",
+                "plain_request",
+                "unknown"
+            ]
+        },
+        "reportKind": {
+            "type": "string"
+        },
+        "sourceReportId": {
+            "type": "string"
+        },
+        "requestedCategory": {
+            "type": "string"
+        },
+        "requestedComponent": {
+            "type": "string"
+        },
+        "requestedRuleId": {
+            "type": "string"
+        },
+        "needsPattern": {
+            "type": "boolean"
+        },
+        "needsRag": {
+            "type": "boolean"
+        },
+        "shouldAnalyzeReport": {
+            "type": "boolean"
+        },
+        "taskSummary": {
+            "type": "string",
+            "maxLength": 240
+        }
+    },
+    "required": [
+        "primaryIntent",
+        "confidence",
+        "action",
+        "inputType",
+        "reportKind",
+        "sourceReportId",
+        "requestedCategory",
+        "requestedComponent",
+        "requestedRuleId",
+        "needsPattern",
+        "needsRag",
+        "shouldAnalyzeReport",
+        "taskSummary"
+    ]
+}
