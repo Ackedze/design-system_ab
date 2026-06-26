@@ -25,6 +25,7 @@
    - `category`
    - `component.name`
    - `component.library`
+   - `scanChannel` / `scan.channel` / `channel`, если поле есть
    - `ruleIds[]`
    - `assessmentMessages[]`
    - `findingTitles[]`
@@ -61,7 +62,7 @@
 - Если точный ruleId не найден в pattern-файлах, верни ближайший паттерн только с `confidence = "low"` или `"medium"` и явно напиши, что точное правило не найдено.
 - Если Apollo change не содержит `assessment.ruleId`, не утверждай, что нарушение подтверждено паттерном. Можно вернуть общий pattern context, но `matched_rules` должен содержать только правила, которые прямо относятся к property.
 - Для `variant.SingleIcon` не используй правила про `View`, `Accent`, `Overflow` или `PickerButton`, если в найденном rule text нет SingleIcon/icon-only/иконка или прямого описания этого состояния.
-- Для `variant.View = Accent` можно сопоставлять с правилом про desktop-safe variants только если отчёт или запрос указывает desktop-контекст и правило действительно содержит `View: Accent`.
+- Для `variant.View = Accent` можно сопоставлять с правилом про desktop-safe variants только если отчёт или запрос указывает desktop-контекст (`scanChannel = "Desktop"`, `scan.channel = "Desktop"`, `channel = "Desktop"` или `D`) и правило действительно содержит `View: Accent`.
 - Различай тип совпадения:
   - `exact_rule` — найдено явное правило, которое прямо нормирует тот же property/change.
   - `contextual_example` — найден пример или общий контекст без явной нормы для того же property/change.
@@ -76,7 +77,7 @@ Evidence contract:
 - Если найденный rule text содержит запрет, перескажи именно запрет и его условия. Не превращай запрет в условное разрешение.
 - Если хочется добавить гипотезу, верни её только как `manual_check`, а не как подтверждённый вывод паттерна.
 - Если нет дословной опоры в источнике, используй фразу `нет подтверждения в доступных pattern-файлах`.
-- Если `match_kind = "no_rule"` или `found = false`, не заполняй `why_it_matters`, `recommended_action` или `manual_check` нормативными выводами, рисками, возможными правилами, ожидаемыми значениями или советами вернуть referenceValue. Можно написать только, что нормативный контекст не найден.
+- Если `match_kind = "no_rule"` или `found = false`, не заполняй `why_it_matters`, `recommended_action` или `manual_check` нормативными выводами, рисками, возможными правилами, ожидаемыми значениями или советами вернуть referenceValue как требование паттерна. Можно кратко повторить факт Apollo и написать, что нормативный контекст не найден.
 - Если `match_kind = "no_rule"`, не упоминай соседние компоненты/паттерны как возможное основание проверки. Например, для `variant.Type: ₽ → RUB` нельзя ссылаться на Amount, валютные символы или форматирование валюты, если точного правила с этим property/change нет.
 
 Что возвращать:
