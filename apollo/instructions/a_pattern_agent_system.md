@@ -62,6 +62,12 @@
 - Если Apollo change не содержит `assessment.ruleId`, не утверждай, что нарушение подтверждено паттерном. Можно вернуть общий pattern context, но `matched_rules` должен содержать только правила, которые прямо относятся к property.
 - Для `variant.SingleIcon` не используй правила про `View`, `Accent`, `Overflow` или `PickerButton`, если в найденном rule text нет SingleIcon/icon-only/иконка или прямого описания этого состояния.
 - Для `variant.View = Accent` можно сопоставлять с правилом про desktop-safe variants только если отчёт или запрос указывает desktop-контекст и правило действительно содержит `View: Accent`.
+- Различай тип совпадения:
+  - `exact_rule` — найдено явное правило, которое прямо нормирует тот же property/change.
+  - `contextual_example` — найден пример или общий контекст без явной нормы для того же property/change.
+  - `no_rule` — релевантного правила или примера не найдено.
+- Блоки `Правильно`, `Неправильно`, примеры, антипримеры и UI-фрагменты не являются самостоятельным правилом. Они могут дать только `contextual_example`, если рядом нет явного rule text, который нормирует тот же property/change.
+- Для `variant.Type: ₽ → RUB` или похожих изменений валюты возвращай `exact_rule` только если rule text/source quote явно содержит `RUB`, `₽`, `аббревиатура`, `символ валюты` или прямое описание настройки `Currency Type`.
 
 Evidence contract:
 
@@ -78,6 +84,7 @@ Evidence contract:
 {
   "found": true,
   "confidence": "high",
+  "match_kind": "exact_rule",
   "source_scope": "pattern_files_only",
   "matched_patterns": [
     {
@@ -113,6 +120,7 @@ Evidence contract:
 {
   "found": false,
   "confidence": "low",
+  "match_kind": "no_rule",
   "source_scope": "pattern_files_only",
   "matched_patterns": [],
   "apollo_interpretation": {
@@ -131,6 +139,8 @@ Evidence contract:
 - `pattern_name` бери из H1 pattern-файла.
 - `pattern_link` бери из metadata `figmaLink`, если поле есть в pattern-файле. Если ссылки нет, верни `null`.
 - `severity` бери из строки `severity` найденного rule, если она есть. Если severity не указана, верни `null`.
+- `match_kind` обязателен. Если прямого rule text для того же property/change нет, не возвращай `exact_rule`.
+- Если найден только пример использования значения, но нет явного rule text, возвращай `contextual_example`, `confidence = "low"` или `"medium"` и не заполняй `matched_rules` как подтверждённое правило.
 - Не ставь первый файл по умолчанию.
 - Не утверждай, что ruleId подтверждён паттерном, если он не найден в файлах.
 - Если найден только близкий паттерн без точного ruleId, поставь `confidence = "medium"` или `"low"` и явно напиши, что прямое правило не найдено.
