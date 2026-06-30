@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-overrides",
+  "componentKey": "web-core.button",
+  "status": "draft",
+  "appliesTo": {
+    "generatedContract": "contract.generated.json",
+    "rawCatalog": "Web _ Core -- Button.json"
+  },
+  "publicApi": {
+    "variantProperties": {
+      "View": {
+        "kind": "component-property",
+        "description": "Visual style/state of the button.",
+        "values": [
+          "Primary",
+          "Secondary",
+          "Transparent",
+          "Text",
+          "Accent",
+          "Outlined"
+        ]
+      },
+      "Size": {
+        "kind": "component-property",
+        "description": "Button height/size state.",
+        "values": [
+          "32",
+          "40",
+          "48",
+          "56",
+          "64",
+          "72"
+        ]
+      },
+      "Shape": {
+        "kind": "component-property",
+        "description": "Corner shape state.",
+        "values": [
+          "Rectangular",
+          "Rounded"
+        ]
+      },
+      "SingleIcon": {
+        "kind": "component-property",
+        "description": "Switches the button into icon-only/single-icon visual state.",
+        "values": [
+          "False",
+          "True"
+        ]
+      },
+      "DisabledState": {
+        "kind": "component-property",
+        "description": "Disabled/enabled component state.",
+        "values": [
+          "False",
+          "True"
+        ]
+      }
+    }
+  },
+  "anatomySemantics": {
+    "root": {
+      "path": "<variant root>",
+      "scope": "component-root",
+      "designerEditable": false,
+      "notes": "Root layout, radius and fill are controlled by component variant properties and design tokens."
+    },
+    "label": {
+      "path": "Text / Label",
+      "scope": "content-layer",
+      "designerEditable": "content-only",
+      "notes": "Text content can be changed. Text style and fill are layer parameters and should normally stay controlled by the variant."
+    },
+    "hint": {
+      "path": "Text / Hint",
+      "scope": "content-layer",
+      "designerEditable": "content-only",
+      "notes": "Hint is present in the component structure, but desktop usage is restricted by pattern rules."
+    },
+    "leftAddon": {
+      "path": "LeftAddon / LeftAddon",
+      "scope": "slot-instance",
+      "designerEditable": "variant-property-only",
+      "notes": "Nested addon instance. Its variant properties are slot configuration, not free layer styling."
+    },
+    "rightAddon": {
+      "path": "RightAddon / RightAddon",
+      "scope": "slot-instance",
+      "designerEditable": "variant-property-only",
+      "notes": "Nested addon instance. Its variant properties are slot configuration, not free layer styling."
+    },
+    "paintMe": {
+      "path": "*/PaintMe",
+      "scope": "internal-layer",
+      "designerEditable": false,
+      "notes": "Internal paint target. Manual fill changes should be treated as layer customization."
+    }
+  },
+  "resetModel": {
+    "componentProperties": [
+      "variant.View",
+      "variant.Size",
+      "variant.Shape",
+      "variant.SingleIcon",
+      "variant.DisabledState"
+    ],
+    "slotProperties": [
+      "LeftAddon.variant.Type",
+      "RightAddon.variant.Type"
+    ],
+    "layerProperties": [
+      "fills",
+      "strokes",
+      "strokeWeight",
+      "cornerRadius",
+      "opacity",
+      "layout.padding",
+      "layout.itemSpacing",
+      "styles.text",
+      "typography"
+    ],
+    "dependencyPolicy": "When a component property is reset, layer differences caused only by that property may disappear automatically. Manual layer overrides should remain independently resettable until the parent property reset removes their target state."
+  }
+}

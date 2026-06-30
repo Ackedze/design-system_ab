@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-audit-mapping",
+  "componentKey": "web-core.button",
+  "status": "draft",
+  "classification": [
+    {
+      "match": {
+        "propertyPrefix": "variant."
+      },
+      "scope": "component-property",
+      "groupTitle": "Параметры компонента",
+      "priority": 10,
+      "resetAction": "reset-component-properties"
+    },
+    {
+      "match": {
+        "property": "fill"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 20,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "property": "styles.text"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "displayName": "Стиль текст",
+      "priority": 30,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "propertyPrefix": "layout."
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 40,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "nodePathIncludes": "LeftAddon / LeftAddon",
+        "propertyPrefix": "variant."
+      },
+      "scope": "slot-property",
+      "groupTitle": "Параметры слота",
+      "priority": 15,
+      "resetAction": "reset-component-properties"
+    },
+    {
+      "match": {
+        "nodePathIncludes": "RightAddon / RightAddon",
+        "propertyPrefix": "variant."
+      },
+      "scope": "slot-property",
+      "groupTitle": "Параметры слота",
+      "priority": 15,
+      "resetAction": "reset-component-properties"
+    }
+  ],
+  "groupingOrder": [
+    "component-property",
+    "slot-property",
+    "layer-property"
+  ],
+  "evidencePolicy": {
+    "showVariantBeforeDerivedVisuals": true,
+    "useChangedNodeAsAffectedTarget": true,
+    "keepLayerOverrideSeparateFromVariantChange": true
+  },
+  "baselinePolicy": {
+    "whenVariantChanged": "Use the actual variant state as baseline for layer comparisons. Example: if View changed Primary -> Accent and fill was also manually changed, expected fill should be Accent baseline, not Primary baseline.",
+    "whenResettingLayer": "Reset layer property to the baseline of the current component property state.",
+    "whenResettingComponentProperty": "Reset component property to reference value; derived layer differences may disappear if caused only by state change."
+  }
+}

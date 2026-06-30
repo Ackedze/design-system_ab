@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-core.button",
+  "status": "draft",
+  "sourceFiles": [
+    "contract.generated.json",
+    "contract.overrides.json",
+    "rules.json",
+    "audit-mapping.json",
+    "examples.json"
+  ],
+  "summary": {
+    "componentFamily": "Button",
+    "library": "Web _ Core",
+    "purpose": "Button is a component family for action controls. Apollo should treat Button variant changes as component property changes and manual style/token/layout changes as layer customizations.",
+    "includedComponents": [
+      "[D] Button",
+      "[D] Button_Inverted",
+      "[M] Button",
+      "[M] Button_Inverted",
+      "scheduled Corporate Button variants",
+      "Addon part components"
+    ]
+  },
+  "publicComponentProperties": {
+    "variant.View": ["Primary", "Secondary", "Transparent", "Text", "Accent", "Outlined"],
+    "variant.Size": ["32", "40", "48", "56", "64", "72"],
+    "variant.Shape": ["Rectangular", "Rounded"],
+    "variant.SingleIcon": ["False", "True"],
+    "variant.DisabledState": ["False", "True"]
+  },
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.View",
+      "variant.Size",
+      "variant.Shape",
+      "variant.SingleIcon",
+      "variant.DisabledState"
+    ],
+    "slotProperties": [
+      "LeftAddon.variant.Type",
+      "RightAddon.variant.Type"
+    ],
+    "layerProperties": [
+      "fill",
+      "styles.text",
+      "layout.padding",
+      "layout.itemSpacing",
+      "opacity",
+      "radius",
+      "stroke"
+    ],
+    "ordering": [
+      "component-property",
+      "slot-property",
+      "layer-property"
+    ],
+    "baselinePolicy": "If a component property changed, compare manual layer overrides against the current actual component state baseline, not against the original reference state baseline."
+  },
+  "rules": [
+    {
+      "ruleId": "component:web-core.button.variant-state-is-component-property",
+      "severity": "info",
+      "meaning": "View, Size, Shape, SingleIcon and DisabledState changes are first-class component property customizations."
+    },
+    {
+      "ruleId": "component:web-core.button.manual-fill-is-layer-property",
+      "severity": "warning",
+      "meaning": "Manual fill changes are layer customizations and should remain separately visible/resettable."
+    },
+    {
+      "ruleId": "component:web-core.button.manual-text-style-is-layer-property",
+      "severity": "warning",
+      "meaning": "Manual text style changes on Label or Hint are layer customizations."
+    },
+    {
+      "ruleId": "component:web-core.button.desktop-safe-variants",
+      "severity": "error",
+      "patternRuleId": "rule:controls.buttons-and-button-groups.desktop-safe-variants",
+      "meaning": "Desktop usage must not use Button variants forbidden by the button pattern. Current forbidden values in this draft: View=Accent, View=Outlined, Size=64, Size=72, Shape=Rounded."
+    }
+  ],
+  "exampleInterpretations": [
+    {
+      "case": "variant.View Primary -> Accent",
+      "agentShouldSay": "Apollo found a component property customization: view primary -> accent.",
+      "agentShouldNotSay": "The fill changed from Primary color unless Apollo also reports an explicit layer fill change."
+    },
+    {
+      "case": "variant.View Primary -> Accent plus manual fill",
+      "agentShouldSay": "Show both changes: view primary -> accent, and fill from Accent baseline -> actual custom value.",
+      "agentShouldNotSay": "Compare the manual fill against Primary baseline."
+    },
+    {
+      "case": "Label styles.text changed",
+      "agentShouldSay": "Apollo found a layer text style customization.",
+      "agentShouldNotSay": "This is a component state change."
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-core.button",
+  "status": "draft",
+  "rules": [
+    {
+      "ruleId": "component:web-core.button.variant-state-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "ruleText": "Changes to View, Size, Shape, SingleIcon and DisabledState are component property changes and must be reported as first-class customizations."
+    },
+    {
+      "ruleId": "component:web-core.button.manual-fill-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "fills",
+      "checkType": "deterministic",
+      "ruleText": "Manual fill changes on Button root, Label, Hint, Addon PaintMe or icon layers are layer customizations. They should be shown separately from component property changes."
+    },
+    {
+      "ruleId": "component:web-core.button.manual-text-style-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "styles.text",
+      "checkType": "deterministic",
+      "ruleText": "Manual text style changes on Label or Hint are layer customizations and should be independently resettable."
+    },
+    {
+      "ruleId": "component:web-core.button.desktop-safe-variants",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:controls.buttons-and-button-groups.desktop-safe-variants",
+      "appliesTo": "variant.View|variant.Size|variant.Shape",
+      "checkType": "deterministic",
+      "conditions": {
+        "platform": "desktop",
+        "forbidden": {
+          "variant.View": [
+            "Accent",
+            "Outlined"
+          ],
+          "variant.Size": [
+            "64",
+            "72"
+          ],
+          "variant.Shape": [
+            "Rounded"
+          ]
+        }
+      },
+      "ruleText": "Desktop usage must not use Button variants and parameters forbidden by the button pattern."
+    },
+    {
+      "ruleId": "component:web-core.button.desktop-hint-restricted",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:controls.buttons-and-button-groups.desktop-safe-variants",
+      "appliesTo": "Text / Hint",
+      "checkType": "manual",
+      "conditions": {
+        "platform": "desktop"
+      },
+      "ruleText": "Hint inside desktop Button is restricted by the button pattern and requires manual review if visible or customized."
+    }
+  ]
+}
