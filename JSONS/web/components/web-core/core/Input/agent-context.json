@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-core.input",
+  "status": "draft",
+  "sourceFiles": [
+    "contract.generated.json",
+    "contract.overrides.json",
+    "rules.json",
+    "audit-mapping.json",
+    "examples.json"
+  ],
+  "summary": {
+    "componentFamily": "Input",
+    "library": "Web _ Core",
+    "purpose": "Input is a component family for text fields. Apollo should treat Input state changes as component property changes and manual style/token/layout changes as layer customizations. Text content may need pattern-based editorial review.",
+    "includedComponents": [
+      "[D] Input",
+      "[D] Input_Inverted",
+      "[M] Input",
+      "[M] Input_Inverted",
+      "scheduled Corporate/AO Input variants"
+    ]
+  },
+  "publicComponentProperties": {
+    "variant.Size": [
+      "40",
+      "48",
+      "56",
+      "64",
+      "72"
+    ],
+    "variant.FilledState": [
+      "False",
+      "True"
+    ],
+    "variant.ActiveState": [
+      "False",
+      "True"
+    ],
+    "variant.DisabledState": [
+      "False",
+      "True"
+    ],
+    "variant.ErrorState": [
+      "False",
+      "True"
+    ],
+    "variant.OuterLabel": [
+      "False",
+      "True"
+    ]
+  },
+  "anatomy": [
+    "Label / Label",
+    "Field",
+    "Field / LeftAddons",
+    "Field / Content / Placeholder",
+    "Field / RightAddons",
+    "Hint / HintMessage"
+  ],
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.Size",
+      "variant.FilledState",
+      "variant.ActiveState",
+      "variant.DisabledState",
+      "variant.ErrorState",
+      "variant.OuterLabel"
+    ],
+    "slotProperties": [
+      "LeftAddon1.variant.Type",
+      "LeftAddon2.variant.Type",
+      "RightAddon1.variant.Type",
+      "RightAddon2.variant.Type",
+      "Placeholder.variant.Accent"
+    ],
+    "layerProperties": [
+      "fill",
+      "stroke",
+      "strokeWeight",
+      "styles.text",
+      "layout.padding",
+      "layout.itemSpacing",
+      "opacity",
+      "radius"
+    ],
+    "contentProperties": [
+      "Label.characters",
+      "Placeholder.characters",
+      "HintMessage.characters"
+    ],
+    "ordering": [
+      "component-property",
+      "slot-property",
+      "layer-property",
+      "content-property"
+    ],
+    "baselinePolicy": "If a component property changed, compare manual layer overrides against the current actual component state baseline, not against the original reference state baseline."
+  },
+  "patternLinks": [
+    {
+      "patternName": "Поля ввода",
+      "patternId": "ptrn:controls.input-fields",
+      "sourceFile": "p_input-fields.md"
+    }
+  ],
+  "rules": [
+    {
+      "ruleId": "component:web-core.input.variant-state-is-component-property",
+      "severity": "info",
+      "meaning": "Size, FilledState, ActiveState, DisabledState, ErrorState and OuterLabel are first-class component property customizations."
+    },
+    {
+      "ruleId": "component:web-core.input.manual-field-visual-is-layer-property",
+      "severity": "warning",
+      "meaning": "Manual Field visual/layout changes are layer customizations."
+    },
+    {
+      "ruleId": "component:web-core.input.manual-text-style-is-layer-property",
+      "severity": "warning",
+      "meaning": "Manual text style changes on Label, Placeholder or HintMessage are layer customizations."
+    },
+    {
+      "ruleId": "component:web-core.input.label-text-pattern-rules",
+      "severity": "error",
+      "patternRuleIds": [
+        "rule:controls.input-fields.noun-label",
+        "rule:controls.input-fields.no-label-colon"
+      ],
+      "meaning": "Label text must name the entity and must not end with a colon."
+    },
+    {
+      "ruleId": "component:web-core.input.placeholder-pattern-rules",
+      "severity": "warning",
+      "patternRuleIds": [
+        "rule:controls.input-fields.no-placeholder-duplication",
+        "rule:controls.input-fields.use-mask-for-known-format"
+      ],
+      "meaning": "Placeholder should add format/mask/context and should not duplicate the label."
+    },
+    {
+      "ruleId": "component:web-core.input.hint-error-pattern-rules",
+      "severity": "warning",
+      "patternRuleIds": [
+        "rule:controls.input-fields.short-useful-hint",
+        "rule:controls.input-fields.empty-validation-formulas",
+        "rule:controls.input-fields.human-error-message"
+      ],
+      "meaning": "Hint/error text should be short, useful and human-readable."
+    }
+  ],
+  "exampleInterpretations": [
+    {
+      "case": "variant.ErrorState False -> True",
+      "agentShouldSay": "Apollo found a component property customization: errorState false -> true.",
+      "agentShouldNotSay": "The field fill was manually changed unless Apollo also reports an explicit layer fill change."
+    },
+    {
+      "case": "variant.ErrorState change plus manual Field fill",
+      "agentShouldSay": "Show both changes and compare Field fill against ErrorState=True baseline.",
+      "agentShouldNotSay": "Compare manual Field fill against ErrorState=False baseline."
+    },
+    {
+      "case": "Label text ends with colon",
+      "agentShouldSay": "This needs pattern-based text review using input-fields no-label-colon rule.",
+      "agentShouldNotSay": "This is a visual customization."
+    }
+  ]
+}

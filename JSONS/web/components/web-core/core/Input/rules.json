@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-core.input",
+  "status": "draft",
+  "rules": [
+    {
+      "ruleId": "component:web-core.input.variant-state-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "ruleText": "Changes to Size, FilledState, ActiveState, DisabledState, ErrorState and OuterLabel are component property changes and must be reported as first-class customizations."
+    },
+    {
+      "ruleId": "component:web-core.input.manual-field-visual-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "Field.fills|Field.strokes|Field.radius|Field.layout",
+      "checkType": "deterministic",
+      "ruleText": "Manual visual/layout changes on Field are layer customizations and should be shown separately from component property changes."
+    },
+    {
+      "ruleId": "component:web-core.input.manual-text-style-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "Label.styles.text|Placeholder.styles.text|HintMessage.styles.text",
+      "checkType": "deterministic",
+      "ruleText": "Manual text style changes on Label, Placeholder or HintMessage are layer customizations and should be independently resettable."
+    },
+    {
+      "ruleId": "component:web-core.input.desktop-label-placement",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "ptrn:controls.input-fields#desktop-floating-label",
+      "appliesTo": "variant.OuterLabel",
+      "checkType": "manual",
+      "conditions": {
+        "platform": "desktop"
+      },
+      "ruleText": "Input field pattern states that desktop uses an internal floating label, while mobileweb/mobile use an external label. OuterLabel changes require pattern-aware review by platform."
+    },
+    {
+      "ruleId": "component:web-core.input.label-text-pattern-rules",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleIds": [
+        "rule:controls.input-fields.noun-label",
+        "rule:controls.input-fields.no-label-colon"
+      ],
+      "appliesTo": "Label.characters",
+      "checkType": "llm+deterministic",
+      "ruleText": "Input label text must name the entity, not instruct the user, and must not end with a colon."
+    },
+    {
+      "ruleId": "component:web-core.input.placeholder-pattern-rules",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleIds": [
+        "rule:controls.input-fields.no-placeholder-duplication",
+        "rule:controls.input-fields.use-mask-for-known-format"
+      ],
+      "appliesTo": "Placeholder.characters",
+      "checkType": "llm+manual",
+      "ruleText": "Placeholder should add format/mask/context and should not duplicate the label. If format is known, use a mask rather than an abstract hint or real-value example."
+    },
+    {
+      "ruleId": "component:web-core.input.hint-error-pattern-rules",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleIds": [
+        "rule:controls.input-fields.short-useful-hint",
+        "rule:controls.input-fields.empty-validation-formulas",
+        "rule:controls.input-fields.human-error-message"
+      ],
+      "appliesTo": "HintMessage.characters|variant.ErrorState",
+      "checkType": "llm+manual",
+      "ruleText": "Hint should be short and useful. Error text should explain what happened and what to do next using human language."
+    }
+  ]
+}
