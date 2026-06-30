@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-audit-mapping",
+  "componentKey": "web-core.amount-input",
+  "status": "draft",
+  "classification": [
+    {
+      "match": {
+        "propertyPrefix": "variant."
+      },
+      "scope": "component-property",
+      "groupTitle": "Параметры компонента",
+      "priority": 10,
+      "resetAction": "reset-component-properties"
+    },
+    {
+      "match": {
+        "property": "fill"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 30,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "property": "stroke"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 31,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "property": "strokeWeight"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 32,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "property": "styles.text"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "displayName": "Стиль текст",
+      "priority": 40,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "propertyPrefix": "layout."
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 50,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "property": "characters"
+      },
+      "scope": "content-property",
+      "groupTitle": "Текстовое содержимое",
+      "priority": 60,
+      "resetAction": "manual-content-review"
+    }
+  ],
+  "groupingOrder": [
+    "component-property",
+    "slot-property",
+    "layer-property",
+    "content-property"
+  ],
+  "evidencePolicy": {
+    "showVariantBeforeDerivedVisuals": true,
+    "useChangedNodeAsAffectedTarget": true,
+    "keepLayerOverrideSeparateFromVariantChange": true,
+    "doNotTreatContentTextAsVisualCustomizationWithoutTextRule": true
+  },
+  "baselinePolicy": {
+    "whenVariantChanged": "Use the actual variant state as baseline for layer comparisons. variant.ErrorState: False -> True plus manual Field fill should compare fill against ErrorState=True baseline.",
+    "whenResettingLayer": "Reset layer property to the baseline of the current component property state.",
+    "whenResettingComponentProperty": "Reset component property to reference value; derived layer differences may disappear if caused only by state change."
+  }
+}

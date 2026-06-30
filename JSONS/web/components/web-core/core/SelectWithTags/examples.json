@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-examples",
+  "componentKey": "web-core.select-with-tags",
+  "status": "draft",
+  "examples": [
+    {
+      "exampleId": "selectwithtags.variant-state-change",
+      "title": "Changed component state",
+      "inputChange": {
+        "node": "SelectWithTags",
+        "property": "variant.Size",
+        "referenceValue": "False",
+        "actualValue": "True"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "scope": "component-property"
+      }
+    },
+    {
+      "exampleId": "selectwithtags.state-and-manual-layer-change",
+      "title": "Changed component state and manually changed layer property",
+      "inputChanges": [
+        {
+          "node": "SelectWithTags",
+          "property": "variant.Size",
+          "referenceValue": "False",
+          "actualValue": "True"
+        },
+        {
+          "node": "key visual layer",
+          "property": "fill",
+          "referenceValue": "<current-state baseline>",
+          "actualValue": "custom token"
+        }
+      ],
+      "expectedAudit": {
+        "category": "customizations",
+        "groups": [
+          {
+            "scope": "component-property"
+          },
+          {
+            "scope": "layer-property"
+          }
+        ]
+      }
+    },
+    {
+      "exampleId": "selectwithtags.text-style-change",
+      "title": "Changed text style manually",
+      "inputChange": {
+        "node": "Label or value text",
+        "property": "styles.text",
+        "referenceValue": "<baseline text style>",
+        "actualValue": "custom text style"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "scope": "layer-property"
+      }
+    }
+  ]
+}

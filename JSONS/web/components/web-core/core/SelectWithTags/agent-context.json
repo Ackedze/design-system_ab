@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-core.select-with-tags",
+  "status": "draft",
+  "sourceFiles": [
+    "contract.generated.json",
+    "contract.overrides.json",
+    "rules.json",
+    "audit-mapping.json",
+    "examples.json"
+  ],
+  "summary": {
+    "componentFamily": "SelectWithTags",
+    "library": "Web _ Core",
+    "purpose": "SelectWithTags is a select/autocomplete-like component family with tag/value part components. Apollo should treat select state changes as component property changes, tag/value configuration as slot/part configuration, and manual visual changes as layer customizations.",
+    "includedComponents": [
+      "[D] SelectWithTags",
+      "[D] SelectWithTags_Inverted",
+      "[M] SelectWithTags",
+      "[M] SelectWithTags_Inverted",
+      "🔄 [D][Corporate] SelectWithTags",
+      "🔄 [D][Corporate] SelectWithTags_Inverted",
+      "🔄 [M][AO] SelectWithTags",
+      "🔄 [M][AO] SelectWithTags_Inverted",
+      "🔩 Tag",
+      "🔩 Tag_Inverted",
+      "🔩 TagControl",
+      "🔩 TagControl_Inverted",
+      "🔩 Value"
+    ]
+  },
+  "publicComponentProperties": {
+    "variant.Size": [
+      "48",
+      "56",
+      "64",
+      "72"
+    ],
+    "variant.FilledState": [
+      "False",
+      "True"
+    ],
+    "variant.ActiveState": [
+      "False",
+      "True"
+    ],
+    "variant.DisabledState": [
+      "False",
+      "True"
+    ],
+    "variant.ErrorState": [
+      "False",
+      "True"
+    ],
+    "variant.DisabledStateTag": [
+      "False",
+      "True"
+    ],
+    "variant.Collapsed": [
+      "False",
+      "True"
+    ]
+  },
+  "anatomy": [
+    "Label / Label",
+    "Field",
+    "Field / LeftAddons",
+    "Field / Content / Placeholder",
+    "Field / RightAddons / Arrow_Down",
+    "Hint / HintMessage",
+    "Tag",
+    "TagControl",
+    "Value"
+  ],
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.Size",
+      "variant.FilledState",
+      "variant.ActiveState",
+      "variant.DisabledState",
+      "variant.ErrorState",
+      "variant.DisabledStateTag",
+      "variant.Collapsed"
+    ],
+    "slotProperties": [
+      "LeftAddon1.variant.Type",
+      "LeftAddon2.variant.Type",
+      "RightAddon2.variant.Type",
+      "Tag.variant.DisabledState",
+      "TagControl.variant.Collapsed"
+    ],
+    "layerProperties": [
+      "fill",
+      "stroke",
+      "strokeWeight",
+      "styles.text",
+      "layout.padding",
+      "layout.itemSpacing",
+      "opacity",
+      "radius"
+    ],
+    "contentProperties": [
+      "Label.characters",
+      "Placeholder.characters",
+      "HintMessage.characters",
+      "Tag.characters",
+      "Value.characters"
+    ],
+    "ordering": [
+      "component-property",
+      "slot-property",
+      "layer-property",
+      "content-property"
+    ],
+    "baselinePolicy": "If a component property changed, compare manual layer overrides against the current actual component state baseline, not against the original reference state baseline."
+  },
+  "patternLinks": [
+    {
+      "patternName": "Поля ввода",
+      "patternId": "ptrn:controls.input-fields",
+      "sourceFile": "p_input-fields.md"
+    }
+  ],
+  "rules": [
+    {
+      "ruleId": "component:web-core.select-with-tags.variant-state-is-component-property",
+      "severity": "info",
+      "meaning": "Changes to Size, FilledState, ActiveState, DisabledState, ErrorState and part states are component/part property changes and must be reported as first-class customizations."
+    },
+    {
+      "ruleId": "component:web-core.select-with-tags.manual-field-visual-is-layer-property",
+      "severity": "warning",
+      "meaning": "Manual visual/layout changes on Field are layer customizations and should be shown separately from component property changes."
+    },
+    {
+      "ruleId": "component:web-core.select-with-tags.manual-tag-visual-is-layer-property",
+      "severity": "warning",
+      "meaning": "Manual visual/text style changes on Tag, TagControl or Value internals are layer customizations unless owned by a parent composition contract."
+    },
+    {
+      "ruleId": "component:web-core.select-with-tags.input-text-pattern-rules",
+      "severity": "warning",
+      "patternRuleIds": [
+        "rule:controls.input-fields.noun-label",
+        "rule:controls.input-fields.no-label-colon",
+        "rule:controls.input-fields.no-placeholder-duplication",
+        "rule:controls.input-fields.short-useful-hint"
+      ],
+      "meaning": "Label, placeholder and hint text should follow input-field text rules."
+    }
+  ],
+  "exampleInterpretations": [
+    {
+      "case": "state plus manual visual override",
+      "agentShouldSay": "Show both changes and compare the layer property against current-state baseline.",
+      "agentShouldNotSay": "Compare the manual layer override against the original reference state baseline."
+    }
+  ]
+}

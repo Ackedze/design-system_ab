@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-core.switch",
+  "status": "draft",
+  "sourceFiles": [
+    "contract.generated.json",
+    "contract.overrides.json",
+    "rules.json",
+    "audit-mapping.json",
+    "examples.json"
+  ],
+  "summary": {
+    "componentFamily": "Switch",
+    "library": "Web _ Core",
+    "purpose": "Switch is a component family for binary on/off controls. Apollo should treat SelectedState, DisabledState, Reverse and Hint as component property changes, and manual area/oval/label visual changes as layer customizations.",
+    "includedComponents": [
+      "Switch",
+      "Switch_Inverted",
+      "SwitchLabel",
+      "SwitchLabel_Inverted"
+    ]
+  },
+  "publicComponentProperties": {
+    "variant.SelectedState": [
+      "False",
+      "True"
+    ],
+    "variant.DisabledState": [
+      "False",
+      "True"
+    ],
+    "variant.Reverse": [
+      "False",
+      "True"
+    ],
+    "variant.Hint": [
+      "False",
+      "True"
+    ]
+  },
+  "anatomy": [
+    "area",
+    "Oval",
+    "Switch",
+    "Content / Label"
+  ],
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.SelectedState",
+      "variant.DisabledState",
+      "variant.Reverse",
+      "variant.Hint"
+    ],
+    "slotProperties": [
+      "Switch.variant.SelectedState",
+      "Switch.variant.DisabledState"
+    ],
+    "layerProperties": [
+      "fill",
+      "stroke",
+      "strokeWeight",
+      "styles.text",
+      "layout.padding",
+      "layout.itemSpacing",
+      "opacity",
+      "radius"
+    ],
+    "contentProperties": [
+      "Label.characters"
+    ],
+    "ordering": [
+      "component-property",
+      "slot-property",
+      "layer-property",
+      "content-property"
+    ],
+    "baselinePolicy": "If a component property changed, compare manual layer overrides against the current actual component state baseline, not against the original reference state baseline."
+  },
+  "patternLinks": [],
+  "rules": [
+    {
+      "ruleId": "component:web-core.switch.variant-state-is-component-property",
+      "severity": "info",
+      "meaning": "Changes to SelectedState, DisabledState, Reverse and Hint are component property changes and must be reported as first-class customizations."
+    },
+    {
+      "ruleId": "component:web-core.switch.manual-track-thumb-is-layer-property",
+      "severity": "warning",
+      "meaning": "Manual visual/layout changes on switch track area or thumb oval are layer customizations and should be shown separately from component state changes."
+    },
+    {
+      "ruleId": "component:web-core.switch.manual-label-style-is-layer-property",
+      "severity": "warning",
+      "meaning": "Manual text style or fill changes on SwitchLabel label are layer customizations."
+    }
+  ],
+  "exampleInterpretations": [
+    {
+      "case": "state plus manual visual override",
+      "agentShouldSay": "Show both changes and compare the layer property against current-state baseline.",
+      "agentShouldNotSay": "Compare the manual layer override against the original reference state baseline."
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-core.select-with-tags",
+  "status": "draft",
+  "rules": [
+    {
+      "ruleId": "component:web-core.select-with-tags.variant-state-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "ruleText": "Changes to Size, FilledState, ActiveState, DisabledState, ErrorState and part states are component/part property changes and must be reported as first-class customizations."
+    },
+    {
+      "ruleId": "component:web-core.select-with-tags.manual-field-visual-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "Field.fills|Field.strokes|Field.radius|Field.layout",
+      "checkType": "deterministic",
+      "ruleText": "Manual visual/layout changes on Field are layer customizations and should be shown separately from component property changes."
+    },
+    {
+      "ruleId": "component:web-core.select-with-tags.manual-tag-visual-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "Tag.fills|Tag.strokes|Tag.styles.text|Value.styles.text",
+      "checkType": "deterministic",
+      "ruleText": "Manual visual/text style changes on Tag, TagControl or Value internals are layer customizations unless owned by a parent composition contract."
+    },
+    {
+      "ruleId": "component:web-core.select-with-tags.input-text-pattern-rules",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleIds": [
+        "rule:controls.input-fields.noun-label",
+        "rule:controls.input-fields.no-label-colon",
+        "rule:controls.input-fields.no-placeholder-duplication",
+        "rule:controls.input-fields.short-useful-hint"
+      ],
+      "appliesTo": "Label.characters|Placeholder.characters|HintMessage.characters",
+      "checkType": "llm+deterministic",
+      "ruleText": "Label, placeholder and hint text should follow input-field text rules."
+    }
+  ]
+}

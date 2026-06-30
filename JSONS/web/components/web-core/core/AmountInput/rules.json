@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-core.amount-input",
+  "status": "draft",
+  "rules": [
+    {
+      "ruleId": "component:web-core.amount-input.variant-state-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "ruleText": "Changes to Size, FilledState, ActiveState, DisabledState, ErrorState and OuterLabel are component property changes and must be reported as first-class customizations."
+    },
+    {
+      "ruleId": "component:web-core.amount-input.manual-field-visual-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "Field.fills|Field.strokes|Field.radius|Field.layout",
+      "checkType": "deterministic",
+      "ruleText": "Manual visual/layout changes on Field are layer customizations and should be shown separately from component property changes."
+    },
+    {
+      "ruleId": "component:web-core.amount-input.manual-text-style-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "Label.styles.text|Placeholder.styles.text|HintMessage.styles.text",
+      "checkType": "deterministic",
+      "ruleText": "Manual text style changes on Label, Placeholder or HintMessage are layer customizations and should be independently resettable."
+    },
+    {
+      "ruleId": "component:web-core.amount-input.amount-format-pattern-rules",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleIds": [
+        "rule:components.amount.math-space",
+        "rule:components.amount.math-minus",
+        "rule:components.amount.no-opacity"
+      ],
+      "appliesTo": "Amount.characters|Amount.opacity",
+      "checkType": "deterministic+llm",
+      "ruleText": "Amount text/content should follow amount formatting rules: mathematical spaces, mathematical minus and no opacity for amount parts where prohibited."
+    },
+    {
+      "ruleId": "component:web-core.amount-input.label-placeholder-hint-pattern-rules",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleIds": [
+        "rule:controls.input-fields.noun-label",
+        "rule:controls.input-fields.no-label-colon",
+        "rule:controls.input-fields.no-placeholder-duplication",
+        "rule:controls.input-fields.short-useful-hint"
+      ],
+      "appliesTo": "Label.characters|Placeholder.characters|HintMessage.characters",
+      "checkType": "llm+deterministic",
+      "ruleText": "Label, placeholder and hint text should follow input-field text rules."
+    }
+  ]
+}

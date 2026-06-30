@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-core.switch",
+  "status": "draft",
+  "rules": [
+    {
+      "ruleId": "component:web-core.switch.variant-state-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "ruleText": "Changes to SelectedState, DisabledState, Reverse and Hint are component property changes and must be reported as first-class customizations."
+    },
+    {
+      "ruleId": "component:web-core.switch.manual-track-thumb-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "area.fills|Oval.fills|area.layout|Oval.layout",
+      "checkType": "deterministic",
+      "ruleText": "Manual visual/layout changes on switch track area or thumb oval are layer customizations and should be shown separately from component state changes."
+    },
+    {
+      "ruleId": "component:web-core.switch.manual-label-style-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "Content/Label.styles.text|Content/Label.fills",
+      "checkType": "deterministic",
+      "ruleText": "Manual text style or fill changes on SwitchLabel label are layer customizations."
+    }
+  ]
+}
