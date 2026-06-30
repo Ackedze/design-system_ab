@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-audit-mapping",
+  "componentKey": "web-corp.background-plate",
+  "status": "draft",
+  "categories": [
+    {
+      "when": {
+        "propertyPrefix": "variant."
+      },
+      "category": "component-property",
+      "resetSurface": "parameters"
+    },
+    {
+      "when": {
+        "propertyPrefix": "layout."
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use component effective baseline after host and nested variant resolution."
+    },
+    {
+      "when": {
+        "propertyPrefix": "styles."
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use resolved style label or style id from the effective baseline."
+    },
+    {
+      "when": {
+        "property": "fill"
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use resolved token/style/color from the effective baseline."
+    },
+    {
+      "when": {
+        "property": "stroke"
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use resolved token/style/color from the effective baseline."
+    }
+  ],
+  "hostIntegrationNote": "Apollo should apply BackgroundPlate composition-contract before falling back to wrapped component standalone baselines."
+}

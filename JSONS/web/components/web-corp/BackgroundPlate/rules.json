@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.background-plate",
+  "status": "draft",
+  "rules": [
+    {
+      "id": "component:web-corp.background-plate.component-properties",
+      "title": "BackgroundPlate component properties must be audited as component parameters",
+      "matchKind": "exact_rule",
+      "severity": "medium",
+      "selector": {
+        "componentNames": [
+          "[D] BackgroundPlate",
+          "[D] BackgroundPlateSlot",
+          "[D] Style Level 1",
+          "[D] Style Level 2",
+          "[D][Promo] BackgroundPlate",
+          "[D][Promo] Style Level 1",
+          "[D][Promo] Style Level 2",
+          "[M] BackgroundPlate",
+          "[M] BackgroundPlateSlot",
+          "[M] Style Level 1",
+          "[M] Style Level 2",
+          "[M][Promo] BackgroundPlate",
+          "[M][Promo] Style Level 1",
+          "[M][Promo] Style Level 2"
+        ],
+        "propertyPrefix": "variant."
+      },
+      "rule": "Variant/property changes on the component instance are component-property customizations. Do not convert them into unrelated paint or layout findings."
+    },
+    {
+      "id": "component:web-corp.background-plate.layer-properties",
+      "title": "BackgroundPlate layer properties must use effective baseline",
+      "matchKind": "exact_rule",
+      "severity": "medium",
+      "selector": {
+        "componentNames": [
+          "[D] BackgroundPlate",
+          "[D] BackgroundPlateSlot",
+          "[D] Style Level 1",
+          "[D] Style Level 2",
+          "[D][Promo] BackgroundPlate",
+          "[D][Promo] Style Level 1",
+          "[D][Promo] Style Level 2",
+          "[M] BackgroundPlate",
+          "[M] BackgroundPlateSlot",
+          "[M] Style Level 1",
+          "[M] Style Level 2",
+          "[M][Promo] BackgroundPlate",
+          "[M][Promo] Style Level 1",
+          "[M][Promo] Style Level 2"
+        ],
+        "properties": [
+          "layout.itemSpacing",
+          "layout.padding.*",
+          "styles.text",
+          "styles.fill",
+          "styles.stroke",
+          "fill",
+          "stroke",
+          "radius",
+          "opacity"
+        ]
+      },
+      "rule": "Layer/style changes must be compared against the effective baseline for the current component variant and nested owner context."
+    }
+  ]
+}

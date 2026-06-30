@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-corp.buttons-group",
+  "status": "draft",
+  "summary": "ButtonsGroup is a composite wrapper around repeated desktop and mobile Button instances with optional overflow picker button.",
+  "source": {
+    "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- ButtonGroup [D].json",
+    "library": "Web _ Corp Components",
+    "file": "Web _ Corp Components",
+    "generatedAt": "2026-06-05T16:07:39.725Z",
+    "exportVersion": "0.1.0-rest",
+    "files": [
+      "ButtonGroup [D]"
+    ]
+  },
+  "components": [
+    {
+      "name": "[D] ButtonsGroup",
+      "key": "f05915599f71e822fd8b46a2b2509a2e395005cf",
+      "role": "main",
+      "platform": "desktop",
+      "status": "active",
+      "variantProperties": {
+        "Size": [
+          "32",
+          "40",
+          "48",
+          "56"
+        ],
+        "Overflow": [
+          "false",
+          "true"
+        ]
+      }
+    },
+    {
+      "name": "[M] ButtonsGroup",
+      "key": "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062",
+      "role": "main",
+      "platform": "mobile-web",
+      "status": "active",
+      "variantProperties": {
+        "Size": [
+          "32",
+          "40",
+          "48",
+          "56"
+        ],
+        "Overflow": [
+          "false",
+          "true"
+        ]
+      }
+    }
+  ],
+  "criticalBaselines": [
+    "Nested [D]/[M] Button variant properties inside ButtonsGroup are part of the group baseline and must be compared against the ButtonsGroup effective baseline.",
+    "Changing a nested button property such as SingleIcon, View, Size or DisabledState should be reported as a component-property customization.",
+    "Manual layer changes on the same nested button must use the nested button effective baseline after variant changes are applied."
+  ],
+  "agentInstructions": [
+    "Do not infer pattern violations from examples. Use exact rules and exact component contracts only.",
+    "Use component-property facts for variant changes and layer-property facts for styles/layout/paint changes.",
+    "If a nested diff is owned by the host wrapper and actual equals effective baseline, do not report it as designer customization.",
+    "If actual differs from effective baseline, report effectiveBaseline -> actual."
+  ]
+}

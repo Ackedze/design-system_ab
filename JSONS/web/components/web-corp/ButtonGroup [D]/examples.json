@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-examples",
+  "componentKey": "web-corp.buttons-group",
+  "status": "draft",
+  "examples": [
+    {
+      "exampleId": "buttons-group-single-icon-change",
+      "title": "Nested button SingleIcon change should be detected",
+      "inputChange": {
+        "hostComponent": "[D] ButtonsGroup",
+        "nestedComponent": "[D] Button",
+        "property": "variant.SingleIcon",
+        "buttonsGroupEffectiveValue": "False",
+        "actualValue": "True"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "singleIcon: false → true"
+      }
+    },
+    {
+      "exampleId": "buttons-group-button-fill-after-view-change",
+      "title": "Manual fill change after nested button view change should use effective variant baseline",
+      "inputChange": {
+        "hostComponent": "[D] ButtonsGroup",
+        "nestedComponent": "[D] Button",
+        "property": "fill",
+        "buttonsGroupEffectiveValue": "Button/Desktop/Colors/Accent/bg",
+        "actualValue": "text/positive"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "заливка: Button/Desktop/Colors/Accent/bg → text/positive"
+      }
+    }
+  ]
+}

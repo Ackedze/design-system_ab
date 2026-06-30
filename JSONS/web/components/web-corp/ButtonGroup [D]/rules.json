@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.buttons-group",
+  "status": "draft",
+  "rules": [
+    {
+      "id": "component:web-corp.buttons-group.component-properties",
+      "title": "ButtonGroup [D] component properties must be audited as component parameters",
+      "matchKind": "exact_rule",
+      "severity": "medium",
+      "selector": {
+        "componentNames": [
+          "[D] ButtonsGroup",
+          "[M] ButtonsGroup"
+        ],
+        "propertyPrefix": "variant."
+      },
+      "rule": "Variant/property changes on the component instance are component-property customizations. Do not convert them into unrelated paint or layout findings."
+    },
+    {
+      "id": "component:web-corp.buttons-group.layer-properties",
+      "title": "ButtonGroup [D] layer properties must use effective baseline",
+      "matchKind": "exact_rule",
+      "severity": "medium",
+      "selector": {
+        "componentNames": [
+          "[D] ButtonsGroup",
+          "[M] ButtonsGroup"
+        ],
+        "properties": [
+          "layout.itemSpacing",
+          "layout.padding.*",
+          "styles.text",
+          "styles.fill",
+          "styles.stroke",
+          "fill",
+          "stroke",
+          "radius",
+          "opacity"
+        ]
+      },
+      "rule": "Layer/style changes must be compared against the effective baseline for the current component variant and nested owner context."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-examples",
+  "componentKey": "web-corp.background-plate",
+  "status": "draft",
+  "examples": [
+    {
+      "exampleId": "background-plate-position-change",
+      "title": "Position change should be reported as component-property customization",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "property": "variant.Position",
+        "referenceValue": "Level 1 (outer)",
+        "actualValue": "Level 2 (inner)"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "position: level 1 (outer) → level 2 (inner)"
+      }
+    },
+    {
+      "exampleId": "background-plate-style-level-color-change",
+      "title": "Style Level BackgroundColor change should be reported as component-property customization",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "nestedComponent": "[D] Style Level 1",
+        "property": "variant.BackgroundColor",
+        "referenceValue": "base-bg-alt (gray)",
+        "actualValue": "base-bg (white)"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "backgroundColor: base-bg-alt (gray) → base-bg (white)"
+      }
+    }
+  ]
+}

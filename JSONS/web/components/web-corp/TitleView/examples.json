@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-examples",
+  "componentKey": "web-corp.title-view",
+  "status": "draft",
+  "examples": [
+    {
+      "exampleId": "title-view.button-view-change",
+      "title": "Nested button variant change should be reported against TitleView effective baseline",
+      "inputChange": {
+        "hostComponent": "[D] TitleView",
+        "nestedComponent": "[D] Button",
+        "property": "variant.View",
+        "titleViewEffectiveValue": "Secondary",
+        "actualValue": "Accent"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "view: secondary → accent"
+      }
+    },
+    {
+      "exampleId": "title-view.status-preset-type-change",
+      "title": "StatusPreset variant change is a component-property customization, not a preset usage violation",
+      "inputChange": {
+        "hostComponent": "[D] TitleView",
+        "nestedComponent": "StatusPreset",
+        "property": "variant.Type",
+        "titleViewEffectiveValue": "Approved",
+        "actualValue": "Processing"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "type: approved → processing"
+      }
+    }
+  ]
+}
