@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "documentType": "composition-contract",
+  "componentKey": "web-core-navigation.tabs",
+  "status": "draft",
+  "component": {
+    "name": "Tabs",
+    "library": "Web :: Core Navigation"
+  },
+  "wraps": [
+    {
+      "path": "TabsPrimary / Items / TabPrimary",
+      "componentName": "🔩 TabPrimary",
+      "componentKey": "8d45c768b56f9781ec44a60b93a5467a3310236c",
+      "role": "repeated-internal-instance"
+    },
+    {
+      "path": "TabsPrimary / Slider",
+      "componentName": "🔩 Slider",
+      "role": "internal-instance"
+    },
+    {
+      "path": "[D] TabsSecondary / Items / [D] Tag",
+      "componentName": "[D] Tag",
+      "role": "repeated-internal-instance"
+    },
+    {
+      "path": "[M] TabsSecondary / items / [M] Tag",
+      "componentName": "[M] Tag",
+      "role": "repeated-internal-instance"
+    }
+  ],
+  "ownershipModel": {
+    "defaultNestedDiffPolicy": "compare-against-standalone-core-tabs-baseline",
+    "wrapperOverridePolicy": "Core Navigation Tabs defines standalone baselines. If a host component such as TabsView intentionally changes spacing or typography of nested TabPrimary, that host component must declare the effective baseline in its own composition-contract."
+  },
+  "standaloneBaselines": [
+    {
+      "targetPathPattern": "TabsPrimary / Items",
+      "property": "layout.itemSpacing",
+      "expectedValue": 24,
+      "scope": "layout"
+    },
+    {
+      "targetPathPattern": "TabsPrimary / Items / TabPrimary",
+      "property": "layout.itemSpacing",
+      "expectedValue": 12,
+      "scope": "layout"
+    },
+    {
+      "targetPathPattern": "TabsPrimary / Items / TabPrimary / Content / Label",
+      "property": "styles.text",
+      "expectedValue": "Paragraph/18–24 Primary Large",
+      "styleKey": "S:b2633a0162f9359a941b9b6ffd702da6acbd02f3,9221:95",
+      "scope": "text-style"
+    },
+    {
+      "targetPathPattern": "🔩 TabPrimary / Content / Label",
+      "property": "styles.text",
+      "expectedValue": "Paragraph/18–24 Primary Large",
+      "styleKey": "S:b2633a0162f9359a941b9b6ffd702da6acbd02f3,9221:95",
+      "scope": "text-style"
+    }
+  ]
+}

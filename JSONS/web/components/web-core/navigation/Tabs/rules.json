@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-core-navigation.tabs",
+  "status": "draft",
+  "rules": [
+    {
+      "id": "component:web-core-navigation.tabs.primary-tab-standalone-spacing",
+      "title": "Standalone TabPrimary spacing baseline",
+      "matchKind": "exact_rule",
+      "severity": "medium",
+      "selector": {
+        "componentNames": [
+          "🔩 TabPrimary",
+          "TabsPrimary"
+        ],
+        "properties": [
+          "layout.itemSpacing"
+        ]
+      },
+      "rule": "Standalone TabPrimary uses itemSpacing 12. Host components may override this only through their own composition-contract effective baseline."
+    },
+    {
+      "id": "component:web-core-navigation.tabs.primary-tab-standalone-typography",
+      "title": "Standalone TabPrimary typography baseline",
+      "matchKind": "exact_rule",
+      "severity": "medium",
+      "selector": {
+        "componentNames": [
+          "🔩 TabPrimary",
+          "TabsPrimary"
+        ],
+        "properties": [
+          "styles.text"
+        ]
+      },
+      "rule": "Standalone primary tab labels use Paragraph/18–24 Primary Large. Host components may override this only through their own composition-contract effective baseline."
+    },
+    {
+      "id": "component:web-core-navigation.tabs.scheduled-secondary-tabs",
+      "title": "Scheduled secondary tabs exist only as migration context",
+      "matchKind": "exact_rule",
+      "severity": "low",
+      "selector": {
+        "componentNames": [
+          "[D] 🔄 TabsSecondary",
+          "[M] 🔄 TabsSecondary"
+        ]
+      },
+      "rule": "Scheduled secondary tabs are migration context; active [D]/[M] TabsSecondary entries are the audit baseline."
+    }
+  ]
+}

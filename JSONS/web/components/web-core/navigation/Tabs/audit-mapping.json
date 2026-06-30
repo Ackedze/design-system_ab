@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-audit-mapping",
+  "componentKey": "web-core-navigation.tabs",
+  "status": "draft",
+  "categories": [
+    {
+      "when": {
+        "propertyPrefix": "variant."
+      },
+      "category": "component-property",
+      "resetSurface": "parameters"
+    },
+    {
+      "when": {
+        "property": "layout.itemSpacing",
+        "pathContains": "TabPrimary"
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use standalone Tabs baseline unless the host component has a composition-contract effective baseline."
+    },
+    {
+      "when": {
+        "property": "styles.text",
+        "pathContains": "Label"
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use standalone Tabs baseline unless the host component has a composition-contract effective baseline."
+    },
+    {
+      "when": {
+        "propertyPrefix": "styles."
+      },
+      "category": "layer-property",
+      "resetSurface": "layer"
+    },
+    {
+      "when": {
+        "propertyPrefix": "layout."
+      },
+      "category": "layer-property",
+      "resetSurface": "layer"
+    }
+  ],
+  "hostIntegrationNote": "For [D] TabsView false-positive suppression, Apollo must apply the host TabsView composition-contract before applying standalone core Tabs baselines."
+}
