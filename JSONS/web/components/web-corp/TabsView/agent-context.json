@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-corp.tabs-view",
+  "status": "draft",
+  "sourceFiles": [
+    "contract.generated.json",
+    "contract.overrides.json",
+    "composition-contract.json",
+    "rules.json",
+    "audit-mapping.json",
+    "examples.json"
+  ],
+  "summary": {
+    "componentFamily": "TabsView",
+    "library": "Web _ Corp Components",
+    "purpose": "TabsView is a wrapper/composite component around primary and secondary tabs. Apollo should use TabsView effective baseline for nested TabsPrimary/TabsSecondary differences and suppress wrapper-owned overrides when actual equals effective baseline.",
+    "includedComponents": [
+      "[D] TabsView",
+      "[M] TabsView"
+    ]
+  },
+  "publicComponentProperties": {
+    "variant.Skeleton": [
+      "false",
+      "true"
+    ]
+  },
+  "compositionModel": {
+    "ownsNestedOverrides": true,
+    "effectiveBaselineRequired": true,
+    "wrappedComponents": [
+      "TabsPrimary",
+      "[D] TabsSecondary",
+      "[M] TabsSecondary",
+      "TabPrimary",
+      "Tag"
+    ],
+    "suppressWhenEqualToEffectiveBaseline": [
+      "TabsPrimary.layout.itemSpacing",
+      "TabsPrimary/Items.layout.itemSpacing",
+      "TabsPrimary/Items/TabPrimary.layout.itemSpacing",
+      "TabsPrimary/Items/TabPrimary/Content/Label.styles.text",
+      "TabsSecondary.layout.itemSpacing"
+    ]
+  },
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.Skeleton"
+    ],
+    "wrapperOwnedLayerProperties": [
+      "TabsPrimary.layout.itemSpacing",
+      "TabsPrimary/Items.layout.itemSpacing",
+      "TabsPrimary/Items/TabPrimary.layout.itemSpacing",
+      "TabsPrimary/Items/TabPrimary/Content/Label.styles.text",
+      "TabsSecondary.layout.itemSpacing"
+    ],
+    "layerProperties": [
+      "fill",
+      "stroke",
+      "strokeWeight",
+      "styles.text",
+      "layout.padding",
+      "layout.itemSpacing",
+      "opacity",
+      "radius"
+    ],
+    "contentProperties": [
+      "TabPrimary/Content/Label.characters",
+      "Tag/Text/Label.characters"
+    ],
+    "ordering": [
+      "component-property",
+      "wrapper-owned-layer-property",
+      "layer-property",
+      "content-property"
+    ],
+    "baselinePolicy": "For nested TabsPrimary/TabsSecondary changes, compare actual against TabsView effective baseline, not standalone nested component baseline."
+  },
+  "rules": [
+    {
+      "ruleId": "component:web-corp.tabs-view.skeleton-is-component-property",
+      "severity": "info",
+      "meaning": "Skeleton changes are component property changes and should be reported as first-class customizations."
+    },
+    {
+      "ruleId": "component:web-corp.tabs-view.wrapper-owned-primary-tabs-overrides",
+      "severity": "info",
+      "meaning": "TabsView owns selected layout and text-style overrides inside TabsPrimary. When actual equals TabsView effective baseline, these nested differences must not be reported as customizations."
+    },
+    {
+      "ruleId": "component:web-corp.tabs-view.manual-primary-tabs-layer-override",
+      "severity": "warning",
+      "meaning": "If a nested TabsPrimary layer differs from TabsView effective baseline, report it as a TabsView layer customization using effective baseline as reference."
+    },
+    {
+      "ruleId": "component:web-corp.tabs-view.manual-secondary-tabs-layer-override",
+      "severity": "warning",
+      "meaning": "If a nested TabsSecondary/Tag layer differs from TabsView effective baseline, report it as a TabsView layer customization using effective baseline as reference."
+    }
+  ],
+  "exampleInterpretations": [
+    {
+      "case": "Items spacing standalone 24, TabsView effective 32, actual 32",
+      "agentShouldSay": "No customization: this is a wrapper-owned TabsView override.",
+      "agentShouldNotSay": "Apollo found spacing customization 24 -> 32."
+    },
+    {
+      "case": "Items spacing standalone 24, TabsView effective 32, actual 40",
+      "agentShouldSay": "Apollo found TabsView layer customization: spacing 32 -> 40.",
+      "agentShouldNotSay": "Spacing changed 24 -> 40."
+    }
+  ]
+}

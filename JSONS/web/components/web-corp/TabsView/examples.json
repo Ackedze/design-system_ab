@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-examples",
+  "componentKey": "web-corp.tabs-view",
+  "status": "draft",
+  "examples": [
+    {
+      "exampleId": "tabs-view.wrapper-owned-spacing",
+      "title": "Wrapper-owned spacing should be suppressed",
+      "inputChange": {
+        "node": "TabsPrimary / Items",
+        "property": "layout.itemSpacing",
+        "standaloneReferenceValue": 24,
+        "tabsViewEffectiveValue": 32,
+        "actualValue": 32
+      },
+      "expectedAudit": {
+        "category": "none",
+        "suppressReason": "actual equals TabsView effective baseline"
+      }
+    },
+    {
+      "exampleId": "tabs-view.manual-spacing-change",
+      "title": "Manual spacing change should use effective baseline",
+      "inputChange": {
+        "node": "TabsPrimary / Items",
+        "property": "layout.itemSpacing",
+        "standaloneReferenceValue": 24,
+        "tabsViewEffectiveValue": 32,
+        "actualValue": 40
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "scope": "wrapper-owned-layer-property",
+        "showAs": "Отступ между элементами: 32 → 40"
+      }
+    },
+    {
+      "exampleId": "tabs-view.wrapper-owned-label-style",
+      "title": "Wrapper-owned label style should be suppressed",
+      "inputChange": {
+        "node": "TabsPrimary / Items / TabPrimary / Content / Label",
+        "property": "styles.text",
+        "standaloneReferenceValue": "Paragraph/18–24 Primary Large",
+        "tabsViewEffectiveValue": "Action/18–24 Primary Large",
+        "actualValue": "Action/18–24 Primary Large"
+      },
+      "expectedAudit": {
+        "category": "none",
+        "suppressReason": "actual equals TabsView effective baseline"
+      }
+    },
+    {
+      "exampleId": "tabs-view.manual-label-style-change",
+      "title": "Manual label style change should use effective baseline",
+      "inputChange": {
+        "node": "TabsPrimary / Items / TabPrimary / Content / Label",
+        "property": "styles.text",
+        "standaloneReferenceValue": "Paragraph/18–24 Primary Large",
+        "tabsViewEffectiveValue": "Action/18–24 Primary Large",
+        "actualValue": "Action/11–16 Secondary Small"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "scope": "wrapper-owned-layer-property",
+        "showAs": "Стиль текст: Action/18–24 Primary Large → Action/11–16 Secondary Small"
+      }
+    }
+  ]
+}

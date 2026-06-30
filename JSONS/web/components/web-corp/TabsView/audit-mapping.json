@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-audit-mapping",
+  "componentKey": "web-corp.tabs-view",
+  "status": "draft",
+  "classification": [
+    {
+      "match": {
+        "propertyPrefix": "variant."
+      },
+      "scope": "component-property",
+      "groupTitle": "Параметры компонента",
+      "priority": 10,
+      "resetAction": "reset-component-properties"
+    },
+    {
+      "match": {
+        "nodePathIncludes": "TabsPrimary",
+        "propertyPrefix": "layout."
+      },
+      "scope": "wrapper-owned-layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 20,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "composition-contract"
+    },
+    {
+      "match": {
+        "nodePathIncludes": "TabsPrimary",
+        "property": "styles.text"
+      },
+      "scope": "wrapper-owned-layer-property",
+      "groupTitle": "Параметры слоя",
+      "displayName": "Стиль текст",
+      "priority": 21,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "composition-contract"
+    },
+    {
+      "match": {
+        "nodePathIncludes": "TabsSecondary",
+        "propertyPrefix": "layout."
+      },
+      "scope": "wrapper-owned-layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 22,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "composition-contract"
+    },
+    {
+      "match": {
+        "property": "fill"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 30,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "property": "styles.text"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "displayName": "Стиль текст",
+      "priority": 40,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "propertyPrefix": "layout."
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 50,
+      "resetAction": "reset-layer-properties"
+    },
+    {
+      "match": {
+        "property": "characters"
+      },
+      "scope": "content-property",
+      "groupTitle": "Текстовое содержимое",
+      "priority": 60,
+      "resetAction": "manual-content-review"
+    }
+  ],
+  "groupingOrder": [
+    "component-property",
+    "wrapper-owned-layer-property",
+    "layer-property",
+    "content-property"
+  ],
+  "evidencePolicy": {
+    "showVariantBeforeDerivedVisuals": true,
+    "useChangedNodeAsAffectedTarget": true,
+    "keepLayerOverrideSeparateFromVariantChange": true,
+    "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
+  },
+  "baselinePolicy": {
+    "whenNestedComponentDiff": "Use TabsView effective baseline, not standalone nested core component baseline. Example: Items spacing 24 -> 32 is not a customization if TabsView baseline is 32.",
+    "whenResettingLayer": "Reset layer property to TabsView effective baseline.",
+    "whenResettingComponentProperty": "Reset component property to reference value; derived nested differences may disappear if caused only by Skeleton state."
+  }
+}

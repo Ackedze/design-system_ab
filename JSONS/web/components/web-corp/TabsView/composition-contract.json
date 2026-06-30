@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "documentType": "composition-contract",
+  "componentKey": "web-corp.tabs-view",
+  "status": "draft",
+  "component": {
+    "name": "TabsView",
+    "library": "Web _ Corp Components"
+  },
+  "wraps": [
+    {
+      "path": "TabsPrimary",
+      "componentName": "TabsPrimary",
+      "library": "Web _ Core",
+      "role": "internal-instance"
+    },
+    {
+      "path": "[D] TabsSecondary",
+      "componentName": "[D] TabsSecondary",
+      "library": "Web _ Corp Components",
+      "role": "internal-instance"
+    },
+    {
+      "path": "[M] TabsSecondary",
+      "componentName": "[M] TabsSecondary",
+      "library": "Web _ Corp Components",
+      "role": "internal-instance"
+    },
+    {
+      "path": "TabPrimary",
+      "componentName": "TabPrimary",
+      "library": "Web _ Core",
+      "role": "repeated-internal-instance"
+    },
+    {
+      "path": "[D] Tag / [M] Tag",
+      "componentName": "Tag",
+      "library": "Web _ Core / Web _ Corp Components",
+      "role": "repeated-internal-instance"
+    }
+  ],
+  "ownershipModel": {
+    "defaultNestedDiffPolicy": "compare-against-tabs-view-effective-baseline",
+    "wrapperOwnedOverridePolicy": "Do not report wrapper-owned overrides as customizations when actual equals TabsView effective baseline. If actual differs, report effectiveBaseline -> actual."
+  },
+  "allowedOverrides": [
+    {
+      "targetPathPattern": "TabsPrimary",
+      "property": "layout.itemSpacing",
+      "expectedOverride": 32,
+      "scope": "layout",
+      "reason": "TabsView controls spacing between primary tabs and skeleton tabs."
+    },
+    {
+      "targetPathPattern": "TabsPrimary / Items",
+      "property": "layout.itemSpacing",
+      "expectedOverride": 32,
+      "scope": "layout",
+      "reason": "TabsView controls spacing between primary tab items."
+    },
+    {
+      "targetPathPattern": "TabsPrimary / Items / TabPrimary",
+      "property": "layout.itemSpacing",
+      "expectedOverride": 16,
+      "scope": "layout",
+      "reason": "TabsView controls spacing inside each primary tab item."
+    },
+    {
+      "targetPathPattern": "TabsPrimary / Items / TabPrimary / Content / Label",
+      "property": "styles.text",
+      "expectedOverride": "Action/18–24 Primary Large",
+      "scope": "text-style",
+      "reason": "TabsView applies action typography to nested primary tab labels."
+    },
+    {
+      "targetPathPattern": "[D] TabsSecondary / Items",
+      "property": "layout.itemSpacing",
+      "expectedOverride": 8,
+      "scope": "layout",
+      "reason": "TabsView controls secondary tag spacing."
+    },
+    {
+      "targetPathPattern": "[M] TabsSecondary",
+      "property": "layout.itemSpacing",
+      "expectedOverride": 8,
+      "scope": "layout",
+      "reason": "TabsView controls mobile secondary tag spacing."
+    }
+  ],
+  "suppressedWhenEqualToEffectiveBaseline": [
+    "TabsPrimary.layout.itemSpacing",
+    "TabsPrimary/Items.layout.itemSpacing",
+    "TabsPrimary/Items/TabPrimary.layout.itemSpacing",
+    "TabsPrimary/Items/TabPrimary/Content/Label.styles.text",
+    "TabsSecondary.layout.itemSpacing"
+  ]
+}

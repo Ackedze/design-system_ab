@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-overrides",
+  "componentKey": "web-corp.tabs-view",
+  "status": "draft",
+  "appliesTo": {
+    "generatedContract": "contract.generated.json",
+    "rawCatalog": "Web _ Corp Components -- TabsView.json"
+  },
+  "publicApi": {
+    "variantProperties": {
+      "Skeleton": {
+        "kind": "component-property",
+        "values": [
+          "false",
+          "true"
+        ],
+        "description": "Switches TabsView between ready and loading/skeleton presentation."
+      }
+    }
+  },
+  "anatomySemantics": {
+    "root": {
+      "path": "<variant root>",
+      "scope": "component-root",
+      "designerEditable": false
+    },
+    "tabsPrimary": {
+      "path": "TabsPrimary",
+      "scope": "internal-instance",
+      "designerEditable": false,
+      "notes": "Wrapper-owned primary tabs implementation."
+    },
+    "primaryItems": {
+      "path": "TabsPrimary / Items",
+      "scope": "wrapper-owned-layout",
+      "designerEditable": false,
+      "notes": "TabsView owns spacing between primary tab items."
+    },
+    "tabPrimary": {
+      "path": "TabsPrimary / Items / TabPrimary",
+      "scope": "repeated-internal-instance",
+      "designerEditable": "content-and-state-through-wrapper-only"
+    },
+    "primaryLabel": {
+      "path": "TabsPrimary / Items / TabPrimary / Content / Label",
+      "scope": "content-layer",
+      "designerEditable": "content-only"
+    },
+    "tabsSecondary": {
+      "path": "[D]/[M] TabsSecondary",
+      "scope": "internal-instance",
+      "designerEditable": false,
+      "notes": "Wrapper-owned secondary tabs/tag implementation."
+    }
+  },
+  "resetModel": {
+    "componentProperties": [
+      "variant.Skeleton"
+    ],
+    "wrapperOwnedLayerProperties": [
+      "TabsPrimary.layout.itemSpacing",
+      "TabsPrimary/Items.layout.itemSpacing",
+      "TabPrimary.layout.itemSpacing",
+      "TabPrimary/Content/Label.styles.text"
+    ],
+    "layerProperties": [
+      "fills",
+      "strokes",
+      "strokeWeight",
+      "cornerRadius",
+      "opacity",
+      "layout.padding",
+      "layout.itemSpacing",
+      "styles.text",
+      "typography"
+    ],
+    "contentProperties": [
+      "TabPrimary/Content/Label.characters",
+      "Tag/Text/Label.characters"
+    ],
+    "dependencyPolicy": "Wrapper-owned overrides define effective baseline for nested core components. Manual layer overrides should be compared against TabsView effective baseline, not against standalone nested component baseline."
+  }
+}
