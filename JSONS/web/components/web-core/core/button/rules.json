@@ -21,12 +21,23 @@
       "ruleText": "Manual fill changes on Button root, Label, Hint, Addon PaintMe or icon layers are layer customizations. They should be shown separately from component property changes."
     },
     {
-      "ruleId": "component:web-core.button.manual-text-style-is-layer-property",
-      "severity": "error",
+      "ruleId": "component:web-core.button.label-text-style-locked",
+      "severity": "info",
       "source": "component-contract",
+      "ruleKind": "design-rule",
+      "severityScope": "design",
       "appliesTo": "styles.text",
       "checkType": "deterministic",
-      "ruleText": "Manual text style changes on Label or Hint are layer customizations and should be independently resettable."
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "[D] Button",
+        "layers": [
+          "Label",
+          "Hint"
+        ]
+      },
+      "ruleText": "Do not manually change text styles on Button Label or Hint. Text style is defined by the Button component state and must match the effective component baseline.",
+      "remediation": "Reset the layer text style to the effective Button baseline."
     },
     {
       "ruleId": "component:web-core.button.desktop-safe-variants",
