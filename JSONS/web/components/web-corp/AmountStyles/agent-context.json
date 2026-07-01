@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-corp.amount-styles",
+  "status": "draft",
+  "sourceFiles": [
+    "catalog.raw.json",
+    "contract.generated.json",
+    "contract.overrides.json",
+    "rules.json",
+    "audit-mapping.json",
+    "examples.json",
+    "composition-contract.json"
+  ],
+  "summary": {
+    "componentFamily": "AmountStyles",
+    "library": "Web _ Corp Components",
+    "purpose": "AmountStyles provides amount typography components and internal operation/amount text parts. Apollo should treat Style and Negative as component/part properties, and manual paint/text style changes on leaf text layers as layer customizations."
+  },
+  "includedComponents": [
+    "🔒 [D] AmountHeadline",
+    "🔒 [M] AmountHeadline",
+    "🔒 AmountParagraph",
+    "Operation"
+  ],
+  "publicComponentProperties": {
+    "AmountParagraph.variant.Style": [
+      "Paragraph 14/20",
+      "Action 14/20",
+      "Accent 14/20",
+      "Action 16/24",
+      "Action 16/20",
+      "Paragraph 16/24",
+      "Paragraph 16/20",
+      "Accent 16/24",
+      "Accent 16/20"
+    ],
+    "AmountHeadline.variant.Style": [
+      "Headline 18/22",
+      "Headline 22/26",
+      "Headline 30/36",
+      "Headline 40/48",
+      "Headline 48/52",
+      "Headline 16/20",
+      "Headline 20/28",
+      "Headline 26/32",
+      "Headline 34/40"
+    ],
+    "Operation.variant.Negative": [
+      "True",
+      "False"
+    ]
+  },
+  "semanticOwnership": [
+    {
+      "leafLayer": "Minus",
+      "semanticOwner": "AmountParagraph / Operation",
+      "meaning": "operation sign"
+    },
+    {
+      "leafLayer": "Major",
+      "semanticOwner": "AmountParagraph / Amount",
+      "meaning": "major amount part"
+    },
+    {
+      "leafLayer": "Minor",
+      "semanticOwner": "AmountParagraph / Amount",
+      "meaning": "minor amount part"
+    },
+    {
+      "leafLayer": "Currency",
+      "semanticOwner": "AmountParagraph / Amount",
+      "meaning": "currency part"
+    }
+  ],
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.Style",
+      "variant.Negative"
+    ],
+    "layerProperties": [
+      "fill",
+      "styles.text",
+      "opacity",
+      "layout.itemSpacing"
+    ],
+    "baselinePolicy": "If Style or Negative changed and then a leaf text layer is customized, compare the layer against the current AmountStyles state baseline. Keep the exact leaf target for reset.",
+    "wordingPolicy": "When Apollo reports Operation / Minus fill, describe it as a color customization of the amount operation sign, not as an unrelated Minus layer."
+  },
+  "ruleReferences": [
+    "component:web-corp.amount-styles.style-is-component-property",
+    "component:web-corp.amount-styles.operation-negative-is-part-property",
+    "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
+    "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
+    "component:web-corp.amount-styles.manual-text-style-is-layer-property"
+  ]
+}

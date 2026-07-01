@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-examples",
+  "componentKey": "web-corp.amount-styles",
+  "status": "draft",
+  "examples": [
+    {
+      "id": "amount-paragraph-operation-sign-fill",
+      "title": "Manual fill change on operation sign",
+      "inputDiff": {
+        "component": "[D] BodyCell :: Basic",
+        "nodePath": "Presets=Text, Skeleton=False / Content / Text / Operation / Minus",
+        "property": "fill",
+        "referenceValue": "text/primary",
+        "actualValue": "text/positive"
+      },
+      "expectedInterpretation": "The exact reset target is the Minus leaf layer. The recommendation should describe it as a manual color customization of the amount operation sign inside AmountParagraph / Operation."
+    },
+    {
+      "id": "amount-paragraph-style-and-fill",
+      "title": "Style variant plus manual leaf fill",
+      "inputDiffs": [
+        {
+          "nodePath": "Style=Paragraph 14/20",
+          "property": "variant.Style",
+          "referenceValue": "Paragraph 14/20",
+          "actualValue": "Action 16/20"
+        },
+        {
+          "nodePath": "Style=Action 16/20 / Operation / Minus",
+          "property": "fill",
+          "referenceValue": "text/primary",
+          "actualValue": "text/positive"
+        }
+      ],
+      "expectedInterpretation": "Report both the component Style change and the manual Minus fill override. Compare the fill against the current Style baseline."
+    }
+  ]
+}

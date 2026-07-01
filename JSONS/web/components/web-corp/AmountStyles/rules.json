@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.amount-styles",
+  "status": "draft",
+  "rules": [
+    {
+      "ruleId": "component:web-corp.amount-styles.style-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.Style",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "AmountParagraph",
+          "🔒 AmountParagraph",
+          "AmountHeadline",
+          "🔒 [D] AmountHeadline",
+          "🔒 [M] AmountHeadline"
+        ]
+      },
+      "ruleText": "Changes to AmountParagraph or AmountHeadline Style are component property changes and must be reported separately from derived text layer customizations."
+    },
+    {
+      "ruleId": "component:web-corp.amount-styles.operation-negative-is-part-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.Negative",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "Operation"
+        ]
+      },
+      "ruleText": "Changes to Operation Negative are part/component configuration for the amount operation sign."
+    },
+    {
+      "ruleId": "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "fill|fills",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "Operation",
+          "Minus"
+        ]
+      },
+      "ruleText": "Manual fill changes on Operation / Minus are layer customizations of the amount operation sign. Keep the exact Minus leaf layer for reset, but describe the semantic owner as AmountParagraph / Operation."
+    },
+    {
+      "ruleId": "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "fill|fills",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "Major",
+          "Minor",
+          "Currency"
+        ]
+      },
+      "ruleText": "Manual fill changes on Major, Minor or Currency text layers are layer customizations of the amount text. Keep the exact leaf layer for reset, but group the explanation under AmountParagraph / Amount."
+    },
+    {
+      "ruleId": "component:web-corp.amount-styles.manual-text-style-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "styles.text",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "Minus",
+          "Major",
+          "Minor",
+          "Currency"
+        ]
+      },
+      "ruleText": "Manual text style changes on AmountStyles leaf text layers are layer customizations. They should be independently resettable and not collapsed into the Style variant change."
+    }
+  ]
+}

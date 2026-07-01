@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.content-card-wrapper",
+  "status": "generated-draft",
+  "rules": [
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.component-properties-are-first-class",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "ContentCardWrapper",
+        "layers": [
+          "[D] ContentCardWrapper",
+          "[D] ContentPresets",
+          "[D] LeftSlot",
+          "[D] RightSlot",
+          "[M] ContentCardWrapper",
+          "[M] ContentPresets",
+          "[M] LeftSlot",
+          "[M] MiddleContentSlot",
+          "[M] RightSlot",
+          "🔩 [D] ContentPresets",
+          "🔩 [D] LeftSlot",
+          "🔩 [D] RightSlot",
+          "🔩 [M] ContentPresets",
+          "🔩 [M] LeftSlot",
+          "🔩 [M] MiddleContentSlot",
+          "🔩 [M] RightSlot",
+          "🔩 MiddleContentSlot",
+          "ContentCardWrapper",
+          "MiddleContentSlot",
+          "SwapMe"
+        ]
+      },
+      "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.layer-properties-use-effective-baseline",
+      "severity": "warning",
+      "source": "composition-contract",
+      "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "ContentCardWrapper",
+        "layers": [
+          "[D] ContentCardWrapper",
+          "[D] ContentPresets",
+          "[D] LeftSlot",
+          "[D] RightSlot",
+          "[M] ContentCardWrapper",
+          "[M] ContentPresets",
+          "[M] LeftSlot",
+          "[M] MiddleContentSlot",
+          "[M] RightSlot",
+          "🔩 [D] ContentPresets",
+          "🔩 [D] LeftSlot",
+          "🔩 [D] RightSlot",
+          "🔩 [M] ContentPresets",
+          "🔩 [M] LeftSlot",
+          "🔩 [M] MiddleContentSlot",
+          "🔩 [M] RightSlot",
+          "🔩 MiddleContentSlot",
+          "ContentCardWrapper",
+          "MiddleContentSlot",
+          "SwapMe"
+        ]
+      },
+      "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.lifecycle-context-is-informational",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.status",
+      "checkType": "manual",
+      "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+    }
+  ]
+}

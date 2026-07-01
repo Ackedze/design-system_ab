@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-audit-mapping",
+  "componentKey": "web-corp.amount-styles",
+  "status": "draft",
+  "classification": [
+    {
+      "match": {
+        "propertyPrefix": "variant."
+      },
+      "scope": "component-property",
+      "groupTitle": "Параметры компонента",
+      "priority": 10,
+      "resetAction": "reset-component-properties"
+    },
+    {
+      "match": {
+        "property": "fill"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "semanticOwner": "AmountParagraph / Operation",
+      "priority": 20,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "current-variant"
+    },
+    {
+      "match": {
+        "property": "styles.text"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "displayName": "Стиль текст",
+      "semanticOwner": "AmountParagraph / Amount",
+      "priority": 30,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "current-variant"
+    }
+  ],
+  "groupingOrder": [
+    "component-property",
+    "layer-property"
+  ],
+  "evidencePolicy": {
+    "useChangedNodeAsAffectedTarget": true,
+    "keepLayerOverrideSeparateFromVariantChange": true,
+    "describeLeafPaintLayersBySemanticOwner": true
+  }
+}

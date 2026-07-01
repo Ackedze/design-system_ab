@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-overrides",
+  "componentKey": "web-corp.amount-styles",
+  "status": "draft",
+  "semanticComponents": [
+    {
+      "name": "AmountParagraph",
+      "sourceName": "🔒 AmountParagraph",
+      "role": "amount-text",
+      "publicProperties": [
+        "variant.Style"
+      ],
+      "semanticSlots": [
+        {
+          "slot": "operationSign",
+          "paths": [
+            "Operation / Minus"
+          ],
+          "leafLayers": [
+            "Minus"
+          ],
+          "description": "Optional minus sign shown before an amount."
+        },
+        {
+          "slot": "majorPart",
+          "paths": [
+            "Amount / Major / Major"
+          ],
+          "leafLayers": [
+            "Major"
+          ],
+          "description": "Major numeric part of the amount."
+        },
+        {
+          "slot": "minorPart",
+          "paths": [
+            "Amount / Minor / Minor"
+          ],
+          "leafLayers": [
+            "Minor"
+          ],
+          "description": "Minor numeric part of the amount."
+        },
+        {
+          "slot": "currency",
+          "paths": [
+            "Amount / Currency / Currency"
+          ],
+          "leafLayers": [
+            "Currency"
+          ],
+          "description": "Currency symbol or marker."
+        }
+      ]
+    },
+    {
+      "name": "Operation",
+      "role": "amount-operation-part",
+      "publicProperties": [
+        "variant.Negative"
+      ],
+      "semanticSlots": [
+        {
+          "slot": "operationSign",
+          "paths": [
+            "Minus"
+          ],
+          "leafLayers": [
+            "Minus"
+          ]
+        }
+      ]
+    }
+  ],
+  "resetModel": {
+    "componentProperties": [
+      "variant.Style",
+      "variant.Negative"
+    ],
+    "layerProperties": [
+      "fill",
+      "styles.text",
+      "opacity",
+      "layout.itemSpacing"
+    ],
+    "leafResetRequired": true,
+    "note": "Paint and text style are stored on text leaf layers. Reset actions must keep the exact leaf target even when UI or agent wording groups the finding by semantic owner."
+  }
+}

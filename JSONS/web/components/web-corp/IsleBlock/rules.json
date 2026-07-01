@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.isle-block",
+  "status": "generated-draft",
+  "rules": [
+    {
+      "ruleId": "component:web-corp.isle-block.component-properties-are-first-class",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "IsleBlock",
+        "layers": [
+          "[D] IsleBlock :: 1024+",
+          "[D] IsleBlock :: 768",
+          "[D] IsleContent :: 768",
+          "[D] IsleFooter :: 1024+",
+          "[D] IsleFooter :: 768",
+          "[D] IsleHeader :: 1024+",
+          "[D] IsleHeader :: 768",
+          "[D] Status",
+          "[D] Status :: 1024+",
+          "[D] TopAddon",
+          "[D] TopAddon :: 1024+",
+          "[M] IsleBlock",
+          "[M] IsleContent",
+          "[M] IsleFooter",
+          "[M] IsleHeader",
+          "[M] TopAddon",
+          "❌ IsleCustomContent",
+          "🔒 [D] IsleBlock :: 1024+",
+          "🔒 [D] IsleBlock :: 768",
+          "🔒 [M] IsleBlock",
+          "🔩 StatusCompact",
+          "IsleBlock",
+          "IsleContent",
+          "IsleCustomContent",
+          "StatusCompact"
+        ]
+      },
+      "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+    },
+    {
+      "ruleId": "component:web-corp.isle-block.layer-properties-use-effective-baseline",
+      "severity": "warning",
+      "source": "composition-contract",
+      "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "IsleBlock",
+        "layers": [
+          "[D] IsleBlock :: 1024+",
+          "[D] IsleBlock :: 768",
+          "[D] IsleContent :: 768",
+          "[D] IsleFooter :: 1024+",
+          "[D] IsleFooter :: 768",
+          "[D] IsleHeader :: 1024+",
+          "[D] IsleHeader :: 768",
+          "[D] Status",
+          "[D] Status :: 1024+",
+          "[D] TopAddon",
+          "[D] TopAddon :: 1024+",
+          "[M] IsleBlock",
+          "[M] IsleContent",
+          "[M] IsleFooter",
+          "[M] IsleHeader",
+          "[M] TopAddon",
+          "❌ IsleCustomContent",
+          "🔒 [D] IsleBlock :: 1024+",
+          "🔒 [D] IsleBlock :: 768",
+          "🔒 [M] IsleBlock",
+          "🔩 StatusCompact",
+          "IsleBlock",
+          "IsleContent",
+          "IsleCustomContent",
+          "StatusCompact"
+        ]
+      },
+      "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+    },
+    {
+      "ruleId": "component:web-corp.isle-block.lifecycle-context-is-informational",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.status",
+      "checkType": "manual",
+      "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+    }
+  ]
+}
