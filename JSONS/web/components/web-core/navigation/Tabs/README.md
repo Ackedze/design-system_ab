@@ -6,7 +6,7 @@ Source raw catalog:
 
 This folder is an experimental Apollo contract package for the Web Core Navigation Tabs catalog. It does not replace the raw catalog used by the current Apollo audit.
 
-## Files
+## Файлы
 
 - `contract.generated.json` - compact generated baseline from the raw catalog.
 - `contract.overrides.json` - public API, aliases and reset model.

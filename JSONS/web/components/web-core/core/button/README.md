@@ -1,33 +1,33 @@
-# Button component contract MVP
+# Button — MVP component contract
 
-This folder contains an experimental component-contract layer for **Web _ Core / Button**.
+Папка содержит экспериментальный слой component-contract для **Web _ Core / Button**.
 
-The raw Figma catalog remains the source of truth:
+Raw Figma catalog остаётся source of truth:
 
 `../Web _ Core -- Button.json`
 
-That file is intentionally not edited by hand. It is large and complete: it stores the exported Figma component structures, variants, nested layers, fills, text styles and token references.
+Этот файл намеренно не редактируется вручную. Он большой и полный: в нём хранятся экспортированные структуры Figma-компонентов, variants, nested layers, fills, text styles и token references.
 
-## Files
+## Файлы
 
-- `contract.generated.json` — generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — human-authored semantic layer: public API, slots, internal layers and reset model.
-- `rules.json` — source of truth for component-level rules and links to pattern rules.
-- `audit-mapping.json` — how Apollo should classify and group Button diffs.
-- `examples.json` — MVP fixtures for testing Apollo and agent interpretation.
-- `agent-context.json` — compact explanatory context that can be passed to the agent instead of the generated contract. It references rule ids but does not duplicate rule text or severity.
+- `contract.generated.json` — сгенерированный compact contract, извлечённый из raw Figma catalog.
+- `contract.overrides.json` — semantic layer, заполняемый вручную: public API, slots, internal layers и reset model.
+- `rules.json` — source of truth для component-level rules и ссылок на pattern rules.
+- `audit-mapping.json` — как Apollo должен классифицировать и группировать diffs Button.
+- `examples.json` — MVP fixtures для тестирования Apollo и интерпретации агентом.
+- `agent-context.json` — compact explanatory context, который можно передавать агенту вместо generated contract. Он ссылается на rule ids, но не дублирует rule text или severity.
 
-There is no `composition-contract.json` for Button in this MVP. Button is treated as a standalone core component: its baselines come from the raw/generated component contract plus semantic overrides and rules. `composition-contract.json` is only needed when a wrapper component owns nested component overrides and must declare an effective baseline for those nested layers.
+В этом MVP для Button нет `composition-contract.json`. Button трактуется как standalone core component: его baselines берутся из raw/generated component contract, semantic overrides и rules. `composition-contract.json` нужен только тогда, когда wrapper component владеет nested component overrides и должен объявить effective baseline для этих nested layers.
 
-## Intended use
+## Предполагаемое использование
 
-Apollo should use the generated contract to understand component states and baselines, then apply overrides and rules to interpret whether a diff is a component property change, slot configuration, layer customization, or component-contract violation.
+Apollo должен использовать generated contract, чтобы понимать component states и baselines, затем применять overrides и rules, чтобы интерпретировать diff как component property change, slot configuration, layer customization или component-contract violation.
 
-The agent should receive matched rules from `rules.json` and, when needed, `agent-context.json` or a smaller slice of it. The agent should not receive the full raw Figma catalog or the full generated contract.
+Агент должен получать matched rules из `rules.json` и, при необходимости, `agent-context.json` или меньший slice этого файла. Агент не должен получать полный raw Figma catalog или полный generated contract.
 
-## Current scope
+## Текущий Scope
 
-This is a draft for Button only. It covers:
+Это draft для Button only. Он покрывает:
 
 - `[D] Button`
 - `[D] Button_Inverted`
@@ -36,16 +36,16 @@ This is a draft for Button only. It covers:
 - scheduled Corporate Button variants
 - `Addon` part components
 
-## Important audit rule
+## Важное audit rule
 
-If a component property changes and then a layer is manually customized inside the new state, Apollo must compare the layer against the **current state baseline**, not the original state baseline.
+Если component property изменилась, а затем layer внутри нового состояния был вручную кастомизирован, Apollo должен сравнивать layer с **current state baseline**, а не с original state baseline.
 
-Example:
+Пример:
 
 `variant.View: Primary → Accent` followed by manual fill change should show:
 
 `fill: Button/Desktop/Colors/Accent/bg → custom value`
 
-not:
+а не:
 
 `fill: Button/Desktop/Colors/Primary/bg → custom value`.

@@ -6,7 +6,7 @@ Source raw catalog:
 
 This folder is an experimental Apollo contract package. It keeps the raw catalog and generated runtime context for table-family audits.
 
-## Files
+## Файлы
 
 - `catalog.raw.json` - preserved source catalog copy for this package.
 - `contract.generated.json` - compact generated baseline from the raw catalog.
@@ -17,14 +17,14 @@ This folder is an experimental Apollo contract package. It keeps the raw catalog
 - `examples.json` - regression examples for expected Apollo behavior.
 - `agent-context.json` - compact context for Apollo agent.
 
-## Source
+## Источник
 
-- Library: `Web :: Corp Components`
+- Библиотека: `Web :: Corp Components`
 - File: `Web :: Corp Components`
-- Generated at: `2026-04-28T16:08:11.293Z`
-- Components: `21`
+- Сгенерировано: `2026-04-28T16:08:11.293Z`
+- Компонентов: `21`
 
-## Notes
+## Примечания
 
 - Treat table rows, cells and add-ons as one table family context.
 - Component properties and manual layer/style changes should be reported independently.

@@ -6,7 +6,7 @@ Source raw catalog:
 
 This folder is an experimental Apollo contract package. It does not replace the raw catalog used by the current Apollo audit.
 
-## Files
+## Файлы
 
 - `contract.generated.json` - compact generated baseline from the raw catalog.
 - `contract.overrides.json` - public API, aliases and reset model.
@@ -16,13 +16,13 @@ This folder is an experimental Apollo contract package. It does not replace the 
 - `examples.json` - regression examples for expected Apollo behavior.
 - `agent-context.json` - compact context for Apollo agent.
 
-## Source
+## Источник
 
-- Library: `Web _ Corp Components`
+- Библиотека: `Web _ Corp Components`
 - File: `Web _ Corp Components`
-- Generated at: `2026-06-05T16:07:39.725Z`
+- Сгенерировано: `2026-06-05T16:07:39.725Z`
 
-## Notes
+## Примечания
 
 - BackgroundPlate wraps Style Level 1 or Style Level 2 depending on Position.
 - Style Level components carry the actual background fill baseline through BackgroundColor, Type and Skeleton variants.

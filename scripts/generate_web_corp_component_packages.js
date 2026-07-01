@@ -227,7 +227,7 @@ function buildContractOverrides(packageName, catalog) {
     componentKey: getPackageKey(packageName),
     status: 'generated-draft',
     note:
-      'Generated placeholder overlay. Add semantic ownership, reset model and design-rule overrides manually when needed.',
+      'Сгенерированный placeholder overlay. При необходимости вручную добавь semantic ownership, reset model и design-rule overrides.',
     semanticComponents: getCatalogComponents(catalog).map((component) => ({
       name: component.name,
       key: component.key,
@@ -305,7 +305,7 @@ function buildRules(packageName, catalog) {
           layers: aliases,
         },
         ruleText:
-          'Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes.',
+          'Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer.',
       },
       {
         ruleId: `component:${componentKey}.layer-properties-use-effective-baseline`,
@@ -319,7 +319,7 @@ function buildRules(packageName, catalog) {
           layers: aliases,
         },
         ruleText:
-          'Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context.',
+          'Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context.',
       },
       {
         ruleId: `component:${componentKey}.lifecycle-context-is-informational`,
@@ -328,7 +328,7 @@ function buildRules(packageName, catalog) {
         appliesTo: 'component.status',
         checkType: 'manual',
         ruleText:
-          'Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched.',
+          'Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule.',
       },
     ],
   };
@@ -424,7 +424,7 @@ function buildAgentContext(packageName, catalog) {
           ? catalog.source.library
           : 'Web _ Corp Components',
       purpose:
-        'Generated component context. Use exact component rules and pattern rules for recommendations; do not infer design prohibitions from this generated context alone.',
+        'Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста.',
     },
     includedComponents: getCatalogComponents(catalog).map((component) => ({
       name: component.name,
@@ -445,7 +445,7 @@ function buildAgentContext(packageName, catalog) {
         'opacity',
       ],
       baselinePolicy:
-        'Compare layer changes against the effective component state baseline when host composition context is available.',
+        'Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context.',
     },
   };
 }
@@ -461,34 +461,34 @@ function buildReadme(packageName, catalog, fileName) {
       : '';
   const componentCount = getCatalogComponents(catalog).length;
   return [
-    `# ${packageName} component contract MVP`,
+    `# ${packageName} — MVP component contract`,
     '',
-    `This folder contains a generated component-contract layer for **${library} / ${packageName}**.`,
+    `Папка содержит сгенерированный слой component-contract для **${library} / ${packageName}**.`,
     '',
-    'The raw Figma catalog remains the source of truth:',
+    'Raw Figma catalog остаётся source of truth:',
     '',
     `\`../${fileName}\``,
     '',
-    '## Files',
+    '## Файлы',
     '',
-    '- `catalog.raw.json` - preserved source catalog copy for this package.',
-    '- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.',
-    '- `contract.overrides.json` - generated placeholder for human-authored semantic overrides.',
-    '- `composition-contract.json` - generated internal instance ownership context.',
-    '- `rules.json` - generated component-level classification rules.',
-    '- `audit-mapping.json` - generated default Apollo grouping model.',
-    '- `examples.json` - generated placeholder for examples.',
-    '- `agent-context.json` - compact generated context for agent-side interpretation.',
+    '- `catalog.raw.json` — сохранённая копия source catalog для этого пакета.',
+    '- `contract.generated.json` — сгенерированный compact contract, извлечённый из raw Figma catalog.',
+    '- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.',
+    '- `composition-contract.json` — сгенерированный context владения internal instances.',
+    '- `rules.json` — сгенерированные component-level classification rules.',
+    '- `audit-mapping.json` — сгенерированная default-модель группировки Apollo.',
+    '- `examples.json` — сгенерированный placeholder для examples.',
+    '- `agent-context.json` — compact generated context для интерпретации на стороне агента.',
     '',
-    '## Source',
+    '## Источник',
     '',
-    `- Library: \`${library}\``,
-    `- Generated at: \`${generatedAt}\``,
-    `- Components: \`${componentCount}\``,
+    `- Библиотека: \`${library}\``,
+    `- Сгенерировано: \`${generatedAt}\``,
+    `- Компонентов: \`${componentCount}\``,
     '',
-    '## Current Scope',
+    '## Текущий Scope',
     '',
-    'This package is generated. Add manual rules only when there is an explicit component behavior or design rule to encode.',
+    'Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.',
     '',
   ].join('\n');
 }

@@ -1,6 +1,6 @@
-# Input component contract MVP
+# Input — MVP component contract
 
-This folder contains an experimental component-contract layer for **Web _ Core / Input**.
+Папка содержит экспериментальный слой component-contract для **Web _ Core / Input**.
 
 The raw Figma catalog remains the source of truth:
 
@@ -8,24 +8,24 @@ The raw Figma catalog remains the source of truth:
 
 That file is intentionally not edited by hand. It stores the exported Figma component structures, variants, nested layers, fills, strokes, text styles and token references.
 
-## Files
+## Файлы
 
 - `contract.generated.json` — generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — human-authored semantic layer: public API, anatomy, slots and reset model.
+- `contract.overrides.json` — semantic layer, заполняемый вручную: public API, anatomy, slots и reset model.
 - `rules.json` — component-level rules and links to input-field pattern rules.
-- `audit-mapping.json` — how Apollo should classify and group Input diffs.
+- `audit-mapping.json` — как Apollo должен классифицировать и группировать diffs Input.
 - `examples.json` — MVP fixtures for testing Apollo and agent interpretation.
 - `agent-context.json` — compact context that can be passed to the agent instead of the generated contract.
 
 ## Intended use
 
-Apollo should use the generated contract to understand Input states and baselines, then apply overrides/rules to interpret whether a diff is a component property change, slot configuration, layer customization or content text review.
+Apollo должен использовать the generated contract to understand Input states and baselines, then apply overrides/rules to interpret whether a diff is a component property change, slot configuration, layer customization or content text review.
 
-The agent should receive `agent-context.json` or a smaller slice of it, not the full raw Figma catalog or the full generated contract.
+Агент должен получать `agent-context.json` или меньший slice этого файла, а не полный raw Figma catalog и не полный generated contract.
 
 ## Current scope
 
-This is a draft for Input only. It covers:
+Это draft для Input only. Он покрывает:
 
 - `[D] Input`
 - `[D] Input_Inverted`
@@ -35,7 +35,7 @@ This is a draft for Input only. It covers:
 
 ## Important audit rule
 
-If a component state changes and then a layer is manually customized inside the new state, Apollo must compare the layer against the **current state baseline**, not the original state baseline.
+Если состояние компонента изменилось, а затем layer внутри нового состояния был вручную кастомизирован, Apollo должен сравнивать layer с **current state baseline**, а не с original state baseline.
 
 Example:
 

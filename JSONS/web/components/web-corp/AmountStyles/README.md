@@ -1,35 +1,35 @@
-# AmountStyles component contract MVP
+# AmountStyles — MVP component contract
 
-This folder contains an experimental component-contract layer for **Web _ Corp Components / AmountStyles**.
+Папка содержит экспериментальный слой component-contract для **Web _ Corp Components / AmountStyles**.
 
-The raw Figma catalog remains the source of truth:
+Raw Figma catalog остаётся source of truth:
 
 `../Web _ Corp Components -- AmountStyles.json`
 
-A preserved package-local copy is also stored as `catalog.raw.json` for migration testing.
+Сохранённая package-local copy также лежит в `catalog.raw.json` для migration testing.
 
-## Files
+## Файлы
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` - human-authored semantic layer for amount typography and operation parts.
-- `composition-contract.json` - ownership model for AmountHeadline, AmountParagraph and Operation.
-- `rules.json` - component-level rules.
-- `audit-mapping.json` - how Apollo should classify and group AmountStyles diffs.
-- `examples.json` - MVP fixtures for Apollo and agent interpretation.
-- `agent-context.json` - compact context for agent-side interpretation.
+- `catalog.raw.json` — сохранённая копия source catalog для этого пакета.
+- `contract.generated.json` — сгенерированный compact contract, извлечённый из raw Figma catalog.
+- `contract.overrides.json` — semantic layer, заполняемый вручную, для amount typography и operation parts.
+- `composition-contract.json` — ownership model для AmountHeadline, AmountParagraph и Operation.
+- `rules.json` — component-level rules.
+- `audit-mapping.json` — как Apollo должен классифицировать и группировать diffs AmountStyles.
+- `examples.json` — MVP fixtures для Apollo и интерпретации агентом.
+- `agent-context.json` — compact context для интерпретации на стороне агента.
 
-## Source
+## Источник
 
-- Library: `Web _ Corp Components`
-- File: `Web _ Corp Components`
-- Generated at: `2026-06-05T16:07:39.725Z`
-- Components: `4`
+- Библиотека: `Web _ Corp Components`
+- Файл: `Web _ Corp Components`
+- Сгенерировано: `2026-06-05T16:07:39.725Z`
+- Компонентов: `4`
 
-## Current Scope
+## Текущий Scope
 
-This package covers `AmountHeadline`, `AmountParagraph` and the nested `Operation` part. Apollo should treat `Style` and `Negative` as component/part configuration, while manual paint/text changes on leaf text layers such as `Minus`, `Major`, `Minor` and `Currency` remain layer customizations.
+Этот пакет покрывает `AmountHeadline`, `AmountParagraph` и nested `Operation` part. Apollo должен трактовать `Style` и `Negative` как component/part configuration, а ручные paint/text changes на leaf text layers вроде `Minus`, `Major`, `Minor` и `Currency` должны оставаться layer customizations.
 
-## Important Audit Rule
+## Важное Audit Rule
 
-When a paint change is detected on `Operation / Minus`, Apollo should keep the exact leaf path for reset, but the agent should describe it as a color customization of the amount operation sign inside `AmountParagraph` or `AmountHeadline`.
+Когда paint change найден на `Operation / Minus`, Apollo должен сохранять точный leaf path для reset, а агент должен описывать это как color customization знака операции суммы внутри `AmountParagraph` или `AmountHeadline`.

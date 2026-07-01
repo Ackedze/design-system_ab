@@ -13,7 +13,7 @@
   "summary": {
     "componentFamily": "Input",
     "library": "Web _ Core",
-    "purpose": "Input is a component family for text fields. Apollo should treat Input state changes as component property changes and manual style/token/layout changes as layer customizations. Text content may need pattern-based editorial review.",
+    "purpose": "Input — семейство text fields. Apollo должен трактовать изменения состояния Input как component property changes, а ручные изменения style/token/layout как layer customizations. Text content может требовать редакторской проверки по pattern.",
     "includedComponents": [
       "[D] Input",
       "[D] Input_Inverted",
@@ -96,7 +96,7 @@
       "layer-property",
       "content-property"
     ],
-    "baselinePolicy": "If a component property changed, compare manual layer overrides against the current actual component state baseline, not against the original reference state baseline."
+    "baselinePolicy": "Если component property изменилась, сравнивай ручные layer overrides с baseline текущего actual-состояния компонента, а не с исходным reference baseline."
   },
   "patternLinks": [
     {
@@ -108,18 +108,18 @@
   "exampleInterpretations": [
     {
       "case": "variant.ErrorState False -> True",
-      "agentShouldSay": "Apollo found a component property customization: errorState false -> true.",
-      "agentShouldNotSay": "The field fill was manually changed unless Apollo also reports an explicit layer fill change."
+      "agentShouldSay": "Apollo нашёл component property customization: errorState false -> true.",
+      "agentShouldNotSay": "Field fill был изменён вручную, если Apollo дополнительно не показывает явное layer fill change."
     },
     {
       "case": "variant.ErrorState change plus manual Field fill",
-      "agentShouldSay": "Show both changes and compare Field fill against ErrorState=True baseline.",
-      "agentShouldNotSay": "Compare manual Field fill against ErrorState=False baseline."
+      "agentShouldSay": "Покажи оба изменения и сравни Field fill с ErrorState=True baseline.",
+      "agentShouldNotSay": "Сравнивать ручной Field fill с ErrorState=False baseline."
     },
     {
       "case": "Label text ends with colon",
-      "agentShouldSay": "This needs pattern-based text review using input-fields no-label-colon rule.",
-      "agentShouldNotSay": "This is a visual customization."
+      "agentShouldSay": "Нужна текстовая проверка по pattern с использованием правила input-fields no-label-colon.",
+      "agentShouldNotSay": "Это visual customization."
     }
   ],
   "ruleReferences": [

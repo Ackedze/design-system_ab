@@ -1,6 +1,6 @@
-# AmountInput component contract MVP
+# AmountInput — MVP component contract
 
-This folder contains an experimental component-contract layer for **Web _ Core / AmountInput**.
+Папка содержит экспериментальный слой component-contract для **Web _ Core / AmountInput**.
 
 The raw Figma catalog remains the source of truth:
 
@@ -8,24 +8,24 @@ The raw Figma catalog remains the source of truth:
 
 That file is intentionally not edited by hand. It stores the exported Figma component structures, variants, nested layers, fills, strokes, text styles and token references.
 
-## Files
+## Файлы
 
 - `contract.generated.json` — generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — human-authored semantic layer: public API, anatomy, slots and reset model.
+- `contract.overrides.json` — semantic layer, заполняемый вручную: public API, anatomy, slots и reset model.
 - `rules.json` — component-level rules and pattern-rule links.
-- `audit-mapping.json` — how Apollo should classify and group AmountInput diffs.
+- `audit-mapping.json` — как Apollo должен классифицировать и группировать diffs AmountInput.
 - `examples.json` — MVP fixtures for testing Apollo and agent interpretation.
 - `agent-context.json` — compact context that can be passed to the agent instead of the generated contract.
 
 ## Intended use
 
-Apollo should use the generated contract to understand AmountInput states and baselines, then apply overrides/rules to interpret whether a diff is a component property change, slot configuration, layer customization or content text review.
+Apollo должен использовать the generated contract to understand AmountInput states and baselines, then apply overrides/rules to interpret whether a diff is a component property change, slot configuration, layer customization or content text review.
 
-The agent should receive `agent-context.json` or a smaller slice of it, not the full raw Figma catalog or the full generated contract.
+Агент должен получать `agent-context.json` или меньший slice этого файла, а не полный raw Figma catalog и не полный generated contract.
 
 ## Current scope
 
-This is a draft for AmountInput. It covers:
+Это draft для AmountInput. Он покрывает:
 
 - `[D] AmountInput`
 - `[D] AmountInput_Inverted`
@@ -38,6 +38,6 @@ This is a draft for AmountInput. It covers:
 
 ## Important audit rule
 
-If a component state changes and then a layer is manually customized inside the new state, Apollo must compare the layer against the **current state baseline**, not the original state baseline.
+Если состояние компонента изменилось, а затем layer внутри нового состояния был вручную кастомизирован, Apollo должен сравнивать layer с **current state baseline**, а не с original state baseline.
 
-variant.ErrorState: False -> True plus manual Field fill should compare fill against ErrorState=True baseline.
+variant.ErrorState: False -> True плюс ручной Field fill должен сравнивать fill с ErrorState=True baseline.

@@ -14,7 +14,7 @@
   "summary": {
     "componentFamily": "TabsView",
     "library": "Web _ Corp Components",
-    "purpose": "TabsView is a wrapper/composite component around primary and secondary tabs. Apollo should use TabsView effective baseline for nested TabsPrimary/TabsSecondary differences and suppress wrapper-owned overrides when actual equals effective baseline.",
+    "purpose": "TabsView — wrapper/composite component вокруг primary и secondary tabs. Apollo должен использовать TabsView effective baseline для nested TabsPrimary/TabsSecondary differences и подавлять wrapper-owned overrides, когда actual совпадает с effective baseline.",
     "includedComponents": [
       "[D] TabsView",
       "[M] TabsView"
@@ -75,18 +75,18 @@
       "layer-property",
       "content-property"
     ],
-    "baselinePolicy": "For nested TabsPrimary/TabsSecondary changes, compare actual against TabsView effective baseline, not standalone nested component baseline."
+    "baselinePolicy": "Для nested TabsPrimary/TabsSecondary changes сравнивай actual с TabsView effective baseline, а не со standalone nested component baseline."
   },
   "exampleInterpretations": [
     {
       "case": "Items spacing standalone 24, TabsView effective 32, actual 32",
-      "agentShouldSay": "No customization: this is a wrapper-owned TabsView override.",
-      "agentShouldNotSay": "Apollo found spacing customization 24 -> 32."
+      "agentShouldSay": "Нет customization: это wrapper-owned TabsView override.",
+      "agentShouldNotSay": "Apollo нашёл spacing customization 24 -> 32."
     },
     {
       "case": "Items spacing standalone 24, TabsView effective 32, actual 40",
-      "agentShouldSay": "Apollo found TabsView layer customization: spacing 32 -> 40.",
-      "agentShouldNotSay": "Spacing changed 24 -> 40."
+      "agentShouldSay": "Apollo нашёл TabsView layer customization: spacing 32 -> 40.",
+      "agentShouldNotSay": "Spacing изменился 24 -> 40."
     }
   ],
   "ruleReferences": [

@@ -13,7 +13,7 @@
   "summary": {
     "componentFamily": "Button",
     "library": "Web _ Core",
-    "purpose": "Button is a component family for action controls. Apollo should treat Button variant changes as component property changes and manual style/token/layout changes as layer customizations.",
+    "purpose": "Button — семейство action controls. Apollo должен трактовать изменения Button variant как component property changes, а ручные изменения style/token/layout как layer customizations.",
     "includedComponents": [
       "[D] Button",
       "[D] Button_Inverted",
@@ -24,11 +24,34 @@
     ]
   },
   "publicComponentProperties": {
-    "variant.View": ["Primary", "Secondary", "Transparent", "Text", "Accent", "Outlined"],
-    "variant.Size": ["32", "40", "48", "56", "64", "72"],
-    "variant.Shape": ["Rectangular", "Rounded"],
-    "variant.SingleIcon": ["False", "True"],
-    "variant.DisabledState": ["False", "True"]
+    "variant.View": [
+      "Primary",
+      "Secondary",
+      "Transparent",
+      "Text",
+      "Accent",
+      "Outlined"
+    ],
+    "variant.Size": [
+      "32",
+      "40",
+      "48",
+      "56",
+      "64",
+      "72"
+    ],
+    "variant.Shape": [
+      "Rectangular",
+      "Rounded"
+    ],
+    "variant.SingleIcon": [
+      "False",
+      "True"
+    ],
+    "variant.DisabledState": [
+      "False",
+      "True"
+    ]
   },
   "auditInterpretation": {
     "componentProperties": [
@@ -56,7 +79,7 @@
       "slot-property",
       "layer-property"
     ],
-    "baselinePolicy": "If a component property changed, compare manual layer overrides against the current actual component state baseline, not against the original reference state baseline."
+    "baselinePolicy": "Если component property изменилась, сравнивай ручные layer overrides с baseline текущего actual-состояния компонента, а не с исходным reference baseline."
   },
   "ruleReferences": [
     "component:web-core.button.variant-state-is-component-property",
@@ -68,18 +91,18 @@
   "exampleInterpretations": [
     {
       "case": "variant.View Primary -> Accent",
-      "agentShouldSay": "Apollo found a component property customization: view primary -> accent.",
-      "agentShouldNotSay": "The fill changed from Primary color unless Apollo also reports an explicit layer fill change."
+      "agentShouldSay": "Apollo нашёл component property customization: view primary -> accent.",
+      "agentShouldNotSay": "Fill изменился с Primary color, если Apollo дополнительно не показывает явное layer fill change."
     },
     {
       "case": "variant.View Primary -> Accent plus manual fill",
-      "agentShouldSay": "Show both changes: view primary -> accent, and fill from Accent baseline -> actual custom value.",
-      "agentShouldNotSay": "Compare the manual fill against Primary baseline."
+      "agentShouldSay": "Покажи оба изменения: view primary -> accent и fill от Accent baseline -> actual custom value.",
+      "agentShouldNotSay": "Сравнивать ручной fill с Primary baseline."
     },
     {
       "case": "Label styles.text changed",
-      "agentShouldSay": "Apollo found a Button contract violation: text style on Label or Hint must match the effective Button baseline.",
-      "agentShouldNotSay": "This is only a component state change or an allowed layer customization."
+      "agentShouldSay": "Apollo нашёл нарушение Button contract: text style на Label или Hint должен совпадать с effective Button baseline.",
+      "agentShouldNotSay": "Это только изменение состояния компонента или разрешённая layer customization."
     }
   ]
 }

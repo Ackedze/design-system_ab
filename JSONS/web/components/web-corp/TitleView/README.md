@@ -6,7 +6,7 @@ Source raw catalog:
 
 This folder is an experimental Apollo contract package. It does not replace the raw catalog used by the current Apollo audit.
 
-## Files
+## Файлы
 
 - `contract.generated.json` - compact generated baseline from the raw catalog.
 - `contract.overrides.json` - public API, aliases and reset model.
@@ -16,13 +16,13 @@ This folder is an experimental Apollo contract package. It does not replace the 
 - `examples.json` - regression examples for expected Apollo behavior.
 - `agent-context.json` - compact context for Apollo agent.
 
-## Source
+## Источник
 
-- Library: `Web _ Corp Components`
+- Библиотека: `Web _ Corp Components`
 - File: `Web _ Corp Components`
-- Generated at: `2026-06-05T16:07:39.725Z`
+- Сгенерировано: `2026-06-05T16:07:39.725Z`
 
-## Notes
+## Примечания
 
 - Nested [D]/[M] Button instances inside Button group are part of the TitleView baseline; variant changes by the designer should be reported against the TitleView effective baseline.
 - StatusPreset and Status inside MainContent / Status are expected nested structures; preset usage itself is normal unless the preset is manually changed beyond its variant API.
