@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-audit-mapping",
+  "componentKey": "web-core.icon-button",
+  "status": "draft",
+  "classification": [
+    {
+      "match": {
+        "propertyPrefix": "variant."
+      },
+      "scope": "component-property",
+      "groupTitle": "Параметры компонента",
+      "priority": 10,
+      "resetAction": "reset-component-properties"
+    },
+    {
+      "match": {
+        "nodePathIncludes": "Icon",
+        "propertyPrefix": "variant."
+      },
+      "scope": "part-property",
+      "groupTitle": "Параметры компонента",
+      "priority": 20,
+      "resetAction": "reset-component-properties"
+    },
+    {
+      "match": {
+        "propertyPrefix": "layout."
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 30,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "component-state"
+    },
+    {
+      "match": {
+        "property": "fill"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 40,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "component-state"
+    },
+    {
+      "match": {
+        "property": "stroke"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 50,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "component-state"
+    },
+    {
+      "match": {
+        "property": "radius"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 60,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "component-state"
+    },
+    {
+      "match": {
+        "property": "opacity"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 70,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "component-state"
+    }
+  ],
+  "groupingOrder": [
+    "component-property",
+    "part-property",
+    "layer-property"
+  ],
+  "evidencePolicy": {
+    "showVariantBeforeDerivedVisuals": true,
+    "useChangedNodeAsAffectedTarget": true,
+    "keepLayerOverrideSeparateFromVariantChange": true
+  },
+  "baselinePolicy": {
+    "whenStateChangedAndLayerCustomized": "Compare manual layer overrides against the actual IconButton state baseline, not the original reference state baseline.",
+    "whenResettingLayer": "Reset layer property to the IconButton effective baseline for current Size/View/TransparentBg and Icon Type.",
+    "whenResettingComponentProperty": "Reset component property to the reference value; derived nested visual differences may disappear if caused only by that property."
+  }
+}

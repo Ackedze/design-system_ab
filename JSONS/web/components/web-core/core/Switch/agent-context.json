@@ -78,28 +78,16 @@
     "baselinePolicy": "If a component property changed, compare manual layer overrides against the current actual component state baseline, not against the original reference state baseline."
   },
   "patternLinks": [],
-  "rules": [
-    {
-      "ruleId": "component:web-core.switch.variant-state-is-component-property",
-      "severity": "info",
-      "meaning": "Changes to SelectedState, DisabledState, Reverse and Hint are component property changes and must be reported as first-class customizations."
-    },
-    {
-      "ruleId": "component:web-core.switch.manual-track-thumb-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual visual/layout changes on switch track area or thumb oval are layer customizations and should be shown separately from component state changes."
-    },
-    {
-      "ruleId": "component:web-core.switch.manual-label-style-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual text style or fill changes on SwitchLabel label are layer customizations."
-    }
-  ],
   "exampleInterpretations": [
     {
       "case": "state plus manual visual override",
       "agentShouldSay": "Show both changes and compare the layer property against current-state baseline.",
       "agentShouldNotSay": "Compare the manual layer override against the original reference state baseline."
     }
+  ],
+  "ruleReferences": [
+    "component:web-core.switch.variant-state-is-component-property",
+    "component:web-core.switch.manual-track-thumb-is-layer-property",
+    "component:web-core.switch.manual-label-style-is-layer-property"
   ]
 }

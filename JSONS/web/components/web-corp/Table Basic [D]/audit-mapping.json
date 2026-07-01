@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-audit-mapping",
+  "componentKey": "web-corp.table-basic-d",
+  "status": "draft",
+  "classification": [
+    {
+      "match": {
+        "propertyPrefix": "variant."
+      },
+      "scope": "component-property",
+      "groupTitle": "Параметры компонента",
+      "priority": 10,
+      "resetAction": "reset-component-properties"
+    },
+    {
+      "match": {
+        "propertyPrefix": "layout."
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 20,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "composition-contract"
+    },
+    {
+      "match": {
+        "property": "styles.text"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "displayName": "Стиль текст",
+      "priority": 30,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "composition-contract"
+    },
+    {
+      "match": {
+        "property": "fill"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 40,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "composition-contract"
+    },
+    {
+      "match": {
+        "property": "stroke"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 50,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "composition-contract"
+    },
+    {
+      "match": {
+        "property": "radius"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 60,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "composition-contract"
+    },
+    {
+      "match": {
+        "property": "opacity"
+      },
+      "scope": "layer-property",
+      "groupTitle": "Параметры слоя",
+      "priority": 70,
+      "resetAction": "reset-layer-properties",
+      "effectiveBaseline": "composition-contract"
+    },
+    {
+      "match": {
+        "property": "characters"
+      },
+      "scope": "content-property",
+      "groupTitle": "Текстовое содержимое",
+      "priority": 80,
+      "resetAction": "manual-content-review"
+    }
+  ],
+  "groupingOrder": [
+    "component-property",
+    "layer-property",
+    "content-property"
+  ],
+  "evidencePolicy": {
+    "showVariantBeforeDerivedVisuals": true,
+    "useChangedNodeAsAffectedTarget": true,
+    "keepLayerOverrideSeparateFromVariantChange": true,
+    "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
+  },
+  "baselinePolicy": {
+    "whenNestedComponentDiff": "Use the table family effective baseline from the selected table component, not only the standalone nested component baseline.",
+    "whenResettingLayer": "Reset layer property to the table family effective baseline.",
+    "whenResettingComponentProperty": "Reset component property to the reference value; derived nested differences may disappear if caused only by the component property."
+  }
+}

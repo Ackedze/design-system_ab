@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-core.icon-button",
+  "status": "draft",
+  "rules": [
+    {
+      "ruleId": "component:web-core.icon-button.variant-state-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.Size|variant.View|variant.TransparentBg",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "ruleText": "Changes to IconButton Size, View and TransparentBg are component property changes and must be reported as first-class customizations."
+    },
+    {
+      "ruleId": "component:web-core.icon-button.icon-type-is-part-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "Icon.variant.Type|variant.Type",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "IconButton",
+        "layers": [
+          "Icon",
+          "🔩 Icon"
+        ]
+      },
+      "ruleText": "Changes to the nested Icon Type are part/component configuration, not a free layer style change."
+    },
+    {
+      "ruleId": "component:web-core.icon-button.manual-root-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "layout.*|fill|stroke|radius|opacity",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "IconButton",
+        "layers": [
+          "[D] IconButton",
+          "[D] IconButton_Inverted",
+          "[D][Corporate] IconButton",
+          "[D][Corporate] IconButton_Inverted",
+          "[M] IconButton",
+          "[M] IconButton_Inverted",
+          "[M][Corporate] IconButton",
+          "[M][Corporate] IconButton_Inverted",
+          "🔄 [D][Corporate] IconButton",
+          "🔄 [D][Corporate] IconButton_Inverted",
+          "🔄 [M][Corporate] IconButton",
+          "🔄 [M][Corporate] IconButton_Inverted",
+          "🔩 Icon",
+          "Icon",
+          "IconButton",
+          "IconButton Inverted"
+        ]
+      },
+      "ruleText": "Manual root layout, fill, stroke, radius or opacity changes on IconButton are layer customizations and should be compared against the effective component state baseline."
+    },
+    {
+      "ruleId": "component:web-core.icon-button.manual-icon-fill-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "PaintMe.fills|PaintMe.fill|fill|fills",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "IconButton",
+        "layers": [
+          "PaintMe",
+          "diamonds",
+          "icon"
+        ]
+      },
+      "ruleText": "Manual fill changes on IconButton PaintMe, diamonds or icon layers are layer customizations. They should be shown separately from component property changes."
+    },
+    {
+      "ruleId": "component:web-core.icon-button.scheduled-corporate-parts-are-informational",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.status",
+      "checkType": "manual",
+      "ruleText": "Scheduled corporate IconButton variants are lifecycle context for the agent. Do not treat scheduled status as a design violation unless a separate pattern or exact design rule is matched."
+    }
+  ]
+}

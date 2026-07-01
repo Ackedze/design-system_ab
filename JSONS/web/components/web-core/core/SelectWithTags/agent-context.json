@@ -122,39 +122,17 @@
       "sourceFile": "p_input-fields.md"
     }
   ],
-  "rules": [
-    {
-      "ruleId": "component:web-core.select-with-tags.variant-state-is-component-property",
-      "severity": "info",
-      "meaning": "Changes to Size, FilledState, ActiveState, DisabledState, ErrorState and part states are component/part property changes and must be reported as first-class customizations."
-    },
-    {
-      "ruleId": "component:web-core.select-with-tags.manual-field-visual-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual visual/layout changes on Field are layer customizations and should be shown separately from component property changes."
-    },
-    {
-      "ruleId": "component:web-core.select-with-tags.manual-tag-visual-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual visual/text style changes on Tag, TagControl or Value internals are layer customizations unless owned by a parent composition contract."
-    },
-    {
-      "ruleId": "component:web-core.select-with-tags.input-text-pattern-rules",
-      "severity": "warning",
-      "patternRuleIds": [
-        "rule:controls.input-fields.noun-label",
-        "rule:controls.input-fields.no-label-colon",
-        "rule:controls.input-fields.no-placeholder-duplication",
-        "rule:controls.input-fields.short-useful-hint"
-      ],
-      "meaning": "Label, placeholder and hint text should follow input-field text rules."
-    }
-  ],
   "exampleInterpretations": [
     {
       "case": "state plus manual visual override",
       "agentShouldSay": "Show both changes and compare the layer property against current-state baseline.",
       "agentShouldNotSay": "Compare the manual layer override against the original reference state baseline."
     }
+  ],
+  "ruleReferences": [
+    "component:web-core.select-with-tags.variant-state-is-component-property",
+    "component:web-core.select-with-tags.manual-field-visual-is-layer-property",
+    "component:web-core.select-with-tags.manual-tag-visual-is-layer-property",
+    "component:web-core.select-with-tags.input-text-pattern-rules"
   ]
 }

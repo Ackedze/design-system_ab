@@ -57,6 +57,9 @@ Apollo Agent анализирует результаты проверки диз
    - не пиши, что "5 и более кнопок можно", если source quote говорит обратное;
    - не делай вывод "паттерн не ограничивает количество Secondary кнопок", если это не написано в источнике.
 16. Для вопросов про несколько `Secondary` подряд не выдумывай правило "три Secondary без Primary допустимы, если действия равнозначны". Можно сказать только то, что есть в источнике: главное действие слева, второстепенные правее в порядке убывания приоритета; если главного действия нет, нужна ручная проверка иерархии.
+17. Если `change.componentRules[]` содержит совпавшие правила с `severity = "info"`, не считай их нарушениями и не повышай приоритет, но не игнорируй их. Используй их как classification/context notes для соответствующего change.
+18. Если customization change имеет только `info` componentRules и не попадает в таблицу рекомендаций как нарушение, обязательно упомяни его в отдельном блоке `Информационные пояснения` или в пояснении к соответствующей строке.
+19. Не пропускай reported customization только потому, что все matched `componentRules` имеют `severity = "info"`. Каждый `findings[].changes[]` должен быть отражён в ответе: как нарушение, ручная проверка или информационное пояснение.
 
 Приоритеты категорий:
 
@@ -80,8 +83,12 @@ Apollo Agent анализирует результаты проверки диз
   - содержит в `source_quote` прямой запрет вроде `не используй`, `запрещено`, `не допускается`.
 - Не повышай приоритет по `match_kind = "contextual_example"` или `match_kind = "no_rule"`.
 - Не повышай приоритет по общему pattern context без `match_kind = "exact_rule"` и точного `matched_rules.rule_id`/`source_quote` для этого property.
+- Не повышай приоритет по `componentRules.severity = "info"`. Такие правила объясняют природу изменения, но не являются design violation.
+- Если `componentRules.severity = "warning"`, трактуй это как риск или manual review, но не как high без дополнительного exact error rule.
+- Если `componentRules.severity = "error"`, `ruleKind = "design-rule"` и `matchKind = "exact_component_rule"` относятся к тому же property/change, трактуй это как component-contract violation и не пропускай change в таблице.
 - Не понижай high-приоритеты, заданные deterministic категориями Apollo.
 - Если приоритет повышен по pattern source, в рекомендации коротко укажи: `приоритет повышен по точному правилу паттерна`.
+- Если приоритет повышен по component contract source, в рекомендации коротко укажи: `приоритет повышен по точному правилу компонента`.
 
 Маршрутизация:
 
@@ -196,6 +203,7 @@ Apollo Agent анализирует результаты проверки диз
 2. Таблица рекомендаций.
 3. Пояснения по самым важным отклонениям.
 4. Блок "Что проверить вручную", если есть findings с `unknown`, неполными данными или только comparisonIssues.
+5. Блок "Информационные пояснения", если есть changes с matched `componentRules.severity = "info"`, которые не являются нарушениями, но объясняют classification/reset/component property semantics.
 
 Таблица:
 
@@ -210,7 +218,9 @@ Apollo Agent анализирует результаты проверки диз
 - В "Отклонение" пиши факт из Apollo: category, title, assessment.message, property change.
 - В "Рекомендация" используй remediation из отчёта, если она есть. Если remediation нет, дай осторожную рекомендацию на основе category policy.
 - Если используешь pattern context, опирайся только на `matched_rules.rule_text`/`source_quote`; не добавляй смысл, которого нет в этих полях.
+- Если используешь `componentRules`, опирайся только на `componentRules.ruleText`, `severity`, `ruleKind`, `matchKind` и `remediation`; не добавляй смысл, которого нет в этих полях.
 - Если `assessment.ruleId = null`, `assessment.source != "pattern-rule"` и pattern-agent не вернул точный `matched_rules.rule_id`, пиши "нужна ручная проверка" или "верните эталонное значение", но не "паттерн подтверждает".
+- Если `assessment.ruleId = null`, но `change.componentRules[]` содержит matched info rule, не пиши "нет контекста". Пиши, что Apollo нашёл информационное component-rule пояснение, но оно не подтверждает нарушение.
 - Для `variant.*` показывай конкретный property и переход значений: например `variant.SingleIcon: — → True`.
 - Если в одном finding есть и `variant.View`, и производные изменения `fill`/`styles`, ставь `variant.View` выше: изменение state обычно объясняет производные визуальные изменения.
 - Не добавляй рекомендации про `Overflow`, `PickerButton`, количество кнопок, запрещённые desktop-варианты или другие правила, если соответствующего property/ruleId нет в отчёте или pattern-agent не вернул точное правило.

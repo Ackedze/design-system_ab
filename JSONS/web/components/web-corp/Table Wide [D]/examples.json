@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-examples",
+  "componentKey": "web-corp.table-wide-d",
+  "status": "draft",
+  "examples": [
+    {
+      "exampleId": "web-corp.table-wide-d.component-property-change",
+      "title": "Table variant change should be reported as component property customization",
+      "inputChange": {
+        "property": "variant.*",
+        "node": "table family component instance"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "scope": "component-property",
+        "groupTitle": "Параметры компонента"
+      }
+    },
+    {
+      "exampleId": "web-corp.table-wide-d.layer-style-change",
+      "title": "Manual table layer style change should use effective baseline",
+      "inputChange": {
+        "property": "styles.text|fill|layout.*",
+        "node": "table row/cell nested layer"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "scope": "layer-property",
+        "groupTitle": "Параметры слоя"
+      }
+    }
+  ]
+}

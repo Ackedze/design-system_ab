@@ -58,28 +58,12 @@
     ],
     "baselinePolicy": "If a component property changed, compare manual layer overrides against the current actual component state baseline, not against the original reference state baseline."
   },
-  "rules": [
-    {
-      "ruleId": "component:web-core.button.variant-state-is-component-property",
-      "severity": "info",
-      "meaning": "View, Size, Shape, SingleIcon and DisabledState changes are first-class component property customizations."
-    },
-    {
-      "ruleId": "component:web-core.button.manual-fill-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual fill changes are layer customizations and should remain separately visible/resettable."
-    },
-    {
-      "ruleId": "component:web-core.button.manual-text-style-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual text style changes on Label or Hint are layer customizations."
-    },
-    {
-      "ruleId": "component:web-core.button.desktop-safe-variants",
-      "severity": "error",
-      "patternRuleId": "rule:controls.buttons-and-button-groups.desktop-safe-variants",
-      "meaning": "Desktop usage must not use Button variants forbidden by the button pattern. Current forbidden values in this draft: View=Accent, View=Outlined, Size=64, Size=72, Shape=Rounded."
-    }
+  "ruleReferences": [
+    "component:web-core.button.variant-state-is-component-property",
+    "component:web-core.button.manual-fill-is-layer-property",
+    "component:web-core.button.label-text-style-locked",
+    "component:web-core.button.desktop-safe-variants",
+    "component:web-core.button.desktop-hint-restricted"
   ],
   "exampleInterpretations": [
     {
@@ -94,8 +78,8 @@
     },
     {
       "case": "Label styles.text changed",
-      "agentShouldSay": "Apollo found a layer text style customization.",
-      "agentShouldNotSay": "This is a component state change."
+      "agentShouldSay": "Apollo found a Button contract violation: text style on Label or Hint must match the effective Button baseline.",
+      "agentShouldNotSay": "This is only a component state change or an allowed layer customization."
     }
   ]
 }

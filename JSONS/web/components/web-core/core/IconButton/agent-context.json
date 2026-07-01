@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-core.icon-button",
+  "status": "draft",
+  "sourceFiles": [
+    "catalog.raw.json",
+    "contract.generated.json",
+    "contract.overrides.json",
+    "rules.json",
+    "audit-mapping.json",
+    "examples.json",
+    "composition-contract.json"
+  ],
+  "summary": {
+    "componentFamily": "IconButton",
+    "library": "Web _ Core",
+    "purpose": "IconButton is a component family for icon-only actions. Apollo should treat Size, View, TransparentBg and nested Icon Type as component/part properties, and manual root/icon visual changes as layer customizations.",
+    "includedComponents": [
+      "[D] IconButton",
+      "[D] IconButton_Inverted",
+      "[M] IconButton",
+      "[M] IconButton_Inverted",
+      "🔄 [D][Corporate] IconButton",
+      "🔄 [D][Corporate] IconButton_Inverted",
+      "🔄 [M][Corporate] IconButton",
+      "🔄 [M][Corporate] IconButton_Inverted",
+      "🔩 Icon"
+    ]
+  },
+  "publicComponentProperties": {
+    "variant.Size": [
+      "24",
+      "32",
+      "40",
+      "48",
+      "56"
+    ],
+    "variant.View": [
+      "Negative",
+      "Primary",
+      "Secondary",
+      "Tertiary"
+    ],
+    "variant.TransparentBg": [
+      "False",
+      "True"
+    ],
+    "Icon.variant.Type": [
+      "Icon 16",
+      "Icon 24",
+      "Spinner 16",
+      "Spinner 24",
+      "icon-20"
+    ]
+  },
+  "anatomy": [
+    "Icon",
+    "Icon / Fixer",
+    "Icon / Fixer / PaintMe",
+    "Icon / Fixer / PaintMe / diamonds / icon"
+  ],
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.Size",
+      "variant.View",
+      "variant.TransparentBg"
+    ],
+    "partProperties": [
+      "Icon.variant.Type"
+    ],
+    "layerProperties": [
+      "fill",
+      "stroke",
+      "strokeWeight",
+      "radius",
+      "opacity",
+      "layout.padding",
+      "layout.itemSpacing"
+    ],
+    "ordering": [
+      "component-property",
+      "part-property",
+      "layer-property"
+    ],
+    "baselinePolicy": "If a component property changed and then an icon/root layer is manually customized, compare the layer against the current IconButton state baseline, not against the original reference state baseline."
+  },
+  "patternLinks": [],
+  "exampleInterpretations": [
+    {
+      "case": "view plus manual icon fill override",
+      "agentShouldSay": "Show both the View component property change and the PaintMe/icon fill layer customization, using the current View baseline for the fill.",
+      "agentShouldNotSay": "Compare the icon fill against the original View baseline or collapse the fill change into the View change."
+    }
+  ],
+  "ruleReferences": [
+    "component:web-core.icon-button.variant-state-is-component-property",
+    "component:web-core.icon-button.icon-type-is-part-property",
+    "component:web-core.icon-button.manual-root-layer-property",
+    "component:web-core.icon-button.manual-icon-fill-is-layer-property",
+    "component:web-core.icon-button.scheduled-corporate-parts-are-informational"
+  ]
+}

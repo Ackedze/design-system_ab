@@ -8,7 +8,7 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: active
-- updatedAt: 2026-06-25
+- updatedAt: 2026-06-30
 - sourceType: catalog-derived-guideline
 - tags: border-radius, corners, surfaces, controls, cards, pills, web-core, web-corp
 - figmaLink: none
@@ -89,6 +89,8 @@
 - `ContentCardWrapper`: desktop-вложенность использует `12`, mobile/large wrapper использует `24`.
 - `PromoCard`, `BenefitCard`, `BentoGrid`: крупные промо-поверхности используют `24`.
 - `StatusBadge`, `Status`, `Calendar Day`, `ScrollBar`: круглые и pill-элементы используют большие full-radius значения.
+- `WidgetPlate [D]`: внешний `[D] Style Level 1` использует `16`, вложенные `Content` и `Footer` используют `12`.
+- `Modal` и `UniversalModal`: используют собственные радиусы модальной поверхности и служебных overlay-элементов. Эти значения не переносятся на `BackgroundPlate`, `WidgetPlate` и обычные рабочие plate-поверхности.
 
 ## Section 6: Правила
 
@@ -190,13 +192,15 @@ Full radius в каталоге означает форму pill или circle, 
 - checkType: manual
 - autofix: no
 
-Внешняя поверхность должна быть округлее вложенной: `Level 1` использует `16`, `Level 2` использует `12`.
+Внешняя рабочая desktop-поверхность должна быть округлее вложенной: `Level 1` использует `16`, `Level 2` использует `12`. Для `WidgetPlate [D]` это означает `[D] Style Level 1 → 16`, а вложенные `Content` и `Footer → 12`.
 
 #### Правильно
 
 ```text
 BackgroundPlate Level 1 → radius 16
 BackgroundPlate Level 2 → radius 12
+WidgetPlate [D] / [D] Style Level 1 → radius 16
+WidgetPlate [D] / Content или Footer → radius 12
 ```
 
 #### Неправильно
@@ -204,6 +208,7 @@ BackgroundPlate Level 2 → radius 12
 ```text
 BackgroundPlate Level 1 → radius 12
 BackgroundPlate Level 2 → radius 16
+WidgetPlate [D] / [D] Style Level 1 → radius 32
 ```
 
 #### Почему
@@ -269,6 +274,37 @@ Corporate topbar control → radius 24
 
 Эти значения появляются в служебной графике и нативных деталях, а не в правилах продуктового интерфейса.
 
+### Rule 7: Не переносить modal radius на plate-поверхности
+
+- ruleId: rule:visual.border-radius.no-modal-radius-for-plates
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+`Modal` и `UniversalModal` имеют собственную геометрию overlay/modal shell. Их крупные радиусы не задают правила для `BackgroundPlate`, `WidgetPlate`, `Plate`, виджетов и обычных рабочих desktop-поверхностей.
+
+#### Правильно
+
+```text
+WidgetPlate [D] / [D] Style Level 1 → radius 16
+BackgroundPlate [D] / Style Level 1 → radius 16
+BackgroundPlate [D][Promo] / Style Level 1 → radius 24
+UniversalModal → использовать радиус, заданный самим modal-компонентом
+```
+
+#### Неправильно
+
+```text
+WidgetPlate [D] / [D] Style Level 1 → radius 32
+BackgroundPlate [D] / Style Level 1 → radius 32
+Plate в рабочем dashboard → radius modal shell
+```
+
+#### Почему
+
+Модальная поверхность изолирована от страницы и может использовать свою геометрию. Plate- и widget-поверхности участвуют в плотной desktop-сетке, поэтому должны сохранять уровни `16/12`.
+
 ## Section 7: Шаблоны
 
 ### Шаблон выбора радиуса для контрола
@@ -286,6 +322,7 @@ Corporate topbar control → radius 24
 Если поверхность внешняя: radius 16.
 Если поверхность вложенная: radius 12.
 Если поверхность promo/mobile/card: radius 24.
+Если поверхность modal/universal modal: используй радиус, заданный modal-компонентом.
 Если поверхность не имеет видимой заливки или границы: radius 0.
 ```
 
@@ -323,7 +360,15 @@ Field radius: 14
 Внутренний контейнер: BackgroundPlate Level 2 → radius 12
 ```
 
-### Пример 4: Промо-карточка
+### Пример 4: WidgetPlate в рабочем desktop-интерфейсе
+
+```text
+Компонент: WidgetPlate [D]
+[D] Style Level 1: radius 16
+Content/Footer: radius 12
+```
+
+### Пример 5: Промо-карточка
 
 ```text
 Компонент: PromoCard
@@ -331,12 +376,20 @@ Surface radius: 24
 Внутренний content wrapper: 16
 ```
 
-### Пример 5: Статусный бейдж
+### Пример 6: Статусный бейдж
 
 ```text
 Компонент: StatusBadge
 Shape: circle или pill
 Radius: full
+```
+
+### Пример 7: Модальная поверхность
+
+```text
+Компонент: Modal или UniversalModal
+Surface radius: значение из готового modal-компонента
+Не использовать этот radius для WidgetPlate или BackgroundPlate [D]
 ```
 
 ## Section 9: Антипримеры
@@ -374,24 +427,36 @@ Card surface → radius 54.37
 
 Значение не относится к продуктовой шкале и не должно использоваться в UI.
 
+### Антипример 5: Радиус modal shell на WidgetPlate
+
+```text
+WidgetPlate [D] / [D] Style Level 1 → radius 32
+```
+
+Обычная desktop-поверхность виджета должна оставаться на уровне `16`. Значения модальных и специализированных поверхностей не повышают радиус WidgetPlate.
+
 ## Section 10: Машинная обработка
 
 ### Детерминированные проверки
 
 - Проверять прямоугольные `Button`, `IconButton`, `Tag`, `FilterTag` на соответствие радиуса размеру.
 - Проверять `Shape=Rounded` у `Button`, `Tag`, `FilterTag`, `Status` на full radius.
-- Проверять `BackgroundPlate Level 1` на `16`, `BackgroundPlate Level 2` на `12`.
+- Проверять `BackgroundPlate [D] Level 1` на `16`, `BackgroundPlate [D] Level 2` на `12`.
+- Проверять `WidgetPlate [D] / [D] Style Level 1` на `16`, `Content` и `Footer` на `12`.
+- Проверять, что радиусы `Modal` и `UniversalModal` не применены к `BackgroundPlate [D]`, `WidgetPlate [D]` и обычным plate-поверхностям.
 - Проверять отсутствие full radius у `Input`, `Select`, `AmountInput`, `NumberInput`, `UniversalDateInput`.
 
 ### Словарные проверки
 
 - Искать нестандартные значения радиуса в продуктовых компонентах: дробные числа, `54.37`, `70`, `655`.
 - Искать использование `24` в dense desktop controls, tables, filters и topbar-компонентах.
+- Искать использование `32` и modal-specific радиусов в обычных desktop plate/widget-поверхностях.
 
 ### LLM-проверки
 
 - Определять роль элемента, если radius нельзя проверить только по имени компонента.
 - Проверять, не применён ли promo/mobile radius к рабочему B2B-интерфейсу.
+- Проверять, не применён ли modal/universal modal radius к обычной plate/widget-поверхности.
 - Проверять, есть ли иерархическая причина для разных радиусов внутри одного компонента.
 
 ### Не проверяется автоматически
@@ -405,4 +470,5 @@ Card surface → radius 54.37
 - Можно автоматически заменить радиус прямоугольного контрола по размерной шкале.
 - Можно автоматически заменить rounded-вариант на full radius.
 - Можно автоматически заменить `BackgroundPlate Level 1` на `16`, `Level 2` на `12`.
+- Можно автоматически заменить `WidgetPlate [D] / [D] Style Level 1` на `16`, `Content/Footer` на `12`.
 - Нельзя автоматически менять радиусы поверхностей, если роль элемента не определена однозначно.

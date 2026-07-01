@@ -77,28 +77,6 @@
     ],
     "baselinePolicy": "For nested TabsPrimary/TabsSecondary changes, compare actual against TabsView effective baseline, not standalone nested component baseline."
   },
-  "rules": [
-    {
-      "ruleId": "component:web-corp.tabs-view.skeleton-is-component-property",
-      "severity": "info",
-      "meaning": "Skeleton changes are component property changes and should be reported as first-class customizations."
-    },
-    {
-      "ruleId": "component:web-corp.tabs-view.wrapper-owned-primary-tabs-overrides",
-      "severity": "info",
-      "meaning": "TabsView owns selected layout and text-style overrides inside TabsPrimary. When actual equals TabsView effective baseline, these nested differences must not be reported as customizations."
-    },
-    {
-      "ruleId": "component:web-corp.tabs-view.manual-primary-tabs-layer-override",
-      "severity": "warning",
-      "meaning": "If a nested TabsPrimary layer differs from TabsView effective baseline, report it as a TabsView layer customization using effective baseline as reference."
-    },
-    {
-      "ruleId": "component:web-corp.tabs-view.manual-secondary-tabs-layer-override",
-      "severity": "warning",
-      "meaning": "If a nested TabsSecondary/Tag layer differs from TabsView effective baseline, report it as a TabsView layer customization using effective baseline as reference."
-    }
-  ],
   "exampleInterpretations": [
     {
       "case": "Items spacing standalone 24, TabsView effective 32, actual 32",
@@ -110,5 +88,11 @@
       "agentShouldSay": "Apollo found TabsView layer customization: spacing 32 -> 40.",
       "agentShouldNotSay": "Spacing changed 24 -> 40."
     }
+  ],
+  "ruleReferences": [
+    "component:web-corp.tabs-view.skeleton-is-component-property",
+    "component:web-corp.tabs-view.wrapper-owned-primary-tabs-overrides",
+    "component:web-corp.tabs-view.manual-primary-tabs-layer-override",
+    "component:web-corp.tabs-view.manual-secondary-tabs-layer-override"
   ]
 }

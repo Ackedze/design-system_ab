@@ -114,49 +114,18 @@
       "sourceFile": "p_amount_component.md"
     }
   ],
-  "rules": [
-    {
-      "ruleId": "component:web-core.amount-input.variant-state-is-component-property",
-      "severity": "info",
-      "meaning": "Changes to Size, FilledState, ActiveState, DisabledState, ErrorState and OuterLabel are component property changes and must be reported as first-class customizations."
-    },
-    {
-      "ruleId": "component:web-core.amount-input.manual-field-visual-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual visual/layout changes on Field are layer customizations and should be shown separately from component property changes."
-    },
-    {
-      "ruleId": "component:web-core.amount-input.manual-text-style-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual text style changes on Label, Placeholder or HintMessage are layer customizations and should be independently resettable."
-    },
-    {
-      "ruleId": "component:web-core.amount-input.amount-format-pattern-rules",
-      "severity": "error",
-      "patternRuleIds": [
-        "rule:components.amount.math-space",
-        "rule:components.amount.math-minus",
-        "rule:components.amount.no-opacity"
-      ],
-      "meaning": "Amount text/content should follow amount formatting rules: mathematical spaces, mathematical minus and no opacity for amount parts where prohibited."
-    },
-    {
-      "ruleId": "component:web-core.amount-input.label-placeholder-hint-pattern-rules",
-      "severity": "warning",
-      "patternRuleIds": [
-        "rule:controls.input-fields.noun-label",
-        "rule:controls.input-fields.no-label-colon",
-        "rule:controls.input-fields.no-placeholder-duplication",
-        "rule:controls.input-fields.short-useful-hint"
-      ],
-      "meaning": "Label, placeholder and hint text should follow input-field text rules."
-    }
-  ],
   "exampleInterpretations": [
     {
       "case": "state plus manual visual override",
       "agentShouldSay": "Show both changes and compare the layer property against current-state baseline.",
       "agentShouldNotSay": "Compare the manual layer override against the original reference state baseline."
     }
+  ],
+  "ruleReferences": [
+    "component:web-core.amount-input.variant-state-is-component-property",
+    "component:web-core.amount-input.manual-field-visual-is-layer-property",
+    "component:web-core.amount-input.manual-text-style-is-layer-property",
+    "component:web-core.amount-input.amount-format-pattern-rules",
+    "component:web-core.amount-input.label-placeholder-hint-pattern-rules"
   ]
 }

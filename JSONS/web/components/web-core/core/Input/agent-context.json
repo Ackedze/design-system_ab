@@ -105,51 +105,6 @@
       "sourceFile": "p_input-fields.md"
     }
   ],
-  "rules": [
-    {
-      "ruleId": "component:web-core.input.variant-state-is-component-property",
-      "severity": "info",
-      "meaning": "Size, FilledState, ActiveState, DisabledState, ErrorState and OuterLabel are first-class component property customizations."
-    },
-    {
-      "ruleId": "component:web-core.input.manual-field-visual-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual Field visual/layout changes are layer customizations."
-    },
-    {
-      "ruleId": "component:web-core.input.manual-text-style-is-layer-property",
-      "severity": "warning",
-      "meaning": "Manual text style changes on Label, Placeholder or HintMessage are layer customizations."
-    },
-    {
-      "ruleId": "component:web-core.input.label-text-pattern-rules",
-      "severity": "error",
-      "patternRuleIds": [
-        "rule:controls.input-fields.noun-label",
-        "rule:controls.input-fields.no-label-colon"
-      ],
-      "meaning": "Label text must name the entity and must not end with a colon."
-    },
-    {
-      "ruleId": "component:web-core.input.placeholder-pattern-rules",
-      "severity": "warning",
-      "patternRuleIds": [
-        "rule:controls.input-fields.no-placeholder-duplication",
-        "rule:controls.input-fields.use-mask-for-known-format"
-      ],
-      "meaning": "Placeholder should add format/mask/context and should not duplicate the label."
-    },
-    {
-      "ruleId": "component:web-core.input.hint-error-pattern-rules",
-      "severity": "warning",
-      "patternRuleIds": [
-        "rule:controls.input-fields.short-useful-hint",
-        "rule:controls.input-fields.empty-validation-formulas",
-        "rule:controls.input-fields.human-error-message"
-      ],
-      "meaning": "Hint/error text should be short, useful and human-readable."
-    }
-  ],
   "exampleInterpretations": [
     {
       "case": "variant.ErrorState False -> True",
@@ -166,5 +121,14 @@
       "agentShouldSay": "This needs pattern-based text review using input-fields no-label-colon rule.",
       "agentShouldNotSay": "This is a visual customization."
     }
+  ],
+  "ruleReferences": [
+    "component:web-core.input.variant-state-is-component-property",
+    "component:web-core.input.manual-field-visual-is-layer-property",
+    "component:web-core.input.manual-text-style-is-layer-property",
+    "component:web-core.input.desktop-label-placement",
+    "component:web-core.input.label-text-pattern-rules",
+    "component:web-core.input.placeholder-pattern-rules",
+    "component:web-core.input.hint-error-pattern-rules"
   ]
 }
