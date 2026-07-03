@@ -1,6 +1,7 @@
 # Pattern: StatusScreen
 
 - documentType: pattern
+- component: StatusScreen
 - patternId: ptrn:components.status-screen
 - patternKey: components.status-screen
 - productType: cross-product

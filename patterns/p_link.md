@@ -1,6 +1,7 @@
 # Pattern: Link
 
 - documentType: pattern
+- component: Link
 - patternId: ptrn:components.link
 - patternKey: components.link
 - productType: alfa-business

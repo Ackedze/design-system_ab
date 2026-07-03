@@ -1,6 +1,7 @@
 # Pattern: Компонент Amount
 
 - documentType: pattern
+- component: Amount
 - patternId: ptrn:components.amount
 - patternKey: components.amount
 - productType: cross-product
