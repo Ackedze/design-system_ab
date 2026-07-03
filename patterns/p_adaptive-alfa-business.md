@@ -1,6 +1,7 @@
 # Pattern: Адаптив в Альфа-Бизнес
 
 - documentType: pattern
+- patternType: layout
 - patternId: ptrn:layout.adaptive-alfa-business
 - patternKey: layout.adaptive-alfa-business
 - productType: alfa-business

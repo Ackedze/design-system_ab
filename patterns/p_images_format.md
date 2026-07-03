@@ -1,6 +1,7 @@
 # Pattern: Картинки и их форматы
 
 - documentType: pattern
+- patternType: media
 - patternId: ptrn:media.images-and-formats
 - patternKey: media.images-and-formats
 - productType: cross-product

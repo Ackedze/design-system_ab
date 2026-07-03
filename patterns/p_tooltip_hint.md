@@ -1,6 +1,7 @@
 # Pattern: Tooltip и Hint
 
 - documentType: pattern
+- patternType: controls
 - patternId: ptrn:controls.tooltip-hint
 - patternKey: controls.tooltip-hint
 - productType: cross-product

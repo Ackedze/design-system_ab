@@ -1,6 +1,7 @@
 # Pattern: Кнопки и группы кнопок
 
 - documentType: pattern
+- patternType: controls
 - patternId: ptrn:controls.buttons-and-button-groups
 - patternKey: controls.buttons-and-button-groups
 - productType: cross-product

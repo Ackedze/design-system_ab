@@ -1,6 +1,7 @@
 # Pattern: Форматирование данных в таблице
 
 - documentType: pattern
+- patternType: table
 - patternId: ptrn:tables.data-formatting
 - patternKey: tables.data-formatting
 - productType: cross-product

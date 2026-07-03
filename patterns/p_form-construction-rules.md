@@ -1,6 +1,7 @@
 # Pattern: Правила построения форм
 
 - documentType: pattern
+- patternType: forms
 - patternId: ptrn:forms.construction-rules
 - patternKey: forms.construction-rules
 - productType: alfa-business

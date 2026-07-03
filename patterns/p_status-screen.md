@@ -1,6 +1,7 @@
 # Pattern: StatusScreen
 
 - documentType: pattern
+- patternType: component
 - component: StatusScreen
 - patternId: ptrn:components.status-screen
 - patternKey: components.status-screen

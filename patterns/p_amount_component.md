@@ -1,6 +1,7 @@
 # Pattern: Компонент Amount
 
 - documentType: pattern
+- patternType: component
 - component: Amount
 - patternId: ptrn:components.amount
 - patternKey: components.amount

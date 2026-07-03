@@ -1,6 +1,7 @@
 # Pattern: Поля ввода
 
 - documentType: pattern
+- patternType: controls
 - patternId: ptrn:controls.input-fields
 - patternKey: controls.input-fields
 - productType: cross-product

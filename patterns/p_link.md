@@ -1,6 +1,7 @@
 # Pattern: Link
 
 - documentType: pattern
+- patternType: component
 - component: Link
 - patternId: ptrn:components.link
 - patternKey: components.link

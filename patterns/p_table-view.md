@@ -1,6 +1,7 @@
 # Pattern: TableView
 
 - documentType: pattern
+- patternType: component
 - component: TableView
 - patternId: ptrn:components.table-view
 - patternKey: components.table-view

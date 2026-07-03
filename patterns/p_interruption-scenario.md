@@ -1,6 +1,7 @@
 # Pattern: Прерывание сценария
 
 - documentType: pattern
+- patternType: flow
 - patternId: ptrn:flow.interruption-scenario
 - patternKey: flow.interruption-scenario
 - productType: cross-product

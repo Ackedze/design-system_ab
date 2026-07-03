@@ -1,6 +1,7 @@
 # Pattern: Статусная модель
 
 - documentType: pattern
+- patternType: ux
 - patternId: ptrn:ux.status-model
 - patternKey: ux.status-model
 - productType: cross-product

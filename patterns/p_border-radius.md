@@ -1,6 +1,7 @@
 # Pattern: Скругления
 
 - documentType: pattern
+- patternType: visual
 - patternId: ptrn:visual.border-radius
 - patternKey: visual.border-radius
 - productType: cross-product

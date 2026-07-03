@@ -1,6 +1,7 @@
 # Pattern: Header, SideMenu и HeaderMenu
 
 - documentType: pattern
+- patternType: component
 - component: Header, SideMenu, HeaderMenu
 - patternId: ptrn:components.corporate-app-navigation
 - patternKey: components.corporate-app-navigation

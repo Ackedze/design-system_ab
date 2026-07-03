@@ -1,6 +1,7 @@
 # Pattern: Островки в Альфа-Бизнес
 
 - documentType: pattern
+- patternType: layout
 - patternId: ptrn:layout.islands
 - patternKey: layout.islands
 - productType: alfa-business
