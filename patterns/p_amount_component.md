@@ -10,7 +10,7 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: draft
-- updatedAt: 2026-05-26
+- updatedAt: 2026-07-05
 - sourceType: component-guideline
 - tags: amount, currency, numeric-data, tables, table-lists, side-panel, input, typography, color, formatting
 - figmaLink: https://www.figma.com/design/VcHkzjFmNGCbKpO2YFCogJ/%E2%9C%85-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82----Amount?m=auto&t=yxdKGIY4gfsWChEc-7
@@ -20,7 +20,7 @@
 
 Amount — компонент для отображения денежных сумм и других числовых данных с размерностью в интерфейсах.
 
-Паттерн фиксирует структуру компонента, правила настройки частей суммы, требования к типографике, цвету, математическим знакам, пробелам и использованию Amount в таблицах, табличных списках, steps, `TableBulkActions`, input и сайд-панели.
+Паттерн фиксирует структуру компонента, правила настройки `Operation`, частей суммы, требования к типографике, цвету, математическим знакам, пробелам и использованию Amount в таблицах, табличных списках, steps, `TableBulkActions`, input и сайд-панели.
 
 ## Section 2: Когда использовать
 
@@ -41,21 +41,28 @@ Amount — компонент для отображения денежных с�
 ## Section 4: Принципы
 
 1. `Major` — обязательная часть Amount.
-2. `Minor`, `Currency` и `Addon` опциональны и включаются через пропсы.
-3. `Addon` вставляется через слот и должен соответствовать высоте строки `Major`.
-4. Для `Minor` не используется opacity.
-5. Между разрядами используется математический пробел.
-6. Для отрицательных значений используется математический минус.
-7. Цвет `text/positive` допустим для пополнений только в таблицах и табличных списках.
+2. `Operation` располагается перед суммой и отвечает за отображение знака операции.
+3. `Negative=True` показывает отрицательную операцию, `Negative=False` — положительную.
+4. `Minor`, `Currency` и `Addon` опциональны и включаются через пропсы.
+5. `Addon` вставляется через слот и должен соответствовать высоте строки `Major`.
+6. Все текстовые части компонента должны использовать один text style.
+7. Для `Minor` не используется opacity.
+8. Между разрядами используется математический пробел.
+9. Для отрицательных значений используется математический минус.
+10. Цвет `text/positive` допустим для пополнений только в таблицах и табличных списках.
 
 ## Section 5: Структура текста
 
-Amount состоит из обязательной целой части `Major` и опциональных частей `Minor`, `Currency`, `Addon`.
+Amount состоит из первой части `Operation`, обязательной целой части `Major` и опциональных частей `Minor`, `Currency`, `Addon`.
 
 ```text
-1 234 567,00 ₽
-Major Minor Currency
++1 234 567,00 ₽
+Operation Major Minor Currency
 ```
+
+`Operation` управляет знаком операции: при `Negative=True` отображается отрицательный знак, при `Negative=False` — положительный. Если сценарий не должен показывать знак операции, `Operation` не выводится.
+
+`Operation`, `Major`, `Minor` и `Currency` должны использовать один и тот же text style внутри одного экземпляра Amount. Начертание и размер выбираются для всего Amount по роли значения: например, основная сумма в таблице может быть `Medium`, а второстепенная — `Regular`, но части одной суммы не должны получать разные text styles.
 
 Если валюта указана в заголовке колонки и все суммы в колонке в одной валюте, валюту в значениях не дублируют.
 
@@ -89,7 +96,34 @@ Amount всегда должен содержать `Major` — основную
 
 Без `Major` сумма теряет основное значение и становится нечитаемой.
 
-### Rule 2: Подключай Minor, Currency и Addon как опциональные части
+### Rule 2: Настраивай Operation через Negative
+
+- ruleId: rule:components.amount.operation-negative
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: no
+
+`Operation` располагается перед суммой и отвечает за знак операции. Для отрицательной операции используй `Negative=True`, для положительной — `Negative=False`.
+
+#### Правильно
+
+```text
+Operation Negative=True -> −
+Operation Negative=False -> +
+```
+
+#### Неправильно
+
+```text
+Знак операции набран вручную отдельным текстовым слоем
+```
+
+#### Почему
+
+Знак операции должен управляться настройкой компонента, а не ручным текстом.
+
+### Rule 3: Подключай Minor, Currency и Addon как опциональные части
 
 - ruleId: rule:components.amount.optional-parts
 - severity: warning
@@ -115,7 +149,39 @@ Addon вручную не совпадает с line-height Major
 
 Опциональные части должны сохранять компонентную структуру и высоту строки.
 
-### Rule 3: Не используй opacity для Minor и Currency
+### Rule 4: Используй один text style для всех текстовых частей Amount
+
+- ruleId: rule:components.amount.same-text-style-for-parts
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+`Operation`, `Major`, `Minor` и `Currency` внутри одного экземпляра Amount должны использовать один и тот же text style.
+
+#### Правильно
+
+```text
+Operation -> Medium 16/24
+Major -> Medium 16/24
+Minor -> Medium 16/24
+Currency -> Medium 16/24
+```
+
+#### Неправильно
+
+```text
+Operation -> Medium 16/24
+Major -> Medium 16/24
+Minor -> Regular 14/20
+Currency -> Regular 14/20
+```
+
+#### Почему
+
+Части одной суммы образуют единое числовое значение. Разные text styles внутри суммы ломают чтение и создают ложную иерархию.
+
+### Rule 5: Не используй opacity для Minor и Currency
 
 - ruleId: rule:components.amount.no-opacity
 - severity: error
@@ -142,7 +208,7 @@ minor :: opacity :: true
 
 Opacity ухудшает читаемость суммы и создаёт лишнюю визуальную иерархию внутри одного значения.
 
-### Rule 4: Используй математический пробел между разрядами
+### Rule 6: Используй математический пробел между разрядами
 
 - ruleId: rule:components.amount.math-space
 - severity: error
@@ -168,7 +234,7 @@ Opacity ухудшает читаемость суммы и создаёт ли�
 
 Математический пробел точнее соответствует форматированию числовых данных и не ломает визуальный ритм суммы.
 
-### Rule 5: Используй математический минус
+### Rule 7: Используй математический минус
 
 - ruleId: rule:components.amount.math-minus
 - severity: error
@@ -194,7 +260,7 @@ Opacity ухудшает читаемость суммы и создаёт ли�
 
 Математический минус корректен для числового значения и визуально отличается от текстового тире.
 
-### Rule 6: Используй text/positive только для пополнений в таблицах и табличных списках
+### Rule 8: Используй text/positive только для пополнений в таблицах и табличных списках
 
 - ruleId: rule:components.amount.positive-color-context
 - severity: error
@@ -220,7 +286,7 @@ Opacity ухудшает читаемость суммы и создаёт ли�
 
 Зелёный цвет должен подсвечивать пополнение только там, где пользователь сравнивает операции.
 
-### Rule 7: Не окрашивай списания в красный
+### Rule 9: Не окрашивай списания в красный
 
 - ruleId: rule:components.amount.negative-primary
 - severity: error
@@ -246,7 +312,7 @@ Opacity ухудшает читаемость суммы и создаёт ли�
 
 Списание уже обозначено знаком минуса. Красный создаёт лишний тревожный статус.
 
-### Rule 8: В таблицах выравнивай Amount по правому краю
+### Rule 10: В таблицах выравнивай Amount по правому краю
 
 - ruleId: rule:components.amount.table-align-right
 - severity: error
@@ -272,7 +338,7 @@ Amount -> align left
 
 Правое выравнивание помогает сравнивать разряды и суммы.
 
-### Rule 9: Настраивай начертание Amount в таблицах по роли значения
+### Rule 11: Настраивай начертание Amount в таблицах по роли значения
 
 - ruleId: rule:components.amount.table-weight
 - severity: warning
@@ -299,7 +365,7 @@ Amount -> align left
 
 Начертание помогает отличить основное значение от дополнительного.
 
-### Rule 10: Не дублируй валюту, если она вынесена в заголовок
+### Rule 12: Не дублируй валюту, если она вынесена в заголовок
 
 - ruleId: rule:components.amount.table-currency-not-duplicated
 - severity: warning
@@ -329,7 +395,7 @@ Amount -> align left
 
 Повтор валюты в каждой ячейке создаёт визуальный шум.
 
-### Rule 11: В TableBulkActions не используй знаки и цвет операции
+### Rule 13: В TableBulkActions не используй знаки и цвет операции
 
 - ruleId: rule:components.amount.table-bulk-actions
 - severity: error
@@ -355,7 +421,7 @@ Amount -> align left
 
 В массовых действиях Amount показывает выбранное значение, а не должен кодировать операцию цветом и знаком.
 
-### Rule 12: В steps используй только Regular
+### Rule 14: В steps используй только Regular
 
 - ruleId: rule:components.amount.steps-regular
 - severity: warning
@@ -382,7 +448,7 @@ Amount в steps -> Medium
 
 В steps сумма не должна спорить с основной структурой шага.
 
-### Rule 13: В табличных списках различай общую сумму и остальные суммы
+### Rule 15: В табличных списках различай общую сумму и остальные суммы
 
 - ruleId: rule:components.amount.table-list-weight
 - severity: warning
@@ -409,7 +475,7 @@ Amount в steps -> Medium
 
 Разное начертание помогает пользователю быстро найти итог.
 
-### Rule 14: В сайд-панели повторяй формат со страницы
+### Rule 16: В сайд-панели повторяй формат со страницы
 
 - ruleId: rule:components.amount.side-panel-match-source
 - severity: warning
@@ -442,6 +508,7 @@ Amount в steps -> Medium
 ### Базовый Amount
 
 ```text
+Operation: знак операции через Negative
 Major: обязательный
 Minor: опциональный
 Currency: опциональная
@@ -458,6 +525,12 @@ Addon: опциональный слот
 
 ```text
 −1 234 567,00 ₽
+```
+
+### Единый text style частей суммы
+
+```text
+Operation, Major, Minor, Currency -> один text style
 ```
 
 ### Таблица с валютой в заголовке
@@ -509,6 +582,14 @@ Addon: опциональный слот
 
 Баланс или остаток отображается без знака операции.
 
+### Пример 5: Единый text style
+
+```text
+Operation, Major, Minor, Currency -> Medium 16/24
+```
+
+Все части суммы используют один text style, потому что относятся к одному значению.
+
 ## Section 9: Антипримеры
 
 ### Антипример 1: Opacity для Minor
@@ -554,12 +635,25 @@ Opacity для `Minor` не используется.
 
 В `TableBulkActions` знаки `+` и `−` не используются.
 
+### Антипример 6: Разные text styles внутри суммы
+
+```text
+Operation -> Medium 16/24
+Major -> Medium 16/24
+Minor -> Regular 14/20
+Currency -> Regular 14/20
+```
+
+Все текстовые части одной суммы должны использовать один text style.
+
 ## Section 10: Машинная обработка
 
 ### Детерминированные проверки
 
 - Проверять наличие `Major`.
+- Проверять, что `Operation` управляет знаком операции через `Negative=True` или `Negative=False`.
 - Проверять, что `Minor`, `Currency` и `Addon` подключены через настройки компонента.
+- Проверять единый text style для `Operation`, `Major`, `Minor` и `Currency`.
 - Проверять `minor opacity = false`.
 - Проверять `currency opacity = false` в таблицах и заголовочных стилях.
 - Проверять математический пробел между разрядами.

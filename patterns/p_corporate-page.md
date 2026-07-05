@@ -21,7 +21,7 @@
 
 ## Section 1: Определение
 
-`CorporatePage` - целевой компонент страницы продукта в Альфа-Бизнесе. Внутри сборки находятся навигация `CorporateAppHeaderNew` и содержимое страницы `CorporateContent` / `Content`.
+`CorporatePage` - целевой компонент страницы продукта в Альфа-Бизнесе. Внутри сборки находятся навигация `CorporateAppHeaderNew` и содержимое страницы `CorporateContent`.
 
 Компонент задаёт базовую структуру страницы, широкую сетку, слоты для контента и поведение при переключении ключевых разрешений экрана.
 
@@ -56,8 +56,9 @@
 4. Правильно собранный экран на переменных автоматически перестраивается на другие разрешения.
 5. Таблицы и сложные кастомные блоки могут требовать ручной доработки после перестроения.
 6. `[D] SideMenu` и `[D] Header` нельзя detach-ить.
-7. `Content` и `Body` собраны на слотах, их тоже нельзя detach-ить.
-8. Отступ между блоками задаётся переменной `Gutter`.
+7. Контент странцы размещается в слоте `Body`.
+8. `CorporatePage` нельзя detach-ить.
+9. Отступ между блоками задаётся переменной `Gutter`.
 
 ## Section 5: Структура текста
 
@@ -83,7 +84,7 @@
 - checkType: llm
 - autofix: no
 
-Для страницы продукта в Альфа-Бизнесе используйте актуальный `CorporatePage`, внутри которого находятся `CorporateAppHeaderNew` и `Content`.
+Для страницы продукта в Альфа-Бизнесе используйте актуальный `CorporatePage`, внутри которого находятся компоненты `SideMenu`, `Header` или `HeaderMenu`, `CorporateContent`.
 
 #### Правильно
 
@@ -156,31 +157,42 @@ Max content width: 1248 px
 
 Wide grid - актуальный стандарт для продуктовых страниц Альфа-Бизнеса.
 
-### Rule 4: Включайте режим сетки через Shift + G
+### Rule 4: `Header` и `CorporateContent` располагаются в одном вертикальном автолейауте с отступом 0 px
 
-- ruleId: rule:components.corporate-page.grid-mode-hotkey
-- severity: recommendation
+- ruleId: rule:components.corporate-page.header-content-autolayout
+- severity: error
 - appliesTo: screen
-- checkType: manual
+- checkType: llm
 - autofix: no
 
-Горячие клавиши `Shift + G` включают отображение сетки с 12 колонками. Для каждого ключевого размера экрана есть свой preset страницы и отдельная сетка.
+Страница делится на две зоны в горизонтальном автолейауте. Слева располагается `SideMenu`, справа — единый вертикальный контейнер, внутри которого `Header` стоит над `CorporateContent` с отступом `0 px`.
 
 #### Правильно
 
 ```text
-Shift + G -> 12-column grid visible
+CorporatePage
+Horizontal auto layout
+Left: SideMenu
+Right: Vertical auto layout, gap 0 px
+  Header
+  CorporateContent
 ```
 
 #### Неправильно
 
 ```text
-Сетка проверяется вручную без включения grid mode.
+CorporatePage
+Horizontal auto layout
+Left: SideMenu
+Right:
+  Header вынесен отдельно
+  CorporateContent расположен в другом контейнере
+  Между Header и CorporateContent задан gap 16 px
 ```
 
 #### Почему
 
-Включённая сетка помогает проверить привязку контента к колонкам.
+`Header` и `CorporateContent` образуют единую правую рабочую область страницы. Если разделить их по разным контейнерам или добавить вертикальный отступ, ломается структура CorporatePage, появляются лишние зазоры и страница хуже адаптируется к сетке.
 
 ### Rule 5: Переключайте размер страницы через D Grid & Cols
 
@@ -578,3 +590,7 @@ Complex block width: manual 873 px
 - Заменить ручной отступ между блоками на `Gutter`, если доступна переменная.
 - Пометить старый grid mode как `Wide`, если макет актуализируется.
 - Удалить `SwapMe`, если в `Body` уже есть пользовательский контент.
+
+```
+
+```
