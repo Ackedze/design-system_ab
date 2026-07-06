@@ -1,0 +1,3739 @@
+{
+  "schemaVersion": 1,
+  "reportKind": "apollo-agent-report",
+  "reportId": "apollo-1623983682034249875-1783339641510-8ql2boqd:agent",
+  "sourceReportId": "apollo-1623983682034249875-1783339641510-8ql2boqd",
+  "generatedAt": "2026-07-06T12:07:21.510Z",
+  "suggestedFileName": "Danila-Gonuzov_06-07-2026_15-07-21_agent.json",
+  "user": {
+    "id": "1623983682034249875",
+    "name": "Danila Gonuzov",
+    "slug": "Danila-Gonuzov"
+  },
+  "plugin": {
+    "name": "Apollo",
+    "version": "0.1.38"
+  },
+  "figma": {
+    "fileKey": null,
+    "fileName": "Компоненты выбора",
+    "editorType": "figma"
+  },
+  "scan": {
+    "channel": "Android",
+    "startedAt": "2026-07-06T12:07:11.326Z",
+    "finishedAt": "2026-07-06T12:07:21.510Z",
+    "durationMs": 10184,
+    "selection": [
+      {
+        "nodeId": "7174:45474",
+        "name": "Заявка на торговый эквайринг",
+        "nodeType": "FRAME",
+        "path": "Примеры / Заявка на торговый эквайринг",
+        "componentKey": null
+      }
+    ],
+    "settings": {
+      "shellAuditEnabled": false
+    }
+  },
+  "summary": {
+    "scannedComponents": 54,
+    "problemOccurrenceCount": 24,
+    "categoryCounts": {
+      "deprecatedComponents": 1,
+      "deprecatedStyles": 0,
+      "customStyles": 3,
+      "updates": 0,
+      "customizations": 19,
+      "localComponents": 0,
+      "detachedComponents": 0,
+      "presets": 1,
+      "technicalComponents": 0,
+      "currentComponents": 47,
+      "wrongChannel": 0,
+      "themization": 0
+    },
+    "includedFindingCount": 24,
+    "omittedCurrentComponentCount": 47
+  },
+  "guidance": {
+    "purpose": "Use this compact Apollo audit report to compare deterministic audit facts with design-system patterns and produce prioritized recommendations.",
+    "expectedOutput": "Return a table-like recommendation list with priority, affected area, evidence, rationale, and suggested next action.",
+    "notes": [
+      "Apollo facts are deterministic audit output; do not reinterpret expected/allowed customization changes as problems.",
+      "currentComponents are intentionally omitted from findings and represented only as coverage counts.",
+      "Variant/state changes with properties starting with variant. are first-class evidence and should be surfaced explicitly before derived visual changes.",
+      "Values of properties starting with variant. are component state labels, not user-facing copy. Do not apply copywriting/status wording patterns to them unless an exact rule targets the same variant property and value change.",
+      "Status model wording rules apply to visible text/content fields, not to component variant labels such as variant.Type=Processing.",
+      "When referenceValue is null, phrase the change as an observed state without a reference baseline rather than as a confirmed pattern violation.",
+      "Do not infer additional pattern violations from a nearby pattern unless the change has assessment.ruleId or an exact matched rule for that property.",
+      "For customization findings, use change.node as the affected nested layer/component; finding.node is the audited root selection.",
+      "For customization findings, each item in finding.changes is an independent recommendation candidate. If one finding contains several changes, evaluate every change separately instead of selecting only the first or most visible change.",
+      "Every change with assessment.verdict=violation must appear in the main recommendation table as its own row, even when the same finding also contains another pattern violation.",
+      "Every change with a componentRules entry where ruleKind=design-rule, severity=error, and matchKind=exact_component_rule must appear in the main recommendation table as its own row. Use the component contract ruleId as the evidence when no pattern link exists.",
+      "If the recommendation table is shortened, never omit high-priority exact pattern violations or component-contract design-rule violations.",
+      "When rendering values, use change.referenceValue and change.actualValue as the human-readable values. Raw technical ids are preserved separately in referenceRawValue and actualRawValue for evidence only.",
+      "Do not invent usage rationale, action examples, or allowed scenarios that are not present in this report or in an exact pattern source quote.",
+      "If assessment.ruleId is null, do not write \"the pattern confirms\" unless an external pattern lookup returned an exact rule for the same property.",
+      "If a pattern source states a prohibition, do not rewrite it as conditional permission.",
+      "When exact pattern context is available, include the pattern name and link in the recommendation table.",
+      "Pattern examples and anti-examples are not rules; treat them as contextual_example unless an explicit rule text covers the same property/change.",
+      "You may raise severity only when pattern lookup returns match_kind=exact_rule for the same property/change and the exact rule has severity=error or an explicit prohibition in the source quote.",
+      "You may also raise severity when change.componentRules contains a component-contract design-rule with severity=error and matchKind=exact_component_rule for the same property/change.",
+      "Do not raise severity for change.componentRules with severity=info; mention them as classification/context notes for the same change instead of treating them as violations.",
+      "Do not omit a reported customization only because all matched componentRules are info-level. Surface it as an informational explanation, a manual-check item, or merge it explicitly with a related violation.",
+      "If assessment.ruleId is null but change.componentRules contains matched info rules, do not say there is no context; say the component rule explains classification but does not confirm a violation.",
+      "When pattern lookup returns match_kind=no_rule or found=false, do not use pattern-agent rationale as a rule; still provide an Apollo-based manual-check recommendation without claiming pattern confirmation.",
+      "The presets category is informational. Preset usage is allowed by default and must not be reported as a violation unless there is a separate customization finding or exact rule for the changed preset property.",
+      "Do not recommend replacing preset components with base components solely because the component appears in the presets category.",
+      "Use node.id and node.path as evidence anchors for manual follow-up in Figma."
+    ]
+  },
+  "categorySummaries": {
+    "deprecatedComponents": {
+      "totalCount": 1,
+      "includedCount": 1,
+      "severityHint": "high"
+    },
+    "deprecatedStyles": {
+      "totalCount": 0,
+      "includedCount": 0,
+      "severityHint": "medium"
+    },
+    "customStyles": {
+      "totalCount": 3,
+      "includedCount": 3,
+      "severityHint": "medium"
+    },
+    "updates": {
+      "totalCount": 0,
+      "includedCount": 0,
+      "severityHint": "medium"
+    },
+    "customizations": {
+      "totalCount": 19,
+      "includedCount": 19,
+      "severityHint": "medium"
+    },
+    "localComponents": {
+      "totalCount": 0,
+      "includedCount": 0,
+      "severityHint": "high"
+    },
+    "detachedComponents": {
+      "totalCount": 0,
+      "includedCount": 0,
+      "severityHint": "high"
+    },
+    "presets": {
+      "totalCount": 1,
+      "includedCount": 1,
+      "severityHint": "low"
+    },
+    "technicalComponents": {
+      "totalCount": 0,
+      "includedCount": 0,
+      "severityHint": "low"
+    },
+    "wrongChannel": {
+      "totalCount": 0,
+      "includedCount": 0,
+      "severityHint": "high"
+    },
+    "themization": {
+      "totalCount": 0,
+      "includedCount": 0,
+      "severityHint": "high"
+    }
+  },
+  "findings": [
+    {
+      "category": "deprecatedComponents",
+      "severityHint": "high",
+      "title": "Устаревший компонент",
+      "node": {
+        "id": "I7174:45476;11:276361;11:276509",
+        "name": "❌.Glyph",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Header / TopAppBar / PageHeader / .RegularTopAppBar_New / Set / ❌.Glyph",
+        "visible": true
+      },
+      "component": {
+        "name": "❌.Glyph",
+        "key": "670d5ec8e95c6e7151c69427aef2332141c16e30",
+        "library": "Android :: Controls",
+        "sourceFile": "abm/android/Controls/Android _ Controls -- TopAppBar (сейчас реализован через ToolBar).json"
+      },
+      "variant": {
+        "name": "❌.Glyph",
+        "key": "670d5ec8e95c6e7151c69427aef2332141c16e30"
+      },
+      "comparisonIssues": []
+    },
+    {
+      "category": "customStyles",
+      "severityHint": "medium",
+      "title": "Кастомный стиль или raw-значение",
+      "node": {
+        "id": "I7174:46416;9392:148584;1429:93009;1429:93918",
+        "name": "Knob",
+        "type": "VECTOR",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / SelectionWrapper / ContentGroup / VerticalPaddingsGroup / ContentGroup / Switch / Knob",
+        "visible": true
+      },
+      "style": {
+        "name": "1dp — Elevation",
+        "key": "d35e836cb561e91ffa4a18f4107386516602afbe",
+        "library": null,
+        "sourceFile": null
+      },
+      "usage": "effect:Тень (Drop shadow)"
+    },
+    {
+      "category": "customStyles",
+      "severityHint": "medium",
+      "title": "Кастомный стиль или raw-значение",
+      "node": {
+        "id": "I7174:46416;9392:148584;1429:93009;1429:93918",
+        "name": "Knob",
+        "type": "VECTOR",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / SelectionWrapper / ContentGroup / VerticalPaddingsGroup / ContentGroup / Switch / Knob",
+        "visible": true
+      },
+      "style": {
+        "name": "1dp — Elevation",
+        "key": "d35e836cb561e91ffa4a18f4107386516602afbe",
+        "library": null,
+        "sourceFile": null
+      },
+      "usage": "effect:Тень (Drop shadow)"
+    },
+    {
+      "category": "customStyles",
+      "severityHint": "medium",
+      "title": "Кастомный стиль или raw-значение",
+      "node": {
+        "id": "I7174:46416;9392:148584;1429:93009;1429:93918",
+        "name": "Knob",
+        "type": "VECTOR",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / SelectionWrapper / ContentGroup / VerticalPaddingsGroup / ContentGroup / Switch / Knob",
+        "visible": true
+      },
+      "style": {
+        "name": "1dp — Elevation",
+        "key": "d35e836cb561e91ffa4a18f4107386516602afbe",
+        "library": null,
+        "sourceFile": null
+      },
+      "usage": "effect:Тень (Drop shadow)"
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:45476",
+        "name": "TopAppBar / PageHeader",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Header / TopAppBar / PageHeader",
+        "visible": true
+      },
+      "component": {
+        "name": "TopAppBar / PageHeader",
+        "key": "3f4e07f2d5cc34e014fc7bf5388c8180092276e8",
+        "library": "Android :: Controls",
+        "sourceFile": "abm/android/Controls/Android _ Controls -- TopAppBar (сейчас реализован через ToolBar).json"
+      },
+      "variant": {
+        "name": "Type=TitleSubtitle, Actions=Empty, Theme=Light",
+        "key": "3f4e07f2d5cc34e014fc7bf5388c8180092276e8"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:45476",
+            "name": "TopAppBar / PageHeader",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "Type=TitleSubtitle, Actions=Empty, Theme=Light",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/bg/primary → base-bg/primary",
+          "referenceValue": "light/bg/primary",
+          "actualValue": "base-bg/primary",
+          "referenceRawValue": "light/bg/primary",
+          "actualRawValue": "base-bg/primary",
+          "referenceDisplayValue": "light/bg/primary",
+          "actualDisplayValue": "base-bg/primary",
+          "referenceResource": {
+            "name": "light/bg/primary",
+            "key": "4ebfb8f1d236d6a150a43b63b8d2f518e1a0c277",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:45476;11:276361;11:276519",
+            "name": "_title",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "Type=TitleSubtitle, Actions=Empty, Theme=Light / .RegularTopAppBar_New / Header / _title",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/text/primary → text/primary",
+          "referenceValue": "light/text/primary",
+          "actualValue": "text/primary",
+          "referenceRawValue": "light/text/primary",
+          "actualRawValue": "text/primary",
+          "referenceDisplayValue": "light/text/primary",
+          "actualDisplayValue": "text/primary",
+          "referenceResource": {
+            "name": "light/text/primary",
+            "key": "6313f5ef73de1fb787861cd6e0408c77214b7898",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:45476;11:276361;11:276523",
+            "name": "_subtitle",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "Type=TitleSubtitle, Actions=Empty, Theme=Light / .RegularTopAppBar_New / Header / Subtitle_wrapper / _subtitle",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: S:1b8613640628a40784bed99b53d734a767511eb0,4431:40 → text/secondary",
+          "referenceValue": "S:1b8613640628a40784bed99b53d734a767511eb0,4431:40",
+          "actualValue": "text/secondary",
+          "referenceRawValue": "S:1b8613640628a40784bed99b53d734a767511eb0,4431:40",
+          "actualRawValue": "text/secondary",
+          "referenceDisplayValue": "S:1b8613640628a40784bed99b53d734a767511eb0,4431:40",
+          "actualDisplayValue": "text/secondary",
+          "referenceResource": {
+            "name": "S:1b8613640628a40784bed99b53d734a767511eb0,4431:40",
+            "key": "1b8613640628a40784bed99b53d734a767511eb0",
+            "library": null,
+            "sourceFile": null
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:45944",
+        "name": "HorizontalHistogramViewV1 (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / HorizontalHistogramViewV1 (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "HorizontalHistogramViewV1 (🤖 12.11)",
+        "key": "939ff5086ae044c16e97c378297251188ad044a7",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- HorizontalHistogramView.json"
+      },
+      "variant": {
+        "name": "Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False",
+        "key": "939ff5086ae044c16e97c378297251188ad044a7"
+      },
+      "comparisonIssues": [
+        "Нет данных для заливка в снапшоте для «Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False / SegmentsList / Segment / 👻 <float>»",
+        "Нет данных для заливка в снапшоте для «Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False / SegmentsList / Segment / 👻 <float>@@2»",
+        "Нет данных для заливка в снапшоте для «Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False / SegmentsList / Segment / 👻 <float>@@3»",
+        "Нет данных для заливка в снапшоте для «Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False / SegmentsList / Segment / 👻 <float>@@4»",
+        "Нет данных для заливка в снапшоте для «Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False / SegmentsList / Segment / 👻 <float>@@5»",
+        "Нет данных для заливка в снапшоте для «Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False / SegmentsList / Segment / 👻 <float>@@6»"
+      ],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:45944",
+            "name": "HorizontalHistogramViewV1 (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.top",
+          "message": "Паддинг top: 0 → 16",
+          "referenceValue": 0,
+          "actualValue": 16,
+          "referenceRawValue": 0,
+          "actualRawValue": 16,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 16,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:45944",
+            "name": "HorizontalHistogramViewV1 (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 0 → 16",
+          "referenceValue": 0,
+          "actualValue": 16,
+          "referenceRawValue": 0,
+          "actualRawValue": 16,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 16,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:45944",
+            "name": "HorizontalHistogramViewV1 (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 8",
+          "referenceValue": 0,
+          "actualValue": 8,
+          "referenceRawValue": 0,
+          "actualRawValue": 8,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 8,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:45944",
+            "name": "HorizontalHistogramViewV1 (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "Size=XS (4), 👻 Skeleton=False, 👻 IsEmpty=False",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 0 → 16",
+          "referenceValue": 0,
+          "actualValue": 16,
+          "referenceRawValue": 0,
+          "actualRawValue": 16,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 16,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:45970",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:45970",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:45970",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 8",
+          "referenceValue": 0,
+          "actualValue": 8,
+          "referenceRawValue": 0,
+          "actualRawValue": 8,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 8,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:45970",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:45970;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "text-style",
+          "property": "styles.text",
+          "message": "Стиль текст: S:a56326db7289c3d768daef34c723111114cc96a6,4541:422 → S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualValue": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceRawValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualRawValue": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceDisplayValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualDisplayValue": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceResource": {
+            "name": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+            "key": "a56326db7289c3d768daef34c723111114cc96a6",
+            "library": null,
+            "sourceFile": null
+          },
+          "actualResource": {
+            "name": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+            "key": "9572e4b0a606616771c7bef63da9397e2229bc8f",
+            "library": null,
+            "sourceFile": null
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:45970;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "fill",
+          "message": "заливка: text/primary → text/secondary",
+          "referenceValue": "text/primary",
+          "actualValue": "text/secondary",
+          "referenceRawValue": "text/primary",
+          "actualRawValue": "text/secondary",
+          "referenceDisplayValue": "text/primary",
+          "actualDisplayValue": "text/secondary",
+          "referenceResource": {
+            "name": "text/primary",
+            "key": "53f842b1771349c5dca692351edfc422e8f081b5",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "actualResource": {
+            "name": "text/secondary",
+            "key": "d9d26239617e3ab9e69d7ed378d811a3c4561063",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:45994",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:45994",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.top",
+          "message": "Паддинг top: 0 → 24",
+          "referenceValue": 0,
+          "actualValue": 24,
+          "referenceRawValue": 0,
+          "actualRawValue": 24,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 24,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:45994",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:45994",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 12",
+          "referenceValue": 0,
+          "actualValue": 12,
+          "referenceRawValue": 0,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:45994",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:45994;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "text-style",
+          "property": "styles.text",
+          "message": "Стиль текст: S:a56326db7289c3d768daef34c723111114cc96a6,4541:422 → S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceRawValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualRawValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceDisplayValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualDisplayValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceResource": {
+            "name": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+            "key": "a56326db7289c3d768daef34c723111114cc96a6",
+            "library": null,
+            "sourceFile": null
+          },
+          "actualResource": {
+            "name": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+            "key": "39ce31750b5528592f342f2f1cc40c8a3e1b70a1",
+            "library": null,
+            "sourceFile": null
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46039",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:46039",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46039",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 12",
+          "referenceValue": 0,
+          "actualValue": 12,
+          "referenceRawValue": 0,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46039",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46067",
+        "name": "TextField",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextField",
+        "visible": true
+      },
+      "component": {
+        "name": "TextField",
+        "key": "0820c0a0c2ee314525499195356b2a3f42bd7d59",
+        "library": "Android :: Controls",
+        "sourceFile": "abm/android/Controls/Android _ Controls -- TextField.json"
+      },
+      "variant": {
+        "name": "State=default, isSingleline=true, textFieldVariant=default, showError=false",
+        "key": "0820c0a0c2ee314525499195356b2a3f42bd7d59"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "I7174:46067;521:275157",
+            "name": "ContentGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46067;521:275157",
+            "name": "ContentGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46067;521:275158",
+            "name": "LabelGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 4 → 0",
+          "referenceValue": 4,
+          "actualValue": 0,
+          "referenceRawValue": 4,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 4,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46067;521:275158",
+            "name": "LabelGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 4 → 0",
+          "referenceValue": 4,
+          "actualValue": 0,
+          "referenceRawValue": 4,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 4,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46067;521:275159",
+            "name": "label",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup / label",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/text/secondary → text/secondary",
+          "referenceValue": "light/text/secondary",
+          "actualValue": "text/secondary",
+          "referenceRawValue": "light/text/secondary",
+          "actualRawValue": "text/secondary",
+          "referenceDisplayValue": "light/text/secondary",
+          "actualDisplayValue": "text/secondary",
+          "referenceResource": {
+            "name": "light/text/secondary",
+            "key": "ab4b1fccce920cdd000d57d17a62ca54630cc922",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46067;521:275160",
+            "name": "InputGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / InputGroup",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/bg/secondary → neutral-translucent/100",
+          "referenceValue": "light/bg/secondary",
+          "actualValue": "neutral-translucent/100",
+          "referenceRawValue": "light/bg/secondary",
+          "actualRawValue": "neutral-translucent/100",
+          "referenceDisplayValue": "light/bg/secondary",
+          "actualDisplayValue": "neutral-translucent/100",
+          "referenceResource": {
+            "name": "light/bg/secondary",
+            "key": "005ccc3dbfacc14b33cca9d819568715b908500b",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46067;575:273195;27:48110;150844:115779",
+            "name": "icon",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / InputGroup / (n)ImageView / IconElementView / ContentGroup / ImageView / chevron-down / icon",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "fill",
+          "message": "заливка: rgba(144,50,238,1) → neutral-translucent/700",
+          "referenceValue": "rgba(144,50,238,1)",
+          "actualValue": "neutral-translucent/700",
+          "referenceRawValue": "rgba(144,50,238,1)",
+          "actualRawValue": "neutral-translucent/700",
+          "referenceDisplayValue": "rgba(144,50,238,1)",
+          "actualDisplayValue": "neutral-translucent/700",
+          "referenceResource": null,
+          "actualResource": {
+            "name": "neutral-translucent/700",
+            "key": "faac436b14cc199cfe97243b05af867af9ecb365",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46146",
+        "name": "TextField",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextField",
+        "visible": true
+      },
+      "component": {
+        "name": "TextField",
+        "key": "0820c0a0c2ee314525499195356b2a3f42bd7d59",
+        "library": "Android :: Controls",
+        "sourceFile": "abm/android/Controls/Android _ Controls -- TextField.json"
+      },
+      "variant": {
+        "name": "State=default, isSingleline=true, textFieldVariant=default, showError=false",
+        "key": "0820c0a0c2ee314525499195356b2a3f42bd7d59"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "I7174:46146;521:275157",
+            "name": "ContentGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46146;521:275157",
+            "name": "ContentGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46146;521:275158",
+            "name": "LabelGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 4 → 0",
+          "referenceValue": 4,
+          "actualValue": 0,
+          "referenceRawValue": 4,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 4,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46146;521:275158",
+            "name": "LabelGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 4 → 0",
+          "referenceValue": 4,
+          "actualValue": 0,
+          "referenceRawValue": 4,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 4,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46146;521:275159",
+            "name": "label",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup / label",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/text/secondary → text/secondary",
+          "referenceValue": "light/text/secondary",
+          "actualValue": "text/secondary",
+          "referenceRawValue": "light/text/secondary",
+          "actualRawValue": "text/secondary",
+          "referenceDisplayValue": "light/text/secondary",
+          "actualDisplayValue": "text/secondary",
+          "referenceResource": {
+            "name": "light/text/secondary",
+            "key": "ab4b1fccce920cdd000d57d17a62ca54630cc922",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46146;521:275160",
+            "name": "InputGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / InputGroup",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/bg/secondary → neutral-translucent/100",
+          "referenceValue": "light/bg/secondary",
+          "actualValue": "neutral-translucent/100",
+          "referenceRawValue": "light/bg/secondary",
+          "actualRawValue": "neutral-translucent/100",
+          "referenceDisplayValue": "light/bg/secondary",
+          "actualDisplayValue": "neutral-translucent/100",
+          "referenceResource": {
+            "name": "light/bg/secondary",
+            "key": "005ccc3dbfacc14b33cca9d819568715b908500b",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46201",
+        "name": "TextField",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextField",
+        "visible": true
+      },
+      "component": {
+        "name": "TextField",
+        "key": "0820c0a0c2ee314525499195356b2a3f42bd7d59",
+        "library": "Android :: Controls",
+        "sourceFile": "abm/android/Controls/Android _ Controls -- TextField.json"
+      },
+      "variant": {
+        "name": "State=default, isSingleline=true, textFieldVariant=default, showError=false",
+        "key": "0820c0a0c2ee314525499195356b2a3f42bd7d59"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "I7174:46201;521:275157",
+            "name": "ContentGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46201;521:275157",
+            "name": "ContentGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46201;521:275158",
+            "name": "LabelGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 4 → 0",
+          "referenceValue": 4,
+          "actualValue": 0,
+          "referenceRawValue": 4,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 4,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46201;521:275158",
+            "name": "LabelGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 4 → 0",
+          "referenceValue": 4,
+          "actualValue": 0,
+          "referenceRawValue": 4,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 4,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46201;521:275159",
+            "name": "label",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup / label",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/text/secondary → text/secondary",
+          "referenceValue": "light/text/secondary",
+          "actualValue": "text/secondary",
+          "referenceRawValue": "light/text/secondary",
+          "actualRawValue": "text/secondary",
+          "referenceDisplayValue": "light/text/secondary",
+          "actualDisplayValue": "text/secondary",
+          "referenceResource": {
+            "name": "light/text/secondary",
+            "key": "ab4b1fccce920cdd000d57d17a62ca54630cc922",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46201;521:275160",
+            "name": "InputGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / InputGroup",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/bg/secondary → neutral-translucent/100",
+          "referenceValue": "light/bg/secondary",
+          "actualValue": "neutral-translucent/100",
+          "referenceRawValue": "light/bg/secondary",
+          "actualRawValue": "neutral-translucent/100",
+          "referenceDisplayValue": "light/bg/secondary",
+          "actualDisplayValue": "neutral-translucent/100",
+          "referenceResource": {
+            "name": "light/bg/secondary",
+            "key": "005ccc3dbfacc14b33cca9d819568715b908500b",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46215",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:46215",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.top",
+          "message": "Паддинг top: 0 → 24",
+          "referenceValue": 0,
+          "actualValue": 24,
+          "referenceRawValue": 0,
+          "actualRawValue": 24,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 24,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46215",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46215",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 12",
+          "referenceValue": 0,
+          "actualValue": 12,
+          "referenceRawValue": 0,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46215",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46215;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "text-style",
+          "property": "styles.text",
+          "message": "Стиль текст: S:a56326db7289c3d768daef34c723111114cc96a6,4541:422 → S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceRawValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualRawValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceDisplayValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualDisplayValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceResource": {
+            "name": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+            "key": "a56326db7289c3d768daef34c723111114cc96a6",
+            "library": null,
+            "sourceFile": null
+          },
+          "actualResource": {
+            "name": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+            "key": "39ce31750b5528592f342f2f1cc40c8a3e1b70a1",
+            "library": null,
+            "sourceFile": null
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46238",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:46238",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46238",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 12",
+          "referenceValue": 0,
+          "actualValue": 12,
+          "referenceRawValue": 0,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46238",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46416",
+        "name": "SelectionWrapper",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / SelectionWrapper",
+        "visible": true
+      },
+      "component": {
+        "name": "SelectionWrapper",
+        "key": "1aee721eccd7d664b876fd1fb1a220b0f1d258a2",
+        "library": "Android :: Wrappers",
+        "sourceFile": "abm/android/Wrappers/Android _ Wrappers -- SelectionWrapper.json"
+      },
+      "variant": {
+        "name": "👻 Preset=default, ControlType=switch, ControlSide=end, ControlPadding=default",
+        "key": "1aee721eccd7d664b876fd1fb1a220b0f1d258a2"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "I7174:46416;9392:148584;1429:93009;1429:93917",
+            "name": "Rail",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Preset=default, ControlType=switch, ControlSide=end, ControlPadding=default / ContentGroup / VerticalPaddingsGroup / ContentGroup / Switch / Rail",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/graphic/tertiary → neutral-translucent/500",
+          "referenceValue": "light/graphic/tertiary",
+          "actualValue": "neutral-translucent/500",
+          "referenceRawValue": "light/graphic/tertiary",
+          "actualRawValue": "neutral-translucent/500",
+          "referenceDisplayValue": "light/graphic/tertiary",
+          "actualDisplayValue": "neutral-translucent/500",
+          "referenceResource": {
+            "name": "light/graphic/tertiary",
+            "key": "1c713987d3c1f38150c5fc293d5a437cfe0acaae",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46416;9392:148584;1429:93009;1429:93918",
+            "name": "Knob",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Preset=default, ControlType=switch, ControlSide=end, ControlPadding=default / ContentGroup / VerticalPaddingsGroup / ContentGroup / Switch / Knob",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/graphic/primary → neutral/700",
+          "referenceValue": "light/graphic/primary",
+          "actualValue": "neutral/700",
+          "referenceRawValue": "light/graphic/primary",
+          "actualRawValue": "neutral/700",
+          "referenceDisplayValue": "light/graphic/primary",
+          "actualDisplayValue": "neutral/700",
+          "referenceResource": {
+            "name": "light/graphic/primary",
+            "key": "8c5ec1a5d6949a0d8d6535d6446095e35485ad36",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46416;9392:148584;1429:93009",
+            "name": "Switch",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Preset=default, ControlType=switch, ControlSide=end, ControlPadding=default / ContentGroup / VerticalPaddingsGroup / ContentGroup / Switch",
+            "visible": true
+          },
+          "kind": "other",
+          "property": "variant.isSelected",
+          "message": "isSelected: true → false",
+          "referenceValue": "true",
+          "actualValue": "false",
+          "referenceRawValue": "true",
+          "actualRawValue": "false",
+          "referenceDisplayValue": "true",
+          "actualDisplayValue": "false",
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [
+            {
+              "ruleId": "component:web-core.switch.variant-state-is-component-property",
+              "severity": "info",
+              "source": "component-contract",
+              "ruleKind": null,
+              "severityScope": null,
+              "appliesTo": "variant.*",
+              "checkType": "deterministic",
+              "matchKind": null,
+              "ruleText": "Изменения SelectedState, DisabledState, Reverse и Hint являются component property changes и должны показываться как самостоятельные customizations.",
+              "remediation": null
+            }
+          ],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46444",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:46444",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.top",
+          "message": "Паддинг top: 0 → 24",
+          "referenceValue": 0,
+          "actualValue": 24,
+          "referenceRawValue": 0,
+          "actualRawValue": 24,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 24,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46444",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46444",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 12",
+          "referenceValue": 0,
+          "actualValue": 12,
+          "referenceRawValue": 0,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46444",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46444;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "text-style",
+          "property": "styles.text",
+          "message": "Стиль текст: S:a56326db7289c3d768daef34c723111114cc96a6,4541:422 → S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceRawValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualRawValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceDisplayValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualDisplayValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceResource": {
+            "name": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+            "key": "a56326db7289c3d768daef34c723111114cc96a6",
+            "library": null,
+            "sourceFile": null
+          },
+          "actualResource": {
+            "name": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+            "key": "39ce31750b5528592f342f2f1cc40c8a3e1b70a1",
+            "library": null,
+            "sourceFile": null
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7230:17757",
+        "name": "StackView / AccountSelection",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / StackView / AccountSelection",
+        "visible": true
+      },
+      "component": {
+        "name": "StackView / AccountSelection",
+        "key": "7bb30e788a05b1f5db60ead669dbd06d3fae8daa",
+        "library": "Android :: Wrappers",
+        "sourceFile": "abm/android/Wrappers/Android _ Wrappers -- StackView (StackWrapper).json"
+      },
+      "variant": {
+        "name": "👻 CellType=default",
+        "key": "7bb30e788a05b1f5db60ead669dbd06d3fae8daa"
+      },
+      "comparisonIssues": [
+        "Нет данных для token padding top в снапшоте для «👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewB / ContentGroup / FirstLine / Title»",
+        "Нет данных для token padding bottom в снапшоте для «👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewB / ContentGroup / FirstLine / Title»",
+        "Нет данных для token padding top в снапшоте для «👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewB / ContentGroup / SecondLine / Subtitle»",
+        "Нет данных для token padding bottom в снапшоте для «👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewB / ContentGroup / SecondLine / Subtitle»"
+      ],
+      "changes": [
+        {
+          "node": {
+            "id": "7230:17757",
+            "name": "StackView / AccountSelection",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 CellType=default",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7230:17757",
+            "name": "StackView / AccountSelection",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 CellType=default",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7230:17757;32549:25811;7171:27241;52578:72660",
+            "name": "Subtract",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewA / ContentGroup / Subtract",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "fill",
+          "message": "заливка: neutral-translucent/100 → neutral/1300",
+          "referenceValue": "neutral-translucent/100",
+          "actualValue": "neutral/1300",
+          "referenceRawValue": "neutral-translucent/100",
+          "actualRawValue": "neutral/1300",
+          "referenceDisplayValue": "neutral-translucent/100",
+          "actualDisplayValue": "neutral/1300",
+          "referenceResource": {
+            "name": "neutral-translucent/100",
+            "key": "8981b6bfc89935b939b249245e60158b88ca252e",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "actualResource": {
+            "name": "neutral/1300",
+            "key": "d8fdd2d33bde75b054a497055e53d61a7553c3e3",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7230:17757;32549:25811;7171:27241;52578:72665;100839:15255",
+            "name": "icon",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewA / ContentGroup / ImageView / Icon / icon",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "fill",
+          "message": "заливка: neutral/1300 → neutral-translucent_inverted/1300",
+          "referenceValue": "neutral/1300",
+          "actualValue": "neutral-translucent_inverted/1300",
+          "referenceRawValue": "neutral/1300",
+          "actualRawValue": "neutral-translucent_inverted/1300",
+          "referenceDisplayValue": "neutral/1300",
+          "actualDisplayValue": "neutral-translucent_inverted/1300",
+          "referenceResource": {
+            "name": "neutral/1300",
+            "key": "d8fdd2d33bde75b054a497055e53d61a7553c3e3",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "actualResource": {
+            "name": "neutral-translucent_inverted/1300",
+            "key": "40c66e4914c6bc4528e459831c0fe21731462d9d",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7230:17757;32549:25811;7171:27242",
+            "name": "ContentViewB",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewB",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.top",
+          "message": "Паддинг top: 16 → 0",
+          "referenceValue": 16,
+          "actualValue": 0,
+          "referenceRawValue": 16,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7230:17757;32549:25811;7171:27242",
+            "name": "ContentViewB",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewB",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 16 → 0",
+          "referenceValue": 16,
+          "actualValue": 0,
+          "referenceRawValue": 16,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7230:17757;32549:25811;7171:27242;65861:8585",
+            "name": "SecondLine",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewB / ContentGroup / SecondLine",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.itemSpacing",
+          "message": "Отступ между элементами: 16 → 8",
+          "referenceValue": 16,
+          "actualValue": 8,
+          "referenceRawValue": 16,
+          "actualRawValue": 8,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 8,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7230:17757;32549:25811;7171:27243;52578:72671;9260:652",
+            "name": "icon",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 CellType=default / 🎨 ContentGroup / StackWrapper (🤖🟦 12.11) / 🎨 ContentGroup / ContentViewC / ContentGroup / ImageView / Icon / icon",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "fill",
+          "message": "заливка: neutral/1300 → neutral-translucent/700",
+          "referenceValue": "neutral/1300",
+          "actualValue": "neutral-translucent/700",
+          "referenceRawValue": "neutral/1300",
+          "actualRawValue": "neutral-translucent/700",
+          "referenceDisplayValue": "neutral/1300",
+          "actualDisplayValue": "neutral-translucent/700",
+          "referenceResource": {
+            "name": "neutral/1300",
+            "key": "d8fdd2d33bde75b054a497055e53d61a7553c3e3",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "actualResource": {
+            "name": "neutral-translucent/700",
+            "key": "faac436b14cc199cfe97243b05af867af9ecb365",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46472",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:46472",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46472",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46472;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "text-style",
+          "property": "styles.text",
+          "message": "Стиль текст: S:a56326db7289c3d768daef34c723111114cc96a6,4541:422 → S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualValue": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceRawValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualRawValue": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceDisplayValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualDisplayValue": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceResource": {
+            "name": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+            "key": "a56326db7289c3d768daef34c723111114cc96a6",
+            "library": null,
+            "sourceFile": null
+          },
+          "actualResource": {
+            "name": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+            "key": "9572e4b0a606616771c7bef63da9397e2229bc8f",
+            "library": null,
+            "sourceFile": null
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46472;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "fill",
+          "message": "заливка: text/primary → text/secondary",
+          "referenceValue": "text/primary",
+          "actualValue": "text/secondary",
+          "referenceRawValue": "text/primary",
+          "actualRawValue": "text/secondary",
+          "referenceDisplayValue": "text/primary",
+          "actualDisplayValue": "text/secondary",
+          "referenceResource": {
+            "name": "text/primary",
+            "key": "53f842b1771349c5dca692351edfc422e8f081b5",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "actualResource": {
+            "name": "text/secondary",
+            "key": "d9d26239617e3ab9e69d7ed378d811a3c4561063",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46482",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:46482",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46482",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 12",
+          "referenceValue": 0,
+          "actualValue": 12,
+          "referenceRawValue": 0,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46482",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46482;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "text-style",
+          "property": "styles.text",
+          "message": "Стиль текст: S:a56326db7289c3d768daef34c723111114cc96a6,4541:422 → S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualValue": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceRawValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualRawValue": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceDisplayValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualDisplayValue": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+          "referenceResource": {
+            "name": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+            "key": "a56326db7289c3d768daef34c723111114cc96a6",
+            "library": null,
+            "sourceFile": null
+          },
+          "actualResource": {
+            "name": "S:9572e4b0a606616771c7bef63da9397e2229bc8f,4587:456",
+            "key": "9572e4b0a606616771c7bef63da9397e2229bc8f",
+            "library": null,
+            "sourceFile": null
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46482;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "fill",
+          "message": "заливка: text/primary → text/info",
+          "referenceValue": "text/primary",
+          "actualValue": "text/info",
+          "referenceRawValue": "text/primary",
+          "actualRawValue": "text/info",
+          "referenceDisplayValue": "text/primary",
+          "actualDisplayValue": "text/info",
+          "referenceResource": {
+            "name": "text/primary",
+            "key": "53f842b1771349c5dca692351edfc422e8f081b5",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "actualResource": {
+            "name": "text/info",
+            "key": "373a7154059297e96c397d0055152b95685c34d5",
+            "library": "Interface Dynamic",
+            "sourceFile": "001 :: Interface Dynamic Colors"
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46564",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:46564",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.top",
+          "message": "Паддинг top: 0 → 24",
+          "referenceValue": 0,
+          "actualValue": 24,
+          "referenceRawValue": 0,
+          "actualRawValue": 24,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 24,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46564",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46564",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 12",
+          "referenceValue": 0,
+          "actualValue": 12,
+          "referenceRawValue": 0,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46564",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46564;48583:46457",
+            "name": "Value",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill / ContentGroup / Value",
+            "visible": true
+          },
+          "kind": "text-style",
+          "property": "styles.text",
+          "message": "Стиль текст: S:a56326db7289c3d768daef34c723111114cc96a6,4541:422 → S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceRawValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualRawValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceDisplayValue": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+          "actualDisplayValue": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+          "referenceResource": {
+            "name": "S:a56326db7289c3d768daef34c723111114cc96a6,4541:422",
+            "key": "a56326db7289c3d768daef34c723111114cc96a6",
+            "library": null,
+            "sourceFile": null
+          },
+          "actualResource": {
+            "name": "S:39ce31750b5528592f342f2f1cc40c8a3e1b70a1,4541:419",
+            "key": "39ce31750b5528592f342f2f1cc40c8a3e1b70a1",
+            "library": null,
+            "sourceFile": null
+          },
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46587",
+        "name": "TextLabel (🤖 12.11)",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextLabel (🤖 12.11)",
+        "visible": true
+      },
+      "component": {
+        "name": "TextLabel (🤖 12.11)",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d",
+        "library": "Android :: Views",
+        "sourceFile": "abm/android/Views/Android _ Views -- TextLabel.json"
+      },
+      "variant": {
+        "name": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+        "key": "89b9cf2a71b07155b947abc241e70530a456985d"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:46587",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46587",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 0 → 12",
+          "referenceValue": 0,
+          "actualValue": 12,
+          "referenceRawValue": 0,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 0,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46587",
+            "name": "TextLabel (🤖 12.11)",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "👻 Skeleton=False, TextAlignment=Left, 👻 HorizontalSize=Fixed / Fill",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46650",
+        "name": "TextField",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / TextField",
+        "visible": true
+      },
+      "component": {
+        "name": "TextField",
+        "key": "0820c0a0c2ee314525499195356b2a3f42bd7d59",
+        "library": "Android :: Controls",
+        "sourceFile": "abm/android/Controls/Android _ Controls -- TextField.json"
+      },
+      "variant": {
+        "name": "State=default, isSingleline=true, textFieldVariant=default, showError=false",
+        "key": "0820c0a0c2ee314525499195356b2a3f42bd7d59"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "I7174:46650;521:275157",
+            "name": "ContentGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46650;521:275157",
+            "name": "ContentGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 20",
+          "referenceValue": 16,
+          "actualValue": 20,
+          "referenceRawValue": 16,
+          "actualRawValue": 20,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 20,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46650;521:275158",
+            "name": "LabelGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 4 → 0",
+          "referenceValue": 4,
+          "actualValue": 0,
+          "referenceRawValue": 4,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 4,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46650;521:275158",
+            "name": "LabelGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 4 → 0",
+          "referenceValue": 4,
+          "actualValue": 0,
+          "referenceRawValue": 4,
+          "actualRawValue": 0,
+          "referenceDisplayValue": 4,
+          "actualDisplayValue": 0,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46650;521:275159",
+            "name": "label",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / LabelGroup / label",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/text/secondary → text/secondary",
+          "referenceValue": "light/text/secondary",
+          "actualValue": "text/secondary",
+          "referenceRawValue": "light/text/secondary",
+          "actualRawValue": "text/secondary",
+          "referenceDisplayValue": "light/text/secondary",
+          "actualDisplayValue": "text/secondary",
+          "referenceResource": {
+            "name": "light/text/secondary",
+            "key": "ab4b1fccce920cdd000d57d17a62ca54630cc922",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46650;521:275160",
+            "name": "InputGroup",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "State=default, isSingleline=true, textFieldVariant=default, showError=false / ContentGroup / InputGroup",
+            "visible": true
+          },
+          "kind": "paint",
+          "property": "styles.fill",
+          "message": "Стиль заливка: light/bg/secondary → neutral-translucent/100",
+          "referenceValue": "light/bg/secondary",
+          "actualValue": "neutral-translucent/100",
+          "referenceRawValue": "light/bg/secondary",
+          "actualRawValue": "neutral-translucent/100",
+          "referenceDisplayValue": "light/bg/secondary",
+          "actualDisplayValue": "neutral-translucent/100",
+          "referenceResource": {
+            "name": "light/bg/secondary",
+            "key": "005ccc3dbfacc14b33cca9d819568715b908500b",
+            "library": "020 :: Colors BlueTint Light",
+            "sourceFile": "styles/020 _ Colors BlueTint Light.json"
+          },
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "customizations",
+      "severityHint": "medium",
+      "title": "Неподтверждённая кастомизация",
+      "node": {
+        "id": "7174:46718",
+        "name": "ButtonViewV2 (🤖🟦 12.14) / PrimaryRectangleShape",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / ButtonViewV2 (🤖🟦 12.14) / PrimaryRectangleShape",
+        "visible": true
+      },
+      "component": {
+        "name": "ButtonViewV2 (🤖 12.14) / PrimaryRectangleShape",
+        "key": "231682924f92fa4a810e56cf06954c5c73f537c1",
+        "library": "Android :: Controls",
+        "sourceFile": "abm/android/Controls/Android _ Controls -- ButtonView.json"
+      },
+      "variant": {
+        "name": "IsEnabled=True, 👻 IsHighlighted=False, Height=56, IsTextsFill=False",
+        "key": "231682924f92fa4a810e56cf06954c5c73f537c1"
+      },
+      "comparisonIssues": [],
+      "changes": [
+        {
+          "node": {
+            "id": "7174:46718",
+            "name": "ButtonViewV2 (🤖🟦 12.14) / PrimaryRectangleShape",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "IsEnabled=True, 👻 IsHighlighted=False, Height=56, IsTextsFill=False",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.top",
+          "message": "Паддинг top: 8 → 16",
+          "referenceValue": 8,
+          "actualValue": 16,
+          "referenceRawValue": 8,
+          "actualRawValue": 16,
+          "referenceDisplayValue": 8,
+          "actualDisplayValue": 16,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46718",
+            "name": "ButtonViewV2 (🤖🟦 12.14) / PrimaryRectangleShape",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "IsEnabled=True, 👻 IsHighlighted=False, Height=56, IsTextsFill=False",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 20 → 16",
+          "referenceValue": 20,
+          "actualValue": 16,
+          "referenceRawValue": 20,
+          "actualRawValue": 16,
+          "referenceDisplayValue": 20,
+          "actualDisplayValue": 16,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46718",
+            "name": "ButtonViewV2 (🤖🟦 12.14) / PrimaryRectangleShape",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "IsEnabled=True, 👻 IsHighlighted=False, Height=56, IsTextsFill=False",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.bottom",
+          "message": "Паддинг bottom: 8 → 16",
+          "referenceValue": 8,
+          "actualValue": 16,
+          "referenceRawValue": 8,
+          "actualRawValue": 16,
+          "referenceDisplayValue": 8,
+          "actualDisplayValue": 16,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "7174:46718",
+            "name": "ButtonViewV2 (🤖🟦 12.14) / PrimaryRectangleShape",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "IsEnabled=True, 👻 IsHighlighted=False, Height=56, IsTextsFill=False",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 20 → 16",
+          "referenceValue": 20,
+          "actualValue": 16,
+          "referenceRawValue": 20,
+          "actualRawValue": 16,
+          "referenceDisplayValue": 20,
+          "actualDisplayValue": 16,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46718;30527:31489",
+            "name": "Title_Statable",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "IsEnabled=True, 👻 IsHighlighted=False, Height=56, IsTextsFill=False / 🎨 ContentGroup / TextLabelsStack / Title_Statable",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.right",
+          "message": "Паддинг right: 16 → 12",
+          "referenceValue": 16,
+          "actualValue": 12,
+          "referenceRawValue": 16,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        },
+        {
+          "node": {
+            "id": "I7174:46718;30527:31489",
+            "name": "Title_Statable",
+            "type": null,
+            "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+            "path": "IsEnabled=True, 👻 IsHighlighted=False, Height=56, IsTextsFill=False / 🎨 ContentGroup / TextLabelsStack / Title_Statable",
+            "visible": true
+          },
+          "kind": "layout",
+          "property": "layout.padding.left",
+          "message": "Паддинг left: 16 → 12",
+          "referenceValue": 16,
+          "actualValue": 12,
+          "referenceRawValue": 16,
+          "actualRawValue": 12,
+          "referenceDisplayValue": 16,
+          "actualDisplayValue": 12,
+          "referenceResource": null,
+          "actualResource": null,
+          "componentRules": [],
+          "assessment": {
+            "verdict": "unknown",
+            "source": "standalone-reference",
+            "reasonCode": "no-contextual-expectation",
+            "ruleId": null,
+            "message": "Контекстное правило не найдено",
+            "remediation": null
+          }
+        }
+      ]
+    },
+    {
+      "category": "presets",
+      "severityHint": "low",
+      "title": "Preset-компонент",
+      "node": {
+        "id": "I7174:46416;9392:148584",
+        "name": "ContentGroup",
+        "type": "INSTANCE",
+        "pageName": "✅ Компоненты выбора :: Версия 2.0 :: 26.06.2026",
+        "path": "Примеры / Заявка на торговый эквайринг / Content / SelectionWrapper / ContentGroup",
+        "visible": true
+      },
+      "component": {
+        "name": "ContentGroup",
+        "key": "ff4d4e70a487524b63f3b0a254e6ecb2f43161bd",
+        "library": "Android :: Wrappers",
+        "sourceFile": "abm/android/Wrappers/Android _ Wrappers -- SelectionWrapper.json"
+      },
+      "variant": {
+        "name": "🔒 ControlSide=end, 🔒 ControlPadding=default",
+        "key": "ff4d4e70a487524b63f3b0a254e6ecb2f43161bd"
+      },
+      "comparisonIssues": []
+    }
+  ]
+}
