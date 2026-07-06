@@ -10,7 +10,7 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: draft
-- updatedAt: 2026-07-05
+- updatedAt: 2026-07-06
 - sourceType: component-guideline
 - tags: backgroundplate, background, plate, container, level, overlay, adaptive, skeleton, web-corp
 - figmaLink: none
@@ -71,6 +71,7 @@
 8. `Border` используется как декоративный вариант и не может быть кликабельным.
 9. Кликабельность активируется только в коде компонента.
 10. В адаптиве вложенные конструкции требуют ручной проверки уровня и внутренних отступов.
+11. Базовые `padding` могут иметь любое значение из spacing-шкалы, но должны задаваться через токены `Spacing`.
 
 ## Section 5: Структура текста
 
@@ -89,6 +90,8 @@ Skeleton: False | True
 Для `Level 2` доступны `Primary`, `Colored`, `Border`. `Secondary` для `Level 2` не используется.
 
 `BackgroundPlateSlot` содержит слот для контента. Внутренние отступы слота берутся из компонента и не заменяются ручной геометрией, кроме адаптивных случаев, где по гайду нужно вручную убрать внутренние `32 px`.
+
+Базовые `padding` могут отличаться по сценарию, но каждое значение должно быть задано через токены `Spacing`: `0`, `1`, `2`, `4`, `6`, `8`, `12`, `16`, `20`, `24`, `32`, `40`, `48`, `56`, `64`, `72`, `80`, `96`, `128`, `256`.
 
 ## Section 6: Правила
 
@@ -364,6 +367,37 @@ BackgroundPlate скрыт, вместо него добавлены ручны�
 
 Встроенный skeleton сохраняет структуру, скругления, фон и размеры компонента.
 
+### Rule 11: Задавай padding через токены Spacing
+
+- ruleId: rule:components.background-plate.padding-uses-spacing-tokens
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+Базовые `padding` у `BackgroundPlate` могут быть любыми по значению, но должны задаваться через токены из `Spacing.json`.
+
+#### Правильно
+
+```text
+padding-left: Spacing/16
+padding-right: Spacing/24
+padding-top: Spacing/32
+padding-bottom: Spacing/32
+```
+
+#### Неправильно
+
+```text
+padding-left: 16 px вручную
+padding-right: 24 px вручную
+padding-top: 30 px без токена
+```
+
+#### Почему
+
+Padding может адаптироваться под сценарий, но токены сохраняют единую spacing-шкалу и позволяют агенту отличать допустимую настройку компонента от ручной геометрии.
+
 ## Section 7: Шаблоны
 
 ### Внешняя подложка
@@ -400,6 +434,14 @@ Adaptive без внешнего Level 1: Level 2 -> Level 1
 Adaptive: убрать лишние внутренние 32 px
 ```
 
+### Padding через токены
+
+```text
+BackgroundPlateSlot
+padding: Spacing/<token>
+allowed tokens: 0, 1, 2, 4, 6, 8, 12, 16, 20, 24, 32, 40, 48, 56, 64, 72, 80, 96, 128, 256
+```
+
 ## Section 8: Примеры
 
 ### Пример 1: основной блок на сером фоне
@@ -432,6 +474,16 @@ clickable=false
 ```text
 Desktop: реквизиты внутри Level 2
 Adaptive: Level 2 заменён на Level 1, внутренние 32 px убраны
+```
+
+### Пример 5: произвольный padding через токен
+
+```text
+BackgroundPlateSlot
+padding-top: Spacing/24
+padding-right: Spacing/32
+padding-bottom: Spacing/24
+padding-left: Spacing/32
 ```
 
 ## Section 9: Антипримеры
@@ -473,6 +525,14 @@ Level 2 без Level 1
 внутренние 32 px остались
 ```
 
+### Антипример 6: ручной padding без токена
+
+```text
+BackgroundPlateSlot
+padding: 30 px
+padding-left: 16 px вручную без Spacing token
+```
+
 ## Section 10: Машинная обработка
 
 ### Детерминированные проверки
@@ -484,12 +544,15 @@ Level 2 без Level 1
 - Проверять запрет `Type=Secondary` для `Position=Level 2 (inner)`.
 - Проверять, что `Type=Border` не помечен как clickable.
 - Проверять, что loading-состояние использует `Skeleton=True`.
+- Проверять, что `layout.padding.*` у `BackgroundPlate` и `BackgroundPlateSlot` задан через токены `Spacing`.
+- Проверять, что значения `layout.padding.*` входят в набор `0`, `1`, `2`, `4`, `6`, `8`, `12`, `16`, `20`, `24`, `32`, `40`, `48`, `56`, `64`, `72`, `80`, `96`, `128`, `256`.
 
 ### Словарные проверки
 
 - Находить ручные названия уровней `Level 1` и `Level 2` вне component property.
 - Находить ручные подписи `Primary`, `Secondary`, `Colored`, `Border` рядом с подложкой, если они не являются настройками компонента.
 - Находить упоминания кликабельности для `Border`.
+- Находить ручные значения `px` у padding без ссылки на `Spacing`.
 
 ### LLM-проверки
 
@@ -498,6 +561,7 @@ Level 2 без Level 1
 - Проверять, что в адаптиве `Level 2` не остаётся без внешнего `Level 1`.
 - Проверять, что в адаптиве лишние внутренние `32 px` в подобных вложенных конструкциях убраны.
 - Проверять, что ручные прямоугольники не заменяют доступный компонент `BackgroundPlate`.
+- Проверять, что нестандартный padding является осознанной настройкой через spacing token, а не ручной правкой геометрии.
 
 ### Не проверяется автоматически
 
@@ -505,9 +569,11 @@ Level 2 без Level 1
 - Исключения, заложенные внутри самостоятельных компонентов.
 - Корректность кликабельности в коде без доступа к реализации.
 - Все случаи адаптивного перестроения без просмотра desktop и adaptive вариантов рядом.
+- Бизнес-уместность выбранного размера padding, если он задан корректным spacing token.
 
 ### Автоисправления
 
 - Заменить `Type=Secondary` на допустимый тип для `Level 2`, если целевой стиль очевиден.
 - Выставить единый `BackgroundColor` на странице, если фон страницы распознан однозначно.
 - Включить `Skeleton=True` вместо ручных placeholder-слоёв, если loading-состояние однозначно распознано.
+- Привязать ручное значение padding к соответствующему токену `Spacing`, если значение точно совпадает со spacing-шкалой.
