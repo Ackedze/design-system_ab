@@ -4,8 +4,9 @@
 
 - `JSONS` — опубликованные каталоги компонентов, токенов, стилей, indexes и runtime-конфиги Apollo.
 - `redpol` — материалы редакционной политики.
-- `apollo-stats` — JSON-отчёты проверок Apollo, автоматически публикуемые через Supabase Edge Function с группировкой по пользователю и дню.
 - `CONTRACTS` — скомпилированные Apollo DS contracts, полученные из нормализованных Figma-каталогов в `JSONS`.
+
+JSON-отчёты проверок Apollo хранятся отдельно в `Ackedze/design-system_stats`.
 
 ## Runtime-конфиг Apollo
 
