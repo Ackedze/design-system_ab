@@ -1,0 +1,361 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.title-view",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "b2b"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-05"
+  },
+  "rules": [
+    {
+      "ruleId": "component:web-corp.title-view.component-properties-are-first-class",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "[D] RightAddon",
+          "[D] RightAddonXL",
+          "[D] TitleAddon",
+          "[D] TitleAddonXL",
+          "[D] TitleStatus",
+          "[D] TitleView",
+          "[M] RightAddon",
+          "[M] RightAddonXL",
+          "[M] TitleAddon",
+          "[M] TitleAddonXL",
+          "[M] TitleStatus",
+          "[M] TitleView"
+        ]
+      },
+      "ruleText": "Изменения variant/property в компонентах семейства TitleView являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.layer-properties-use-effective-baseline",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "[D] RightAddon",
+          "[D] RightAddonXL",
+          "[D] TitleAddon",
+          "[D] TitleAddonXL",
+          "[D] TitleStatus",
+          "[D] TitleView",
+          "[M] RightAddon",
+          "[M] RightAddonXL",
+          "[M] TitleAddon",
+          "[M] TitleAddonXL",
+          "[M] TitleStatus",
+          "[M] TitleView"
+        ]
+      },
+      "ruleText": "Изменения layer/style внутри компонентов семейства TitleView нужно сравнивать с effective baseline текущего component variant и nested owner context."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.single-xlarge-on-screen",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.single-xlarge",
+      "appliesTo": "screen.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "variant": {
+          "View": "xLarge"
+        }
+      },
+      "requiredComposition": {
+        "maxInstancesPerScreen": 1
+      },
+      "ruleText": "На одном экране может быть только один TitleView с View=xLarge. Остальные заголовки страницы должны использовать View=Large, View=Medium или View=Small."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.external-spacing",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.external-spacing",
+      "appliesTo": "screen.composition",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "placement": "CorporateContent page body",
+        "relationship": "vertical-neighbor"
+      },
+      "requiredSpacing": [
+        {
+          "from": "[D] Header",
+          "to": "[D] TitleView",
+          "axis": "vertical",
+          "spacing": 40,
+          "unit": "px",
+          "token": "TopMargin"
+        },
+        {
+          "from": "[D] TitleView",
+          "to": "[D] Content",
+          "axis": "vertical",
+          "spacing": 32,
+          "unit": "px"
+        },
+        {
+          "from": "[D] TitleView",
+          "to": "[D] TabsView",
+          "axis": "vertical",
+          "spacing": 32,
+          "unit": "px"
+        },
+        {
+          "from": "[D] TitleView",
+          "to": "[D] FiltersBlock",
+          "axis": "vertical",
+          "spacing": 32,
+          "unit": "px"
+        },
+        {
+          "from": "[D] TitleView",
+          "to": "[D] Plate",
+          "axis": "vertical",
+          "spacing": 32,
+          "unit": "px"
+        },
+        {
+          "from": "[D] TitleView",
+          "to": "[D] TopBar",
+          "axis": "vertical",
+          "spacing": 12,
+          "unit": "px",
+          "reason": "TopBar already includes 24 px top spacing"
+        }
+      ],
+      "ruleText": "Внешние вертикальные отступы вокруг TitleView должны соответствовать соседнему блоку: Header -> TitleView 40 px через TopMargin; TitleView -> Content/TabsView/FiltersBlock/Plate 32 px; TitleView -> TopBar 12 px, потому что внутри TopBar уже заложен верхний отступ 24 px."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.status-content-uses-status-slots",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.status-slots",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "contentRole": "status"
+      },
+      "requiredComposition": {
+        "allowedSlots": [
+          "Status",
+          "TitleStatus",
+          "TitleAddon",
+          "TitleAddonXL"
+        ],
+        "allowedNestedComponents": [
+          "[D] TitleStatus",
+          "[M] TitleStatus",
+          "[D] TitleAddon",
+          "[M] TitleAddon",
+          "[D] TitleAddonXL",
+          "[M] TitleAddonXL",
+          "StatusBadge"
+        ]
+      },
+      "ruleText": "Статусы и комментарии к заголовку должны размещаться в слотах Status, TitleStatus, TitleAddon или TitleAddonXL. Не считай ручной текстовый статус рядом с Title корректной компонентной структурой."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.xlarge-primary-actions-under-title",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.actions-under-xlarge",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "variant": {
+          "View": "xLarge"
+        },
+        "contentRole": "primary-action"
+      },
+      "requiredComposition": {
+        "allowedSlot": "Button group",
+        "disallowedSlots": [
+          "RightAddon",
+          "RightAddonXL"
+        ]
+      },
+      "ruleText": "Основные целевые действия в TitleView View=xLarge размещаются под заголовком в Button group. RightAddon и RightAddonXL используются для дополнительной ссылки, иконки или вспомогательного действия, но не для primary-действия."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.button-group-max-four-actions",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.button-group-max-four",
+      "appliesTo": "component.composition",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "slot": "Button group"
+      },
+      "requiredComposition": {
+        "maxVisibleActions": 4,
+        "overflowComponent": "PickerButton"
+      },
+      "ruleText": "В Button group внутри TitleView рекомендуется показывать не больше четырёх видимых действий. Остальные действия нужно переносить в PickerButton."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.button-group-single-primary-action",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.single-primary-action",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "slot": "Button group"
+      },
+      "requiredComposition": {
+        "maxPrimaryActions": 1
+      },
+      "ruleText": "В Button group внутри TitleView должно быть не больше одной primary-кнопки. Повторяющиеся действия не должны менять стиль между состояниями страницы без отдельного сценарного основания."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.skeleton-is-component-property",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.skeleton-variant",
+      "appliesTo": "variant.Skeleton",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ]
+      },
+      "ruleText": "Загрузочное состояние TitleView должно задаваться через component property Skeleton=True. Ручные placeholder-слои вместо Skeleton=True являются нарушением компонентной структуры."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.editable-full-title-requires-subtitle",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view-editable.full-title-subtitle-required",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "titleEditMode": "full-title"
+      },
+      "requiredComposition": {
+        "requiredSlot": "Subtitle",
+        "subtitle": "non-empty"
+      },
+      "ruleText": "Если редактируется весь Title в TitleView, у компонента должен быть непустой Subtitle, который сохраняет смысл экрана после изменения пользовательского названия."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.editable-date-uses-calendar-icon",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view-editable.date-calendar-icon",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "editableContentType": "date"
+      },
+      "requiredComposition": {
+        "requiredIcon": "calendar"
+      },
+      "ruleText": "Если в TitleView редактируется дата, рядом с редактируемым фрагментом должна использоваться иконка календаря, а не generic edit icon."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.editable-title-single-line-ellipsis",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view-editable.single-line-ellipsis",
+      "appliesTo": "component.layout",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "titleEditMode": [
+          "full-title",
+          "partial-title"
+        ]
+      },
+      "requiredLayout": {
+        "titleMaxLines": 1,
+        "overflow": "ellipsis"
+      },
+      "ruleText": "Редактируемый Title в TitleView должен сокращаться после первой строки через ellipsis, чтобы пользовательский текст не сдвигал соседние слоты и контент страницы."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.editable-title-keeps-title-view-structure",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view-editable.base-title-view-rules",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "titleEditMode": [
+          "full-title",
+          "partial-title"
+        ]
+      },
+      "ruleText": "Редактируемый заголовок является сценарием TitleView и должен сохранять компонентную структуру TitleView. Не собирай editable-title вручную из отдельных текстовых слоёв и иконок вне компонента."
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-core.button",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "universal"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-04"
+  },
+  "rules": [
+    {
+      "ruleId": "component:web-core.button.variant-state-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "ruleText": "Изменения View, Size, Shape, SingleIcon и DisabledState являются component property changes и должны показываться как самостоятельные customizations."
+    },
+    {
+      "ruleId": "component:web-core.button.manual-fill-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "fills",
+      "checkType": "deterministic",
+      "ruleText": "Ручные изменения fill на Button root, Label, Hint, Addon PaintMe или icon layers являются layer customizations. Их нужно показывать отдельно от component property changes."
+    },
+    {
+      "ruleId": "component:web-core.button.label-text-style-locked",
+      "severity": "error",
+      "source": "component-contract",
+      "ruleKind": "design-rule",
+      "severityScope": "design",
+      "appliesTo": "styles.text",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "[D] Button",
+        "layers": [
+          "Label",
+          "Hint"
+        ]
+      },
+      "ruleText": "Не меняй вручную text styles на Button Label или Hint. Text style определяется состоянием Button component и должен совпадать с effective component baseline.",
+      "remediation": "Сбрось layer text style к effective Button baseline."
+    },
+    {
+      "ruleId": "component:web-core.button.desktop-safe-variants",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:controls.buttons-and-button-groups.desktop-safe-variants",
+      "appliesTo": "variant.View|variant.Size|variant.Shape",
+      "checkType": "deterministic",
+      "conditions": {
+        "platform": "desktop",
+        "forbidden": {
+          "variant.View": [
+            "Accent",
+            "Outlined"
+          ],
+          "variant.Size": [
+            "64",
+            "72"
+          ],
+          "variant.Shape": [
+            "Rounded"
+          ]
+        }
+      },
+      "ruleText": "В desktop нельзя использовать Button variants и параметры, запрещённые button pattern."
+    },
+    {
+      "ruleId": "component:web-core.button.desktop-hint-restricted",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:controls.buttons-and-button-groups.desktop-safe-variants",
+      "appliesTo": "Text / Hint",
+      "checkType": "manual",
+      "conditions": {
+        "platform": "desktop"
+      },
+      "ruleText": "Hint внутри desktop Button ограничен button pattern и требует ручной проверки, если он видим или кастомизирован."
+    }
+  ]
+}

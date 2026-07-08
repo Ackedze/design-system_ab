@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.amount-styles",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "b2b"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-05"
+  },
+  "rules": [
+    {
+      "ruleId": "component:web-corp.amount-styles.style-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.Style",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "AmountParagraph",
+          "🔒 AmountParagraph",
+          "AmountHeadline",
+          "🔒 [D] AmountHeadline",
+          "🔒 [M] AmountHeadline"
+        ]
+      },
+      "ruleText": "Изменения AmountParagraph или AmountHeadline Style являются component property changes и должны показываться отдельно от производных text layer customizations."
+    },
+    {
+      "ruleId": "component:web-corp.amount-styles.operation-negative-is-part-property",
+      "severity": "info",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.amount.operation-negative",
+      "appliesTo": "variant.Negative",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "Operation"
+        ]
+      },
+      "ruleText": "Изменения Operation Negative являются part/component configuration для знака операции суммы."
+    },
+    {
+      "ruleId": "component:web-corp.amount-styles.parts-share-text-style",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.amount.same-text-style-for-parts",
+      "appliesTo": "styles.text",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "Operation",
+          "Minus",
+          "Major",
+          "Minor",
+          "Currency"
+        ]
+      },
+      "ruleText": "Operation, Major, Minor и Currency внутри одного AmountStyles instance должны использовать один и тот же text style. Minus является leaf layer внутри Operation и наследует тот же style contract."
+    },
+    {
+      "ruleId": "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "fill|fills",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "Operation",
+          "Minus"
+        ]
+      },
+      "ruleText": "Ручные изменения fill на Operation / Minus являются layer customizations знака операции суммы. Сохраняй точный Minus leaf layer для reset, но описывай semantic owner как AmountParagraph / Operation."
+    },
+    {
+      "ruleId": "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "fill|fills",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "Major",
+          "Minor",
+          "Currency"
+        ]
+      },
+      "ruleText": "Ручные изменения fill на Major, Minor или Currency text layers являются layer customizations текста суммы. Сохраняй точный leaf layer для reset, но группируй объяснение под AmountParagraph / Amount."
+    },
+    {
+      "ruleId": "component:web-corp.amount-styles.manual-text-style-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "styles.text",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "AmountStyles",
+        "layers": [
+          "Operation",
+          "Minus",
+          "Major",
+          "Minor",
+          "Currency"
+        ]
+      },
+      "ruleText": "Ручные изменения text style на AmountStyles leaf text layers являются layer customizations. Они должны сбрасываться независимо и не схлопываться в Style variant change."
+    }
+  ]
+}

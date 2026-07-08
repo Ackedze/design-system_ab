@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-audit-mapping",
+  "componentKey": "web-corp.background-plate",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "b2b"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-08"
+  },
+  "categories": [
+    {
+      "when": {
+        "propertyPrefix": "variant."
+      },
+      "category": "component-property",
+      "resetSurface": "parameters"
+    },
+    {
+      "when": {
+        "propertyPrefix": "layout."
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use component effective baseline after host and nested variant resolution."
+    },
+    {
+      "when": {
+        "propertyPrefix": "styles."
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use resolved style label or style id from the effective baseline."
+    },
+    {
+      "when": {
+        "property": "fill"
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use resolved token/style/color from the effective baseline."
+    },
+    {
+      "when": {
+        "property": "stroke"
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use resolved token/style/color from the effective baseline."
+    }
+  ],
+  "hostIntegrationNote": "Apollo должен применять composition-contract BackgroundPlate до fallback к standalone baselines вложенных компонентов. Для BackgroundPlateView используй componentKey web-corp.background-plate и не создавай отдельную категорию аудита.",
+  "codeExportAliases": {
+    "BackgroundPlateView": {
+      "mapsToComponentKey": "web-corp.background-plate",
+      "mapsToComponent": "BackgroundPlate",
+      "note": "Кодовый/private export. Для Apollo и агента использует тот же audit mapping, что и BackgroundPlate."
+    }
+  }
+}

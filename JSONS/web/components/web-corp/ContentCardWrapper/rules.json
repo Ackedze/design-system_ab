@@ -1,0 +1,571 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.content-card-wrapper",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "b2b"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-07"
+  },
+  "rules": [
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.component-properties-are-first-class",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.content-card-wrapper",
+        "layers": [
+          "[D] ContentCardWrapper",
+          "[D] ContentPresets",
+          "[D] LeftSlot",
+          "[D] RightSlot",
+          "[M] ContentCardWrapper",
+          "[M] ContentPresets",
+          "[M] LeftSlot",
+          "[M] MiddleContentSlot",
+          "[M] RightSlot",
+          "🔩 [D] ContentPresets",
+          "🔩 [D] LeftSlot",
+          "🔩 [D] RightSlot",
+          "🔩 [M] ContentPresets",
+          "🔩 [M] LeftSlot",
+          "🔩 [M] MiddleContentSlot",
+          "🔩 [M] RightSlot",
+          "🔩 MiddleContentSlot",
+          "ContentCardWrapper",
+          "MiddleContentSlot",
+          "SwapMe"
+        ]
+      },
+      "ruleText": "Изменения variant/property в семействе ContentCardWrapper являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.layer-properties-use-effective-baseline",
+      "severity": "warning",
+      "source": "composition-contract",
+      "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.content-card-wrapper",
+        "layers": [
+          "[D] ContentCardWrapper",
+          "[D] ContentPresets",
+          "[D] LeftSlot",
+          "[D] RightSlot",
+          "[M] ContentCardWrapper",
+          "[M] ContentPresets",
+          "[M] LeftSlot",
+          "[M] MiddleContentSlot",
+          "[M] RightSlot",
+          "🔩 [D] ContentPresets",
+          "🔩 [D] LeftSlot",
+          "🔩 [D] RightSlot",
+          "🔩 [M] ContentPresets",
+          "🔩 [M] LeftSlot",
+          "🔩 [M] MiddleContentSlot",
+          "🔩 [M] RightSlot",
+          "🔩 MiddleContentSlot",
+          "ContentCardWrapper",
+          "MiddleContentSlot",
+          "SwapMe"
+        ]
+      },
+      "ruleText": "Изменения layer/style внутри семейства ContentCardWrapper нужно сравнивать с effective baseline текущего component variant и nested owner context."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.lifecycle-context-is-informational",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.status",
+      "checkType": "manual",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.content-card-wrapper"
+      },
+      "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.form-choice-only",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.form-choice-only",
+      "appliesTo": "screen.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper"
+        ]
+      },
+      "requiredContext": {
+        "allowedContexts": [
+          "form",
+          "entity-choice",
+          "form-subscenario"
+        ]
+      },
+      "ruleText": "ContentCardWrapper используется на страницах форм и в сценариях выбора одной или нескольких сущностей. Не считай его универсальной навигационной карточкой."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.three-fields-minimum",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.three-fields-minimum",
+      "appliesTo": "flow.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper"
+        ]
+      },
+      "requiredContext": {
+        "recommendedMinimumFieldsPerEntity": 3,
+        "entityBlocksShouldBeHomogeneous": true
+      },
+      "ruleText": "Карточка уместна для однотипных логических блоков формы, когда в каждом блоке 3 или больше полей. Если данных меньше, отдельная карточка может быть избыточной."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.entity-differentiation",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.entity-differentiation",
+      "appliesTo": "text.content",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper",
+          "🔩 [D] ContentPresets",
+          "🔩 [M] ContentPresets"
+        ]
+      },
+      "requiredContent": {
+        "mustDifferentiateEntity": true,
+        "exampleIdentifierSets": [
+          [
+            "Название",
+            "ИНН",
+            "БИК"
+          ],
+          [
+            "Имя",
+            "Роль",
+            "Почта"
+          ],
+          [
+            "Имя",
+            "ИНН",
+            "Доля владения"
+          ]
+        ]
+      },
+      "ruleText": "На карточке должно быть достаточно информации, чтобы отличить сущности друг от друга: название, ИНН, БИК, имя, роль, почта, доля владения или другой бизнес-идентификатор."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.valid-state-skeleton-combinations",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.skeleton-variant",
+      "appliesTo": "variant.State|variant.Skeleton",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.content-card-wrapper",
+        "layers": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper"
+        ]
+      },
+      "allowedVariantCombinations": [
+        {
+          "State": "Active",
+          "Skeleton": "False"
+        },
+        {
+          "State": "Disabled",
+          "Skeleton": "False"
+        },
+        {
+          "State": "Empty",
+          "Skeleton": "False"
+        },
+        {
+          "State": "Error",
+          "Skeleton": "False"
+        },
+        {
+          "State": "Active",
+          "Skeleton": "True"
+        }
+      ],
+      "ruleText": "Loading-состояние ContentCardWrapper задаётся через Skeleton=True только в сочетании State=Active. Для Active, Disabled, Empty и Error без загрузки используется Skeleton=False."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.skeleton-full-card",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.skeleton-variant",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper"
+        ],
+        "variant": {
+          "Skeleton": "True"
+        }
+      },
+      "requiredComposition": {
+        "skeletonCoversFullCard": true,
+        "disallowManualSmallSkeletonLines": true
+      },
+      "ruleText": "В loading-состоянии скелетон должен занимать всю ширину и высоту карточки. Не заменяй Skeleton=True ручными маленькими skeleton-слоями внутри карточки."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.empty-placeholder-add",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.empty-placeholder-add",
+      "appliesTo": "flow.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper"
+        ],
+        "variant": {
+          "State": "Empty",
+          "Skeleton": "False"
+        }
+      },
+      "requiredBehavior": {
+        "reservesPlaceForFutureCard": true,
+        "addFlowCanStartFromCardOrButton": true,
+        "afterCreateShowsNotification": true
+      },
+      "ruleText": "State=Empty используется как placeholder: он заранее резервирует место под карточку, запускает добавление по кнопке или нажатию на placeholder и после создания должен приводить к показу Notification."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.card-click-edits",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.card-click-edits",
+      "appliesTo": "flow.behavior",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper"
+        ],
+        "variant": {
+          "State": "Active"
+        }
+      },
+      "requiredBehavior": {
+        "cardClickOpensEdit": true,
+        "editCanUseModal": true,
+        "mobileUsesFullscreenModal": true
+      },
+      "ruleText": "В State=Active переход в редактирование происходит по клику на всю карточку. Добавление и редактирование открываются в модалке, на MobileWeb и adaptive — в полноэкранной версии."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.right-slot-actions",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.right-slot-actions",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "🔩 [D] RightSlot",
+          "🔩 [M] RightSlot",
+          "[D] RightSlot",
+          "[M] RightSlot"
+        ]
+      },
+      "requiredComposition": {
+        "role": "action-icons",
+        "maxDirectActionIcons": 2,
+        "useMoreIconWhenActionsGreaterThan": 2,
+        "deleteIconPosition": "rightmost",
+        "deleteIconPositionException": "chevron"
+      },
+      "ruleText": "RightSlot предназначен для иконок действий. Если действий больше двух, используй многоточие и dropdown. Корзинка находится справа, кроме кейсов с шевроном."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.mobile-actions-bottomsheet",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.mobile-actions-bottomsheet",
+      "appliesTo": "flow.behavior",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[M] ContentCardWrapper",
+          "🔩 [M] RightSlot",
+          "[M] RightSlot"
+        ],
+        "platforms": [
+          "mobile-web",
+          "adaptive"
+        ]
+      },
+      "requiredBehavior": {
+        "doNotUseRightAddonForActionSet": true,
+        "cardTapOpensBottomSheetWithActions": true
+      },
+      "ruleText": "В standalone и adaptive правый аддон для набора действий не используется. При тапе на карточку поднимается BottomSheet со всеми доступными действиями."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.disabled-is-view-only",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.disabled-is-view-only",
+      "appliesTo": "flow.behavior",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper"
+        ],
+        "variant": {
+          "State": "Disabled",
+          "Skeleton": "False"
+        }
+      },
+      "disallowedBehavior": {
+        "add": true,
+        "edit": true,
+        "delete": true,
+        "select": true
+      },
+      "ruleText": "State=Disabled используется на страницах просмотра, где с карточками нельзя совершать действий: добавлять, редактировать, удалять или выбирать карточку."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.disabled-not-style",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.disabled-not-style",
+      "appliesTo": "component.intent",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper"
+        ],
+        "variant": {
+          "State": "Disabled",
+          "Skeleton": "False"
+        }
+      },
+      "disallowedUse": {
+        "asVisualStyle": true,
+        "asSingleChoiceCardStyle": true,
+        "asSelectableCard": true
+      },
+      "recommendedAlternative": {
+        "useComponentRole": "single-choice-card",
+        "reason": "Disabled blocks all states and interactions in ContentCardWrapper"
+      },
+      "ruleText": "Не используй State=Disabled как альтернативный визуальный стиль ContentCardWrapper или как стиль карточки единичного выбора. В Disabled блокируются все состояния карточки; для единичного выбора нужен другой компонент карточки единичного выбора."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.desktop-horizontal-mobile-vertical",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.desktop-horizontal-mobile-vertical",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper",
+          "🔩 MiddleContentSlot",
+          "🔩 [M] MiddleContentSlot"
+        ]
+      },
+      "requiredComposition": {
+        "desktopPreferredLayout": "horizontal segments",
+        "mobileWebPreferredLayout": "vertical segments",
+        "mobileHorizontalException": "values intentionally aligned to opposite sides"
+      },
+      "ruleText": "В Desktop контент лучше раскладывать по горизонтальным сегментам. В MobileWeb и adaptive сегменты выстраиваются вертикально друг под другом, кроме специальных кейсов выравнивания значений по разным сторонам карточки."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.title-text-style-by-platform",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.title-text-style-by-platform",
+      "appliesTo": "styles.text",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "components": [
+          "🔩 [D] ContentPresets",
+          "🔩 [M] ContentPresets",
+          "[D] ContentPresets",
+          "[M] ContentPresets"
+        ],
+        "contentRole": "card-title"
+      },
+      "requiredTextStyleByPlatform": {
+        "desktop": "Headline-System / 18-22 xSmall",
+        "mobile-web": "Action / 16-24 Medium"
+      },
+      "ruleText": "Для заголовка карточки в Desktop используется Headline-System / 18-22 xSmall. В MobileWeb используется Action / 16-24 Medium."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.edge-padding-immutable",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.edge-padding-immutable",
+      "appliesTo": "layout.padding.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.content-card-wrapper",
+        "layers": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper"
+        ]
+      },
+      "requiredPaddingByLayer": {
+        "[D] ContentCardWrapper": {
+          "top": 24,
+          "right": 24,
+          "bottom": 24,
+          "left": 24
+        },
+        "[M] ContentCardWrapper": {
+          "top": 16,
+          "right": 16,
+          "bottom": 16,
+          "left": 16
+        }
+      },
+      "disallowedCustomization": {
+        "designerControlled": false,
+        "reason": "edge padding is part of ContentCardWrapper component structure"
+      },
+      "ruleText": "Запрещено менять отступы от краёв ContentCardWrapper до контента. Для [D] ContentCardWrapper все layout.padding.* должны быть 24 px; для [M] ContentCardWrapper все layout.padding.* должны быть 16 px."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.background-plate-level-by-platform",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.background-plate-level-by-platform",
+      "appliesTo": "variant.Position",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.content-card-wrapper",
+        "layers": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate"
+        ]
+      },
+      "requiredNestedVariantByHost": {
+        "[D] ContentCardWrapper": {
+          "nestedComponent": "[D] BackgroundPlate",
+          "Position": "Level 2 (inner)"
+        },
+        "[M] ContentCardWrapper": {
+          "nestedComponent": "[M] BackgroundPlate",
+          "Position": "Level 1 (outer)"
+        }
+      },
+      "disallowedCustomization": {
+        "designerControlled": false,
+        "reason": "background level is fixed by ContentCardWrapper platform composition"
+      },
+      "ruleText": "Запрещено менять уровень встроенного BackgroundPlate в ContentCardWrapper. В Desktop допускается только Position=Level 2 (inner); в MobileWeb допускается только Position=Level 1 (outer)."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.text-style-immutable",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.text-style-immutable",
+      "appliesTo": "styles.text",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.content-card-wrapper",
+        "layers": [
+          "[D] ContentCardWrapper",
+          "[M] ContentCardWrapper",
+          "[D] ContentPresets",
+          "[M] ContentPresets",
+          "🔩 [D] ContentPresets",
+          "🔩 [M] ContentPresets",
+          "ContentCardWrapper",
+          "MiddleContentSlot",
+          "Label",
+          "Text"
+        ]
+      },
+      "requiredStyleSource": {
+        "useComponentBaselineTypography": true,
+        "compareAgainstEffectiveBaseline": true
+      },
+      "disallowedCustomization": {
+        "designerControlled": false,
+        "properties": [
+          "styles.text"
+        ]
+      },
+      "ruleText": "Запрещено менять стиль типографики текстовых элементов внутри ContentCardWrapper. Любое изменение styles.text у заголовков, подзаголовков, дополнительных строк, статусов и пояснений нужно считать нарушением и возвращать к component baseline."
+    },
+    {
+      "ruleId": "component:web-corp.content-card-wrapper.left-slot-selection",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.content-card-wrapper.left-slot-selection",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "🔩 [D] LeftSlot",
+          "🔩 [M] LeftSlot",
+          "[D] LeftSlot",
+          "[M] LeftSlot"
+        ]
+      },
+      "requiredComposition": {
+        "allowedSelectionPresets": [
+          "Radio",
+          "Checkbox",
+          "Switch"
+        ],
+        "radioForSingleChoice": true,
+        "checkboxForMultipleChoice": true,
+        "cardClickSelectsLeftControl": true
+      },
+      "ruleText": "Если вся карточка работает как элемент выбора, LeftSlot принимает Radio или Checkbox в зависимости от логики выбора. При наличии левого слота клик на карточку приводит к выбору этого элемента."
+    }
+  ]
+}

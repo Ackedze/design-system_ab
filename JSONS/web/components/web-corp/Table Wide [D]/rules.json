@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.table-wide-d",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "b2b"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-06"
+  },
+  "rules": [
+    {
+      "ruleId": "component:web-corp.table-wide-d.component-properties-are-first-class",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.table-wide-d",
+        "layers": [
+          "[D] BodyActionCell",
+          "[D] BodyActionCell :: Wide",
+          "[D] BodyCell",
+          "[D] BodyCell :: Wide",
+          "[D] BodyControlCell",
+          "[D] BodyControlCell :: Wide",
+          "[D] BodyGroupRow",
+          "[D] BodyGroupRow :: Wide",
+          "[D] BodyRow",
+          "[D] BodyRow :: Wide",
+          "[D] HeadActionCell",
+          "[D] HeadCell",
+          "[D] HeadControlCell",
+          "[D] HeadRow",
+          "[D] HeadRow :: Universal",
+          "BorderLine",
+          "Chevron",
+          "ColumnControl",
+          "ColumnControl :: OptionList",
+          "ControlAddon",
+          "GroupBorderLine",
+          "HeadDivider",
+          "HeaderAddon",
+          "LeftAddon",
+          "RightAddon",
+          "Sorting",
+          "Text"
+        ]
+      },
+      "ruleText": "Изменения variant/property в компонентах семейства таблиц являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.layer-properties-use-effective-baseline",
+      "severity": "warning",
+      "source": "composition-contract",
+      "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.table-wide-d",
+        "layers": [
+          "[D] BodyActionCell",
+          "[D] BodyActionCell :: Wide",
+          "[D] BodyCell",
+          "[D] BodyCell :: Wide",
+          "[D] BodyControlCell",
+          "[D] BodyControlCell :: Wide",
+          "[D] BodyGroupRow",
+          "[D] BodyGroupRow :: Wide",
+          "[D] BodyRow",
+          "[D] BodyRow :: Wide",
+          "[D] HeadActionCell",
+          "[D] HeadCell",
+          "[D] HeadControlCell",
+          "[D] HeadRow",
+          "[D] HeadRow :: Universal",
+          "BorderLine",
+          "Chevron",
+          "ColumnControl",
+          "ColumnControl :: OptionList",
+          "ControlAddon",
+          "GroupBorderLine",
+          "HeadDivider",
+          "HeaderAddon",
+          "LeftAddon",
+          "RightAddon",
+          "Sorting",
+          "Text"
+        ]
+      },
+      "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.scheduled-parts-are-informational",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.status",
+      "checkType": "manual",
+      "ruleText": "Scheduled-части таблиц являются lifecycle context для агента. Не считай scheduled status дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.head-cell-column-control-visible",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "component.visibility",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "cell": "[D] HeadCell",
+        "requiredLayer": "ColumnControl",
+        "requiredPath": "TitleBlock / ColumnControl"
+      },
+      "requiredState": {
+        "visible": true,
+        "opacity": 1,
+        "removed": false
+      },
+      "forbidden": {
+        "hiddenColumnControl": true,
+        "detachedColumnControl": true,
+        "zeroOpacityColumnControl": true
+      },
+      "ruleText": "В [D] HeadCell запрещено скрывать ColumnControl. Элемент ColumnControl должен быть виден клиенту и оставаться частью TitleBlock / ColumnControl."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.column-controls-min-width",
+      "severity": "error",
+      "source": "composition-contract",
+      "appliesTo": "component.composition",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "cell": "[D] HeadCell",
+        "hasHeaderInteractiveElements": true
+      },
+      "requiredComposition": {
+        "minColumnWidthPx": 160,
+        "minGapBetweenTitleAndControlsPx": 8,
+        "requiredElementsInWidthCalculation": [
+          "Title",
+          "HeaderAddon",
+          "Sorting",
+          "ColumnControl"
+        ],
+        "measurement": "column width must fit visible title text plus all visible controls without bounding-box intersections",
+        "dateColumnOverride": {
+          "headerExamples": [
+            "Дата",
+            "Дата заявки",
+            "Дата создания",
+            "Дата изменения"
+          ],
+          "minColumnWidthPx": 160
+        }
+      },
+      "forbidden": {
+        "overlapBetweenControls": true,
+        "overlapBetweenTitleAndControls": true,
+        "overlapBetweenAddonAndControls": true,
+        "hiddenColumnControlBecauseOfWidth": true,
+        "columnWidthBelowRequiredMinimum": true
+      },
+      "ruleText": "Ширина колонки Table Wide [D] с [D] HeadCell должна учитывать все элементы заголовка: Title, HeaderAddon, Sorting и ColumnControl. Элементы не должны налезать друг на друга: между текстом заголовка, addon и controls должен сохраняться зазор не меньше 8 px. ColumnControl нельзя скрывать из-за недостаточной ширины. Если ширины недостаточно, увеличь колонку или используй корректное сокращение текста без наложения controls."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.background-plate-wrapper-in-content",
+      "severity": "error",
+      "source": "composition-contract",
+      "appliesTo": "screen.composition",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "placement": "CorporateContent body",
+        "isStandaloneTableBlock": true
+      },
+      "requiredComposition": {
+        "wrapperComponent": "[D] BackgroundPlate",
+        "slotComponent": "[D] BackgroundPlateSlot",
+        "level": "Level 1",
+        "background": "matching page background",
+        "padding": {
+          "top": 0,
+          "right": 16,
+          "bottom": 16,
+          "left": 16
+        },
+        "tablePlacement": "inside BackgroundPlateSlot",
+        "forbiddenPlacement": "Table Wide [D] as direct child of page content stack after TitleView or TabsView"
+      },
+      "ruleText": "При размещении Table Wide [D] как самостоятельного блока в теле CorporateContent таблица должна быть вложена в [D] BackgroundPlate первого уровня через [D] BackgroundPlateSlot. Нельзя оставлять Table Wide [D] прямым ребёнком page-content стека после TitleView или TabsView. Отступы от краёв BackgroundPlateSlot до таблицы: сверху 0 px, справа 16 px, снизу 16 px, слева 16 px."
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-corp.tabs-view",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "b2b"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-04"
+  },
+  "sourceFiles": [
+    "contract.generated.json",
+    "contract.overrides.json",
+    "composition-contract.json",
+    "rules.json",
+    "audit-mapping.json",
+    "examples.json"
+  ],
+  "summary": {
+    "componentFamily": "TabsView",
+    "library": "Web _ Corp Components",
+    "purpose": "TabsView — wrapper/composite component вокруг primary и secondary tabs. Apollo должен использовать TabsView effective baseline для nested TabsPrimary/TabsSecondary differences и подавлять wrapper-owned overrides, когда actual совпадает с effective baseline.",
+    "includedComponents": [
+      "[D] TabsView",
+      "[M] TabsView"
+    ]
+  },
+  "publicComponentProperties": {
+    "variant.Skeleton": [
+      "false",
+      "true"
+    ]
+  },
+  "compositionModel": {
+    "ownsNestedOverrides": true,
+    "effectiveBaselineRequired": true,
+    "wrappedComponents": [
+      "TabsPrimary",
+      "[D] TabsSecondary",
+      "[M] TabsSecondary",
+      "TabPrimary",
+      "Tag"
+    ],
+    "suppressWhenEqualToEffectiveBaseline": [
+      "TabsPrimary.layout.itemSpacing",
+      "TabsPrimary/Items.layout.itemSpacing",
+      "TabsPrimary/Items/TabPrimary.layout.itemSpacing",
+      "TabsPrimary/Items/TabPrimary/Content/Label.styles.text",
+      "TabsSecondary.layout.itemSpacing"
+    ]
+  },
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.Skeleton"
+    ],
+    "wrapperOwnedLayerProperties": [
+      "TabsPrimary.layout.itemSpacing",
+      "TabsPrimary/Items.layout.itemSpacing",
+      "TabsPrimary/Items/TabPrimary.layout.itemSpacing",
+      "TabsPrimary/Items/TabPrimary/Content/Label.styles.text",
+      "TabsSecondary.layout.itemSpacing"
+    ],
+    "layerProperties": [
+      "fill",
+      "stroke",
+      "strokeWeight",
+      "styles.text",
+      "layout.padding",
+      "layout.itemSpacing",
+      "opacity",
+      "radius"
+    ],
+    "contentProperties": [
+      "TabPrimary/Content/Label.characters",
+      "Tag/Text/Label.characters"
+    ],
+    "ordering": [
+      "component-property",
+      "wrapper-owned-layer-property",
+      "layer-property",
+      "content-property"
+    ],
+    "baselinePolicy": "Для nested TabsPrimary/TabsSecondary changes сравнивай actual с TabsView effective baseline, а не со standalone nested component baseline."
+  },
+  "exampleInterpretations": [
+    {
+      "case": "Items spacing standalone 24, TabsView effective 32, actual 32",
+      "agentShouldSay": "Нет customization: это wrapper-owned TabsView override.",
+      "agentShouldNotSay": "Apollo нашёл spacing customization 24 -> 32."
+    },
+    {
+      "case": "Items spacing standalone 24, TabsView effective 32, actual 40",
+      "agentShouldSay": "Apollo нашёл TabsView layer customization: spacing 32 -> 40.",
+      "agentShouldNotSay": "Spacing изменился 24 -> 40."
+    }
+  ],
+  "ruleReferences": [
+    "component:web-corp.tabs-view.skeleton-is-component-property",
+    "component:web-corp.tabs-view.wrapper-owned-primary-tabs-overrides",
+    "component:web-corp.tabs-view.manual-primary-tabs-layer-override",
+    "component:web-corp.tabs-view.manual-secondary-tabs-layer-override"
+  ]
+}

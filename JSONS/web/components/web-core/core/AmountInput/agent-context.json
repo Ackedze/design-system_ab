@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-agent-context",
+  "componentKey": "web-core.amount-input",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "universal"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-04"
+  },
+  "sourceFiles": [
+    "contract.generated.json",
+    "contract.overrides.json",
+    "rules.json",
+    "audit-mapping.json",
+    "examples.json"
+  ],
+  "summary": {
+    "componentFamily": "AmountInput",
+    "library": "Web _ Core",
+    "purpose": "AmountInput — семейство компонентов для ввода суммы. Apollo должен трактовать изменения состояния amount input как component property changes, ручные изменения field/token/layout как layer customizations, а текст суммы как content, которому может понадобиться проверка по amount/input pattern.",
+    "includedComponents": [
+      "[D] AmountInput",
+      "[D] AmountInput_Inverted",
+      "[M] AmountInput",
+      "[M] AmountInput_Inverted",
+      "🔄 [D][Corporate] AmountInput",
+      "🔄 [D][Corporate] AmountInput_Inverted",
+      "🔄 [M][AO] AmountInput",
+      "🔄 [M][AO] AmountInput_Inverted"
+    ]
+  },
+  "publicComponentProperties": {
+    "variant.Size": [
+      "40",
+      "48",
+      "56",
+      "64",
+      "72"
+    ],
+    "variant.FilledState": [
+      "False",
+      "True"
+    ],
+    "variant.ActiveState": [
+      "False",
+      "True"
+    ],
+    "variant.DisabledState": [
+      "False",
+      "True"
+    ],
+    "variant.ErrorState": [
+      "False",
+      "True"
+    ],
+    "variant.OuterLabel": [
+      "False",
+      "True"
+    ]
+  },
+  "anatomy": [
+    "Label / Label",
+    "Field",
+    "Field / LeftAddons",
+    "Field / Content / Placeholder",
+    "Field / RightAddons",
+    "Hint / HintMessage"
+  ],
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.Size",
+      "variant.FilledState",
+      "variant.ActiveState",
+      "variant.DisabledState",
+      "variant.ErrorState",
+      "variant.OuterLabel"
+    ],
+    "slotProperties": [
+      "LeftAddon1.variant.Type",
+      "LeftAddon2.variant.Type",
+      "RightAddon1.variant.Type",
+      "RightAddon2.variant.Type",
+      "Placeholder.variant.Accent"
+    ],
+    "layerProperties": [
+      "fill",
+      "stroke",
+      "strokeWeight",
+      "styles.text",
+      "layout.padding",
+      "layout.itemSpacing",
+      "opacity",
+      "radius"
+    ],
+    "contentProperties": [
+      "Label.characters",
+      "Placeholder.characters",
+      "HintMessage.characters",
+      "Amount.characters"
+    ],
+    "ordering": [
+      "component-property",
+      "slot-property",
+      "layer-property",
+      "content-property"
+    ],
+    "baselinePolicy": "Если component property изменилась, сравнивай ручные layer overrides с baseline текущего actual-состояния компонента, а не с исходным reference baseline."
+  },
+  "patternLinks": [
+    {
+      "patternName": "Поля ввода",
+      "patternId": "ptrn:controls.input-fields",
+      "sourceFile": "p_input-fields.md"
+    },
+    {
+      "patternName": "Компонент Amount",
+      "patternId": "ptrn:components.amount",
+      "sourceFile": "p_amount_component.md"
+    }
+  ],
+  "exampleInterpretations": [
+    {
+      "case": "state plus manual visual override",
+      "agentShouldSay": "Покажи оба изменения и сравни layer property с baseline текущего состояния.",
+      "agentShouldNotSay": "Сравнивать ручной layer override с исходным reference baseline."
+    }
+  ],
+  "ruleReferences": [
+    "component:web-core.amount-input.variant-state-is-component-property",
+    "component:web-core.amount-input.manual-field-visual-is-layer-property",
+    "component:web-core.amount-input.manual-text-style-is-layer-property",
+    "component:web-core.amount-input.amount-format-pattern-rules",
+    "component:web-core.amount-input.label-placeholder-hint-pattern-rules"
+  ]
+}

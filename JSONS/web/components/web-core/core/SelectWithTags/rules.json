@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-core.select-with-tags",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "universal"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-04"
+  },
+  "rules": [
+    {
+      "ruleId": "component:web-core.select-with-tags.variant-state-is-component-property",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "ruleText": "Изменения Size, FilledState, ActiveState, DisabledState, ErrorState и part states являются component/part property changes и должны показываться как самостоятельные customizations."
+    },
+    {
+      "ruleId": "component:web-core.select-with-tags.manual-field-visual-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "Field.fills|Field.strokes|Field.radius|Field.layout",
+      "checkType": "deterministic",
+      "ruleText": "Ручные visual/layout изменения на Field являются layer customizations и должны показываться отдельно от изменений component property."
+    },
+    {
+      "ruleId": "component:web-core.select-with-tags.manual-tag-visual-is-layer-property",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "Tag.fills|Tag.strokes|Tag.styles.text|Value.styles.text",
+      "checkType": "deterministic",
+      "ruleText": "Ручные visual/text style changes на Tag, TagControl или Value internals являются layer customizations, если они не принадлежат parent composition contract."
+    },
+    {
+      "ruleId": "component:web-core.select-with-tags.input-text-pattern-rules",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleIds": [
+        "rule:controls.input-fields.noun-label",
+        "rule:controls.input-fields.no-label-colon",
+        "rule:controls.input-fields.no-placeholder-duplication",
+        "rule:controls.input-fields.short-useful-hint"
+      ],
+      "appliesTo": "Label.characters|Placeholder.characters|HintMessage.characters",
+      "checkType": "llm+deterministic",
+      "ruleText": "Тексты label, placeholder и hint должны соответствовать текстовым правилам input-field."
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-examples",
+  "componentKey": "web-corp.background-plate",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "b2b"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-08"
+  },
+  "examples": [
+    {
+      "exampleId": "background-plate-position-change",
+      "title": "Position change should be reported as component-property customization",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "property": "variant.Position",
+        "referenceValue": "Level 1 (outer)",
+        "actualValue": "Level 2 (inner)"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "position: level 1 (outer) → level 2 (inner)"
+      }
+    },
+    {
+      "exampleId": "background-plate-style-level-color-change",
+      "title": "Style Level BackgroundColor change should be reported as component-property customization",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "nestedComponent": "[D] Style Level 1",
+        "property": "variant.BackgroundColor",
+        "referenceValue": "base-bg-alt (gray)",
+        "actualValue": "base-bg (white)"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "backgroundColor: base-bg-alt (gray) → base-bg (white)"
+      }
+    },
+    {
+      "exampleId": "background-plate-view-alias-resolution",
+      "title": "BackgroundPlateView should resolve to BackgroundPlate contract",
+      "inputChange": {
+        "codeExport": "BackgroundPlateView",
+        "hostComponent": "[D] BackgroundPlate",
+        "property": "variant.Position",
+        "referenceValue": "Level 1 (outer)",
+        "actualValue": "Level 2 (inner)"
+      },
+      "expectedAudit": {
+        "componentKey": "web-corp.background-plate",
+        "category": "customizations",
+        "showAs": "position: level 1 (outer) → level 2 (inner)",
+        "doNotReport": "unknown component BackgroundPlateView"
+      }
+    },
+    {
+      "exampleId": "background-plate-slot-padding-token-check",
+      "title": "BackgroundPlateSlot padding should be shown as layer customization without automatic violation",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "layer": "Slot",
+        "property": "layout.padding.left",
+        "referenceValue": 24,
+        "actualValue": 32
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "Паддинг left: 24 → 32",
+        "agentNote": "Проверить, что значение задано через Spacing token; не рекомендовать сбросить только из-за отличия от standalone baseline."
+      }
+    }
+  ]
+}

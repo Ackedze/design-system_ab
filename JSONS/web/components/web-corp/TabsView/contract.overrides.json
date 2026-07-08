@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-contract-overrides",
+  "componentKey": "web-corp.tabs-view",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "b2b"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-04"
+  },
+  "appliesTo": {
+    "generatedContract": "contract.generated.json",
+    "rawCatalog": "Web _ Corp Components -- TabsView.json"
+  },
+  "publicApi": {
+    "variantProperties": {
+      "Skeleton": {
+        "kind": "component-property",
+        "values": [
+          "false",
+          "true"
+        ],
+        "description": "Переключает TabsView между ready и loading/skeleton presentation."
+      }
+    }
+  },
+  "anatomySemantics": {
+    "root": {
+      "path": "<variant root>",
+      "scope": "component-root",
+      "designerEditable": false
+    },
+    "tabsPrimary": {
+      "path": "TabsPrimary",
+      "scope": "internal-instance",
+      "designerEditable": false,
+      "notes": "Wrapper-owned реализация primary tabs."
+    },
+    "primaryItems": {
+      "path": "TabsPrimary / Items",
+      "scope": "wrapper-owned-layout",
+      "designerEditable": false,
+      "notes": "TabsView владеет spacing между primary tab items."
+    },
+    "tabPrimary": {
+      "path": "TabsPrimary / Items / TabPrimary",
+      "scope": "repeated-internal-instance",
+      "designerEditable": "content-and-state-through-wrapper-only"
+    },
+    "primaryLabel": {
+      "path": "TabsPrimary / Items / TabPrimary / Content / Label",
+      "scope": "content-layer",
+      "designerEditable": "content-only"
+    },
+    "tabsSecondary": {
+      "path": "[D]/[M] TabsSecondary",
+      "scope": "internal-instance",
+      "designerEditable": false,
+      "notes": "Wrapper-owned реализация secondary tabs/tag."
+    }
+  },
+  "resetModel": {
+    "componentProperties": [
+      "variant.Skeleton"
+    ],
+    "wrapperOwnedLayerProperties": [
+      "TabsPrimary.layout.itemSpacing",
+      "TabsPrimary/Items.layout.itemSpacing",
+      "TabPrimary.layout.itemSpacing",
+      "TabPrimary/Content/Label.styles.text"
+    ],
+    "layerProperties": [
+      "fills",
+      "strokes",
+      "strokeWeight",
+      "cornerRadius",
+      "opacity",
+      "layout.padding",
+      "layout.itemSpacing",
+      "styles.text",
+      "typography"
+    ],
+    "contentProperties": [
+      "TabPrimary/Content/Label.characters",
+      "Tag/Text/Label.characters"
+    ],
+    "dependencyPolicy": "Wrapper-owned overrides задают effective baseline для nested core components. Ручные layer overrides нужно сравнивать с TabsView effective baseline, а не со standalone nested component baseline."
+  }
+}

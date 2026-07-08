@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 1,
+  "documentType": "component-rules",
+  "componentKey": "web-corp.background-plate",
+  "status": "draft",
+  "applicability": {
+    "channels": [
+      "b2b"
+    ],
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "source": "path-policy",
+    "updatedAt": "2026-07-08"
+  },
+  "rules": [
+    {
+      "ruleId": "component:web-corp.background-plate.component-properties-are-first-class",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.background-plate",
+        "layers": [
+          "[D] BackgroundPlate",
+          "[D] BackgroundPlateSlot",
+          "[D] Style Level 1",
+          "[D] Style Level 2",
+          "[D][Promo] BackgroundPlate",
+          "[D][Promo] Style Level 1",
+          "[D][Promo] Style Level 2",
+          "[M] BackgroundPlate",
+          "[M] BackgroundPlateSlot",
+          "[M] Style Level 1",
+          "[M] Style Level 2",
+          "[M][Promo] BackgroundPlate",
+          "[M][Promo] Style Level 1",
+          "[M][Promo] Style Level 2"
+        ]
+      },
+      "ruleText": "Изменения variant/property в компонентах семейства BackgroundPlate являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.background-plate-view-is-alias",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.identity|codeExport.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.background-plate",
+        "codeExports": [
+          "BackgroundPlateView"
+        ],
+        "mapsTo": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate",
+          "[D][Promo] BackgroundPlate",
+          "[M][Promo] BackgroundPlate"
+        ]
+      },
+      "classification": {
+        "reportAsCustomization": false,
+        "doNotTreatAsViolationByDefault": true,
+        "useComponentKey": "web-corp.background-plate"
+      },
+      "ruleText": "BackgroundPlateView — code/private alias семейства BackgroundPlate. Не создавай отдельную рекомендацию “неизвестный компонент”; применяй правила BackgroundPlate, включая effective baseline, reset model, radius и composition rules."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.layer-properties-use-effective-baseline",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.background-plate",
+        "layers": [
+          "[D] BackgroundPlate",
+          "[D] BackgroundPlateSlot",
+          "[D] Style Level 1",
+          "[D] Style Level 2",
+          "[D][Promo] BackgroundPlate",
+          "[D][Promo] Style Level 1",
+          "[D][Promo] Style Level 2",
+          "[M] BackgroundPlate",
+          "[M] BackgroundPlateSlot",
+          "[M] Style Level 1",
+          "[M] Style Level 2",
+          "[M][Promo] BackgroundPlate",
+          "[M][Promo] Style Level 1",
+          "[M][Promo] Style Level 2"
+        ]
+      },
+      "ruleText": "Изменения layer/style внутри компонентов семейства BackgroundPlate нужно сравнивать с effective baseline текущего component variant и nested owner context. Изменения layout.padding.* у BackgroundPlateSlot являются допустимыми дизайнерскими кастомизациями, если они нужны композиции и заданы через токены Spacing."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.padding-is-designer-controlled",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "layout.padding.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.background-plate",
+        "layers": [
+          "[D] BackgroundPlateSlot",
+          "[M] BackgroundPlateSlot"
+        ]
+      },
+      "classification": {
+        "reportAsCustomization": true,
+        "doNotTreatAsViolationByDefault": true,
+        "doNotRecommendResetToStandalonePadding": true,
+        "requireSpacingTokenRuleCheck": "component:web-corp.background-plate.padding-uses-spacing-tokens"
+      },
+      "ruleText": "Внутренние padding у BackgroundPlateSlot могут изменяться дизайнером под задачу композиции. Само отличие от standalone padding 24 px не является ошибкой и не требует рекомендации “вернуть 24”. Показывай изменение как layer customization и проверяй отдельным правилом, что каждое layout.padding.* задано через токен Spacing."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.level-2-requires-level-1",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.background-plate.level-2-over-level-1",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate",
+          "[D][Promo] BackgroundPlate",
+          "[M][Promo] BackgroundPlate"
+        ],
+        "variant": {
+          "Position": "Level 2 (inner)"
+        }
+      },
+      "requiredComposition": {
+        "requiredAncestor": {
+          "component": "BackgroundPlate",
+          "variant": {
+            "Position": "Level 1 (outer)"
+          }
+        }
+      },
+      "ruleText": "BackgroundPlate с Position=Level 2 (inner) должен располагаться только поверх BackgroundPlate Level 1. Самостоятельный Level 2 допустим только как исключение внутри отдельного компонента, если это задано его контрактом."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.background-color-by-page-background",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.background-plate.background-color-by-page",
+      "appliesTo": "screen.composition",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate",
+          "[D] Style Level 1",
+          "[M] Style Level 1",
+          "[D] Style Level 2",
+          "[M] Style Level 2"
+        ]
+      },
+      "requiredMapping": {
+        "grayPageBackground": "base-bg-alt (gray)",
+        "whitePageBackground": "base-bg (white)"
+      },
+      "ruleText": "BackgroundColor выбирается по фону страницы: на сером фоне используй base-bg-alt (gray), на белом фоне используй base-bg (white)."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.single-background-color-per-page",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.background-plate.single-background-color-per-page",
+      "appliesTo": "screen.composition",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate",
+          "[D][Promo] BackgroundPlate",
+          "[M][Promo] BackgroundPlate"
+        ],
+        "scope": "same-page-background-context"
+      },
+      "requiredComposition": {
+        "sameBackgroundColorAcrossScope": true
+      },
+      "ruleText": "Значение BackgroundColor определяется один раз для всех BackgroundPlate на странице. Если фон основной страницы один и тот же, все подложки должны использовать один BackgroundColor."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.no-secondary-for-level-2",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.background-plate.no-secondary-for-level-2",
+      "appliesTo": "variant.Type",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "components": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate",
+          "[D] Style Level 2",
+          "[M] Style Level 2",
+          "[D][Promo] BackgroundPlate",
+          "[M][Promo] BackgroundPlate",
+          "[D][Promo] Style Level 2",
+          "[M][Promo] Style Level 2"
+        ],
+        "variant": {
+          "Position": "Level 2 (inner)"
+        }
+      },
+      "disallowedVariant": {
+        "Type": "Secondary"
+      },
+      "ruleText": "Для BackgroundPlate Level 2 не существует стиля Secondary. Используй Type=Primary, Type=Colored или Type=Border."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.border-is-not-clickable",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.background-plate.border-not-clickable",
+      "appliesTo": "component.behavior",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate",
+          "[D] BackgroundPlateSlot",
+          "[M] BackgroundPlateSlot"
+        ],
+        "variant": {
+          "Type": "Border"
+        }
+      },
+      "disallowedBehavior": {
+        "clickable": true
+      },
+      "ruleText": "BackgroundPlate Type=Border используется как декоративный элемент и не может быть кликабельным."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.skeleton-is-component-property",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.background-plate.skeleton-variant",
+      "appliesTo": "variant.Skeleton",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.background-plate",
+        "layers": [
+          "[D] BackgroundPlate",
+          "[D] BackgroundPlateSlot",
+          "[D] Style Level 1",
+          "[D] Style Level 2",
+          "[M] BackgroundPlate",
+          "[M] BackgroundPlateSlot",
+          "[M] Style Level 1",
+          "[M] Style Level 2"
+        ]
+      },
+      "ruleText": "Загрузочное состояние BackgroundPlate должно задаваться через component property Skeleton=True. Ручные placeholder-слои вместо Skeleton=True являются нарушением компонентной структуры."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.padding-uses-spacing-tokens",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.background-plate.padding-uses-spacing-tokens",
+      "appliesTo": "layout.padding.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.background-plate",
+        "layers": [
+          "[D] BackgroundPlate",
+          "[D] BackgroundPlateSlot",
+          "[D] Style Level 1",
+          "[D] Style Level 2",
+          "[D][Promo] BackgroundPlate",
+          "[D][Promo] Style Level 1",
+          "[D][Promo] Style Level 2",
+          "[M] BackgroundPlate",
+          "[M] BackgroundPlateSlot",
+          "[M] Style Level 1",
+          "[M] Style Level 2",
+          "[M][Promo] BackgroundPlate",
+          "[M][Promo] Style Level 1",
+          "[M][Promo] Style Level 2"
+        ]
+      },
+      "requiredTokenSource": {
+        "path": "shared/design-system_ab/JSONS/tokens/Spacing.json",
+        "collection": "Spacing",
+        "tokenNames": [
+          "0",
+          "1",
+          "2",
+          "4",
+          "6",
+          "8",
+          "12",
+          "16",
+          "20",
+          "24",
+          "32",
+          "40",
+          "48",
+          "56",
+          "64",
+          "72",
+          "80",
+          "96",
+          "128",
+          "256"
+        ]
+      },
+      "ruleText": "Базовые padding у BackgroundPlate могут быть любыми по значению, но каждое layout.padding.* должно быть задано через токен из коллекции Spacing. Ручные px-значения без token binding являются нарушением, даже если число совпадает со spacing-шкалой."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.adaptive-level-2-becomes-level-1-without-outer",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.background-plate.adaptive-level-adjustment",
+      "appliesTo": "screen.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "platform": "adaptive",
+        "components": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate"
+        ],
+        "desktopComposition": "Level 1 contains Level 2",
+        "adaptiveComposition": "outer Level 1 removed"
+      },
+      "requiredComposition": {
+        "formerLevel2Position": "Level 1 (outer)"
+      },
+      "ruleText": "В адаптиве BackgroundPlate Level 2 нужно вручную изменить на Level 1, если во вложенной адаптивной композиции больше не предполагается внешний Level 1."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.adaptive-remove-inner-32-padding",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.background-plate.adaptive-remove-inner-32",
+      "appliesTo": "component.layout",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "platform": "adaptive",
+        "component": "BackgroundPlate",
+        "layout": {
+          "innerPadding": 32
+        }
+      },
+      "ruleText": "В адаптиве внутренние отступы 32 px во вложенных BackgroundPlate-конструкциях нужно убирать вручную, если они перешли из desktop-композиции и сжимают контент."
+    }
+  ]
+}
