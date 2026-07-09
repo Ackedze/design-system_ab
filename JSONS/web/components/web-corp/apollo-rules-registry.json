@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-component-rules-registry",
-  "generatedAt": "2026-07-06T18:47:40.761Z",
+  "generatedAt": "2026-07-09T14:19:02.837Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -435,10 +435,36 @@
           "ruleText": "Изменения variant/property в компонентах семейства BackgroundPlate являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
+          "ruleId": "component:web-corp.background-plate.background-plate-view-is-alias",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.identity|codeExport.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate",
+            "codeExports": [
+              "BackgroundPlateView"
+            ],
+            "mapsTo": [
+              "[D] BackgroundPlate",
+              "[M] BackgroundPlate",
+              "[D][Promo] BackgroundPlate",
+              "[M][Promo] BackgroundPlate"
+            ]
+          },
+          "classification": {
+            "reportAsCustomization": false,
+            "doNotTreatAsViolationByDefault": true,
+            "useComponentKey": "web-corp.background-plate"
+          },
+          "ruleText": "BackgroundPlateView — code/private alias семейства BackgroundPlate. Не создавай отдельную рекомендацию “неизвестный компонент”; применяй правила BackgroundPlate, включая effective baseline, reset model, radius и composition rules."
+        },
+        {
           "ruleId": "component:web-corp.background-plate.layer-properties-use-effective-baseline",
           "severity": "warning",
           "source": "component-contract",
-          "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
+          "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|opacity",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "target": {
@@ -460,7 +486,44 @@
               "[M][Promo] Style Level 2"
             ]
           },
-          "ruleText": "Изменения layer/style внутри компонентов семейства BackgroundPlate нужно сравнивать с effective baseline текущего component variant и nested owner context. Изменения layout.padding.* у BackgroundPlateSlot являются допустимыми дизайнерскими кастомизациями, если они нужны композиции и заданы через токены Spacing."
+          "ruleText": "Изменения layer/style внутри компонентов семейства BackgroundPlate нужно сравнивать с effective baseline текущего component variant и nested owner context. Изменения layout.padding.* у BackgroundPlateSlot являются допустимыми дизайнерскими кастомизациями, если они нужны композиции и заданы через токены Spacing. Это правило не разрешает изменение radius: скругления BackgroundPlate и Style Level фиксируются компонентным baseline и не должны изменяться вручную."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "radius|layout.radius|cornerRadius|cornerRadius.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate",
+            "layers": [
+              "[D] BackgroundPlate",
+              "[M] BackgroundPlate",
+              "[D][Promo] BackgroundPlate",
+              "[M][Promo] BackgroundPlate",
+              "BackgroundPlate / absolute back",
+              "[D] Style Level 1",
+              "[D] Style Level 2",
+              "[D][Promo] Style Level 1",
+              "[D][Promo] Style Level 2",
+              "[M] Style Level 1",
+              "[M] Style Level 2",
+              "[M][Promo] Style Level 1",
+              "[M][Promo] Style Level 2",
+              "Position=Level 1 (outer)",
+              "Position=Level 2 (inner)"
+            ]
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true
+          },
+          "remediation": "Сбросьте radius к effective baseline выбранного варианта BackgroundPlate. Не задавайте скругления BackgroundPlate и Style Level вручную.",
+          "ruleText": "Скругления BackgroundPlate, BackgroundPlateSlot и вложенных Style Level задаются компонентом и его effective baseline. Дизайнер не должен вручную изменять radius/cornerRadius у root-layer BackgroundPlate, BackgroundPlateSlot или Style Level. Любое отличие radius от effective baseline является нарушением, а не допустимой композиционной настройкой."
         },
         {
           "ruleId": "component:web-corp.background-plate.padding-is-designer-controlled",
@@ -514,7 +577,7 @@
           "ruleText": "BackgroundPlate с Position=Level 2 (inner) должен располагаться только поверх BackgroundPlate Level 1. Самостоятельный Level 2 допустим только как исключение внутри отдельного компонента, если это задано его контрактом."
         },
         {
-          "ruleId": "component:web-corp.background-plate.background-color-by-page-background",
+          "ruleId": "component:web-corp.background-plate.background-color-by-surface-context",
           "severity": "error",
           "source": "pattern-link",
           "patternRuleId": "rule:components.background-plate.background-color-by-page",
@@ -532,10 +595,16 @@
             ]
           },
           "requiredMapping": {
-            "grayPageBackground": "base-bg-alt (gray)",
-            "whitePageBackground": "base-bg (white)"
+            "pageSurface": {
+              "gray": "base-bg-alt (gray)",
+              "white": "base-bg (white)"
+            },
+            "modalSurface": {
+              "gray": "modal-bg-alt (gray)",
+              "white": "modal-bg (white)"
+            }
           },
-          "ruleText": "BackgroundColor выбирается по фону страницы: на сером фоне используй base-bg-alt (gray), на белом фоне используй base-bg (white)."
+          "ruleText": "BackgroundColor выбирается по контексту поверхности. Для страниц используй base-bg-alt (gray) на серой поверхности и base-bg (white) на белой поверхности. Для модальных сущностей используй modal-bg-alt (gray) на серой поверхности и modal-bg (white) на белой поверхности. Часть имени до скобок соответствует цветовому токену поверхности; значение в скобках уточняет визуальный фон gray/white."
         },
         {
           "ruleId": "component:web-corp.background-plate.single-background-color-per-page",
@@ -586,6 +655,45 @@
             "Type": "Secondary"
           },
           "ruleText": "Для BackgroundPlate Level 2 не существует стиля Secondary. Используй Type=Primary, Type=Colored или Type=Border."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "fill|stroke|variant.BackgroundColor",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "components": [
+              "[D] Style Level 1",
+              "[D] Style Level 2",
+              "[D][Promo] Style Level 1",
+              "[D][Promo] Style Level 2",
+              "[M] Style Level 1",
+              "[M] Style Level 2",
+              "[M][Promo] Style Level 1",
+              "[M][Promo] Style Level 2"
+            ],
+            "variant": {
+              "Type": [
+                "Colored",
+                "Border"
+              ]
+            }
+          },
+          "requiredTokenBinding": {
+            "properties": [
+              "fill",
+              "stroke"
+            ],
+            "tokenType": "color"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "doNotTreatTokenizedColorAsViolation": true,
+            "treatRawFillOrStrokeAsViolation": true
+          },
+          "ruleText": "Для Type=Colored и Type=Border цвета заливки и обводки должны быть заданы через цветовые токены дизайн-системы. Конкретный цвет может отличаться по смыслу поверхности, но raw fill/raw stroke без token binding являются нарушением."
         },
         {
           "ruleId": "component:web-corp.background-plate.border-is-not-clickable",

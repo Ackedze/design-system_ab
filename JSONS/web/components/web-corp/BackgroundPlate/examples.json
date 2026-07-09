@@ -310,6 +310,62 @@
           "Не использовать baseline Promo/mobile для desktop рабочей поверхности."
         ]
       }
+    },
+    {
+      "exampleId": "background-plate-root-radius-manual-change",
+      "title": "Ручное изменение radius у root-layer запрещено",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "nodeName": "BackgroundPlate / absolute back",
+        "property": "radius",
+        "referenceValue": 0,
+        "actualValue": 24
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры слоя",
+        "resetSurface": "layer",
+        "severity": "high",
+        "ruleId": "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
+        "showAs": "Скругления: 0 → 24"
+      },
+      "expectedAgent": {
+        "summary": "Ручное изменение скругления root-layer BackgroundPlate является нарушением component baseline.",
+        "recommendation": "Сбросить radius к effective baseline выбранного варианта BackgroundPlate.",
+        "mustNotSay": [
+          "Не говорить, что в паттерне нет правила по radius.",
+          "Не проверять radius через токены Spacing.",
+          "Не описывать изменение radius как допустимую композиционную настройку."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-style-level-radius-manual-change",
+      "title": "Ручное изменение radius у Style Level запрещено",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "nodeName": "[D] Style Level 1",
+        "property": "radius",
+        "referenceValue": 16,
+        "actualValue": 23
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры слоя",
+        "resetSurface": "layer",
+        "severity": "high",
+        "ruleId": "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
+        "showAs": "Скругления: 16 → 23"
+      },
+      "expectedAgent": {
+        "summary": "Style Level хранит surface baseline, включая radius. Ручное отличие radius от effective baseline является нарушением.",
+        "recommendation": "Сбросить radius [D] Style Level 1 к effective baseline.",
+        "mustNotSay": [
+          "Не считать изменение radius допустимой настройкой padding/layout.",
+          "Не требовать токен Spacing для radius.",
+          "Не говорить, что Apollo не нашёл эталонного ожидания, если component rule присутствует."
+        ]
+      }
     }
   ]
 }

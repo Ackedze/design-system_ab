@@ -398,6 +398,34 @@ padding-top: 30 px без токена
 
 Padding может адаптироваться под сценарий, но токены сохраняют единую spacing-шкалу и позволяют агенту отличать допустимую настройку компонента от ручной геометрии.
 
+### Rule 12: Не меняй скругления вручную
+
+- ruleId: rule:components.background-plate.radius-fixed-by-component
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+Скругления `BackgroundPlate`, `BackgroundPlateSlot` и вложенных `Style Level` задаются компонентом и его текущим вариантом. Не меняйте `radius` или `cornerRadius` вручную.
+
+#### Правильно
+
+```text
+[D] BackgroundPlate Level 1 -> radius из component baseline
+[D] Style Level 1 -> radius из component baseline
+```
+
+#### Неправильно
+
+```text
+[D] BackgroundPlate radius: 0 -> 24
+[D] Style Level 1 radius: 16 -> 23
+```
+
+#### Почему
+
+Скругления задают уровень поверхности и визуальную иерархию подложек. Ручное изменение radius ломает соответствие component baseline и должно фиксироваться как нарушение, а не как допустимая композиционная настройка.
+
 ## Section 7: Шаблоны
 
 ### Внешняя подложка
@@ -546,6 +574,7 @@ padding-left: 16 px вручную без Spacing token
 - Проверять, что loading-состояние использует `Skeleton=True`.
 - Проверять, что `layout.padding.*` у `BackgroundPlate` и `BackgroundPlateSlot` задан через токены `Spacing`.
 - Проверять, что значения `layout.padding.*` входят в набор `0`, `1`, `2`, `4`, `6`, `8`, `12`, `16`, `20`, `24`, `32`, `40`, `48`, `56`, `64`, `72`, `80`, `96`, `128`, `256`.
+- Проверять, что `radius` и `cornerRadius` у `BackgroundPlate`, `BackgroundPlateSlot` и вложенных `Style Level` совпадают с effective baseline текущего варианта компонента. Любое ручное изменение скруглений считать нарушением.
 
 ### Словарные проверки
 

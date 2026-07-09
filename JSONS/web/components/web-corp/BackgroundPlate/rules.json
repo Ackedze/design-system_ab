@@ -73,7 +73,7 @@
       "ruleId": "component:web-corp.background-plate.layer-properties-use-effective-baseline",
       "severity": "warning",
       "source": "component-contract",
-      "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
+      "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|opacity",
       "checkType": "deterministic",
       "matchKind": "exact_component_rule",
       "target": {
@@ -95,7 +95,44 @@
           "[M][Promo] Style Level 2"
         ]
       },
-      "ruleText": "Изменения layer/style внутри компонентов семейства BackgroundPlate нужно сравнивать с effective baseline текущего component variant и nested owner context. Изменения layout.padding.* у BackgroundPlateSlot являются допустимыми дизайнерскими кастомизациями, если они нужны композиции и заданы через токены Spacing."
+      "ruleText": "Изменения layer/style внутри компонентов семейства BackgroundPlate нужно сравнивать с effective baseline текущего component variant и nested owner context. Изменения layout.padding.* у BackgroundPlateSlot являются допустимыми дизайнерскими кастомизациями, если они нужны композиции и заданы через токены Spacing. Это правило не разрешает изменение radius: скругления BackgroundPlate и Style Level фиксируются компонентным baseline и не должны изменяться вручную."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "radius|layout.radius|cornerRadius|cornerRadius.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.background-plate",
+        "layers": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate",
+          "[D][Promo] BackgroundPlate",
+          "[M][Promo] BackgroundPlate",
+          "BackgroundPlate / absolute back",
+          "[D] Style Level 1",
+          "[D] Style Level 2",
+          "[D][Promo] Style Level 1",
+          "[D][Promo] Style Level 2",
+          "[M] Style Level 1",
+          "[M] Style Level 2",
+          "[M][Promo] Style Level 1",
+          "[M][Promo] Style Level 2",
+          "Position=Level 1 (outer)",
+          "Position=Level 2 (inner)"
+        ]
+      },
+      "classification": {
+        "reportAsCustomization": true,
+        "treatAsViolation": true,
+        "designSeverity": "error",
+        "resetSurface": "layer",
+        "useEffectiveBaseline": true
+      },
+      "remediation": "Сбросьте radius к effective baseline выбранного варианта BackgroundPlate. Не задавайте скругления BackgroundPlate и Style Level вручную.",
+      "ruleText": "Скругления BackgroundPlate, BackgroundPlateSlot и вложенных Style Level задаются компонентом и его effective baseline. Дизайнер не должен вручную изменять radius/cornerRadius у root-layer BackgroundPlate, BackgroundPlateSlot или Style Level. Любое отличие radius от effective baseline является нарушением, а не допустимой композиционной настройкой."
     },
     {
       "ruleId": "component:web-corp.background-plate.padding-is-designer-controlled",
