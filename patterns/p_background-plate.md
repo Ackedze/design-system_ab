@@ -9,8 +9,8 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: draft
-- updatedAt: 2026-07-06
+- status: ready
+- updatedAt: 2026-07-09
 - sourceType: component-guideline
 - tags: backgroundplate, background, plate, container, level, overlay, adaptive, skeleton, web-corp
 - figmaLink: none
