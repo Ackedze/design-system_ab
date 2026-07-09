@@ -42,11 +42,6 @@ function main() {
     let changed = false;
     changed =
       writeIfMissing(
-        path.join(packageDir, 'catalog.raw.json'),
-        readText(catalogInfo.filePath),
-      ) || changed;
-    changed =
-      writeIfMissing(
         path.join(packageDir, 'contract.generated.json'),
         readText(converted.compiledPath),
       ) || changed;
@@ -66,9 +61,10 @@ function main() {
         jsonText(buildRules(packageName, catalogInfo.catalog)),
       ) || changed;
     changed =
-      writeIfMissing(
+      writeMergedHybridJson(
         path.join(packageDir, 'audit-mapping.json'),
-        jsonText(buildAuditMapping(packageName)),
+        buildAuditMapping(packageName, catalogInfo.catalog),
+        mergeAuditMapping,
       ) || changed;
     changed =
       writeIfMissing(
@@ -76,9 +72,10 @@ function main() {
         jsonText(buildExamples(packageName)),
       ) || changed;
     changed =
-      writeIfMissing(
+      writeMergedHybridJson(
         path.join(packageDir, 'agent-context.json'),
-        jsonText(buildAgentContext(packageName, catalogInfo.catalog)),
+        buildAgentContext(packageName, catalogInfo.catalog),
+        mergeAgentContext,
       ) || changed;
     changed =
       writeIfMissing(
@@ -334,61 +331,113 @@ function buildRules(packageName, catalog) {
   };
 }
 
-function buildAuditMapping(packageName) {
+function buildAuditMapping(packageName, catalog) {
+  const componentKey = getPackageKey(packageName);
+  const source = buildSourceInfo(packageName, catalog);
+  const classification = [
+    {
+      match: { propertyPrefix: 'variant.' },
+      scope: 'component-property',
+      groupTitle: 'Параметры компонента',
+      priority: 10,
+      resetAction: 'reset-component-properties',
+    },
+    {
+      match: { propertyPrefix: 'layout.' },
+      scope: 'layer-property',
+      groupTitle: 'Параметры слоя',
+      priority: 20,
+      resetAction: 'reset-layer-properties',
+      effectiveBaseline: 'composition-contract',
+    },
+    {
+      match: { property: 'styles.text' },
+      scope: 'layer-property',
+      groupTitle: 'Параметры слоя',
+      displayName: 'Стиль текст',
+      priority: 30,
+      resetAction: 'reset-layer-properties',
+      effectiveBaseline: 'composition-contract',
+    },
+    {
+      match: { property: 'fill' },
+      scope: 'layer-property',
+      groupTitle: 'Параметры слоя',
+      priority: 40,
+      resetAction: 'reset-layer-properties',
+      effectiveBaseline: 'composition-contract',
+    },
+    {
+      match: { property: 'stroke' },
+      scope: 'layer-property',
+      groupTitle: 'Параметры слоя',
+      priority: 50,
+      resetAction: 'reset-layer-properties',
+      effectiveBaseline: 'composition-contract',
+    },
+  ];
+  const groupingOrder = ['component-property', 'layer-property'];
+  const evidencePolicy = {
+    showVariantBeforeDerivedVisuals: true,
+    useChangedNodeAsAffectedTarget: true,
+    keepLayerOverrideSeparateFromVariantChange: true,
+    suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline: true,
+  };
+  const categories = [
+    {
+      when: { propertyPrefix: 'variant.' },
+      category: 'component-property',
+      resetSurface: 'parameters',
+    },
+    {
+      when: { propertyPrefix: 'layout.' },
+      category: 'layer-property',
+      resetSurface: 'layer',
+      baselinePolicy:
+        'Use component effective baseline after host and nested variant resolution.',
+    },
+    {
+      when: { propertyPrefix: 'styles.' },
+      category: 'layer-property',
+      resetSurface: 'layer',
+      baselinePolicy:
+        'Use resolved style label or style id from the effective baseline.',
+    },
+    {
+      when: { property: 'fill' },
+      category: 'layer-property',
+      resetSurface: 'layer',
+      baselinePolicy:
+        'Use resolved token/style/color from the effective baseline.',
+    },
+    {
+      when: { property: 'stroke' },
+      category: 'layer-property',
+      resetSurface: 'layer',
+      baselinePolicy:
+        'Use resolved token/style/color from the effective baseline.',
+    },
+  ];
+
   return {
     schemaVersion: 1,
     documentType: 'component-audit-mapping',
-    componentKey: getPackageKey(packageName),
+    componentKey,
     status: 'generated-draft',
-    classification: [
-      {
-        match: { propertyPrefix: 'variant.' },
-        scope: 'component-property',
-        groupTitle: 'Параметры компонента',
-        priority: 10,
-        resetAction: 'reset-component-properties',
-      },
-      {
-        match: { propertyPrefix: 'layout.' },
-        scope: 'layer-property',
-        groupTitle: 'Параметры слоя',
-        priority: 20,
-        resetAction: 'reset-layer-properties',
-        effectiveBaseline: 'composition-contract',
-      },
-      {
-        match: { property: 'styles.text' },
-        scope: 'layer-property',
-        groupTitle: 'Параметры слоя',
-        displayName: 'Стиль текст',
-        priority: 30,
-        resetAction: 'reset-layer-properties',
-        effectiveBaseline: 'composition-contract',
-      },
-      {
-        match: { property: 'fill' },
-        scope: 'layer-property',
-        groupTitle: 'Параметры слоя',
-        priority: 40,
-        resetAction: 'reset-layer-properties',
-        effectiveBaseline: 'composition-contract',
-      },
-      {
-        match: { property: 'stroke' },
-        scope: 'layer-property',
-        groupTitle: 'Параметры слоя',
-        priority: 50,
-        resetAction: 'reset-layer-properties',
-        effectiveBaseline: 'composition-contract',
-      },
-    ],
-    groupingOrder: ['component-property', 'layer-property'],
-    evidencePolicy: {
-      showVariantBeforeDerivedVisuals: true,
-      useChangedNodeAsAffectedTarget: true,
-      keepLayerOverrideSeparateFromVariantChange: true,
-      suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline: true,
+    applicability: buildApplicability(source.generatedAt),
+    generated: {
+      generatedAt: source.generatedAt,
+      source,
+      classification,
+      categories,
+      groupingOrder,
+      evidencePolicy,
     },
+    manual: {},
+    classification,
+    categories,
+    groupingOrder,
+    evidencePolicy,
   };
 }
 
@@ -403,50 +452,64 @@ function buildExamples(packageName) {
 }
 
 function buildAgentContext(packageName, catalog) {
+  const source = buildSourceInfo(packageName, catalog);
+  const sourceFiles = [
+    'contract.generated.json',
+    'contract.overrides.json',
+    'rules.json',
+    'audit-mapping.json',
+    'examples.json',
+    'composition-contract.json',
+  ];
+  const components = getCatalogComponents(catalog).map((component) => ({
+    name: component.name,
+    key: component.key,
+    status: component.status || '',
+    role: component.role || '',
+    platform: component.platform || '',
+    variantProperties: getVariantProperties(component),
+  }));
+  const summary = {
+    componentFamily: packageName,
+    library: source.library,
+    purpose:
+      'Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста.',
+  };
+  const auditInterpretation = {
+    componentProperties: ['variant.*'],
+    layerProperties: [
+      'fill',
+      'stroke',
+      'styles.text',
+      'layout.*',
+      'radius',
+      'opacity',
+    ],
+    baselinePolicy:
+      'Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context.',
+  };
+
   return {
     schemaVersion: 1,
     documentType: 'component-agent-context',
     componentKey: getPackageKey(packageName),
     status: 'generated-draft',
-    sourceFiles: [
-      'catalog.raw.json',
-      'contract.generated.json',
-      'contract.overrides.json',
-      'rules.json',
-      'audit-mapping.json',
-      'examples.json',
-      'composition-contract.json',
-    ],
-    summary: {
-      componentFamily: packageName,
-      library:
-        catalog.source && catalog.source.library
-          ? catalog.source.library
-          : 'Web _ Corp Components',
-      purpose:
-        'Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста.',
+    applicability: buildApplicability(source.generatedAt),
+    generated: {
+      generatedAt: source.generatedAt,
+      sourceFiles,
+      source,
+      summary,
+      components,
+      auditInterpretation,
     },
-    includedComponents: getCatalogComponents(catalog).map((component) => ({
-      name: component.name,
-      key: component.key,
-      status: component.status || '',
-      role: component.role || '',
-      platform: component.platform || '',
-      variantProperties: getVariantProperties(component),
-    })),
-    auditInterpretation: {
-      componentProperties: ['variant.*'],
-      layerProperties: [
-        'fill',
-        'stroke',
-        'styles.text',
-        'layout.*',
-        'radius',
-        'opacity',
-      ],
-      baselinePolicy:
-        'Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context.',
-    },
+    manual: {},
+    sourceFiles,
+    source,
+    summary: summary.purpose,
+    components,
+    includedComponents: components,
+    auditInterpretation,
   };
 }
 
@@ -471,7 +534,6 @@ function buildReadme(packageName, catalog, fileName) {
     '',
     '## Файлы',
     '',
-    '- `catalog.raw.json` — сохранённая копия source catalog для этого пакета.',
     '- `contract.generated.json` — сгенерированный compact contract, извлечённый из raw Figma catalog.',
     '- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.',
     '- `composition-contract.json` — сгенерированный context владения internal instances.',
@@ -488,7 +550,7 @@ function buildReadme(packageName, catalog, fileName) {
     '',
     '## Текущий Scope',
     '',
-    'Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.',
+    'Пакет сгенерирован. Raw-каталог не дублируется внутри папки компонента; ссылка на source хранится в `source.rawCatalogPath`. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.',
     '',
   ].join('\n');
 }
@@ -599,6 +661,124 @@ function parseVariantName(name) {
     const value = segment.slice(index + 1).trim();
     if (key && value) {
       result[key] = value;
+    }
+  }
+  return result;
+}
+
+function buildSourceInfo(packageName, catalog) {
+  const source = catalog.source && typeof catalog.source === 'object'
+    ? catalog.source
+    : {};
+  const sourceFiles = Array.isArray(source.files) ? source.files : [packageName];
+  return {
+    rawCatalogPath: `JSONS/web/components/web-corp/Web _ Corp Components -- ${packageName}.json`,
+    library: source.library || 'Web _ Corp Components',
+    file: source.file || 'Web _ Corp Components',
+    generatedAt: source.generatedAt || GENERATED_AT,
+    exportVersion: source.exportVersion || '',
+    files: sourceFiles,
+  };
+}
+
+function buildApplicability(generatedAt) {
+  return {
+    channels: ['b2b'],
+    platforms: ['desktop', 'mobile-web'],
+    source: 'path-policy',
+    updatedAt: String(generatedAt || GENERATED_AT).slice(0, 10),
+  };
+}
+
+function writeMergedHybridJson(filePath, nextDocument, mergeDocument) {
+  let document = nextDocument;
+  if (fs.existsSync(filePath)) {
+    const existing = JSON.parse(readText(filePath));
+    document = mergeDocument(existing, nextDocument);
+  }
+  const nextContent = jsonText(document);
+  if (fs.existsSync(filePath) && readText(filePath) === nextContent) {
+    return false;
+  }
+  writeText(filePath, nextContent);
+  return true;
+}
+
+function mergeAuditMapping(existing, nextDocument) {
+  const manual = existing.manual && typeof existing.manual === 'object'
+    ? existing.manual
+    : extractAuditMappingManual(existing);
+  const generated = nextDocument.generated;
+  return removeUndefinedProperties({
+    schemaVersion: nextDocument.schemaVersion,
+    documentType: nextDocument.documentType,
+    componentKey: nextDocument.componentKey,
+    status: existing.status || nextDocument.status,
+    applicability: nextDocument.applicability,
+    generated,
+    manual,
+    classification: generated.classification,
+    groupingOrder: generated.groupingOrder,
+    evidencePolicy: generated.evidencePolicy,
+    categories: manual.categories || generated.categories,
+    hostIntegrationNote: manual.hostIntegrationNote,
+    codeExportAliases: manual.codeExportAliases,
+  });
+}
+
+function extractAuditMappingManual(existing) {
+  return removeUndefinedProperties({
+    categories: existing.categories,
+    hostIntegrationNote: existing.hostIntegrationNote,
+    codeExportAliases: existing.codeExportAliases,
+    notes: existing.notes,
+  });
+}
+
+function mergeAgentContext(existing, nextDocument) {
+  const manual = existing.manual && typeof existing.manual === 'object'
+    ? existing.manual
+    : extractAgentContextManual(existing);
+  const generated = nextDocument.generated;
+  return removeUndefinedProperties({
+    schemaVersion: nextDocument.schemaVersion,
+    documentType: nextDocument.documentType,
+    componentKey: nextDocument.componentKey,
+    status: existing.status || nextDocument.status,
+    applicability: nextDocument.applicability,
+    generated,
+    manual,
+    sourceFiles: generated.sourceFiles,
+    source: generated.source,
+    summary: manual.summary || generated.summary.purpose,
+    components: generated.components,
+    includedComponents: generated.components,
+    criticalBaselines: manual.criticalBaselines,
+    agentInstructions: manual.agentInstructions,
+    codeExports: manual.codeExports,
+    auditInterpretation: manual.auditInterpretation || generated.auditInterpretation,
+  });
+}
+
+function extractAgentContextManual(existing) {
+  return removeUndefinedProperties({
+    summary: existing.summary,
+    criticalBaselines: existing.criticalBaselines,
+    agentInstructions: existing.agentInstructions,
+    codeExports: existing.codeExports,
+    auditInterpretation: existing.auditInterpretation,
+    notes: existing.notes,
+  });
+}
+
+function removeUndefinedProperties(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return value;
+  }
+  const result = {};
+  for (const [key, item] of Object.entries(value)) {
+    if (item !== undefined) {
+      result[key] = item;
     }
   }
   return result;

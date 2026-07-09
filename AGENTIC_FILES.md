@@ -159,6 +159,8 @@ JSONS/referenceSourcesMVP.json
 
 Типовые разделы:
 
+- `generated`
+- `manual`
 - `summary`
 - `source`
 - `components`
@@ -178,6 +180,8 @@ JSONS/referenceSourcesMVP.json
 
 **Ценность:** снижает галлюцинации агента. Объясняет, какие изменения считать нарушением, какие только кастомизацией, а какие штатным поведением компонента.
 
+**Generated/manual модель:** Athena может обновлять `generated.source`, `generated.components`, `generated.summary` и `generated.auditInterpretation` при каждом обновлении raw-каталога. Ручные смысловые поля должны жить в `manual`: `manual.summary`, `manual.criticalBaselines`, `manual.agentInstructions`, `manual.codeExports`. Для обратной совместимости эти поля могут дублироваться наверх, но источником ручного смысла считается `manual`.
+
 **Актуальное использование:** индексируется и должен использоваться agentic pipeline. Для Figma runtime сейчас важнее `rules.json` и `composition-contract.json`.
 
 ### `audit-mapping.json`
@@ -186,6 +190,8 @@ JSONS/referenceSourcesMVP.json
 
 Типовые разделы:
 
+- `generated`
+- `manual`
 - `categories` или `classification`
 - `match`
 - `category`
@@ -211,6 +217,8 @@ JSONS/referenceSourcesMVP.json
 ```
 
 **Ценность:** выносит из кода Apollo знание о том, как группировать diff и какой reset action применять.
+
+**Generated/manual модель:** Athena может обновлять `generated.classification`, `generated.groupingOrder` и `generated.evidencePolicy`. Ручные уточнения должны жить в `manual`: legacy `categories`, `hostIntegrationNote`, `codeExportAliases`, исключения и notes. Runtime может читать верхнеуровневые поля для совместимости, но при конфликте ручные уточнения должны иметь приоритет над generated default.
 
 **Актуальное использование:** файл публикуется и индексируется. Базовая генерация есть в Athena CLI. Runtime Apollo пока не полностью управляется этим файлом, поэтому часть поведения остаётся в коде плагина.
 
@@ -353,8 +361,8 @@ Athena CLI отвечает за подготовку и публикацию к
 | `componentContractIndex.json` | Generated/index. Обновляется Athena. |
 | `rules.json` | Manual-first. Athena может создать каркас, но не должна затирать ручные правила. |
 | `composition-contract.json` | Manual-first. Athena может создать каркас/wraps, но доменные уточнения требуют ручной проверки. |
-| `agent-context.json` | Manual-first. Нужен редакторский контроль, потому что влияет на поведение агента. |
-| `audit-mapping.json` | Hybrid. Athena может генерировать базовую классификацию, ручной слой должен уточнять доменную семантику. |
+| `agent-context.json` | Hybrid. Athena обновляет `generated`, ручной смысл хранится в `manual`. |
+| `audit-mapping.json` | Hybrid. Athena обновляет `generated`, ручной слой `manual` уточняет доменную семантику и legacy compatibility. |
 | `contract.overrides.json` | Manual. Основной слой ручных уточнений поверх generated baseline. |
 | `examples.json` | Manual. Regression-кейсы должны описывать реальное ожидаемое поведение. |
 | `README.md` | Manual/human. |
