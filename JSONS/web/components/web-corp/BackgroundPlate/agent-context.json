@@ -12,7 +12,7 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-09"
   },
   "summary": "BackgroundPlate — семейство surface-компонентов для рабочих и промо-подложек. Оно связывает Position, Type, BackgroundColor и Skeleton variants с фактическими layer baseline: заливкой, скруглением и slot padding. BackgroundPlateView — кодовый alias этого же семейства, а не отдельный Figma-компонент.",
   "source": {
@@ -319,7 +319,10 @@
     "Style Level хранит фактический baseline поверхности: BackgroundColor, Type, Skeleton, fill и radius.",
     "BackgroundPlateSlot управляет внутренними slot padding и Type/Skeleton variants. Сам slot content не является кастомизацией.",
     "BackgroundPlateView в code/private usage маппится на BackgroundPlate и должен использовать те же правила, контракты и pattern links.",
-    "Для desktop рабочей поверхности Level 1 использует radius 16, Level 2 использует radius 12. Promo и mobile variants могут иметь другие baseline из каталога."
+    "Для desktop рабочей поверхности Level 1 использует radius 16, Level 2 использует radius 12. Promo и mobile variants могут иметь другие baseline из каталога.",
+    "BackgroundColor зависит от surface context: для страниц используются base-bg/base-bg-alt, для модальных сущностей используются modal-bg/modal-bg-alt. Суффикс в скобках (gray)/(white) описывает визуальный фон, а часть имени до скобок соответствует цветовому токену поверхности.",
+    "Для Type=Colored и Type=Border цвет заливки и обводки должен быть задан через цветовой токен дизайн-системы. Не ограничивай допустимые цвета четырьмя BackgroundColor variants: ключевое требование — token binding, а не конкретный цвет.",
+    "В каталоге вариант обводочной поверхности называется Type=Border. В тексте рекомендаций можно пояснять его как bordered/обводочный, но в машинных фактах и таблицах используй точное значение Border."
   ],
   "agentInstructions": [
     "Не выводи нарушение из примера. Используй только exact rules, exact component contracts и явно найденные pattern rules.",
@@ -327,7 +330,10 @@
     "Изменения variant/property показывай как component-property customizations; изменения fill, stroke, radius, opacity, layout и style показывай как layer-property customizations.",
     "Если nested diff принадлежит wrapper и actual совпадает с effective baseline, не показывай его как дизайнерскую кастомизацию.",
     "Если actual отличается от effective baseline, показывай effectiveBaseline -> actual. Не подставляй standalone baseline вложенного Style Level вместо baseline выбранного BackgroundPlate variant.",
-    "Padding у BackgroundPlateSlot может быть осознанной настройкой композиции. Комментируй его как layer customization и проверяй токены Spacing, но не называй ошибкой без точного правила."
+    "Padding у BackgroundPlateSlot может быть осознанной настройкой композиции. Комментируй его как layer customization и проверяй токены Spacing, но не называй ошибкой без точного правила.",
+    "При анализе BackgroundColor сначала определи контекст поверхности: page или modal. Не рекомендуй modal-bg* для обычной страницы и не рекомендуй base-bg* для модальной сущности, если exact rule или отчёт указывают на противоположный surface context.",
+    "Для Type=Colored и Type=Border не делай вывод “цвет запрещён” только потому, что он отличается от default BackgroundColor. Если fill/stroke задан через цветовой токен, описывай это как допустимую токенизированную настройку или как кастомизацию без нарушения, если нет другого exact rule.",
+    "Если для Type=Colored или Type=Border fill/stroke задан raw-цветом без token binding, повышай значимость рекомендации: нужно заменить raw fill/raw stroke на цветовой токен дизайн-системы."
   ],
   "codeExports": [
     {

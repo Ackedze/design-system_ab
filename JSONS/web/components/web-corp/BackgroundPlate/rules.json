@@ -149,7 +149,7 @@
       "ruleText": "BackgroundPlate с Position=Level 2 (inner) должен располагаться только поверх BackgroundPlate Level 1. Самостоятельный Level 2 допустим только как исключение внутри отдельного компонента, если это задано его контрактом."
     },
     {
-      "ruleId": "component:web-corp.background-plate.background-color-by-page-background",
+      "ruleId": "component:web-corp.background-plate.background-color-by-surface-context",
       "severity": "error",
       "source": "pattern-link",
       "patternRuleId": "rule:components.background-plate.background-color-by-page",
@@ -167,10 +167,16 @@
         ]
       },
       "requiredMapping": {
-        "grayPageBackground": "base-bg-alt (gray)",
-        "whitePageBackground": "base-bg (white)"
+        "pageSurface": {
+          "gray": "base-bg-alt (gray)",
+          "white": "base-bg (white)"
+        },
+        "modalSurface": {
+          "gray": "modal-bg-alt (gray)",
+          "white": "modal-bg (white)"
+        }
       },
-      "ruleText": "BackgroundColor выбирается по фону страницы: на сером фоне используй base-bg-alt (gray), на белом фоне используй base-bg (white)."
+      "ruleText": "BackgroundColor выбирается по контексту поверхности. Для страниц используй base-bg-alt (gray) на серой поверхности и base-bg (white) на белой поверхности. Для модальных сущностей используй modal-bg-alt (gray) на серой поверхности и modal-bg (white) на белой поверхности. Часть имени до скобок соответствует цветовому токену поверхности; значение в скобках уточняет визуальный фон gray/white."
     },
     {
       "ruleId": "component:web-corp.background-plate.single-background-color-per-page",
@@ -221,6 +227,45 @@
         "Type": "Secondary"
       },
       "ruleText": "Для BackgroundPlate Level 2 не существует стиля Secondary. Используй Type=Primary, Type=Colored или Type=Border."
+    },
+    {
+      "ruleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "fill|stroke|variant.BackgroundColor",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "components": [
+          "[D] Style Level 1",
+          "[D] Style Level 2",
+          "[D][Promo] Style Level 1",
+          "[D][Promo] Style Level 2",
+          "[M] Style Level 1",
+          "[M] Style Level 2",
+          "[M][Promo] Style Level 1",
+          "[M][Promo] Style Level 2"
+        ],
+        "variant": {
+          "Type": [
+            "Colored",
+            "Border"
+          ]
+        }
+      },
+      "requiredTokenBinding": {
+        "properties": [
+          "fill",
+          "stroke"
+        ],
+        "tokenType": "color"
+      },
+      "classification": {
+        "reportAsCustomization": true,
+        "doNotTreatTokenizedColorAsViolation": true,
+        "treatRawFillOrStrokeAsViolation": true
+      },
+      "ruleText": "Для Type=Colored и Type=Border цвета заливки и обводки должны быть заданы через цветовые токены дизайн-системы. Конкретный цвет может отличаться по смыслу поверхности, но raw fill/raw stroke без token binding являются нарушением."
     },
     {
       "ruleId": "component:web-corp.background-plate.border-is-not-clickable",

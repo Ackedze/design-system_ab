@@ -12,12 +12,12 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-08"
+    "updatedAt": "2026-07-09"
   },
   "examples": [
     {
       "exampleId": "background-plate-position-change",
-      "title": "Position change should be reported as component-property customization",
+      "title": "Изменение Position показывается как параметр компонента",
       "inputChange": {
         "hostComponent": "[D] BackgroundPlate",
         "property": "variant.Position",
@@ -26,27 +26,195 @@
       },
       "expectedAudit": {
         "category": "customizations",
-        "showAs": "position: level 1 (outer) → level 2 (inner)"
+        "group": "Параметры компонента",
+        "resetSurface": "parameters",
+        "showAs": "Position: Level 1 (outer) → Level 2 (inner)"
+      },
+      "expectedAgent": {
+        "summary": "Это изменение component property, а не ручная перекраска или layout-кастомизация.",
+        "mustNotSay": [
+          "Не объяснять изменение Position через изменение fill/radius вложенного Style Level.",
+          "Не подставлять standalone baseline вложенного Style Level вместо effective baseline выбранного Position."
+        ]
       }
     },
     {
-      "exampleId": "background-plate-style-level-color-change",
-      "title": "Style Level BackgroundColor change should be reported as component-property customization",
+      "exampleId": "background-plate-page-surface-background-color",
+      "title": "BackgroundColor для страницы выбирается из base-bg/base-bg-alt",
       "inputChange": {
         "hostComponent": "[D] BackgroundPlate",
         "nestedComponent": "[D] Style Level 1",
         "property": "variant.BackgroundColor",
+        "surfaceContext": "page",
         "referenceValue": "base-bg-alt (gray)",
         "actualValue": "base-bg (white)"
       },
       "expectedAudit": {
         "category": "customizations",
-        "showAs": "backgroundColor: base-bg-alt (gray) → base-bg (white)"
+        "group": "Параметры компонента",
+        "resetSurface": "parameters",
+        "showAs": "BackgroundColor: base-bg-alt (gray) → base-bg (white)"
+      },
+      "expectedAgent": {
+        "summary": "На странице допустимы base-bg-alt (gray) и base-bg (white); выбор зависит от фактического фона страницы.",
+        "mustCheck": [
+          "Если поверхность страницы белая, base-bg (white) корректен.",
+          "Если поверхность страницы серая, нужно вернуть base-bg-alt (gray)."
+        ],
+        "mustNotSay": [
+          "Не рекомендовать modal-bg* для обычной страницы."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-modal-surface-background-color",
+      "title": "BackgroundColor для модальной поверхности выбирается из modal-bg/modal-bg-alt",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "nestedComponent": "[D] Style Level 1",
+        "property": "variant.BackgroundColor",
+        "surfaceContext": "modal",
+        "referenceValue": "modal-bg-alt (gray)",
+        "actualValue": "base-bg-alt (gray)"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры компонента",
+        "resetSurface": "parameters",
+        "showAs": "BackgroundColor: modal-bg-alt (gray) → base-bg-alt (gray)"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "summary": "В модальных сущностях используются modal-bg/modal-bg-alt. base-bg/base-bg-alt предназначены для страниц.",
+        "recommendation": "Заменить base-bg-alt (gray) на modal-bg-alt (gray), если компонент находится на серой модальной поверхности."
+      }
+    },
+    {
+      "exampleId": "background-plate-colored-tokenized-fill",
+      "title": "Type=Colored с токенизированной заливкой не является нарушением сам по себе",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "nestedComponent": "[D] Style Level 1",
+        "property": "fill",
+        "variantContext": {
+          "Type": "Colored"
+        },
+        "referenceValue": "base-bg-alt (gray)",
+        "actualValue": "decorative-muted-alt/blue",
+        "actualTokenBinding": true
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры слоя",
+        "resetSurface": "layer",
+        "showAs": "заливка: base-bg-alt (gray) → decorative-muted-alt/blue"
+      },
+      "expectedAgent": {
+        "severity": "info",
+        "summary": "Для Type=Colored допустим токенизированный цвет заливки. Сам факт отличия от default BackgroundColor не является ошибкой.",
+        "mustNotSay": [
+          "Не писать, что decorative-muted-alt/blue запрещён только потому, что его нет среди BackgroundColor variants.",
+          "Не рекомендовать сброс, если нет другого exact rule."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-border-raw-stroke",
+      "title": "Type=Border с raw stroke является нарушением токенизации",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "nestedComponent": "[D] Style Level 1",
+        "property": "stroke",
+        "variantContext": {
+          "Type": "Border"
+        },
+        "referenceValue": "neutral-translucent/300",
+        "actualValue": "Raw stroke #D9D9D9",
+        "actualTokenBinding": false
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры слоя",
+        "resetSurface": "layer",
+        "showAs": "обводка: neutral-translucent/300 → Raw stroke #D9D9D9"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens",
+        "recommendation": "Заменить raw stroke на цветовой токен дизайн-системы."
+      }
+    },
+    {
+      "exampleId": "background-plate-level-2-without-level-1",
+      "title": "Level 2 должен использоваться поверх Level 1",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "property": "variant.Position",
+        "actualValue": "Level 2 (inner)",
+        "compositionContext": {
+          "hasBackgroundPlateLevel1Ancestor": false
+        }
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры компонента",
+        "showAs": "Position: Level 1 (outer) → Level 2 (inner)"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.level-2-requires-level-1",
+        "recommendation": "Использовать Level 2 только внутри BackgroundPlate Level 1 или вернуть Position=Level 1 (outer)."
+      }
+    },
+    {
+      "exampleId": "background-plate-level-2-secondary",
+      "title": "Level 2 не поддерживает Type=Secondary",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "nestedComponent": "[D] Style Level 2",
+        "property": "variant.Type",
+        "variantContext": {
+          "Position": "Level 2 (inner)"
+        },
+        "referenceValue": "Primary",
+        "actualValue": "Secondary"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры компонента",
+        "resetSurface": "parameters",
+        "showAs": "Type: Primary → Secondary"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.no-secondary-for-level-2",
+        "recommendation": "Для Level 2 использовать Type=Primary, Type=Colored или Type=Border."
+      }
+    },
+    {
+      "exampleId": "background-plate-border-not-clickable",
+      "title": "Type=Border не должен быть кликабельным",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "property": "component.behavior",
+        "variantContext": {
+          "Type": "Border"
+        },
+        "actualValue": "clickable"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "showAs": "behavior: static → clickable"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.border-is-not-clickable",
+        "recommendation": "Не использовать Type=Border как кликабельную поверхность."
       }
     },
     {
       "exampleId": "background-plate-view-alias-resolution",
-      "title": "BackgroundPlateView should resolve to BackgroundPlate contract",
+      "title": "BackgroundPlateView резолвится в контракт BackgroundPlate",
       "inputChange": {
         "codeExport": "BackgroundPlateView",
         "hostComponent": "[D] BackgroundPlate",
@@ -57,24 +225,90 @@
       "expectedAudit": {
         "componentKey": "web-corp.background-plate",
         "category": "customizations",
-        "showAs": "position: level 1 (outer) → level 2 (inner)",
+        "showAs": "Position: Level 1 (outer) → Level 2 (inner)",
         "doNotReport": "unknown component BackgroundPlateView"
+      },
+      "expectedAgent": {
+        "summary": "BackgroundPlateView — code/private alias, а не отдельный компонент без правил.",
+        "mustUseRulesFrom": "web-corp.background-plate"
       }
     },
     {
       "exampleId": "background-plate-slot-padding-token-check",
-      "title": "BackgroundPlateSlot padding should be shown as layer customization without automatic violation",
+      "title": "Padding BackgroundPlateSlot показывается как layer customization и проверяется на Spacing token",
       "inputChange": {
         "hostComponent": "[D] BackgroundPlateSlot",
         "layer": "Slot",
         "property": "layout.padding.left",
         "referenceValue": 24,
+        "actualValue": 32,
+        "actualTokenBinding": true
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры слоя",
+        "resetSurface": "layer",
+        "showAs": "Паддинг left: 24 → 32",
+        "agentNote": "Проверить, что значение задано через Spacing token; не рекомендовать сбросить только из-за отличия от standalone baseline."
+      },
+      "expectedAgent": {
+        "severity": "info",
+        "summary": "Padding у BackgroundPlateSlot может быть осознанной настройкой композиции.",
+        "mustNotSay": [
+          "Не считать отличие от 24 px ошибкой без отдельного правила.",
+          "Не рекомендовать сброс, если значение задано через Spacing token и нет контекстного нарушения."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-slot-padding-raw-value",
+      "title": "Raw padding без Spacing token является нарушением токенизации",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "layer": "Slot",
+        "property": "layout.padding.left",
+        "referenceValue": 24,
+        "actualValue": 30,
+        "actualTokenBinding": false
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры слоя",
+        "resetSurface": "layer",
+        "showAs": "Паддинг left: 24 → 30"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.padding-uses-spacing-tokens",
+        "recommendation": "Заменить raw padding на значение из коллекции Spacing."
+      }
+    },
+    {
+      "exampleId": "background-plate-radius-change",
+      "title": "Изменение radius показывается как layer customization относительно effective baseline",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlate",
+        "nestedComponent": "[D] Style Level 1",
+        "property": "radius",
+        "variantContext": {
+          "Position": "Level 1 (outer)"
+        },
+        "referenceValue": 16,
         "actualValue": 32
       },
       "expectedAudit": {
         "category": "customizations",
-        "showAs": "Паддинг left: 24 → 32",
-        "agentNote": "Проверить, что значение задано через Spacing token; не рекомендовать сбросить только из-за отличия от standalone baseline."
+        "group": "Параметры слоя",
+        "resetSurface": "layer",
+        "showAs": "Скругления: 16 → 32"
+      },
+      "expectedAgent": {
+        "severity": "medium",
+        "summary": "Radius является layer-property customization и должен сравниваться с effective baseline выбранного Position.",
+        "mustNotSay": [
+          "Не смешивать radius с variant.Position.",
+          "Не использовать baseline Promo/mobile для desktop рабочей поверхности."
+        ]
       }
     }
   ]
