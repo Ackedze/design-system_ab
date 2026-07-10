@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-component-rules-registry",
-  "generatedAt": "2026-07-09T14:19:02.837Z",
+  "generatedAt": "2026-07-10T13:31:49.909Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -26,7 +26,7 @@
               "🔒 [D] FilterCompanySelect_UniversalModal"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.layer-properties-use-effective-baseline",
@@ -42,7 +42,7 @@
               "🔒 [D] FilterCompanySelect_UniversalModal"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.lifecycle-context-is-informational",
@@ -50,7 +50,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -129,7 +129,7 @@
               "PatternTitle"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.helpers.layer-properties-use-effective-baseline",
@@ -171,7 +171,7 @@
               "PatternTitle"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.helpers.lifecycle-context-is-informational",
@@ -179,7 +179,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -238,7 +238,7 @@
               "AccountSelect"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.account-select.layer-properties-use-effective-baseline",
@@ -270,7 +270,7 @@
               "AccountSelect"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.account-select.lifecycle-context-is-informational",
@@ -278,7 +278,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -314,12 +314,13 @@
               "🔒 [M] AmountHeadline"
             ]
           },
-          "ruleText": "Changes to AmountParagraph or AmountHeadline Style are component property changes and must be reported separately from derived text layer customizations."
+          "ruleText": "Изменения AmountParagraph или AmountHeadline Style являются component property changes и должны показываться отдельно от производных text layer customizations."
         },
         {
           "ruleId": "component:web-corp.amount-styles.operation-negative-is-part-property",
           "severity": "info",
-          "source": "component-contract",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.operation-negative",
           "appliesTo": "variant.Negative",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
@@ -329,7 +330,27 @@
               "Operation"
             ]
           },
-          "ruleText": "Changes to Operation Negative are part/component configuration for the amount operation sign."
+          "ruleText": "Изменения Operation Negative являются part/component configuration для знака операции суммы."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.parts-share-text-style",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.same-text-style-for-parts",
+          "appliesTo": "styles.text",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Operation",
+              "Minus",
+              "Major",
+              "Minor",
+              "Currency"
+            ]
+          },
+          "ruleText": "Operation, Major, Minor и Currency внутри одного AmountStyles instance должны использовать один и тот же text style. Minus является leaf layer внутри Operation и наследует тот же style contract."
         },
         {
           "ruleId": "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
@@ -345,7 +366,7 @@
               "Minus"
             ]
           },
-          "ruleText": "Manual fill changes on Operation / Minus are layer customizations of the amount operation sign. Keep the exact Minus leaf layer for reset, but describe the semantic owner as AmountParagraph / Operation."
+          "ruleText": "Ручные изменения fill на Operation / Minus являются layer customizations знака операции суммы. Сохраняй точный Minus leaf layer для reset, но описывай semantic owner как AmountParagraph / Operation."
         },
         {
           "ruleId": "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
@@ -362,7 +383,7 @@
               "Currency"
             ]
           },
-          "ruleText": "Manual fill changes on Major, Minor or Currency text layers are layer customizations of the amount text. Keep the exact leaf layer for reset, but group the explanation under AmountParagraph / Amount."
+          "ruleText": "Ручные изменения fill на Major, Minor или Currency text layers являются layer customizations текста суммы. Сохраняй точный leaf layer для reset, но группируй объяснение под AmountParagraph / Amount."
         },
         {
           "ruleId": "component:web-corp.amount-styles.manual-text-style-is-layer-property",
@@ -374,13 +395,14 @@
           "target": {
             "component": "AmountStyles",
             "layers": [
+              "Operation",
               "Minus",
               "Major",
               "Minor",
               "Currency"
             ]
           },
-          "ruleText": "Manual text style changes on AmountStyles leaf text layers are layer customizations. They should be independently resettable and not collapsed into the Style variant change."
+          "ruleText": "Ручные изменения text style на AmountStyles leaf text layers являются layer customizations. Они должны сбрасываться независимо и не схлопываться в Style variant change."
         }
       ]
     },
@@ -491,6 +513,8 @@
         {
           "ruleId": "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "component-contract",
           "appliesTo": "radius|layout.radius|cornerRadius|cornerRadius.*",
           "checkType": "deterministic",
@@ -545,11 +569,94 @@
             "doNotRecommendResetToStandalonePadding": true,
             "requireSpacingTokenRuleCheck": "component:web-corp.background-plate.padding-uses-spacing-tokens"
           },
-          "ruleText": "Внутренние padding у BackgroundPlateSlot могут изменяться дизайнером под задачу композиции. Само отличие от standalone padding 24 px не является ошибкой и не требует рекомендации “вернуть 24”. Показывай изменение как layer customization и проверяй отдельным правилом, что каждое layout.padding.* задано через токен Spacing."
+          "recommendedDefaults": {
+            "Level-1 (outer)": "Spacing/32",
+            "Level-2 (inner)": "Spacing/24"
+          },
+          "ruleText": "Рекомендуемый стартовый padding BackgroundPlateSlot: Spacing/32 для Level-1 (outer) и Spacing/24 для Level-2 (inner). Дизайнер может свободно изменить padding под контекст композиции или применимый паттерн. Само отличие от рекомендуемого значения не является нарушением и не требует сброса. Показывай изменение как layer customization и проверяй только обязательную привязку каждого layout.padding.* к токену Spacing."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.slot-auto-layout-is-context-controlled",
+          "severity": "info",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.slot-auto-layout-by-context",
+          "appliesTo": "layout.axis|layout.itemSpacing|layout.primaryAxisAlignItems|layout.counterAxisAlignItems",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate",
+            "layers": [
+              "[D] BackgroundPlateSlot / Slot",
+              "[M] BackgroundPlateSlot / Slot"
+            ]
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "doNotTreatAsViolationByDefault": true,
+            "doNotRecommendResetToStandaloneLayout": true,
+            "keepPaddingTokenCheckSeparate": true
+          },
+          "ruleText": "Axis, gap/itemSpacing и alignment внутри Slot полностью определяются контекстом композиции и вложенным контентом. Отличие этих свойств от standalone baseline не является нарушением и не требует рекомендации сбросить auto-layout. Padding проверяется отдельно на соответствие Spacing tokens."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.slot-clipping-is-context-controlled",
+          "severity": "info",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.slot-clipping-by-context",
+          "appliesTo": "clipsContent|layout.clipsContent|overflow",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate",
+            "layers": [
+              "[D] BackgroundPlateSlot / Slot",
+              "[M] BackgroundPlateSlot / Slot"
+            ]
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "doNotTreatAsViolationByDefault": true,
+            "doNotRecommendResetToStandaloneClipping": true
+          },
+          "ruleText": "Clip content у BackgroundPlateSlot не является обязательным. Значения clipsContent=true и clipsContent=false допустимы и выбираются по контексту и поведению вложенного контента. Само отличие от standalone baseline не является нарушением."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.slot-sizing-fill-width-hug-height",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.slot-sizing",
+          "appliesTo": "layout.sizing.horizontal|layout.sizing.vertical|layoutSizingHorizontal|layoutSizingVertical",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate",
+            "layers": [
+              "[D] BackgroundPlateSlot / Slot",
+              "[M] BackgroundPlateSlot / Slot"
+            ]
+          },
+          "requiredValues": {
+            "layout.sizing.horizontal": "FILL",
+            "layout.sizing.vertical": "HUG",
+            "layoutSizingHorizontal": "FILL",
+            "layoutSizingVertical": "HUG"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer"
+          },
+          "remediation": "Установите для Slot ширину Fill и высоту Hug.",
+          "ruleText": "Slot BackgroundPlateSlot должен растягиваться по ширине родителя в режиме Fill и рассчитывать высоту по вложенному контенту в режиме Hug. Fixed или Hug по ширине и Fixed или Fill по высоте являются нарушением sizing-контракта."
         },
         {
           "ruleId": "component:web-corp.background-plate.level-2-requires-level-1",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "pattern-link",
           "patternRuleId": "rule:components.background-plate.level-2-over-level-1",
           "appliesTo": "component.composition",
@@ -567,18 +674,86 @@
             }
           },
           "requiredComposition": {
-            "requiredAncestor": {
+            "requiredParent": {
               "component": "BackgroundPlate",
               "variant": {
                 "Position": "Level 1 (outer)"
               }
+            },
+            "directParentRequired": true,
+            "allowStandalone": false,
+            "allowContractExceptions": false
+          },
+          "remediation": "Переместите Level-2 непосредственно внутрь BackgroundPlate Level-1 либо измените самостоятельную поверхность на Level-1.",
+          "ruleText": "BackgroundPlate с Position=Level 2 (inner) всегда должен располагаться поверх BackgroundPlate Level 1. Самостоятельный Level 2 запрещён без исключений."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.slot-content-levels",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.slot-content-levels",
+          "appliesTo": "component.composition|slot.children",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] BackgroundPlateSlot",
+              "[M] BackgroundPlateSlot"
+            ],
+            "slot": "Slot"
+          },
+          "allowedComposition": {
+            "directContent": "any",
+            "nestedLevel2Required": false,
+            "allowedNestedBackgroundPlateLevels": [
+              "Level-2 (inner)"
+            ],
+            "level2RequiredHostLevel": "Level-1 (outer)",
+            "directParentRequired": true
+          },
+          "disallowedNestedBackgroundPlateLevels": [
+            "Level-0 (base)",
+            "Level-1 (outer)"
+          ],
+          "remediation": "Оставьте обычный контент непосредственно в Slot либо замените вложенный BackgroundPlate Level-0/Level-1 на Level-2, если действительно нужна дополнительная поверхность.",
+          "ruleText": "В Slot BackgroundPlateSlot можно размещать любой обычный контент напрямую; обязательная обёртка Level-2 не требуется. Из BackgroundPlate-уровней внутри Slot допустим только Level-2 (inner). Вложенные Level-0 (base) и Level-1 (outer) запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.root-surface-requires-level-0",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.root-surface-level-0",
+          "appliesTo": "screen.composition|variables.BackgroundPlate Level",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] BackgroundPlateSlot",
+              "[M] BackgroundPlateSlot"
+            ],
+            "requiredAncestorVariableMode": {
+              "collection": "BackgroundPlate Level",
+              "value": "Level-0 (base)",
+              "target": "root-surface"
             }
           },
-          "ruleText": "BackgroundPlate с Position=Level 2 (inner) должен располагаться только поверх BackgroundPlate Level 1. Самостоятельный Level 2 допустим только как исключение внутри отдельного компонента, если это задано его контрактом."
+          "classification": {
+            "reportAsCustomization": false,
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "remediation": "Назначьте mode Level-0 (base) коллекции BackgroundPlate Level главной поверхности страницы или модальной сущности. Не назначайте Level-0 непосредственно экземпляру BackgroundPlate.",
+          "ruleText": "Level-0 (base) должен быть назначен главной поверхности, на которой располагается BackgroundPlateSlot. Он задаёт исходный variable context, благодаря которому первый вложенный BackgroundPlate автоматически получает Level-1 (outer). Отсутствие Level-0 на главной поверхности нарушает вычисление уровней. Самому экземпляру BackgroundPlate Level-0 не назначается."
         },
         {
           "ruleId": "component:web-corp.background-plate.background-color-by-surface-context",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "pattern-link",
           "patternRuleId": "rule:components.background-plate.background-color-by-page",
           "appliesTo": "screen.composition",
@@ -604,11 +779,14 @@
               "white": "modal-bg (white)"
             }
           },
+          "remediation": "Выберите BackgroundColor, соответствующий контексту и тону родительской поверхности: base-bg* для страницы или modal-bg* для модальной сущности.",
           "ruleText": "BackgroundColor выбирается по контексту поверхности. Для страниц используй base-bg-alt (gray) на серой поверхности и base-bg (white) на белой поверхности. Для модальных сущностей используй modal-bg-alt (gray) на серой поверхности и modal-bg (white) на белой поверхности. Часть имени до скобок соответствует цветовому токену поверхности; значение в скобках уточняет визуальный фон gray/white."
         },
         {
           "ruleId": "component:web-corp.background-plate.single-background-color-per-page",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "pattern-link",
           "patternRuleId": "rule:components.background-plate.single-background-color-per-page",
           "appliesTo": "screen.composition",
@@ -626,11 +804,14 @@
           "requiredComposition": {
             "sameBackgroundColorAcrossScope": true
           },
+          "remediation": "Приведите BackgroundColor всех BackgroundPlate в одном surface context к единому значению, соответствующему родительскому фону.",
           "ruleText": "Значение BackgroundColor определяется один раз для всех BackgroundPlate на странице. Если фон основной страницы один и тот же, все подложки должны использовать один BackgroundColor."
         },
         {
           "ruleId": "component:web-corp.background-plate.no-secondary-for-level-2",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "pattern-link",
           "patternRuleId": "rule:components.background-plate.no-secondary-for-level-2",
           "appliesTo": "variant.Type",
@@ -654,11 +835,14 @@
           "disallowedVariant": {
             "Type": "Secondary"
           },
+          "remediation": "Замените Type=Secondary у Level-2 на Primary, Colored или Border в зависимости от требуемого визуального сценария.",
           "ruleText": "Для BackgroundPlate Level 2 не существует стиля Secondary. Используй Type=Primary, Type=Colored или Type=Border."
         },
         {
           "ruleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "component-contract",
           "appliesTo": "fill|stroke|variant.BackgroundColor",
           "checkType": "deterministic",
@@ -682,22 +866,283 @@
             }
           },
           "requiredTokenBinding": {
-            "properties": [
-              "fill",
-              "stroke"
-            ],
-            "tokenType": "color"
+            "byType": {
+              "Colored": {
+                "properties": [
+                  "fill"
+                ],
+                "tokenType": "color"
+              },
+              "Border": {
+                "properties": [
+                  "stroke"
+                ],
+                "tokenType": "color"
+              }
+            }
           },
           "classification": {
             "reportAsCustomization": true,
-            "doNotTreatTokenizedColorAsViolation": true,
-            "treatRawFillOrStrokeAsViolation": true
+            "doNotTreatRequiredTokenizedPaintAsViolation": true,
+            "treatRawRequiredPaintAsViolation": true,
+            "requiredPaintByType": {
+              "Colored": "fill",
+              "Border": "stroke"
+            },
+            "borderFillRuleId": "component:web-corp.background-plate.border-has-no-visible-fill"
           },
-          "ruleText": "Для Type=Colored и Type=Border цвета заливки и обводки должны быть заданы через цветовые токены дизайн-системы. Конкретный цвет может отличаться по смыслу поверхности, но raw fill/raw stroke без token binding являются нарушением."
+          "remediation": "Для Colored привяжите fill к цветовому токену. Для Border удалите fill и привяжите stroke к цветовому токену.",
+          "ruleText": "Для Type=Colored цвет заливки должен быть задан через цветовой токен дизайн-системы. Для Type=Border через цветовой токен задаётся цвет обводки, а видимая заливка запрещена отдельным правилом. Конкретный цвет может отличаться по смыслу поверхности, но raw fill или raw stroke без требуемого token binding являются нарушением."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.border-has-no-visible-fill",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.border-no-fill",
+          "appliesTo": "fill|styles.fill",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "web-corp.background-plate",
+            "variant": {
+              "Type": "Border"
+            }
+          },
+          "requiredPaintState": {
+            "fill": "none-or-not-visible"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "tokenizedFillIsAlsoViolation": true
+          },
+          "remediation": "Удалите заливку у Type=Border и оставьте только токенизированную обводку.",
+          "ruleText": "Type=Border всегда используется без видимой заливки. Любая заливка, включая привязанную к цветовому токену, нарушает контракт. Визуальная поверхность Border формируется только обводкой."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.colored-uses-fill-without-stroke",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.colored-fill-only",
+          "appliesTo": "fill|styles.fill|stroke|styles.stroke",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "web-corp.background-plate",
+            "variant": {
+              "Type": "Colored"
+            }
+          },
+          "requiredPaintState": {
+            "fill": "visible-and-tokenized",
+            "stroke": "none-or-not-visible"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "tokenizedStrokeIsAlsoViolation": true
+          },
+          "remediation": "Удалите обводку и оставьте для Type=Colored только заливку, привязанную к цветовому токену.",
+          "ruleText": "Type=Colored формируется только видимой токенизированной заливкой. Любая видимая обводка, включая привязанную к цветовому токену, нарушает контракт."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.primary-secondary-paint-fixed",
+          "appliesTo": "fill|styles.fill|stroke|styles.stroke",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "web-corp.background-plate",
+            "variant": {
+              "Type": [
+                "Primary",
+                "Secondary"
+              ]
+            }
+          },
+          "requiredPaintState": {
+            "fill": "effective-baseline",
+            "stroke": "effective-baseline"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true,
+            "suppressVariantDerivedPaintDiffs": true,
+            "tokenizedManualPaintIsAlsoViolation": true
+          },
+          "remediation": "Сбросьте ручные изменения fill и stroke к effective baseline текущего Type, уровня и BackgroundColor.",
+          "ruleText": "Внешний вид Type=Primary и Type=Secondary полностью определяется компонентом, уровнем поверхности и BackgroundColor. Ручные изменения fill или stroke запрещены, даже если новое значение привязано к токену. Производные paint-изменения при переключении Type или BackgroundColor не считаются отдельной кастомизацией."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.opacity-is-fixed",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.opacity-fixed",
+          "appliesTo": "opacity|opacityToken",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate"
+          },
+          "requiredValue": "effective-baseline",
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true,
+            "tokenizedManualOpacityIsAlsoViolation": true
+          },
+          "remediation": "Сбросьте opacity к effective baseline текущего варианта BackgroundPlate.",
+          "ruleText": "Opacity BackgroundPlate и его внутренних surface-слоёв не изменяется вручную. Любое отличие от effective baseline является нарушением, включая значение, привязанное к другому opacity token."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.manual-shadows-are-prohibited",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.no-manual-shadows",
+          "appliesTo": "effects|effects.shadow|effectStyle",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate"
+          },
+          "disallowedEffectTypes": [
+            "DROP_SHADOW",
+            "INNER_SHADOW"
+          ],
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "effectStyleIsAlsoViolation": true
+          },
+          "remediation": "Удалите вручную добавленные Drop shadow и Inner shadow.",
+          "ruleText": "К BackgroundPlate и его внутренним surface-слоям нельзя вручную добавлять Drop shadow или Inner shadow. Запрет действует и для raw effects, и для подключённого effect style."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.blur-is-context-controlled",
+          "severity": "info",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.blur-by-context",
+          "appliesTo": "effects.LAYER_BLUR|effects.BACKGROUND_BLUR|effectStyle",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate"
+          },
+          "allowedEffectTypes": [
+            "LAYER_BLUR",
+            "BACKGROUND_BLUR"
+          ],
+          "classification": {
+            "reportAsCustomization": true,
+            "doNotTreatAsViolationByDefault": true,
+            "doNotRecommendResetToStandaloneEffects": true,
+            "doNotClassifyAsShadow": true
+          },
+          "ruleText": "Layer blur и Background blur разрешены для BackgroundPlate как контекстные кастомизации. Само наличие blur не является нарушением и не должно обрабатываться правилом запрета Drop shadow или Inner shadow."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.blend-mode-is-fixed",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.blend-mode-fixed",
+          "appliesTo": "blendMode|blend.mode",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate"
+          },
+          "requiredValue": "effective-baseline",
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true
+          },
+          "remediation": "Сбросьте blend mode к effective baseline текущего слоя и варианта BackgroundPlate.",
+          "ruleText": "Blend mode BackgroundPlate и его внутренних surface-слоёв не изменяется вручную. Значение должно совпадать с effective baseline конкретного слоя и варианта компонента."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.border-stroke-weight-is-context-controlled",
+          "severity": "info",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.border-stroke-weight-by-context",
+          "appliesTo": "stroke.weight|strokeWeight",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "web-corp.background-plate",
+            "variant": {
+              "Type": "Border"
+            }
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "doNotTreatAsViolationByDefault": true,
+            "doNotRecommendResetToStandaloneStrokeWeight": true
+          },
+          "recommendedDefault": 1,
+          "ruleText": "Для Type=Border базовая толщина обводки равна 1 px, но дизайнер может изменить strokeWeight под контекст. Само отличие толщины от standalone baseline не является нарушением и не требует сброса."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.border-stroke-align-is-fixed",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.background-plate.border-stroke-align-inside",
+          "appliesTo": "stroke.align|strokeAlign",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "web-corp.background-plate",
+            "variant": {
+              "Type": "Border"
+            }
+          },
+          "requiredValues": {
+            "stroke.align": "INSIDE",
+            "strokeAlign": "INSIDE"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer"
+          },
+          "remediation": "Верните положение обводки в Inside.",
+          "ruleText": "Для Type=Border положение обводки фиксировано: strokeAlign должен оставаться INSIDE. CENTER и OUTSIDE нарушают компонентный контракт."
         },
         {
           "ruleId": "component:web-corp.background-plate.border-is-not-clickable",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "pattern-link",
           "patternRuleId": "rule:components.background-plate.border-not-clickable",
           "appliesTo": "component.behavior",
@@ -717,16 +1162,24 @@
           "disallowedBehavior": {
             "clickable": true
           },
-          "ruleText": "BackgroundPlate Type=Border используется как декоративный элемент и не может быть кликабельным."
+          "allowedClickableTypes": [
+            "Primary",
+            "Secondary",
+            "Colored"
+          ],
+          "remediation": "Уберите интерактивность со всей поверхности Type=Border либо замените Type на Primary, Secondary или Colored, если требуется кликабельная карточка.",
+          "ruleText": "Вся поверхность BackgroundPlate может быть кликабельной для Type=Primary, Type=Secondary и Type=Colored. Type=Border используется как декоративный элемент и не может быть кликабельным."
         },
         {
           "ruleId": "component:web-corp.background-plate.skeleton-is-component-property",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "pattern-link",
           "patternRuleId": "rule:components.background-plate.skeleton-variant",
-          "appliesTo": "variant.Skeleton",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
+          "appliesTo": "variant.Skeleton|component.loadingComposition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
           "target": {
             "component": "web-corp.background-plate",
             "layers": [
@@ -740,11 +1193,21 @@
               "[M] Style Level 2"
             ]
           },
-          "ruleText": "Загрузочное состояние BackgroundPlate должно задаваться через component property Skeleton=True. Ручные placeholder-слои вместо Skeleton=True являются нарушением компонентной структуры."
+          "classification": {
+            "reportSkeletonPropertyChangeAsCustomization": true,
+            "doNotTreatSkeletonPropertyChangeAsViolation": true,
+            "treatManualSimpleSkeletonAsViolation": true,
+            "allowPatternDefinedComplexLoading": true,
+            "requirePatternEvidenceForComplexLoading": true
+          },
+          "remediation": "Для обычной загрузки включите Skeleton=True. Сохраняйте сложную skeleton-композицию только тогда, когда она явно предусмотрена паттерном для конкретного сценария.",
+          "ruleText": "Skeleton=True — штатное состояние загрузки BackgroundPlate или расположенного внутри контента. Для обычной загрузки используй component property вместо ручных placeholder-слоёв. Более сложная skeleton-композиция допустима только при наличии явного правила или сценария в паттерне; без такого подтверждения не придумывай исключение. Само переключение Skeleton=False → True является разрешённым изменением состояния, а не нарушением."
         },
         {
           "ruleId": "component:web-corp.background-plate.padding-uses-spacing-tokens",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "pattern-link",
           "patternRuleId": "rule:components.background-plate.padding-uses-spacing-tokens",
           "appliesTo": "layout.padding.*",
@@ -795,11 +1258,14 @@
               "256"
             ]
           },
+          "remediation": "Привяжите каждое значение padding к соответствующему токену коллекции Spacing; не оставляйте raw px.",
           "ruleText": "Базовые padding у BackgroundPlate могут быть любыми по значению, но каждое layout.padding.* должно быть задано через токен из коллекции Spacing. Ручные px-значения без token binding являются нарушением, даже если число совпадает со spacing-шкалой."
         },
         {
           "ruleId": "component:web-corp.background-plate.adaptive-level-2-becomes-level-1-without-outer",
           "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
           "source": "pattern-link",
           "patternRuleId": "rule:components.background-plate.adaptive-level-adjustment",
           "appliesTo": "screen.composition",
@@ -817,6 +1283,7 @@
           "requiredComposition": {
             "formerLevel2Position": "Level 1 (outer)"
           },
+          "remediation": "Если в адаптивной композиции удалён внешний Level-1, измените бывший Level-2 на Level-1 и повторно проверьте вложенность и padding.",
           "ruleText": "В адаптиве BackgroundPlate Level 2 нужно вручную изменить на Level 1, если во вложенной адаптивной композиции больше не предполагается внешний Level 1."
         },
         {
@@ -875,7 +1342,7 @@
               "TextContent"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.banner-wrapper-mobile.layer-properties-use-effective-baseline",
@@ -898,7 +1365,7 @@
               "TextContent"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.banner-wrapper-mobile.lifecycle-context-is-informational",
@@ -906,7 +1373,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -914,13 +1381,15 @@
       "componentKey": "web-corp.buttons-group",
       "packageName": "ButtonGroup [D]",
       "aliases": [
+        "[D] ButtonsGroup",
+        "[M] ButtonsGroup",
         "ButtonGroup [D]"
       ],
       "rulesFile": "JSONS/web/components/web-corp/ButtonGroup [D]/rules.json",
       "rules": [
         {
           "id": "component:web-corp.buttons-group.component-properties",
-          "title": "ButtonGroup [D] component properties must be audited as component parameters",
+          "title": "Component properties ButtonGroup [D] нужно проверять как параметры компонента",
           "matchKind": "exact_rule",
           "severity": "medium",
           "selector": {
@@ -930,11 +1399,11 @@
             ],
             "propertyPrefix": "variant."
           },
-          "rule": "Variant/property changes on the component instance are component-property customizations. Do not convert them into unrelated paint or layout findings."
+          "rule": "Изменения variant/property на instance компонента являются component-property customizations. Не превращай их в несвязанные paint или layout findings."
         },
         {
           "id": "component:web-corp.buttons-group.layer-properties",
-          "title": "ButtonGroup [D] layer properties must use effective baseline",
+          "title": "Layer properties ButtonGroup [D] должны использовать effective baseline",
           "matchKind": "exact_rule",
           "severity": "medium",
           "selector": {
@@ -954,7 +1423,7 @@
               "opacity"
             ]
           },
-          "rule": "Layer/style changes must be compared against the effective baseline for the current component variant and nested owner context."
+          "rule": "Изменения layer/style нужно сравнивать с effective baseline текущего component variant и nested owner context."
         }
       ]
     },
@@ -983,7 +1452,7 @@
               "ButtonStack [M]"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.button-stack.layer-properties-use-effective-baseline",
@@ -1000,7 +1469,7 @@
               "ButtonStack [M]"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.button-stack.lifecycle-context-is-informational",
@@ -1008,7 +1477,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1057,7 +1526,7 @@
               "UserData"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.card-image.layer-properties-use-effective-baseline",
@@ -1084,7 +1553,7 @@
               "UserData"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.card-image.lifecycle-context-is-informational",
@@ -1092,7 +1561,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1119,7 +1588,7 @@
               "CardSwiperMobile [M]"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.card-swiper-mobile.layer-properties-use-effective-baseline",
@@ -1135,7 +1604,7 @@
               "CardSwiperMobile [M]"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.card-swiper-mobile.lifecycle-context-is-informational",
@@ -1143,7 +1612,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1182,7 +1651,7 @@
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "target": {
-            "component": "ContentCardWrapper",
+            "component": "web-corp.content-card-wrapper",
             "layers": [
               "[D] ContentCardWrapper",
               "[D] ContentPresets",
@@ -1206,17 +1675,17 @@
               "SwapMe"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в семействе ContentCardWrapper являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.content-card-wrapper.layer-properties-use-effective-baseline",
           "severity": "warning",
           "source": "composition-contract",
-          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "target": {
-            "component": "ContentCardWrapper",
+            "component": "web-corp.content-card-wrapper",
             "layers": [
               "[D] ContentCardWrapper",
               "[D] ContentPresets",
@@ -1240,7 +1709,7 @@
               "SwapMe"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри семейства ContentCardWrapper нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.content-card-wrapper.lifecycle-context-is-informational",
@@ -1248,7 +1717,483 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.content-card-wrapper"
+          },
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.form-choice-only",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.form-choice-only",
+          "appliesTo": "screen.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper"
+            ]
+          },
+          "requiredContext": {
+            "allowedContexts": [
+              "form",
+              "entity-choice",
+              "form-subscenario"
+            ]
+          },
+          "ruleText": "ContentCardWrapper используется на страницах форм и в сценариях выбора одной или нескольких сущностей. Не считай его универсальной навигационной карточкой."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.three-fields-minimum",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.three-fields-minimum",
+          "appliesTo": "flow.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper"
+            ]
+          },
+          "requiredContext": {
+            "recommendedMinimumFieldsPerEntity": 3,
+            "entityBlocksShouldBeHomogeneous": true
+          },
+          "ruleText": "Карточка уместна для однотипных логических блоков формы, когда в каждом блоке 3 или больше полей. Если данных меньше, отдельная карточка может быть избыточной."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.entity-differentiation",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.entity-differentiation",
+          "appliesTo": "text.content",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper",
+              "🔩 [D] ContentPresets",
+              "🔩 [M] ContentPresets"
+            ]
+          },
+          "requiredContent": {
+            "mustDifferentiateEntity": true,
+            "exampleIdentifierSets": [
+              [
+                "Название",
+                "ИНН",
+                "БИК"
+              ],
+              [
+                "Имя",
+                "Роль",
+                "Почта"
+              ],
+              [
+                "Имя",
+                "ИНН",
+                "Доля владения"
+              ]
+            ]
+          },
+          "ruleText": "На карточке должно быть достаточно информации, чтобы отличить сущности друг от друга: название, ИНН, БИК, имя, роль, почта, доля владения или другой бизнес-идентификатор."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.valid-state-skeleton-combinations",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.skeleton-variant",
+          "appliesTo": "variant.State|variant.Skeleton",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.content-card-wrapper",
+            "layers": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper"
+            ]
+          },
+          "allowedVariantCombinations": [
+            {
+              "State": "Active",
+              "Skeleton": "False"
+            },
+            {
+              "State": "Disabled",
+              "Skeleton": "False"
+            },
+            {
+              "State": "Empty",
+              "Skeleton": "False"
+            },
+            {
+              "State": "Error",
+              "Skeleton": "False"
+            },
+            {
+              "State": "Active",
+              "Skeleton": "True"
+            }
+          ],
+          "ruleText": "Loading-состояние ContentCardWrapper задаётся через Skeleton=True только в сочетании State=Active. Для Active, Disabled, Empty и Error без загрузки используется Skeleton=False."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.skeleton-full-card",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.skeleton-variant",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper"
+            ],
+            "variant": {
+              "Skeleton": "True"
+            }
+          },
+          "requiredComposition": {
+            "skeletonCoversFullCard": true,
+            "disallowManualSmallSkeletonLines": true
+          },
+          "ruleText": "В loading-состоянии скелетон должен занимать всю ширину и высоту карточки. Не заменяй Skeleton=True ручными маленькими skeleton-слоями внутри карточки."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.empty-placeholder-add",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.empty-placeholder-add",
+          "appliesTo": "flow.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper"
+            ],
+            "variant": {
+              "State": "Empty",
+              "Skeleton": "False"
+            }
+          },
+          "requiredBehavior": {
+            "reservesPlaceForFutureCard": true,
+            "addFlowCanStartFromCardOrButton": true,
+            "afterCreateShowsNotification": true
+          },
+          "ruleText": "State=Empty используется как placeholder: он заранее резервирует место под карточку, запускает добавление по кнопке или нажатию на placeholder и после создания должен приводить к показу Notification."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.card-click-edits",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.card-click-edits",
+          "appliesTo": "flow.behavior",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper"
+            ],
+            "variant": {
+              "State": "Active"
+            }
+          },
+          "requiredBehavior": {
+            "cardClickOpensEdit": true,
+            "editCanUseModal": true,
+            "mobileUsesFullscreenModal": true
+          },
+          "ruleText": "В State=Active переход в редактирование происходит по клику на всю карточку. Добавление и редактирование открываются в модалке, на MobileWeb и adaptive — в полноэкранной версии."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.right-slot-actions",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.right-slot-actions",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "🔩 [D] RightSlot",
+              "🔩 [M] RightSlot",
+              "[D] RightSlot",
+              "[M] RightSlot"
+            ]
+          },
+          "requiredComposition": {
+            "role": "action-icons",
+            "maxDirectActionIcons": 2,
+            "useMoreIconWhenActionsGreaterThan": 2,
+            "deleteIconPosition": "rightmost",
+            "deleteIconPositionException": "chevron"
+          },
+          "ruleText": "RightSlot предназначен для иконок действий. Если действий больше двух, используй многоточие и dropdown. Корзинка находится справа, кроме кейсов с шевроном."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.mobile-actions-bottomsheet",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.mobile-actions-bottomsheet",
+          "appliesTo": "flow.behavior",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[M] ContentCardWrapper",
+              "🔩 [M] RightSlot",
+              "[M] RightSlot"
+            ],
+            "platforms": [
+              "mobile-web",
+              "adaptive"
+            ]
+          },
+          "requiredBehavior": {
+            "doNotUseRightAddonForActionSet": true,
+            "cardTapOpensBottomSheetWithActions": true
+          },
+          "ruleText": "В standalone и adaptive правый аддон для набора действий не используется. При тапе на карточку поднимается BottomSheet со всеми доступными действиями."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.disabled-is-view-only",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.disabled-is-view-only",
+          "appliesTo": "flow.behavior",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper"
+            ],
+            "variant": {
+              "State": "Disabled",
+              "Skeleton": "False"
+            }
+          },
+          "disallowedBehavior": {
+            "add": true,
+            "edit": true,
+            "delete": true,
+            "select": true
+          },
+          "ruleText": "State=Disabled используется на страницах просмотра, где с карточками нельзя совершать действий: добавлять, редактировать, удалять или выбирать карточку."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.disabled-not-style",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.disabled-not-style",
+          "appliesTo": "component.intent",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper"
+            ],
+            "variant": {
+              "State": "Disabled",
+              "Skeleton": "False"
+            }
+          },
+          "disallowedUse": {
+            "asVisualStyle": true,
+            "asSingleChoiceCardStyle": true,
+            "asSelectableCard": true
+          },
+          "recommendedAlternative": {
+            "useComponentRole": "single-choice-card",
+            "reason": "Disabled blocks all states and interactions in ContentCardWrapper"
+          },
+          "ruleText": "Не используй State=Disabled как альтернативный визуальный стиль ContentCardWrapper или как стиль карточки единичного выбора. В Disabled блокируются все состояния карточки; для единичного выбора нужен другой компонент карточки единичного выбора."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.desktop-horizontal-mobile-vertical",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.desktop-horizontal-mobile-vertical",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper",
+              "🔩 MiddleContentSlot",
+              "🔩 [M] MiddleContentSlot"
+            ]
+          },
+          "requiredComposition": {
+            "desktopPreferredLayout": "horizontal segments",
+            "mobileWebPreferredLayout": "vertical segments",
+            "mobileHorizontalException": "values intentionally aligned to opposite sides"
+          },
+          "ruleText": "В Desktop контент лучше раскладывать по горизонтальным сегментам. В MobileWeb и adaptive сегменты выстраиваются вертикально друг под другом, кроме специальных кейсов выравнивания значений по разным сторонам карточки."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.title-text-style-by-platform",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.title-text-style-by-platform",
+          "appliesTo": "styles.text",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "components": [
+              "🔩 [D] ContentPresets",
+              "🔩 [M] ContentPresets",
+              "[D] ContentPresets",
+              "[M] ContentPresets"
+            ],
+            "contentRole": "card-title"
+          },
+          "requiredTextStyleByPlatform": {
+            "desktop": "Headline-System / 18-22 xSmall",
+            "mobile-web": "Action / 16-24 Medium"
+          },
+          "ruleText": "Для заголовка карточки в Desktop используется Headline-System / 18-22 xSmall. В MobileWeb используется Action / 16-24 Medium."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.edge-padding-immutable",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.edge-padding-immutable",
+          "appliesTo": "layout.padding.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.content-card-wrapper",
+            "layers": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper"
+            ]
+          },
+          "requiredPaddingByLayer": {
+            "[D] ContentCardWrapper": {
+              "top": 24,
+              "right": 24,
+              "bottom": 24,
+              "left": 24
+            },
+            "[M] ContentCardWrapper": {
+              "top": 16,
+              "right": 16,
+              "bottom": 16,
+              "left": 16
+            }
+          },
+          "disallowedCustomization": {
+            "designerControlled": false,
+            "reason": "edge padding is part of ContentCardWrapper component structure"
+          },
+          "ruleText": "Запрещено менять отступы от краёв ContentCardWrapper до контента. Для [D] ContentCardWrapper все layout.padding.* должны быть 24 px; для [M] ContentCardWrapper все layout.padding.* должны быть 16 px."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.background-plate-level-by-platform",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.background-plate-level-by-platform",
+          "appliesTo": "variant.Position",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.content-card-wrapper",
+            "layers": [
+              "[D] BackgroundPlate",
+              "[M] BackgroundPlate"
+            ]
+          },
+          "requiredNestedVariantByHost": {
+            "[D] ContentCardWrapper": {
+              "nestedComponent": "[D] BackgroundPlate",
+              "Position": "Level 2 (inner)"
+            },
+            "[M] ContentCardWrapper": {
+              "nestedComponent": "[M] BackgroundPlate",
+              "Position": "Level 1 (outer)"
+            }
+          },
+          "disallowedCustomization": {
+            "designerControlled": false,
+            "reason": "background level is fixed by ContentCardWrapper platform composition"
+          },
+          "ruleText": "Запрещено менять уровень встроенного BackgroundPlate в ContentCardWrapper. В Desktop допускается только Position=Level 2 (inner); в MobileWeb допускается только Position=Level 1 (outer)."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.text-style-immutable",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.text-style-immutable",
+          "appliesTo": "styles.text",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.content-card-wrapper",
+            "layers": [
+              "[D] ContentCardWrapper",
+              "[M] ContentCardWrapper",
+              "[D] ContentPresets",
+              "[M] ContentPresets",
+              "🔩 [D] ContentPresets",
+              "🔩 [M] ContentPresets",
+              "ContentCardWrapper",
+              "MiddleContentSlot",
+              "Label",
+              "Text"
+            ]
+          },
+          "requiredStyleSource": {
+            "useComponentBaselineTypography": true,
+            "compareAgainstEffectiveBaseline": true
+          },
+          "disallowedCustomization": {
+            "designerControlled": false,
+            "properties": [
+              "styles.text"
+            ]
+          },
+          "ruleText": "Запрещено менять стиль типографики текстовых элементов внутри ContentCardWrapper. Любое изменение styles.text у заголовков, подзаголовков, дополнительных строк, статусов и пояснений нужно считать нарушением и возвращать к component baseline."
+        },
+        {
+          "ruleId": "component:web-corp.content-card-wrapper.left-slot-selection",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.content-card-wrapper.left-slot-selection",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "🔩 [D] LeftSlot",
+              "🔩 [M] LeftSlot",
+              "[D] LeftSlot",
+              "[M] LeftSlot"
+            ]
+          },
+          "requiredComposition": {
+            "allowedSelectionPresets": [
+              "Radio",
+              "Checkbox",
+              "Switch"
+            ],
+            "radioForSingleChoice": true,
+            "checkboxForMultipleChoice": true,
+            "cardClickSelectsLeftControl": true
+          },
+          "ruleText": "Если вся карточка работает как элемент выбора, LeftSlot принимает Radio или Checkbox в зависимости от логики выбора. При наличии левого слота клик на карточку приводит к выбору этого элемента."
         }
       ]
     },
@@ -1295,7 +2240,7 @@
               "RightAddon"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.corporate-app-header-mobile.layer-properties-use-effective-baseline",
@@ -1321,7 +2266,7 @@
               "RightAddon"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.corporate-app-header-mobile.lifecycle-context-is-informational",
@@ -1329,7 +2274,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1392,7 +2337,7 @@
               "RightAddon"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.corporate-app-header-new.layer-properties-use-effective-baseline",
@@ -1426,7 +2371,7 @@
               "RightAddon"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.corporate-app-header-new.lifecycle-context-is-informational",
@@ -1434,7 +2379,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1513,7 +2458,7 @@
               "CorporatePage"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.corporate-page.layer-properties-use-effective-baseline",
@@ -1555,7 +2500,7 @@
               "CorporatePage"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.corporate-page.lifecycle-context-is-informational",
@@ -1563,7 +2508,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1672,7 +2617,7 @@
               "CorporateSystemMessage"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.corporate-system-message.layer-properties-use-effective-baseline",
@@ -1729,7 +2674,7 @@
               "CorporateSystemMessage"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.corporate-system-message.lifecycle-context-is-informational",
@@ -1737,7 +2682,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1778,7 +2723,7 @@
               "Divider"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.corporate-topbar.layer-properties-use-effective-baseline",
@@ -1801,7 +2746,7 @@
               "Divider"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.corporate-topbar.lifecycle-context-is-informational",
@@ -1809,7 +2754,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1838,7 +2783,7 @@
               "D] FilterCompanySelect_UniversalModal"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.layer-properties-use-effective-baseline",
@@ -1855,7 +2800,7 @@
               "D] FilterCompanySelect_UniversalModal"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.lifecycle-context-is-informational",
@@ -1863,7 +2808,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1894,7 +2839,7 @@
               "DataRangePicker [D]"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.data-range-picker.layer-properties-use-effective-baseline",
@@ -1912,7 +2857,7 @@
               "DataRangePicker [D]"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.data-range-picker.lifecycle-context-is-informational",
@@ -1920,7 +2865,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -1945,7 +2890,7 @@
               "Divider"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.divider.layer-properties-use-effective-baseline",
@@ -1960,7 +2905,7 @@
               "Divider"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.divider.lifecycle-context-is-informational",
@@ -1968,7 +2913,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2003,7 +2948,7 @@
               "FAQItem"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.faq.layer-properties-use-effective-baseline",
@@ -2023,7 +2968,7 @@
               "FAQItem"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.faq.lifecycle-context-is-informational",
@@ -2031,7 +2976,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2064,7 +3009,7 @@
               "FileUpload"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.file-upload.layer-properties-use-effective-baseline",
@@ -2083,7 +3028,7 @@
               "FileUpload"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.file-upload.lifecycle-context-is-informational",
@@ -2091,7 +3036,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2126,7 +3071,7 @@
               "FilterCompanySelect"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.filter-company-select.layer-properties-use-effective-baseline",
@@ -2146,7 +3091,7 @@
               "FilterCompanySelect"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.filter-company-select.lifecycle-context-is-informational",
@@ -2154,7 +3099,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2201,7 +3146,7 @@
               "FiltersBlock"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.filters-block.layer-properties-use-effective-baseline",
@@ -2227,7 +3172,7 @@
               "FiltersBlock"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.filters-block.lifecycle-context-is-informational",
@@ -2235,7 +3180,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2314,7 +3259,7 @@
               "PatternTitle"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.helpers.layer-properties-use-effective-baseline",
@@ -2356,7 +3301,7 @@
               "PatternTitle"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.helpers.lifecycle-context-is-informational",
@@ -2364,7 +3309,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2391,7 +3336,7 @@
               "HoldingPlate"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.holding-plate.layer-properties-use-effective-baseline",
@@ -2407,7 +3352,7 @@
               "HoldingPlate"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.holding-plate.lifecycle-context-is-informational",
@@ -2415,7 +3360,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2496,7 +3441,7 @@
               "SwapMe"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.hub-menu.layer-properties-use-effective-baseline",
@@ -2539,7 +3484,7 @@
               "SwapMe"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.hub-menu.lifecycle-context-is-informational",
@@ -2547,7 +3492,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2578,7 +3523,7 @@
               "HubPage [D]"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.hub-page.layer-properties-use-effective-baseline",
@@ -2596,7 +3541,7 @@
               "HubPage [D]"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.hub-page.lifecycle-context-is-informational",
@@ -2604,7 +3549,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2677,7 +3622,7 @@
               "StatusCompact"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.isle-block.layer-properties-use-effective-baseline",
@@ -2716,7 +3661,7 @@
               "StatusCompact"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.isle-block.lifecycle-context-is-informational",
@@ -2724,7 +3669,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2785,7 +3730,7 @@
               "NavigationCardView"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.navigation-card-view.layer-properties-use-effective-baseline",
@@ -2818,7 +3763,7 @@
               "NavigationCardView"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.navigation-card-view.lifecycle-context-is-informational",
@@ -2826,7 +3771,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2855,7 +3800,7 @@
               "Tail"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.onboarding-hint.layer-properties-use-effective-baseline",
@@ -2872,7 +3817,7 @@
               "Tail"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.onboarding-hint.lifecycle-context-is-informational",
@@ -2880,7 +3825,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2919,7 +3864,7 @@
               "TooltipTail"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.onboarding-tooltip.layer-properties-use-effective-baseline",
@@ -2941,7 +3886,7 @@
               "TooltipTail"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.onboarding-tooltip.lifecycle-context-is-informational",
@@ -2949,7 +3894,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -2992,7 +3937,7 @@
               "Pagination [D]"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.pagination.layer-properties-use-effective-baseline",
@@ -3016,7 +3961,7 @@
               "Pagination [D]"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.pagination.lifecycle-context-is-informational",
@@ -3024,7 +3969,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -3055,7 +4000,7 @@
               "PaymentControl [M]"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.payment-control.layer-properties-use-effective-baseline",
@@ -3073,7 +4018,7 @@
               "PaymentControl [M]"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.payment-control.lifecycle-context-is-informational",
@@ -3081,7 +4026,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -3114,7 +4059,7 @@
               "SwapMe"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.payment-masked-number.layer-properties-use-effective-baseline",
@@ -3133,7 +4078,7 @@
               "SwapMe"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational",
@@ -3141,7 +4086,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -3192,7 +4137,7 @@
               "ResultScreenContent"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.result-screen.layer-properties-use-effective-baseline",
@@ -3220,7 +4165,7 @@
               "ResultScreenContent"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.result-screen.lifecycle-context-is-informational",
@@ -3228,7 +4173,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -3269,7 +4214,7 @@
               "ScenarioModel ! interruption"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.scenario-model-interruption.layer-properties-use-effective-baseline",
@@ -3292,7 +4237,7 @@
               "ScenarioModel ! interruption"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.scenario-model-interruption.lifecycle-context-is-informational",
@@ -3300,7 +4245,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -3341,7 +4286,7 @@
               "Status & Property"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.status-property.layer-properties-use-effective-baseline",
@@ -3364,7 +4309,7 @@
               "Status & Property"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.status-property.lifecycle-context-is-informational",
@@ -3372,7 +4317,225 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.status-preset-contrast-on-grey-surface",
+          "severity": "error",
+          "source": "composition-contract",
+          "appliesTo": "variant.Style",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "components": [
+              "🔒 [D] StatusPreset",
+              "🔒 [M] StatusPreset",
+              "[D] StatusPreset",
+              "[M] StatusPreset"
+            ],
+            "variantProperty": "Style",
+            "backgroundSurface": [
+              "grey",
+              "neutral",
+              "page-grey",
+              "surface-grey",
+              "CorporateContent grey background"
+            ]
+          },
+          "requiredVariant": {
+            "Style": "Contrast"
+          },
+          "forbiddenVariant": {
+            "Style": "Muted"
+          },
+          "ruleText": "Если StatusPreset размещён на сером или нейтральном фоне страницы/контентной области, используй Style=Contrast. Не используй Style=Muted на сером фоне: muted-версия теряет контраст и хуже отделяется от поверхности. Для белого или явно контрастного контейнера Style=Muted допустим, если это соответствует статусной семантике и соседним компонентам."
+        }
+      ]
+    },
+    {
+      "componentKey": "web-corp.table-basic-d",
+      "packageName": "Table Basic [D]",
+      "aliases": [
+        "[D] BodyActionCell",
+        "[D] BodyActionCell :: Basic",
+        "[D] BodyCell",
+        "[D] BodyCell :: Basic",
+        "[D] BodyControlCell",
+        "[D] BodyControlCell :: Basic",
+        "[D] BodyRow :: Basic",
+        "[D] BodyRow :: Core",
+        "[D] GroupDivider :: Basic",
+        "[D] HeadActionCell",
+        "[D] HeadCell",
+        "[D] HeadControlCell",
+        "[D] HeadRow :: Core",
+        "[D] ListHeaderRow :: Core",
+        "🔄 [D] BodyActionCell",
+        "🔄 [D] BodyCell",
+        "🔄 [D] BodyControlCell",
+        "🔄 [D] BodyRow :: Core",
+        "🔄 [D] HeadActionCell",
+        "🔄 [D] HeadCell",
+        "🔄 [D] HeadControlCell",
+        "🔄 [D] HeadRow :: Core",
+        "🔄 [D] ListHeaderRow :: Core",
+        "🔄 Chevron",
+        "🔄 HeadControl",
+        "🔄 Sorting",
+        "🔒 [D] BodyCell",
+        "ActionButton",
+        "Chevron",
+        "Control",
+        "Graphics",
+        "GraphicsSkeleton",
+        "HeadControl",
+        "LeftAddon",
+        "RightAddon",
+        "Sorting",
+        "Table Basic [D]",
+        "Text"
+      ],
+      "rulesFile": "JSONS/web/components/web-corp/Table Basic [D]/rules.json",
+      "rules": [
+        {
+          "ruleId": "component:web-corp.table-basic-d.component-properties-are-first-class",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.table-basic-d",
+            "layers": [
+              "[D] BodyActionCell",
+              "[D] BodyActionCell :: Basic",
+              "[D] BodyCell",
+              "[D] BodyCell :: Basic",
+              "[D] BodyControlCell",
+              "[D] BodyControlCell :: Basic",
+              "[D] BodyRow",
+              "[D] BodyRow :: Basic",
+              "[D] BodyRow :: Core",
+              "[D] GroupDivider",
+              "[D] GroupDivider :: Basic",
+              "[D] HeadActionCell",
+              "[D] HeadCell",
+              "[D] HeadControlCell",
+              "[D] HeadRow",
+              "[D] HeadRow :: Core",
+              "[D] ListHeaderRow",
+              "[D] ListHeaderRow :: Core",
+              "🔄 [D] BodyActionCell",
+              "🔄 [D] BodyCell",
+              "🔄 [D] BodyControlCell",
+              "🔄 [D] BodyRow :: Core",
+              "🔄 [D] HeadActionCell",
+              "🔄 [D] HeadCell",
+              "🔄 [D] HeadControlCell",
+              "🔄 [D] HeadRow :: Core",
+              "🔄 [D] ListHeaderRow :: Core",
+              "🔄 Chevron",
+              "🔄 HeadControl",
+              "🔄 Sorting",
+              "🔒 [D] BodyCell",
+              "Chevron",
+              "Control",
+              "Graphics",
+              "GraphicsSkeleton",
+              "HeadControl",
+              "LeftAddon",
+              "RightAddon",
+              "Sorting",
+              "Text"
+            ]
+          },
+          "ruleText": "Изменения variant/property в компонентах семейства таблиц являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.layer-properties-use-effective-baseline",
+          "severity": "warning",
+          "source": "composition-contract",
+          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.table-basic-d",
+            "layers": [
+              "[D] BodyActionCell",
+              "[D] BodyActionCell :: Basic",
+              "[D] BodyCell",
+              "[D] BodyCell :: Basic",
+              "[D] BodyControlCell",
+              "[D] BodyControlCell :: Basic",
+              "[D] BodyRow",
+              "[D] BodyRow :: Basic",
+              "[D] BodyRow :: Core",
+              "[D] GroupDivider",
+              "[D] GroupDivider :: Basic",
+              "[D] HeadActionCell",
+              "[D] HeadCell",
+              "[D] HeadControlCell",
+              "[D] HeadRow",
+              "[D] HeadRow :: Core",
+              "[D] ListHeaderRow",
+              "[D] ListHeaderRow :: Core",
+              "🔄 [D] BodyActionCell",
+              "🔄 [D] BodyCell",
+              "🔄 [D] BodyControlCell",
+              "🔄 [D] BodyRow :: Core",
+              "🔄 [D] HeadActionCell",
+              "🔄 [D] HeadCell",
+              "🔄 [D] HeadControlCell",
+              "🔄 [D] HeadRow :: Core",
+              "🔄 [D] ListHeaderRow :: Core",
+              "🔄 Chevron",
+              "🔄 HeadControl",
+              "🔄 Sorting",
+              "🔒 [D] BodyCell",
+              "Chevron",
+              "Control",
+              "Graphics",
+              "GraphicsSkeleton",
+              "HeadControl",
+              "LeftAddon",
+              "RightAddon",
+              "Sorting",
+              "Text"
+            ]
+          },
+          "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.scheduled-parts-are-informational",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.status",
+          "checkType": "manual",
+          "ruleText": "Scheduled-части таблиц являются lifecycle context для агента. Не считай scheduled status дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.background-plate-wrapper-in-content",
+          "severity": "error",
+          "source": "composition-contract",
+          "appliesTo": "screen.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "component": "Table Basic [D]",
+            "placement": "CorporateContent body"
+          },
+          "requiredComposition": {
+            "wrapperComponent": "BackgroundPlate",
+            "level": "Level 1",
+            "background": "matching page background",
+            "padding": {
+              "top": 0,
+              "right": 16,
+              "bottom": 16,
+              "left": 16
+            }
+          },
+          "ruleText": "При размещении Table Basic [D] в теле CorporateContent под таблицу нужно подкладывать BackgroundPlate первого уровня с соответствующим фоном. Отступы от краёв BackgroundPlate до таблицы: слева 16 px, справа 16 px, снизу 16 px, сверху 0 px."
         }
       ]
     },
@@ -3472,7 +4635,7 @@
               "Text"
             ]
           },
-          "ruleText": "Variant/property changes on table family components are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в компонентах семейства таблиц являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.layer-properties-use-effective-baseline",
@@ -3526,7 +4689,7 @@
               "Text"
             ]
           },
-          "ruleText": "Layer/style changes inside table family components must be compared against the effective baseline for the current table variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.scheduled-parts-are-informational",
@@ -3534,7 +4697,247 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Scheduled table parts are lifecycle context for the agent. Do not treat scheduled status as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Scheduled-части таблиц являются lifecycle context для агента. Не считай scheduled status дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.background-plate-wrapper-in-content",
+          "severity": "error",
+          "source": "composition-contract",
+          "appliesTo": "screen.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "component": "Table Basic [D]",
+            "placement": "CorporateContent body"
+          },
+          "requiredComposition": {
+            "wrapperComponent": "BackgroundPlate",
+            "level": "Level 1",
+            "background": "matching page background",
+            "padding": {
+              "top": 0,
+              "right": 16,
+              "bottom": 16,
+              "left": 16
+            }
+          },
+          "ruleText": "При размещении Table Basic [D] в теле CorporateContent под таблицу нужно подкладывать BackgroundPlate первого уровня с соответствующим фоном. Отступы от краёв BackgroundPlate до таблицы: слева 16 px, справа 16 px, снизу 16 px, сверху 0 px."
+        }
+      ]
+    },
+    {
+      "componentKey": "web-corp.table-wide-d",
+      "packageName": "Table Wide [D]",
+      "aliases": [
+        "[D] BodyActionCell :: Wide",
+        "[D] BodyCell :: Wide",
+        "[D] BodyControlCell :: Wide",
+        "[D] BodyGroupRow :: Wide",
+        "[D] BodyRow :: Wide",
+        "[D] HeadActionCell",
+        "[D] HeadCell",
+        "[D] HeadControlCell",
+        "[D] HeadRow :: Universal",
+        "ActionButton",
+        "BorderLine",
+        "Chevron",
+        "ColumnControl",
+        "ColumnControl :: OptionList",
+        "ControlAddon",
+        "GroupBorderLine",
+        "HeadDivider",
+        "HeaderAddon",
+        "LeftAddon",
+        "RightAddon",
+        "Sorting",
+        "Table Wide [D]",
+        "Text"
+      ],
+      "rulesFile": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
+      "rules": [
+        {
+          "ruleId": "component:web-corp.table-wide-d.component-properties-are-first-class",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.table-wide-d",
+            "layers": [
+              "[D] BodyActionCell",
+              "[D] BodyActionCell :: Wide",
+              "[D] BodyCell",
+              "[D] BodyCell :: Wide",
+              "[D] BodyControlCell",
+              "[D] BodyControlCell :: Wide",
+              "[D] BodyGroupRow",
+              "[D] BodyGroupRow :: Wide",
+              "[D] BodyRow",
+              "[D] BodyRow :: Wide",
+              "[D] HeadActionCell",
+              "[D] HeadCell",
+              "[D] HeadControlCell",
+              "[D] HeadRow",
+              "[D] HeadRow :: Universal",
+              "BorderLine",
+              "Chevron",
+              "ColumnControl",
+              "ColumnControl :: OptionList",
+              "ControlAddon",
+              "GroupBorderLine",
+              "HeadDivider",
+              "HeaderAddon",
+              "LeftAddon",
+              "RightAddon",
+              "Sorting",
+              "Text"
+            ]
+          },
+          "ruleText": "Изменения variant/property в компонентах семейства таблиц являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.layer-properties-use-effective-baseline",
+          "severity": "warning",
+          "source": "composition-contract",
+          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.table-wide-d",
+            "layers": [
+              "[D] BodyActionCell",
+              "[D] BodyActionCell :: Wide",
+              "[D] BodyCell",
+              "[D] BodyCell :: Wide",
+              "[D] BodyControlCell",
+              "[D] BodyControlCell :: Wide",
+              "[D] BodyGroupRow",
+              "[D] BodyGroupRow :: Wide",
+              "[D] BodyRow",
+              "[D] BodyRow :: Wide",
+              "[D] HeadActionCell",
+              "[D] HeadCell",
+              "[D] HeadControlCell",
+              "[D] HeadRow",
+              "[D] HeadRow :: Universal",
+              "BorderLine",
+              "Chevron",
+              "ColumnControl",
+              "ColumnControl :: OptionList",
+              "ControlAddon",
+              "GroupBorderLine",
+              "HeadDivider",
+              "HeaderAddon",
+              "LeftAddon",
+              "RightAddon",
+              "Sorting",
+              "Text"
+            ]
+          },
+          "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.scheduled-parts-are-informational",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.status",
+          "checkType": "manual",
+          "ruleText": "Scheduled-части таблиц являются lifecycle context для агента. Не считай scheduled status дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.head-cell-column-control-visible",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.visibility",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Wide [D]",
+            "cell": "[D] HeadCell",
+            "requiredLayer": "ColumnControl",
+            "requiredPath": "TitleBlock / ColumnControl"
+          },
+          "requiredState": {
+            "visible": true,
+            "opacity": 1,
+            "removed": false
+          },
+          "forbidden": {
+            "hiddenColumnControl": true,
+            "detachedColumnControl": true,
+            "zeroOpacityColumnControl": true
+          },
+          "ruleText": "В [D] HeadCell запрещено скрывать ColumnControl. Элемент ColumnControl должен быть виден клиенту и оставаться частью TitleBlock / ColumnControl."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.column-controls-min-width",
+          "severity": "error",
+          "source": "composition-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Wide [D]",
+            "cell": "[D] HeadCell",
+            "hasHeaderInteractiveElements": true
+          },
+          "requiredComposition": {
+            "minColumnWidthPx": 160,
+            "minGapBetweenTitleAndControlsPx": 8,
+            "requiredElementsInWidthCalculation": [
+              "Title",
+              "HeaderAddon",
+              "Sorting",
+              "ColumnControl"
+            ],
+            "measurement": "column width must fit visible title text plus all visible controls without bounding-box intersections",
+            "dateColumnOverride": {
+              "headerExamples": [
+                "Дата",
+                "Дата заявки",
+                "Дата создания",
+                "Дата изменения"
+              ],
+              "minColumnWidthPx": 160
+            }
+          },
+          "forbidden": {
+            "overlapBetweenControls": true,
+            "overlapBetweenTitleAndControls": true,
+            "overlapBetweenAddonAndControls": true,
+            "hiddenColumnControlBecauseOfWidth": true,
+            "columnWidthBelowRequiredMinimum": true
+          },
+          "ruleText": "Ширина колонки Table Wide [D] с [D] HeadCell должна учитывать все элементы заголовка: Title, HeaderAddon, Sorting и ColumnControl. Элементы не должны налезать друг на друга: между текстом заголовка, addon и controls должен сохраняться зазор не меньше 8 px. ColumnControl нельзя скрывать из-за недостаточной ширины. Если ширины недостаточно, увеличь колонку или используй корректное сокращение текста без наложения controls."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.background-plate-wrapper-in-content",
+          "severity": "error",
+          "source": "composition-contract",
+          "appliesTo": "screen.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Wide [D]",
+            "placement": "CorporateContent body",
+            "isStandaloneTableBlock": true
+          },
+          "requiredComposition": {
+            "wrapperComponent": "[D] BackgroundPlate",
+            "slotComponent": "[D] BackgroundPlateSlot",
+            "level": "Level 1",
+            "background": "matching page background",
+            "padding": {
+              "top": 0,
+              "right": 16,
+              "bottom": 16,
+              "left": 16
+            },
+            "tablePlacement": "inside BackgroundPlateSlot",
+            "forbiddenPlacement": "Table Wide [D] as direct child of page content stack after TitleView or TabsView"
+          },
+          "ruleText": "При размещении Table Wide [D] как самостоятельного блока в теле CorporateContent таблица должна быть вложена в [D] BackgroundPlate первого уровня через [D] BackgroundPlateSlot. Нельзя оставлять Table Wide [D] прямым ребёнком page-content стека после TitleView или TabsView. Отступы от краёв BackgroundPlateSlot до таблицы: сверху 0 px, справа 16 px, снизу 16 px, слева 16 px."
         }
       ]
     },
@@ -3606,7 +5009,7 @@
               "Text"
             ]
           },
-          "ruleText": "Variant/property changes on table family components are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в компонентах семейства таблиц являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.layer-properties-use-effective-baseline",
@@ -3647,7 +5050,7 @@
               "Text"
             ]
           },
-          "ruleText": "Layer/style changes inside table family components must be compared against the effective baseline for the current table variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.scheduled-parts-are-informational",
@@ -3655,7 +5058,101 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Scheduled table parts are lifecycle context for the agent. Do not treat scheduled status as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Scheduled-части таблиц являются lifecycle context для агента. Не считай scheduled status дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.head-cell-column-control-visible",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.visibility",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Wide [D]",
+            "cell": "[D] HeadCell",
+            "requiredLayer": "ColumnControl",
+            "requiredPath": "TitleBlock / ColumnControl"
+          },
+          "requiredState": {
+            "visible": true,
+            "opacity": 1,
+            "removed": false
+          },
+          "forbidden": {
+            "hiddenColumnControl": true,
+            "detachedColumnControl": true,
+            "zeroOpacityColumnControl": true
+          },
+          "ruleText": "В [D] HeadCell запрещено скрывать ColumnControl. Элемент ColumnControl должен быть виден клиенту и оставаться частью TitleBlock / ColumnControl."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.column-controls-min-width",
+          "severity": "error",
+          "source": "composition-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Wide [D]",
+            "cell": "[D] HeadCell",
+            "hasHeaderInteractiveElements": true
+          },
+          "requiredComposition": {
+            "minColumnWidthPx": 160,
+            "minGapBetweenTitleAndControlsPx": 8,
+            "requiredElementsInWidthCalculation": [
+              "Title",
+              "HeaderAddon",
+              "Sorting",
+              "ColumnControl"
+            ],
+            "measurement": "column width must fit visible title text plus all visible controls without bounding-box intersections",
+            "dateColumnOverride": {
+              "headerExamples": [
+                "Дата",
+                "Дата заявки",
+                "Дата создания",
+                "Дата изменения"
+              ],
+              "minColumnWidthPx": 160
+            }
+          },
+          "forbidden": {
+            "overlapBetweenControls": true,
+            "overlapBetweenTitleAndControls": true,
+            "overlapBetweenAddonAndControls": true,
+            "hiddenColumnControlBecauseOfWidth": true,
+            "columnWidthBelowRequiredMinimum": true
+          },
+          "ruleText": "Ширина колонки Table Wide [D] с [D] HeadCell должна учитывать все элементы заголовка: Title, HeaderAddon, Sorting и ColumnControl. Элементы не должны налезать друг на друга: между текстом заголовка, addon и controls должен сохраняться зазор не меньше 8 px. ColumnControl нельзя скрывать из-за недостаточной ширины. Если ширины недостаточно, увеличь колонку или используй корректное сокращение текста без наложения controls."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.background-plate-wrapper-in-content",
+          "severity": "error",
+          "source": "composition-contract",
+          "appliesTo": "screen.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Wide [D]",
+            "placement": "CorporateContent body",
+            "isStandaloneTableBlock": true
+          },
+          "requiredComposition": {
+            "wrapperComponent": "[D] BackgroundPlate",
+            "slotComponent": "[D] BackgroundPlateSlot",
+            "level": "Level 1",
+            "background": "matching page background",
+            "padding": {
+              "top": 0,
+              "right": 16,
+              "bottom": 16,
+              "left": 16
+            },
+            "tablePlacement": "inside BackgroundPlateSlot",
+            "forbiddenPlacement": "Table Wide [D] as direct child of page content stack after TitleView or TabsView"
+          },
+          "ruleText": "При размещении Table Wide [D] как самостоятельного блока в теле CorporateContent таблица должна быть вложена в [D] BackgroundPlate первого уровня через [D] BackgroundPlateSlot. Нельзя оставлять Table Wide [D] прямым ребёнком page-content стека после TitleView или TabsView. Отступы от краёв BackgroundPlateSlot до таблицы: сверху 0 px, справа 16 px, снизу 16 px, слева 16 px."
         }
       ]
     },
@@ -3708,7 +5205,7 @@
               "TableBulkActions"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.table-bulk-actions.layer-properties-use-effective-baseline",
@@ -3737,7 +5234,7 @@
               "TableBulkActions"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.table-bulk-actions.lifecycle-context-is-informational",
@@ -3745,7 +5242,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -3792,7 +5289,7 @@
               "Title"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.table-view.layer-properties-use-effective-baseline",
@@ -3818,7 +5315,7 @@
               "Title"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.table-view.lifecycle-context-is-informational",
@@ -3826,7 +5323,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -3834,6 +5331,8 @@
       "componentKey": "web-corp.tabs-view",
       "packageName": "TabsView",
       "aliases": [
+        "[D] TabsView",
+        "[M] TabsView",
         "TabsView"
       ],
       "rulesFile": "JSONS/web/components/web-corp/TabsView/rules.json",
@@ -3844,7 +5343,7 @@
           "source": "component-contract",
           "appliesTo": "variant.Skeleton",
           "checkType": "deterministic",
-          "ruleText": "Skeleton changes are component property changes and should be reported as first-class customizations."
+          "ruleText": "Изменения Skeleton являются component property changes и должны показываться как самостоятельные customizations."
         },
         {
           "ruleId": "component:web-corp.tabs-view.wrapper-owned-primary-tabs-overrides",
@@ -3852,7 +5351,7 @@
           "source": "composition-contract",
           "appliesTo": "TabsPrimary.*",
           "checkType": "deterministic",
-          "ruleText": "TabsView owns selected layout and text-style overrides inside TabsPrimary. When actual equals TabsView effective baseline, these nested differences must not be reported as customizations."
+          "ruleText": "TabsView владеет selected layout и text-style overrides внутри TabsPrimary. Когда actual совпадает с TabsView effective baseline, эти nested differences нельзя показывать как customizations."
         },
         {
           "ruleId": "component:web-corp.tabs-view.manual-primary-tabs-layer-override",
@@ -3860,7 +5359,7 @@
           "source": "composition-contract",
           "appliesTo": "TabsPrimary.*",
           "checkType": "deterministic",
-          "ruleText": "If a nested TabsPrimary layer differs from TabsView effective baseline, report it as a TabsView layer customization using effective baseline as reference."
+          "ruleText": "Если nested TabsPrimary layer отличается от TabsView effective baseline, показывай это как TabsView layer customization, используя effective baseline как reference."
         },
         {
           "ruleId": "component:web-corp.tabs-view.manual-secondary-tabs-layer-override",
@@ -3868,7 +5367,7 @@
           "source": "composition-contract",
           "appliesTo": "TabsSecondary.*",
           "checkType": "deterministic",
-          "ruleText": "If a nested TabsSecondary/Tag layer differs from TabsView effective baseline, report it as a TabsView layer customization using effective baseline as reference."
+          "ruleText": "Если nested TabsSecondary/Tag layer отличается от TabsView effective baseline, показывай это как TabsView layer customization, используя effective baseline как reference."
         }
       ]
     },
@@ -3876,17 +5375,32 @@
       "componentKey": "web-corp.title-view",
       "packageName": "TitleView",
       "aliases": [
+        "[D] RightAddon",
+        "[D] RightAddonXL",
+        "[D] TitleAddon",
+        "[D] TitleAddonXL",
+        "[D] TitleStatus",
+        "[D] TitleView",
+        "[M] RightAddon",
+        "[M] RightAddonXL",
+        "[M] TitleAddon",
+        "[M] TitleAddonXL",
+        "[M] TitleStatus",
+        "[M] TitleView",
         "TitleView"
       ],
       "rulesFile": "JSONS/web/components/web-corp/TitleView/rules.json",
       "rules": [
         {
-          "id": "component:web-corp.title-view.component-properties",
-          "title": "TitleView component properties must be audited as component parameters",
-          "matchKind": "exact_rule",
-          "severity": "medium",
-          "selector": {
-            "componentNames": [
+          "ruleId": "component:web-corp.title-view.component-properties-are-first-class",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.title-view",
+            "layers": [
               "[D] RightAddon",
               "[D] RightAddonXL",
               "[D] TitleAddon",
@@ -3899,44 +5413,325 @@
               "[M] TitleAddonXL",
               "[M] TitleStatus",
               "[M] TitleView"
-            ],
-            "propertyPrefix": "variant."
-          },
-          "rule": "Variant/property changes on the component instance are component-property customizations. Do not convert them into unrelated paint or layout findings."
-        },
-        {
-          "id": "component:web-corp.title-view.layer-properties",
-          "title": "TitleView layer properties must use effective baseline",
-          "matchKind": "exact_rule",
-          "severity": "medium",
-          "selector": {
-            "componentNames": [
-              "[D] RightAddon",
-              "[D] RightAddonXL",
-              "[D] TitleAddon",
-              "[D] TitleAddonXL",
-              "[D] TitleStatus",
-              "[D] TitleView",
-              "[M] RightAddon",
-              "[M] RightAddonXL",
-              "[M] TitleAddon",
-              "[M] TitleAddonXL",
-              "[M] TitleStatus",
-              "[M] TitleView"
-            ],
-            "properties": [
-              "layout.itemSpacing",
-              "layout.padding.*",
-              "styles.text",
-              "styles.fill",
-              "styles.stroke",
-              "fill",
-              "stroke",
-              "radius",
-              "opacity"
             ]
           },
-          "rule": "Layer/style changes must be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения variant/property в компонентах семейства TitleView являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.layer-properties-use-effective-baseline",
+          "severity": "warning",
+          "source": "component-contract",
+          "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.title-view",
+            "layers": [
+              "[D] RightAddon",
+              "[D] RightAddonXL",
+              "[D] TitleAddon",
+              "[D] TitleAddonXL",
+              "[D] TitleStatus",
+              "[D] TitleView",
+              "[M] RightAddon",
+              "[M] RightAddonXL",
+              "[M] TitleAddon",
+              "[M] TitleAddonXL",
+              "[M] TitleStatus",
+              "[M] TitleView"
+            ]
+          },
+          "ruleText": "Изменения layer/style внутри компонентов семейства TitleView нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.single-xlarge-on-screen",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view.single-xlarge",
+          "appliesTo": "screen.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "variant": {
+              "View": "xLarge"
+            }
+          },
+          "requiredComposition": {
+            "maxInstancesPerScreen": 1
+          },
+          "ruleText": "На одном экране может быть только один TitleView с View=xLarge. Остальные заголовки страницы должны использовать View=Large, View=Medium или View=Small."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.external-spacing",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view.external-spacing",
+          "appliesTo": "screen.composition",
+          "checkType": "deterministic",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "placement": "CorporateContent page body",
+            "relationship": "vertical-neighbor"
+          },
+          "requiredSpacing": [
+            {
+              "from": "[D] Header",
+              "to": "[D] TitleView",
+              "axis": "vertical",
+              "spacing": 40,
+              "unit": "px",
+              "token": "TopMargin"
+            },
+            {
+              "from": "[D] TitleView",
+              "to": "[D] Content",
+              "axis": "vertical",
+              "spacing": 32,
+              "unit": "px"
+            },
+            {
+              "from": "[D] TitleView",
+              "to": "[D] TabsView",
+              "axis": "vertical",
+              "spacing": 32,
+              "unit": "px"
+            },
+            {
+              "from": "[D] TitleView",
+              "to": "[D] FiltersBlock",
+              "axis": "vertical",
+              "spacing": 32,
+              "unit": "px"
+            },
+            {
+              "from": "[D] TitleView",
+              "to": "[D] Plate",
+              "axis": "vertical",
+              "spacing": 32,
+              "unit": "px"
+            },
+            {
+              "from": "[D] TitleView",
+              "to": "[D] TopBar",
+              "axis": "vertical",
+              "spacing": 12,
+              "unit": "px",
+              "reason": "TopBar already includes 24 px top spacing"
+            }
+          ],
+          "ruleText": "Внешние вертикальные отступы вокруг TitleView должны соответствовать соседнему блоку: Header -> TitleView 40 px через TopMargin; TitleView -> Content/TabsView/FiltersBlock/Plate 32 px; TitleView -> TopBar 12 px, потому что внутри TopBar уже заложен верхний отступ 24 px."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.status-content-uses-status-slots",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view.status-slots",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "contentRole": "status"
+          },
+          "requiredComposition": {
+            "allowedSlots": [
+              "Status",
+              "TitleStatus",
+              "TitleAddon",
+              "TitleAddonXL"
+            ],
+            "allowedNestedComponents": [
+              "[D] TitleStatus",
+              "[M] TitleStatus",
+              "[D] TitleAddon",
+              "[M] TitleAddon",
+              "[D] TitleAddonXL",
+              "[M] TitleAddonXL",
+              "StatusBadge"
+            ]
+          },
+          "ruleText": "Статусы и комментарии к заголовку должны размещаться в слотах Status, TitleStatus, TitleAddon или TitleAddonXL. Не считай ручной текстовый статус рядом с Title корректной компонентной структурой."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.xlarge-primary-actions-under-title",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view.actions-under-xlarge",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "variant": {
+              "View": "xLarge"
+            },
+            "contentRole": "primary-action"
+          },
+          "requiredComposition": {
+            "allowedSlot": "Button group",
+            "disallowedSlots": [
+              "RightAddon",
+              "RightAddonXL"
+            ]
+          },
+          "ruleText": "Основные целевые действия в TitleView View=xLarge размещаются под заголовком в Button group. RightAddon и RightAddonXL используются для дополнительной ссылки, иконки или вспомогательного действия, но не для primary-действия."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.button-group-max-four-actions",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view.button-group-max-four",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "slot": "Button group"
+          },
+          "requiredComposition": {
+            "maxVisibleActions": 4,
+            "overflowComponent": "PickerButton"
+          },
+          "ruleText": "В Button group внутри TitleView рекомендуется показывать не больше четырёх видимых действий. Остальные действия нужно переносить в PickerButton."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.button-group-single-primary-action",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view.single-primary-action",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "slot": "Button group"
+          },
+          "requiredComposition": {
+            "maxPrimaryActions": 1
+          },
+          "ruleText": "В Button group внутри TitleView должно быть не больше одной primary-кнопки. Повторяющиеся действия не должны менять стиль между состояниями страницы без отдельного сценарного основания."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.skeleton-is-component-property",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view.skeleton-variant",
+          "appliesTo": "variant.Skeleton",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.title-view",
+            "layers": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ]
+          },
+          "ruleText": "Загрузочное состояние TitleView должно задаваться через component property Skeleton=True. Ручные placeholder-слои вместо Skeleton=True являются нарушением компонентной структуры."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.editable-full-title-requires-subtitle",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view-editable.full-title-subtitle-required",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "titleEditMode": "full-title"
+          },
+          "requiredComposition": {
+            "requiredSlot": "Subtitle",
+            "subtitle": "non-empty"
+          },
+          "ruleText": "Если редактируется весь Title в TitleView, у компонента должен быть непустой Subtitle, который сохраняет смысл экрана после изменения пользовательского названия."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.editable-date-uses-calendar-icon",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view-editable.date-calendar-icon",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "editableContentType": "date"
+          },
+          "requiredComposition": {
+            "requiredIcon": "calendar"
+          },
+          "ruleText": "Если в TitleView редактируется дата, рядом с редактируемым фрагментом должна использоваться иконка календаря, а не generic edit icon."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.editable-title-single-line-ellipsis",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view-editable.single-line-ellipsis",
+          "appliesTo": "component.layout",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "titleEditMode": [
+              "full-title",
+              "partial-title"
+            ]
+          },
+          "requiredLayout": {
+            "titleMaxLines": 1,
+            "overflow": "ellipsis"
+          },
+          "ruleText": "Редактируемый Title в TitleView должен сокращаться после первой строки через ellipsis, чтобы пользовательский текст не сдвигал соседние слоты и контент страницы."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.editable-title-keeps-title-view-structure",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view-editable.base-title-view-rules",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "components": [
+              "[D] TitleView",
+              "[M] TitleView"
+            ],
+            "titleEditMode": [
+              "full-title",
+              "partial-title"
+            ]
+          },
+          "ruleText": "Редактируемый заголовок является сценарием TitleView и должен сохранять компонентную структуру TitleView. Не собирай editable-title вручную из отдельных текстовых слоёв и иконок вне компонента."
         }
       ]
     },
@@ -3963,7 +5758,7 @@
               "TitleViewMobile [M]"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.title-view-mobile.layer-properties-use-effective-baseline",
@@ -3979,7 +5774,7 @@
               "TitleViewMobile [M]"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.title-view-mobile.lifecycle-context-is-informational",
@@ -3987,7 +5782,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -4024,7 +5819,7 @@
               "VOC"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.voc.layer-properties-use-effective-baseline",
@@ -4045,7 +5840,7 @@
               "VOC"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.voc.lifecycle-context-is-informational",
@@ -4053,7 +5848,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -4088,7 +5883,7 @@
               "WidgetPlate [D]"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.widget-plate.layer-properties-use-effective-baseline",
@@ -4108,7 +5903,7 @@
               "WidgetPlate [D]"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.widget-plate.lifecycle-context-is-informational",
@@ -4116,7 +5911,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     },
@@ -4163,7 +5958,7 @@
               "Сhat [M]"
             ]
           },
-          "ruleText": "Variant/property changes on this component family are component-property customizations. Report them separately from derived visual layer changes."
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
           "ruleId": "component:web-corp.сhat.layer-properties-use-effective-baseline",
@@ -4189,7 +5984,7 @@
               "Сhat [M]"
             ]
           },
-          "ruleText": "Layer/style changes inside this component family should be compared against the effective baseline for the current component variant and nested owner context."
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
           "ruleId": "component:web-corp.сhat.lifecycle-context-is-informational",
@@ -4197,7 +5992,7 @@
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Component lifecycle status is context for the agent. Do not treat it as a design violation unless a separate pattern or exact design rule is matched."
+          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         }
       ]
     }

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "component-contract-examples",
   "componentKey": "web-corp.background-plate",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -12,7 +12,7 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-09"
+    "updatedAt": "2026-07-10"
   },
   "examples": [
     {
@@ -238,6 +238,7 @@
       "title": "Padding BackgroundPlateSlot показывается как layer customization и проверяется на Spacing token",
       "inputChange": {
         "hostComponent": "[D] BackgroundPlateSlot",
+        "surfaceLevel": "Level-2 (inner)",
         "layer": "Slot",
         "property": "layout.padding.left",
         "referenceValue": 24,
@@ -253,11 +254,391 @@
       },
       "expectedAgent": {
         "severity": "info",
-        "summary": "Padding у BackgroundPlateSlot может быть осознанной настройкой композиции.",
+        "summary": "Для Level-2 рекомендуемое стартовое значение — Spacing/24, но изменение на Spacing/32 допустимо под контекст или паттерн.",
         "mustNotSay": [
           "Не считать отличие от 24 px ошибкой без отдельного правила.",
           "Не рекомендовать сброс, если значение задано через Spacing token и нет контекстного нарушения."
         ]
+      }
+    },
+    {
+      "exampleId": "background-plate-slot-generation-padding-by-level",
+      "title": "Генератор выбирает стартовый padding по уровню поверхности",
+      "generationCases": [
+        {
+          "surfaceLevel": "Level-1 (outer)",
+          "expectedPadding": {
+            "top": "Spacing/32",
+            "right": "Spacing/32",
+            "bottom": "Spacing/32",
+            "left": "Spacing/32"
+          }
+        },
+        {
+          "surfaceLevel": "Level-2 (inner)",
+          "expectedPadding": {
+            "top": "Spacing/24",
+            "right": "Spacing/24",
+            "bottom": "Spacing/24",
+            "left": "Spacing/24"
+          }
+        }
+      ],
+      "expectedAgent": {
+        "severity": "info",
+        "summary": "Значения 32 и 24 являются рекомендуемыми стартовыми отступами. Токенизированное изменение под контекст или паттерн разрешено.",
+        "mustNotSay": [
+          "Не считать любое отличие от 32 или 24 нарушением.",
+          "Не рекомендовать сброс, если другое значение задано через Spacing token и не противоречит паттерну."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-slot-direct-content-without-level-2",
+      "title": "Обычный контент может лежать непосредственно в Slot Level-1",
+      "inputComposition": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "surfaceLevel": "Level-1 (outer)",
+        "slotChildren": [
+          "TitleView",
+          "Table"
+        ],
+        "nestedLevel2": false
+      },
+      "expectedAudit": {
+        "violation": false,
+        "note": "Не требовать обязательную обёртку BackgroundPlate Level-2 для обычного контента."
+      },
+      "expectedAgent": {
+        "severity": "info",
+        "summary": "Прямое размещение обычного контента в Slot Level-1 разрешено."
+      }
+    },
+    {
+      "exampleId": "background-plate-slot-rejects-nested-level-1",
+      "title": "Вложенный Level-1 внутри Slot нарушает иерархию поверхностей",
+      "inputComposition": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "surfaceLevel": "Level-1 (outer)",
+        "nestedBackgroundPlateLevel": "Level-1 (outer)"
+      },
+      "expectedAudit": {
+        "violation": true,
+        "matchedRuleId": "component:web-corp.background-plate.slot-content-levels"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "recommendation": "Удалить лишнюю подложку или заменить её на Level-2, если нужна дополнительная вложенная поверхность."
+      }
+    },
+    {
+      "exampleId": "background-plate-slot-context-controlled-auto-layout",
+      "title": "Auto-layout Slot определяется вложенным контентом",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "layer": "Slot",
+        "changes": {
+          "layout.axis": "VERTICAL → HORIZONTAL",
+          "layout.itemSpacing": "0 → 16",
+          "layout.primaryAxisAlignItems": "MIN → SPACE_BETWEEN"
+        }
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры слоя",
+        "violation": false,
+        "matchedRuleId": "component:web-corp.background-plate.slot-auto-layout-is-context-controlled"
+      },
+      "expectedAgent": {
+        "severity": "info",
+        "summary": "Настройки auto-layout Slot могут быть осознанно изменены под вложенный контент.",
+        "mustNotSay": [
+          "Не требовать возврата к standalone axis, gap или alignment без отдельного контекстного правила."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-slot-required-sizing",
+      "title": "Slot использует Fill по ширине и Hug по высоте",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "layer": "Slot",
+        "referenceValues": {
+          "layoutSizingHorizontal": "FILL",
+          "layoutSizingVertical": "HUG"
+        },
+        "actualValues": {
+          "layoutSizingHorizontal": "FIXED",
+          "layoutSizingVertical": "FILL"
+        }
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры слоя",
+        "violation": true,
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.slot-sizing-fill-width-hug-height"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "recommendation": "Вернуть Slot в Fill по ширине и Hug по высоте."
+      }
+    },
+    {
+      "exampleId": "background-plate-slot-context-controlled-clipping",
+      "title": "Clip content Slot определяется контекстом",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "layer": "Slot",
+        "property": "clipsContent",
+        "referenceValue": false,
+        "actualValue": true
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "group": "Параметры слоя",
+        "violation": false,
+        "matchedRuleId": "component:web-corp.background-plate.slot-clipping-is-context-controlled"
+      },
+      "expectedAgent": {
+        "severity": "info",
+        "summary": "Clip content может быть включён или выключен под поведение вложенного контента.",
+        "mustNotSay": [
+          "Не требовать возврата к standalone clipsContent без отдельного контекстного правила."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-border-custom-tokenized-stroke",
+      "title": "Толщина и цвет Border могут изменяться",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "variantContext": {
+          "Type": "Border"
+        },
+        "changes": {
+          "strokeWeight": "1 → 2",
+          "strokeColor": "border/primary → border/accent"
+        },
+        "actualStrokeTokenBinding": true,
+        "strokeAlign": "INSIDE"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "violation": false,
+        "matchedRuleId": "component:web-corp.background-plate.border-stroke-weight-is-context-controlled"
+      },
+      "expectedAgent": {
+        "severity": "info",
+        "summary": "Токенизированный цвет и контекстная толщина Border являются допустимыми кастомизациями."
+      }
+    },
+    {
+      "exampleId": "background-plate-border-stroke-align-change",
+      "title": "Положение обводки Border нельзя изменять",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "variantContext": {
+          "Type": "Border"
+        },
+        "property": "strokeAlign",
+        "referenceValue": "INSIDE",
+        "actualValue": "CENTER"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "violation": true,
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.border-stroke-align-is-fixed"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "recommendation": "Вернуть положение обводки в Inside."
+      }
+    },
+    {
+      "exampleId": "background-plate-border-visible-fill",
+      "title": "Border не может иметь видимую заливку",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "variantContext": {
+          "Type": "Border"
+        },
+        "property": "fill",
+        "referenceValue": null,
+        "actualValue": "background/primary",
+        "actualTokenBinding": true
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "violation": true,
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.border-has-no-visible-fill"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "recommendation": "Удалить заливку и оставить только токенизированную обводку.",
+        "mustNotSay": [
+          "Не считать заливку допустимой только потому, что она задана цветовым токеном."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-colored-visible-stroke",
+      "title": "Colored не может иметь видимую обводку",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "variantContext": {
+          "Type": "Colored"
+        },
+        "fill": {
+          "value": "background/accent",
+          "tokenBinding": true
+        },
+        "stroke": {
+          "value": "border/accent",
+          "tokenBinding": true
+        }
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "violation": true,
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.colored-uses-fill-without-stroke"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "recommendation": "Удалить обводку и оставить только токенизированную заливку.",
+        "mustNotSay": [
+          "Не считать обводку допустимой только потому, что она задана цветовым токеном."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-primary-manual-tokenized-fill",
+      "title": "Токенизированная ручная заливка Primary также запрещена",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "variantContext": {
+          "Type": "Primary",
+          "surfaceLevel": "Level-1 (outer)",
+          "BackgroundColor": "base-bg-alt (gray)"
+        },
+        "property": "fill",
+        "referenceValue": "surface/level-1",
+        "actualValue": "background/accent",
+        "actualTokenBinding": true
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "violation": true,
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
+        "baseline": "effective"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "recommendation": "Сбросить fill к effective baseline текущего Primary, уровня и BackgroundColor.",
+        "mustNotSay": [
+          "Не считать ручную заливку допустимой только потому, что она задана цветовым токеном.",
+          "Не использовать baseline другого Type или уровня."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-manual-opacity-change",
+      "title": "Ручное изменение opacity запрещено",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "property": "opacity",
+        "referenceValue": 1,
+        "actualValue": 0.8
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "violation": true,
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.opacity-is-fixed",
+        "baseline": "effective"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "recommendation": "Сбросить opacity к effective baseline компонента."
+      }
+    },
+    {
+      "exampleId": "background-plate-manual-drop-shadow",
+      "title": "Ручная тень BackgroundPlate запрещена",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "property": "effects",
+        "referenceValue": [],
+        "actualValue": [
+          {
+            "type": "DROP_SHADOW",
+            "visible": true
+          }
+        ]
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "violation": true,
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.manual-shadows-are-prohibited"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "recommendation": "Удалить вручную добавленную тень."
+      }
+    },
+    {
+      "exampleId": "background-plate-contextual-background-blur",
+      "title": "Background blur разрешён по контексту",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "property": "effects",
+        "referenceValue": [],
+        "actualValue": [
+          {
+            "type": "BACKGROUND_BLUR",
+            "radius": 16,
+            "visible": true
+          }
+        ]
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "violation": false,
+        "matchedRuleId": "component:web-corp.background-plate.blur-is-context-controlled"
+      },
+      "expectedAgent": {
+        "severity": "info",
+        "summary": "Background blur является допустимой контекстной кастомизацией.",
+        "mustNotSay": [
+          "Не классифицировать Background blur как запрещённую тень.",
+          "Не требовать сброса только из-за отсутствия blur в standalone baseline."
+        ]
+      }
+    },
+    {
+      "exampleId": "background-plate-manual-blend-mode-change",
+      "title": "Ручное изменение blend mode запрещено",
+      "inputChange": {
+        "hostComponent": "[D] BackgroundPlateSlot",
+        "property": "blendMode",
+        "referenceValue": "PASS_THROUGH",
+        "actualValue": "MULTIPLY"
+      },
+      "expectedAudit": {
+        "category": "customizations",
+        "violation": true,
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.blend-mode-is-fixed",
+        "baseline": "effective"
+      },
+      "expectedAgent": {
+        "severity": "high",
+        "recommendation": "Сбросить blend mode к effective baseline текущего слоя компонента."
       }
     },
     {
@@ -300,14 +681,19 @@
         "category": "customizations",
         "group": "Параметры слоя",
         "resetSurface": "layer",
+        "severity": "high",
+        "ruleId": "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
         "showAs": "Скругления: 16 → 32"
       },
       "expectedAgent": {
-        "severity": "medium",
-        "summary": "Radius является layer-property customization и должен сравниваться с effective baseline выбранного Position.",
+        "severity": "high",
+        "matchedRuleId": "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
+        "summary": "Radius является layer-property customization, но любое отличие от effective baseline выбранного Position запрещено component rule.",
+        "recommendation": "Сбросить radius [D] Style Level 1 к effective baseline выбранного варианта BackgroundPlate.",
         "mustNotSay": [
           "Не смешивать radius с variant.Position.",
-          "Не использовать baseline Promo/mobile для desktop рабочей поверхности."
+          "Не использовать baseline Promo/mobile для desktop рабочей поверхности.",
+          "Не описывать изменение radius как допустимую ручную настройку."
         ]
       }
     },

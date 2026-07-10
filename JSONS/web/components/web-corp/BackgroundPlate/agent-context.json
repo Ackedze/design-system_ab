@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "component-agent-context",
   "componentKey": "web-corp.background-plate",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -12,10 +12,10 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-09"
+    "updatedAt": "2026-07-10"
   },
   "generated": {
-    "generatedAt": "2026-07-09T14:00:02.089Z",
+    "generatedAt": "2026-07-10T13:31:49.909Z",
     "sourceFiles": [
       "contract.generated.json",
       "contract.overrides.json",
@@ -28,7 +28,7 @@
       "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- BackgroundPlate.json",
       "library": "Web _ Corp Components",
       "file": "Web _ Corp Components",
-      "generatedAt": "2026-07-09T14:00:02.089Z",
+      "generatedAt": "2026-07-10T13:31:49.909Z",
       "exportVersion": "0.1.0-rest",
       "files": [
         "BackgroundPlate"
@@ -334,38 +334,53 @@
       "layerProperties": [
         "fill",
         "stroke",
+        "stroke.*",
         "styles.text",
         "layout.*",
         "radius",
-        "opacity"
+        "opacity",
+        "opacityToken",
+        "effects.*",
+        "blend.mode",
+        "blendMode",
+        "clipsContent"
       ],
       "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
     }
   },
   "manual": {
-    "summary": "BackgroundPlate — семейство surface-компонентов для рабочих и промо-подложек. Оно связывает Position, Type, BackgroundColor и Skeleton variants с фактическими layer baseline: заливкой, скруглением и slot padding. BackgroundPlateView — кодовый alias этого же семейства, а не отдельный Figma-компонент.",
+    "summary": "BackgroundPlate — семейство variable-driven surface-компонентов. Для нового контента используется BackgroundPlateSlot: Level-0 задаётся главной поверхности, первый компонент получает Level-1, а опциональный Level-2 располагается только непосредственно внутри Level-1. Type, BackgroundColor, Skeleton и layer-свойства трактуются по exact component rules. BackgroundPlateView — кодовый alias этого же семейства.",
     "criticalBaselines": [
-      "BackgroundPlate выбирает вложенный Style Level 1 или Style Level 2 через Position.",
-      "Style Level хранит фактический baseline поверхности: BackgroundColor, Type, Skeleton, fill и radius.",
-      "BackgroundPlateSlot управляет внутренними slot padding и Type/Skeleton variants. Сам slot content не является кастомизацией.",
+      "Для новых макетов основным контейнером является BackgroundPlateSlot; BackgroundPlate считается legacy для генерации, но его существующее использование не является нарушением само по себе.",
+      "Mode BackgroundPlate Level=Level-0 назначается главной поверхности страницы или модальной сущности. Первый вложенный BackgroundPlateSlot получает Level-1; Level-2 всегда располагается непосредственно внутри Level-1.",
+      "Обычный контент может лежать непосредственно в Slot Level-1. Level-2 является опциональной вложенной поверхностью; Level-0 и Level-1 внутри Slot запрещены.",
+      "Рекомендуемый padding: Spacing/32 для Level-1 и Spacing/24 для Level-2. Другие значения допустимы под контекст или паттерн только с Spacing token binding.",
+      "Axis, gap и alignment Slot определяются контекстом; width должен быть Fill, height — Hug. Clip content может быть true или false по контексту.",
+      "Primary и Secondary получают fill/stroke только из effective baseline. Colored использует только токенизированную заливку без stroke. Border используется без fill, с токенизированным stroke; strokeWeight контекстный, strokeAlign всегда INSIDE.",
+      "Radius, opacity и blend mode фиксируются effective baseline. Drop shadow и Inner shadow запрещены; Layer blur и Background blur разрешены по контексту.",
+      "Skeleton=True является штатным состоянием загрузки компонента или контента. Сложная skeleton-композиция допустима только при явном сценарии паттерна.",
       "BackgroundPlateView в code/private usage маппится на BackgroundPlate и должен использовать те же правила, контракты и pattern links.",
       "Для desktop рабочей поверхности Level 1 использует radius 16, Level 2 использует radius 12. Promo и mobile variants могут иметь другие baseline из каталога.",
       "BackgroundColor зависит от surface context: для страниц используются base-bg/base-bg-alt, для модальных сущностей используются modal-bg/modal-bg-alt. Суффикс в скобках (gray)/(white) описывает визуальный фон, а часть имени до скобок соответствует цветовому токену поверхности.",
-      "Для Type=Colored и Type=Border цвет заливки и обводки должен быть задан через цветовой токен дизайн-системы. Не ограничивай допустимые цвета четырьмя BackgroundColor variants: ключевое требование — token binding, а не конкретный цвет.",
       "В каталоге вариант обводочной поверхности называется Type=Border. В тексте рекомендаций можно пояснять его как bordered/обводочный, но в машинных фактах и таблицах используй точное значение Border.",
       "Radius/cornerRadius у BackgroundPlate, BackgroundPlateSlot и вложенных Style Level фиксируется component effective baseline. Ручное изменение скруглений запрещено и должно трактоваться как нарушение, а не как допустимая композиционная настройка."
     ],
     "agentInstructions": [
       "Не выводи нарушение из примера. Используй только exact rules, exact component contracts и явно найденные pattern rules.",
       "Если во входном отчёте встречается BackgroundPlateView, трактуй его как code/private alias компонента BackgroundPlate, а не как отдельный компонент без правил.",
-      "Изменения variant/property показывай как component-property customizations; изменения fill, stroke, radius, opacity, layout и style показывай как layer-property customizations.",
+      "Изменения variant/property показывай как component-property customizations; изменения fill, stroke, stroke geometry, radius, opacity, effects, blend mode, layout и style показывай как layer-property customizations.",
       "Если nested diff принадлежит wrapper и actual совпадает с effective baseline, не показывай его как дизайнерскую кастомизацию.",
       "Если actual отличается от effective baseline, показывай effectiveBaseline -> actual. Не подставляй standalone baseline вложенного Style Level вместо baseline выбранного BackgroundPlate variant.",
-      "Padding у BackgroundPlateSlot может быть осознанной настройкой композиции. Комментируй его как layer customization и проверяй токены Spacing, но не называй ошибкой без точного правила.",
+      "Padding у BackgroundPlateSlot может быть осознанной настройкой композиции. Комментируй его как layer customization и проверяй Spacing token binding; не требуй вернуть 32 или 24 только из-за отличия от рекомендации.",
+      "Не требуй Level-2 для обычного контента Slot Level-1. Если внутри Slot найден BackgroundPlate Level-0 или Level-1, используй rule:components.background-plate.slot-content-levels.",
+      "Axis, gap, alignment и Clip content Slot трактуй как контекстные настройки. Width не должен отличаться от Fill, height — от Hug.",
       "При анализе BackgroundColor сначала определи контекст поверхности: page или modal. Не рекомендуй modal-bg* для обычной страницы и не рекомендуй base-bg* для модальной сущности, если exact rule или отчёт указывают на противоположный surface context.",
-      "Для Type=Colored и Type=Border не делай вывод “цвет запрещён” только потому, что он отличается от default BackgroundColor. Если fill/stroke задан через цветовой токен, описывай это как допустимую токенизированную настройку или как кастомизацию без нарушения, если нет другого exact rule.",
-      "Если для Type=Colored или Type=Border fill/stroke задан raw-цветом без token binding, повышай значимость рекомендации: нужно заменить raw fill/raw stroke на цветовой токен дизайн-системы.",
-      "Если в отчёте есть изменение radius/cornerRadius у BackgroundPlate, BackgroundPlateSlot, root-layer `BackgroundPlate / absolute back` или Style Level, используй правило `component:web-corp.background-plate.radius-is-fixed-by-component-baseline`, повышай приоритет до high и рекомендуй сбросить скругление к effective baseline."
+      "Для Primary и Secondary любое ручное изменение fill/stroke является нарушением, даже при token binding. Сравнивай с effective baseline текущего Type, уровня и BackgroundColor.",
+      "Для Colored разрешена только видимая заливка через color token; raw fill, отсутствие fill и любой stroke являются нарушением.",
+      "Для Border fill запрещён, stroke должен быть привязан к color token. StrokeWeight можно менять под контекст; strokeAlign должен оставаться INSIDE. Border не может быть кликабельным.",
+      "Если в отчёте есть изменение radius/cornerRadius, opacity или blend mode, используй соответствующее exact component rule и рекомендуй сброс к effective baseline.",
+      "Drop shadow и Inner shadow трактуй как нарушения. Layer blur и Background blur являются допустимыми контекстными кастомизациями и не должны попадать под запрет теней.",
+      "Переключение Skeleton=False → True само по себе разрешено. Ручную простую skeleton-композицию вместо component property считай нарушением; сложное исключение допускай только по явному паттерну."
     ],
     "codeExports": [
       {
@@ -394,13 +409,13 @@
     "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- BackgroundPlate.json",
     "library": "Web _ Corp Components",
     "file": "Web _ Corp Components",
-    "generatedAt": "2026-07-09T14:00:02.089Z",
+    "generatedAt": "2026-07-10T13:31:49.909Z",
     "exportVersion": "0.1.0-rest",
     "files": [
       "BackgroundPlate"
     ]
   },
-  "summary": "BackgroundPlate — семейство surface-компонентов для рабочих и промо-подложек. Оно связывает Position, Type, BackgroundColor и Skeleton variants с фактическими layer baseline: заливкой, скруглением и slot padding. BackgroundPlateView — кодовый alias этого же семейства, а не отдельный Figma-компонент.",
+  "summary": "BackgroundPlate — семейство variable-driven surface-компонентов. Для нового контента используется BackgroundPlateSlot: Level-0 задаётся главной поверхности, первый компонент получает Level-1, а опциональный Level-2 располагается только непосредственно внутри Level-1. Type, BackgroundColor, Skeleton и layer-свойства трактуются по exact component rules. BackgroundPlateView — кодовый alias этого же семейства.",
   "components": [
     {
       "name": "[D] BackgroundPlate",
@@ -978,27 +993,36 @@
     }
   ],
   "criticalBaselines": [
-    "BackgroundPlate выбирает вложенный Style Level 1 или Style Level 2 через Position.",
-    "Style Level хранит фактический baseline поверхности: BackgroundColor, Type, Skeleton, fill и radius.",
-    "BackgroundPlateSlot управляет внутренними slot padding и Type/Skeleton variants. Сам slot content не является кастомизацией.",
+    "Для новых макетов основным контейнером является BackgroundPlateSlot; BackgroundPlate считается legacy для генерации, но его существующее использование не является нарушением само по себе.",
+    "Mode BackgroundPlate Level=Level-0 назначается главной поверхности страницы или модальной сущности. Первый вложенный BackgroundPlateSlot получает Level-1; Level-2 всегда располагается непосредственно внутри Level-1.",
+    "Обычный контент может лежать непосредственно в Slot Level-1. Level-2 является опциональной вложенной поверхностью; Level-0 и Level-1 внутри Slot запрещены.",
+    "Рекомендуемый padding: Spacing/32 для Level-1 и Spacing/24 для Level-2. Другие значения допустимы под контекст или паттерн только с Spacing token binding.",
+    "Axis, gap и alignment Slot определяются контекстом; width должен быть Fill, height — Hug. Clip content может быть true или false по контексту.",
+    "Primary и Secondary получают fill/stroke только из effective baseline. Colored использует только токенизированную заливку без stroke. Border используется без fill, с токенизированным stroke; strokeWeight контекстный, strokeAlign всегда INSIDE.",
+    "Radius, opacity и blend mode фиксируются effective baseline. Drop shadow и Inner shadow запрещены; Layer blur и Background blur разрешены по контексту.",
+    "Skeleton=True является штатным состоянием загрузки компонента или контента. Сложная skeleton-композиция допустима только при явном сценарии паттерна.",
     "BackgroundPlateView в code/private usage маппится на BackgroundPlate и должен использовать те же правила, контракты и pattern links.",
     "Для desktop рабочей поверхности Level 1 использует radius 16, Level 2 использует radius 12. Promo и mobile variants могут иметь другие baseline из каталога.",
     "BackgroundColor зависит от surface context: для страниц используются base-bg/base-bg-alt, для модальных сущностей используются modal-bg/modal-bg-alt. Суффикс в скобках (gray)/(white) описывает визуальный фон, а часть имени до скобок соответствует цветовому токену поверхности.",
-    "Для Type=Colored и Type=Border цвет заливки и обводки должен быть задан через цветовой токен дизайн-системы. Не ограничивай допустимые цвета четырьмя BackgroundColor variants: ключевое требование — token binding, а не конкретный цвет.",
     "В каталоге вариант обводочной поверхности называется Type=Border. В тексте рекомендаций можно пояснять его как bordered/обводочный, но в машинных фактах и таблицах используй точное значение Border.",
     "Radius/cornerRadius у BackgroundPlate, BackgroundPlateSlot и вложенных Style Level фиксируется component effective baseline. Ручное изменение скруглений запрещено и должно трактоваться как нарушение, а не как допустимая композиционная настройка."
   ],
   "agentInstructions": [
     "Не выводи нарушение из примера. Используй только exact rules, exact component contracts и явно найденные pattern rules.",
     "Если во входном отчёте встречается BackgroundPlateView, трактуй его как code/private alias компонента BackgroundPlate, а не как отдельный компонент без правил.",
-    "Изменения variant/property показывай как component-property customizations; изменения fill, stroke, radius, opacity, layout и style показывай как layer-property customizations.",
+    "Изменения variant/property показывай как component-property customizations; изменения fill, stroke, stroke geometry, radius, opacity, effects, blend mode, layout и style показывай как layer-property customizations.",
     "Если nested diff принадлежит wrapper и actual совпадает с effective baseline, не показывай его как дизайнерскую кастомизацию.",
     "Если actual отличается от effective baseline, показывай effectiveBaseline -> actual. Не подставляй standalone baseline вложенного Style Level вместо baseline выбранного BackgroundPlate variant.",
-    "Padding у BackgroundPlateSlot может быть осознанной настройкой композиции. Комментируй его как layer customization и проверяй токены Spacing, но не называй ошибкой без точного правила.",
+    "Padding у BackgroundPlateSlot может быть осознанной настройкой композиции. Комментируй его как layer customization и проверяй Spacing token binding; не требуй вернуть 32 или 24 только из-за отличия от рекомендации.",
+    "Не требуй Level-2 для обычного контента Slot Level-1. Если внутри Slot найден BackgroundPlate Level-0 или Level-1, используй rule:components.background-plate.slot-content-levels.",
+    "Axis, gap, alignment и Clip content Slot трактуй как контекстные настройки. Width не должен отличаться от Fill, height — от Hug.",
     "При анализе BackgroundColor сначала определи контекст поверхности: page или modal. Не рекомендуй modal-bg* для обычной страницы и не рекомендуй base-bg* для модальной сущности, если exact rule или отчёт указывают на противоположный surface context.",
-    "Для Type=Colored и Type=Border не делай вывод “цвет запрещён” только потому, что он отличается от default BackgroundColor. Если fill/stroke задан через цветовой токен, описывай это как допустимую токенизированную настройку или как кастомизацию без нарушения, если нет другого exact rule.",
-    "Если для Type=Colored или Type=Border fill/stroke задан raw-цветом без token binding, повышай значимость рекомендации: нужно заменить raw fill/raw stroke на цветовой токен дизайн-системы.",
-    "Если в отчёте есть изменение radius/cornerRadius у BackgroundPlate, BackgroundPlateSlot, root-layer `BackgroundPlate / absolute back` или Style Level, используй правило `component:web-corp.background-plate.radius-is-fixed-by-component-baseline`, повышай приоритет до high и рекомендуй сбросить скругление к effective baseline."
+    "Для Primary и Secondary любое ручное изменение fill/stroke является нарушением, даже при token binding. Сравнивай с effective baseline текущего Type, уровня и BackgroundColor.",
+    "Для Colored разрешена только видимая заливка через color token; raw fill, отсутствие fill и любой stroke являются нарушением.",
+    "Для Border fill запрещён, stroke должен быть привязан к color token. StrokeWeight можно менять под контекст; strokeAlign должен оставаться INSIDE. Border не может быть кликабельным.",
+    "Если в отчёте есть изменение radius/cornerRadius, opacity или blend mode, используй соответствующее exact component rule и рекомендуй сброс к effective baseline.",
+    "Drop shadow и Inner shadow трактуй как нарушения. Layer blur и Background blur являются допустимыми контекстными кастомизациями и не должны попадать под запрет теней.",
+    "Переключение Skeleton=False → True само по себе разрешено. Ручную простую skeleton-композицию вместо component property считай нарушением; сложное исключение допускай только по явному паттерну."
   ],
   "codeExports": [
     {
@@ -1021,10 +1045,16 @@
     "layerProperties": [
       "fill",
       "stroke",
+      "stroke.*",
       "styles.text",
       "layout.*",
       "radius",
-      "opacity"
+      "opacity",
+      "opacityToken",
+      "effects.*",
+      "blend.mode",
+      "blendMode",
+      "clipsContent"
     ],
     "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
   }
