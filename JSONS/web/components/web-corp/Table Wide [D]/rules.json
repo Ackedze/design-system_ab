@@ -12,7 +12,7 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-06"
+    "updatedAt": "2026-07-13"
   },
   "rules": [
     {
@@ -198,6 +198,262 @@
         "forbiddenPlacement": "Table Wide [D] as direct child of page content stack after TitleView or TabsView"
       },
       "ruleText": "При размещении Table Wide [D] как самостоятельного блока в теле CorporateContent таблица должна быть вложена в [D] BackgroundPlate первого уровня через [D] BackgroundPlateSlot. Нельзя оставлять Table Wide [D] прямым ребёнком page-content стека после TitleView или TabsView. Отступы от краёв BackgroundPlateSlot до таблицы: сверху 0 px, справа 16 px, снизу 16 px, слева 16 px."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.use-wide-component-for-extended-view",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.use-wide-component",
+      "appliesTo": "component.selection",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "tableSetting": "Расширенный вид",
+        "settingValue": true
+      },
+      "requiredComponent": {
+        "component": "Table Wide [D]",
+        "figmaComponentName": "Table :: Wide"
+      },
+      "forbidden": {
+        "component": "Table Basic [D]",
+        "basicTableForExtendedView": true
+      },
+      "ruleText": "Если в настройках таблицы включён Расширенный вид, таблица должна быть собрана на Table Wide [D] / Table :: Wide. Не используй Table Basic [D] для расширенного вида."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.keep-one-visible-column",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.keep-one-visible-column",
+      "appliesTo": "component.visibility",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "area": "column visibility settings"
+      },
+      "requiredState": {
+        "minVisibleColumns": 1
+      },
+      "forbidden": {
+        "hideLastVisibleColumn": true,
+        "visibleColumnCount": 0
+      },
+      "ruleText": "В настройках Table Wide [D] можно скрывать любые колонки, кроме последней видимой. Таблица не должна оставаться без видимых колонок."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.column-order-follows-settings",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.column-order-drag-and-drop",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "area": "column order settings"
+      },
+      "requiredBehavior": {
+        "control": "drag-and-drop in settings column list",
+        "tableColumnOrder": "matches settings list order"
+      },
+      "ruleText": "Порядок колонок Table Wide [D] изменяется drag-and-drop в списке настроек. После изменения порядок колонок в таблице должен совпадать с порядком в списке."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.reset-all-restores-baseline",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.reset-all-restores-baseline",
+      "appliesTo": "component.behavior",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "action": "Сбросить все настройки"
+      },
+      "requiredBehavior": {
+        "restoreVisibility": true,
+        "restoreOrder": true,
+        "restoreColumnWidths": true,
+        "targetState": "baseline"
+      },
+      "ruleText": "Кнопка Сбросить все настройки должна возвращать Table Wide [D] к базовым значениям видимости, порядка и ширины колонок."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.sorting-menu-by-column-capability",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.sorting-only-for-sortable-columns",
+      "appliesTo": "component.behavior",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "cell": "[D] HeadCell",
+        "control": "ColumnControl"
+      },
+      "requiredBehavior": {
+        "sortableColumnMenuItems": [
+          "Sort ascending",
+          "Sort descending",
+          "Pin column",
+          "Reset column width",
+          "Reset width of all columns"
+        ],
+        "nonSortableColumnMenuItems": [
+          "Pin column",
+          "Reset column width",
+          "Reset width of all columns"
+        ],
+        "defaultSortingPreset": "Not selected",
+        "allowedPresetOverride": "product-defined initial sorting"
+      },
+      "forbidden": {
+        "sortActionsInNonSortableColumn": true
+      },
+      "ruleText": "Пункты сортировки в меню ColumnControl показываются только у сортируемых колонок. У несортируемой колонки меню не должно содержать Sort ascending и Sort descending."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.pinning-wide-only",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.pinning-wide-only",
+      "appliesTo": "component.behavior",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "action": "Pin column"
+      },
+      "allowedIn": {
+        "component": "Table Wide [D]",
+        "reason": "has horizontal scroll"
+      },
+      "forbiddenIn": {
+        "component": "Table Basic [D]",
+        "reason": "no horizontal scroll"
+      },
+      "requiredBehavior": {
+        "pinningScope": "selected column and all columns to the left"
+      },
+      "ruleText": "Закрепление колонок доступно только в Table Wide [D]. В Table Basic [D] действие Pin column не используется."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.column-width-reset-actions",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.column-width-reset",
+      "appliesTo": "component.behavior",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "manualColumnResize": true
+      },
+      "requiredMenuItems": [
+        "Reset column width",
+        "Reset width of all columns"
+      ],
+      "requiredBehavior": {
+        "resetColumnWidth": "restore current column baseline width",
+        "resetAllColumnWidths": "restore all baseline widths"
+      },
+      "ruleText": "Если в Table Wide [D] доступно ручное изменение ширины колонок, меню колонки должно давать сброс ширины текущей колонки и сброс ширины всех колонок."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.pagination-by-row-count",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.pagination-by-row-count",
+      "appliesTo": "component.state",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "area": "pagination"
+      },
+      "requiredState": {
+        "rowsLessOrEqualTen": {
+          "paginationPreset": "None",
+          "singlePageBlockRequired": false
+        },
+        "rowsMoreThanTen": {
+          "paginationPreset": "Pagination"
+        },
+        "lastRowBottomDivider": false
+      },
+      "ruleText": "Если в таблице 10 строк или меньше, блок с одной страницей можно отключить через preset None. Если строк больше 10 и появляется вторая страница, используй preset Pagination. У последней строки таблицы нижний разделитель отсутствует."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.sticky-plate-when-overflow",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.sticky-plate-when-overflow",
+      "appliesTo": "component.layout",
+      "checkType": "llm",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "tableHeightExceedsViewport": true,
+        "hasBottomControlBlock": true
+      },
+      "requiredBehavior": {
+        "bottomBlock": "sticky plate",
+        "position": "bottom of visible table container",
+        "rowsScrollUnderBlock": true
+      },
+      "ruleText": "Если Table Wide [D] не помещается во вьюпорт по высоте, нижний блок Pagination или BulkActions должен работать как sticky plate у нижнего края видимой области таблицы."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.bulk-actions-use-pagination-preset",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "patternRuleId": "rule:components.table-wide-d.bulk-actions-use-pagination-preset",
+      "appliesTo": "component.state",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "hasCheckboxes": true,
+        "selectedRowsCountGreaterThan": 0
+      },
+      "requiredState": {
+        "paginationBlockPreset": "BulkActions",
+        "bulkActionsPaginationMode": "per-page"
+      },
+      "forbidden": {
+        "component": "TableBulkActions",
+        "separateBulkActionsComponent": true
+      },
+      "ruleText": "При выборе строк в Table Wide [D] нижний блок переключается в preset BulkActions. В новой сборке таблиц не используй отдельный компонент TableBulkActions; групповые действия должны быть состоянием пагинационного блока."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.group-divider-labels",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-wide-d",
+      "appliesTo": "component.content",
+      "checkType": "llm",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Wide [D]",
+        "row": "[D] BodyGroupRow :: Wide"
+      },
+      "requiredContent": {
+        "dateDivider": "day and month",
+        "companyDivider": "company or counterparty name"
+      },
+      "ruleText": "Разделители строк в Table Wide [D] должны подписывать фактическую группировку: для даты используй день и месяц, для компании - название компании или контрагента."
     }
   ]
 }

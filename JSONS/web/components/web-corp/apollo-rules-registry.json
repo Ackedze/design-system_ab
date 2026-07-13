@@ -3765,6 +3765,580 @@
           "appliesTo": "component.status",
           "checkType": "manual",
           "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.use-topbar-as-public-root",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.usage",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "Публичным корнем семейства является только [D] TopBar. Используй его над табличным, списочным или карточным представлением данных."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.internal-components-are-not-standalone",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.usage",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "CorporateTopbar [D]",
+            "layers": [
+              "[D] OptionList",
+              "[D] Settings",
+              "[D] StartAddon",
+              "[D] OptionListHeader",
+              "[D] SortableListItem",
+              "Control",
+              "Divider"
+            ]
+          },
+          "ruleText": "Служебные компоненты [D] OptionList, [D] Settings, [D] StartAddon, [D] OptionListHeader, [D] SortableListItem, Control и Divider можно использовать только внутри [D] TopBar. Их самостоятельное использование запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.filtered-controls-counter-label",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Filtered|text.content",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Counter",
+              "Label"
+            ]
+          },
+          "ruleText": "При Filtered=false счётчик использует подпись «Всего». При Filtered=true, когда активна фильтрация данных, подпись меняется на «Найдено»."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.skeleton-blocks-interaction",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Skeleton|interaction.*",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "Skeleton=true используется во время загрузки данных. В этом состоянии весь [D] TopBar заблокирован для взаимодействия."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.control-slot-is-context-defined",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "slot.Control",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Control",
+              "Content"
+            ]
+          },
+          "ruleText": "Содержимое слота Control сейчас не регламентировано и определяется контекстом задачи. Не объявляй конкретный тип вложенного контрола обязательным без дополнительного правила."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.counter-is-required",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "structure.Counter|text.content",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Counter",
+              "Label",
+              "N"
+            ]
+          },
+          "ruleText": "Counter обязателен внутри [D] TopBar. Его подписи нельзя скрывать или переименовывать: используй «Всего» без активной фильтрации и «Найдено» при Filtered=true."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.select-all-selects-all-data",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Presets",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] StartAddon",
+              "[D] Button"
+            ]
+          },
+          "ruleText": "Presets=Select All отображает кнопку «Выбрать все». Действие выбирает все доступные элементы набора данных, включая элементы, которые не показаны на текущей странице таблицы или списка."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.custom-start-addon-is-context-defined",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Presets|slot.StartAddon",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] StartAddon"
+            ]
+          },
+          "ruleText": "Presets=Custom используется для дополнительного элемента настройки отображения данных. Конкретный элемент определяется контекстом сценария и задачи."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.settings-dropdown-shows-option-list",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Dropdown|structure.[D] OptionList",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] Settings",
+              "[D] OptionList"
+            ]
+          },
+          "ruleText": "[D] Settings управляет настройками представления данных, включая видимость и порядок колонок. При Dropdown=true должен отображаться вложенный [D] OptionList; при Dropdown=false список скрыт."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.additional-button-uses-supported-variants",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Size|variant.View",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Button Group",
+              "[D] Button"
+            ]
+          },
+          "ruleText": "Дополнительная кнопка TopBar всегда использует Size=32. Разрешены View=Primary и View=Secondary; назначение и текст действия определяются контекстом задачи."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-is-desktop-only",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.platform",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "[D] TopBar применяется только на desktop при ширине 768 px и более. На mobile-web компонент не используется."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.counter-uses-full-dataset",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "data.Counter",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Counter",
+              "N"
+            ]
+          },
+          "ruleText": "Число N в Counter относится ко всему доступному набору данных: без фильтрации показывает общее количество, при Filtered=true — количество найденных объектов. Не ограничивай значение объектами текущей страницы."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.start-addon-is-optional",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "structure.[D] StartAddon",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] StartAddon"
+            ]
+          },
+          "ruleText": "[D] StartAddon является опциональной частью TopBar. Его допустимо полностью скрыть, если сценарий не требует Select All или Custom-настройки."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.option-list-mode-matches-data-view",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Mode",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] Settings",
+              "[D] OptionList"
+            ]
+          },
+          "ruleText": "Mode [D] OptionList должен соответствовать управляемому представлению данных: Basic — Table Basic, Wide — Table Wide, Core — 🔄 [D] HeadRow :: Core и другие компоненты Web Corp Components."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.settings-capabilities-follow-mode",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Mode|settings.*",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] Settings",
+              "[D] OptionList"
+            ]
+          },
+          "ruleText": "В Mode=Basic и Mode=Wide Settings управляет видимостью и порядком колонок, а также переключением отображения. В Mode=Core сейчас доступно переключение между отображениями."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-visuals-use-effective-baseline",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.*|layoutSizing*|styles.text|fill|stroke|radius|opacity|effects.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "Корень и внутренние слои [D] TopBar должны сохранять effective baseline выбранных Filtered, Skeleton и nested component states. Нельзя вручную менять sizing, направление, выравнивание, padding, gap, текстовые стили, fill, stroke, radius, opacity и effects."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar.settings-is-optional",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "structure.[D] Settings",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] Settings"
+            ]
+          },
+          "ruleText": "[D] Settings является опциональной частью TopBar и может быть полностью скрыт, если пользователю не нужна настройка представления данных."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-allows-one-additional-button",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "structure.[D] Button|variant.RightAddon|variant.LeftAddon",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Button Group",
+              "[D] Button"
+            ]
+          },
+          "ruleText": "В правой группе TopBar допустима не более чем одна дополнительная [D] Button. У неё можно настраивать RightAddon; самостоятельная настройка LeftAddon не предусмотрена."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-control-slot-allows-context-composition",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "slot.Control",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Control",
+              "Content"
+            ]
+          },
+          "ruleText": "В слот Control можно через предусмотренный slot/instance swap поместить один или несколько контекстных элементов. Это разрешённая композиция слота, а не основание менять внутреннюю структуру TopBar."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-option-list-matches-columns",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "structure.[D] OptionList|text.content",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] OptionList",
+              "Columns Group",
+              "[D] SortableListItem",
+              "Label"
+            ]
+          },
+          "ruleText": "Строки [D] OptionList должны соответствовать реальным колонкам управляемой таблицы. Для сценария разрешено менять подписи, добавлять и удалять строки и переставлять их в нужном порядке."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-protects-structure-and-root-interaction",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.detach|structure.*|interaction.root",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "Нельзя detach корень или вложенные компоненты, менять внутренние instance swaps вне предусмотренных слотов, добавлять произвольные слои или делать весь TopBar кликабельным. Интерактивность принадлежит вложенным контролам и кнопкам."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-root-uses-fill-hug",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "layoutSizingHorizontal|layoutSizingVertical",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "Корень [D] TopBar использует Fill по ширине и Hug по высоте. Ручное изменение sizing запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-spacing-follows-next-content",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.externalSpacing",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "Между [D] TitleView и TopBar используй 12 px. Между TopBar и BackgroundPlate с таблицей вертикального отступа быть не должно. Перед карточным представлением после TopBar используй 16 px."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-reset-all-has-fixed-scope",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "action.ResetAll",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] OptionListFooter",
+              "[D] Button"
+            ]
+          },
+          "ruleText": "Кнопка «Сбросить всё» возвращает к значениям по умолчанию видимость и порядок колонок, группировку и вид отображения. Другие контролы OptionList в этот сброс не входят."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-grouping-is-wide-only",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Mode|settings.grouping",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] OptionList",
+              "Group View"
+            ]
+          },
+          "ruleText": "Настройка группировки доступна только в Mode=Wide. Блок опционален и может быть скрыт; параметр группировки определяет продуктовая команда."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-data-view-transitions-are-paired",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Mode|settings.dataView",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] OptionList",
+              "Top Addon"
+            ]
+          },
+          "ruleText": "Разрешено переключение вида Basic ↔ Wide или Core ↔ Wide. Прямое переключение Basic ↔ Core не используется."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-filtered-zero-is-valid",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Filtered|data.Counter",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Counter",
+              "Label",
+              "N"
+            ]
+          },
+          "ruleText": "Filtered=true с нулевым результатом является валидным состоянием и отображается как «Найдено 0»."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-select-all-state-does-not-change",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "action.SelectAll",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] StartAddon",
+              "[D] Button"
+            ]
+          },
+          "ruleText": "После выбора всех данных кнопка «Выбрать все» остаётся в том же визуальном состоянии и не превращается в отдельное действие снятия выбора."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-keeps-one-visible-column",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "settings.columnVisibility",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] OptionList",
+              "Columns Group",
+              "[D] SortableListItem"
+            ]
+          },
+          "ruleText": "Через Settings нельзя скрыть все колонки: в представлении должна оставаться минимум одна видимая колонка."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-does-not-lock-product-columns",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "settings.columnVisibility|settings.columnOrder",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] OptionList",
+              "Columns Group",
+              "[D] SortableListItem"
+            ]
+          },
+          "ruleText": "Продуктовая команда не закрепляет отдельные обязательные или неподвижные колонки. Все колонки остаются доступными для настройки видимости и порядка с ограничением минимум одной видимой колонки."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-settings-apply-immediately",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "settings.*",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "[D] Settings",
+              "[D] OptionList"
+            ]
+          },
+          "ruleText": "Изменения видимости и порядка колонок, группировки и вида отображения применяются сразу. Отдельная кнопка подтверждения не используется."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-region-order-is-fixed",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "structure.order",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Count Group",
+              "Counter",
+              "[D] StartAddon",
+              "Button Group",
+              "Control",
+              "Divider",
+              "[D] Settings",
+              "[D] Button"
+            ]
+          },
+          "ruleText": "Порядок областей TopBar фиксирован. Слева: Counter → StartAddon. Справа: Control → Divider → Settings → дополнительная Button. Скрытые элементы исключаются, но оставшиеся не переставляются."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-divider-follows-control",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "structure.Control|structure.Divider",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar",
+            "layers": [
+              "Control",
+              "Divider"
+            ]
+          },
+          "ruleText": "Divider появляется вместе с добавлением Control и скрывается, когда Control отсутствует."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-requires-data-view",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.context",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "[D] TopBar всегда управляет связанным табличным, списочным или карточным представлением данных. Использовать его как универсальную панель действий без данных запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-service-labels-are-fixed",
+          "severity": "error",
+          "designSeverity": "error",
+          "source": "component-contract",
+          "appliesTo": "text.content",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "Не переименовывай служебные подписи: «Настройки», «Выбрать все», «Сбросить всё», «Вид таблицы», «Группировать», «Столбцы», «Всего» и «Найдено». Контекстно меняются только названия колонок, параметр группировки и текст дополнительного действия."
+        },
+        {
+          "ruleId": "component:web-corp.corporate-topbar-skeleton-preserves-filtered-state",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Filtered|variant.Skeleton",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "[D] TopBar"
+          },
+          "ruleText": "Допустимы обе загрузочные комбинации: Filtered=false/Skeleton=true и Filtered=true/Skeleton=true. После загрузки TopBar возвращается к соответствующему состоянию фильтрации."
         }
       ]
     },

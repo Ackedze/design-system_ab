@@ -12,7 +12,7 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-05"
+    "updatedAt": "2026-07-13"
   },
   "rules": [
     {
@@ -154,6 +154,394 @@
         }
       },
       "ruleText": "При размещении Table Basic [D] в теле CorporateContent под таблицу нужно подкладывать BackgroundPlate первого уровня с соответствующим фоном. Отступы от краёв BackgroundPlate до таблицы: слева 16 px, справа 16 px, снизу 16 px, сверху 0 px."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.use-basic-for-simple-table",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.use-basic-for-simple-table",
+      "appliesTo": "component.selection",
+      "checkType": "llm",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "mode": "basic"
+      },
+      "recommendedUsage": {
+        "maxColumns": 5,
+        "requiresHorizontalScroll": false,
+        "requiresColumnPinning": false
+      },
+      "ruleText": "Table Basic [D] предназначен для простых таблиц с небольшим количеством данных. Рекомендуется использовать не более 5 столбцов; если нужен горизонтальный скролл или закрепление столбцов, используй Table Wide [D]."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.no-horizontal-scroll",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.no-horizontal-scroll",
+      "appliesTo": "component.layout",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]"
+      },
+      "forbidden": {
+        "horizontalScroll": true,
+        "paginationScrollbar": true,
+        "scrollbarPresetEnabled": true
+      },
+      "ruleText": "В Table Basic [D] не бывает горизонтального скролла. Не включай Scrollbar в блоке пагинации базовой таблицы."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.no-column-pinning",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.no-column-pinning",
+      "appliesTo": "component.behavior",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "area": "column menu"
+      },
+      "forbidden": {
+        "pinColumnAction": true,
+        "menuItem": "Закрепить столбец",
+        "menuItemEn": "Pin column"
+      },
+      "ruleText": "В Table Basic [D] недоступна функция закрепления столбца. В меню колонки не должно быть действия Закрепить столбец / Pin column."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.no-column-grouping",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.no-column-grouping",
+      "appliesTo": "component.behavior",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "area": "table settings"
+      },
+      "forbidden": {
+        "columnGrouping": true,
+        "groupByColumnControl": true,
+        "settingsItem": "Группировать"
+      },
+      "ruleText": "В Table Basic [D] не реализован функционал группировки по столбцам. Не показывай управление Группировать для столбцов в настройках базовой таблицы."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.group-rows-with-groupbar",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.group-rows-with-groupbar",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "rowGrouping": true
+      },
+      "requiredComposition": {
+        "groupComponent": "[D] GroupDivider :: Basic",
+        "alias": "GroupBar"
+      },
+      "requiredContent": {
+        "dateDivider": "day and month",
+        "companyDivider": "company or counterparty name"
+      },
+      "ruleText": "Для группировки строк в Table Basic [D] используй GroupBar / [D] GroupDivider :: Basic. Для даты пиши день и месяц, для компании - название компании или контрагента."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.column-settings-chevron-visible",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.column-settings-chevron-visible",
+      "appliesTo": "component.visibility",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "cell": "[D] HeadCell",
+        "requiredLayer": "Chevron"
+      },
+      "requiredState": {
+        "visible": true,
+        "opacity": 1,
+        "removed": false
+      },
+      "forbidden": {
+        "hiddenChevron": true,
+        "detachedChevron": true,
+        "zeroOpacityChevron": true
+      },
+      "ruleText": "В каждом столбце Table Basic [D] должен быть видимый шеврон настроек. Шеврон нельзя скрывать, удалять или делать прозрачным."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.keep-control-and-action-cells",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.keep-control-and-action-cells",
+      "appliesTo": "component.composition",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "rows": [
+          "[D] HeadRow",
+          "[D] BodyRow :: Basic"
+        ]
+      },
+      "requiredLayers": [
+        "[D] HeadControlCell",
+        "[D] HeadActionCell",
+        "[D] BodyControlCell :: Basic",
+        "[D] BodyActionCell :: Basic"
+      ],
+      "allowedDisabledState": {
+        "headControlCellPreset": "None",
+        "headActionCellPreset": "None",
+        "bodyControlCellPreset": "None",
+        "bodyActionCellPreset": "None"
+      },
+      "forbidden": {
+        "removedControlCell": true,
+        "removedActionCell": true,
+        "deletedEdgeCellsInsteadOfPresetNone": true
+      },
+      "ruleText": "Не удаляй ControlCell и ActionCell из шапки и строк Table Basic [D]. Если чекбоксы или действия не нужны, выбирай preset None в соответствующих Head/Body ControlCell и ActionCell."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.reset-all-restores-baseline",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.reset-all-restores-baseline",
+      "appliesTo": "component.behavior",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "action": "Сбросить все настройки"
+      },
+      "requiredBehavior": {
+        "restoreVisibility": true,
+        "restoreOrder": true,
+        "restoreColumnWidths": true,
+        "targetState": "baseline"
+      },
+      "ruleText": "Кнопка Сбросить все настройки должна возвращать Table Basic [D] к базовым значениям видимости, порядка и ширины колонок."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.sorting-menu-by-column-capability",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.sorting-only-for-sortable-columns",
+      "appliesTo": "component.behavior",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "cell": "[D] HeadCell",
+        "control": "Chevron"
+      },
+      "requiredBehavior": {
+        "sortableColumnMenuItems": [
+          "Сортировать по возрастанию",
+          "Сортировать по убыванию",
+          "Сбросить ширину столбца",
+          "Сбросить ширину всех столбцов"
+        ],
+        "nonSortableColumnMenuItems": [
+          "Сбросить ширину столбца",
+          "Сбросить ширину всех столбцов"
+        ],
+        "defaultSortingPreset": "Not selected",
+        "allowedPresetOverride": "product-defined initial sorting"
+      },
+      "forbidden": {
+        "sortActionsInNonSortableColumn": true,
+        "pinColumnAction": true
+      },
+      "ruleText": "Пункты сортировки в меню Chevron показываются только у сортируемых колонок Table Basic [D]. У несортируемой колонки меню не должно содержать сортировку. Действие закрепления в Basic запрещено."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.column-width-reset-actions",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.column-width-reset",
+      "appliesTo": "component.behavior",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "manualColumnResize": true
+      },
+      "requiredMenuItems": [
+        "Сбросить ширину столбца",
+        "Сбросить ширину всех столбцов"
+      ],
+      "requiredBehavior": {
+        "resizeControl": "divider between columns in table header",
+        "neighborColumnEffect": "decreasing one column increases right neighbor width",
+        "resetColumnWidth": "restore current column baseline width",
+        "resetAllColumnWidths": "restore all baseline widths"
+      },
+      "ruleText": "Если в Table Basic [D] доступно ручное изменение ширины колонок, меню колонки должно давать сброс ширины текущей колонки и сброс ширины всех колонок."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.pagination-by-row-count",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.pagination-by-row-count",
+      "appliesTo": "component.state",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "area": "pagination"
+      },
+      "requiredState": {
+        "rowsLessOrEqualTen": {
+          "paginationPreset": "None",
+          "singlePageBlockRequired": false
+        },
+        "rowsMoreThanTen": {
+          "paginationPreset": "Pagination"
+        },
+        "lastRowBottomDivider": false,
+        "scrollbarEnabled": false
+      },
+      "ruleText": "Если в Table Basic [D] 10 строк или меньше, блок с одной страницей можно отключить через preset None. Если строк больше 10 и появляется вторая страница, используй preset Pagination. Scrollbar в пагинации Basic не включается."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.sticky-plate-when-overflow",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.sticky-plate-when-overflow",
+      "appliesTo": "component.layout",
+      "checkType": "llm",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "tableHeightExceedsViewport": true,
+        "hasBottomControlBlock": true
+      },
+      "requiredBehavior": {
+        "bottomBlock": "sticky plate",
+        "position": "bottom of visible table container",
+        "rowsScrollUnderBlock": true
+      },
+      "ruleText": "Если Table Basic [D] не помещается во viewport по высоте, нижний блок Pagination или BulkActions должен работать как sticky plate у нижнего края видимой области таблицы."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.bulk-actions-use-pagination-preset",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.bulk-actions-use-pagination-preset",
+      "appliesTo": "component.state",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "hasCheckboxes": true,
+        "selectedRowsCountGreaterThan": 0
+      },
+      "requiredState": {
+        "paginationBlockPreset": "BulkActions",
+        "bulkActionsPaginationMode": "per-page"
+      },
+      "forbidden": {
+        "component": "TableBulkActions",
+        "separateBulkActionsComponent": true
+      },
+      "ruleText": "При выборе строк в Table Basic [D] нижний блок переключается в preset BulkActions. В новой сборке таблиц не используй отдельный компонент TableBulkActions; групповые действия должны быть состоянием пагинационного блока."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.keep-one-visible-column",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.keep-one-visible-column",
+      "appliesTo": "component.visibility",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "area": "column visibility settings"
+      },
+      "requiredState": {
+        "minVisibleColumns": 1
+      },
+      "forbidden": {
+        "hideLastVisibleColumn": true,
+        "visibleColumnCount": 0
+      },
+      "ruleText": "В настройках Table Basic [D] можно скрывать любые колонки, кроме последней видимой. Таблица не должна оставаться без видимых колонок."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.column-order-follows-settings",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.column-order-drag-and-drop",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "area": "column order settings"
+      },
+      "requiredBehavior": {
+        "control": "drag-and-drop in settings column list",
+        "tableColumnOrder": "matches settings list order"
+      },
+      "ruleText": "Порядок колонок Table Basic [D] изменяется drag-and-drop в списке настроек. После изменения порядок колонок в таблице должен совпадать с порядком в списке."
+    },
+    {
+      "ruleId": "component:web-corp.table-basic-d.detach-only-rows",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternId": "ptrn:components.table-basic-d",
+      "patternRuleId": "rule:components.table-basic-d.detach-only-rows",
+      "appliesTo": "component.instance",
+      "checkType": "manual",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "component": "Table Basic [D]",
+        "designerWorkflow": "local row composition"
+      },
+      "allowedDetach": [
+        "HeaderRow",
+        "BodyRow",
+        "Local :: HeaderRow",
+        "Local :: BodyRow"
+      ],
+      "forbiddenDetach": [
+        "Pagination",
+        "HeadCell",
+        "BodyCell",
+        "ControlCell",
+        "ActionCell",
+        "Sorting",
+        "Chevron",
+        "Text",
+        "Graphics",
+        "Addons"
+      ],
+      "ruleText": "Для сборки локальной конфигурации Table Basic [D] можно детачить только строки HeaderRow и BodyRow. Остальные компоненты таблицы детачить нельзя."
     }
   ]
 }

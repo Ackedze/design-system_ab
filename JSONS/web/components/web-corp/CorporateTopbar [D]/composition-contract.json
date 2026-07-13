@@ -2,21 +2,248 @@
   "schemaVersion": 1,
   "documentType": "composition-contract",
   "componentKey": "web-corp.corporate-topbar",
-  "status": "generated-draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
     ],
     "platforms": [
-      "desktop",
-      "mobile-web"
+      "desktop"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "updatedAt": "2026-07-13"
   },
   "component": {
-    "name": "CorporateTopbar [D]",
+    "name": "[D] TopBar",
     "library": "Web _ Corp Components"
+  },
+  "manual": {
+    "publicRoots": [
+      "[D] TopBar"
+    ],
+    "internalComponentsAreStandalone": false,
+    "internalComponents": [
+      "[D] OptionList",
+      "[D] Settings",
+      "[D] StartAddon",
+      "[D] OptionListHeader",
+      "[D] SortableListItem",
+      "Control",
+      "Divider"
+    ],
+    "supportedDataViews": [
+      "table",
+      "list",
+      "cards"
+    ],
+    "effectiveComposition": {
+      "Filtered=false": {
+        "counterLabel": "Всего",
+        "meaning": "unfiltered-data"
+      },
+      "Filtered=true": {
+        "counterLabel": "Найдено",
+        "meaning": "filtered-data"
+      },
+      "Skeleton=true": {
+        "meaning": "loading",
+        "interactionAllowed": false
+      }
+    },
+    "slotPermissions": {
+      "Control": {
+        "required": false,
+        "contentPolicy": "context-defined",
+        "regulated": false,
+        "instanceSwapAllowed": true,
+        "multipleItemsAllowed": true
+      }
+    },
+    "counterComposition": {
+      "required": true,
+      "labelOverrideAllowed": false,
+      "valueScope": "all-available-data-not-current-page",
+      "filteredZeroAllowed": true,
+      "labelsByFilteredState": {
+        "false": "Всего",
+        "true": "Найдено"
+      }
+    },
+    "startAddonComposition": {
+      "required": false,
+      "canBeHidden": true,
+      "Select All": {
+        "buttonLabel": "Выбрать все",
+        "selectionScope": "all-available-data-including-non-visible-pages",
+        "postSelectionState": "unchanged"
+      },
+      "Custom": {
+        "contentPolicy": "context-defined-data-view-setting"
+      }
+    },
+    "settingsComposition": {
+      "required": false,
+      "canBeHidden": true,
+      "Dropdown=false": "settings-list-hidden",
+      "Dropdown=true": "show-[D]-OptionList",
+      "capabilitiesByMode": {
+        "Basic": [
+          "column-visibility",
+          "column-order",
+          "switch-data-view"
+        ],
+        "Wide": [
+          "column-visibility",
+          "column-order",
+          "switch-data-view"
+        ],
+        "Core": [
+          "switch-data-view"
+        ]
+      }
+    },
+    "optionListModeSelection": {
+      "Basic": "Table Basic",
+      "Wide": "Table Wide",
+      "Core": "🔄 [D] HeadRow :: Core and other Web Corp Components data views"
+    },
+    "additionalButtonComposition": {
+      "required": false,
+      "maxCount": 1,
+      "size": "32",
+      "allowedViews": [
+        "Primary",
+        "Secondary"
+      ],
+      "actionPolicy": "context-defined",
+      "rightAddonConfigurable": true,
+      "leftAddonConfigurable": false
+    },
+    "optionListContent": {
+      "mustMatchDataColumns": true,
+      "editable": [
+        "row-labels",
+        "row-count",
+        "row-order"
+      ],
+      "minimumVisibleColumns": 1,
+      "lockedColumnsAllowed": false,
+      "changesApply": "immediately"
+    },
+    "platformSelection": {
+      "desktopMinWidth": 768,
+      "mobileWebAllowed": false
+    },
+    "effectiveBaselineProtection": {
+      "scope": "root-and-all-internal-layers",
+      "properties": [
+        "layout.*",
+        "layoutSizing*",
+        "styles.text",
+        "fill",
+        "stroke",
+        "radius",
+        "opacity",
+        "effects.*"
+      ],
+      "manualOverridesAllowed": false
+    },
+    "rootSizing": {
+      "width": "FILL",
+      "height": "HUG"
+    },
+    "externalSpacing": {
+      "TitleView-to-TopBar": 12,
+      "TopBar-to-table-BackgroundPlate": 0,
+      "TopBar-to-cards": 16
+    },
+    "optionListActions": {
+      "resetAll": {
+        "resets": [
+          "column-visibility",
+          "column-order",
+          "grouping",
+          "data-view"
+        ],
+        "otherControlsIncluded": false
+      },
+      "grouping": {
+        "availableInModes": [
+          "Wide"
+        ],
+        "required": false,
+        "canBeHidden": true,
+        "parameterPolicy": "defined-by-product-team"
+      },
+      "dataViewTransitions": {
+        "allowed": [
+          "Basic<->Wide",
+          "Core<->Wide"
+        ],
+        "prohibited": [
+          "Basic<->Core"
+        ]
+      }
+    },
+    "regionOrder": {
+      "left": [
+        "Counter",
+        "StartAddon"
+      ],
+      "right": [
+        "Control",
+        "Divider",
+        "Settings",
+        "AdditionalButton"
+      ],
+      "reorderAllowed": false
+    },
+    "dividerComposition": {
+      "visibleWhen": "Control-is-present",
+      "hiddenWhen": "Control-is-absent"
+    },
+    "dataViewRequirement": {
+      "required": true,
+      "allowed": [
+        "table",
+        "list",
+        "cards"
+      ],
+      "genericActionBarUsageAllowed": false
+    },
+    "textOverrides": {
+      "prohibited": [
+        "Настройки",
+        "Выбрать все",
+        "Сбросить всё",
+        "Вид таблицы",
+        "Группировать",
+        "Столбцы",
+        "Всего",
+        "Найдено"
+      ],
+      "allowed": [
+        "column-labels",
+        "grouping-parameter",
+        "additional-button-label"
+      ]
+    },
+    "loadingComposition": {
+      "allowedCombinations": [
+        "Filtered=false, Skeleton=true",
+        "Filtered=true, Skeleton=true"
+      ],
+      "restoresFilteredStateAfterLoading": true
+    },
+    "structureProtection": {
+      "detachAllowed": false,
+      "internalDetachAllowed": false,
+      "internalInstanceSwapAllowed": false,
+      "slotInstanceSwapAllowed": true,
+      "arbitraryChildrenAllowed": false,
+      "rootClickable": false,
+      "interactiveElements": "nested-controls-and-buttons"
+    }
   },
   "wraps": [
     {
