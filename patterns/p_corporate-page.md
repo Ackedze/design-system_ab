@@ -9,8 +9,8 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Design System / Product Design
-- status: active
-- updatedAt: 2026-07-04
+- status: ready
+- updatedAt: 2026-07-11
 - sourceType: component-guideline
 - tags: corporate-page, corporateappheadernew, content, page-template, wide-grid, grid-and-cols, body-slot, page-layout, adaptive
 - figmaLink: https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=47124-72335
@@ -21,13 +21,13 @@
 
 ## Section 1: Определение
 
-`CorporatePage` - целевой компонент страницы продукта в Альфа-Бизнесе. Внутри сборки находятся навигация `CorporateAppHeaderNew` и содержимое страницы `CorporateContent`.
+`CorporatePage` — целевая фронтовая сборка страницы продукта в Альфа-Бизнесе, а не отдельный Figma-компонент. В Figma сборка состоит из навигации `CorporateAppHeaderNew`, самостоятельного `CorporateContent` и других системных компонентов страницы.
 
 Компонент задаёт базовую структуру страницы, широкую сетку, слоты для контента и поведение при переключении ключевых разрешений экрана.
 
 ## Section 2: Когда использовать
 
-Используйте `CorporatePage`, когда нужно:
+Используйте паттерн `CorporatePage`, когда нужно:
 
 - собрать новую страницу продукта в Альфа-Бизнесе;
 - работать с широкой сеткой и 12 колонками;
@@ -50,21 +50,24 @@
 
 ## Section 4: Принципы
 
-1. Для новых макетов используется последняя сборка компонента `CorporatePage`.
+1. Для новых макетов используется актуальная сборка страницы по паттерну `CorporatePage`.
 2. Базовая страница Альфа-Бизнеса - `1600 x 900 px`, максимальная ширина контента - `1248 px`.
 3. С Q3 2025 в продуктах Альфа-Бизнеса используется только широкая сетка.
 4. Правильно собранный экран на переменных автоматически перестраивается на другие разрешения.
 5. Таблицы и сложные кастомные блоки могут требовать ручной доработки после перестроения.
 6. `[D] SideMenu` и `[D] Header` нельзя detach-ить.
 7. Контент странцы размещается в слоте `Body`.
-8. `CorporatePage` нельзя detach-ить.
-9. Отступ между блоками задаётся переменной `Gutter`.
+8. Компоненты страницы `CorporateContent`, `SideMenu`, `Header` и `HeaderMenu` нельзя detach-ить.
+9. `Gutter` используется как горизонтальный отступ в любой горизонтальной композиции; `Section` не обязателен. `Gutter` не является обязательным вертикальным отступом `Body`.
+10. На продуктовой странице используется один платформенный `CorporateContent`; в Figma он может быть самостоятельным, а во фронтовой сборке входит в `CorporatePage`.
+11. В `Body` можно размещать любую композицию; ограничения дочернего контента определяются его собственными контрактами.
+12. Фон и отступы `CorporateContent` управляются modes переменных, grid style не меняется вручную.
 
 ## Section 5: Структура текста
 
 В описании страницы фиксируйте:
 
-- используемый preset `CorporatePage`;
+- используемую сборку страницы по паттерну `CorporatePage`;
 - режим сетки `[D] Grid & Cols` или `[Old] Grid Values`;
 - разрешение экрана;
 - ширину контента;
@@ -72,11 +75,11 @@
 - способ замены содержимого `Body`;
 - переменные ширины для блоков, которые занимают 12 колонок или конкретные колонки.
 
-Для новых макетов используйте названия переменных и компонентов так же, как в Figma: `[D] CorporatePage`, `[D] Grid & Cols`, `[D] SideMenu`, `[D] Header`, `Content`, `Body`, `SwapMe`, `Gutter`.
+Для новых макетов используйте названия переменных и компонентов так же, как в Figma: `[D] CorporateContent`, `[M] CorporateContent`, `[D] Grid & Cols`, `[M] Grid & Cols`, `[D] SideMenu`, `[D] Header`, `Body`, `SwapMe`, `Gutter`.
 
 ## Section 6: Правила
 
-### Rule 1: Используйте CorporatePage как целевой компонент страницы
+### Rule 1: Используйте сборку CorporatePage как целевой паттерн страницы
 
 - ruleId: rule:components.corporate-page.use-target-page-component
 - severity: error
@@ -84,14 +87,14 @@
 - checkType: llm
 - autofix: no
 
-Для страницы продукта в Альфа-Бизнесе используйте актуальный `CorporatePage`, внутри которого находятся компоненты `SideMenu`, `Header` или `HeaderMenu`, `CorporateContent`.
+Для страницы продукта в Альфа-Бизнесе используйте актуальную сборку `CorporatePage`, в которую входят `SideMenu`, `Header` или `HeaderMenu` и `CorporateContent`. Не ищи и не требуй отдельный Figma-компонент `CorporatePage`.
 
 #### Правильно
 
 ```text
-CorporatePage
+CorporatePage assembly
 CorporateAppHeaderNew
-Content
+CorporateContent
 ```
 
 #### Неправильно
@@ -102,7 +105,7 @@ Content
 
 #### Почему
 
-`CorporatePage` задаёт системную page-сборку, сетку, слоты и адаптивное поведение.
+Паттерн `CorporatePage` задаёт системную page-сборку, сетку, слоты и адаптивное поведение.
 
 ### Rule 2: Используйте базовую страницу 1600 x 900 px для новой сборки
 
@@ -202,7 +205,7 @@ Right:
 - checkType: deterministic
 - autofix: no
 
-Фрейм `[D] CorporatePage` собран на переменных `[D] Grid & Cols`. Меняйте размер страницы через блок `Appearance`, переключая `[D] Grid & Cols` на `1600`, `1440`, `1280` или `1024`.
+Фрейм страницы и `[D] CorporateContent` используют переменные `[D] Grid & Cols`. Меняйте размер страницы через блок `Appearance`, переключая `[D] Grid & Cols` на `1600`, `1440`, `1280` или `1024`.
 
 #### Правильно
 
@@ -301,7 +304,7 @@ Complex block растянут вручную без привязки к кол�
 
 Переменные колонок позволяют блоку перестраиваться вместе со страницей.
 
-### Rule 9: Используйте Gutter для отступов между блоками
+### Rule 9: Используйте Gutter между элементами Section
 
 - ruleId: rule:components.corporate-page.gutter-spacing
 - severity: warning
@@ -309,23 +312,23 @@ Complex block растянут вручную без привязки к кол�
 - checkType: deterministic
 - autofix: partial
 
-Используйте переменную `Gutter` как значение отступа между блоками.
+Используйте переменную `Gutter` как горизонтальный отступ в горизонтальных композициях. Компонент `Section` для этого не обязателен. Direction и itemSpacing внутри `Body` определяются вложенной композицией и не обязаны использовать `Gutter`.
 
 #### Правильно
 
 ```text
-Spacing between blocks: Gutter
+Section horizontal items: Gutter
 ```
 
 #### Неправильно
 
 ```text
-Spacing between blocks: ручное значение без переменной.
+Section horizontal items: ручное значение без переменной.
 ```
 
 #### Почему
 
-`Gutter` синхронизирует отступы с выбранным режимом сетки.
+`Gutter` синхронизирует горизонтальные отступы элементов `Section` с выбранным режимом сетки.
 
 ### Rule 10: Для старых макетов переключайте Old Grid Values в Wide
 
@@ -406,13 +409,254 @@ Spacing between blocks: ручное значение без переменно�
 
 Tablet и mobile adaptive используют отдельные значения отступов и ширины контента.
 
+### Rule 13: Не используй переходный CorporateContent
+
+- ruleId: rule:components.corporate-page.transition-corporate-content-prohibited
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: no
+
+`🔄 [T] CorporateContent` не допускается в рабочих макетах. Для desktop используй `[D] CorporateContent`, для mobile-web — `[M] CorporateContent`.
+
+### Rule 14: Используй CorporateContent как обязательную область страницы
+
+- ruleId: rule:components.corporate-page.corporate-content-required-on-page
+- severity: error
+- appliesTo: screen
+- checkType: llm
+- autofix: no
+
+На продуктовой странице используется один соответствующий платформе `CorporateContent`. В Figma он может использоваться самостоятельно: родительского компонента `CorporatePage` нет. Во фронтовой сборке `CorporateContent` размещается внутри `CorporatePage`.
+
+### Rule 15: Управляй фоном CorporateContent через BackgroundPlate Color
+
+- ruleId: rule:components.corporate-page.corporate-content-background-mode
+- severity: error
+- appliesTo: component.root.fill
+- checkType: deterministic
+- autofix: no
+
+Цвет фона всего фрейма `CorporateContent` определяется выбором mode коллекции `BackgroundPlate Color`. Не меняй fill вручную.
+
+### Rule 16: Не меняй grid style CorporateContent
+
+- ruleId: rule:components.corporate-page.corporate-content-grid-style-protected
+- severity: error
+- appliesTo: component.root.grid
+- checkType: deterministic
+- autofix: no
+
+Grid style корня `CorporateContent` является системным и не меняется вручную.
+
+### Rule 17: Управляй отступами через Grid & Cols
+
+- ruleId: rule:components.corporate-page.corporate-content-spacing-mode
+- severity: error
+- appliesTo: component.root.layout
+- checkType: deterministic
+- autofix: no
+
+Отступы `CorporateContent` регулируются выбором mode коллекции `[D] Grid & Cols` или `[M] Grid & Cols`. Ручное изменение padding запрещено. Для `[M] CorporateContent` обязательны `TopMargin=24` и `BottomMargin=24`.
+
+### Rule 18: Разрешай произвольную композицию в Body
+
+- ruleId: rule:components.corporate-page.corporate-content-body-arbitrary-composition
+- severity: info
+- appliesTo: component.composition
+- checkType: llm
+- autofix: no
+
+В `Body` можно размещать любой контент или композицию, включая несколько дочерних элементов. Не считай их количество или тип нарушением сами по себе; проверяй дочерние элементы по собственным компонентным контрактам и паттернам.
+
+### Rule 19: Используй только page modes для фона CorporateContent
+
+- ruleId: rule:components.corporate-page.corporate-content-page-background-modes
+- severity: error
+- appliesTo: component.root.fill
+- checkType: deterministic
+- autofix: no
+
+Для `CorporateContent` разрешены `base-bg-alt (grey)` и `base-bg (white)`. Modes `modal-bg-alt (grey)` и `modal-bg (white)` запрещены.
+
+### Rule 20: Используй Fill по ширине и Hug по высоте
+
+- ruleId: rule:components.corporate-page.corporate-content-fill-hug-sizing
+- severity: error
+- appliesTo: component.root.layout
+- checkType: deterministic
+- autofix: no
+
+Корень `CorporateContent` использует `Fill container` по ширине и `Hug contents` по высоте.
+
+### Rule 21: Не меняй визуальные параметры корня вручную
+
+- ruleId: rule:components.corporate-page.corporate-content-root-overrides-prohibited
+- severity: error
+- appliesTo: component.root
+- checkType: deterministic
+- autofix: no
+
+У корня `CorporateContent` нельзя вручную менять radius, stroke, effects, opacity и clips content.
+
+### Rule 22: Используй desktop CorporateContent на ширине 768
+
+- ruleId: rule:components.corporate-page.corporate-content-platform-breakpoint
+- severity: error
+- appliesTo: screen
+- checkType: deterministic
+- autofix: no
+
+На ширине `768` используется `[D] CorporateContent` с mode `768` коллекции `[D] Grid & Cols`. `[M] CorporateContent` применяется ниже `768`.
+
+### Rule 23: Не делай корень CorporateContent кликабельным
+
+- ruleId: rule:components.corporate-page.corporate-content-root-clickability-prohibited
+- severity: error
+- appliesTo: component.root
+- checkType: deterministic
+- autofix: no
+
+Весь `CorporateContent` не может быть единой кликабельной поверхностью. Интерактивность размещается во вложенном контенте.
+
+### Rule 24: Не detach-ь CorporateContent и Body
+
+- ruleId: rule:components.corporate-page.corporate-content-detach-prohibited
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: no
+
+`CorporateContent` и слот `Body` нельзя detach-ить. Контент заменяется через слот без разрушения компонентной структуры.
+
+### Rule 25: Не вкладывай CorporateContent друг в друга
+
+- ruleId: rule:components.corporate-page.corporate-content-nesting-prohibited
+- severity: error
+- appliesTo: component.composition
+- checkType: deterministic
+- autofix: no
+
+`CorporateContent` нельзя вкладывать внутрь другого `CorporateContent`. На продуктовой странице используется одна корневая контентная область.
+
+### Rule 26: Удаляй SwapMe после добавления контента
+
+- ruleId: rule:components.corporate-page.corporate-content-swapme-replaced
+- severity: error
+- appliesTo: component.composition
+- checkType: deterministic
+- autofix: yes
+
+После добавления реального содержимого в `Body` placeholder `SwapMe` должен быть удалён или заменён.
+
+### Rule 27: Не меняй layout корня CorporateContent
+
+- ruleId: rule:components.corporate-page.corporate-content-root-layout-protected
+- severity: error
+- appliesTo: component.root.layout
+- checkType: deterministic
+- autofix: no
+
+Корень `CorporateContent` использует вертикальный auto layout и `itemSpacing=0`.
+
+### Rule 28: Оставляй clipsContent выключенным
+
+- ruleId: rule:components.corporate-page.corporate-content-clips-disabled
+- severity: error
+- appliesTo: component.root
+- checkType: deterministic
+- autofix: no
+
+У корня `CorporateContent` значение `clipsContent` должно быть `false`.
+
+### Rule 29: Управляй порядком Isle через Position
+
+- ruleId: rule:components.corporate-page.section-position-tablet-order
+- severity: error
+- appliesTo: component.composition
+- checkType: deterministic
+- autofix: no
+
+На всех разрешениях `Position=true` размещает `Isle` ниже `Content`, а `Position=false` — выше `Content`.
+
+### Rule 30: Не переключай TabletIsle вручную
+
+- ruleId: rule:components.corporate-page.section-tablet-isle-auto
+- severity: error
+- appliesTo: component.variant
+- checkType: deterministic
+- autofix: no
+
+Параметр `👽 TabletIsle` автоматически становится `true` в modes 1024 и 768. Дизайнер не должен переключать его вручную.
+
+### Rule 31: Не меняй layout корня Section
+
+- ruleId: rule:components.corporate-page.section-root-layout-protected
+- severity: error
+- appliesTo: component.root.layout
+- checkType: deterministic
+- autofix: no
+
+Корень `[D] Section` использует `Fill container` по ширине и `Hug contents` по высоте. Direction и alignment определяются компонентом и текущим mode и не меняются вручную.
+
+### Rule 32: Наполняй Section через slots без instance swap
+
+- ruleId: rule:components.corporate-page.section-slot-content-policy
+- severity: error
+- appliesTo: component.composition
+- checkType: llm
+- autofix: no
+
+В слоты `Content` и `Isle` можно помещать любой контент или композицию. Используй slot content replacement; instance swap вложенных компонентов `Section` запрещён.
+
+### Rule 33: Используй Gutter между Content и Isle
+
+- ruleId: rule:components.corporate-page.section-gutter-required
+- severity: error
+- appliesTo: component.root.layout
+- checkType: deterministic
+- autofix: no
+
+Отступ между `Content` и `Isle` всегда задаётся переменной `Gutter`. Ручное значение itemSpacing запрещено.
+
+### Rule 34: Задавай ширину слотов через переменные колонок
+
+- ruleId: rule:components.corporate-page.section-column-widths-variable-only
+- severity: error
+- appliesTo: component.layout
+- checkType: deterministic
+- autofix: no
+
+Ширина `Content` и `Isle` определяется переменными колонок `Grid & Cols`. Ручное изменение ширины запрещено.
+
+### Rule 35: Удаляй SwapMe в обоих слотах Section
+
+- ruleId: rule:components.corporate-page.section-placeholders-replaced
+- severity: error
+- appliesTo: component.composition
+- checkType: deterministic
+- autofix: yes
+
+После наполнения `Section` placeholders `SwapMe` должны быть удалены или заменены отдельно в слотах `Content` и `Isle`.
+
+### Rule 36: Не detach-ь и не стилизуй Section вручную
+
+- ruleId: rule:components.corporate-page.section-detach-and-style-overrides-prohibited
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: no
+
+`Section`, `Content` и `Isle` нельзя detach-ить или вручную менять их fill, stroke, radius, opacity и effects.
+
 ## Section 7: Шаблоны
 
 ### Новый макет страницы
 
 ```text
-Copy [D] CorporatePage
+Create page frame using CorporatePage assembly
 Appearance -> [D] Grid & Cols -> нужное разрешение
+Add [D] CorporateContent
 Body slot -> собственная сборка контента
 Delete SwapMe
 Spacing between blocks -> Gutter
@@ -448,9 +692,9 @@ Set widths through Fill Container or column variables
 ### Component structure
 
 ```text
-CorporatePage
+CorporatePage assembly
 CorporateAppHeaderNew
-Content
+CorporateContent
 Body slot
 ```
 
@@ -459,7 +703,7 @@ Body slot
 ### Пример 1: Новая базовая страница
 
 ```text
-CorporatePage 1600 x 900 px
+CorporatePage assembly 1600 x 900 px
 Max content width 1248 px
 Grid mode: Shift + G
 ```
@@ -550,15 +794,41 @@ Complex block width: manual 873 px
 
 ### Детерминированные проверки
 
-- Проверять наличие `patternType: component` и `component: CorporatePage, CorporateAppHeaderNew, Content`.
-- Проверять, что новый макет использует `CorporatePage`.
+- Проверять наличие сборки страницы с `CorporateAppHeaderNew` и платформенным `CorporateContent`.
+- Не требовать отдельный Figma-компонент `CorporatePage`.
 - Проверять базовый размер `1600 x 900 px` и максимальную ширину контента `1248 px`.
 - Проверять, что размер страницы переключается через `[D] Grid & Cols`.
 - Проверять, что `[D] SideMenu`, `[D] Header`, `Content` и `Body` не detached.
 - Проверять, что `SwapMe` удалён после замены контента.
-- Проверять, что отступы между блоками используют `Gutter`.
+- Проверять `Gutter` как горизонтальный отступ в горизонтальных композициях; не требовать обязательный `Section`.
 - Проверять значения боковых отступов и ширины контента для ключевых диапазонов.
 - Проверять, что старый макет переключён в `[Old] Grid Values -> Wide`.
+- Проверять, что на продуктовой странице используется один платформенный `CorporateContent`; не требовать родительский инстанс `CorporatePage` в Figma.
+- Запрещать `🔄 [T] CorporateContent`.
+- Проверять, что fill корня управляется mode коллекции `BackgroundPlate Color`, а не ручной заливкой.
+- Проверять неизменность grid style корня `CorporateContent`.
+- Проверять, что padding управляется mode коллекции `Grid & Cols`.
+- Проверять `TopMargin=24` и `BottomMargin=24` у `[M] CorporateContent`.
+- Не ограничивать количество и тип дочерних элементов в `Body` без отдельного правила их собственных компонентов.
+- Не требовать `Gutter` для direction или itemSpacing внутри `Body`.
+- Запрещать `modal-bg-*` для `CorporateContent`.
+- Проверять `Fill container` по ширине и `Hug contents` по высоте.
+- Проверять отсутствие ручных radius, stroke, effects, opacity и clips content у корня.
+- Проверять `[D] CorporateContent` и mode `768` на ширине `768`.
+- Проверять отсутствие кликабельности корня.
+- Проверять, что `CorporateContent` и `Body` не detached.
+- Проверять отсутствие вложенного `CorporateContent`.
+- Проверять, что `SwapMe` удалён после добавления реального контента.
+- Проверять вертикальное направление и `itemSpacing=0` корня.
+- Проверять `clipsContent=false`.
+- Проверять порядок `Content` и `Isle` по значению `Position` на всех разрешениях.
+- Проверять автоматическое `👽 TabletIsle=true` в modes 1024 и 768.
+- Проверять `Fill/Hug` и отсутствие ручных direction/alignment overrides у корня `Section`.
+- Разрешать произвольный slot content в `Content` и `Isle`, но запрещать instance swap.
+- Проверять переменную `Gutter` между `Content` и `Isle`.
+- Проверять ширину слотов через переменные колонок `Grid & Cols`.
+- Проверять удаление `SwapMe` в обоих слотах.
+- Проверять отсутствие detach и ручных style overrides у `Section`, `Content` и `Isle`.
 
 ### Словарные проверки
 
@@ -587,7 +857,7 @@ Complex block width: manual 873 px
 
 - Добавить `patternType: component` и `component`, если паттерн распознан как компонентный.
 - Заменить ручной full-width на `12 Cols`, если блок должен занимать все колонки.
-- Заменить ручной отступ между блоками на `Gutter`, если доступна переменная.
+- Заменить ручной горизонтальный отступ между элементами `Section` на `Gutter`, если доступна переменная.
 - Пометить старый grid mode как `Wide`, если макет актуализируется.
 - Удалить `SwapMe`, если в `Body` уже есть пользовательский контент.
 

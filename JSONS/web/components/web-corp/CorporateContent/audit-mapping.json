@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "component-audit-mapping",
-  "componentKey": "web-corp.corporate-system-message",
+  "componentKey": "web-corp.corporate-content",
   "status": "ready",
   "applicability": {
     "channels": [
@@ -12,18 +12,18 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-12"
+    "updatedAt": "2026-07-11"
   },
   "generated": {
-    "generatedAt": "2026-07-12T17:04:05.560Z",
+    "generatedAt": "2026-07-11T11:00:44.329Z",
     "source": {
-      "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- CorporateSystemMessage.json",
+      "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- CorporateContent.json",
       "library": "Web _ Corp Components",
       "file": "Web _ Corp Components",
-      "generatedAt": "2026-07-12T17:04:05.560Z",
+      "generatedAt": "2026-07-11T11:00:44.329Z",
       "exportVersion": "0.1.0-rest",
       "files": [
-        "CorporateSystemMessage"
+        "CorporateContent"
       ]
     },
     "classification": [
@@ -260,19 +260,11 @@
     "categories": [
       {
         "when": {
-          "propertyPrefix": "variant."
-        },
-        "category": "component-property",
-        "resetSurface": "parameters",
-        "baselinePolicy": "Use the selected CorporateSystemMessage component state."
-      },
-      {
-        "when": {
-          "propertyPrefix": "layout."
+          "property": "styles.grid"
         },
         "category": "layer-property",
         "resetSurface": "layer",
-        "baselinePolicy": "Use the effective baseline of View, Size and BG plate."
+        "baselinePolicy": "Use grid style from the effective component baseline."
       },
       {
         "when": {
@@ -280,18 +272,18 @@
         },
         "category": "layer-property",
         "resetSurface": "layer",
-        "baselinePolicy": "Use Fill width and Hug height from the effective component baseline."
+        "baselinePolicy": "Use sizing from the effective component and Grid & Cols mode baseline."
       },
       {
         "when": {
-          "propertyPrefix": "styles."
+          "propertyPrefix": "variables."
         },
-        "category": "layer-property",
-        "resetSurface": "layer",
-        "baselinePolicy": "Use the effective baseline of View, Size and BG plate."
+        "category": "component-property",
+        "resetSurface": "parameters",
+        "baselinePolicy": "Use the expected variable collection mode for the current platform and screen width."
       }
     ],
-    "hostIntegrationNote": "Component-property changes are evaluated first. Derived layout and visual differences must use the effective View/Size/BG plate baseline."
+    "hostIntegrationNote": "Применяй rules и composition-contract CorporateContent до generic layer interpretation. Body content оценивай по контрактам вложенных компонентов."
   },
   "classification": [
     {
@@ -431,8 +423,7 @@
         "propertyPrefix": "variant."
       },
       "category": "component-property",
-      "resetSurface": "parameters",
-      "baselinePolicy": "Use the selected CorporateSystemMessage component state."
+      "resetSurface": "parameters"
     },
     {
       "when": {
@@ -440,7 +431,7 @@
       },
       "category": "layer-property",
       "resetSurface": "layer",
-      "baselinePolicy": "Use the effective baseline of View, Size and BG plate."
+      "baselinePolicy": "Use component effective baseline after host and nested variant resolution."
     },
     {
       "when": {
@@ -448,7 +439,7 @@
       },
       "category": "layer-property",
       "resetSurface": "layer",
-      "baselinePolicy": "Use the effective baseline of View, Size and BG plate."
+      "baselinePolicy": "Use resolved style label or style id from the effective baseline."
     },
     {
       "when": {
@@ -524,12 +515,28 @@
     },
     {
       "when": {
+        "property": "styles.grid"
+      },
+      "category": "layer-property",
+      "resetSurface": "layer",
+      "baselinePolicy": "Use grid style from the effective component baseline."
+    },
+    {
+      "when": {
         "propertyPrefix": "layoutSizing"
       },
       "category": "layer-property",
       "resetSurface": "layer",
-      "baselinePolicy": "Use Fill width and Hug height from the effective component baseline."
+      "baselinePolicy": "Use sizing from the effective component and Grid & Cols mode baseline."
+    },
+    {
+      "when": {
+        "propertyPrefix": "variables."
+      },
+      "category": "component-property",
+      "resetSurface": "parameters",
+      "baselinePolicy": "Use the expected variable collection mode for the current platform and screen width."
     }
   ],
-  "hostIntegrationNote": "Component-property changes are evaluated first. Derived layout and visual differences must use the effective View/Size/BG plate baseline."
+  "hostIntegrationNote": "Применяй rules и composition-contract CorporateContent до generic layer interpretation. Body content оценивай по контрактам вложенных компонентов."
 }

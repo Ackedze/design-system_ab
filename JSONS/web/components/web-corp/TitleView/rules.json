@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "component-rules",
   "componentKey": "web-corp.title-view",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -12,7 +12,7 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-05"
+    "updatedAt": "2026-07-11"
   },
   "rules": [
     {
@@ -185,13 +185,161 @@
           "StatusBadge"
         ]
       },
-      "ruleText": "Статусы и комментарии к заголовку должны размещаться в слотах Status, TitleStatus, TitleAddon или TitleAddonXL. Не считай ручной текстовый статус рядом с Title корректной компонентной структурой."
+      "ruleText": "Status используется для состояния страницы, заголовком которой является TitleView с View=xLarge. TitleStatus является опциональным статусным блоком и может использоваться вместе со Status или самостоятельно. TitleAddon и TitleAddonXL используются как опциональные функциональные элементы рядом с заголовком. Не считай отсутствие опционального слота нарушением."
     },
     {
-      "ruleId": "component:web-corp.title-view.xlarge-primary-actions-under-title",
+      "ruleId": "component:web-corp.title-view.status-and-title-status-color-match",
       "severity": "error",
       "source": "pattern-link",
-      "patternRuleId": "rule:components.title-view.actions-under-xlarge",
+      "patternRuleId": "rule:components.title-view.status-color-consistency",
+      "appliesTo": "component.composition|variant.Type|fill",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "requiredVisibleSlots": [
+          "Status",
+          "TitleStatus"
+        ]
+      },
+      "requiredComposition": {
+        "relation": "same-variant-type",
+        "from": "Status.variant.Type",
+        "to": "TitleStatus.variant.Type"
+      },
+      "ruleText": "Если одновременно используются Status и TitleStatus, их значения Type должны совпадать. Type определяет статусный цвет, поэтому разные значения Type создают несогласованное состояние."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.status-size-24",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.status-size-24",
+      "appliesTo": "variant.Size",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "Status/StatusPreset"
+        ]
+      },
+      "requiredVariant": {
+        "Size": "24"
+      },
+      "ruleText": "Верхний Status внутри TitleView всегда использует Size=24. Другие значения Size недопустимы."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.status-style-matches-surface",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.status-style-matches-surface",
+      "appliesTo": "variant.Style|surface.context",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "slot": "Status"
+      },
+      "requiredVariantByContext": {
+        "graySurface": {
+          "Style": "Contrast"
+        },
+        "whiteSurface": {
+          "Style": "Muted"
+        }
+      },
+      "ruleText": "Для верхнего Status используй Style=Contrast на сером фоне и Style=Muted на белом фоне."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.status-type-follows-public-api",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.Type",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "Status/StatusPreset"
+        ]
+      },
+      "classification": {
+        "allPublicApiValuesAllowed": true
+      },
+      "ruleText": "Type верхнего Status может принимать любое значение, доступное в public API StatusPreset. Не вводи дополнительные ограничения Type на уровне TitleView."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.title-status-may-be-standalone",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.composition",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "visibleSlot": "TitleStatus",
+        "hiddenSlot": "Status"
+      },
+      "classification": {
+        "allowed": true,
+        "doNotRequireStatusSlot": true
+      },
+      "ruleText": "TitleStatus может использоваться самостоятельно без верхнего Status. Не считай отсутствие Status нарушением, если TitleStatus видим."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.status-label-is-content-override",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "text.characters|variant.Type",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "Status/Label"
+        ]
+      },
+      "classification": {
+        "contentOverrideAllowed": true,
+        "typeControlsStatusColor": true,
+        "doNotTreatTextChangeAsStyleViolation": true
+      },
+      "ruleText": "Label встроенного Status разрешено менять как content override. Формулировка может уточнять состояние, пока Type остаётся корректным; изменение текста само по себе не является style violation."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.title-status-content-overrides-allowed",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "text.characters",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "TitleStatus/Title",
+          "TitleStatus/Subtitle"
+        ]
+      },
+      "classification": {
+        "contentOverrideAllowed": true,
+        "subtitleMaxCharactersIncludingSpaces": 120
+      },
+      "ruleText": "Title и Subtitle внутри TitleStatus разрешено менять как content overrides. Для Subtitle действует рекомендация не превышать 120 символов с пробелами."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.primary-actions-use-button-group",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.primary-actions-use-button-group",
       "appliesTo": "component.composition",
       "checkType": "llm",
       "matchKind": "composition_rule",
@@ -212,7 +360,38 @@
           "RightAddonXL"
         ]
       },
-      "ruleText": "Основные целевые действия в TitleView View=xLarge размещаются под заголовком в Button group. RightAddon и RightAddonXL используются для дополнительной ссылки, иконки или вспомогательного действия, но не для primary-действия."
+      "ruleText": "В View=xLarge основные целевые действия TitleView размещаются в Button group. RightAddon и RightAddonXL используются для дополнительной ссылки, иконки или вспомогательного действия, но не для primary-действия."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.compact-primary-actions-outside-title-view",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.compact-primary-actions-outside-title-view",
+      "appliesTo": "screen.composition|component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "variant": {
+          "View": [
+            "Large",
+            "Medium",
+            "Small"
+          ]
+        },
+        "contentRole": "primary-action"
+      },
+      "requiredComposition": {
+        "placement": "outside TitleView",
+        "disallowedSlots": [
+          "RightAddon",
+          "RightAddonXL"
+        ]
+      },
+      "ruleText": "Для View=Large, Medium и Small primary-действие размещается вне TitleView. RightAddon и RightAddonXL не используются как обходной слот для primary-действия."
     },
     {
       "ruleId": "component:web-corp.title-view.button-group-max-four-actions",
@@ -234,6 +413,52 @@
         "overflowComponent": "PickerButton"
       },
       "ruleText": "В Button group внутри TitleView рекомендуется показывать не больше четырёх видимых действий. Остальные действия нужно переносить в PickerButton."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.button-group-button-size-by-platform",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.button-group-button-size-by-platform",
+      "appliesTo": "variant.Size",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view"
+      },
+      "requiredVariantByHost": {
+        "[D] TitleView": {
+          "nestedComponent": "[D] Button",
+          "Size": "56"
+        },
+        "[M] TitleView": {
+          "nestedComponent": "[M] Button",
+          "Size": "48"
+        }
+      },
+      "ruleText": "Button group использует размер кнопки по платформе: Size=56 внутри [D] TitleView и Size=48 внутри [M] TitleView."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.button-properties-delegate-to-button-pattern",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.View|variant.LeftAddon|variant.RightAddon|variant.Hint|variant.singleIcon|text.characters",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "Button group/[D] Button",
+          "Button group/[M] Button"
+        ]
+      },
+      "classification": {
+        "delegateToPattern": "ptrn:controls.buttons-and-button-groups",
+        "hostSpecificRestrictions": [
+          "[D] TitleView: Size=56",
+          "[M] TitleView: Size=48"
+        ]
+      },
+      "ruleText": "Кроме платформенного размера Size=56 для [D] TitleView и Size=48 для [M] TitleView, настройки View, label, addons, hint и singleIcon вложенных Button определяются public API Button и паттерном «Кнопки и группы кнопок». TitleView не вводит дополнительных ограничений."
     },
     {
       "ruleId": "component:web-corp.title-view.button-group-single-primary-action",
@@ -270,7 +495,217 @@
           "[M] TitleView"
         ]
       },
-      "ruleText": "Загрузочное состояние TitleView должно задаваться через component property Skeleton=True. Ручные placeholder-слои вместо Skeleton=True являются нарушением компонентной структуры."
+      "classification": {
+        "fullComponentLoadingUsesSkeletonProperty": true,
+        "partialNestedLoadingAllowed": true,
+        "doNotRequireParentSkeletonForPartialLoading": true
+      },
+      "ruleText": "Если загружается весь TitleView, используй component property Skeleton=True. Если загружается только отдельный слот или вложенный элемент, частичное состояние загрузки допустимо при Skeleton=False у родительского TitleView и не является нарушением само по себе."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.slot-availability-by-view",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.slot-availability-by-view",
+      "appliesTo": "component.composition|variant.View",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ]
+      },
+      "requiredComposition": {
+        "xLarge": [
+          "Status",
+          "Title",
+          "TitleAddonXL",
+          "RightAddonXL",
+          "Holding",
+          "Subtitle",
+          "TitleStatus",
+          "Button group"
+        ],
+        "Large": [
+          "Title",
+          "Subtitle",
+          "TitleAddon",
+          "RightAddon"
+        ],
+        "Medium": [
+          "Title",
+          "Subtitle",
+          "TitleAddon",
+          "RightAddon"
+        ],
+        "Small": [
+          "Title",
+          "Subtitle",
+          "TitleAddon",
+          "RightAddon"
+        ]
+      },
+      "ruleText": "Для View=Large, Medium и Small доступны только Title, Subtitle, TitleAddon и RightAddon. Расширенные Status, Holding, TitleStatus, Button group, TitleAddonXL и RightAddonXL относятся к View=xLarge."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.holding-required-for-group-company-mono-mode",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.holding-for-group-company-mono-mode",
+      "appliesTo": "component.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "variant": {
+          "View": "xLarge"
+        },
+        "userCompanyContext": "group-of-companies",
+        "pageCompanyMode": "mono"
+      },
+      "requiredComposition": {
+        "requiredSlot": "Holding",
+        "requiredNestedComponent": "FilterCompanySelect_Single"
+      },
+      "ruleText": "Holding с FilterCompanySelect_Single обязателен, если пользователь работает от группы компаний, а страница доступна только в моно-режиме. В остальных сценариях отсутствие Holding допустимо."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.holding-delegates-to-filter-company-select-contract",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.*|component.configuration",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "Holding/FilterCompanySelect_Single"
+        ]
+      },
+      "classification": {
+        "delegateToNestedComponentContract": "FilterCompanySelect_Single",
+        "doNotInventHostRestrictions": true
+      },
+      "ruleText": "Параметры FilterCompanySelect_Single внутри Holding настраиваются согласно собственному API и компонентному контракту FilterCompanySelect_Single. TitleView не вводит дополнительных ограничений для Open, Selected, ShowFirstCompany, View и других параметров."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.title-required-non-empty",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.title-required-non-empty",
+      "appliesTo": "text.characters|layer.visibility",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "Title"
+        ]
+      },
+      "requiredContent": {
+        "visible": true,
+        "nonEmpty": true
+      },
+      "ruleText": "Title обязателен во всех вариантах TitleView. Его нельзя оставлять пустым или скрывать."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.subtitle-max-120-characters",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.subtitle-max-120-characters",
+      "appliesTo": "text.content",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "Subtitle"
+        ]
+      },
+      "recommendedContent": {
+        "maxCharactersIncludingSpaces": 120
+      },
+      "ruleText": "Рекомендуемая длина Subtitle — не больше 120 символов с пробелами. Превышение является рекомендацией сократить формулировку, а не жёсткой ошибкой компонента."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.title-addon-interaction-follows-type",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.interaction|variant.Type",
+      "checkType": "llm",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "TitleAddon",
+          "TitleAddonXL"
+        ]
+      },
+      "ruleText": "TitleAddon может быть кликабельным. Вариант StatusBadge может реагировать на hover без обязательного действия по клику. Оценивай интерактивность по выбранному Type и контексту, а не требуй одинакового поведения от всех вариантов."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.right-addon-content-follows-type",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.composition|component.interaction|variant.Type",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "RightAddon",
+          "RightAddonXL"
+        ]
+      },
+      "ruleText": "Состав и поведение RightAddon определяются выбранным Type. Не трактуй RightAddon как произвольный контейнер для нескольких дополнительных элементов."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.manual-layer-style-overrides-prohibited",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "layout.*|width|height|layoutSizingHorizontal|layoutSizingVertical|styles.text|fill|stroke|radius|opacity|effects.*|blendMode",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layers": [
+          "*"
+        ]
+      },
+      "classification": {
+        "reportAsCustomization": true,
+        "treatAsViolation": true,
+        "compareAgainstEffectiveBaseline": true
+      },
+      "ruleText": "Layout, sizing, типографика, цвет, stroke, radius, opacity, effects и blend mode корня и всего внутреннего дерева TitleView определяются компонентами и не меняются вручную. Text content overrides и instance swap внутри предусмотренных слотов остаются разрешены."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.editable-scenarios-belong-to-title-view-pattern",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.composition|text.editing",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "titleEditMode": [
+          "full-title",
+          "partial-title",
+          "date"
+        ]
+      },
+      "classification": {
+        "partOfComponentPattern": true,
+        "sourcePattern": "patterns/p_title-view-editable.md"
+      },
+      "ruleText": "Editable-сценарии являются частью паттерна TitleView. Применяй связанные правила p_title-view-editable.md в этом же компонентном комплекте, а не ищи отдельный компонентный пакет."
     },
     {
       "ruleId": "component:web-corp.title-view.editable-full-title-requires-subtitle",
@@ -292,6 +727,79 @@
         "subtitle": "non-empty"
       },
       "ruleText": "Если редактируется весь Title в TitleView, у компонента должен быть непустой Subtitle, который сохраняет смысл экрана после изменения пользовательского названия."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.editable-full-title-pencil-action",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view-editable.full-title-pencil-action",
+      "appliesTo": "component.composition|component.interaction",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "titleEditMode": "full-title"
+      },
+      "requiredComposition": {
+        "trigger": "button",
+        "icon": "pencil"
+      },
+      "ruleText": "Изменение всего Title запускается отдельной кнопкой с иконкой карандаша."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.editable-partial-title-context-action",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view-editable.partial-title-context-action",
+      "appliesTo": "component.composition|component.interaction",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "titleEditMode": "partial-title"
+      },
+      "requiredComposition": {
+        "trigger": "context-action-button",
+        "dateIcon": "calendar"
+      },
+      "ruleText": "Изменение отдельной части Title запускается контекстной кнопкой действия. Для даты используется кнопка с иконкой календаря; возможны другие контекстные сценарии."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.editable-completion-context-platform",
+      "severity": "info",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view-editable.completion-context-platform",
+      "appliesTo": "component.interaction",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ],
+        "titleEditMode": [
+          "full-title",
+          "partial-title",
+          "other-contextual"
+        ]
+      },
+      "classification": {
+        "dependsOnContext": true,
+        "dependsOnPlatform": true,
+        "doNotRequireWithoutExactRule": [
+          "Enter",
+          "Escape",
+          "confirm-button",
+          "cancel-button"
+        ]
+      },
+      "ruleText": "Способы сохранения, отмены и завершения редактирования зависят от контекста и платформы. Не требуй Enter, Escape или отдельные кнопки без точного сценарного правила."
     },
     {
       "ruleId": "component:web-corp.title-view.editable-date-uses-calendar-icon",
@@ -328,7 +836,8 @@
         ],
         "titleEditMode": [
           "full-title",
-          "partial-title"
+          "partial-title",
+          "other-contextual"
         ]
       },
       "requiredLayout": {
@@ -352,10 +861,97 @@
         ],
         "titleEditMode": [
           "full-title",
-          "partial-title"
+          "partial-title",
+          "other-contextual"
         ]
       },
       "ruleText": "Редактируемый заголовок является сценарием TitleView и должен сохранять компонентную структуру TitleView. Не собирай editable-title вручную из отдельных текстовых слоёв и иконок вне компонента."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.root-fill-hug-sizing",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.root-fill-hug-sizing",
+      "appliesTo": "layoutSizingHorizontal|layoutSizingVertical",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layer": "root"
+      },
+      "recommendedLayout": {
+        "layoutSizingHorizontal": "FILL",
+        "layoutSizingVertical": "HUG",
+        "platformDifference": false
+      },
+      "ruleText": "Для корня TitleView рекомендуется ширина Fill container и высота Hug contents. Рекомендация одинакова для desktop и mobile-web."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.slot-order-required",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.slot-order-required",
+      "appliesTo": "component.composition",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ]
+      },
+      "requiredComposition": {
+        "slotOrder": [
+          "Status",
+          "Heading",
+          "Holding",
+          "Subtitle",
+          "TitleStatus",
+          "Button group"
+        ]
+      },
+      "ruleText": "Порядок слотов Status -> Heading -> Holding -> Subtitle -> TitleStatus -> Button group обязателен. Скрытые или недоступные для текущего View слоты пропускаются без перестановки оставшихся слотов."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.slot-instance-swap-allowed",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.composition|instanceSwap",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "conditions": {
+        "components": [
+          "[D] TitleView",
+          "[M] TitleView"
+        ]
+      },
+      "classification": {
+        "instanceSwapAllowed": true,
+        "arbitraryComponentsAllowed": true,
+        "mustPreserveSlotOrderAndRootStructure": true,
+        "doNotTreatSwapAloneAsViolation": true
+      },
+      "ruleText": "В предусмотренных слотах TitleView разрешён instance swap на произвольные компоненты. Сам swap не является нарушением; выбранный компонент оценивается по собственному контракту, а порядок слотов и структура TitleView должны сохраняться."
+    },
+    {
+      "ruleId": "component:web-corp.title-view.root-style-and-clickability-prohibited",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.title-view.root-style-and-clickability-prohibited",
+      "appliesTo": "fill|stroke|radius|opacity|effects.*|blendMode|prototype.action",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "component": "web-corp.title-view",
+        "layer": "root"
+      },
+      "classification": {
+        "styleOverridesAllowed": false,
+        "clickable": false,
+        "reportAsCustomization": true,
+        "treatAsViolation": true
+      },
+      "ruleText": "Корень TitleView нельзя оформлять вручную через fill, stroke, radius, opacity, effects или blend mode и нельзя превращать в единую кликабельную поверхность. Интерактивность размещается в предназначенных вложенных элементах."
     }
   ]
 }

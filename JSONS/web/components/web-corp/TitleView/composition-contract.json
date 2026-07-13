@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "composition-contract",
   "componentKey": "web-corp.title-view",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -1180,6 +1180,38 @@
     "defaultNestedDiffPolicy": "compare-against-component-effective-baseline",
     "wrapperOwnedOverridePolicy": "Не показывай wrapper-owned nested overrides, когда actual совпадает с effective baseline этого компонента. Если actual отличается, показывай effectiveBaseline -> actual.",
     "layerPropertyPolicy": "Изменения layer/style/layout должны оставаться отдельно от component properties и сбрасываться независимо."
+  },
+  "rootLayoutPolicy": {
+    "width": "Fill container",
+    "height": "Hug contents",
+    "platformDifference": false,
+    "requirement": "recommendation"
+  },
+  "slotOrderPolicy": {
+    "required": true,
+    "order": [
+      "Status",
+      "Heading",
+      "Holding",
+      "Subtitle",
+      "TitleStatus",
+      "Button group"
+    ]
+  },
+  "slotContentPolicy": {
+    "instanceSwapAllowed": true,
+    "arbitraryComponentsAllowed": true,
+    "mustPreserveSlotOrderAndRootStructure": true
+  },
+  "overridePolicy": {
+    "scope": "root-and-all-descendants",
+    "manualLayoutAndStyleOverridesAllowed": false,
+    "textContentOverridesAllowed": true,
+    "instanceSwapAllowed": true
+  },
+  "rootInteractionPolicy": {
+    "clickable": false,
+    "styleOverridesAllowed": false
   },
   "standaloneBaselines": [
     {

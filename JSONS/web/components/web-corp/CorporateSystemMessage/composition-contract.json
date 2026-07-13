@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "composition-contract",
   "componentKey": "web-corp.corporate-system-message",
-  "status": "generated-draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -12,11 +12,109 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "updatedAt": "2026-07-13"
   },
   "component": {
     "name": "CorporateSystemMessage",
     "library": "Web _ Corp Components"
+  },
+  "manual": {
+    "publicRoots": [
+      "[D] CorporateSystemMessage",
+      "[M] CorporateSystemMessage"
+    ],
+    "internalComponentsAreStandalone": false,
+    "scheduledComponentsAllowed": false,
+    "effectiveComposition": {
+      "View": {
+        "Base": "base-message",
+        "Error": "error-message",
+        "Empty": "empty-state",
+        "Progress": "processing-state",
+        "No adaptive": "platform-unavailable"
+      },
+      "BG plate": {
+        "True": "standalone-own-surface",
+        "False": "embedded-in-existing-content"
+      },
+      "Size": {
+        "Large": "page-or-large-region",
+        "Small": "local-content-region"
+      }
+    },
+    "requiredLayersBySize": {
+      "Large": ["Graphic", "Title", "Subtitle"],
+      "Small": ["Title"]
+    },
+    "nestedTypeSelection": {
+      "Error": ["Internal Server Error", "Not Found", "Forbidden", "Not Internet Connection"],
+      "Empty": ["Nothing Found", "Nothing Found Yet"],
+      "Progress": ["Icon", "Spinner", "Timer"]
+    },
+    "overridePermissions": {
+      "Graphic": {"allowedInViews": ["Base"]},
+      "Title": {"allowedInViews": ["Base", "Progress"]},
+      "Description": {"layerName": "Subtitle", "allowedInStates": ["Base", "Empty:Nothing Found Yet", "Progress"]},
+      "Caption": {"allowedInViews": ["Base", "Error", "Empty", "Progress", "No adaptive"]}
+    },
+    "buttonComposition": {
+      "required": false,
+      "maxCount": 2,
+      "allowedViews": ["Primary", "Secondary"],
+      "maxPerView": 1,
+      "allowedCombinations": ["none", "Primary", "Secondary", "Primary+Secondary"],
+      "axisChangeAllowedWhenSize": "Large",
+      "axisChangeProhibitedWhenSize": "Small",
+      "verticalAxisWhen": "two-buttons-do-not-fit-horizontal-container"
+    },
+    "effectiveBaselineProtection": {
+      "scope": "root-and-all-internal-layers",
+      "properties": ["layout.*", "layoutSizing*", "styles.text", "fill", "stroke", "radius", "opacity", "effects.*"],
+      "manualOverridesAllowed": false
+    },
+    "placementAndSizing": {
+      "Large": {
+        "afterEightColumnForm": "8-columns",
+        "tablePage": "12-columns-or-100-percent"
+      },
+      "Small": "parent-container-width",
+      "rootWidth": "FILL",
+      "rootHeight": "HUG",
+      "heightLimits": null,
+      "alignment": "CENTER"
+    },
+    "structureProtection": {
+      "detachAllowed": false,
+      "internalDetachAllowed": false,
+      "internalInstanceSwapAllowed": false,
+      "arbitraryChildrenAllowed": false
+    },
+    "platformSelection": {
+      "768-and-above": "[D] CorporateSystemMessage",
+      "below-768": "[M] CorporateSystemMessage",
+      "mobileWebAndAdaptiveUseMobile": true
+    },
+    "interaction": {
+      "rootClickable": false,
+      "rootHoverReactionAllowed": false,
+      "buttonsAreOnlyInteractiveElements": true
+    },
+    "backgroundPlateComposition": {
+      "builtInPlateOverridesAllowed": false,
+      "externalBackgroundPlateSlotAllowed": true,
+      "externalWrapperRequires": {"BG plate": "False"}
+    },
+    "modalComposition": {
+      "allowed": true,
+      "containers": ["Modal", "UniversalModal", "PopUpSheet"],
+      "allowedSizes": ["Large", "Small"]
+    },
+    "noAdaptiveOverridePermissions": {
+      "Graphic": false,
+      "Title": false,
+      "Subtitle": false,
+      "Caption": true
+    }
   },
   "wraps": [
     {

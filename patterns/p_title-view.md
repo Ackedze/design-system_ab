@@ -9,8 +9,8 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: draft
-- updatedAt: 2026-07-05
+- status: ready
+- updatedAt: 2026-07-11
 - sourceType: component-guideline
 - tags: titleview, page-header, heading, subtitle, status, actions, title-addon, right-addon, skeleton, web-corp
 - figmaLink: none
@@ -65,13 +65,13 @@
 2. `Large`, `Medium` и `Small` строят вложенную иерархию разделов ниже `xLarge`.
 3. `Title` содержит основной текст и использует `Typography.TitleResponsive`.
 4. `Subtitle` дополняет смысл страницы или блока, но не дублирует `Title`.
-5. `Status`, `TitleStatus`, `TitleAddon` и `RightAddon` используются через компонентные слоты.
-6. В `xLarge` действия располагаются под заголовком в `Button group`.
+5. `Status` показывает состояние страницы с заголовком `xLarge`, а `TitleStatus` при необходимости добавляет информацию по этому состоянию.
+6. В `xLarge` основные действия располагаются в `Button group`; для `Large`, `Medium` и `Small` primary-действия размещаются вне `TitleView`.
 7. В группе действий должно быть только одно целевое действие.
 8. Лишние действия уходят в `PickerButton`.
 9. `RightAddon` используется для дополнительного действия или ссылки, а не для primary-действия.
-10. Загрузочное состояние собирается через вариант `Skeleton=True`.
-11. Внешние отступы вокруг `TitleView` зависят от соседнего блока и не заменяются произвольными значениями.
+10. Полное загрузочное состояние собирается через вариант `Skeleton=True`; отдельные вложенные элементы могут загружаться независимо.
+11. Внешние отступы вокруг `TitleView` обязательны и определяются соседним блоком.
 
 ## Section 5: Структура текста
 
@@ -86,11 +86,25 @@ TitleStatus
 Button group
 ```
 
+Порядок структурных слотов обязателен: `Status -> Heading -> Holding -> Subtitle -> TitleStatus -> Button group`. Скрытые или недоступные для текущего `View` слоты пропускаются, но оставшиеся слоты не переставляются.
+
+Внутри предусмотренных слотов разрешён `instance swap` на произвольные компоненты. Сам swap не считается нарушением, если сохраняются порядок слотов и корневая структура `TitleView`; выбранный компонент далее проверяется по собственному контракту.
+
+Для корня `TitleView` рекомендуется ширина `Fill container` и высота `Hug contents`. Рекомендация одинакова для desktop и mobile-web.
+
 Для `xLarge` доступны расширенные слоты: `Status`, `FilterCompanySelect`, `Subtitle`, `TitleStatus`, `Button group`, `TitleAddonXL`, `RightAddonXL`.
 
 Для `Large`, `Medium` и `Small` структура компактнее: `Title`, `Subtitle`, `TitleAddon`, `RightAddon`. Эти уровни используются для разделов и подзаголовков внутри страницы.
 
-`TitleAddon` чаще используется для `StatusBadge`. `RightAddon` чаще используется для кнопки или ссылки с дополнительной информацией, например `О продукте`.
+`Status` показывает состояние страницы, заголовком которой является `xLarge`. Верхний `Status` всегда использует `Size=24`: `Style=Contrast` на сером фоне и `Style=Muted` на белом. `Type` может принимать любое значение из API компонента.
+
+`TitleStatus` — опциональный статусный блок, который может использоваться вместе с верхним `Status` или самостоятельно. Если видимы оба слота, значения `Type` должны совпадать: `Type` определяет статусный цвет.
+
+`TitleAddon` — опциональный функциональный элемент рядом с заголовком: иконка, `IconButton`, точка вызова нейропомощника или иконка `Info`. Элемент может быть кликабельным, а `StatusBadge` может реагировать только на hover.
+
+`RightAddon` используется для дополнительного действия или ссылки, например `О продукте`. Его состав и поведение определяются выбранным `Type`.
+
+`Holding` содержит `FilterCompanySelect_Single` и обязателен, если пользователь работает от группы компаний, а страница доступна только в моно-режиме.
 
 ## Section 6: Правила
 
@@ -215,67 +229,71 @@ Subtitle: Заголовок гарантийной линии
 - checkType: llm
 - autofix: no
 
-Статусы и комментарии к заголовку должны размещаться в предназначенных слотах: `Status`, `TitleStatus`, `TitleAddon` или `TitleAddonXL`.
+`Status` используется для состояния страницы с заголовком `xLarge`. `TitleStatus` является опциональным статусным блоком и может использоваться вместе со `Status` или самостоятельно. `TitleAddon` и `TitleAddonXL` используются для опционального функционального элемента рядом с заголовком.
 
 #### Правильно
 
 ```text
-TitleAddonXL Type=StatusBadge
+Status Type=Approved
 TitleStatus Type=Approved
+TitleAddonXL Type=Neurohelper
 ```
 
 #### Неправильно
 
 ```text
-Статус набран отдельным текстом рядом с Title
-StatusBadge вставлен вне слота TitleAddon
+Статус страницы набран отдельным текстом рядом с Title
+TitleStatus сообщает цветом другое состояние, чем Status
 ```
 
 #### Почему
 
-Компонентные слоты сохраняют выравнивание, адаптивность и визуальную связь статуса с заголовком.
+Компонентные слоты сохраняют выравнивание, адаптивность и смысловую связь статуса с заголовком. Все перечисленные слоты опциональны и используются по контексту.
 
-### Rule 6: Используй контрастный Status
+### Rule 6: Согласуй цвет Status и TitleStatus
 
-- ruleId: rule:components.title-view.status-contrast
-- severity: warning
+- ruleId: rule:components.title-view.status-color-consistency
+- severity: error
 - appliesTo: component
-- checkType: llm
-- autofix: no
+- checkType: deterministic
+- autofix: partial
 
-Для верхнего `Status` рекомендуется использовать контрастные статусы, а не варианты с прозрачным фоном.
+Если одновременно используются `Status` и `TitleStatus`, их значения `Type` должны совпадать. `Type` определяет статусный цвет.
 
 #### Правильно
 
 ```text
-Status -> контрастный фон
+Status Type=Processing
+TitleStatus Type=Processing
 ```
 
 #### Неправильно
 
 ```text
-Status -> прозрачный фон в главном заголовке
+Status Type=Approved
+TitleStatus Type=Error / Risk
 ```
 
 #### Почему
 
-В главном заголовке статус должен быстро считываться и не теряться на фоне страницы.
+Совпадающий `Type` связывает основной статус страницы с дополнительной информацией в `TitleStatus` и гарантирует согласованный цвет.
 
-### Rule 7: Размещай целевые действия под xLarge
+### Rule 7: Размещай основные действия в Button group
 
-- ruleId: rule:components.title-view.actions-under-xlarge
+- ruleId: rule:components.title-view.primary-actions-use-button-group
 - severity: error
 - appliesTo: component
 - checkType: llm
 - autofix: no
 
-Основные кнопки действия в `xLarge` располагаются под заголовком в `Button group`. Не размещайте primary-действие в `RightAddon`.
+В `View=xLarge` основные действия располагаются в `Button group`. Не размещайте primary-действие в `RightAddon`.
 
 #### Правильно
 
 ```text
 TitleView View=xLarge
-Button group: Primary 56 + Secondary 56
+Button group desktop: Primary 56 + Secondary 56
+Button group mobile-web: Primary 48 + Secondary 48
 RightAddon: Link "О продукте"
 ```
 
@@ -288,7 +306,7 @@ Button group отсутствует
 
 #### Почему
 
-Целевое действие должно находиться в ожидаемой зоне под главным заголовком, а `RightAddon` служит для дополнительного контента.
+Целевое действие должно находиться в ожидаемой зоне `Button group`, а `RightAddon` служит для дополнительного контента.
 
 ### Rule 8: Ограничивай Button group четырьмя кнопками
 
@@ -352,23 +370,26 @@ Primary: Настройки
 - checkType: deterministic
 - autofix: partial
 
-Загрузочное состояние `TitleView` собирается через вариант `Skeleton=True`, а не через вручную нарисованные прямоугольники.
+Если загружается весь `TitleView`, используй вариант `Skeleton=True`. Если загружается только отдельный слот или вложенный элемент, он может находиться в собственном состоянии загрузки при `Skeleton=False` у родительского `TitleView`.
 
 #### Правильно
 
 ```text
 TitleView View=xLarge, Skeleton=True
+
+TitleView View=xLarge, Skeleton=False
+Status -> собственное состояние загрузки
 ```
 
 #### Неправильно
 
 ```text
-TitleView скрыт, вместо него вручную добавлены серые плейсхолдеры
+Весь TitleView заменён ручными плейсхолдерами при Skeleton=False
 ```
 
 #### Почему
 
-Встроенный skeleton сохраняет размер, структуру и адаптивность компонента.
+Встроенный skeleton сохраняет размер, структуру и адаптивность компонента при полной загрузке и не запрещает частичную загрузку вложенного контента.
 
 ### Rule 11: Соблюдай внешние отступы TitleView
 
@@ -402,6 +423,228 @@ TitleView -> TopBar: 32 px
 #### Почему
 
 Эти отступы удерживают вертикальный ритм продуктовой страницы. `TopBar` получает меньший внешний отступ, потому что его собственная структура уже содержит верхний внутренний отступ.
+
+### Rule 12: Используй слоты, доступные выбранному View
+
+- ruleId: rule:components.title-view.slot-availability-by-view
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+Для `View=Large`, `Medium` и `Small` доступны только `Title`, `Subtitle`, `TitleAddon` и `RightAddon`. Расширенные слоты `Status`, `Holding`, `TitleStatus`, `Button group`, `TitleAddonXL` и `RightAddonXL` относятся к `View=xLarge`.
+
+### Rule 13: Показывай выбор компании в Holding для mono-страниц группы компаний
+
+- ruleId: rule:components.title-view.holding-for-group-company-mono-mode
+- severity: error
+- appliesTo: component
+- checkType: llm
+- autofix: partial
+
+`Holding` с `FilterCompanySelect_Single` обязателен, если пользователь работает от группы компаний, а страница доступна только в моно-режиме. В остальных сценариях отсутствие `Holding` допустимо.
+
+### Rule 14: Не меняй оформление внутренних слоёв вручную
+
+- ruleId: rule:components.title-view.manual-layer-style-overrides-prohibited
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+Layout, sizing, типографика, цвет, stroke, radius, opacity, effects и blend mode слоёв `Title`, `Subtitle`, `Status`, `TitleStatus` и вложенных `Button` определяются компонентами и не меняются вручную. Текстовое содержание разрешено менять через content overrides.
+
+### Rule 15: Ограничивай Subtitle 120 символами
+
+- ruleId: rule:components.title-view.subtitle-max-120-characters
+- severity: warning
+- appliesTo: text
+- checkType: deterministic
+- autofix: no
+
+Рекомендуемая длина `Subtitle` — не больше 120 символов с пробелами. Более длинный текст следует сократить, но само превышение не является жёсткой ошибкой компонента.
+
+### Rule 16: Определяй интерактивность TitleAddon по Type
+
+- ruleId: rule:components.title-view.title-addon-interaction-follows-type
+- severity: info
+- appliesTo: component
+- checkType: llm
+- autofix: no
+
+`TitleAddon` может быть кликабельным. Вариант `StatusBadge` может реагировать на hover без обязательного действия по клику. Не требуй одинакового поведения от всех вариантов.
+
+### Rule 17: Определяй содержимое RightAddon через Type
+
+- ruleId: rule:components.title-view.right-addon-content-follows-type
+- severity: info
+- appliesTo: component
+- checkType: deterministic
+- autofix: no
+
+Состав и поведение `RightAddon` определяются выбранным `Type`. `RightAddon` не является произвольным контейнером для нескольких дополнительных элементов.
+
+### Rule 18: Размещай primary-действия компактных View вне TitleView
+
+- ruleId: rule:components.title-view.compact-primary-actions-outside-title-view
+- severity: error
+- appliesTo: screen
+- checkType: llm
+- autofix: no
+
+Для `View=Large`, `Medium` и `Small` primary-действие размещается вне `TitleView`. `RightAddon` не используется как обходной слот для primary-действия.
+
+### Rule 19: Не оставляй Title пустым
+
+- ruleId: rule:components.title-view.title-required-non-empty
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+`Title` обязателен во всех вариантах `TitleView`. Его нельзя оставлять пустым или скрывать.
+
+### Rule 20: Меняй label Status через content override
+
+- ruleId: rule:components.title-view.status-label-is-content-override
+- severity: info
+- appliesTo: text
+- checkType: deterministic
+- autofix: no
+
+Label встроенного `Status` разрешено менять. Формулировка может уточнять состояние, пока `Type` остаётся корректным и определяет нужный цвет.
+
+### Rule 21: Меняй контент TitleStatus без изменения оформления
+
+- ruleId: rule:components.title-view.title-status-content-overrides-allowed
+- severity: info
+- appliesTo: text
+- checkType: deterministic
+- autofix: no
+
+`Title` и `Subtitle` внутри `TitleStatus` разрешено менять через content overrides. Для `Subtitle` действует рекомендация не превышать 120 символов с пробелами.
+
+### Rule 22: Настраивай Holding по контракту FilterCompanySelect_Single
+
+- ruleId: rule:components.title-view.holding-delegates-to-filter-company-select-contract
+- severity: info
+- appliesTo: component
+- checkType: deterministic
+- autofix: no
+
+Параметры `FilterCompanySelect_Single` внутри `Holding` определяются собственным API и компонентным контрактом селекта. `TitleView` не вводит дополнительных ограничений для его параметров.
+
+### Rule 23: Используй Size=24 для верхнего Status
+
+- ruleId: rule:components.title-view.status-size-24
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: yes
+
+Верхний `Status` внутри `TitleView` всегда использует `Size=24`.
+
+### Rule 24: Выбирай Style Status по фону
+
+- ruleId: rule:components.title-view.status-style-matches-surface
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+На сером фоне верхний `Status` использует `Style=Contrast`, на белом фоне — `Style=Muted`.
+
+### Rule 25: Используй доступные Type Status без дополнительных ограничений
+
+- ruleId: rule:components.title-view.status-type-follows-public-api
+- severity: info
+- appliesTo: component
+- checkType: deterministic
+- autofix: no
+
+`Type` верхнего `Status` может принимать любое значение из public API `StatusPreset`. `TitleView` не вводит дополнительных ограничений.
+
+### Rule 26: Разрешай TitleStatus без верхнего Status
+
+- ruleId: rule:components.title-view.title-status-may-be-standalone
+- severity: info
+- appliesTo: component
+- checkType: deterministic
+- autofix: no
+
+`TitleStatus` может использоваться самостоятельно. Отсутствие верхнего `Status` при видимом `TitleStatus` не является нарушением.
+
+### Rule 27: Используй платформенный размер кнопок Button group
+
+- ruleId: rule:components.title-view.button-group-button-size-by-platform
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: yes
+
+Вложенные `Button` используют размер по платформенной версии: `Size=56` внутри `[D] TitleView` и `Size=48` внутри `[M] TitleView`.
+
+### Rule 28: Настраивай Button по паттерну кнопок
+
+- ruleId: rule:components.title-view.button-properties-delegate-to-button-pattern
+- severity: info
+- appliesTo: component
+- checkType: deterministic
+- autofix: no
+
+Кроме обязательного платформенного размера (`56` для `[D] TitleView`, `48` для `[M] TitleView`), параметры `View`, label, addons, hint и singleIcon определяются public API `Button` и паттерном `Кнопки и группы кнопок`. `TitleView` не вводит дополнительных ограничений.
+
+### Rule 29: Применяй editable-правила как часть TitleView
+
+- ruleId: rule:components.title-view.editable-scenarios-belong-to-title-view-pattern
+- severity: info
+- appliesTo: component
+- checkType: llm
+- autofix: no
+
+Editable-сценарии являются частью паттерна `TitleView`. Связанные правила `p_title-view-editable.md` применяются в этом же компонентном комплекте.
+
+### Rule 30: Используй Fill по ширине и Hug по высоте
+
+- ruleId: rule:components.title-view.root-fill-hug-sizing
+- severity: warning
+- appliesTo: component.root.layout
+- checkType: deterministic
+- autofix: no
+
+Для корня `TitleView` рекомендуется `Fill container` по ширине и `Hug contents` по высоте. Между desktop и mobile-web различий в этой рекомендации нет.
+
+### Rule 31: Сохраняй обязательный порядок слотов
+
+- ruleId: rule:components.title-view.slot-order-required
+- severity: error
+- appliesTo: component.composition
+- checkType: deterministic
+- autofix: no
+
+Слоты располагаются в порядке `Status -> Heading -> Holding -> Subtitle -> TitleStatus -> Button group`. Если часть слотов скрыта или недоступна для текущего `View`, порядок оставшихся слотов сохраняется.
+
+### Rule 32: Разрешай instance swap внутри предусмотренных слотов
+
+- ruleId: rule:components.title-view.slot-instance-swap-allowed
+- severity: info
+- appliesTo: component.composition
+- checkType: llm
+- autofix: no
+
+В предусмотренный слот можно подставить произвольный компонент через `instance swap`. Сам swap не является нарушением. Проверяй выбранный компонент по его собственному контракту и отдельно проверяй сохранение порядка слотов и структуры `TitleView`.
+
+### Rule 33: Не оформляй и не делай кликабельным корень TitleView
+
+- ruleId: rule:components.title-view.root-style-and-clickability-prohibited
+- severity: error
+- appliesTo: component.root
+- checkType: deterministic
+- autofix: no
+
+Корень `TitleView` нельзя вручную перекрашивать, обводить, скруглять, менять его opacity, effects или blend mode. Весь компонент не может быть единой кликабельной поверхностью: интерактивность размещается во вложенных `Button`, `TitleAddon`, `RightAddon` и других предназначенных элементах.
+
+Ручные изменения layout, sizing и оформления запрещены также для всего внутреннего дерева `TitleView`. Разрешены text content overrides и `instance swap` внутри предусмотренных слотов.
 
 ## Section 7: Шаблоны
 
@@ -536,11 +779,25 @@ Text layer: "На проверке"
 - Проверять, что компонент относится к `[D] TitleView` или `[M] TitleView`.
 - Проверять, что значение `View` равно `xLarge`, `Large`, `Medium` или `Small`.
 - Проверять, что на одном экране не больше одного `View=xLarge`.
+- Проверять доступность слотов для выбранного `View`.
+- Проверять, что `Title` видим и не пуст.
 - Проверять, что `RightAddon` использует допустимые варианты `Type=Link`, `Type=IconButton` или `Type=Icon 24`.
 - Проверять, что `TitleAddon` использует допустимые варианты `Type=StatusBadge` или `Type=Icon 24`.
 - Проверять, что `TitleAddonXL` использует допустимые варианты `Type=StatusBadge`, `Type=Icon 24`, `Type=Button` или `Type=Neurohelper`.
+- Проверять, что верхний `Status` использует `Size=24`.
+- Проверять `Style=Contrast` для серого фона и `Style=Muted` для белого фона.
+- Не вводить дополнительных ограничений для `Type` верхнего `Status`, если значение доступно в public API.
 - Проверять, что загрузочное состояние использует `Skeleton=True`.
+- Не требовать `Skeleton=True` у всего TitleView, если загружается только отдельный вложенный элемент.
 - Проверять, что в `Button group` не больше четырёх видимых действий.
+- Проверять платформенный размер `Button`: `Size=56` внутри `[D] TitleView` и `Size=48` внутри `[M] TitleView`.
+- Проверять, что `Subtitle` содержит не больше 120 символов с пробелами; превышение показывать как рекомендацию.
+- Проверять, что `Subtitle` внутри `TitleStatus` содержит не больше 120 символов с пробелами; превышение показывать как рекомендацию.
+- Проверять отсутствие ручных layout, sizing и style-overrides у корня и всего внутреннего дерева `TitleView`.
+- Проверять рекомендацию `Fill container` по ширине и `Hug contents` по высоте корня.
+- Проверять обязательный порядок слотов `Status -> Heading -> Holding -> Subtitle -> TitleStatus -> Button group`.
+- Не считать `instance swap` внутри предусмотренного слота нарушением сам по себе; выбранный компонент проверять по его собственному контракту.
+- Проверять отсутствие ручного оформления и единой кликабельности корня `TitleView`.
 - Проверять внешний отступ `40 px` между `[D] Header` и `[D] TitleView`.
 - Проверять внешний отступ `32 px` между `[D] TitleView` и `[D] Content`, `[D] TabsView`, `[D] FiltersBlock` или `[D] Plate`.
 - Проверять внешний отступ `12 px` между `[D] TitleView` и `[D] TopBar`.
@@ -555,7 +812,16 @@ Text layer: "На проверке"
 - Проверять, что `xLarge` используется как главный заголовок продуктовой страницы.
 - Проверять, что `Large`, `Medium` и `Small` отражают смысловую вложенность.
 - Проверять, что статусы размещены в `Status`, `TitleStatus`, `TitleAddon` или `TitleAddonXL`.
+- Проверять совпадение `Type` у `Status` и `TitleStatus`, если видимы оба слота.
+- Не требовать верхний `Status`, если `TitleStatus` используется самостоятельно.
 - Проверять, что `RightAddon` используется для дополнительного действия или ссылки, а не для primary-действия.
+- Проверять, что primary-действия при `View=Large`, `Medium` и `Small` размещены вне `TitleView`.
+- Проверять, что интерактивность `TitleAddon` соответствует его `Type`; `StatusBadge` может реагировать только на hover.
+- Проверять, что состав `RightAddon` определяется его `Type`, а не ручным добавлением нескольких элементов.
+- Проверять наличие `Holding` с `FilterCompanySelect_Single`, если пользователь работает от группы компаний, а страница доступна только в моно-режиме.
+- Не придумывать ограничения параметров `FilterCompanySelect_Single`; использовать его собственный компонентный контракт.
+- Делегировать параметры `View`, label, addons, hint и singleIcon вложенных `Button` паттерну `Кнопки и группы кнопок`.
+- Применять `p_title-view-editable.md` как часть паттерна `TitleView` при editable-сценариях.
 - Проверять, что в `Button group` не больше одной primary-кнопки.
 - Проверять, что `Subtitle` дополняет смысл, а не дублирует `Title`.
 - Проверять, что соседний блок под `TitleView` распознан корректно перед применением правила внешнего отступа.
@@ -566,7 +832,6 @@ Text layer: "На проверке"
 - Корректность текста `Subtitle` без знания страницы.
 - Визуальная уместность статуса или `StatusBadge` без продуктового контекста.
 - Правильность приоритета действий, если он зависит от сценария.
-- Корректность нестандартного отступа, если страница использует специальную композицию вне описанных соседей.
 
 ### Автоисправления
 

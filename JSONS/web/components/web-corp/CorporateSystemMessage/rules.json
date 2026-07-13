@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "component-rules",
   "componentKey": "web-corp.corporate-system-message",
-  "status": "generated-draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -12,7 +12,7 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "updatedAt": "2026-07-13"
   },
   "rules": [
     {
@@ -136,6 +136,362 @@
       "appliesTo": "component.status",
       "checkType": "manual",
       "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.public-roots-only",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "component.key|component.name",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "when": {
+        "usageContext": "standalone"
+      },
+      "target": {
+        "internalComponentKeys": [
+          "4feb6b888da6be0f442df7519094e336b45cf285",
+          "ca52e4e654a9a2b8a9250f7e2903f158256b630a",
+          "940e0a614754b1f6238478dfbfe73f7c55652028",
+          "b93e3006c818fc80198cd8f1d1333e40ad1a4407",
+          "e11846f951b3f0f04e91e9ca545ea7287ae49d41",
+          "2d5fd9a8fd9cf6f63eaa20cb1db7cf1a41095595",
+          "28f84c97ba2f4a6162fb2c8aa27420e0d5f12b93",
+          "c9f9869f6cc21135983254b79058ca1fde1da586",
+          "30f07e545734c3aabc6cdd96fd6c5f07fe198510",
+          "42c8301555a6d53e871729aa58cf8364ded65c00",
+          "a0c6c664b3952e0d32ec11d1f0730500cec1e0b7",
+          "e41c9df8f34dccb7b7174a0b7abe8e08123a6d3f",
+          "b3e43dea166eb8fd87282ea9bd1972c6d47c3aca",
+          "7c2714a260e43473d79676b3b0ff7d79541fe87d"
+        ]
+      },
+      "ruleText": "Самостоятельно используй только [D] CorporateSystemMessage или [M] CorporateSystemMessage. Остальные active-компоненты этого семейства являются внутренними supporting-компонентами."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.transition-components-prohibited",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "component.status|component.name",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "target": {
+        "statuses": ["scheduled"],
+        "nameMarkers": ["🔄", ".🔄"]
+      },
+      "ruleText": "Переходные компоненты семейства CorporateSystemMessage с маркерами 🔄 или .🔄 запрещены в новых макетах."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.view-semantic-selection",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "variant.View",
+      "checkType": "llm",
+      "matchKind": "exact_component_rule",
+      "semantics": {
+        "Base": "base-message",
+        "Error": "error",
+        "Empty": "empty-state",
+        "Progress": "processing",
+        "No adaptive": "platform-unavailable"
+      },
+      "ruleText": "Выбирай View по смыслу состояния. No adaptive означает, что функция недоступна на текущей платформе, но доступна на другой."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.background-plate-by-placement",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "variant.BG plate|screen.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "ruleText": "Используй BG plate=True для самостоятельного сообщения в собственной подложке. Для сообщения внутри существующего контента или поверхности, например таблицы, используй BG plate=False."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.size-by-content-scope",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "variant.Size|screen.composition",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "ruleText": "Используй Size=Small, когда сообщение относится только к части страницы: виджету, островку или локальному блоку. Size=Large используй для страницы или крупной самостоятельной области."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.large-required-content",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.Size|layers.visible",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "when": {"variant.Size": "Large"},
+      "requiredLayers": ["Graphic", "Title", "Subtitle"],
+      "ruleText": "Для Size=Large обязательны Graphic, Title и Description."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.small-title-required",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.Size|layers.visible",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "when": {"variant.Size": "Small"},
+      "requiredLayers": ["Title"],
+      "ruleText": "Для Size=Small обязателен Title; Graphic и Description не являются обязательными."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.type-by-view",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.View|nested.variant.Type",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "allowedTypes": {
+        "Error": ["Internal Server Error", "Not Found", "Forbidden", "Not Internet Connection"],
+        "Empty": ["Nothing Found", "Nothing Found Yet"],
+        "Progress": ["Icon", "Spinner", "Timer"]
+      },
+      "ruleText": "После выбора View можно выбрать только Type, относящийся к этому View."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.error-type-by-cause",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.status-screen.technical-error-type",
+      "appliesTo": "variant.View|nested.variant.Type|text",
+      "checkType": "llm",
+      "matchKind": "exact_rule",
+      "ruleText": "Выбирай Error Type по причине: Internal Server Error — техническая или серверная ошибка; Not Found — страницы нет; Forbidden — недостаточно прав; Not Internet Connection — нет интернета."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.empty-type-by-state",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.status-screen.empty-state-type",
+      "appliesTo": "variant.View|nested.variant.Type|text",
+      "checkType": "llm",
+      "matchKind": "exact_rule",
+      "ruleText": "Используй Nothing Found для пустого результата поиска, фильтров или периода. Nothing Found Yet — когда объектов ещё не было или они удалены."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.progress-type-by-timing",
+      "severity": "error",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.status-screen.spinner-or-timer",
+      "appliesTo": "variant.View|nested.variant.Type",
+      "checkType": "llm",
+      "matchKind": "exact_rule",
+      "ruleText": "В Progress используй Icon для статичного ожидания без активной операции; Spinner — когда операция выполняется прямо сейчас, но её продолжительность неизвестна; Timer — только когда время известно."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.graphic-override-base-only",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.View|Graphic.instanceSwap|Graphic.variant.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "allowedWhen": {"variant.View": "Base"},
+      "ruleText": "Менять Graphic можно только в View=Base. В Error, Empty, Progress и No adaptive графика определяется состоянием."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.title-override-by-view",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.View|Title.characters",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "allowedViews": ["Base", "Progress"],
+      "ruleText": "Title можно менять только в Base и Progress. В специализированных Error, Empty и No adaptive используй штатный заголовок состояния."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.description-override-by-state",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.View|nested.variant.Type|Description.characters",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "allowedStates": ["Base", "Empty:Nothing Found Yet", "Progress"],
+      "ruleText": "Description можно менять только в Base, Empty с Type=Nothing Found Yet и Progress."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.buttons-count-and-views",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "Buttons.children|Button.variant.View",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "constraints": {
+        "maxCount": 2,
+        "allowedViews": ["Primary", "Secondary"],
+        "maxPrimary": 1,
+        "maxSecondary": 1
+      },
+      "ruleText": "В Large и Small допускается не более двух кнопок: одна Primary и одна Secondary."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.buttons-axis-large-only",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.Size|ButtonsGroup.variant.Axis",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "axisChangeAllowedWhen": {"variant.Size": "Large"},
+      "ruleText": "Axis группы кнопок можно менять только для Size=Large. Для Size=Small сохраняй штатный Axis."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.buttons-optional-combinations",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "Buttons.visible|Buttons.children",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "allowedCombinations": ["none", "Primary", "Secondary", "Primary+Secondary"],
+      "ruleText": "Кнопки необязательны. Допустимы четыре комбинации: без кнопок, только Primary, только Secondary или Primary вместе с Secondary."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.large-vertical-axis-by-fit",
+      "severity": "warning",
+      "source": "component-contract",
+      "appliesTo": "variant.Size|ButtonsGroup.variant.Axis|container.width",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "ruleText": "Для Size=Large используй Vertical Axis только когда две кнопки не помещаются в одну горизонталь по ширине контейнера."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.subtitle-is-description",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "Subtitle.characters",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "ruleText": "Слой Subtitle является Description системного сообщения и подчиняется правилам редактирования Description."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.caption-optional-all-views",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.View|Caption.characters|Caption.visible",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "ruleText": "Caption можно использовать в любом View как опциональное дополнительное описание сообщения."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.effective-baseline-protected",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "layout.*|layoutSizing*|styles.text|fill|stroke|radius|opacity|effects.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "scope": "root-and-all-internal-layers",
+      "baselinePolicy": "effective-baseline-by-View-Size-BG-plate",
+      "ruleText": "Геометрию и визуальные стили корня и внутренних слоёв нельзя менять вручную. Используй effective baseline выбранных View, Size и BG plate."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.placement-by-context",
+      "severity": "warning",
+      "source": "pattern-link",
+      "patternRuleId": "rule:components.status-screen.placement-by-context",
+      "appliesTo": "variant.Size|screen.composition|container.width",
+      "checkType": "llm",
+      "matchKind": "exact_rule",
+      "ruleText": "Large после формы в 8 колонок занимает 8 колонок; на странице с таблицей — 12 колонок или 100% ширины. Ширина Small определяется родительским контейнером."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.root-fill-hug",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "layoutSizingHorizontal|layoutSizingVertical",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "expected": {"layoutSizingHorizontal": "FILL", "layoutSizingVertical": "HUG"},
+      "ruleText": "Корень CorporateSystemMessage использует Fill по ширине и Hug по высоте; отдельных min/max height нет."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.center-alignment-protected",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "layout.alignment.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "expected": "CENTER",
+      "ruleText": "Содержимое CorporateSystemMessage всегда центрируется. Alignment нельзя менять вручную."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.structure-protected",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "component.detach|nested.detach|instanceSwap|children.structure",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "constraints": {
+        "detachAllowed": false,
+        "internalDetachAllowed": false,
+        "internalInstanceSwapAllowed": false,
+        "arbitraryChildrenAllowed": false
+      },
+      "ruleText": "Нельзя detach-ить корень или внутренние компоненты, менять внутренние View через instance swap и добавлять произвольные слои. Используй штатные параметры и разрешённые overrides."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.platform-breakpoint",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "component.key|screen.width|platform",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "selection": {
+        "768-and-above": "[D] CorporateSystemMessage",
+        "below-768": "[M] CorporateSystemMessage"
+      },
+      "ruleText": "На ширине 768 и выше используй [D] CorporateSystemMessage. Ниже 768, в mobile-web и адаптиве используй [M] CorporateSystemMessage."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.root-interaction-prohibited",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "root.interaction|root.hover|root.prototype.*",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "constraints": {"rootClickable": false, "rootHoverReactionAllowed": false},
+      "ruleText": "Вся поверхность CorporateSystemMessage не может быть кликабельной или реагировать на hover. Интерактивность разрешена только кнопкам."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.built-in-background-plate-protected",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.BG plate|BackgroundPlate.variant.*|BackgroundPlate.fill|BackgroundPlate.stroke|BackgroundPlate.radius",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "ruleText": "У встроенного BackgroundPlate нельзя вручную менять Type, Level, цвет, stroke или radius. Эти параметры определяются компонентом поверхности."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.external-background-plate-slot-allowed",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.BG plate|parent.component",
+      "checkType": "deterministic",
+      "matchKind": "composition_rule",
+      "allowedComposition": {"variant.BG plate": "False", "parent": "BackgroundPlateSlot"},
+      "ruleText": "CorporateSystemMessage с BG plate=False можно оборачивать во внешний BackgroundPlateSlot, если этого требует композиция."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.modal-usage-allowed",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "parent.component|variant.Size",
+      "checkType": "llm",
+      "matchKind": "composition_rule",
+      "allowedParents": ["Modal", "UniversalModal", "PopUpSheet"],
+      "allowedSizes": ["Large", "Small"],
+      "ruleText": "CorporateSystemMessage можно использовать в Modal, UniversalModal и PopUpSheet. В модальном контексте допустимы оба размера: Large и Small."
+    },
+    {
+      "ruleId": "component:web-corp.corporate-system-message.no-adaptive-fixed-content",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.View|Graphic.*|Title.characters|Subtitle.characters|Caption.characters",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "when": {"variant.View": "No adaptive"},
+      "prohibitedOverrides": ["Graphic", "Title", "Subtitle"],
+      "allowedOverrides": ["Caption"],
+      "ruleText": "В No adaptive нельзя менять Graphic, Title и Description (Subtitle). Caption можно добавить для уточнения альтернативного способа выполнить действие."
     }
   ]
 }

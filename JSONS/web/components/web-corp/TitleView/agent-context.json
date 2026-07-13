@@ -1,8 +1,322 @@
 {
+  "summary": "TitleView — составная обёртка заголовка для сценария с основным заголовком, статусом и действиями. Компонент объединяет Title, Status, TitleAddon, RightAddon, выбор компании, Subtitle, TitleStatus и Button group в готовую DS-композицию.",
+  "platformGuidance": [
+    "[D] TitleView используется в desktop-интерфейсах.",
+    "[M] TitleView является адаптивной версией [D] TitleView для мобильного браузера.",
+    "[M] TitleViewMobile является специальной версией TitleView для mobile-web и описывается отдельным компонентным комплектом.",
+    "[M] TitleView и [M] TitleViewMobile разрешены при проектировании. Не рекомендуй замену одного компонента другим только на основании платформы; выбор зависит от сценария."
+  ],
+  "usageScenarios": [
+    {
+      "id": "title-status-actions-header",
+      "label": "Заголовок со статусом и действиями",
+      "description": "Используй TitleView как готовый заголовок: основной Title, встроенный Status, опциональный Subtitle и Button group для основных и второстепенных действий."
+    },
+    {
+      "id": "title-only-header",
+      "label": "Заголовок без дополнительных элементов",
+      "description": "Используй TitleView без Status, Button group и дополнительных addon-слотов, если экрану нужен только заголовок."
+    },
+    {
+      "id": "title-with-context-addons",
+      "label": "Заголовок с дополнительным контекстом",
+      "description": "Используй TitleAddon и RightAddon для компактного контекста рядом с Title: иконки, статусного бейджа, ссылки или IconButton, если эти элементы предусмотрены вариантом компонента."
+    }
+  ],
+  "slotAvailabilityByView": {
+    "xLarge": [
+      "Status",
+      "Title",
+      "TitleAddonXL",
+      "RightAddonXL",
+      "Holding",
+      "Subtitle",
+      "TitleStatus",
+      "Button group"
+    ],
+    "Large": [
+      "Title",
+      "Subtitle",
+      "TitleAddon",
+      "RightAddon"
+    ],
+    "Medium": [
+      "Title",
+      "Subtitle",
+      "TitleAddon",
+      "RightAddon"
+    ],
+    "Small": [
+      "Title",
+      "Subtitle",
+      "TitleAddon",
+      "RightAddon"
+    ]
+  },
+  "slotMap": {
+    "Title": {
+      "pathHints": [
+        "MainContent / Heading",
+        "MainContent / Title"
+      ],
+      "purpose": "Основной текст заголовка. Меняется как text content override, а не через detached или локальный текстовый компонент.",
+      "configuration": [
+        "Title обязателен и не может быть пустым или скрытым.",
+        "Меняй только текстовое содержание Title под контекст экрана.",
+        "Не меняй вручную text style, fill, opacity и другие параметры оформления Title."
+      ]
+    },
+    "Status": {
+      "pathHints": [
+        "MainContent / Status",
+        "MainContent / Status / StatusPreset",
+        "MainContent / Status / StatusPreset / Status"
+      ],
+      "purpose": "Статус страницы, заголовком которой является TitleView с View=xLarge. StatusPreset и Status являются ожидаемой вложенной DS-структурой TitleView.",
+      "configuration": [
+        "Настраивай статус через variant или component properties встроенного StatusPreset и Status.",
+        "Size верхнего Status всегда равен 24.",
+        "На сером фоне используй Style=Contrast, на белом фоне используй Style=Muted.",
+        "Type может принимать любое значение, доступное в API StatusPreset.",
+        "Пример процессного статуса на белом фоне: Type=Processing, Style=Muted, Size=24, label «В работе».",
+        "Текст label статуса разрешено менять как content override. Формулировка может уточнять состояние, пока Type остаётся корректным."
+      ]
+    },
+    "TitleStatus": {
+      "pathHints": [
+        "MainContent / [D] TitleStatus",
+        "MainContent / [M] TitleStatus"
+      ],
+      "purpose": "Опциональный статусный блок с дополнительной информацией. Может использоваться вместе с верхним Status или самостоятельно.",
+      "configuration": [
+        "TitleStatus может использоваться без верхнего Status.",
+        "Если Status и TitleStatus видимы одновременно, значение Type у TitleStatus должно совпадать со значением Type у Status: Type определяет статусный цвет.",
+        "Title и Subtitle внутри TitleStatus разрешено менять через content overrides.",
+        "Рекомендуемая длина Subtitle внутри TitleStatus — не больше 120 символов с пробелами.",
+        "Отсутствие TitleStatus допустимо и не является нарушением."
+      ]
+    },
+    "Holding": {
+      "pathHints": [
+        "MainContent / Holding",
+        "MainContent / Holding / [D] FilterCompanySelect_Single",
+        "MainContent / Holding / [M] FilterCompanySelect_Single"
+      ],
+      "purpose": "Слот для селекта с одиночным выбором компании.",
+      "configuration": [
+        "Holding обязателен, если пользователь работает от группы компаний, а текущая страница доступна только в моно-режиме.",
+        "В остальных сценариях отсутствие Holding допустимо.",
+        "Параметры FilterCompanySelect_Single настраиваются согласно его собственному компонентному API и будущему контракту; TitleView не вводит дополнительных ограничений.",
+        "Не заменяй встроенный FilterCompanySelect_Single локальной ручной композицией."
+      ]
+    },
+    "Button group": {
+      "pathHints": [
+        "MainContent / Button group",
+        "MainContent / Button group / [D] Button",
+        "MainContent / Button group / [M] Button"
+      ],
+      "purpose": "Группа встроенных кнопок действий в TitleView.",
+      "configuration": [
+        "Кнопки внутри Button group используют платформенный размер: Size=56 в [D] TitleView и Size=48 в [M] TitleView.",
+        "Настраивай основные и второстепенные действия через component properties вложенных Button instances согласно паттерну «Кнопки и группы кнопок».",
+        "Меняй labels кнопок как text content overrides.",
+        "View, addons, hint и singleIcon определяются API Button и паттерном «Кнопки и группы кнопок»; TitleView не вводит дополнительных ограничений.",
+        "Не пересобирай Button group вручную снаружи, если нужная конфигурация доступна внутри TitleView."
+      ]
+    },
+    "RightAddon": {
+      "pathHints": [
+        "RightAddon",
+        "RightAddonXL",
+        "MainContent / RightAddon"
+      ],
+      "purpose": "Опциональная область в правой части компонента и страницы для контекстных кликабельных элементов, например точки входа в справочник или управление подпиской.",
+      "configuration": [
+        "Используй Type=Link, Type=IconButton или Type=Icon 24 по доступному API компонента.",
+        "Состав и поведение RightAddon определяются выбранным Type; не добавляй внутрь варианта произвольный набор дополнительных элементов.",
+        "Выбирай содержимое RightAddon по контексту страницы.",
+        "Не размещай в RightAddon primary-действие.",
+        "Не заменяй RightAddon локальной ручной композицией, если вариант доступен в TitleView."
+      ]
+    },
+    "TitleAddon": {
+      "pathHints": [
+        "TitleAddon",
+        "TitleAddonXL",
+        "MainContent / TitleAddon"
+      ],
+      "purpose": "Опциональный функциональный элемент рядом с Title: иконка, IconButton, точка вызова нейропомощника или иконка Info.",
+      "configuration": [
+        "Выбирай Type через component property TitleAddon или TitleAddonXL.",
+        "Используй только варианты, доступные в API выбранного TitleAddon или TitleAddonXL.",
+        "Функциональный элемент может быть кликабельным. Вариант StatusBadge может реагировать на hover без обязательного действия по клику.",
+        "Содержимое addon не должно превращаться в локальную ручную композицию, если оно доступно как вложенный DS instance.",
+        "Отсутствие TitleAddon допустимо и не является нарушением."
+      ]
+    },
+    "Subtitle": {
+      "pathHints": [
+        "MainContent / Subtitle"
+      ],
+      "purpose": "Дополнительное пояснение под Title.",
+      "configuration": [
+        "Текст Subtitle меняется как text content override.",
+        "Не меняй вручную text style, fill, opacity и другие параметры оформления Subtitle.",
+        "Рекомендуемая длина Subtitle — не больше 120 символов с пробелами. Превышение является поводом сократить формулировку, но не жёсткой ошибкой компонента."
+      ]
+    }
+  },
+  "booleanPropsGuidance": [
+    {
+      "property": "Skeleton",
+      "useTrueWhen": "Загружается весь TitleView.",
+      "useFalseWhen": "Основная структура TitleView уже известна. Отдельные вложенные элементы при этом могут находиться в собственном состоянии загрузки.",
+      "note": "Частичная загрузка отдельного слота или вложенного элемента допустима и не требует включать Skeleton=True у всего TitleView."
+    },
+    {
+      "property": "slot visibility booleans",
+      "useTrueWhen": "Сценарий требует соответствующий слот: Status, Subtitle, Button group, RightAddon или TitleAddon.",
+      "useFalseWhen": "Слот не нужен в конкретном сценарии; не оставляй пустые или декоративные вложенные instances без назначения.",
+      "note": "Если конкретный boolean prop отсутствует в выбранном варианте TitleView, используй доступный variant или component API вложенной части и не создавай локальную замену вручную."
+    },
+    {
+      "property": "Button addon/hint booleans",
+      "useTrueWhen": "Нужен подтверждённый addon или hint внутри встроенной Button.",
+      "useFalseWhen": "Используется обычная кнопка действия в заголовке; addons и hint выключены или скрыты."
+    }
+  ],
+  "contentOverridePolicy": [
+    "Title обязателен и не может быть пустым или скрытым.",
+    "Title меняется как text content override.",
+    "Subtitle меняется как text content override.",
+    "Labels встроенных Button instances меняются как text content overrides.",
+    "Label встроенного Status разрешено менять как text content override, если Type остаётся корректным.",
+    "Title и Subtitle внутри TitleStatus разрешено менять как text content overrides; для Subtitle рекомендован лимит 120 символов с пробелами.",
+    "Text content overrides не равны style, fill или layout customizations: Apollo и агент должны разделять изменение текста и изменение параметров слоя."
+  ],
+  "layerStyleOverridePolicy": {
+    "allowed": false,
+    "scope": "root-and-all-descendants",
+    "affectedLayers": [
+      "TitleView root",
+      "all internal layers and nested instances"
+    ],
+    "properties": [
+      "layout.*",
+      "width",
+      "height",
+      "layoutSizingHorizontal",
+      "layoutSizingVertical",
+      "styles.text",
+      "fill",
+      "stroke",
+      "radius",
+      "opacity",
+      "effects.*",
+      "blendMode"
+    ],
+    "rule": "Layout, sizing, типографика, цвет, прозрачность и другие параметры оформления корня и всего внутреннего дерева TitleView определяются компонентами и не меняются вручную. Text content overrides и instance swap внутри предусмотренных слотов остаются разрешены."
+  },
+  "structuralPolicy": {
+    "rootSizing": {
+      "width": "Fill container",
+      "height": "Hug contents",
+      "platformDifference": false,
+      "requirement": "recommendation"
+    },
+    "requiredSlotOrder": [
+      "Status",
+      "Heading",
+      "Holding",
+      "Subtitle",
+      "TitleStatus",
+      "Button group"
+    ],
+    "slotOrderRequired": true,
+    "slotContent": {
+      "instanceSwapAllowed": true,
+      "arbitraryComponentsAllowed": true,
+      "mustPreserveSlotOrderAndRootStructure": true
+    },
+    "root": {
+      "styleOverridesAllowed": false,
+      "clickable": false
+    }
+  },
+  "nestedDsPolicy": [
+    "Вложенные DS instances внутри TitleView являются частью DS-композиции TitleView и не считаются локальными компонентами сами по себе.",
+    "Использование встроенных StatusPreset, Status, Button, TitleAddon и RightAddon предпочтительнее внешней ручной композиции рядом с TitleView.",
+    "Если actual вложенного DS instance совпадает с effective baseline TitleView, не показывай его как дизайнерскую кастомизацию.",
+    "Если actual отличается от effective baseline TitleView, показывай effectiveBaseline -> actual и сохраняй точный target для reset."
+  ],
+  "relatedPatternPolicy": {
+    "buttons": "Настройки Button group и вложенных Button определяются ptrn:controls.buttons-and-button-groups.",
+    "editableTitle": "Редактируемый заголовок является частью паттерна TitleView; правила p_title-view-editable.md применяются в этом же комплекте."
+  },
+  "editableTitlePolicy": {
+    "lineBehavior": "Редактируемый Title всегда ограничен одной строкой с ellipsis.",
+    "fullTitle": {
+      "trigger": "Кнопка с иконкой карандаша.",
+      "subtitleRequired": true
+    },
+    "partialTitle": {
+      "trigger": "Контекстная кнопка действия.",
+      "dateTrigger": "Кнопка с иконкой календаря."
+    },
+    "otherCasesAllowed": true,
+    "completion": "Сохранение, отмена и завершение редактирования зависят от контекста и платформы."
+  },
+  "criticalBaselines": [
+    "Nested [D]/[M] Button instances внутри Button group являются частью TitleView baseline; изменения variant дизайнером нужно показывать относительно TitleView effective baseline.",
+    "StatusPreset и Status внутри MainContent / Status являются ожидаемыми nested structures; само использование preset нормально, если preset не изменён за пределами его variant API.",
+    "View и Skeleton являются public TitleView component properties.",
+    "На странице допускается только один TitleView с View=xLarge.",
+    "Внешние отступы 40 px, 32 px и 12 px, определённые правилами TitleView, обязательны для соответствующих соседних блоков.",
+    "Если одновременно используются Status и TitleStatus, значения Type должны совпадать: Type определяет статусный цвет.",
+    "В View=xLarge primary-действия размещаются в Button group. В View=Large, Medium и Small primary-действия размещаются вне TitleView.",
+    "Запрет primary-действия в RightAddon применяется ко всем значениям View.",
+    "Частичная загрузка отдельных слотов допустима при Skeleton=False у родительского TitleView.",
+    "Для View=Large, Medium и Small доступны только Title, Subtitle, TitleAddon и RightAddon.",
+    "Holding обязателен для одиночного выбора компании, когда пользователь работает от группы компаний, а страница доступна только в моно-режиме.",
+    "Ручные изменения layout, sizing, типографики, цвета, прозрачности и других стилей корня и всего внутреннего дерева TitleView запрещены.",
+    "Для корня TitleView рекомендуется ширина Fill container и высота Hug contents; правило одинаково для desktop и mobile-web.",
+    "Порядок слотов Status -> Heading -> Holding -> Subtitle -> TitleStatus -> Button group обязателен.",
+    "В предусмотренных слотах разрешён instance swap на произвольные компоненты, если сохраняются порядок слотов и структура TitleView.",
+    "Корень TitleView не оформляется вручную и не может быть единой кликабельной поверхностью.",
+    "Рекомендуемая длина Subtitle — не больше 120 символов с пробелами.",
+    "Title обязателен и не может быть пустым или скрытым.",
+    "Параметры FilterCompanySelect_Single внутри Holding определяются собственным API вложенного компонента.",
+    "Верхний Status всегда использует Size=24; Style=Contrast на сером фоне и Style=Muted на белом.",
+    "TitleStatus может использоваться без верхнего Status.",
+    "Button внутри Button group используют Size=56 в [D] TitleView и Size=48 в [M] TitleView, а остальные параметры делегируются паттерну «Кнопки и группы кнопок».",
+    "Editable-сценарии остаются частью паттерна TitleView и этого компонентного комплекта.",
+    "Редактируемый Title всегда однострочный с ellipsis; правило про две строки не применяется.",
+    "Полное редактирование запускается кнопкой с карандашом и требует Subtitle; частичное — контекстной кнопкой действия, для даты кнопкой с календарём.",
+    "Сохранение и отмена редактирования зависят от контекста и платформы."
+  ],
+  "agentInstructions": [
+    "Не выводи pattern violations из примеров. Используй только exact rules и exact component contracts.",
+    "Используй component-property facts для variant changes и layer-property facts для styles/layout/paint changes.",
+    "Если nested diff принадлежит host wrapper и actual совпадает с effective baseline, не показывай его как designer customization.",
+    "Если actual отличается от effective baseline, показывай effectiveBaseline -> actual.",
+    "Для сценария заголовка со статусом и действиями рекомендуй настройку встроенных slots TitleView, а не внешнюю ручную композицию из отдельных локальных компонентов.",
+    "Не считай отсутствие опциональных Status, TitleStatus, TitleAddon, RightAddon, Subtitle или Button group нарушением без отдельного правила.",
+    "Если загружается только отдельный вложенный элемент, не требуй переключать весь TitleView в Skeleton=True.",
+    "Для View=Large, Medium и Small рекомендуй primary-действие вне TitleView, а не в RightAddon.",
+    "Не считай изменение label у Status нарушением, если Type корректен и нет отдельного текстового правила.",
+    "Не придумывай ограничения параметров FilterCompanySelect_Single: используй его собственный компонентный контракт, когда он будет доступен.",
+    "Для настроек View, addons, hint и singleIcon вложенных Button используй паттерн «Кнопки и группы кнопок»; не создавай отдельные ограничения TitleView.",
+    "Применяй правила p_title-view-editable.md как часть правил TitleView, когда обнаружен editable-сценарий.",
+    "Не требуй Enter, Escape или отдельные кнопки подтверждения и отмены без точного правила для конкретной платформы и сценария.",
+    "Не считай сам факт instance swap внутри предусмотренного слота нарушением; оценивай выбранный компонент по его собственному контракту.",
+    "Проверяй обязательный порядок слотов отдельно от содержимого каждого слота.",
+    "Не разрешай ручное оформление корня или внутренних слоёв TitleView и не предлагай делать весь TitleView кликабельным."
+  ],
   "schemaVersion": 1,
   "documentType": "component-agent-context",
   "componentKey": "web-corp.title-view",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -12,10 +326,10 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-09"
+    "updatedAt": "2026-07-10"
   },
   "generated": {
-    "generatedAt": "2026-07-09T07:11:39.994Z",
+    "generatedAt": "2026-07-10T14:26:22.410Z",
     "sourceFiles": [
       "contract.generated.json",
       "contract.overrides.json",
@@ -28,7 +342,7 @@
       "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- TitleView.json",
       "library": "Web _ Corp Components",
       "file": "Web _ Corp Components",
-      "generatedAt": "2026-07-09T07:11:39.994Z",
+      "generatedAt": "2026-07-10T14:26:22.410Z",
       "exportVersion": "0.1.0-rest",
       "files": [
         "TitleView"
@@ -247,18 +561,319 @@
     }
   },
   "manual": {
-    "summary": "TitleView — composite header/title wrapper для сценария header with title, status and action buttons. Компонент собирает title, status, title addons, right addons, holding selector, subtitle, title status и button group areas в готовую DS-композицию.",
+    "summary": "TitleView — составная обёртка заголовка для сценария с основным заголовком, статусом и действиями. Компонент объединяет Title, Status, TitleAddon, RightAddon, выбор компании, Subtitle, TitleStatus и Button group в готовую DS-композицию.",
+    "platformGuidance": [
+      "[D] TitleView используется в desktop-интерфейсах.",
+      "[M] TitleView является адаптивной версией [D] TitleView для мобильного браузера.",
+      "[M] TitleViewMobile является специальной версией TitleView для mobile-web и описывается отдельным компонентным комплектом.",
+      "[M] TitleView и [M] TitleViewMobile разрешены при проектировании. Не рекомендуй замену одного компонента другим только на основании платформы; выбор зависит от сценария."
+    ],
+    "usageScenarios": [
+      {
+        "id": "title-status-actions-header",
+        "label": "Заголовок со статусом и действиями",
+        "description": "Используй TitleView как готовый заголовок: основной Title, встроенный Status, опциональный Subtitle и Button group для основных и второстепенных действий."
+      },
+      {
+        "id": "title-only-header",
+        "label": "Заголовок без дополнительных элементов",
+        "description": "Используй TitleView без Status, Button group и дополнительных addon-слотов, если экрану нужен только заголовок."
+      },
+      {
+        "id": "title-with-context-addons",
+        "label": "Заголовок с дополнительным контекстом",
+        "description": "Используй TitleAddon и RightAddon для компактного контекста рядом с Title: иконки, статусного бейджа, ссылки или IconButton, если эти элементы предусмотрены вариантом компонента."
+      }
+    ],
+    "slotAvailabilityByView": {
+      "xLarge": [
+        "Status",
+        "Title",
+        "TitleAddonXL",
+        "RightAddonXL",
+        "Holding",
+        "Subtitle",
+        "TitleStatus",
+        "Button group"
+      ],
+      "Large": [
+        "Title",
+        "Subtitle",
+        "TitleAddon",
+        "RightAddon"
+      ],
+      "Medium": [
+        "Title",
+        "Subtitle",
+        "TitleAddon",
+        "RightAddon"
+      ],
+      "Small": [
+        "Title",
+        "Subtitle",
+        "TitleAddon",
+        "RightAddon"
+      ]
+    },
+    "slotMap": {
+      "Title": {
+        "pathHints": [
+          "MainContent / Heading",
+          "MainContent / Title"
+        ],
+        "purpose": "Основной текст заголовка. Меняется как text content override, а не через detached или локальный текстовый компонент.",
+        "configuration": [
+          "Title обязателен и не может быть пустым или скрытым.",
+          "Меняй только текстовое содержание Title под контекст экрана.",
+          "Не меняй вручную text style, fill, opacity и другие параметры оформления Title."
+        ]
+      },
+      "Status": {
+        "pathHints": [
+          "MainContent / Status",
+          "MainContent / Status / StatusPreset",
+          "MainContent / Status / StatusPreset / Status"
+        ],
+        "purpose": "Статус страницы, заголовком которой является TitleView с View=xLarge. StatusPreset и Status являются ожидаемой вложенной DS-структурой TitleView.",
+        "configuration": [
+          "Настраивай статус через variant или component properties встроенного StatusPreset и Status.",
+          "Size верхнего Status всегда равен 24.",
+          "На сером фоне используй Style=Contrast, на белом фоне используй Style=Muted.",
+          "Type может принимать любое значение, доступное в API StatusPreset.",
+          "Пример процессного статуса на белом фоне: Type=Processing, Style=Muted, Size=24, label «В работе».",
+          "Текст label статуса разрешено менять как content override. Формулировка может уточнять состояние, пока Type остаётся корректным."
+        ]
+      },
+      "TitleStatus": {
+        "pathHints": [
+          "MainContent / [D] TitleStatus",
+          "MainContent / [M] TitleStatus"
+        ],
+        "purpose": "Опциональный статусный блок с дополнительной информацией. Может использоваться вместе с верхним Status или самостоятельно.",
+        "configuration": [
+          "TitleStatus может использоваться без верхнего Status.",
+          "Если Status и TitleStatus видимы одновременно, значение Type у TitleStatus должно совпадать со значением Type у Status: Type определяет статусный цвет.",
+          "Title и Subtitle внутри TitleStatus разрешено менять через content overrides.",
+          "Рекомендуемая длина Subtitle внутри TitleStatus — не больше 120 символов с пробелами.",
+          "Отсутствие TitleStatus допустимо и не является нарушением."
+        ]
+      },
+      "Holding": {
+        "pathHints": [
+          "MainContent / Holding",
+          "MainContent / Holding / [D] FilterCompanySelect_Single",
+          "MainContent / Holding / [M] FilterCompanySelect_Single"
+        ],
+        "purpose": "Слот для селекта с одиночным выбором компании.",
+        "configuration": [
+          "Holding обязателен, если пользователь работает от группы компаний, а текущая страница доступна только в моно-режиме.",
+          "В остальных сценариях отсутствие Holding допустимо.",
+          "Параметры FilterCompanySelect_Single настраиваются согласно его собственному компонентному API и будущему контракту; TitleView не вводит дополнительных ограничений.",
+          "Не заменяй встроенный FilterCompanySelect_Single локальной ручной композицией."
+        ]
+      },
+      "Button group": {
+        "pathHints": [
+          "MainContent / Button group",
+          "MainContent / Button group / [D] Button",
+          "MainContent / Button group / [M] Button"
+        ],
+        "purpose": "Группа встроенных кнопок действий в TitleView.",
+        "configuration": [
+          "Кнопки внутри Button group используют платформенный размер: Size=56 в [D] TitleView и Size=48 в [M] TitleView.",
+          "Настраивай основные и второстепенные действия через component properties вложенных Button instances согласно паттерну «Кнопки и группы кнопок».",
+          "Меняй labels кнопок как text content overrides.",
+          "View, addons, hint и singleIcon определяются API Button и паттерном «Кнопки и группы кнопок»; TitleView не вводит дополнительных ограничений.",
+          "Не пересобирай Button group вручную снаружи, если нужная конфигурация доступна внутри TitleView."
+        ]
+      },
+      "RightAddon": {
+        "pathHints": [
+          "RightAddon",
+          "RightAddonXL",
+          "MainContent / RightAddon"
+        ],
+        "purpose": "Опциональная область в правой части компонента и страницы для контекстных кликабельных элементов, например точки входа в справочник или управление подпиской.",
+        "configuration": [
+          "Используй Type=Link, Type=IconButton или Type=Icon 24 по доступному API компонента.",
+          "Состав и поведение RightAddon определяются выбранным Type; не добавляй внутрь варианта произвольный набор дополнительных элементов.",
+          "Выбирай содержимое RightAddon по контексту страницы.",
+          "Не размещай в RightAddon primary-действие.",
+          "Не заменяй RightAddon локальной ручной композицией, если вариант доступен в TitleView."
+        ]
+      },
+      "TitleAddon": {
+        "pathHints": [
+          "TitleAddon",
+          "TitleAddonXL",
+          "MainContent / TitleAddon"
+        ],
+        "purpose": "Опциональный функциональный элемент рядом с Title: иконка, IconButton, точка вызова нейропомощника или иконка Info.",
+        "configuration": [
+          "Выбирай Type через component property TitleAddon или TitleAddonXL.",
+          "Используй только варианты, доступные в API выбранного TitleAddon или TitleAddonXL.",
+          "Функциональный элемент может быть кликабельным. Вариант StatusBadge может реагировать на hover без обязательного действия по клику.",
+          "Содержимое addon не должно превращаться в локальную ручную композицию, если оно доступно как вложенный DS instance.",
+          "Отсутствие TitleAddon допустимо и не является нарушением."
+        ]
+      },
+      "Subtitle": {
+        "pathHints": [
+          "MainContent / Subtitle"
+        ],
+        "purpose": "Дополнительное пояснение под Title.",
+        "configuration": [
+          "Текст Subtitle меняется как text content override.",
+          "Не меняй вручную text style, fill, opacity и другие параметры оформления Subtitle.",
+          "Рекомендуемая длина Subtitle — не больше 120 символов с пробелами. Превышение является поводом сократить формулировку, но не жёсткой ошибкой компонента."
+        ]
+      }
+    },
+    "booleanPropsGuidance": [
+      {
+        "property": "Skeleton",
+        "useTrueWhen": "Загружается весь TitleView.",
+        "useFalseWhen": "Основная структура TitleView уже известна. Отдельные вложенные элементы при этом могут находиться в собственном состоянии загрузки.",
+        "note": "Частичная загрузка отдельного слота или вложенного элемента допустима и не требует включать Skeleton=True у всего TitleView."
+      },
+      {
+        "property": "slot visibility booleans",
+        "useTrueWhen": "Сценарий требует соответствующий слот: Status, Subtitle, Button group, RightAddon или TitleAddon.",
+        "useFalseWhen": "Слот не нужен в конкретном сценарии; не оставляй пустые или декоративные вложенные instances без назначения.",
+        "note": "Если конкретный boolean prop отсутствует в выбранном варианте TitleView, используй доступный variant или component API вложенной части и не создавай локальную замену вручную."
+      },
+      {
+        "property": "Button addon/hint booleans",
+        "useTrueWhen": "Нужен подтверждённый addon или hint внутри встроенной Button.",
+        "useFalseWhen": "Используется обычная кнопка действия в заголовке; addons и hint выключены или скрыты."
+      }
+    ],
+    "contentOverridePolicy": [
+      "Title обязателен и не может быть пустым или скрытым.",
+      "Title меняется как text content override.",
+      "Subtitle меняется как text content override.",
+      "Labels встроенных Button instances меняются как text content overrides.",
+      "Label встроенного Status разрешено менять как text content override, если Type остаётся корректным.",
+      "Title и Subtitle внутри TitleStatus разрешено менять как text content overrides; для Subtitle рекомендован лимит 120 символов с пробелами.",
+      "Text content overrides не равны style, fill или layout customizations: Apollo и агент должны разделять изменение текста и изменение параметров слоя."
+    ],
+    "layerStyleOverridePolicy": {
+      "allowed": false,
+      "scope": "root-and-all-descendants",
+      "affectedLayers": [
+        "TitleView root",
+        "all internal layers and nested instances"
+      ],
+      "properties": [
+        "layout.*",
+        "width",
+        "height",
+        "layoutSizingHorizontal",
+        "layoutSizingVertical",
+        "styles.text",
+        "fill",
+        "stroke",
+        "radius",
+        "opacity",
+        "effects.*",
+        "blendMode"
+      ],
+      "rule": "Layout, sizing, типографика, цвет, прозрачность и другие параметры оформления корня и всего внутреннего дерева TitleView определяются компонентами и не меняются вручную. Text content overrides и instance swap внутри предусмотренных слотов остаются разрешены."
+    },
+    "structuralPolicy": {
+      "rootSizing": {
+        "width": "Fill container",
+        "height": "Hug contents",
+        "platformDifference": false,
+        "requirement": "recommendation"
+      },
+      "requiredSlotOrder": [
+        "Status",
+        "Heading",
+        "Holding",
+        "Subtitle",
+        "TitleStatus",
+        "Button group"
+      ],
+      "slotOrderRequired": true,
+      "slotContent": {
+        "instanceSwapAllowed": true,
+        "arbitraryComponentsAllowed": true,
+        "mustPreserveSlotOrderAndRootStructure": true
+      },
+      "root": {
+        "styleOverridesAllowed": false,
+        "clickable": false
+      }
+    },
+    "nestedDsPolicy": [
+      "Вложенные DS instances внутри TitleView являются частью DS-композиции TitleView и не считаются локальными компонентами сами по себе.",
+      "Использование встроенных StatusPreset, Status, Button, TitleAddon и RightAddon предпочтительнее внешней ручной композиции рядом с TitleView.",
+      "Если actual вложенного DS instance совпадает с effective baseline TitleView, не показывай его как дизайнерскую кастомизацию.",
+      "Если actual отличается от effective baseline TitleView, показывай effectiveBaseline -> actual и сохраняй точный target для reset."
+    ],
+    "relatedPatternPolicy": {
+      "buttons": "Настройки Button group и вложенных Button определяются ptrn:controls.buttons-and-button-groups.",
+      "editableTitle": "Редактируемый заголовок является частью паттерна TitleView; правила p_title-view-editable.md применяются в этом же комплекте."
+    },
+    "editableTitlePolicy": {
+      "lineBehavior": "Редактируемый Title всегда ограничен одной строкой с ellipsis.",
+      "fullTitle": {
+        "trigger": "Кнопка с иконкой карандаша.",
+        "subtitleRequired": true
+      },
+      "partialTitle": {
+        "trigger": "Контекстная кнопка действия.",
+        "dateTrigger": "Кнопка с иконкой календаря."
+      },
+      "otherCasesAllowed": true,
+      "completion": "Сохранение, отмена и завершение редактирования зависят от контекста и платформы."
+    },
     "criticalBaselines": [
       "Nested [D]/[M] Button instances внутри Button group являются частью TitleView baseline; изменения variant дизайнером нужно показывать относительно TitleView effective baseline.",
       "StatusPreset и Status внутри MainContent / Status являются ожидаемыми nested structures; само использование preset нормально, если preset не изменён за пределами его variant API.",
-      "View и Skeleton являются public TitleView component properties."
+      "View и Skeleton являются public TitleView component properties.",
+      "На странице допускается только один TitleView с View=xLarge.",
+      "Внешние отступы 40 px, 32 px и 12 px, определённые правилами TitleView, обязательны для соответствующих соседних блоков.",
+      "Если одновременно используются Status и TitleStatus, значения Type должны совпадать: Type определяет статусный цвет.",
+      "В View=xLarge primary-действия размещаются в Button group. В View=Large, Medium и Small primary-действия размещаются вне TitleView.",
+      "Запрет primary-действия в RightAddon применяется ко всем значениям View.",
+      "Частичная загрузка отдельных слотов допустима при Skeleton=False у родительского TitleView.",
+      "Для View=Large, Medium и Small доступны только Title, Subtitle, TitleAddon и RightAddon.",
+      "Holding обязателен для одиночного выбора компании, когда пользователь работает от группы компаний, а страница доступна только в моно-режиме.",
+      "Ручные изменения layout, sizing, типографики, цвета, прозрачности и других стилей корня и всего внутреннего дерева TitleView запрещены.",
+      "Для корня TitleView рекомендуется ширина Fill container и высота Hug contents; правило одинаково для desktop и mobile-web.",
+      "Порядок слотов Status -> Heading -> Holding -> Subtitle -> TitleStatus -> Button group обязателен.",
+      "В предусмотренных слотах разрешён instance swap на произвольные компоненты, если сохраняются порядок слотов и структура TitleView.",
+      "Корень TitleView не оформляется вручную и не может быть единой кликабельной поверхностью.",
+      "Рекомендуемая длина Subtitle — не больше 120 символов с пробелами.",
+      "Title обязателен и не может быть пустым или скрытым.",
+      "Параметры FilterCompanySelect_Single внутри Holding определяются собственным API вложенного компонента.",
+      "Верхний Status всегда использует Size=24; Style=Contrast на сером фоне и Style=Muted на белом.",
+      "TitleStatus может использоваться без верхнего Status.",
+      "Button внутри Button group используют Size=56 в [D] TitleView и Size=48 в [M] TitleView, а остальные параметры делегируются паттерну «Кнопки и группы кнопок».",
+      "Editable-сценарии остаются частью паттерна TitleView и этого компонентного комплекта.",
+      "Редактируемый Title всегда однострочный с ellipsis; правило про две строки не применяется.",
+      "Полное редактирование запускается кнопкой с карандашом и требует Subtitle; частичное — контекстной кнопкой действия, для даты кнопкой с календарём.",
+      "Сохранение и отмена редактирования зависят от контекста и платформы."
     ],
     "agentInstructions": [
       "Не выводи pattern violations из примеров. Используй только exact rules и exact component contracts.",
       "Используй component-property facts для variant changes и layer-property facts для styles/layout/paint changes.",
       "Если nested diff принадлежит host wrapper и actual совпадает с effective baseline, не показывай его как designer customization.",
       "Если actual отличается от effective baseline, показывай effectiveBaseline -> actual.",
-      "Для сценария header with title, status and action buttons рекомендуй настройку встроенных slots TitleView, а не внешнюю ручную композицию из отдельных локальных компонентов."
+      "Для сценария заголовка со статусом и действиями рекомендуй настройку встроенных slots TitleView, а не внешнюю ручную композицию из отдельных локальных компонентов.",
+      "Не считай отсутствие опциональных Status, TitleStatus, TitleAddon, RightAddon, Subtitle или Button group нарушением без отдельного правила.",
+      "Если загружается только отдельный вложенный элемент, не требуй переключать весь TitleView в Skeleton=True.",
+      "Для View=Large, Medium и Small рекомендуй primary-действие вне TitleView, а не в RightAddon.",
+      "Не считай изменение label у Status нарушением, если Type корректен и нет отдельного текстового правила.",
+      "Не придумывай ограничения параметров FilterCompanySelect_Single: используй его собственный компонентный контракт, когда он будет доступен.",
+      "Для настроек View, addons, hint и singleIcon вложенных Button используй паттерн «Кнопки и группы кнопок»; не создавай отдельные ограничения TitleView.",
+      "Применяй правила p_title-view-editable.md как часть правил TitleView, когда обнаружен editable-сценарий.",
+      "Не требуй Enter, Escape или отдельные кнопки подтверждения и отмены без точного правила для конкретной платформы и сценария.",
+      "Не считай сам факт instance swap внутри предусмотренного слота нарушением; оценивай выбранный компонент по его собственному контракту.",
+      "Проверяй обязательный порядок слотов отдельно от содержимого каждого слота.",
+      "Не разрешай ручное оформление корня или внутренних слоёв TitleView и не предлагай делать весь TitleView кликабельным."
     ]
   },
   "sourceFiles": [
@@ -273,13 +888,12 @@
     "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- TitleView.json",
     "library": "Web _ Corp Components",
     "file": "Web _ Corp Components",
-    "generatedAt": "2026-07-09T07:11:39.994Z",
+    "generatedAt": "2026-07-10T14:26:22.410Z",
     "exportVersion": "0.1.0-rest",
     "files": [
       "TitleView"
     ]
   },
-  "summary": "TitleView — composite header/title wrapper для сценария header with title, status and action buttons. Компонент собирает title, status, title addons, right addons, holding selector, subtitle, title status и button group areas в готовую DS-композицию.",
   "components": [
     {
       "name": "[D] RightAddon",
@@ -651,18 +1265,6 @@
         ]
       }
     }
-  ],
-  "criticalBaselines": [
-    "Nested [D]/[M] Button instances внутри Button group являются частью TitleView baseline; изменения variant дизайнером нужно показывать относительно TitleView effective baseline.",
-    "StatusPreset и Status внутри MainContent / Status являются ожидаемыми nested structures; само использование preset нормально, если preset не изменён за пределами его variant API.",
-    "View и Skeleton являются public TitleView component properties."
-  ],
-  "agentInstructions": [
-    "Не выводи pattern violations из примеров. Используй только exact rules и exact component contracts.",
-    "Используй component-property facts для variant changes и layer-property facts для styles/layout/paint changes.",
-    "Если nested diff принадлежит host wrapper и actual совпадает с effective baseline, не показывай его как designer customization.",
-    "Если actual отличается от effective baseline, показывай effectiveBaseline -> actual.",
-    "Для сценария header with title, status and action buttons рекомендуй настройку встроенных slots TitleView, а не внешнюю ручную композицию из отдельных локальных компонентов."
   ],
   "auditInterpretation": {
     "componentProperties": [

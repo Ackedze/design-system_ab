@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "component-contract-overrides",
   "componentKey": "web-corp.corporate-system-message",
-  "status": "generated-draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -12,9 +12,165 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "updatedAt": "2026-07-13"
   },
-  "note": "Сгенерированный placeholder overlay. При необходимости вручную добавь semantic ownership, reset model и design-rule overrides.",
+  "note": "Authored semantic overlay для публичных CorporateSystemMessage и внутренних supporting-компонентов. Generated baseline хранится отдельно в contract.generated.json.",
+  "manual": {
+    "publicComponents": {
+      "desktop": "[D] CorporateSystemMessage",
+      "mobile-web": "[M] CorporateSystemMessage"
+    },
+    "standaloneUsage": {
+      "allowed": [
+        "[D] CorporateSystemMessage",
+        "[M] CorporateSystemMessage"
+      ],
+      "internalOnly": [
+        "[D] ButtonsGroupLarge",
+        "[D] ButtonsGroupSmall",
+        "[D] EmptyView",
+        "[D] ErrorView",
+        "[D] ProcessView",
+        "[D] SystemMessageLarge",
+        "[D] SystemMessageSmall",
+        "[M] ButtonsGroupLarge",
+        "[M] ButtonsGroupSmall",
+        "[M] EmptyView",
+        "[M] ErrorView",
+        "[M] ProcessView",
+        "[M] SystemMessageLarge",
+        "[M] SystemMessageSmall"
+      ],
+      "scheduledComponentsAllowed": false
+    },
+    "viewSemantics": {
+      "Base": "Произвольное системное сообщение вне специализированных Error, Empty и Progress сценариев.",
+      "Error": "Ошибка или недоступность из-за ошибки.",
+      "Empty": "Пустое состояние контента.",
+      "Progress": "Ожидание или обработка.",
+      "No adaptive": "Функциональность недоступна на текущей платформе, но доступна на другой платформе."
+    },
+    "backgroundPlatePolicy": {
+      "true": "Компонент используется как самостоятельный блок в собственной подложке.",
+      "false": "Компонент встроен в существующий контент или поверхность, например внутрь таблицы.",
+      "selectionBasis": "placement-context"
+    },
+    "sizePolicy": {
+      "Large": "Статус относится к странице или крупной самостоятельной области.",
+      "Small": "Статус относится только к части страницы: виджету, островку или локальному контентному блоку."
+    },
+    "requiredContent": {
+      "Large": ["Graphic", "Title", "Description"],
+      "Small": ["Title"]
+    },
+    "typeSemantics": {
+      "Error": {
+        "Internal Server Error": "Техническая или серверная ошибка.",
+        "Not Found": "Страница удалена или ссылка устарела.",
+        "Forbidden": "Недостаточно прав.",
+        "Not Internet Connection": "Нет подключения к интернету."
+      },
+      "Empty": {
+        "Nothing Found": "Пустой результат поиска, фильтрации или выбранного периода.",
+        "Nothing Found Yet": "Объектов для показа ещё не было или они были удалены."
+      },
+      "Progress": {
+        "Icon": "Статичное ожидание без отображения активной выполняющейся операции; точное время предсказать нельзя.",
+        "Spinner": "Операция выполняется прямо сейчас, продолжительность неизвестна.",
+        "Timer": "Продолжительность процесса известна и может быть показана."
+      }
+    },
+    "editableContent": {
+      "Graphic": ["Base"],
+      "Title": ["Base", "Progress"],
+      "Description": ["Base", "Empty:Nothing Found Yet", "Progress"]
+      ,
+      "Caption": ["Base", "Error", "Empty", "Progress", "No adaptive"]
+    },
+    "buttons": {
+      "required": false,
+      "maxCount": 2,
+      "allowedViews": ["Primary", "Secondary"],
+      "maxPerView": {"Primary": 1, "Secondary": 1},
+      "axisChangeAllowedFor": ["Large"],
+      "axisChangeProhibitedFor": ["Small"],
+      "allowedCombinations": ["none", "Primary", "Secondary", "Primary+Secondary"],
+      "verticalAxisWhen": "Две кнопки не помещаются в одну горизонталь по ширине контейнера."
+    },
+    "textLayerMapping": {
+      "Description": "Subtitle",
+      "Caption": "Дополнительное описание сообщения; опционально во всех View."
+    },
+    "baselineProtection": {
+      "scope": "root-and-all-internal-layers",
+      "protected": [
+        "layoutSizingHorizontal",
+        "layoutSizingVertical",
+        "layout.direction",
+        "layout.alignment.*",
+        "layout.padding.*",
+        "layout.itemSpacing",
+        "styles.text",
+        "fill",
+        "stroke",
+        "radius",
+        "opacity",
+        "effects.*"
+      ],
+      "policy": "effective-baseline-by-View-Size-BG-plate"
+    },
+    "placement": {
+      "Large": {
+        "afterEightColumnForm": "8-columns",
+        "tablePage": "12-columns-or-100-percent"
+      },
+      "Small": "width-defined-by-parent-container"
+    },
+    "rootSizing": {
+      "width": "FILL",
+      "height": "HUG",
+      "minHeight": null,
+      "maxHeight": null
+    },
+    "alignment": {
+      "content": "CENTER",
+      "manualChangeAllowed": false
+    },
+    "structureProtection": {
+      "detachAllowed": false,
+      "internalDetachAllowed": false,
+      "internalInstanceSwapAllowed": false,
+      "arbitraryChildrenAllowed": false,
+      "allowedChanges": "public component properties and explicitly listed text/Graphic overrides"
+    },
+    "platformSelection": {
+      "desktop": {"component": "[D] CorporateSystemMessage", "minWidth": 768},
+      "mobile-web-and-adaptive": {"component": "[M] CorporateSystemMessage", "maxWidth": 767}
+    },
+    "interaction": {
+      "rootClickable": false,
+      "rootHoverReactionAllowed": false,
+      "interactiveElements": ["Button"]
+    },
+    "builtInBackgroundPlate": {
+      "manualOverridesAllowed": false,
+      "typeLevelColorStrokeRadius": "defined-by-surface-component"
+    },
+    "externalBackgroundPlate": {
+      "allowedWhen": {"BG plate": "False"},
+      "wrapper": "BackgroundPlateSlot"
+    },
+    "modalUsage": {
+      "allowedContainers": ["Modal", "UniversalModal", "PopUpSheet"],
+      "allowedSizes": ["Large", "Small"]
+    },
+    "noAdaptiveOverrides": {
+      "Graphic": false,
+      "Title": false,
+      "Description": false,
+      "Caption": true
+    }
+  },
   "semanticComponents": [
     {
       "name": "[D] ButtonsGroupLarge",

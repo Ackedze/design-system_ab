@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "component-contract-overrides",
   "componentKey": "web-corp.title-view",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -12,7 +12,7 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "updatedAt": "2026-07-11"
   },
   "component": {
     "name": "TitleView",
@@ -1254,6 +1254,169 @@
       }
     }
   ],
+  "slotAvailability": {
+    "xLarge": [
+      "Status",
+      "Title",
+      "TitleAddonXL",
+      "RightAddonXL",
+      "Holding",
+      "Subtitle",
+      "TitleStatus",
+      "Button group"
+    ],
+    "Large": [
+      "Title",
+      "Subtitle",
+      "TitleAddon",
+      "RightAddon"
+    ],
+    "Medium": [
+      "Title",
+      "Subtitle",
+      "TitleAddon",
+      "RightAddon"
+    ],
+    "Small": [
+      "Title",
+      "Subtitle",
+      "TitleAddon",
+      "RightAddon"
+    ]
+  },
+  "contentOverrides": {
+    "allowed": [
+      "Title.characters",
+      "Subtitle.characters",
+      "Status.label.characters",
+      "TitleStatus.Title.characters",
+      "TitleStatus.Subtitle.characters",
+      "Button.label.characters"
+    ],
+    "policy": "Текстовое содержание меняется через content override без ручного изменения оформления слоя.",
+    "recommendations": {
+      "Subtitle.maxCharacters": 120,
+      "TitleStatus.Subtitle.maxCharacters": 120
+    }
+  },
+  "requiredContent": {
+    "Title": {
+      "required": true,
+      "nonEmpty": true,
+      "visible": true
+    }
+  },
+  "primaryActionPlacement": {
+    "xLarge": "Button group",
+    "Large": "outside TitleView",
+    "Medium": "outside TitleView",
+    "Small": "outside TitleView",
+    "disallowedForAllViews": [
+      "RightAddon",
+      "RightAddonXL"
+    ]
+  },
+  "nestedComponentDelegation": {
+    "Holding / FilterCompanySelect_Single": "Используй public API и правила собственного компонентного контракта FilterCompanySelect_Single; TitleView не вводит дополнительных ограничений его параметров.",
+    "Button group / Button": "Используй public API Button и правила ptrn:controls.buttons-and-button-groups. TitleView фиксирует Size=56 для [D] TitleView и Size=48 для [M] TitleView, но не вводит дополнительных ограничений для View, addons, hint и singleIcon."
+  },
+  "statusConfiguration": {
+    "Size": [
+      "24"
+    ],
+    "Type": "Любое значение из public API StatusPreset.",
+    "StyleBySurface": {
+      "gray": "Contrast",
+      "white": "Muted"
+    },
+    "TitleStatusMayExistWithoutStatus": true
+  },
+  "statusRelation": {
+    "whenVisible": [
+      "Status",
+      "TitleStatus"
+    ],
+    "requiredRelation": "variant.Type must match",
+    "reason": "Type определяет статусный цвет."
+  },
+  "addonInteractionPolicy": {
+    "TitleAddon": "Может быть кликабельным; Type=StatusBadge может реагировать только на hover.",
+    "RightAddon": "Состав и поведение определяются выбранным Type."
+  },
+  "buttonGroupConfiguration": {
+    "buttonSizeByHost": {
+      "[D] TitleView": "56",
+      "[M] TitleView": "48"
+    },
+    "otherProperties": "Делегированы public API Button и паттерну ptrn:controls.buttons-and-button-groups."
+  },
+  "editableTitlePolicy": {
+    "partOfTitleViewPattern": true,
+    "source": "patterns/p_title-view-editable.md",
+    "lineBehavior": "single-line-ellipsis",
+    "fullTitle": {
+      "trigger": "button-with-pencil-icon",
+      "subtitleRequired": true
+    },
+    "partialTitle": {
+      "trigger": "context-action-button",
+      "dateTrigger": "button-with-calendar-icon"
+    },
+    "otherCasesAllowed": true,
+    "completionDependsOn": [
+      "context",
+      "platform"
+    ]
+  },
+  "layerStyleOverrides": {
+    "allowed": false,
+    "scope": "root-and-all-descendants",
+    "targets": [
+      "TitleView root",
+      "all internal layers and nested instances"
+    ],
+    "properties": [
+      "layout.*",
+      "width",
+      "height",
+      "layoutSizingHorizontal",
+      "layoutSizingVertical",
+      "styles.text",
+      "fill",
+      "stroke",
+      "radius",
+      "opacity",
+      "effects.*",
+      "blendMode"
+    ],
+    "policy": "Layout, sizing и оформление корня и всего внутреннего дерева определяются компонентами и не меняются вручную. Text content overrides и instance swap внутри предусмотренных слотов разрешены."
+  },
+  "rootLayoutPolicy": {
+    "width": "Fill container",
+    "height": "Hug contents",
+    "platformDifference": false,
+    "requirement": "recommendation"
+  },
+  "slotOrderPolicy": {
+    "required": true,
+    "order": [
+      "Status",
+      "Heading",
+      "Holding",
+      "Subtitle",
+      "TitleStatus",
+      "Button group"
+    ]
+  },
+  "slotContentPolicy": {
+    "instanceSwapAllowed": true,
+    "arbitraryComponentsAllowed": true,
+    "mustPreserveSlotOrderAndRootStructure": true
+  },
+  "rootInteractionPolicy": {
+    "clickable": false,
+    "styleOverridesAllowed": false
+  },
   "resetModel": {
     "componentProperties": [
       "variant.*"
