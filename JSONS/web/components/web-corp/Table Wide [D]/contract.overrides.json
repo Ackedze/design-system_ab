@@ -16,7 +16,7 @@
   },
   "appliesTo": {
     "generatedContract": "contract.generated.json",
-    "rawCatalog": "Web _ Corp Components -- Table _ Wide [D].json"
+    "rawCatalog": "Web _ Corp Components -- Table _ _ Wide [D].json"
   },
   "publicApi": {
     "components": {
@@ -201,6 +201,63 @@
       }
     }
   },
+  "assemblyPolicy": {
+    "workflow": "detached-rows-with-library-cells",
+    "headerRow": "[D] HeadRow :: Universal",
+    "bodyRow": "[D] BodyRow :: Wide",
+    "designerSteps": [
+      "Добавить [D] HeadRow :: Universal и [D] BodyRow :: Wide.",
+      "Детачить строки.",
+      "Добавить нужные библиотечные ячейки из [D] HeadCells :: Universal и [D] BodyCells :: Wide.",
+      "Подобрать ширину каждой ячейки в detached-композиции."
+    ],
+    "requiredSurroundingComponents": [
+      "CorporateTopbar",
+      "HeaderRow",
+      "BodyRow",
+      "Pagination",
+      "[D] BackgroundPlateSlot"
+    ],
+    "unrelatedComponents": [
+      "TableView"
+    ]
+  },
+  "usagePolicy": {
+    "cellTextSlots": 1,
+    "supportsHorizontalScroll": true,
+    "supportsManyColumns": true,
+    "supportsGrouping": true,
+    "maxGroupingLevels": 1
+  },
+  "geometryPolicy": {
+    "rowHeight": "effective-baseline-only",
+    "columnWidth": {
+      "designerEditable": true,
+      "userEditable": true,
+      "headAndBodyMustMatch": true
+    },
+    "fixedWidthCells": [
+      "[D] BodyControlCell :: Wide",
+      "[D] BodyActionCell :: Wide",
+      "[D] HeadActionCell",
+      "[D] HeadControlCell"
+    ]
+  },
+  "internalComponents": [
+    "ActionButton",
+    "BorderLine",
+    "Chevron",
+    "ColumnControl",
+    "ColumnControl :: OptionList",
+    "ControlAddon",
+    "GroupBorderLine",
+    "HeadDivider",
+    "HeaderAddon",
+    "LeftAddon",
+    "RightAddon",
+    "Sorting",
+    "Text"
+  ],
   "anatomySemantics": {
     "root": {
       "path": "<variant root>",

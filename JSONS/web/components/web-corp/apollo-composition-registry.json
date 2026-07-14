@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-composition-contract-registry",
-  "generatedAt": "2026-07-12T17:04:05.560Z",
+  "generatedAt": "2026-07-14T16:49:10.303Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -35887,22 +35887,34 @@
         "schemaVersion": 1,
         "documentType": "composition-contract",
         "componentKey": "web-corp.corporate-app-header-new",
-        "status": "generated-draft",
+        "status": "ready",
         "applicability": {
           "channels": [
             "b2b"
           ],
           "platforms": [
-            "desktop",
-            "mobile-web"
+            "desktop"
           ],
-          "source": "path-policy",
-          "updatedAt": "2026-07-04"
+          "source": "component-contract",
+          "updatedAt": "2026-07-14"
         },
         "component": {
           "name": "CorporateAppHeaderNew [D]",
           "library": "Web _ Corp Components"
         },
+        "publicComponents": [
+          "[D] Header",
+          "[D] SideMenu",
+          "[D](768) HeaderMenu"
+        ],
+        "compositionRules": [
+          "На больших desktop-разрешениях используй [D] Header вместе с [D] SideMenu.",
+          "На ширине 768 px используй [D] Header с 👽 Tablet=true; [D](768) HeaderMenu открывай как левый drawer вместо SideMenu.",
+          "SideMenu и HeaderMenu должны использовать одинаковую модель навигации.",
+          "LogoCell закреплён сверху, Footer закреплён снизу, прокручивается только Cells.",
+          "Допустим только один уровень ListProductCell → NestedProductCell.",
+          "Detach и самостоятельное использование служебных компонентов запрещены."
+        ],
         "wraps": [
           {
             "hostComponentName": "[D] Header",
@@ -43866,7 +43878,43 @@
             }
           }
         ],
-        "allowedOverrides": [],
+        "allowedOverrides": [
+          {
+            "componentName": "[D] Header",
+            "property": "variant.Back",
+            "policy": "context-defined"
+          },
+          {
+            "componentName": "[D] SideMenu",
+            "property": "variant.Edit Mode",
+            "policy": "user-state"
+          },
+          {
+            "componentName": "[D](768) HeaderMenu",
+            "property": "variant.Edit Mode",
+            "policy": "user-state"
+          },
+          {
+            "componentName": "CompanyAccount",
+            "property": "variant.Holding",
+            "policy": "account-context"
+          },
+          {
+            "componentName": "CompanyAccount",
+            "property": "logo|companyName|userName",
+            "policy": "content-override"
+          },
+          {
+            "componentName": "ProductCell|ListProductCell|NestedProductCell",
+            "property": "label|icon",
+            "policy": "product-context"
+          },
+          {
+            "componentName": "Mail|Notifications",
+            "property": "unreadCount",
+            "policy": "0..99+"
+          }
+        ],
         "standaloneBaselines": []
       }
     },

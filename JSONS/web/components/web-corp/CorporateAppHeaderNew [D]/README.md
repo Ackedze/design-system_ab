@@ -1,28 +1,51 @@
-# CorporateAppHeaderNew [D] — MVP component contract
+# CorporateAppHeaderNew [D] — component contract
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / CorporateAppHeaderNew [D]**.
+Папка содержит generated baseline и ручной semantic layer для desktop-навигационной оболочки корпоративной страницы.
 
-The raw Figma catalog remains the source of truth:
+Raw-каталог Figma остаётся источником структуры, вариантов и effective baseline:
 
 `../Web _ Corp Components -- CorporateAppHeaderNew [D].json`
 
+## Публичные компоненты
+
+- `[D] Header` — верхняя панель страницы.
+- `[D] SideMenu` — постоянное боковое меню на больших desktop-разрешениях.
+- `[D](768) HeaderMenu` — левый drawer с функциями SideMenu на ширине 768 px.
+
+Остальные 16 компонентов пакета являются служебными и не используются самостоятельно.
+
 ## Файлы
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+- `contract.generated.json` — автоматически сгенерированный structural baseline из raw-каталога.
+- `contract.overrides.json` — ручная семантика публичного API, состояний, разрешённых overrides и ограничений.
+- `composition-contract.json` — ownership вложенных компонентов, breakpoint-композиция и effective baseline.
+- `rules.json` — точные component rules для Apollo и агента.
+- `audit-mapping.json` — классификация отклонений и правила интерпретации аудита.
+- `examples.json` — валидные и невалидные сценарии использования.
+- `agent-context.json` — generated факты и ручной контекст для агента.
+
+## Основная композиция
+
+- На больших desktop-разрешениях `[D] Header` используется вместе с `[D] SideMenu`.
+- На ширине 768 px Header автоматически получает `👽 Tablet=true`, а SideMenu заменяется `[D](768) HeaderMenu`.
+- HeaderMenu открывается слева как drawer и закрывается только кнопкой Close.
+- SideMenu и HeaderMenu используют одну синхронизированную модель навигации.
+- Компоненты обязательны на корпоративной странице и не используются отдельно.
+
+## Ключевые ограничения
+
+- Detach публичных и служебных компонентов запрещён.
+- Ручное изменение `👽 Tablet`, геометрии, layout и визуальных стилей запрещено.
+- `Back`, `Edit Mode` и `Holding` используются по контексту.
+- В Edit Mode пользователь меняет только порядок и видимость продуктовых пунктов.
+- `AllServices`, `Bonus`, `LogoCell` и системные контролы нельзя переименовывать или заменять.
+- Допустим только один уровень вложенной навигации и один активный пункт.
+- Прокручивается только область Cells; LogoCell и Footer закреплены.
 
 ## Источник
 
 - Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
+- Raw-каталог обновлён: `2026-07-09T07:11:39.994Z`
 - Компонентов: `19`
-
-## Current Scope
-
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+- Платформа: `desktop`, включая breakpoint `768 px`
+- Статус комплекта: `Ready`
