@@ -6855,40 +6855,38 @@
           "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
         },
         {
-          "ruleId": "component:web-corp.table-basic-d.scheduled-parts-are-informational",
-          "severity": "info",
+          "ruleId": "component:web-corp.table-basic-d.scheduled-parts-are-legacy",
+          "severity": "warning",
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Scheduled-части таблиц являются lifecycle context для агента. Не считай scheduled status дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+          "ruleText": "Компоненты таблиц с префиксом 🔄 относятся к старой версии. Крайне не рекомендуется использовать их в новых макетах; для новой сборки выбирай актуальные компоненты без префикса 🔄."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.background-plate-wrapper-in-content",
           "severity": "error",
           "source": "composition-contract",
           "appliesTo": "screen.composition",
-          "checkType": "llm",
-          "matchKind": "composition_rule",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
           "conditions": {
             "component": "Table Basic [D]",
             "placement": "CorporateContent body"
           },
           "requiredComposition": {
-            "wrapperComponent": "BackgroundPlate",
-            "level": "Level 1",
-            "background": "matching page background",
-            "padding": {
-              "top": 0,
-              "right": 16,
-              "bottom": 16,
-              "left": 16
-            }
+            "containerComponent": "[D] BackgroundPlateSlot",
+            "requiredSiblings": [
+              "CorporateTopbar",
+              "[D] HeadRow :: Universal",
+              "[D] BodyRow :: Basic",
+              "Pagination"
+            ]
           },
-          "ruleText": "При размещении Table Basic [D] в теле CorporateContent под таблицу нужно подкладывать BackgroundPlate первого уровня с соответствующим фоном. Отступы от краёв BackgroundPlate до таблицы: слева 16 px, справа 16 px, снизу 16 px, сверху 0 px."
+          "ruleText": "Table Basic [D] должна размещаться внутри [D] BackgroundPlateSlot. Обязательная сборка включает CorporateTopbar, [D] HeadRow :: Universal, строки [D] BodyRow :: Basic и Pagination. TableView не является контейнером этой таблицы."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.use-basic-for-simple-table",
-          "severity": "warning",
+          "severity": "error",
           "source": "pattern-link",
           "patternId": "ptrn:components.table-basic-d",
           "patternRuleId": "rule:components.table-basic-d.use-basic-for-simple-table",
@@ -6899,12 +6897,12 @@
             "component": "Table Basic [D]",
             "mode": "basic"
           },
-          "recommendedUsage": {
+          "requiredUsage": {
             "maxColumns": 5,
             "requiresHorizontalScroll": false,
             "requiresColumnPinning": false
           },
-          "ruleText": "Table Basic [D] предназначен для простых таблиц с небольшим количеством данных. Рекомендуется использовать не более 5 столбцов; если нужен горизонтальный скролл или закрепление столбцов, используй Table Wide [D]."
+          "ruleText": "Table Basic [D] предназначен для более воздушных таблиц и поддерживает не более 5 столбцов. Если столбцов больше пяти, нужен горизонтальный скролл или группировка, используй Table Wide [D]."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.no-horizontal-scroll",
@@ -7272,7 +7270,78 @@
             "Graphics",
             "Addons"
           ],
-          "ruleText": "Для сборки локальной конфигурации Table Basic [D] можно детачить только строки HeaderRow и BodyRow. Остальные компоненты таблицы детачить нельзя."
+          "ruleText": "Для настройки состава и ширины колонок дизайнер детачит [D] HeadRow :: Universal и [D] BodyRow :: Basic, а затем добавляет в строки нужные библиотечные ячейки из [D] HeadCells :: Universal и [D] BodyCells :: Basic. Остальные компоненты таблицы детачить нельзя."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.supports-two-text-slots",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Basic [D]",
+            "cell": "[D] BodyCell :: Basic"
+          },
+          "allowedComposition": {
+            "maxTextSlotsPerCell": 2,
+            "secondTextSlotRequired": false,
+            "secondTextSlotContent": "context-dependent",
+            "slots": [
+              "Text 1",
+              "Text 2"
+            ]
+          },
+          "ruleText": "Ячейка Table Basic [D] может содержать два текстовых слота: Text 1 и опциональный Text 2. Содержимое Text 2 определяется контекстом. Это ключевое отличие Basic от Wide."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.internal-parts-not-standalone",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.placement",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenStandaloneComponents": [
+            "ActionButton",
+            "Control",
+            "Graphics",
+            "GraphicsSkeleton",
+            "LeftAddon",
+            "RightAddon",
+            "Text",
+            "🔄 Chevron",
+            "🔄 HeadControl",
+            "🔄 Sorting"
+          ],
+          "ruleText": "Служебные компоненты Table Basic предназначены только для внутренней сборки строк и ячеек. Их запрещено использовать как самостоятельные элементы интерфейса."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.edge-cell-widths-are-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.width",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenWidthOverride": [
+            "[D] BodyControlCell :: Basic",
+            "[D] BodyActionCell :: Basic",
+            "[D] HeadActionCell",
+            "[D] HeadControlCell"
+          ],
+          "ruleText": "Запрещено менять ширину control/action-ячеек Table Basic: BodyControlCell, BodyActionCell, HeadControlCell и HeadActionCell должны сохранять ширину effective baseline."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.row-height-uses-effective-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.height|layout.padding|layout.itemSpacing",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "rowHeight": "effective-baseline",
+            "verticalGeometry": "effective-baseline"
+          },
+          "ruleText": "Высота строк и их вертикальная геометрия в Table Basic должны сохраняться по effective baseline. Ручное изменение высоты строки запрещено."
         }
       ]
     },
@@ -7429,40 +7498,38 @@
           "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
         },
         {
-          "ruleId": "component:web-corp.table-basic-d.scheduled-parts-are-informational",
-          "severity": "info",
+          "ruleId": "component:web-corp.table-basic-d.scheduled-parts-are-legacy",
+          "severity": "warning",
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Scheduled-части таблиц являются lifecycle context для агента. Не считай scheduled status дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+          "ruleText": "Компоненты таблиц с префиксом 🔄 относятся к старой версии. Крайне не рекомендуется использовать их в новых макетах; для новой сборки выбирай актуальные компоненты без префикса 🔄."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.background-plate-wrapper-in-content",
           "severity": "error",
           "source": "composition-contract",
           "appliesTo": "screen.composition",
-          "checkType": "llm",
-          "matchKind": "composition_rule",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
           "conditions": {
             "component": "Table Basic [D]",
             "placement": "CorporateContent body"
           },
           "requiredComposition": {
-            "wrapperComponent": "BackgroundPlate",
-            "level": "Level 1",
-            "background": "matching page background",
-            "padding": {
-              "top": 0,
-              "right": 16,
-              "bottom": 16,
-              "left": 16
-            }
+            "containerComponent": "[D] BackgroundPlateSlot",
+            "requiredSiblings": [
+              "CorporateTopbar",
+              "[D] HeadRow :: Universal",
+              "[D] BodyRow :: Basic",
+              "Pagination"
+            ]
           },
-          "ruleText": "При размещении Table Basic [D] в теле CorporateContent под таблицу нужно подкладывать BackgroundPlate первого уровня с соответствующим фоном. Отступы от краёв BackgroundPlate до таблицы: слева 16 px, справа 16 px, снизу 16 px, сверху 0 px."
+          "ruleText": "Table Basic [D] должна размещаться внутри [D] BackgroundPlateSlot. Обязательная сборка включает CorporateTopbar, [D] HeadRow :: Universal, строки [D] BodyRow :: Basic и Pagination. TableView не является контейнером этой таблицы."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.use-basic-for-simple-table",
-          "severity": "warning",
+          "severity": "error",
           "source": "pattern-link",
           "patternId": "ptrn:components.table-basic-d",
           "patternRuleId": "rule:components.table-basic-d.use-basic-for-simple-table",
@@ -7473,12 +7540,12 @@
             "component": "Table Basic [D]",
             "mode": "basic"
           },
-          "recommendedUsage": {
+          "requiredUsage": {
             "maxColumns": 5,
             "requiresHorizontalScroll": false,
             "requiresColumnPinning": false
           },
-          "ruleText": "Table Basic [D] предназначен для простых таблиц с небольшим количеством данных. Рекомендуется использовать не более 5 столбцов; если нужен горизонтальный скролл или закрепление столбцов, используй Table Wide [D]."
+          "ruleText": "Table Basic [D] предназначен для более воздушных таблиц и поддерживает не более 5 столбцов. Если столбцов больше пяти, нужен горизонтальный скролл или группировка, используй Table Wide [D]."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.no-horizontal-scroll",
@@ -7846,7 +7913,78 @@
             "Graphics",
             "Addons"
           ],
-          "ruleText": "Для сборки локальной конфигурации Table Basic [D] можно детачить только строки HeaderRow и BodyRow. Остальные компоненты таблицы детачить нельзя."
+          "ruleText": "Для настройки состава и ширины колонок дизайнер детачит [D] HeadRow :: Universal и [D] BodyRow :: Basic, а затем добавляет в строки нужные библиотечные ячейки из [D] HeadCells :: Universal и [D] BodyCells :: Basic. Остальные компоненты таблицы детачить нельзя."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.supports-two-text-slots",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Basic [D]",
+            "cell": "[D] BodyCell :: Basic"
+          },
+          "allowedComposition": {
+            "maxTextSlotsPerCell": 2,
+            "secondTextSlotRequired": false,
+            "secondTextSlotContent": "context-dependent",
+            "slots": [
+              "Text 1",
+              "Text 2"
+            ]
+          },
+          "ruleText": "Ячейка Table Basic [D] может содержать два текстовых слота: Text 1 и опциональный Text 2. Содержимое Text 2 определяется контекстом. Это ключевое отличие Basic от Wide."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.internal-parts-not-standalone",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.placement",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenStandaloneComponents": [
+            "ActionButton",
+            "Control",
+            "Graphics",
+            "GraphicsSkeleton",
+            "LeftAddon",
+            "RightAddon",
+            "Text",
+            "🔄 Chevron",
+            "🔄 HeadControl",
+            "🔄 Sorting"
+          ],
+          "ruleText": "Служебные компоненты Table Basic предназначены только для внутренней сборки строк и ячеек. Их запрещено использовать как самостоятельные элементы интерфейса."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.edge-cell-widths-are-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.width",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenWidthOverride": [
+            "[D] BodyControlCell :: Basic",
+            "[D] BodyActionCell :: Basic",
+            "[D] HeadActionCell",
+            "[D] HeadControlCell"
+          ],
+          "ruleText": "Запрещено менять ширину control/action-ячеек Table Basic: BodyControlCell, BodyActionCell, HeadControlCell и HeadActionCell должны сохранять ширину effective baseline."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.row-height-uses-effective-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.height|layout.padding|layout.itemSpacing",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "rowHeight": "effective-baseline",
+            "verticalGeometry": "effective-baseline"
+          },
+          "ruleText": "Высота строк и их вертикальная геометрия в Table Basic должны сохраняться по effective baseline. Ручное изменение высоты строки запрещено."
         }
       ]
     },
@@ -7963,12 +8101,12 @@
           "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.scheduled-parts-are-informational",
-          "severity": "info",
+          "ruleId": "component:web-corp.table-wide-d.scheduled-parts-are-legacy",
+          "severity": "warning",
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Scheduled-части таблиц являются lifecycle context для агента. Не считай scheduled status дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+          "ruleText": "Компоненты таблиц с префиксом 🔄 относятся к старой версии. Крайне не рекомендуется использовать их в новых макетах; для новой сборки выбирай актуальные компоненты без префикса 🔄."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.head-cell-column-control-visible",
@@ -8049,20 +8187,17 @@
             "isStandaloneTableBlock": true
           },
           "requiredComposition": {
-            "wrapperComponent": "[D] BackgroundPlate",
-            "slotComponent": "[D] BackgroundPlateSlot",
-            "level": "Level 1",
-            "background": "matching page background",
-            "padding": {
-              "top": 0,
-              "right": 16,
-              "bottom": 16,
-              "left": 16
-            },
+            "containerComponent": "[D] BackgroundPlateSlot",
+            "requiredSiblings": [
+              "CorporateTopbar",
+              "[D] HeadRow :: Universal",
+              "[D] BodyRow :: Wide",
+              "Pagination"
+            ],
             "tablePlacement": "inside BackgroundPlateSlot",
             "forbiddenPlacement": "Table Wide [D] as direct child of page content stack after TitleView or TabsView"
           },
-          "ruleText": "При размещении Table Wide [D] как самостоятельного блока в теле CorporateContent таблица должна быть вложена в [D] BackgroundPlate первого уровня через [D] BackgroundPlateSlot. Нельзя оставлять Table Wide [D] прямым ребёнком page-content стека после TitleView или TabsView. Отступы от краёв BackgroundPlateSlot до таблицы: сверху 0 px, справа 16 px, снизу 16 px, слева 16 px."
+          "ruleText": "Table Wide [D] должна размещаться внутри [D] BackgroundPlateSlot. Обязательная сборка включает CorporateTopbar, [D] HeadRow :: Universal, строки [D] BodyRow :: Wide и Pagination. TableView не является контейнером этой таблицы."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.use-wide-component-for-extended-view",
@@ -8319,6 +8454,138 @@
             "companyDivider": "company or counterparty name"
           },
           "ruleText": "Разделители строк в Table Wide [D] должны подписывать фактическую группировку: для даты используй день и месяц, для компании - название компании или контрагента."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.detach-rows-for-column-composition",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.instance|component.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "allowedDetach": [
+            "[D] HeadRow :: Universal",
+            "[D] BodyRow :: Wide"
+          ],
+          "requiredCellSources": [
+            "[D] HeadCells :: Universal",
+            "[D] BodyCells :: Wide"
+          ],
+          "ruleText": "Для настройки состава и ширины колонок дизайнер детачит [D] HeadRow :: Universal и [D] BodyRow :: Wide, а затем добавляет в строки нужные библиотечные ячейки из [D] HeadCells :: Universal и [D] BodyCells :: Wide."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.single-text-slot-per-cell",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Wide [D]",
+            "cell": "[D] BodyCell :: Wide"
+          },
+          "requiredComposition": {
+            "maxTextSlotsPerCell": 1
+          },
+          "ruleText": "В одной ячейке Table Wide [D] допускается только один текстовый слот. Если внутри ячейки нужны Text 1 и Text 2, используй Table Basic [D]."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.internal-parts-not-standalone",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.placement",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenStandaloneComponents": [
+            "ActionButton",
+            "BorderLine",
+            "Chevron",
+            "ColumnControl",
+            "ColumnControl :: OptionList",
+            "ControlAddon",
+            "GroupBorderLine",
+            "HeadDivider",
+            "HeaderAddon",
+            "LeftAddon",
+            "RightAddon",
+            "Sorting",
+            "Text"
+          ],
+          "ruleText": "Служебные компоненты Table Wide предназначены только для внутренней сборки строк и ячеек. Их запрещено использовать как самостоятельные элементы интерфейса."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.keep-control-and-action-cells",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredLayers": [
+            "[D] HeadControlCell",
+            "[D] HeadActionCell",
+            "[D] BodyControlCell :: Wide",
+            "[D] BodyActionCell :: Wide"
+          ],
+          "allowedDisabledState": {
+            "headControlCellPreset": "None",
+            "headActionCellPreset": "None",
+            "bodyControlCellPreset": "None",
+            "bodyActionCellPreset": "None"
+          },
+          "ruleText": "ControlCell и ActionCell нельзя удалять из HeadRow и BodyRow Table Wide. Если контрол или действие не нужны, переключи соответствующую ячейку в Presets=None."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.one-grouping-level",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredComposition": {
+            "groupRow": "[D] BodyGroupRow :: Wide",
+            "maxGroupingLevels": 1
+          },
+          "ruleText": "Table Wide поддерживает только один уровень группировки через [D] BodyGroupRow :: Wide. Вложенная группировка запрещена."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.column-widths-match",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.width",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "headCellWidthEqualsBodyCellWidth": true,
+            "scope": "same column"
+          },
+          "ruleText": "Ширину обычных колонок Table Wide могут менять дизайнер и пользователь, но ширина HeadCell и всех BodyCell одного столбца должна строго совпадать."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.edge-cell-widths-are-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.width",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenWidthOverride": [
+            "[D] BodyControlCell :: Wide",
+            "[D] BodyActionCell :: Wide",
+            "[D] HeadActionCell",
+            "[D] HeadControlCell"
+          ],
+          "ruleText": "Запрещено менять ширину control/action-ячеек Table Wide: BodyControlCell, BodyActionCell, HeadControlCell и HeadActionCell должны сохранять ширину effective baseline."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.row-height-uses-effective-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.height|layout.padding|layout.itemSpacing",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "rowHeight": "effective-baseline",
+            "verticalGeometry": "effective-baseline"
+          },
+          "ruleText": "Высота строк и их вертикальная геометрия в Table Wide должны сохраняться по effective baseline. Ручное изменение высоты строки запрещено."
         }
       ]
     },
@@ -8434,12 +8701,12 @@
           "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.scheduled-parts-are-informational",
-          "severity": "info",
+          "ruleId": "component:web-corp.table-wide-d.scheduled-parts-are-legacy",
+          "severity": "warning",
           "source": "component-contract",
           "appliesTo": "component.status",
           "checkType": "manual",
-          "ruleText": "Scheduled-части таблиц являются lifecycle context для агента. Не считай scheduled status дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+          "ruleText": "Компоненты таблиц с префиксом 🔄 относятся к старой версии. Крайне не рекомендуется использовать их в новых макетах; для новой сборки выбирай актуальные компоненты без префикса 🔄."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.head-cell-column-control-visible",
@@ -8520,20 +8787,17 @@
             "isStandaloneTableBlock": true
           },
           "requiredComposition": {
-            "wrapperComponent": "[D] BackgroundPlate",
-            "slotComponent": "[D] BackgroundPlateSlot",
-            "level": "Level 1",
-            "background": "matching page background",
-            "padding": {
-              "top": 0,
-              "right": 16,
-              "bottom": 16,
-              "left": 16
-            },
+            "containerComponent": "[D] BackgroundPlateSlot",
+            "requiredSiblings": [
+              "CorporateTopbar",
+              "[D] HeadRow :: Universal",
+              "[D] BodyRow :: Wide",
+              "Pagination"
+            ],
             "tablePlacement": "inside BackgroundPlateSlot",
             "forbiddenPlacement": "Table Wide [D] as direct child of page content stack after TitleView or TabsView"
           },
-          "ruleText": "При размещении Table Wide [D] как самостоятельного блока в теле CorporateContent таблица должна быть вложена в [D] BackgroundPlate первого уровня через [D] BackgroundPlateSlot. Нельзя оставлять Table Wide [D] прямым ребёнком page-content стека после TitleView или TabsView. Отступы от краёв BackgroundPlateSlot до таблицы: сверху 0 px, справа 16 px, снизу 16 px, слева 16 px."
+          "ruleText": "Table Wide [D] должна размещаться внутри [D] BackgroundPlateSlot. Обязательная сборка включает CorporateTopbar, [D] HeadRow :: Universal, строки [D] BodyRow :: Wide и Pagination. TableView не является контейнером этой таблицы."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.use-wide-component-for-extended-view",
@@ -8790,6 +9054,138 @@
             "companyDivider": "company or counterparty name"
           },
           "ruleText": "Разделители строк в Table Wide [D] должны подписывать фактическую группировку: для даты используй день и месяц, для компании - название компании или контрагента."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.detach-rows-for-column-composition",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.instance|component.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "allowedDetach": [
+            "[D] HeadRow :: Universal",
+            "[D] BodyRow :: Wide"
+          ],
+          "requiredCellSources": [
+            "[D] HeadCells :: Universal",
+            "[D] BodyCells :: Wide"
+          ],
+          "ruleText": "Для настройки состава и ширины колонок дизайнер детачит [D] HeadRow :: Universal и [D] BodyRow :: Wide, а затем добавляет в строки нужные библиотечные ячейки из [D] HeadCells :: Universal и [D] BodyCells :: Wide."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.single-text-slot-per-cell",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "Table Wide [D]",
+            "cell": "[D] BodyCell :: Wide"
+          },
+          "requiredComposition": {
+            "maxTextSlotsPerCell": 1
+          },
+          "ruleText": "В одной ячейке Table Wide [D] допускается только один текстовый слот. Если внутри ячейки нужны Text 1 и Text 2, используй Table Basic [D]."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.internal-parts-not-standalone",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.placement",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenStandaloneComponents": [
+            "ActionButton",
+            "BorderLine",
+            "Chevron",
+            "ColumnControl",
+            "ColumnControl :: OptionList",
+            "ControlAddon",
+            "GroupBorderLine",
+            "HeadDivider",
+            "HeaderAddon",
+            "LeftAddon",
+            "RightAddon",
+            "Sorting",
+            "Text"
+          ],
+          "ruleText": "Служебные компоненты Table Wide предназначены только для внутренней сборки строк и ячеек. Их запрещено использовать как самостоятельные элементы интерфейса."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.keep-control-and-action-cells",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredLayers": [
+            "[D] HeadControlCell",
+            "[D] HeadActionCell",
+            "[D] BodyControlCell :: Wide",
+            "[D] BodyActionCell :: Wide"
+          ],
+          "allowedDisabledState": {
+            "headControlCellPreset": "None",
+            "headActionCellPreset": "None",
+            "bodyControlCellPreset": "None",
+            "bodyActionCellPreset": "None"
+          },
+          "ruleText": "ControlCell и ActionCell нельзя удалять из HeadRow и BodyRow Table Wide. Если контрол или действие не нужны, переключи соответствующую ячейку в Presets=None."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.one-grouping-level",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredComposition": {
+            "groupRow": "[D] BodyGroupRow :: Wide",
+            "maxGroupingLevels": 1
+          },
+          "ruleText": "Table Wide поддерживает только один уровень группировки через [D] BodyGroupRow :: Wide. Вложенная группировка запрещена."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.column-widths-match",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.width",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "headCellWidthEqualsBodyCellWidth": true,
+            "scope": "same column"
+          },
+          "ruleText": "Ширину обычных колонок Table Wide могут менять дизайнер и пользователь, но ширина HeadCell и всех BodyCell одного столбца должна строго совпадать."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.edge-cell-widths-are-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.width",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenWidthOverride": [
+            "[D] BodyControlCell :: Wide",
+            "[D] BodyActionCell :: Wide",
+            "[D] HeadActionCell",
+            "[D] HeadControlCell"
+          ],
+          "ruleText": "Запрещено менять ширину control/action-ячеек Table Wide: BodyControlCell, BodyActionCell, HeadControlCell и HeadActionCell должны сохранять ширину effective baseline."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.row-height-uses-effective-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.height|layout.padding|layout.itemSpacing",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "rowHeight": "effective-baseline",
+            "verticalGeometry": "effective-baseline"
+          },
+          "ruleText": "Высота строк и их вертикальная геометрия в Table Wide должны сохраняться по effective baseline. Ручное изменение высоты строки запрещено."
         }
       ]
     },
