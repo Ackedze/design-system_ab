@@ -52,7 +52,9 @@
     "overflow": "На desktop Slider появляется автоматически только при переполнении; вручную включать его нельзя. На mobile-web Slider запрещён, используется горизонтальный свайп.",
     "spacing": "Между Primary и Secondary — 24 px. Между последним видимым уровнем табов и контентом — 24 px. Менять эти отступы вручную нельзя.",
     "adaptiveParity": "Desktop и mobile-web версии должны иметь одинаковые названия, порядок и количество табов.",
-    "interaction": "Повторное нажатие на уже активный таб ничего не делает."
+    "interaction": "Повторное нажатие на уже активный таб ничего не делает. Таб может переключать контент текущей страницы или вести на другую страницу/URL.",
+    "contentBinding": "Допустимы только два уровня: Primary и Secondary. Если Secondary показан, контент принадлежит активному Secondary; прямого контента Primary в этом состоянии нет.",
+    "availability": "Недоступные из-за прав, сегмента или данных табы не скрываются, а переводятся в Disabled. Если активный таб становится недоступным, активируется первый доступный таб уровня."
   },
   "auditInterpretation": {
     "componentProperties": [
@@ -137,13 +139,17 @@
     "component:web-corp.tabs-view.individual-loading-behavior",
     "component:web-corp.tabs-view.root-skeleton-presentation",
     "component:web-corp.tabs-view.active-tab-repeat-click-noop",
+    "component:web-corp.tabs-view.maximum-two-levels",
+    "component:web-corp.tabs-view.content-follows-active-secondary",
+    "component:web-corp.tabs-view.unavailable-tabs-are-disabled",
+    "component:web-corp.tabs-view.navigation-mode-is-contextual",
     "component:web-corp.tabs-view.manual-visual-overrides-forbidden",
     "component:web-corp.tabs-view.platform-overflow-behavior"
   ],
   "schemaVersion": 1,
   "documentType": "component-agent-context",
   "componentKey": "web-corp.tabs-view",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -283,7 +289,9 @@
       "overflow": "На desktop Slider появляется автоматически только при переполнении; вручную включать его нельзя. На mobile-web Slider запрещён, используется горизонтальный свайп.",
       "spacing": "Между Primary и Secondary — 24 px. Между последним видимым уровнем табов и контентом — 24 px. Менять эти отступы вручную нельзя.",
       "adaptiveParity": "Desktop и mobile-web версии должны иметь одинаковые названия, порядок и количество табов.",
-      "interaction": "Повторное нажатие на уже активный таб ничего не делает."
+      "interaction": "Повторное нажатие на уже активный таб ничего не делает. Таб может переключать контент текущей страницы или вести на другую страницу/URL.",
+      "contentBinding": "Допустимы только два уровня: Primary и Secondary. Если Secondary показан, контент принадлежит активному Secondary; прямого контента Primary в этом состоянии нет.",
+      "availability": "Недоступные из-за прав, сегмента или данных табы не скрываются, а переводятся в Disabled. Если активный таб становится недоступным, активируется первый доступный таб уровня."
     },
     "auditInterpretation": {
       "componentProperties": [
@@ -360,6 +368,10 @@
       "component:web-corp.tabs-view.individual-loading-behavior",
       "component:web-corp.tabs-view.root-skeleton-presentation",
       "component:web-corp.tabs-view.active-tab-repeat-click-noop",
+      "component:web-corp.tabs-view.maximum-two-levels",
+      "component:web-corp.tabs-view.content-follows-active-secondary",
+      "component:web-corp.tabs-view.unavailable-tabs-are-disabled",
+      "component:web-corp.tabs-view.navigation-mode-is-contextual",
       "component:web-corp.tabs-view.manual-visual-overrides-forbidden",
       "component:web-corp.tabs-view.platform-overflow-behavior"
     ]

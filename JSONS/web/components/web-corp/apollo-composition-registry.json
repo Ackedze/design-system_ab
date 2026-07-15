@@ -103763,7 +103763,7 @@
         "schemaVersion": 1,
         "documentType": "composition-contract",
         "componentKey": "web-corp.tabs-view",
-        "status": "draft",
+        "status": "ready",
         "applicability": {
           "channels": [
             "b2b"
@@ -103813,7 +103813,7 @@
         ],
         "ownershipModel": {
           "defaultNestedDiffPolicy": "compare-against-tabs-view-effective-baseline",
-          "wrapperOwnedOverridePolicy": "Не показывай wrapper-owned overrides как customizations, когда actual совпадает с TabsView effective baseline. Если actual отличается, показывай effectiveBaseline -> actual."
+          "wrapperOwnedOverridePolicy": "Не показывай изменения, заданные обёрткой, как кастомизации, когда фактическое значение совпадает с effective baseline TabsView. Если значение отличается, показывай effective baseline → фактическое значение."
         },
         "compositionPolicy": {
           "primaryRequired": true,
@@ -103850,6 +103850,16 @@
           "onPrimarySelection": "activate-first-enabled-secondary",
           "restorePreviousSecondarySelection": false,
           "activeTabRepeatedClick": "no-op",
+          "maximumTabLevels": 2,
+          "thirdLevelAllowed": false,
+          "contentBindingWhenSecondaryExists": "active Secondary",
+          "directPrimaryContentWhenSecondaryExists": false,
+          "unavailableTabBehavior": "disabled-not-hidden",
+          "onActiveTabBecomesUnavailable": "activate-first-enabled-tab",
+          "navigationModes": [
+            "switch-content-in-current-page",
+            "navigate-to-page-or-url"
+          ],
           "secondaryFixedProperties": {
             "Size": "40",
             "View": "Filled",

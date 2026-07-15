@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "component-contract-overrides",
   "componentKey": "web-corp.tabs-view",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -26,7 +26,7 @@
           "false",
           "true"
         ],
-        "description": "Переключает TabsView между ready и loading/skeleton presentation."
+        "description": "Переключает TabsView между готовым состоянием и общим skeleton загрузки."
       }
     }
   },
@@ -84,7 +84,26 @@
     "restorePreviousSecondarySelection": false
   },
   "interactionPolicy": {
-    "activeTabRepeatedClick": "no-op"
+    "activeTabRepeatedClick": "no-op",
+    "navigationModes": [
+      "switch-content-in-current-page",
+      "navigate-to-page-or-url"
+    ],
+    "onActiveTabBecomesUnavailable": "activate-first-enabled-tab"
+  },
+  "contentBindingPolicy": {
+    "maximumTabLevels": 2,
+    "levels": [
+      "Primary",
+      "Secondary"
+    ],
+    "thirdLevelAllowed": false,
+    "whenSecondaryExists": "content belongs to active Secondary",
+    "directPrimaryContentWhenSecondaryExists": false
+  },
+  "availabilityPolicy": {
+    "unavailableTabBehavior": "disabled-not-hidden",
+    "hideUnavailableTabs": false
   },
   "secondaryPropertyPolicy": {
     "fixed": {
@@ -149,13 +168,13 @@
       "path": "TabsPrimary",
       "scope": "internal-instance",
       "designerEditable": false,
-      "notes": "Wrapper-owned реализация primary tabs."
+      "notes": "Вложенная реализация primary tabs, управляемая TabsView."
     },
     "primaryItems": {
       "path": "TabsPrimary / Items",
       "scope": "wrapper-owned-layout",
       "designerEditable": false,
-      "notes": "TabsView владеет spacing между primary tab items."
+      "notes": "TabsView определяет отступы между primary tabs."
     },
     "tabPrimary": {
       "path": "TabsPrimary / Items / TabPrimary",
@@ -171,7 +190,7 @@
       "path": "[D]/[M] TabsSecondary",
       "scope": "internal-instance",
       "designerEditable": false,
-      "notes": "Wrapper-owned реализация secondary tabs/tag."
+      "notes": "Вложенная реализация secondary tabs, управляемая TabsView."
     }
   },
   "resetModel": {
@@ -231,6 +250,9 @@
     "spacing other than 24 px between Primary and Secondary",
     "spacing other than 24 px between last visible tab level and content",
     "different labels, order or tab count between desktop and mobile-web",
+    "third tab level",
+    "direct Primary content when Secondary exists",
+    "hiding a tab because of permissions, segment or data availability",
     "manual changes to spacing, padding, divider, typography, fill, stroke, radius or opacity",
     "manual Slider activation on desktop",
     "Slider on mobile-web"

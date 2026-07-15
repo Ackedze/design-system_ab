@@ -9461,6 +9461,51 @@
           "ruleText": "Повторное нажатие на уже активный таб ничего не делает и не запускает обновление контента."
         },
         {
+          "ruleId": "component:web-corp.tabs-view.maximum-two-levels",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "maximumLevels": 2,
+          "allowedLevels": [
+            "Primary",
+            "Secondary"
+          ],
+          "ruleText": "В TabsView допустимы только два уровня: Primary и Secondary. Третий уровень табов запрещён."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.content-follows-active-secondary",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition|content",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Если у выбранного Primary показан Secondary, контент должен соответствовать активному Secondary. Прямого контента самого Primary в этом состоянии быть не должно."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.unavailable-tabs-are-disabled",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.visibility|variant.DisabledState|variant.ActiveState",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Недоступные из-за прав, сегмента или данных табы не скрываются, а переводятся в Disabled. Если активный таб становится недоступным, активируется первый доступный таб этого уровня."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.navigation-mode-is-contextual",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "allowedModes": [
+            "switch-content-in-current-page",
+            "navigate-to-page-or-url"
+          ],
+          "ruleText": "Таб может переключать контент внутри текущей страницы или выполнять переход на другую страницу/URL. Режим определяется продуктовым контекстом."
+        },
+        {
           "ruleId": "component:web-corp.tabs-view.secondary-fixed-properties",
           "severity": "error",
           "source": "component-contract",

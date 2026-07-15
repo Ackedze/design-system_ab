@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Design System
-- status: draft
+- status: ready
 - updatedAt: 2026-07-15
 - sourceType: component-guideline
 - tags: tabs-view, tabs-primary, tabs-secondary, navigation, adaptive, mobile-web
@@ -66,6 +66,9 @@
 18. При выборе Primary активируется первый доступный Secondary; предыдущий выбор не восстанавливается.
 19. Любой таб может перезагружаться отдельно, не блокируя переключение; корневой Skeleton показывает один общий skeleton.
 20. Повторное нажатие на активный таб ничего не делает.
+21. Допустимы только два уровня: Primary и Secondary.
+22. Недоступные табы не скрываются, а переводятся в Disabled.
+23. Таб может переключать контент текущей страницы или вести на другую страницу/URL.
 
 ## Section 5: Структура текста
 
@@ -293,6 +296,46 @@ Desktop и Mobile Web версии TabsView должны иметь одинак
 
 Повторное нажатие на уже активный таб ничего не делает и не запускает обновление контента.
 
+### Rule 23: Не добавляй третий уровень
+
+- ruleId: rule:components.tabs-view.maximum-two-levels
+- severity: error
+- appliesTo: composition
+- checkType: deterministic
+- autofix: no
+
+В TabsView допустимы только два уровня: Primary и Secondary. Третий уровень табов запрещён.
+
+### Rule 24: Привязывай контент к активному Secondary
+
+- ruleId: rule:components.tabs-view.content-follows-active-secondary
+- severity: error
+- appliesTo: composition
+- checkType: llm
+- autofix: no
+
+Если у выбранного Primary показан Secondary, контент должен соответствовать активному Secondary. Прямого контента самого Primary в этом состоянии быть не должно.
+
+### Rule 25: Отключай недоступные табы вместо скрытия
+
+- ruleId: rule:components.tabs-view.unavailable-tabs-are-disabled
+- severity: error
+- appliesTo: component
+- checkType: llm
+- autofix: partial
+
+Табы, недоступные из-за прав, сегмента пользователя или данных, не скрываются, а переводятся в Disabled. Если активный таб становится недоступным, активируется первый доступный таб уровня.
+
+### Rule 26: Выбирай навигационный режим по контексту
+
+- ruleId: rule:components.tabs-view.navigation-mode-is-contextual
+- severity: info
+- appliesTo: interaction
+- checkType: llm
+- autofix: no
+
+Таб может переключать контент внутри текущей страницы или выполнять переход на другую страницу/URL. Оба режима допустимы и выбираются по продуктовому контексту.
+
 ## Section 7: Шаблоны
 
 ### Один уровень
@@ -364,6 +407,7 @@ Overflow: horizontal swipe
 - Проверять наличие хотя бы одного доступного активного таба на каждом показанном уровне.
 - Проверять отступ `24 px` между Primary и Secondary и между последним уровнем табов и контентом.
 - Проверять общий skeleton при `TabsView.Skeleton=true`.
+- Проверять отсутствие третьего уровня табов.
 - Проверять использование `[D] TabsView` на desktop и `[M] TabsView` на Mobile Web.
 - Сравнивать вложенные layout и typography с effective baseline `TabsView`.
 - Фиксировать ручные изменения spacing, padding, divider, typography, fill, stroke, radius и opacity как нарушения.
@@ -377,6 +421,9 @@ Overflow: horizontal swipe
 - Проверять выбор первого доступного Secondary при переключении Primary.
 - Проверять доступность переключения во время индивидуальной загрузки таба.
 - Проверять, что повторное нажатие на активный таб не запускает действие.
+- Проверять привязку контента к активному Secondary.
+- Проверять, что недоступные табы отключены, а не скрыты.
+- Проверять соответствие навигационного режима продуктовому контексту.
 
 ### Словарные проверки
 

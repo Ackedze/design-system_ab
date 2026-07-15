@@ -1,37 +1,69 @@
-# TabsView — MVP component contract
+# TabsView contract package
 
-Папка содержит экспериментальный слой component-contract для **Web _ Corp Components / TabsView**.
+Источник raw-каталога:
 
-The raw Figma catalog remains the source of truth:
+`JSONS/web/components/web-corp/Web _ Corp Components -- TabsView.json`
 
-`../Web _ Corp Components -- TabsView.json`
+Пакет описывает машиночитаемый слой для `[D] TabsView` и `[M] TabsView`. Он не заменяет raw-каталог Apollo, а дополняет его семантикой, правилами композиции, effective baseline и контекстом для агента.
 
-That file is intentionally not edited by hand. It stores the exported Figma component structures, variants, nested layers, fills, strokes, text styles and token references.
+## Область применения
+
+- Канал: `b2b`
+- Платформы: `desktop`, `mobile-web`
+- Библиотека: `Web _ Corp Components`
+- Статус комплекта: `ready`
 
 ## Файлы
 
-- `contract.generated.json` — generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — semantic layer, заполняемый вручную: public API, anatomy, slots и reset model.
-- `composition-contract.json` — ownership rules for nested TabsPrimary/TabsSecondary overrides.
-- `rules.json` — component-level and composition-level rules.
-- `audit-mapping.json` — как Apollo должен классифицировать и группировать diffs TabsView.
-- `examples.json` — MVP fixtures for testing Apollo and agent interpretation.
-- `agent-context.json` — compact context that can be passed to the agent instead of the generated contract.
+- `contract.generated.json` — автоматически сформированный baseline из raw-каталога.
+- `contract.overrides.json` — публичные параметры, семантика состояний, ограничения и reset model.
+- `composition-contract.json` — вложенная структура, ownership и effective baseline для Primary и Secondary.
+- `rules.json` — машиночитаемые правила компонента.
+- `audit-mapping.json` — классификация изменений и правила отображения результатов аудита Apollo.
+- `examples.json` — положительные и отрицательные regression-примеры.
+- `agent-context.json` — компактный контекст для анализа отчёта агентом.
+- `p_tabs-view.md` — компонентный паттерн в `patterns`.
 
-## Intended use
+## Структура
 
-Apollo должен использовать TabsView effective baseline for nested TabsPrimary/TabsSecondary differences. Wrapper-owned overrides must not be reported as customizations when actual equals the effective baseline.
+- `TabsPrimary` обязателен.
+- `TabsSecondary` опционален и используется только внутри выбранного Primary.
+- Допустимы только два уровня табов.
+- На каждом видимом уровне должно быть минимум два таба и один доступный активный таб.
+- Для каждого Primary может использоваться собственный набор Secondary.
+- При выборе Primary активируется первый доступный Secondary.
 
-Агент должен получать `agent-context.json` или меньший slice этого файла, а не полный raw Figma catalog и не полный generated contract.
+## Настройки
 
-## Important audit rule
+- Secondary: `Size=40`, `View=Filled`, `Shape=Rounded`, `SingleIcon=False`.
+- `Indicator=Collapsed` показывает точку.
+- `Indicator=Digit` показывает счётчик до `99+`.
+- Label содержит не более 10 символов и остаётся однострочным.
+- Addon у активного доступного Primary может содержать иконку, счётчик или статус.
+- Недоступные табы переводятся в Disabled, а не скрываются.
 
-Standalone nested component baseline is not enough for composite components.
+## Композиция и адаптивность
 
-Example:
+- Между Primary и Secondary используется отступ `24 px`.
+- Между последним уровнем табов и контентом используется отступ `24 px`.
+- На desktop переполнение обрабатывается автоматическим Slider.
+- На Mobile Web используется горизонтальный свайп; Slider запрещён.
+- Desktop и Mobile Web сохраняют одинаковые названия, порядок и количество табов.
 
-`TabsPrimary / Items.itemSpacing: 24 → 32` is not a customization when `32` is TabsView effective baseline.
+## Правила аудита
 
-If designer changes it to `40`, Apollo should show:
+Apollo сравнивает вложенные Primary и Secondary с effective baseline TabsView, а не со standalone baseline вложенного компонента.
 
-`TabsPrimary / Items.itemSpacing: 32 → 40`.
+Например, если standalone `TabsPrimary / Items.itemSpacing` равен `24`, а TabsView задаёт `32`, значение `32` не является кастомизацией. Если дизайнер изменил его на `40`, Apollo показывает:
+
+`TabsPrimary / Items.itemSpacing: 32 → 40`
+
+Ручные изменения отступов, паддингов, divider, типографики, заливок, обводок, скруглений и opacity запрещены.
+
+## Загрузка и взаимодействие
+
+- `TabsView.Skeleton=true` показывает один общий skeleton.
+- Любой таб может перезагружаться отдельно.
+- Активный загружающийся таб остаётся выбранным; остальные табы доступны.
+- Повторное нажатие на активный таб ничего не делает.
+- Таб может переключать контент текущей страницы или выполнять переход на другую страницу/URL.
