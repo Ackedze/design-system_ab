@@ -6964,8 +6964,8 @@
           "ruleText": "В Table Basic [D] не реализован функционал группировки по столбцам. Не показывай управление Группировать для столбцов в настройках базовой таблицы."
         },
         {
-          "ruleId": "component:web-corp.table-basic-d.group-rows-with-groupbar",
-          "severity": "warning",
+          "ruleId": "component:web-corp.table-basic-d.group-divider-is-section-heading",
+          "severity": "info",
           "source": "pattern-link",
           "patternId": "ptrn:components.table-basic-d",
           "patternRuleId": "rule:components.table-basic-d.group-rows-with-groupbar",
@@ -6974,20 +6974,21 @@
           "matchKind": "exact_component_rule",
           "conditions": {
             "component": "Table Basic [D]",
-            "rowGrouping": true
+            "hasSectionDivider": true
           },
-          "requiredComposition": {
-            "groupComponent": "[D] GroupDivider :: Basic",
-            "alias": "GroupBar"
+          "allowedComposition": {
+            "dividerComponent": "[D] GroupDivider :: Basic",
+            "role": "section heading or divider",
+            "isTableGrouping": false
           },
           "requiredContent": {
             "dateDivider": "day and month",
             "companyDivider": "company or counterparty name"
           },
-          "ruleText": "Для группировки строк в Table Basic [D] используй GroupBar / [D] GroupDivider :: Basic. Для даты пиши день и месяц, для компании - название компании или контрагента."
+          "ruleText": "[D] GroupDivider :: Basic — это заголовок или визуальный разделитель набора строк, например по дате или контрагенту. Он не превращает Basic в таблицу с функциональной группировкой."
         },
         {
-          "ruleId": "component:web-corp.table-basic-d.column-settings-chevron-visible",
+          "ruleId": "component:web-corp.table-basic-d.column-control-visible",
           "severity": "error",
           "source": "pattern-link",
           "patternId": "ptrn:components.table-basic-d",
@@ -6998,7 +6999,7 @@
           "conditions": {
             "component": "Table Basic [D]",
             "cell": "[D] HeadCell",
-            "requiredLayer": "Chevron"
+            "requiredLayer": "ColumnControl"
           },
           "requiredState": {
             "visible": true,
@@ -7006,11 +7007,11 @@
             "removed": false
           },
           "forbidden": {
-            "hiddenChevron": true,
-            "detachedChevron": true,
-            "zeroOpacityChevron": true
+            "hiddenColumnControl": true,
+            "detachedColumnControl": true,
+            "zeroOpacityColumnControl": true
           },
-          "ruleText": "В каждом столбце Table Basic [D] должен быть видимый шеврон настроек. Шеврон нельзя скрывать, удалять или делать прозрачным."
+          "ruleText": "В каждом HeadCell актуальной сборки Table Basic должен оставаться видимый ColumnControl. Его нельзя скрывать, удалять или делать прозрачным. Chevron относится к старой версии компонентов с префиксом 🔄."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.keep-control-and-action-cells",
@@ -7080,7 +7081,7 @@
           "conditions": {
             "component": "Table Basic [D]",
             "cell": "[D] HeadCell",
-            "control": "Chevron"
+            "control": "ColumnControl"
           },
           "requiredBehavior": {
             "sortableColumnMenuItems": [
@@ -7100,7 +7101,7 @@
             "sortActionsInNonSortableColumn": true,
             "pinColumnAction": true
           },
-          "ruleText": "Пункты сортировки в меню Chevron показываются только у сортируемых колонок Table Basic [D]. У несортируемой колонки меню не должно содержать сортировку. Действие закрепления в Basic запрещено."
+          "ruleText": "Пункты сортировки в меню ColumnControl показываются только у сортируемых колонок Table Basic. У несортируемой колонки меню не должно содержать сортировку. Все остальные команды универсальны; действие закрепления в Basic запрещено."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.column-width-reset-actions",
@@ -7125,7 +7126,7 @@
             "resetColumnWidth": "restore current column baseline width",
             "resetAllColumnWidths": "restore all baseline widths"
           },
-          "ruleText": "Если в Table Basic [D] доступно ручное изменение ширины колонок, меню колонки должно давать сброс ширины текущей колонки и сброс ширины всех колонок."
+          "ruleText": "В Table Basic [D] дизайнер и пользователь могут менять ширину колонок и сбрасывать её через меню. Поскольку горизонтальный скролл запрещён, увеличение одной колонки должно компенсироваться уменьшением другой."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.pagination-by-row-count",
@@ -7143,7 +7144,8 @@
           "requiredState": {
             "rowsLessOrEqualTen": {
               "paginationPreset": "None",
-              "singlePageBlockRequired": false
+              "paginationComponentPresent": true,
+              "paginationControlsVisible": false
             },
             "rowsMoreThanTen": {
               "paginationPreset": "Pagination"
@@ -7151,7 +7153,7 @@
             "lastRowBottomDivider": false,
             "scrollbarEnabled": false
           },
-          "ruleText": "Если в Table Basic [D] 10 строк или меньше, блок с одной страницей можно отключить через preset None. Если строк больше 10 и появляется вторая страница, используй preset Pagination. Scrollbar в пагинации Basic не включается."
+          "ruleText": "Pagination всегда остаётся в композиции Table Basic. Если в таблице 10 строк или меньше, переключи её в Presets=None, но не удаляй. Если строк больше 10 и появляется вторая страница, используй Presets=Pagination. Scrollbar в пагинации Basic не включается."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.sticky-plate-when-overflow",
@@ -7190,13 +7192,16 @@
           },
           "requiredState": {
             "paginationBlockPreset": "BulkActions",
-            "bulkActionsPaginationMode": "per-page"
+            "bulkActionsPaginationMode": "per-page",
+            "maxActionButtons": 4,
+            "actionMeaning": "contextually applies to selected rows",
+            "buttonPattern": "ptrn:controls.buttons-and-button-groups"
           },
           "forbidden": {
             "component": "TableBulkActions",
             "separateBulkActionsComponent": true
           },
-          "ruleText": "При выборе строк в Table Basic [D] нижний блок переключается в preset BulkActions. В новой сборке таблиц не используй отдельный компонент TableBulkActions; групповые действия должны быть состоянием пагинационного блока."
+          "ruleText": "При выборе строк в Table Basic нижний блок переключается в Presets=BulkActions. Отдельный TableBulkActions больше не используется. Внутри допускается до четырёх кнопок по паттерну кнопок; действия должны относиться к выделенным строкам, например отправить, удалить, переслать или скопировать."
         },
         {
           "ruleId": "component:web-corp.table-basic-d.keep-one-visible-column",
@@ -7342,649 +7347,247 @@
             "verticalGeometry": "effective-baseline"
           },
           "ruleText": "Высота строк и их вертикальная геометрия в Table Basic должны сохраняться по effective baseline. Ручное изменение высоты строки запрещено."
-        }
-      ]
-    },
-    {
-      "componentKey": "web-corp.table-basic-d",
-      "packageName": "Table Basic [D]",
-      "aliases": [
-        "[D] BodyActionCell",
-        "[D] BodyActionCell :: Basic",
-        "[D] BodyCell",
-        "[D] BodyCell :: Basic",
-        "[D] BodyControlCell",
-        "[D] BodyControlCell :: Basic",
-        "[D] BodyRow :: Basic",
-        "[D] BodyRow :: Core",
-        "[D] GroupDivider :: Basic",
-        "[D] HeadActionCell",
-        "[D] HeadCell",
-        "[D] HeadControlCell",
-        "[D] HeadRow :: Core",
-        "[D] ListHeaderRow :: Core",
-        "🔄 [D] BodyActionCell",
-        "🔄 [D] BodyCell",
-        "🔄 [D] BodyControlCell",
-        "🔄 [D] BodyRow :: Core",
-        "🔄 [D] HeadActionCell",
-        "🔄 [D] HeadCell",
-        "🔄 [D] HeadControlCell",
-        "🔄 [D] HeadRow :: Core",
-        "🔄 [D] ListHeaderRow :: Core",
-        "🔄 Chevron",
-        "🔄 HeadControl",
-        "🔄 Sorting",
-        "🔒 [D] BodyCell",
-        "Chevron",
-        "Control",
-        "Graphics",
-        "GraphicsSkeleton",
-        "HeadControl",
-        "LeftAddon",
-        "RightAddon",
-        "Sorting",
-        "Table Basic [D]",
-        "Text"
-      ],
-      "rulesFile": "JSONS/web/components/web-corp/Table Basic [D]/rules.json",
-      "rules": [
+        },
         {
-          "ruleId": "component:web-corp.table-basic-d.component-properties-are-first-class",
+          "ruleId": "component:web-corp.table-basic-d.column-resize-without-horizontal-scroll",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.width|component.layout",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredBehavior": {
+            "headAndBodyWidthsMatch": true,
+            "horizontalScroll": false,
+            "increaseOneColumnReducesAnother": true
+          },
+          "ruleText": "Ширины колонок Table Basic можно менять, но HeadCell и BodyCell одного столбца должны совпадать. Увеличение одной колонки компенсируй уменьшением другой: горизонтальный скролл в Basic запрещён."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.sorting-is-contextual",
           "severity": "info",
           "source": "component-contract",
-          "appliesTo": "variant.*",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "target": {
-            "component": "web-corp.table-basic-d",
-            "layers": [
-              "[D] BodyActionCell",
-              "[D] BodyActionCell :: Basic",
-              "[D] BodyCell",
-              "[D] BodyCell :: Basic",
-              "[D] BodyControlCell",
-              "[D] BodyControlCell :: Basic",
-              "[D] BodyRow",
-              "[D] BodyRow :: Basic",
-              "[D] BodyRow :: Core",
-              "[D] GroupDivider",
-              "[D] GroupDivider :: Basic",
-              "[D] HeadActionCell",
-              "[D] HeadCell",
-              "[D] HeadControlCell",
-              "[D] HeadRow",
-              "[D] HeadRow :: Core",
-              "[D] ListHeaderRow",
-              "[D] ListHeaderRow :: Core",
-              "🔄 [D] BodyActionCell",
-              "🔄 [D] BodyCell",
-              "🔄 [D] BodyControlCell",
-              "🔄 [D] BodyRow :: Core",
-              "🔄 [D] HeadActionCell",
-              "🔄 [D] HeadCell",
-              "🔄 [D] HeadControlCell",
-              "🔄 [D] HeadRow :: Core",
-              "🔄 [D] ListHeaderRow :: Core",
-              "🔄 Chevron",
-              "🔄 HeadControl",
-              "🔄 Sorting",
-              "🔒 [D] BodyCell",
-              "Chevron",
-              "Control",
-              "Graphics",
-              "GraphicsSkeleton",
-              "HeadControl",
-              "LeftAddon",
-              "RightAddon",
-              "Sorting",
-              "Text"
-            ]
-          },
-          "ruleText": "Изменения variant/property в компонентах семейства таблиц являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.layer-properties-use-effective-baseline",
-          "severity": "warning",
-          "source": "composition-contract",
-          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "target": {
-            "component": "web-corp.table-basic-d",
-            "layers": [
-              "[D] BodyActionCell",
-              "[D] BodyActionCell :: Basic",
-              "[D] BodyCell",
-              "[D] BodyCell :: Basic",
-              "[D] BodyControlCell",
-              "[D] BodyControlCell :: Basic",
-              "[D] BodyRow",
-              "[D] BodyRow :: Basic",
-              "[D] BodyRow :: Core",
-              "[D] GroupDivider",
-              "[D] GroupDivider :: Basic",
-              "[D] HeadActionCell",
-              "[D] HeadCell",
-              "[D] HeadControlCell",
-              "[D] HeadRow",
-              "[D] HeadRow :: Core",
-              "[D] ListHeaderRow",
-              "[D] ListHeaderRow :: Core",
-              "🔄 [D] BodyActionCell",
-              "🔄 [D] BodyCell",
-              "🔄 [D] BodyControlCell",
-              "🔄 [D] BodyRow :: Core",
-              "🔄 [D] HeadActionCell",
-              "🔄 [D] HeadCell",
-              "🔄 [D] HeadControlCell",
-              "🔄 [D] HeadRow :: Core",
-              "🔄 [D] ListHeaderRow :: Core",
-              "🔄 Chevron",
-              "🔄 HeadControl",
-              "🔄 Sorting",
-              "🔒 [D] BodyCell",
-              "Chevron",
-              "Control",
-              "Graphics",
-              "GraphicsSkeleton",
-              "HeadControl",
-              "LeftAddon",
-              "RightAddon",
-              "Sorting",
-              "Text"
-            ]
-          },
-          "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.scheduled-parts-are-legacy",
-          "severity": "warning",
-          "source": "component-contract",
-          "appliesTo": "component.status",
+          "appliesTo": "component.visibility|variant.Sorting",
           "checkType": "manual",
-          "ruleText": "Компоненты таблиц с префиксом 🔄 относятся к старой версии. Крайне не рекомендуется использовать их в новых макетах; для новой сборки выбирай актуальные компоненты без префикса 🔄."
+          "matchKind": "exact_component_rule",
+          "ruleText": "Sorting не обязателен для каждого столбца Table Basic. Дизайнер включает его только для тех столбцов, где сортировка нужна по контексту."
         },
         {
-          "ruleId": "component:web-corp.table-basic-d.background-plate-wrapper-in-content",
+          "ruleId": "component:web-corp.table-basic-d.skeleton-default-and-partial-loading",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Skeleton",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "defaultState": "all table elements are loading",
+          "allowedExceptions": [
+            "individual rows",
+            "individual cells"
+          ],
+          "ruleText": "По умолчанию skeleton включается согласованно для всех элементов таблицы. При частичном обновлении данных допускается состояние загрузки отдельной строки или отдельной ячейки."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.single-active-sorting-column",
           "severity": "error",
-          "source": "composition-contract",
-          "appliesTo": "screen.composition",
+          "source": "component-contract",
+          "appliesTo": "variant.Sorting|component.state",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "maxActiveSortingColumns": 1,
+            "initialSortingSource": "product logic"
+          },
+          "ruleText": "В Table Basic одновременно может быть активна сортировка только одного столбца. Начальное состояние сортировки определяется продуктовой логикой, а не произвольным решением дизайнера."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.body-row-may-be-clickable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "BodyRow в Table Basic может быть кликабельна полностью, если это соответствует сценарию перехода или открытия объекта."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.select-all-current-page",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.behavior|component.composition",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "conditions": {
-            "component": "Table Basic [D]",
-            "placement": "CorporateContent body"
+            "bodyControlCellsUseCheckboxes": true
           },
-          "requiredComposition": {
-            "containerComponent": "[D] BackgroundPlateSlot",
-            "requiredSiblings": [
+          "requiredState": {
+            "headControlCellCheckbox": true,
+            "selectAllScope": "current page"
+          },
+          "ruleText": "Если строки Table Basic содержат checkbox, в HeadControlCell обязателен checkbox выбора всех строк. Он выбирает только строки текущей страницы."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.action-cell-content",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition|variant.Presets",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "allowedContent": [
+            "one Button",
+            "PickerButton for multiple actions",
+            "Presets=None"
+          ],
+          "ruleText": "BodyActionCell Table Basic содержит одну кнопку, PickerButton для нескольких действий или Presets=None. Другие композиции ActionCell запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.no-arbitrary-cell-instance-swap",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "instanceSwap|component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbidden": {
+            "arbitraryNestedInstanceSwap": true
+          },
+          "ruleText": "В BodyCell Table Basic запрещён произвольный instance swap. Используй только состав и presets, предусмотренные компонентом."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.data-formatting-follows-pattern",
+          "severity": "info",
+          "source": "pattern-link",
+          "patternId": "ptrn:tables.data-formatting",
+          "appliesTo": "content.formatting|layout.alignment",
+          "checkType": "manual",
+          "ruleText": "Выравнивание и форматирование данных Table Basic определяются отдельным паттерном «Форматирование данных в таблице»; не выводи эти правила из структуры компонента."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.desktop-from-768",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "platform|viewport.width",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "platform": "desktop",
+            "minViewportWidthPx": 768
+          },
+          "ruleText": "Table Basic применяется только на desktop при ширине viewport от 768 px. Для Mobile Web ниже 768 px этот компонент не используется."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.assembly-width-fill",
+          "severity": "error",
+          "source": "composition-contract",
+          "appliesTo": "layout.width|layoutSizingHorizontal",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "sizing": "Fill",
+            "equalWidth": [
               "CorporateTopbar",
               "[D] HeadRow :: Universal",
               "[D] BodyRow :: Basic",
               "Pagination"
+            ],
+            "container": "[D] BackgroundPlateSlot"
+          },
+          "ruleText": "CorporateTopbar, HeadRow, все BodyRow и Pagination Table Basic должны иметь одинаковую ширину и заполнять [D] BackgroundPlateSlot по Fill."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.empty-error-state-system-message",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition|component.state",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "state": [
+              "empty",
+              "error"
             ]
           },
-          "ruleText": "Table Basic [D] должна размещаться внутри [D] BackgroundPlateSlot. Обязательная сборка включает CorporateTopbar, [D] HeadRow :: Universal, строки [D] BodyRow :: Basic и Pagination. TableView не является контейнером этой таблицы."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.use-basic-for-simple-table",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.use-basic-for-simple-table",
-          "appliesTo": "component.selection",
-          "checkType": "llm",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "mode": "basic"
-          },
-          "requiredUsage": {
-            "maxColumns": 5,
-            "requiresHorizontalScroll": false,
-            "requiresColumnPinning": false
-          },
-          "ruleText": "Table Basic [D] предназначен для более воздушных таблиц и поддерживает не более 5 столбцов. Если столбцов больше пяти, нужен горизонтальный скролл или группировка, используй Table Wide [D]."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.no-horizontal-scroll",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.no-horizontal-scroll",
-          "appliesTo": "component.layout",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]"
-          },
-          "forbidden": {
-            "horizontalScroll": true,
-            "paginationScrollbar": true,
-            "scrollbarPresetEnabled": true
-          },
-          "ruleText": "В Table Basic [D] не бывает горизонтального скролла. Не включай Scrollbar в блоке пагинации базовой таблицы."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.no-column-pinning",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.no-column-pinning",
-          "appliesTo": "component.behavior",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "area": "column menu"
-          },
-          "forbidden": {
-            "pinColumnAction": true,
-            "menuItem": "Закрепить столбец",
-            "menuItemEn": "Pin column"
-          },
-          "ruleText": "В Table Basic [D] недоступна функция закрепления столбца. В меню колонки не должно быть действия Закрепить столбец / Pin column."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.no-column-grouping",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.no-column-grouping",
-          "appliesTo": "component.behavior",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "area": "table settings"
-          },
-          "forbidden": {
-            "columnGrouping": true,
-            "groupByColumnControl": true,
-            "settingsItem": "Группировать"
-          },
-          "ruleText": "В Table Basic [D] не реализован функционал группировки по столбцам. Не показывай управление Группировать для столбцов в настройках базовой таблицы."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.group-rows-with-groupbar",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.group-rows-with-groupbar",
-          "appliesTo": "component.composition",
-          "checkType": "llm",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "rowGrouping": true
-          },
+          "requiredComponent": "CorporateSystemMessage",
           "requiredComposition": {
-            "groupComponent": "[D] GroupDivider :: Basic",
-            "alias": "GroupBar"
-          },
-          "requiredContent": {
-            "dateDivider": "day and month",
-            "companyDivider": "company or counterparty name"
-          },
-          "ruleText": "Для группировки строк в Table Basic [D] используй GroupBar / [D] GroupDivider :: Basic. Для даты пиши день и месяц, для компании - название компании или контрагента."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.column-settings-chevron-visible",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.column-settings-chevron-visible",
-          "appliesTo": "component.visibility",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "cell": "[D] HeadCell",
-            "requiredLayer": "Chevron"
-          },
-          "requiredState": {
-            "visible": true,
-            "opacity": 1,
-            "removed": false
-          },
-          "forbidden": {
-            "hiddenChevron": true,
-            "detachedChevron": true,
-            "zeroOpacityChevron": true
-          },
-          "ruleText": "В каждом столбце Table Basic [D] должен быть видимый шеврон настроек. Шеврон нельзя скрывать, удалять или делать прозрачным."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.keep-control-and-action-cells",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.keep-control-and-action-cells",
-          "appliesTo": "component.composition",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "rows": [
-              "[D] HeadRow",
-              "[D] BodyRow :: Basic"
+            "replaces": "BodyRow only",
+            "preserves": [
+              "CorporateTopbar",
+              "[D] HeadRow :: Universal",
+              "Pagination"
             ]
           },
-          "requiredLayers": [
-            "[D] HeadControlCell",
-            "[D] HeadActionCell",
-            "[D] BodyControlCell :: Basic",
-            "[D] BodyActionCell :: Basic"
-          ],
-          "allowedDisabledState": {
-            "headControlCellPreset": "None",
-            "headActionCellPreset": "None",
-            "bodyControlCellPreset": "None",
-            "bodyActionCellPreset": "None"
-          },
-          "forbidden": {
-            "removedControlCell": true,
-            "removedActionCell": true,
-            "deletedEdgeCellsInsteadOfPresetNone": true
-          },
-          "ruleText": "Не удаляй ControlCell и ActionCell из шапки и строк Table Basic [D]. Если чекбоксы или действия не нужны, выбирай preset None в соответствующих Head/Body ControlCell и ActionCell."
+          "ruleText": "Для пустого или ошибочного состояния Table Basic используй CorporateSystemMessage вместо BodyRow. CorporateTopbar, HeadRow и Pagination остаются в композиции."
         },
         {
-          "ruleId": "component:web-corp.table-basic-d.reset-all-restores-baseline",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.reset-all-restores-baseline",
-          "appliesTo": "component.behavior",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "action": "Сбросить все настройки"
-          },
-          "requiredBehavior": {
-            "restoreVisibility": true,
-            "restoreOrder": true,
-            "restoreColumnWidths": true,
-            "targetState": "baseline"
-          },
-          "ruleText": "Кнопка Сбросить все настройки должна возвращать Table Basic [D] к базовым значениям видимости, порядка и ширины колонок."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.sorting-menu-by-column-capability",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.sorting-only-for-sortable-columns",
-          "appliesTo": "component.behavior",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "cell": "[D] HeadCell",
-            "control": "Chevron"
-          },
-          "requiredBehavior": {
-            "sortableColumnMenuItems": [
-              "Сортировать по возрастанию",
-              "Сортировать по убыванию",
-              "Сбросить ширину столбца",
-              "Сбросить ширину всех столбцов"
-            ],
-            "nonSortableColumnMenuItems": [
-              "Сбросить ширину столбца",
-              "Сбросить ширину всех столбцов"
-            ],
-            "defaultSortingPreset": "Not selected",
-            "allowedPresetOverride": "product-defined initial sorting"
-          },
-          "forbidden": {
-            "sortActionsInNonSortableColumn": true,
-            "pinColumnAction": true
-          },
-          "ruleText": "Пункты сортировки в меню Chevron показываются только у сортируемых колонок Table Basic [D]. У несортируемой колонки меню не должно содержать сортировку. Действие закрепления в Basic запрещено."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.column-width-reset-actions",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.column-width-reset",
-          "appliesTo": "component.behavior",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "manualColumnResize": true
-          },
-          "requiredMenuItems": [
-            "Сбросить ширину столбца",
-            "Сбросить ширину всех столбцов"
-          ],
-          "requiredBehavior": {
-            "resizeControl": "divider between columns in table header",
-            "neighborColumnEffect": "decreasing one column increases right neighbor width",
-            "resetColumnWidth": "restore current column baseline width",
-            "resetAllColumnWidths": "restore all baseline widths"
-          },
-          "ruleText": "Если в Table Basic [D] доступно ручное изменение ширины колонок, меню колонки должно давать сброс ширины текущей колонки и сброс ширины всех колонок."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.pagination-by-row-count",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.pagination-by-row-count",
-          "appliesTo": "component.state",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "area": "pagination"
-          },
-          "requiredState": {
-            "rowsLessOrEqualTen": {
-              "paginationPreset": "None",
-              "singlePageBlockRequired": false
-            },
-            "rowsMoreThanTen": {
-              "paginationPreset": "Pagination"
-            },
-            "lastRowBottomDivider": false,
-            "scrollbarEnabled": false
-          },
-          "ruleText": "Если в Table Basic [D] 10 строк или меньше, блок с одной страницей можно отключить через preset None. Если строк больше 10 и появляется вторая страница, используй preset Pagination. Scrollbar в пагинации Basic не включается."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.sticky-plate-when-overflow",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.sticky-plate-when-overflow",
-          "appliesTo": "component.layout",
-          "checkType": "llm",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "tableHeightExceedsViewport": true,
-            "hasBottomControlBlock": true
-          },
-          "requiredBehavior": {
-            "bottomBlock": "sticky plate",
-            "position": "bottom of visible table container",
-            "rowsScrollUnderBlock": true
-          },
-          "ruleText": "Если Table Basic [D] не помещается во viewport по высоте, нижний блок Pagination или BulkActions должен работать как sticky plate у нижнего края видимой области таблицы."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.bulk-actions-use-pagination-preset",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.bulk-actions-use-pagination-preset",
-          "appliesTo": "component.state",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "hasCheckboxes": true,
-            "selectedRowsCountGreaterThan": 0
-          },
-          "requiredState": {
-            "paginationBlockPreset": "BulkActions",
-            "bulkActionsPaginationMode": "per-page"
-          },
-          "forbidden": {
-            "component": "TableBulkActions",
-            "separateBulkActionsComponent": true
-          },
-          "ruleText": "При выборе строк в Table Basic [D] нижний блок переключается в preset BulkActions. В новой сборке таблиц не используй отдельный компонент TableBulkActions; групповые действия должны быть состоянием пагинационного блока."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.keep-one-visible-column",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.keep-one-visible-column",
-          "appliesTo": "component.visibility",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "area": "column visibility settings"
-          },
-          "requiredState": {
-            "minVisibleColumns": 1
-          },
-          "forbidden": {
-            "hideLastVisibleColumn": true,
-            "visibleColumnCount": 0
-          },
-          "ruleText": "В настройках Table Basic [D] можно скрывать любые колонки, кроме последней видимой. Таблица не должна оставаться без видимых колонок."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.column-order-follows-settings",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.column-order-drag-and-drop",
-          "appliesTo": "component.composition",
-          "checkType": "llm",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "area": "column order settings"
-          },
-          "requiredBehavior": {
-            "control": "drag-and-drop in settings column list",
-            "tableColumnOrder": "matches settings list order"
-          },
-          "ruleText": "Порядок колонок Table Basic [D] изменяется drag-and-drop в списке настроек. После изменения порядок колонок в таблице должен совпадать с порядком в списке."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.detach-only-rows",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-basic-d",
-          "patternRuleId": "rule:components.table-basic-d.detach-only-rows",
-          "appliesTo": "component.instance",
-          "checkType": "manual",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "designerWorkflow": "local row composition"
-          },
-          "allowedDetach": [
-            "HeaderRow",
-            "BodyRow",
-            "Local :: HeaderRow",
-            "Local :: BodyRow"
-          ],
-          "forbiddenDetach": [
-            "Pagination",
-            "HeadCell",
-            "BodyCell",
-            "ControlCell",
-            "ActionCell",
-            "Sorting",
-            "Chevron",
-            "Text",
-            "Graphics",
-            "Addons"
-          ],
-          "ruleText": "Для настройки состава и ширины колонок дизайнер детачит [D] HeadRow :: Universal и [D] BodyRow :: Basic, а затем добавляет в строки нужные библиотечные ячейки из [D] HeadCells :: Universal и [D] BodyCells :: Basic. Остальные компоненты таблицы детачить нельзя."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.supports-two-text-slots",
+          "ruleId": "component:web-corp.table-basic-d.cell-alignment-editable",
           "severity": "info",
           "source": "component-contract",
-          "appliesTo": "component.composition",
+          "appliesTo": "layout.alignment",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Basic [D]",
-            "cell": "[D] BodyCell :: Basic"
-          },
-          "allowedComposition": {
-            "maxTextSlotsPerCell": 2,
-            "secondTextSlotRequired": false,
-            "secondTextSlotContent": "context-dependent",
-            "slots": [
-              "Text 1",
-              "Text 2"
-            ]
-          },
-          "ruleText": "Ячейка Table Basic [D] может содержать два текстовых слота: Text 1 и опциональный Text 2. Содержимое Text 2 определяется контекстом. Это ключевое отличие Basic от Wide."
-        },
-        {
-          "ruleId": "component:web-corp.table-basic-d.internal-parts-not-standalone",
-          "severity": "error",
-          "source": "component-contract",
-          "appliesTo": "component.placement",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "forbiddenStandaloneComponents": [
-            "ActionButton",
-            "Control",
-            "Graphics",
-            "GraphicsSkeleton",
-            "LeftAddon",
-            "RightAddon",
-            "Text",
-            "🔄 Chevron",
-            "🔄 HeadControl",
-            "🔄 Sorting"
+          "allowedLayers": [
+            "[D] HeadCell",
+            "[D] BodyCell :: Basic"
           ],
-          "ruleText": "Служебные компоненты Table Basic предназначены только для внутренней сборки строк и ячеек. Их запрещено использовать как самостоятельные элементы интерфейса."
+          "ruleText": "Дизайнер может менять alignment внутри HeadCell и BodyCell Table Basic в соответствии с паттерном форматирования данных."
         },
         {
-          "ruleId": "component:web-corp.table-basic-d.edge-cell-widths-are-fixed",
+          "ruleId": "component:web-corp.table-basic-d.rows-per-page-user-editable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "pagination.rowsPerPage",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "allowedValues": [
+            10,
+            25,
+            50,
+            100
+          ],
+          "ruleText": "Пользователь может менять количество отображаемых строк через Pagination только между значениями 10, 25, 50 и 100."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.manual-visual-styles-forbidden",
           "severity": "error",
           "source": "component-contract",
-          "appliesTo": "layout.width",
+          "appliesTo": "styles.text|fill|stroke|opacity|layout.padding|layout.itemSpacing|radius",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
-          "forbiddenWidthOverride": [
-            "[D] BodyControlCell :: Basic",
-            "[D] BodyActionCell :: Basic",
-            "[D] HeadActionCell",
-            "[D] HeadControlCell"
+          "forbiddenOverrides": [
+            "typography",
+            "fill",
+            "stroke",
+            "opacity",
+            "padding",
+            "spacing",
+            "radius"
           ],
-          "ruleText": "Запрещено менять ширину control/action-ячеек Table Basic: BodyControlCell, BodyActionCell, HeadControlCell и HeadActionCell должны сохранять ширину effective baseline."
+          "allowedOverrides": [
+            "alignment in HeadCell/BodyCell",
+            "ordinary column width",
+            "text characters",
+            "component-supported presets"
+          ],
+          "ruleText": "В строках и ячейках Table Basic запрещено вручную менять typography, fill, stroke, opacity, padding, spacing и radius. Разрешены alignment, ширина обычных колонок, текст и предусмотренные компонентом presets."
         },
         {
-          "ruleId": "component:web-corp.table-basic-d.row-height-uses-effective-baseline",
+          "ruleId": "component:web-corp.table-basic-d.supported-presets-allowed",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Presets",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Дизайнер может выбирать предусмотренные компонентом presets ячеек и addons. Это не является произвольным instance swap."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.visual-states-use-effective-baseline",
           "severity": "error",
           "source": "component-contract",
-          "appliesTo": "layout.height|layout.padding|layout.itemSpacing",
+          "appliesTo": "state.hover|state.selected|state.disabled|fill|stroke|opacity",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "requiredState": {
-            "rowHeight": "effective-baseline",
-            "verticalGeometry": "effective-baseline"
+            "hover": "effective-baseline",
+            "selected": "effective-baseline",
+            "disabled": "effective-baseline"
           },
-          "ruleText": "Высота строк и их вертикальная геометрия в Table Basic должны сохраняться по effective baseline. Ручное изменение высоты строки запрещено."
+          "ruleText": "Hover, selected и disabled состояния строк и ячеек Table Basic полностью определяются effective baseline. Ручная настройка их цветов и визуальных стилей запрещена."
         }
       ]
     },
@@ -8340,9 +7943,11 @@
             "reason": "no horizontal scroll"
           },
           "requiredBehavior": {
-            "pinningScope": "selected column and all columns to the left"
+            "pinningScope": "selected column and all columns to the left",
+            "maxPinnedColumns": "all columns",
+            "allColumnsPinnedEffect": "equivalent to no pinning"
           },
-          "ruleText": "Закрепление колонок доступно только в Table Wide [D]. В Table Basic [D] действие Pin column не используется."
+          "ruleText": "Закрепление колонок доступно только в Table Wide [D]. Можно закрепить вплоть до всех столбцов, но закрепление всех столбцов эквивалентно отсутствию закрепления и не даёт отдельного эффекта. В Table Basic действие Pin column не используется."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.column-width-reset-actions",
@@ -8383,14 +7988,15 @@
           "requiredState": {
             "rowsLessOrEqualTen": {
               "paginationPreset": "None",
-              "singlePageBlockRequired": false
+              "paginationComponentPresent": true,
+              "paginationControlsVisible": false
             },
             "rowsMoreThanTen": {
               "paginationPreset": "Pagination"
             },
             "lastRowBottomDivider": false
           },
-          "ruleText": "Если в таблице 10 строк или меньше, блок с одной страницей можно отключить через preset None. Если строк больше 10 и появляется вторая страница, используй preset Pagination. У последней строки таблицы нижний разделитель отсутствует."
+          "ruleText": "Pagination всегда остаётся в композиции Table Wide. Если в таблице 10 строк или меньше, переключи её в Presets=None, но не удаляй. Если строк больше 10 и появляется вторая страница, используй Presets=Pagination. У последней строки таблицы нижний разделитель отсутствует."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.sticky-plate-when-overflow",
@@ -8429,13 +8035,16 @@
           },
           "requiredState": {
             "paginationBlockPreset": "BulkActions",
-            "bulkActionsPaginationMode": "per-page"
+            "bulkActionsPaginationMode": "per-page",
+            "maxActionButtons": 4,
+            "actionMeaning": "contextually applies to selected rows",
+            "buttonPattern": "ptrn:controls.buttons-and-button-groups"
           },
           "forbidden": {
             "component": "TableBulkActions",
             "separateBulkActionsComponent": true
           },
-          "ruleText": "При выборе строк в Table Wide [D] нижний блок переключается в preset BulkActions. В новой сборке таблиц не используй отдельный компонент TableBulkActions; групповые действия должны быть состоянием пагинационного блока."
+          "ruleText": "При выборе строк в Table Wide нижний блок переключается в Presets=BulkActions. Отдельный TableBulkActions больше не используется. Внутри допускается до четырёх кнопок по паттерну кнопок; действия должны относиться к выделенным строкам, например отправить, удалить, переслать или скопировать."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.group-divider-labels",
@@ -8586,606 +8195,233 @@
             "verticalGeometry": "effective-baseline"
           },
           "ruleText": "Высота строк и их вертикальная геометрия в Table Wide должны сохраняться по effective baseline. Ручное изменение высоты строки запрещено."
-        }
-      ]
-    },
-    {
-      "componentKey": "web-corp.table-wide-d",
-      "packageName": "Table Wide [D]",
-      "aliases": [
-        "[D] BodyActionCell :: Wide",
-        "[D] BodyCell :: Wide",
-        "[D] BodyControlCell :: Wide",
-        "[D] BodyGroupRow :: Wide",
-        "[D] BodyRow :: Wide",
-        "[D] HeadActionCell",
-        "[D] HeadCell",
-        "[D] HeadControlCell",
-        "[D] HeadRow :: Universal",
-        "BorderLine",
-        "Chevron",
-        "ColumnControl",
-        "ColumnControl :: OptionList",
-        "ControlAddon",
-        "GroupBorderLine",
-        "HeadDivider",
-        "HeaderAddon",
-        "LeftAddon",
-        "RightAddon",
-        "Sorting",
-        "Table Wide [D]",
-        "Text"
-      ],
-      "rulesFile": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
-      "rules": [
+        },
         {
-          "ruleId": "component:web-corp.table-wide-d.component-properties-are-first-class",
+          "ruleId": "component:web-corp.table-wide-d.sorting-is-contextual",
           "severity": "info",
           "source": "component-contract",
-          "appliesTo": "variant.*",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "target": {
-            "component": "web-corp.table-wide-d",
-            "layers": [
-              "[D] BodyActionCell",
-              "[D] BodyActionCell :: Wide",
-              "[D] BodyCell",
-              "[D] BodyCell :: Wide",
-              "[D] BodyControlCell",
-              "[D] BodyControlCell :: Wide",
-              "[D] BodyGroupRow",
-              "[D] BodyGroupRow :: Wide",
-              "[D] BodyRow",
-              "[D] BodyRow :: Wide",
-              "[D] HeadActionCell",
-              "[D] HeadCell",
-              "[D] HeadControlCell",
-              "[D] HeadRow",
-              "[D] HeadRow :: Universal",
-              "BorderLine",
-              "Chevron",
-              "ColumnControl",
-              "ColumnControl :: OptionList",
-              "ControlAddon",
-              "GroupBorderLine",
-              "HeadDivider",
-              "HeaderAddon",
-              "LeftAddon",
-              "RightAddon",
-              "Sorting",
-              "Text"
-            ]
-          },
-          "ruleText": "Изменения variant/property в компонентах семейства таблиц являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.layer-properties-use-effective-baseline",
-          "severity": "warning",
-          "source": "composition-contract",
-          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "target": {
-            "component": "web-corp.table-wide-d",
-            "layers": [
-              "[D] BodyActionCell",
-              "[D] BodyActionCell :: Wide",
-              "[D] BodyCell",
-              "[D] BodyCell :: Wide",
-              "[D] BodyControlCell",
-              "[D] BodyControlCell :: Wide",
-              "[D] BodyGroupRow",
-              "[D] BodyGroupRow :: Wide",
-              "[D] BodyRow",
-              "[D] BodyRow :: Wide",
-              "[D] HeadActionCell",
-              "[D] HeadCell",
-              "[D] HeadControlCell",
-              "[D] HeadRow",
-              "[D] HeadRow :: Universal",
-              "BorderLine",
-              "Chevron",
-              "ColumnControl",
-              "ColumnControl :: OptionList",
-              "ControlAddon",
-              "GroupBorderLine",
-              "HeadDivider",
-              "HeaderAddon",
-              "LeftAddon",
-              "RightAddon",
-              "Sorting",
-              "Text"
-            ]
-          },
-          "ruleText": "Изменения layer/style внутри компонентов семейства таблиц нужно сравнивать с effective baseline текущего table variant и nested owner context."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.scheduled-parts-are-legacy",
-          "severity": "warning",
-          "source": "component-contract",
-          "appliesTo": "component.status",
+          "appliesTo": "component.visibility|variant.Sorting",
           "checkType": "manual",
-          "ruleText": "Компоненты таблиц с префиксом 🔄 относятся к старой версии. Крайне не рекомендуется использовать их в новых макетах; для новой сборки выбирай актуальные компоненты без префикса 🔄."
+          "matchKind": "exact_component_rule",
+          "ruleText": "Sorting не обязателен для каждого столбца Table Wide. Дизайнер включает его только для тех столбцов, где сортировка нужна по контексту."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.head-cell-column-control-visible",
+          "ruleId": "component:web-corp.table-wide-d.skeleton-default-and-partial-loading",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Skeleton",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "defaultState": "all table elements are loading",
+          "allowedExceptions": [
+            "individual rows",
+            "individual cells"
+          ],
+          "ruleText": "По умолчанию skeleton включается согласованно для всех элементов таблицы. При частичном обновлении данных допускается состояние загрузки отдельной строки или отдельной ячейки."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.single-active-sorting-column",
           "severity": "error",
           "source": "component-contract",
-          "appliesTo": "component.visibility",
+          "appliesTo": "variant.Sorting|component.state",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "maxActiveSortingColumns": 1,
+            "initialSortingSource": "product logic"
+          },
+          "ruleText": "В Table Wide одновременно может быть активна сортировка только одного столбца. Начальное состояние сортировки определяется продуктовой логикой, а не произвольным решением дизайнера."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.body-row-may-be-clickable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "BodyRow в Table Wide может быть кликабельна полностью, если это соответствует сценарию перехода или открытия объекта."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.select-all-current-page",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.behavior|component.composition",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "conditions": {
-            "component": "Table Wide [D]",
-            "cell": "[D] HeadCell",
-            "requiredLayer": "ColumnControl",
-            "requiredPath": "TitleBlock / ColumnControl"
+            "bodyControlCellsUseCheckboxes": true
           },
           "requiredState": {
-            "visible": true,
-            "opacity": 1,
-            "removed": false
+            "headControlCellCheckbox": true,
+            "selectAllScope": "current page"
           },
-          "forbidden": {
-            "hiddenColumnControl": true,
-            "detachedColumnControl": true,
-            "zeroOpacityColumnControl": true
-          },
-          "ruleText": "В [D] HeadCell запрещено скрывать ColumnControl. Элемент ColumnControl должен быть виден клиенту и оставаться частью TitleBlock / ColumnControl."
+          "ruleText": "Если строки Table Wide содержат checkbox, в HeadControlCell обязателен checkbox выбора всех строк. Он выбирает только строки текущей страницы."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.column-controls-min-width",
+          "ruleId": "component:web-corp.table-wide-d.action-cell-content",
           "severity": "error",
-          "source": "composition-contract",
-          "appliesTo": "component.composition",
+          "source": "component-contract",
+          "appliesTo": "component.composition|variant.Presets",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "cell": "[D] HeadCell",
-            "hasHeaderInteractiveElements": true
-          },
-          "requiredComposition": {
-            "minColumnWidthPx": 160,
-            "minGapBetweenTitleAndControlsPx": 8,
-            "requiredElementsInWidthCalculation": [
-              "Title",
-              "HeaderAddon",
-              "Sorting",
-              "ColumnControl"
-            ],
-            "measurement": "column width must fit visible title text plus all visible controls without bounding-box intersections",
-            "dateColumnOverride": {
-              "headerExamples": [
-                "Дата",
-                "Дата заявки",
-                "Дата создания",
-                "Дата изменения"
-              ],
-              "minColumnWidthPx": 160
-            }
-          },
-          "forbidden": {
-            "overlapBetweenControls": true,
-            "overlapBetweenTitleAndControls": true,
-            "overlapBetweenAddonAndControls": true,
-            "hiddenColumnControlBecauseOfWidth": true,
-            "columnWidthBelowRequiredMinimum": true
-          },
-          "ruleText": "Ширина колонки Table Wide [D] с [D] HeadCell должна учитывать все элементы заголовка: Title, HeaderAddon, Sorting и ColumnControl. Элементы не должны налезать друг на друга: между текстом заголовка, addon и controls должен сохраняться зазор не меньше 8 px. ColumnControl нельзя скрывать из-за недостаточной ширины. Если ширины недостаточно, увеличь колонку или используй корректное сокращение текста без наложения controls."
+          "allowedContent": [
+            "one Button",
+            "PickerButton for multiple actions",
+            "Presets=None"
+          ],
+          "ruleText": "BodyActionCell Table Wide содержит одну кнопку, PickerButton для нескольких действий или Presets=None. Другие композиции ActionCell запрещены."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.background-plate-wrapper-in-content",
+          "ruleId": "component:web-corp.table-wide-d.no-arbitrary-cell-instance-swap",
           "severity": "error",
-          "source": "composition-contract",
-          "appliesTo": "screen.composition",
+          "source": "component-contract",
+          "appliesTo": "instanceSwap|component.composition",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "placement": "CorporateContent body",
-            "isStandaloneTableBlock": true
+          "forbidden": {
+            "arbitraryNestedInstanceSwap": true
           },
-          "requiredComposition": {
-            "containerComponent": "[D] BackgroundPlateSlot",
-            "requiredSiblings": [
+          "ruleText": "В BodyCell Table Wide запрещён произвольный instance swap. Используй только состав и presets, предусмотренные компонентом."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.data-formatting-follows-pattern",
+          "severity": "info",
+          "source": "pattern-link",
+          "patternId": "ptrn:tables.data-formatting",
+          "appliesTo": "content.formatting|layout.alignment",
+          "checkType": "manual",
+          "ruleText": "Выравнивание и форматирование данных Table Wide определяются отдельным паттерном «Форматирование данных в таблице»; не выводи эти правила из структуры компонента."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.desktop-from-768",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "platform|viewport.width",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "platform": "desktop",
+            "minViewportWidthPx": 768
+          },
+          "ruleText": "Table Wide применяется только на desktop при ширине viewport от 768 px. Для Mobile Web ниже 768 px этот компонент не используется."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.assembly-width-fill",
+          "severity": "error",
+          "source": "composition-contract",
+          "appliesTo": "layout.width|layoutSizingHorizontal",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "sizing": "Fill",
+            "equalWidth": [
               "CorporateTopbar",
               "[D] HeadRow :: Universal",
               "[D] BodyRow :: Wide",
               "Pagination"
             ],
-            "tablePlacement": "inside BackgroundPlateSlot",
-            "forbiddenPlacement": "Table Wide [D] as direct child of page content stack after TitleView or TabsView"
+            "container": "[D] BackgroundPlateSlot"
           },
-          "ruleText": "Table Wide [D] должна размещаться внутри [D] BackgroundPlateSlot. Обязательная сборка включает CorporateTopbar, [D] HeadRow :: Universal, строки [D] BodyRow :: Wide и Pagination. TableView не является контейнером этой таблицы."
+          "ruleText": "CorporateTopbar, HeadRow, все BodyRow и Pagination Table Wide должны иметь одинаковую ширину и заполнять [D] BackgroundPlateSlot по Fill."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.use-wide-component-for-extended-view",
+          "ruleId": "component:web-corp.table-wide-d.empty-error-state-system-message",
           "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.use-wide-component",
-          "appliesTo": "component.selection",
+          "source": "component-contract",
+          "appliesTo": "component.composition|component.state",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "conditions": {
-            "tableSetting": "Расширенный вид",
-            "settingValue": true
+            "state": [
+              "empty",
+              "error"
+            ]
           },
-          "requiredComponent": {
-            "component": "Table Wide [D]",
-            "figmaComponentName": "Table :: Wide"
+          "requiredComponent": "CorporateSystemMessage",
+          "requiredComposition": {
+            "replaces": "BodyRow only",
+            "preserves": [
+              "CorporateTopbar",
+              "[D] HeadRow :: Universal",
+              "Pagination"
+            ]
           },
-          "forbidden": {
-            "component": "Table Basic [D]",
-            "basicTableForExtendedView": true
-          },
-          "ruleText": "Если в настройках таблицы включён Расширенный вид, таблица должна быть собрана на Table Wide [D] / Table :: Wide. Не используй Table Basic [D] для расширенного вида."
+          "ruleText": "Для пустого или ошибочного состояния Table Wide используй CorporateSystemMessage вместо BodyRow. CorporateTopbar, HeadRow и Pagination остаются в композиции."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.keep-one-visible-column",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.keep-one-visible-column",
-          "appliesTo": "component.visibility",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "area": "column visibility settings"
-          },
-          "requiredState": {
-            "minVisibleColumns": 1
-          },
-          "forbidden": {
-            "hideLastVisibleColumn": true,
-            "visibleColumnCount": 0
-          },
-          "ruleText": "В настройках Table Wide [D] можно скрывать любые колонки, кроме последней видимой. Таблица не должна оставаться без видимых колонок."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.column-order-follows-settings",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.column-order-drag-and-drop",
-          "appliesTo": "component.composition",
-          "checkType": "llm",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "area": "column order settings"
-          },
-          "requiredBehavior": {
-            "control": "drag-and-drop in settings column list",
-            "tableColumnOrder": "matches settings list order"
-          },
-          "ruleText": "Порядок колонок Table Wide [D] изменяется drag-and-drop в списке настроек. После изменения порядок колонок в таблице должен совпадать с порядком в списке."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.reset-all-restores-baseline",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.reset-all-restores-baseline",
-          "appliesTo": "component.behavior",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "action": "Сбросить все настройки"
-          },
-          "requiredBehavior": {
-            "restoreVisibility": true,
-            "restoreOrder": true,
-            "restoreColumnWidths": true,
-            "targetState": "baseline"
-          },
-          "ruleText": "Кнопка Сбросить все настройки должна возвращать Table Wide [D] к базовым значениям видимости, порядка и ширины колонок."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.sorting-menu-by-column-capability",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.sorting-only-for-sortable-columns",
-          "appliesTo": "component.behavior",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "cell": "[D] HeadCell",
-            "control": "ColumnControl"
-          },
-          "requiredBehavior": {
-            "sortableColumnMenuItems": [
-              "Sort ascending",
-              "Sort descending",
-              "Pin column",
-              "Reset column width",
-              "Reset width of all columns"
-            ],
-            "nonSortableColumnMenuItems": [
-              "Pin column",
-              "Reset column width",
-              "Reset width of all columns"
-            ],
-            "defaultSortingPreset": "Not selected",
-            "allowedPresetOverride": "product-defined initial sorting"
-          },
-          "forbidden": {
-            "sortActionsInNonSortableColumn": true
-          },
-          "ruleText": "Пункты сортировки в меню ColumnControl показываются только у сортируемых колонок. У несортируемой колонки меню не должно содержать Sort ascending и Sort descending."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.pinning-wide-only",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.pinning-wide-only",
-          "appliesTo": "component.behavior",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "action": "Pin column"
-          },
-          "allowedIn": {
-            "component": "Table Wide [D]",
-            "reason": "has horizontal scroll"
-          },
-          "forbiddenIn": {
-            "component": "Table Basic [D]",
-            "reason": "no horizontal scroll"
-          },
-          "requiredBehavior": {
-            "pinningScope": "selected column and all columns to the left"
-          },
-          "ruleText": "Закрепление колонок доступно только в Table Wide [D]. В Table Basic [D] действие Pin column не используется."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.column-width-reset-actions",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.column-width-reset",
-          "appliesTo": "component.behavior",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "manualColumnResize": true
-          },
-          "requiredMenuItems": [
-            "Reset column width",
-            "Reset width of all columns"
-          ],
-          "requiredBehavior": {
-            "resetColumnWidth": "restore current column baseline width",
-            "resetAllColumnWidths": "restore all baseline widths"
-          },
-          "ruleText": "Если в Table Wide [D] доступно ручное изменение ширины колонок, меню колонки должно давать сброс ширины текущей колонки и сброс ширины всех колонок."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.pagination-by-row-count",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.pagination-by-row-count",
-          "appliesTo": "component.state",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "area": "pagination"
-          },
-          "requiredState": {
-            "rowsLessOrEqualTen": {
-              "paginationPreset": "None",
-              "singlePageBlockRequired": false
-            },
-            "rowsMoreThanTen": {
-              "paginationPreset": "Pagination"
-            },
-            "lastRowBottomDivider": false
-          },
-          "ruleText": "Если в таблице 10 строк или меньше, блок с одной страницей можно отключить через preset None. Если строк больше 10 и появляется вторая страница, используй preset Pagination. У последней строки таблицы нижний разделитель отсутствует."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.sticky-plate-when-overflow",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.sticky-plate-when-overflow",
-          "appliesTo": "component.layout",
-          "checkType": "llm",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "tableHeightExceedsViewport": true,
-            "hasBottomControlBlock": true
-          },
-          "requiredBehavior": {
-            "bottomBlock": "sticky plate",
-            "position": "bottom of visible table container",
-            "rowsScrollUnderBlock": true
-          },
-          "ruleText": "Если Table Wide [D] не помещается во вьюпорт по высоте, нижний блок Pagination или BulkActions должен работать как sticky plate у нижнего края видимой области таблицы."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.bulk-actions-use-pagination-preset",
-          "severity": "error",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "patternRuleId": "rule:components.table-wide-d.bulk-actions-use-pagination-preset",
-          "appliesTo": "component.state",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "hasCheckboxes": true,
-            "selectedRowsCountGreaterThan": 0
-          },
-          "requiredState": {
-            "paginationBlockPreset": "BulkActions",
-            "bulkActionsPaginationMode": "per-page"
-          },
-          "forbidden": {
-            "component": "TableBulkActions",
-            "separateBulkActionsComponent": true
-          },
-          "ruleText": "При выборе строк в Table Wide [D] нижний блок переключается в preset BulkActions. В новой сборке таблиц не используй отдельный компонент TableBulkActions; групповые действия должны быть состоянием пагинационного блока."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.group-divider-labels",
-          "severity": "warning",
-          "source": "pattern-link",
-          "patternId": "ptrn:components.table-wide-d",
-          "appliesTo": "component.content",
-          "checkType": "llm",
-          "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "row": "[D] BodyGroupRow :: Wide"
-          },
-          "requiredContent": {
-            "dateDivider": "day and month",
-            "companyDivider": "company or counterparty name"
-          },
-          "ruleText": "Разделители строк в Table Wide [D] должны подписывать фактическую группировку: для даты используй день и месяц, для компании - название компании или контрагента."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.detach-rows-for-column-composition",
+          "ruleId": "component:web-corp.table-wide-d.cell-alignment-editable",
           "severity": "info",
           "source": "component-contract",
-          "appliesTo": "component.instance|component.composition",
+          "appliesTo": "layout.alignment",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "allowedLayers": [
+            "[D] HeadCell",
+            "[D] BodyCell :: Wide"
+          ],
+          "ruleText": "Дизайнер может менять alignment внутри HeadCell и BodyCell Table Wide в соответствии с паттерном форматирования данных."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.rows-per-page-user-editable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "pagination.rowsPerPage",
           "checkType": "manual",
           "matchKind": "exact_component_rule",
-          "allowedDetach": [
-            "[D] HeadRow :: Universal",
-            "[D] BodyRow :: Wide"
+          "allowedValues": [
+            10,
+            25,
+            50,
+            100
           ],
-          "requiredCellSources": [
-            "[D] HeadCells :: Universal",
-            "[D] BodyCells :: Wide"
-          ],
-          "ruleText": "Для настройки состава и ширины колонок дизайнер детачит [D] HeadRow :: Universal и [D] BodyRow :: Wide, а затем добавляет в строки нужные библиотечные ячейки из [D] HeadCells :: Universal и [D] BodyCells :: Wide."
+          "ruleText": "Пользователь может менять количество отображаемых строк через Pagination только между значениями 10, 25, 50 и 100."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.single-text-slot-per-cell",
+          "ruleId": "component:web-corp.table-wide-d.manual-visual-styles-forbidden",
           "severity": "error",
           "source": "component-contract",
-          "appliesTo": "component.composition",
+          "appliesTo": "styles.text|fill|stroke|opacity|layout.padding|layout.itemSpacing|radius",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
-          "conditions": {
-            "component": "Table Wide [D]",
-            "cell": "[D] BodyCell :: Wide"
-          },
-          "requiredComposition": {
-            "maxTextSlotsPerCell": 1
-          },
-          "ruleText": "В одной ячейке Table Wide [D] допускается только один текстовый слот. Если внутри ячейки нужны Text 1 и Text 2, используй Table Basic [D]."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.internal-parts-not-standalone",
-          "severity": "error",
-          "source": "component-contract",
-          "appliesTo": "component.placement",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "forbiddenStandaloneComponents": [
-            "ActionButton",
-            "BorderLine",
-            "Chevron",
-            "ColumnControl",
-            "ColumnControl :: OptionList",
-            "ControlAddon",
-            "GroupBorderLine",
-            "HeadDivider",
-            "HeaderAddon",
-            "LeftAddon",
-            "RightAddon",
-            "Sorting",
-            "Text"
+          "forbiddenOverrides": [
+            "typography",
+            "fill",
+            "stroke",
+            "opacity",
+            "padding",
+            "spacing",
+            "radius"
           ],
-          "ruleText": "Служебные компоненты Table Wide предназначены только для внутренней сборки строк и ячеек. Их запрещено использовать как самостоятельные элементы интерфейса."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.keep-control-and-action-cells",
-          "severity": "error",
-          "source": "component-contract",
-          "appliesTo": "component.composition",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "requiredLayers": [
-            "[D] HeadControlCell",
-            "[D] HeadActionCell",
-            "[D] BodyControlCell :: Wide",
-            "[D] BodyActionCell :: Wide"
+          "allowedOverrides": [
+            "alignment in HeadCell/BodyCell",
+            "ordinary column width",
+            "text characters",
+            "component-supported presets"
           ],
-          "allowedDisabledState": {
-            "headControlCellPreset": "None",
-            "headActionCellPreset": "None",
-            "bodyControlCellPreset": "None",
-            "bodyActionCellPreset": "None"
-          },
-          "ruleText": "ControlCell и ActionCell нельзя удалять из HeadRow и BodyRow Table Wide. Если контрол или действие не нужны, переключи соответствующую ячейку в Presets=None."
+          "ruleText": "В строках и ячейках Table Wide запрещено вручную менять typography, fill, stroke, opacity, padding, spacing и radius. Разрешены alignment, ширина обычных колонок, текст и предусмотренные компонентом presets."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.one-grouping-level",
-          "severity": "error",
+          "ruleId": "component:web-corp.table-wide-d.supported-presets-allowed",
+          "severity": "info",
           "source": "component-contract",
-          "appliesTo": "component.composition",
+          "appliesTo": "variant.Presets",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
-          "requiredComposition": {
-            "groupRow": "[D] BodyGroupRow :: Wide",
-            "maxGroupingLevels": 1
-          },
-          "ruleText": "Table Wide поддерживает только один уровень группировки через [D] BodyGroupRow :: Wide. Вложенная группировка запрещена."
+          "ruleText": "Дизайнер может выбирать предусмотренные компонентом presets ячеек и addons. Это не является произвольным instance swap."
         },
         {
-          "ruleId": "component:web-corp.table-wide-d.column-widths-match",
+          "ruleId": "component:web-corp.table-wide-d.visual-states-use-effective-baseline",
           "severity": "error",
           "source": "component-contract",
-          "appliesTo": "layout.width",
+          "appliesTo": "state.hover|state.selected|state.disabled|fill|stroke|opacity",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "requiredState": {
-            "headCellWidthEqualsBodyCellWidth": true,
-            "scope": "same column"
+            "hover": "effective-baseline",
+            "selected": "effective-baseline",
+            "disabled": "effective-baseline"
           },
-          "ruleText": "Ширину обычных колонок Table Wide могут менять дизайнер и пользователь, но ширина HeadCell и всех BodyCell одного столбца должна строго совпадать."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.edge-cell-widths-are-fixed",
-          "severity": "error",
-          "source": "component-contract",
-          "appliesTo": "layout.width",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "forbiddenWidthOverride": [
-            "[D] BodyControlCell :: Wide",
-            "[D] BodyActionCell :: Wide",
-            "[D] HeadActionCell",
-            "[D] HeadControlCell"
-          ],
-          "ruleText": "Запрещено менять ширину control/action-ячеек Table Wide: BodyControlCell, BodyActionCell, HeadControlCell и HeadActionCell должны сохранять ширину effective baseline."
-        },
-        {
-          "ruleId": "component:web-corp.table-wide-d.row-height-uses-effective-baseline",
-          "severity": "error",
-          "source": "component-contract",
-          "appliesTo": "layout.height|layout.padding|layout.itemSpacing",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "requiredState": {
-            "rowHeight": "effective-baseline",
-            "verticalGeometry": "effective-baseline"
-          },
-          "ruleText": "Высота строк и их вертикальная геометрия в Table Wide должны сохраняться по effective baseline. Ручное изменение высоты строки запрещено."
+          "ruleText": "Hover, selected и disabled состояния строк и ячеек Table Wide полностью определяются effective baseline. Ручная настройка их цветов и визуальных стилей запрещена."
         }
       ]
     },
@@ -9357,6 +8593,661 @@
           "appliesTo": "component.status",
           "checkType": "manual",
           "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.horizontal-compact-one-column",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.horizontal-compact-one-column",
+          "appliesTo": "component.variant",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "variant": "[D] TableView :: Horizontal",
+            "compact": true
+          },
+          "requiredUsage": {
+            "dataColumns": 1,
+            "readingDirection": "left-to-right by row"
+          },
+          "forbidden": {
+            "multipleDataColumnsInCompact": true
+          },
+          "ruleText": "Horizontal compact используется для одной колонки данных. Линия чтения идёт слева направо: пользователь читает каждую строку отдельно."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.horizontal-compact-width",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.horizontal-compact-width",
+          "appliesTo": "screen.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "variant": "[D] TableView :: Horizontal",
+            "compact": true
+          },
+          "recommendedContext": {
+            "contentGridColumns": 8,
+            "modalOrSidePanelMaxWidthPx": 800
+          },
+          "ruleText": "Horizontal compact рекомендуется использовать в контентной области шириной 8 колонок, модальном окне или сайд-панели не шире 800 px."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.horizontal-multi-column",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.horizontal-multi-column",
+          "appliesTo": "component.variant",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "variant": "[D] TableView :: Horizontal",
+            "compact": false
+          },
+          "requiredUsage": {
+            "dataColumnsMin": 2,
+            "readingDirection": "top-to-bottom for search and comparison"
+          },
+          "forbidden": {
+            "singleDataColumnAsMultiColumn": true
+          },
+          "ruleText": "Horizontal multi-column используется для нескольких колонок данных, когда пользователь ищет и сравнивает значения сверху вниз."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.multi-column-width",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.multi-column-width",
+          "appliesTo": "screen.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "variant": "[D] TableView :: Horizontal",
+            "compact": false,
+            "context": "8-column content area or modal below 1140 px"
+          },
+          "recommendedState": {
+            "maxDataColumns": 2
+          },
+          "ruleText": "Для контентной области в 8 колонок или модальных окон меньше 1140 px рекомендуется использовать не больше 2 колонок данных в Horizontal multi-column."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.vertical-context",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.vertical-context",
+          "appliesTo": "component.variant",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "variant": "TableView :: Vertical"
+          },
+          "requiredUsage": {
+            "contexts": [
+              "desktop island",
+              "Mobile Web"
+            ],
+            "dataColumns": 1,
+            "mainValueStyle": "larger text size"
+          },
+          "ruleText": "Vertical располагает данные в одну колонку и выделяет основное значение большим кеглем. Используй этот вид в островках на Desktop и на Mobile Web."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.default-visible-rows",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.default-visible-rows",
+          "appliesTo": "component.state",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "rowsCanBeCollapsed": true
+          },
+          "recommendedState": {
+            "collapsedVisibleRowsMax": 5,
+            "hiddenRowsControl": "ShowMore",
+            "productOwnsFinalRowCount": true
+          },
+          "ruleText": "Определи количество строк по умолчанию и спрячь остальные под Ещё N. В свёрнутом состоянии рекомендуется показывать не больше 5 строк, но финальное количество остаётся на стороне продукта."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.no-single-hidden-row",
+          "severity": "recommendation",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.no-single-hidden-row",
+          "appliesTo": "component.state",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "totalRows": 6
+          },
+          "requiredState": {
+            "visibleRows": 6,
+            "showMoreVisible": false
+          },
+          "forbidden": {
+            "showMoreText": "Ещё 1"
+          },
+          "ruleText": "Если всего 6 пунктов, показывай все 6 без кнопки Ещё 1."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.more-link-context",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.more-link-context",
+          "appliesTo": "component.content",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "layer": "ShowMore"
+          },
+          "requiredContent": {
+            "collapsedTextPatterns": [
+              "Ещё N",
+              "Ещё N [тип данных]"
+            ],
+            "expandedText": "Свернуть"
+          },
+          "forbiddenText": [
+            "Показать больше",
+            "Скрыть данные назад"
+          ],
+          "ruleText": "Текст ShowMore зависит от контекста данных: используй Ещё N или Ещё N [тип данных]. В раскрытом состоянии используй Свернуть."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.last-row-divider",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.last-row-divider",
+          "appliesTo": "component.layout",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "variant": "[D] TableView :: Horizontal",
+            "compact": false,
+            "isLastElementInBlock": true
+          },
+          "requiredState": {
+            "lastRowDivider": false
+          },
+          "ruleText": "Если после Horizontal multi-column TableView нет элементов, отключи divider в последней строке."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.first-column-caption",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.first-column-caption",
+          "appliesTo": "component.content",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "column": "first",
+            "layer": "Caption",
+            "captionVisible": true
+          },
+          "requiredContent": {
+            "captionRole": "data type for the row",
+            "infoIconAllowedWhen": "caption text needs explanation"
+          },
+          "ruleText": "Caption опционален. Если он включён, то описывает тип данных в строке; если текст требует расшифровки, включи Info-иконку."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.title-columns-same-data-type",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.title-columns-same-data-type",
+          "appliesTo": "component.content",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "variant": "[D] TableView :: Horizontal",
+            "compact": false,
+            "dataColumnsMin": 2
+          },
+          "requiredContent": {
+            "titleColumnsDataType": "same across data columns"
+          },
+          "ruleText": "В TableView с несколькими колонками тип данных в колонках Title должен совпадать."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.additional-header",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.additional-header",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "needsColumnGroupExplanation": true
+          },
+          "requiredComposition": {
+            "additionalHeaderRow": true,
+            "purpose": "shared explanation for several columns"
+          },
+          "ruleText": "Если нужно пояснение в нескольких колонках TableView, добавь дополнительную строку с общим заголовком."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.group-actions-titleview",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:components.table-view",
+          "patternRuleId": "rule:components.table-view.group-actions-titleview",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView",
+            "hasGroupAction": true
+          },
+          "requiredComposition": {
+            "containerComponent": "TitleView",
+            "placement": "RightAddon",
+            "actionType": "link"
+          },
+          "forbidden": {
+            "duplicateGroupActionInEachCell": true
+          },
+          "ruleText": "Групповые действия с ячейками TableView выноси в правый аддон со ссылкой в блоке TitleView, не дублируй действие в каждой строке."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.advanced-interactions-require-team-implementation",
+          "severity": "warning",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "hasSortingOrFilteringOrBulkSelectionOrNavigation": true
+          },
+          "requiredState": {
+            "teamImplementationConfirmed": true
+          },
+          "ruleText": "Штатные кнопки действий в TableView допустимы. Сортировка, фильтрация, массовый выбор и интерактивная табличная навигация также возможны, но требуют дополнительных доработок команды и отдельного внимания."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.compact-is-consistent-across-rows",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Compact|layout.itemSpacing",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "allRowsMatchRootCompact": true,
+            "spacingByCompact": {
+              "False": 16,
+              "True": 12
+            }
+          },
+          "ruleText": "Все Row внутри одного TableView должны иметь одинаковое значение Compact. При Compact=False ↕ SpacingVertical каждой строки равен 16 px, при Compact=True — 12 px."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.horizontal-sidepanel-surfaces",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "[D] TableView :: Horizontal SidePanel"
+          },
+          "allowedContexts": [
+            "SidePanel",
+            "UniversalModal",
+            "Modal"
+          ],
+          "ruleText": "[D] TableView :: Horizontal SidePanel допустим только в SidePanel, UniversalModal и Modal."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.internal-parts-not-standalone",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.usage",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "layers": [
+              "Caption",
+              "Column",
+              "Row",
+              "Row :: SidePanel",
+              "ShowMore",
+              "Title",
+              "Subtitle",
+              "RightAddon"
+            ]
+          },
+          "ruleText": "Caption, Column, Row, Row :: SidePanel, ShowMore, Title, Subtitle и RightAddon являются служебными частями TableView и не используются отдельно."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.manual-visual-overrides-forbidden",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "styles.text|layout.padding|layout.itemSpacing|fill|stroke",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Работай с предусмотренными presets и штатными возможностями TableView. Ручное изменение текстовых стилей, отступов, заливок и обводок запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.horizontal-multi-column-recommended-max-three-data-columns",
+          "severity": "recommendation",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "[D] TableView :: Horizontal",
+            "compact": false
+          },
+          "recommendedComposition": {
+            "maxDataColumns": 3,
+            "maxColumnsIncludingCaption": 4
+          },
+          "ruleText": "В Horizontal TableView с Compact=False не рекомендуется использовать более трёх колонок с данными: максимум четыре колонки вместе с заглавной колонкой Caption."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.caption-is-optional",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "allowedState": {
+            "captionVisible": false,
+            "rowContainsOnlyDataValues": true
+          },
+          "ruleText": "Caption опционален: строка TableView может содержать только значения Title и Subtitle без заглавной ячейки."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.title-subtitle-presets-are-contextual",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Presets",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "components": [
+              "Title",
+              "Subtitle"
+            ]
+          },
+          "ruleText": "Дизайнер свободно выбирает предусмотренные presets у Title и Subtitle в зависимости от типа данных."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.right-addon-type-is-contextual",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Type",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "RightAddon"
+          },
+          "ruleText": "Тип RightAddon можно свободно менять между предусмотренными значениями в зависимости от типа действия."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.partial-skeleton-is-allowed",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Skeleton",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "components": [
+              "Row",
+              "Column"
+            ]
+          },
+          "ruleText": "Отдельные Row и Column могут независимо переходить в Skeleton; весь TableView не обязан загружаться одновременно."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.show-more-is-configurable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Open|component.visibility|characters",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ShowMore"
+          },
+          "allowedConfiguration": {
+            "designerCanEnable": true,
+            "designerCanChooseVisibleRowCount": true,
+            "labelIsContextual": true
+          },
+          "ruleText": "Дизайнер может включать ShowMore, выбирать количество видимых строк и задавать контекстную подпись Ещё N; в раскрытом состоянии используется Свернуть."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.divider-visibility-only-last-row",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.visibility",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "layer": "Divider"
+          },
+          "allowedState": {
+            "manualVisibilityChange": "last Row only"
+          },
+          "ruleText": "Вручную менять видимость divider можно только у последней строки TableView. У остальных строк divider должен соответствовать effective baseline."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.manual-column-width-changes-forbidden",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.width|layoutSizingHorizontal",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "components": [
+              "Caption",
+              "Column"
+            ]
+          },
+          "ruleText": "Ручное изменение ширины Caption и колонок данных запрещено. Геометрия должна соответствовать effective baseline выбранного варианта TableView."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.multiple-actions-follow-data-columns",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "dataColumnsMin": 2
+          },
+          "allowedComposition": {
+            "multipleActions": true,
+            "placement": "RightAddon in corresponding data columns"
+          },
+          "ruleText": "Если в строке несколько колонок данных, в ней может быть несколько действий — через RightAddon соответствующих колонок."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.vertical-has-one-data-column",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "TableView :: Vertical"
+          },
+          "requiredComposition": {
+            "dataColumns": 1
+          },
+          "ruleText": "TableView :: Vertical всегда содержит одну колонку данных."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.horizontal-sidepanel-is-single-column-compact",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition|layout.itemSpacing",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "[D] TableView :: Horizontal SidePanel"
+          },
+          "requiredComposition": {
+            "dataColumns": 1,
+            "compact": true,
+            "rowSpacing": 12
+          },
+          "ruleText": "[D] TableView :: Horizontal SidePanel использует одну колонку данных и компактные отступы Row 12 px."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.horizontal-multi-column-header-required",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "[D] TableView :: Horizontal",
+            "compact": false
+          },
+          "requiredComposition": {
+            "rowPresetHeader": true
+          },
+          "ruleText": "В Horizontal TableView с Compact=False обязательна строка Row с Presets=Header."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.show-more-allowed-in-all-public-roots",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "allowedContexts": [
+            "[D] TableView :: Horizontal",
+            "TableView :: Vertical",
+            "[D] TableView :: Horizontal SidePanel"
+          ],
+          "ruleText": "ShowMore можно использовать во всех публичных вариантах TableView: Horizontal, Vertical и Horizontal SidePanel."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.title-subtitle-instance-swap-forbidden",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "instance.swap",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "components": [
+              "Title",
+              "Subtitle"
+            ]
+          },
+          "ruleText": "Instance swap внутри Title и Subtitle запрещён. Используй только предусмотренные presets и штатные параметры вложенных элементов."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.content-text-is-editable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "characters",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "layers": [
+              "Caption",
+              "Title",
+              "Subtitle",
+              "Row / Presets=Header",
+              "additional header"
+            ]
+          },
+          "ruleText": "Текстовые значения Caption, Title, Subtitle, заголовков Header и дополнительного заголовка можно свободно менять."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.header-matches-data-columns",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "[D] TableView :: Horizontal",
+            "compact": false
+          },
+          "requiredComposition": {
+            "headerColumnCountMatchesDataColumns": true,
+            "headerColumnOrderMatchesDataColumns": true
+          },
+          "ruleText": "Количество и порядок заголовков в Row / Presets=Header должны совпадать с колонками данных."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.right-addon-type-semantics",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Type",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "RightAddon"
+          },
+          "semantics": {
+            "Info": "показывает пояснение",
+            "Copy": "копирует значение",
+            "Edit": "запускает редактирование",
+            "Icon20": "контекстное действие"
+          },
+          "ruleText": "Выбирай Type у RightAddon по действию: Info — пояснение, Copy — копирование значения, Edit — запуск редактирования, Icon20 — контекстное действие."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.additional-header-is-optional",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.composition|characters",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "allowedState": {
+            "additionalHeaderRequired": false,
+            "useWhen": "shared explanation for a group of columns",
+            "textEditable": true
+          },
+          "ruleText": "Дополнительный заголовок опционален: используй его для общего пояснения группы колонок; текст можно свободно менять."
+        },
+        {
+          "ruleId": "component:web-corp.table-view.public-root-platforms",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.usage",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "allowedContexts": {
+            "TableView :: Vertical": [
+              "desktop island",
+              "mobile-web"
+            ],
+            "[D] TableView :: Horizontal SidePanel": [
+              "desktop"
+            ]
+          },
+          "ruleText": "TableView :: Vertical допустим в островках на Desktop и на Mobile Web. [D] TableView :: Horizontal SidePanel используется только на Desktop."
         }
       ]
     },
@@ -9401,6 +9292,324 @@
           "appliesTo": "TabsSecondary.*",
           "checkType": "deterministic",
           "ruleText": "Если nested TabsSecondary/Tag layer отличается от TabsView effective baseline, показывай это как TabsView layer customization, используя effective baseline как reference."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.primary-is-required",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredComposition": {
+            "TabsPrimary": true
+          },
+          "ruleText": "TabsPrimary обязателен в TabsView. TabsSecondary опционален, но не может заменять первый уровень."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.minimum-two-tabs-per-visible-level",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredComposition": {
+            "minimumVisiblePrimaryTabs": 2,
+            "minimumVisibleSecondaryTabsWhenShown": 2,
+            "maximumVisibleTabs": "not-regulated"
+          },
+          "ruleText": "В TabsPrimary должно быть минимум два видимых таба. Если показан TabsSecondary, в нём также должно быть минимум два видимых таба. Максимальное количество пока не регламентировано."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.one-active-tab-per-visible-level",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.ActiveState|variant.SelectedState",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "activePrimaryCount": 1,
+            "activeSecondaryCountWhenVisible": 1
+          },
+          "ruleText": "Одновременно может быть активен только один Primary и, если второй уровень показан, только один Secondary."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.label-is-editable-single-line",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "characters",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "allowedState": {
+            "labelEditable": true,
+            "labelLines": 1,
+            "maximumCharacters": 10,
+            "overflowBehavior": "increase-tab-width"
+          },
+          "ruleText": "Label таба можно менять, но текст должен оставаться в одну строку и содержать не более 10 символов. При необходимости увеличивай ширину таба."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.primary-addon-is-configurable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.visibility|instance.swap",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "path": "TabsPrimary / Items / TabPrimary / Content / 🔩 Addon"
+          },
+          "allowedAddonTypes": [
+            "icon",
+            "counter",
+            "status"
+          ],
+          "ruleText": "В TabPrimary можно включать Addon и заменять его через штатный instance swap. Допустимы только иконки, счётчики и статусы."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.primary-addon-types",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "instance.swap",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "allowedAddonTypes": [
+            "icon",
+            "counter",
+            "status"
+          ],
+          "ruleText": "В Addon у TabPrimary допустимы только иконки, счётчики и статусы. Другие типы вложенных компонентов запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.individual-disabled-state-is-allowed",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.DisabledState",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Отдельные Primary и Secondary табы можно переводить в DisabledState."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.loading-scope",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Skeleton|component.loading",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "TabsView.Skeleton=true переводит в загрузку весь TabsView. Любой таб может иметь собственное состояние перезагрузки."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.tab-collection-is-configurable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "allowedState": {
+            "addTabs": true,
+            "hideTabs": true,
+            "reorderTabs": true,
+            "minimumVisibleTabsPerLevel": 2
+          },
+          "ruleText": "Дизайнер может добавлять, скрывать и менять порядок Primary и Secondary. На каждом показанном уровне должно оставаться минимум два видимых таба."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.secondary-context-follows-primary",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "У каждого Primary может быть собственный набор Secondary. Для отдельных Primary второй уровень может отсутствовать."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.secondary-selects-first-enabled",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.ActiveState|component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "При выборе Primary активируется первый доступный Secondary. Ранее выбранный Secondary для этого Primary не восстанавливается."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.individual-loading-behavior",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.loading|component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Состояние отдельной перезагрузки доступно для любого таба. Активный таб остаётся выбранным, а пользователь может переключаться на другие табы."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.root-skeleton-presentation",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Skeleton",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "Skeleton": "True",
+            "presentation": "single common skeleton"
+          },
+          "ruleText": "При TabsView.Skeleton=true показывается один общий skeleton вместо сохранения количества, ширины и иерархии табов."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.active-tab-repeat-click-noop",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Повторное нажатие на уже активный таб ничего не делает и не запускает обновление контента."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.secondary-fixed-properties",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Size|variant.View|variant.Shape",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "Size": "40",
+            "View": "Filled",
+            "Shape": "Rounded",
+            "SingleIcon": "False"
+          },
+          "ruleText": "Для TabsSecondary обязательны Size=40, View=Filled, Shape=Rounded и SingleIcon=False. Эти параметры нельзя менять."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.secondary-indicator-is-configurable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Indicator",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "allowedValues": [
+            "Hidden",
+            "Collapsed",
+            "Digit"
+          ],
+          "indicatorSemantics": {
+            "Hidden": "hidden",
+            "Collapsed": "dot",
+            "Digit": "numeric counter, maximum 99+"
+          },
+          "ruleText": "В TabsSecondary можно менять Indicator. Collapsed показывает точку, Digit — числовой счётчик до 99+, Hidden скрывает индикатор."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.secondary-single-icon-forbidden",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.SingleIcon",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "SingleIcon": "False"
+          },
+          "ruleText": "В TabsSecondary запрещено использовать SingleIcon=True. Label должен оставаться видимым."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.active-tab-cannot-be-disabled",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.ActiveState|variant.DisabledState",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Активный Primary или Secondary не может одновременно находиться в состоянии Disabled."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.labels-are-unique-within-level",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "characters",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Названия соседних табов одного уровня не должны повторяться."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.label-maximum-ten-characters",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "characters",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "maximumCharacters": 10,
+          "ruleText": "Максимальная длина Label — 10 символов. При необходимости увеличивай ширину таба, не переноси текст на вторую строку."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.minimum-one-enabled-active-tab",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.ActiveState|variant.DisabledState|component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredState": {
+            "minimumEnabledActiveTabsPerVisibleLevel": 1,
+            "disabledTabsCountTowardMinimumVisible": true
+          },
+          "ruleText": "Disabled-табы учитываются в минимуме видимых, но на каждом показанном уровне должен оставаться хотя бы один доступный активный таб."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.primary-addon-active-only",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.visibility|variant.ActiveState|variant.DisabledState",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Addon можно показывать только у активного и доступного TabPrimary. У неактивного или Disabled Primary Addon должен быть скрыт."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.indicator-digit-maximum",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Indicator|characters",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "maximumValue": "99+",
+          "ruleText": "Indicator=Digit показывает числовой счётчик рядом с Label. Максимальное отображаемое значение — 99+."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.fixed-external-spacing",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.itemSpacing",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredSpacing": {
+            "primaryToSecondary": 24,
+            "lastVisibleTabLevelToContent": 24
+          },
+          "ruleText": "Между Primary и Secondary должно быть 24 px. Между последним видимым уровнем табов и контентом также должно быть 24 px."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.desktop-mobile-web-parity",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "adaptive.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "requiredParity": [
+            "labels",
+            "order",
+            "tabCount"
+          ],
+          "ruleText": "Desktop и mobile-web версии TabsView должны иметь одинаковые названия, порядок и количество табов."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.manual-visual-overrides-forbidden",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.*|divider|styles.text|typography|fill|stroke|stroke.*|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "В TabsView запрещено вручную менять spacing, padding, divider, типографику, заливки, обводки, скругления и opacity. Используй effective baseline компонента."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.platform-overflow-behavior",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.visibility|interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "На desktop Slider появляется автоматически только при переполнении и не включается вручную. На mobile-web Slider запрещён: переполнение обрабатывается горизонтальным свайпом."
         }
       ]
     },

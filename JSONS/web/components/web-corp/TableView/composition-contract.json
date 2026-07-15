@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "documentType": "composition-contract",
   "componentKey": "web-corp.table-view",
-  "status": "generated-draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -12,7 +12,7 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "updatedAt": "2026-07-15"
   },
   "component": {
     "name": "TableView",
@@ -14436,6 +14436,104 @@
       }
     }
   ],
-  "allowedOverrides": [],
+  "allowedOverrides": [
+    "characters",
+    "component-supported variant properties and presets",
+    "built-in action configuration",
+    "Caption visibility",
+    "Title.Presets",
+    "Subtitle.Presets",
+    "RightAddon.Type"
+  ],
+  "forbiddenOverrides": [
+    "standalone use of internal parts",
+    "styles.text",
+    "layout.padding",
+    "layout.itemSpacing outside Compact behavior",
+    "manual Caption width",
+    "manual data column width",
+    "divider visibility outside the last Row",
+    "instance swap inside Title or Subtitle",
+    "fills",
+    "strokes"
+  ],
+  "compositionPolicy": {
+    "publicRoots": [
+      "[D] TableView :: Horizontal",
+      "TableView :: Vertical",
+      "[D] TableView :: Horizontal SidePanel"
+    ],
+    "allRowsMustShareCompact": true,
+    "rowSpacingByCompact": {
+      "False": 16,
+      "True": 12
+    },
+    "horizontalModeByCompact": {
+      "True": "одна колонка данных",
+      "False": "несколько колонок данных"
+    },
+    "horizontalMultiColumn": {
+      "recommendedMaxDataColumns": 3,
+      "recommendedMaxColumnsIncludingCaption": 4
+    },
+    "captionRequired": false,
+    "verticalDataColumns": 1,
+    "horizontalSidePanel": {
+      "dataColumns": 1,
+      "compact": true,
+      "rowSpacing": 12
+    },
+    "horizontalMultiColumnHeaderRequired": true,
+    "headerStructureMustMatchDataColumns": true,
+    "editableText": [
+      "Caption",
+      "Title",
+      "Subtitle",
+      "Row / Presets=Header labels",
+      "additional header"
+    ],
+    "rightAddonSemantics": {
+      "Info": "explanation",
+      "Copy": "copy value",
+      "Edit": "start editing",
+      "Icon20": "contextual action"
+    },
+    "additionalHeader": {
+      "required": false,
+      "useWhen": "shared explanation for a group of columns",
+      "textEditable": true
+    },
+    "platformsByRoot": {
+      "TableView :: Vertical": [
+        "desktop island",
+        "mobile-web"
+      ],
+      "[D] TableView :: Horizontal SidePanel": [
+        "desktop"
+      ]
+    },
+    "titleSubtitlePresetSelection": "по типу данных",
+    "rightAddonTypeSelection": "по типу действия",
+    "partialSkeletonAllowed": true,
+    "showMore": {
+      "designerCanEnable": true,
+      "designerCanChooseVisibleRowCount": true,
+      "labelIsContextual": true,
+      "allowedRoots": [
+        "[D] TableView :: Horizontal",
+        "TableView :: Vertical",
+        "[D] TableView :: Horizontal SidePanel"
+      ]
+    },
+    "dividerVisibilityCanChangeOnlyOnLastRow": true,
+    "manualColumnWidthChangesAllowed": false,
+    "instanceSwapAllowed": false,
+    "multipleRowActionsAllowedWhenMultipleDataColumns": true,
+    "horizontalSidePanelAllowedIn": [
+      "SidePanel",
+      "UniversalModal",
+      "Modal"
+    ]
+  },
   "standaloneBaselines": []
 }

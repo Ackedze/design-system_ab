@@ -12,7 +12,7 @@
       "mobile-web"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "updatedAt": "2026-07-15"
   },
   "appliesTo": {
     "generatedContract": "contract.generated.json",
@@ -29,6 +29,115 @@
         "description": "Переключает TabsView между ready и loading/skeleton presentation."
       }
     }
+  },
+  "structurePolicy": {
+    "primaryRequired": true,
+    "secondaryRequired": false,
+    "minimumVisibleTabs": {
+      "primary": 2,
+      "secondaryWhenVisible": 2
+    },
+    "maximumVisibleTabs": "not-regulated"
+  },
+  "statePolicy": {
+    "activePrimaryCount": 1,
+    "activeSecondaryCountWhenVisible": 1,
+    "individualDisabledStateAllowed": true,
+    "activeTabCanBeDisabled": false,
+    "disabledTabsCountTowardMinimumVisible": true,
+    "minimumEnabledActiveTabsPerVisibleLevel": 1
+  },
+  "contentPolicy": {
+    "labelEditable": true,
+    "labelLines": 1,
+    "labelMaximumCharacters": 10,
+    "labelOverflowBehavior": "increase-tab-width",
+    "duplicateLabelsWithinLevelAllowed": false,
+    "primaryAddonAllowed": true,
+    "primaryAddonSwapAllowed": true,
+    "primaryAddonAllowedTypes": [
+      "icon",
+      "counter",
+      "status"
+    ],
+    "primaryAddonVisibility": "active-enabled-primary-only"
+  },
+  "loadingPolicy": {
+    "rootSkeletonScope": "whole TabsView",
+    "rootSkeletonPresentation": "single common skeleton",
+    "individualTabReloadAllowed": true,
+    "individualReloadAllowedFor": "all tabs",
+    "activeTabRemainsActiveWhileReloading": true,
+    "navigationAvailableWhileTabReloading": true
+  },
+  "tabCollectionPolicy": {
+    "designerCanAddTabs": true,
+    "designerCanHideTabs": true,
+    "designerCanReorderTabs": true,
+    "minimumVisibleTabsPerLevel": 2
+  },
+  "secondaryContextPolicy": {
+    "dependsOnSelectedPrimary": true,
+    "eachPrimaryMayHaveOwnSecondarySet": true,
+    "secondaryMayBeAbsentForSelectedPrimary": true,
+    "onPrimarySelection": "activate-first-enabled-secondary",
+    "restorePreviousSecondarySelection": false
+  },
+  "interactionPolicy": {
+    "activeTabRepeatedClick": "no-op"
+  },
+  "secondaryPropertyPolicy": {
+    "fixed": {
+      "Size": "40",
+      "View": "Filled",
+      "Shape": "Rounded",
+      "SingleIcon": "False"
+    },
+    "designerEditable": [
+      "Indicator"
+    ],
+    "indicatorValues": [
+      "Hidden",
+      "Collapsed",
+      "Digit"
+    ],
+    "indicatorPurpose": {
+      "Hidden": "Индикатор скрыт.",
+      "Collapsed": "Точечный индикатор рядом с Label.",
+      "Digit": "Числовой счётчик рядом с Label, максимум 99+."
+    }
+  },
+  "spacingPolicy": {
+    "primaryToSecondary": 24,
+    "lastVisibleTabLevelToContent": 24,
+    "unit": "px",
+    "designerEditable": false
+  },
+  "adaptiveParityPolicy": {
+    "desktopAndMobileWebMustMatch": [
+      "labels",
+      "order",
+      "tabCount"
+    ]
+  },
+  "visualBaselinePolicy": {
+    "manualVisualOverridesAllowed": false,
+    "forbiddenProperties": [
+      "layout.itemSpacing",
+      "layout.padding",
+      "divider",
+      "styles.text",
+      "typography",
+      "fill",
+      "stroke",
+      "strokeWeight",
+      "radius",
+      "opacity"
+    ]
+  },
+  "overflowPolicy": {
+    "desktop": "Slider появляется автоматически только при переполнении. Включать Slider вручную запрещено.",
+    "mobileWeb": "Slider запрещён. Переполнение обрабатывается горизонтальным свайпом."
   },
   "anatomySemantics": {
     "root": {
@@ -91,5 +200,39 @@
       "Tag/Text/Label.characters"
     ],
     "dependencyPolicy": "Wrapper-owned overrides задают effective baseline для nested core components. Ручные layer overrides нужно сравнивать с TabsView effective baseline, а не со standalone nested component baseline."
-  }
+  },
+  "allowedOverrides": [
+    "TabPrimary Label.characters",
+    "TabsSecondary Label.characters",
+    "TabPrimary Addon visibility and instance swap",
+    "TabPrimary.DisabledState",
+    "TabsSecondary.DisabledState",
+    "individual tab reload state",
+    "add, hide and reorder Primary tabs while at least two remain visible",
+    "add, hide and reorder Secondary tabs while at least two remain visible",
+    "TabsSecondary.Indicator: Hidden, Collapsed or Digit"
+  ],
+  "forbiddenOverrides": [
+    "removing TabsPrimary",
+    "fewer than two visible Primary tabs",
+    "fewer than two visible Secondary tabs when Secondary is shown",
+    "more than one active tab per visible level",
+    "multiline tab Label",
+    "TabsSecondary.Size other than 40",
+    "TabsSecondary.View other than Filled",
+    "TabsSecondary.Shape other than Rounded",
+    "TabsSecondary.SingleIcon=True",
+    "active tab with DisabledState=True",
+    "duplicate labels within one tab level",
+    "tab Label longer than 10 characters",
+    "Primary Addon other than icon, counter or status",
+    "Primary Addon on inactive or Disabled tab",
+    "Indicator Digit value above 99+",
+    "spacing other than 24 px between Primary and Secondary",
+    "spacing other than 24 px between last visible tab level and content",
+    "different labels, order or tab count between desktop and mobile-web",
+    "manual changes to spacing, padding, divider, typography, fill, stroke, radius or opacity",
+    "manual Slider activation on desktop",
+    "Slider on mobile-web"
+  ]
 }

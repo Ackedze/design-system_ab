@@ -1,18 +1,17 @@
 {
   "schemaVersion": 1,
   "documentType": "component-audit-mapping",
-  "componentKey": "web-corp.table-basic",
-  "status": "draft",
+  "componentKey": "web-corp.table-basic-d",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
     ],
     "platforms": [
-      "desktop",
-      "mobile-web"
+      "desktop"
     ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-14"
+    "source": "component-contract",
+    "updatedAt": "2026-07-15"
   },
   "generated": {
     "generatedAt": "2026-07-14T16:49:10.303Z",
@@ -256,7 +255,52 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {},
+  "manual": {
+    "componentPolicy": {
+      "workflow": "detached HeadRow Universal and BodyRow Basic with library cells",
+      "requiredComposition": [
+        "CorporateTopbar",
+        "[D] HeadRow :: Universal",
+        "[D] BodyRow :: Basic",
+        "Pagination",
+        "[D] BackgroundPlateSlot"
+      ],
+      "allowedOverrides": [
+        "characters",
+        "supported variant properties and presets",
+        "alignment in HeadCell and BodyCell",
+        "width of ordinary HeadCell and matching BodyCell without horizontal scroll"
+      ],
+      "forbiddenOverrides": [
+        "arbitrary instance swap",
+        "width of ControlCell and ActionCell",
+        "row height",
+        "typography",
+        "fill",
+        "stroke",
+        "opacity",
+        "padding",
+        "spacing",
+        "radius"
+      ],
+      "emptyOrErrorBodyReplacement": "CorporateSystemMessage",
+      "paginationAlwaysPresent": true,
+      "allowedRowsPerPage": [
+        10,
+        25,
+        50,
+        100
+      ],
+      "effectiveBaselineStates": [
+        "hover",
+        "selected",
+        "disabled"
+      ],
+      "platforms": [
+        "desktop"
+      ]
+    }
+  },
   "classification": [
     {
       "match": {

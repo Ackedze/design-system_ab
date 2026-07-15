@@ -2,22 +2,21 @@
   "schemaVersion": 1,
   "documentType": "component-contract-examples",
   "componentKey": "web-corp.table-wide-d",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
     ],
     "platforms": [
-      "desktop",
-      "mobile-web"
+      "desktop"
     ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "source": "manual",
+    "updatedAt": "2026-07-15"
   },
   "examples": [
     {
       "exampleId": "web-corp.table-wide-d.component-property-change",
-      "title": "Table variant change should be reported as component property customization",
+      "title": "Изменение параметра компонента фиксируется отдельно",
       "inputChange": {
         "property": "variant.*",
         "node": "table family component instance"
@@ -30,7 +29,7 @@
     },
     {
       "exampleId": "web-corp.table-wide-d.layer-style-change",
-      "title": "Manual table layer style change should use effective baseline",
+      "title": "Ручное изменение визуального стиля сравнивается с effective baseline",
       "inputChange": {
         "property": "styles.text|fill|layout.*",
         "node": "table row/cell nested layer"
@@ -40,6 +39,54 @@
         "scope": "layer-property",
         "groupTitle": "Параметры слоя"
       }
+    },
+    {
+      "exampleId": "web-corp.table-wide-d.match-column-widths",
+      "title": "Ширина HeadCell и BodyCell одного столбца совпадает",
+      "scenario": "Дизайнер изменил ширину обычного столбца.",
+      "expected": "Разрешено, если HeadCell и все BodyCell этого столбца имеют одинаковую ширину."
+    },
+    {
+      "exampleId": "web-corp.table-wide-d.fixed-edge-cell-width",
+      "title": "Ширину control/action-ячеек менять нельзя",
+      "scenario": "Изменена ширина HeadControlCell или BodyActionCell.",
+      "expected": "Нарушение component rule; вернуть effective baseline."
+    },
+    {
+      "exampleId": "web-corp.table-wide-d.single-grouping-level",
+      "title": "Разрешён один уровень группировки",
+      "scenario": "В Wide добавлен второй вложенный BodyGroupRow.",
+      "expected": "Нарушение; оставить не более одного уровня."
+    },
+    {
+      "exampleId": "web-corp.table-wide-d.empty-state",
+      "title": "CorporateSystemMessage заменяет только BodyRow",
+      "scenario": "Таблица находится в empty или error состоянии.",
+      "expected": "Сохранить CorporateTopbar, HeadRow и Pagination; BodyRow заменить на CorporateSystemMessage."
+    },
+    {
+      "exampleId": "web-corp.table-wide-d.single-page",
+      "title": "Pagination сохраняется для одной страницы",
+      "scenario": "В таблице одна страница данных.",
+      "expected": "Переключить Pagination в Presets=None, не удалять компонент."
+    },
+    {
+      "exampleId": "web-corp.table-wide-d.bulk-actions",
+      "title": "Выбор строк включает BulkActions",
+      "scenario": "Пользователь выбрал строки текущей страницы.",
+      "expected": "Pagination переключается в Presets=BulkActions; допускается до четырёх контекстных кнопок."
+    },
+    {
+      "exampleId": "web-corp.table-wide-d.supported-preset",
+      "title": "Предусмотренный preset разрешён",
+      "scenario": "Дизайнер выбирает preset, доступный в properties ячейки.",
+      "expected": "Разрешённая настройка компонента, не arbitrary instance swap."
+    },
+    {
+      "exampleId": "web-corp.table-wide-d.visual-state",
+      "title": "Визуальные состояния не меняются вручную",
+      "scenario": "Изменён fill в hover, selected или disabled состоянии.",
+      "expected": "Нарушение; состояние полностью определяется effective baseline."
     }
   ]
 }

@@ -2,17 +2,16 @@
   "schemaVersion": 1,
   "documentType": "composition-contract",
   "componentKey": "web-corp.table-wide-d",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
     ],
     "platforms": [
-      "desktop",
-      "mobile-web"
+      "desktop"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "updatedAt": "2026-07-15"
   },
   "component": {
     "name": "Table Wide [D]",
@@ -1622,6 +1621,36 @@
     "defaultNestedDiffPolicy": "compare-against-table-effective-baseline",
     "wrapperOwnedOverridePolicy": "Не показывай wrapper-owned nested differences как customizations, когда actual совпадает с effective baseline семейства таблиц. Если actual отличается, показывай effectiveBaseline -> actual."
   },
-  "allowedOverrides": [],
+  "allowedOverrides": [
+    "characters",
+    "variant.* supported by component",
+    "alignment in HeadCell and BodyCell",
+    "width of ordinary HeadCell and matching BodyCell"
+  ],
+  "forbiddenOverrides": [
+    "arbitrary instance swap",
+    "width of ControlCell and ActionCell",
+    "row height",
+    "typography",
+    "fill",
+    "stroke",
+    "opacity",
+    "padding",
+    "spacing",
+    "radius"
+  ],
+  "compositionPolicy": {
+    "workflow": "detach [D] HeadRow :: Universal and [D] BodyRow :: Wide, then add library cells",
+    "requiredComponents": [
+      "CorporateTopbar",
+      "[D] HeadRow :: Universal",
+      "[D] BodyRow :: Wide",
+      "Pagination",
+      "[D] BackgroundPlateSlot"
+    ],
+    "equalFillWidth": true,
+    "maxGroupingLevels": 1,
+    "emptyOrErrorBodyReplacement": "CorporateSystemMessage"
+  },
   "suppressedWhenEqualToEffectiveBaseline": []
 }

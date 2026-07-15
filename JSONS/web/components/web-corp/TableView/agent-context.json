@@ -1,8 +1,75 @@
 {
+  "summary": {
+    "componentFamily": "TableView",
+    "library": "Web _ Corp Components",
+    "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
+  },
+  "auditInterpretation": {
+    "componentProperties": [
+      "variant.*"
+    ],
+    "layerProperties": [
+      "fill",
+      "stroke",
+      "stroke.*",
+      "styles.text",
+      "layout.*",
+      "radius",
+      "opacity",
+      "opacityToken",
+      "effects.*",
+      "blend.mode",
+      "blendMode",
+      "clipsContent"
+    ],
+    "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
+  },
+  "agentGuidance": {
+    "horizontalModeByCompact": {
+      "True": "одна колонка данных",
+      "False": "несколько колонок данных"
+    },
+    "horizontalMultiColumnRecommendation": "Не рекомендуется использовать более трёх колонок с данными: максимум четыре колонки вместе с заглавной колонкой Caption.",
+    "captionIsOptional": true,
+    "structure": {
+      "verticalDataColumns": 1,
+      "horizontalSidePanelDataColumns": 1,
+      "horizontalSidePanelCompact": true,
+      "horizontalSidePanelRowSpacing": 12,
+      "horizontalMultiColumnHeaderRequired": true
+    },
+    "textPolicy": "Тексты Caption, Title, Subtitle, Header и дополнительного заголовка можно менять. Количество и порядок Header должны совпадать с колонками данных.",
+    "rightAddonSemantics": {
+      "Info": "показывает пояснение",
+      "Copy": "копирует значение",
+      "Edit": "запускает редактирование",
+      "Icon20": "контекстное действие"
+    },
+    "additionalHeader": "Опционален; используется для общего пояснения группы колонок, текст можно менять.",
+    "platforms": {
+      "TableView :: Vertical": "Desktop в островках и Mobile Web",
+      "[D] TableView :: Horizontal SidePanel": "только Desktop"
+    },
+    "allowedConfiguration": [
+      "Выбор предусмотренного Title.Presets по типу данных.",
+      "Выбор предусмотренного Subtitle.Presets по типу данных.",
+      "Выбор предусмотренного RightAddon.Type по типу действия.",
+      "Независимое включение Skeleton у отдельных Row и Column.",
+      "Включение ShowMore, выбор количества видимых строк и контекстная подпись Ещё N.",
+      "Использование ShowMore в Horizontal, Vertical и Horizontal SidePanel.",
+      "Несколько действий в строке с несколькими колонками — через RightAddon соответствующих колонок."
+    ],
+    "forbiddenConfiguration": [
+      "Ручное изменение ширины Caption или колонок данных.",
+      "Ручное отключение divider у любой строки, кроме последней.",
+      "Instance swap внутри Title или Subtitle: используй только штатные presets и параметры."
+    ],
+    "interpretation": "Не считай отсутствие Caption, смену штатного preset Title или Subtitle, смену штатного Type у RightAddon, частичный Skeleton и штатную настройку ShowMore нарушениями. Превышение рекомендуемого числа колонок комментируй как рекомендацию, а не как запрет. Геометрию сравнивай с effective baseline."
+  },
   "schemaVersion": 1,
   "documentType": "component-agent-context",
   "componentKey": "web-corp.table-view",
-  "status": "generated-draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
@@ -11,11 +78,329 @@
       "desktop",
       "mobile-web"
     ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "source": "component-contract",
+    "updatedAt": "2026-07-15"
+  },
+  "generated": {
+    "generatedAt": "2026-07-09T15:42:23.445Z",
+    "sourceFiles": [
+      "contract.generated.json",
+      "contract.overrides.json",
+      "rules.json",
+      "audit-mapping.json",
+      "examples.json",
+      "composition-contract.json"
+    ],
+    "source": {
+      "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- TableView.json",
+      "library": "Web _ Corp Components",
+      "file": "Web _ Corp Components",
+      "generatedAt": "2026-07-09T15:42:23.445Z",
+      "exportVersion": "0.1.0-rest",
+      "files": [
+        "TableView"
+      ]
+    },
+    "summary": {
+      "componentFamily": "TableView",
+      "library": "Web _ Corp Components",
+      "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
+    },
+    "components": [
+      {
+        "name": "[D] TableView :: Horizontal",
+        "key": "b4ec18377538bff9a815ad1926179469ca3b899b",
+        "status": "active",
+        "role": "main",
+        "platform": "desktop",
+        "variantProperties": {
+          "Compact": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "Caption",
+        "key": "3a43abc9e742bc0cd98d58591318532fedd5590b",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "Caption",
+        "key": "b4321c06bb0b44ece682528f94e7e6453bdf2e92",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "Column",
+        "key": "8f74feee723f12235948ffe39cf21f9a2aefb1e7",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "Column",
+        "key": "ba1381a85fd0ec23a07132a6bdb52e09a0d90263",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "RightAddon",
+        "key": "d5046ac860294f5812f1a4297966a9c4905fcc3c",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Type": [
+            "Copy",
+            "Edit",
+            "Icon20",
+            "Info"
+          ]
+        }
+      },
+      {
+        "name": "Row",
+        "key": "2caebd8892cfa5df2dfe24170cd875dff537645f",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Compact": [
+            "False",
+            "True"
+          ],
+          "Presets": [
+            "Body",
+            "Header"
+          ],
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "Row",
+        "key": "0924748d008a667a5a24658fdaac5d6b4e7b0d97",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Compact": [
+            "False",
+            "True"
+          ],
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "Row :: SidePanel",
+        "key": "68324e274af8e5138cbb79eeee8c368ce8f033ea",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "ShowMore",
+        "key": "155b1ae1cb55dadae96e8d880582fb26771e6aef",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Open": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "ShowMore",
+        "key": "45c732eb396d97bb792f0cf4ca858d6c4bffba63",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Open": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "Subtitle",
+        "key": "75582e9e79161fc86e74a32b427c380362aa66ae",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Presets": [
+            "Amount",
+            "Link",
+            "Text"
+          ]
+        }
+      },
+      {
+        "name": "TableView :: Vertical",
+        "key": "465935c4abb469bf28ce07b78bd255f6215e0503",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Compact": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      {
+        "name": "Title",
+        "key": "235feae16071c429dd309269fa31e271488ba20a",
+        "status": "active",
+        "role": "main",
+        "platform": "universal",
+        "variantProperties": {
+          "Presets": [
+            "Account",
+            "Amount",
+            "Property",
+            "Status",
+            "Text"
+          ]
+        }
+      },
+      {
+        "name": "[D] TableView :: Horizontal SidePanel",
+        "key": "46fdafb593b319e287d29eb6bc875a951b812a5e",
+        "status": "active",
+        "role": "main",
+        "platform": "desktop",
+        "variantProperties": {}
+      }
+    ],
+    "auditInterpretation": {
+      "componentProperties": [
+        "variant.*"
+      ],
+      "layerProperties": [
+        "fill",
+        "stroke",
+        "stroke.*",
+        "styles.text",
+        "layout.*",
+        "radius",
+        "opacity",
+        "opacityToken",
+        "effects.*",
+        "blend.mode",
+        "blendMode",
+        "clipsContent"
+      ],
+      "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
+    }
+  },
+  "manual": {
+    "summary": {
+      "componentFamily": "TableView",
+      "library": "Web _ Corp Components",
+      "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
+    },
+    "auditInterpretation": {
+      "componentProperties": [
+        "variant.*"
+      ],
+      "layerProperties": [
+        "fill",
+        "stroke",
+        "styles.text",
+        "layout.*",
+        "radius",
+        "opacity"
+      ],
+      "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
+    },
+    "agentGuidance": {
+      "horizontalModeByCompact": {
+        "True": "одна колонка данных",
+        "False": "несколько колонок данных"
+      },
+      "horizontalMultiColumnRecommendation": "Не рекомендуется использовать более трёх колонок с данными: максимум четыре колонки вместе с заглавной колонкой Caption.",
+      "captionIsOptional": true,
+      "structure": {
+        "verticalDataColumns": 1,
+        "horizontalSidePanelDataColumns": 1,
+        "horizontalSidePanelCompact": true,
+        "horizontalSidePanelRowSpacing": 12,
+        "horizontalMultiColumnHeaderRequired": true
+      },
+      "textPolicy": "Тексты Caption, Title, Subtitle, Header и дополнительного заголовка можно менять. Количество и порядок Header должны совпадать с колонками данных.",
+      "rightAddonSemantics": {
+        "Info": "показывает пояснение",
+        "Copy": "копирует значение",
+        "Edit": "запускает редактирование",
+        "Icon20": "контекстное действие"
+      },
+      "additionalHeader": "Опционален; используется для общего пояснения группы колонок, текст можно менять.",
+      "platforms": {
+        "TableView :: Vertical": "Desktop в островках и Mobile Web",
+        "[D] TableView :: Horizontal SidePanel": "только Desktop"
+      },
+      "allowedConfiguration": [
+        "Выбор предусмотренного Title.Presets по типу данных.",
+        "Выбор предусмотренного Subtitle.Presets по типу данных.",
+        "Выбор предусмотренного RightAddon.Type по типу действия.",
+        "Независимое включение Skeleton у отдельных Row и Column.",
+        "Включение ShowMore, выбор количества видимых строк и контекстная подпись Ещё N.",
+        "Использование ShowMore в Horizontal, Vertical и Horizontal SidePanel.",
+        "Несколько действий в строке с несколькими колонками — через RightAddon соответствующих колонок."
+      ],
+      "forbiddenConfiguration": [
+        "Ручное изменение ширины Caption или колонок данных.",
+        "Ручное отключение divider у любой строки, кроме последней.",
+        "Instance swap внутри Title или Subtitle: используй только штатные presets и параметры."
+      ],
+      "interpretation": "Не считай отсутствие Caption, смену штатного preset Title или Subtitle, смену штатного Type у RightAddon, частичный Skeleton и штатную настройку ShowMore нарушениями. Превышение рекомендуемого числа колонок комментируй как рекомендацию, а не как запрет. Геометрию сравнивай с effective baseline."
+    }
   },
   "sourceFiles": [
-    "catalog.raw.json",
     "contract.generated.json",
     "contract.overrides.json",
     "rules.json",
@@ -23,12 +408,17 @@
     "examples.json",
     "composition-contract.json"
   ],
-  "summary": {
-    "componentFamily": "TableView",
+  "source": {
+    "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- TableView.json",
     "library": "Web _ Corp Components",
-    "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
+    "file": "Web _ Corp Components",
+    "generatedAt": "2026-07-09T15:42:23.445Z",
+    "exportVersion": "0.1.0-rest",
+    "files": [
+      "TableView"
+    ]
   },
-  "includedComponents": [
+  "components": [
     {
       "name": "[D] TableView :: Horizontal",
       "key": "b4ec18377538bff9a815ad1926179469ca3b899b",
@@ -238,18 +628,214 @@
       "variantProperties": {}
     }
   ],
-  "auditInterpretation": {
-    "componentProperties": [
-      "variant.*"
-    ],
-    "layerProperties": [
-      "fill",
-      "stroke",
-      "styles.text",
-      "layout.*",
-      "radius",
-      "opacity"
-    ],
-    "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
-  }
+  "includedComponents": [
+    {
+      "name": "[D] TableView :: Horizontal",
+      "key": "b4ec18377538bff9a815ad1926179469ca3b899b",
+      "status": "active",
+      "role": "main",
+      "platform": "desktop",
+      "variantProperties": {
+        "Compact": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "Caption",
+      "key": "3a43abc9e742bc0cd98d58591318532fedd5590b",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Skeleton": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "Caption",
+      "key": "b4321c06bb0b44ece682528f94e7e6453bdf2e92",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Skeleton": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "Column",
+      "key": "8f74feee723f12235948ffe39cf21f9a2aefb1e7",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Skeleton": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "Column",
+      "key": "ba1381a85fd0ec23a07132a6bdb52e09a0d90263",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Skeleton": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "RightAddon",
+      "key": "d5046ac860294f5812f1a4297966a9c4905fcc3c",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Type": [
+          "Copy",
+          "Edit",
+          "Icon20",
+          "Info"
+        ]
+      }
+    },
+    {
+      "name": "Row",
+      "key": "2caebd8892cfa5df2dfe24170cd875dff537645f",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Compact": [
+          "False",
+          "True"
+        ],
+        "Presets": [
+          "Body",
+          "Header"
+        ],
+        "Skeleton": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "Row",
+      "key": "0924748d008a667a5a24658fdaac5d6b4e7b0d97",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Compact": [
+          "False",
+          "True"
+        ],
+        "Skeleton": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "Row :: SidePanel",
+      "key": "68324e274af8e5138cbb79eeee8c368ce8f033ea",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Skeleton": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "ShowMore",
+      "key": "155b1ae1cb55dadae96e8d880582fb26771e6aef",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Open": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "ShowMore",
+      "key": "45c732eb396d97bb792f0cf4ca858d6c4bffba63",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Open": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "Subtitle",
+      "key": "75582e9e79161fc86e74a32b427c380362aa66ae",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Presets": [
+          "Amount",
+          "Link",
+          "Text"
+        ]
+      }
+    },
+    {
+      "name": "TableView :: Vertical",
+      "key": "465935c4abb469bf28ce07b78bd255f6215e0503",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Compact": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "name": "Title",
+      "key": "235feae16071c429dd309269fa31e271488ba20a",
+      "status": "active",
+      "role": "main",
+      "platform": "universal",
+      "variantProperties": {
+        "Presets": [
+          "Account",
+          "Amount",
+          "Property",
+          "Status",
+          "Text"
+        ]
+      }
+    },
+    {
+      "name": "[D] TableView :: Horizontal SidePanel",
+      "key": "46fdafb593b319e287d29eb6bc875a951b812a5e",
+      "status": "active",
+      "role": "main",
+      "platform": "desktop",
+      "variantProperties": {}
+    }
+  ]
 }

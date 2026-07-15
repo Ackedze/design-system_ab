@@ -2,17 +2,16 @@
   "schemaVersion": 1,
   "documentType": "component-contract-overrides",
   "componentKey": "web-corp.table-basic-d",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
     ],
     "platforms": [
-      "desktop",
-      "mobile-web"
+      "desktop"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-04"
+    "updatedAt": "2026-07-15"
   },
   "appliesTo": {
     "generatedContract": "contract.generated.json",
@@ -301,6 +300,12 @@
   },
   "geometryPolicy": {
     "rowHeight": "effective-baseline-only",
+    "columnWidth": {
+      "designerEditable": true,
+      "headAndBodyMustMatch": true,
+      "horizontalOverflowAllowed": false,
+      "compensateWithinAvailableWidth": true
+    },
     "fixedWidthCells": [
       "[D] BodyControlCell :: Basic",
       "[D] BodyActionCell :: Basic",
@@ -308,6 +313,97 @@
       "[D] HeadControlCell"
     ]
   },
+  "statePolicy": {
+    "sorting": {
+      "enabledByContext": true,
+      "maxActiveColumns": 1,
+      "initialState": "product-defined"
+    },
+    "skeleton": {
+      "defaultScope": "whole-table",
+      "partialRowOrCellLoadingAllowed": true
+    }
+  },
+  "interactionPolicy": {
+    "wholeRowClickable": true,
+    "selectAllScope": "current-page",
+    "headControlRequiredWhenSelectable": true
+  },
+  "columnControlPolicy": {
+    "required": true,
+    "interactiveColumnMinWidth": 160,
+    "pinningAllowed": false,
+    "sortingActionsVisibleOnlyForSortableColumns": true
+  },
+  "bottomBlockPolicy": {
+    "component": "Pagination",
+    "alwaysPresent": true,
+    "singlePagePreset": "None",
+    "selectedRowsPreset": "BulkActions",
+    "stickyOnVerticalOverflow": true,
+    "scrollbar": false,
+    "bulkActions": {
+      "standaloneTableBulkActionsAllowed": false,
+      "maxActionButtons": 4,
+      "actions": "context-dependent for selected rows"
+    }
+  },
+  "actionCellPolicy": {
+    "allowedContent": [
+      "one Button",
+      "PickerButton",
+      "Presets=None"
+    ],
+    "arbitraryInstanceSwap": false
+  },
+  "contentPolicy": {
+    "arbitraryInstanceSwap": false,
+    "contentSelection": "component-supported presets only",
+    "supportedPresetsAllowed": true,
+    "emptyOrErrorState": {
+      "component": "CorporateSystemMessage",
+      "replaces": "BodyRow only",
+      "preserves": [
+        "CorporateTopbar",
+        "[D] HeadRow :: Universal",
+        "Pagination"
+      ]
+    }
+  },
+  "allowedLayerOverrides": [
+    "characters",
+    "alignment in HeadCell and BodyCell",
+    "width of ordinary HeadCell and matching BodyCell without horizontal scroll"
+  ],
+  "forbiddenLayerOverrides": [
+    "typography",
+    "fill",
+    "stroke",
+    "opacity",
+    "padding",
+    "spacing",
+    "radius",
+    "row height",
+    "width of ControlCell and ActionCell"
+  ],
+  "visualStatePolicy": {
+    "hover": "effective-baseline",
+    "selected": "effective-baseline",
+    "disabled": "effective-baseline"
+  },
+  "paginationPolicy": {
+    "rowsPerPageUserEditable": true,
+    "allowedRowsPerPage": [
+      10,
+      25,
+      50,
+      100
+    ]
+  },
+  "linkedPatterns": [
+    "ptrn:tables.data-formatting",
+    "ptrn:controls.buttons-and-button-groups"
+  ],
   "lifecyclePolicy": {
     "scheduledPrefix": "🔄",
     "status": "legacy",

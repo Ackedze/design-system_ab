@@ -2,17 +2,16 @@
   "schemaVersion": 1,
   "documentType": "component-rules",
   "componentKey": "web-corp.table-wide-d",
-  "status": "draft",
+  "status": "ready",
   "applicability": {
     "channels": [
       "b2b"
     ],
     "platforms": [
-      "desktop",
-      "mobile-web"
+      "desktop"
     ],
     "source": "path-policy",
-    "updatedAt": "2026-07-13"
+    "updatedAt": "2026-07-15"
   },
   "rules": [
     {
@@ -337,9 +336,11 @@
         "reason": "no horizontal scroll"
       },
       "requiredBehavior": {
-        "pinningScope": "selected column and all columns to the left"
+        "pinningScope": "selected column and all columns to the left",
+        "maxPinnedColumns": "all columns",
+        "allColumnsPinnedEffect": "equivalent to no pinning"
       },
-      "ruleText": "Закрепление колонок доступно только в Table Wide [D]. В Table Basic [D] действие Pin column не используется."
+      "ruleText": "Закрепление колонок доступно только в Table Wide [D]. Можно закрепить вплоть до всех столбцов, но закрепление всех столбцов эквивалентно отсутствию закрепления и не даёт отдельного эффекта. В Table Basic действие Pin column не используется."
     },
     {
       "ruleId": "component:web-corp.table-wide-d.column-width-reset-actions",
@@ -380,14 +381,15 @@
       "requiredState": {
         "rowsLessOrEqualTen": {
           "paginationPreset": "None",
-          "singlePageBlockRequired": false
+          "paginationComponentPresent": true,
+          "paginationControlsVisible": false
         },
         "rowsMoreThanTen": {
           "paginationPreset": "Pagination"
         },
         "lastRowBottomDivider": false
       },
-      "ruleText": "Если в таблице 10 строк или меньше, блок с одной страницей можно отключить через preset None. Если строк больше 10 и появляется вторая страница, используй preset Pagination. У последней строки таблицы нижний разделитель отсутствует."
+      "ruleText": "Pagination всегда остаётся в композиции Table Wide. Если в таблице 10 строк или меньше, переключи её в Presets=None, но не удаляй. Если строк больше 10 и появляется вторая страница, используй Presets=Pagination. У последней строки таблицы нижний разделитель отсутствует."
     },
     {
       "ruleId": "component:web-corp.table-wide-d.sticky-plate-when-overflow",
@@ -426,13 +428,16 @@
       },
       "requiredState": {
         "paginationBlockPreset": "BulkActions",
-        "bulkActionsPaginationMode": "per-page"
+        "bulkActionsPaginationMode": "per-page",
+        "maxActionButtons": 4,
+        "actionMeaning": "contextually applies to selected rows",
+        "buttonPattern": "ptrn:controls.buttons-and-button-groups"
       },
       "forbidden": {
         "component": "TableBulkActions",
         "separateBulkActionsComponent": true
       },
-      "ruleText": "При выборе строк в Table Wide [D] нижний блок переключается в preset BulkActions. В новой сборке таблиц не используй отдельный компонент TableBulkActions; групповые действия должны быть состоянием пагинационного блока."
+      "ruleText": "При выборе строк в Table Wide нижний блок переключается в Presets=BulkActions. Отдельный TableBulkActions больше не используется. Внутри допускается до четырёх кнопок по паттерну кнопок; действия должны относиться к выделенным строкам, например отправить, удалить, переслать или скопировать."
     },
     {
       "ruleId": "component:web-corp.table-wide-d.group-divider-labels",
@@ -583,6 +588,233 @@
         "verticalGeometry": "effective-baseline"
       },
       "ruleText": "Высота строк и их вертикальная геометрия в Table Wide должны сохраняться по effective baseline. Ручное изменение высоты строки запрещено."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.sorting-is-contextual",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.visibility|variant.Sorting",
+      "checkType": "manual",
+      "matchKind": "exact_component_rule",
+      "ruleText": "Sorting не обязателен для каждого столбца Table Wide. Дизайнер включает его только для тех столбцов, где сортировка нужна по контексту."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.skeleton-default-and-partial-loading",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.Skeleton",
+      "checkType": "manual",
+      "matchKind": "exact_component_rule",
+      "defaultState": "all table elements are loading",
+      "allowedExceptions": [
+        "individual rows",
+        "individual cells"
+      ],
+      "ruleText": "По умолчанию skeleton включается согласованно для всех элементов таблицы. При частичном обновлении данных допускается состояние загрузки отдельной строки или отдельной ячейки."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.single-active-sorting-column",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "variant.Sorting|component.state",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "requiredState": {
+        "maxActiveSortingColumns": 1,
+        "initialSortingSource": "product logic"
+      },
+      "ruleText": "В Table Wide одновременно может быть активна сортировка только одного столбца. Начальное состояние сортировки определяется продуктовой логикой, а не произвольным решением дизайнера."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.body-row-may-be-clickable",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "component.interaction",
+      "checkType": "manual",
+      "matchKind": "exact_component_rule",
+      "ruleText": "BodyRow в Table Wide может быть кликабельна полностью, если это соответствует сценарию перехода или открытия объекта."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.select-all-current-page",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "component.behavior|component.composition",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "bodyControlCellsUseCheckboxes": true
+      },
+      "requiredState": {
+        "headControlCellCheckbox": true,
+        "selectAllScope": "current page"
+      },
+      "ruleText": "Если строки Table Wide содержат checkbox, в HeadControlCell обязателен checkbox выбора всех строк. Он выбирает только строки текущей страницы."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.action-cell-content",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "component.composition|variant.Presets",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "allowedContent": [
+        "one Button",
+        "PickerButton for multiple actions",
+        "Presets=None"
+      ],
+      "ruleText": "BodyActionCell Table Wide содержит одну кнопку, PickerButton для нескольких действий или Presets=None. Другие композиции ActionCell запрещены."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.no-arbitrary-cell-instance-swap",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "instanceSwap|component.composition",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "forbidden": {
+        "arbitraryNestedInstanceSwap": true
+      },
+      "ruleText": "В BodyCell Table Wide запрещён произвольный instance swap. Используй только состав и presets, предусмотренные компонентом."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.data-formatting-follows-pattern",
+      "severity": "info",
+      "source": "pattern-link",
+      "patternId": "ptrn:tables.data-formatting",
+      "appliesTo": "content.formatting|layout.alignment",
+      "checkType": "manual",
+      "ruleText": "Выравнивание и форматирование данных Table Wide определяются отдельным паттерном «Форматирование данных в таблице»; не выводи эти правила из структуры компонента."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.desktop-from-768",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "platform|viewport.width",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "requiredState": {
+        "platform": "desktop",
+        "minViewportWidthPx": 768
+      },
+      "ruleText": "Table Wide применяется только на desktop при ширине viewport от 768 px. Для Mobile Web ниже 768 px этот компонент не используется."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.assembly-width-fill",
+      "severity": "error",
+      "source": "composition-contract",
+      "appliesTo": "layout.width|layoutSizingHorizontal",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "requiredState": {
+        "sizing": "Fill",
+        "equalWidth": [
+          "CorporateTopbar",
+          "[D] HeadRow :: Universal",
+          "[D] BodyRow :: Wide",
+          "Pagination"
+        ],
+        "container": "[D] BackgroundPlateSlot"
+      },
+      "ruleText": "CorporateTopbar, HeadRow, все BodyRow и Pagination Table Wide должны иметь одинаковую ширину и заполнять [D] BackgroundPlateSlot по Fill."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.empty-error-state-system-message",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "component.composition|component.state",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "conditions": {
+        "state": [
+          "empty",
+          "error"
+        ]
+      },
+      "requiredComponent": "CorporateSystemMessage",
+      "requiredComposition": {
+        "replaces": "BodyRow only",
+        "preserves": [
+          "CorporateTopbar",
+          "[D] HeadRow :: Universal",
+          "Pagination"
+        ]
+      },
+      "ruleText": "Для пустого или ошибочного состояния Table Wide используй CorporateSystemMessage вместо BodyRow. CorporateTopbar, HeadRow и Pagination остаются в композиции."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.cell-alignment-editable",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "layout.alignment",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "allowedLayers": [
+        "[D] HeadCell",
+        "[D] BodyCell :: Wide"
+      ],
+      "ruleText": "Дизайнер может менять alignment внутри HeadCell и BodyCell Table Wide в соответствии с паттерном форматирования данных."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.rows-per-page-user-editable",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "pagination.rowsPerPage",
+      "checkType": "manual",
+      "matchKind": "exact_component_rule",
+      "allowedValues": [
+        10,
+        25,
+        50,
+        100
+      ],
+      "ruleText": "Пользователь может менять количество отображаемых строк через Pagination только между значениями 10, 25, 50 и 100."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.manual-visual-styles-forbidden",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "styles.text|fill|stroke|opacity|layout.padding|layout.itemSpacing|radius",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "forbiddenOverrides": [
+        "typography",
+        "fill",
+        "stroke",
+        "opacity",
+        "padding",
+        "spacing",
+        "radius"
+      ],
+      "allowedOverrides": [
+        "alignment in HeadCell/BodyCell",
+        "ordinary column width",
+        "text characters",
+        "component-supported presets"
+      ],
+      "ruleText": "В строках и ячейках Table Wide запрещено вручную менять typography, fill, stroke, opacity, padding, spacing и radius. Разрешены alignment, ширина обычных колонок, текст и предусмотренные компонентом presets."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.supported-presets-allowed",
+      "severity": "info",
+      "source": "component-contract",
+      "appliesTo": "variant.Presets",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "ruleText": "Дизайнер может выбирать предусмотренные компонентом presets ячеек и addons. Это не является произвольным instance swap."
+    },
+    {
+      "ruleId": "component:web-corp.table-wide-d.visual-states-use-effective-baseline",
+      "severity": "error",
+      "source": "component-contract",
+      "appliesTo": "state.hover|state.selected|state.disabled|fill|stroke|opacity",
+      "checkType": "deterministic",
+      "matchKind": "exact_component_rule",
+      "requiredState": {
+        "hover": "effective-baseline",
+        "selected": "effective-baseline",
+        "disabled": "effective-baseline"
+      },
+      "ruleText": "Hover, selected и disabled состояния строк и ячеек Table Wide полностью определяются effective baseline. Ручная настройка их цветов и визуальных стилей запрещена."
     }
   ]
 }

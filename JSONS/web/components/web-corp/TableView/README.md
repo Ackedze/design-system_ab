@@ -1,28 +1,43 @@
-# TableView — MVP component contract
+# TableView
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / TableView**.
-
-The raw Figma catalog remains the source of truth:
-
-`../Web _ Corp Components -- TableView.json`
-
-## Файлы
-
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+Машиночитаемый комплект для просмотрового представления параметров и значений строками или колонками.
 
 ## Источник
 
+- Raw-каталог: `../Web _ Corp Components -- TableView.json`
 - Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
-- Компонентов: `15`
+- Канал: `b2b`
+- Платформы: `desktop`, `mobile-web`
 
-## Current Scope
+## Публичные компоненты
 
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+- `[D] TableView :: Horizontal` — одна колонка при `Compact=True`, несколько колонок при `Compact=False`.
+- `TableView :: Vertical` — одна колонка данных для островков на Desktop и Mobile Web.
+- `[D] TableView :: Horizontal SidePanel` — одна компактная колонка для SidePanel, Modal и UniversalModal на Desktop.
+
+`Caption`, `Column`, `Row`, `Row :: SidePanel`, `ShowMore`, `Title`, `Subtitle` и `RightAddon` — служебные части. Отдельное использование запрещено.
+
+## Основные ограничения
+
+- Все Row используют одинаковый Compact: `12 px` при `True`, `16 px` при `False`.
+- Для Multi-column обязательна Header Row; её структура совпадает с колонками данных.
+- Рекомендуется не более трёх колонок данных, четырёх вместе с Caption.
+- Caption опционален. Title/Subtitle presets выбираются по типу данных.
+- ShowMore доступен во всех публичных вариантах.
+- Частичный Skeleton для Row и Column разрешён.
+- Ширина Caption и Column не меняется вручную.
+- Divider вручную переключается только у последней строки.
+- Instance swap внутри Title и Subtitle запрещён.
+- Ручные изменения typography, spacing, fill и stroke запрещены.
+
+## Документы
+
+- `contract.generated.json` — автоматически сгенерированная структура и baseline.
+- `contract.overrides.json` — бизнес-семантика и допустимые настройки.
+- `composition-contract.json` — правила композиции и вложенности.
+- `rules.json` — нормативные правила Apollo и агента.
+- `audit-mapping.json` — классификация diff и правила reset.
+- `agent-context.json` — контекст для трактовки отчёта.
+- `examples.json` — регрессионные сценарии.
+
+Все авторские документы имеют статус `ready`.
