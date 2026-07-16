@@ -3,7 +3,7 @@
   "documentType": "component-rules",
   "metadata": {
     "componentKey": "web-corp.account-select",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -274,6 +274,358 @@
           }
         },
         "ruleText": "Состав отображаемых значений определяется preset компонента AccountInfo. Значения, предусмотренные выбранным preset, нельзя скрывать вручную."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.disabled-account-is-non-interactive",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.interaction|component.disabled",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Недоступный счёт отображается в disabled-состоянии и не реагирует на клик."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.disabled-account-shows-reason-tooltip",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.disabled|component.tooltip",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "requiredTooltip": {
+          "view": "hint",
+          "content": "short unavailability reason"
+        },
+        "ruleText": "При наведении на недоступный счёт должен появляться Tooltip с View=Hint и короткой причиной недоступности."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.disabled-account-visual-state",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.disabled|fill|variant.DisabledState",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "requiredState": {
+          "Multi": {
+            "Checkbox.DisabledState": true,
+            "Amount.fill": "text/tertiary",
+            "PaymentMaskedNumber.fill": "text/tertiary",
+            "AccountInfo.fill": "text/tertiary"
+          },
+          "Single": {
+            "Amount.fill": "text/tertiary",
+            "PaymentMaskedNumber.fill": "text/tertiary",
+            "AccountInfo.fill": "text/tertiary"
+          }
+        },
+        "ruleText": "В disabled-состоянии Amount, PaymentMaskedNumber и AccountInfo используют text/tertiary. В Multi Checkbox дополнительно принимает DisabledState."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.media-mode-is-exclusive-and-uniform",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.media|component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "allowedModes": [
+          "none",
+          "IconView",
+          "CardImage"
+        ],
+        "ruleText": "IconView и CardImage нельзя использовать одновременно. В одном списке все счета должны использовать единый режим: IconView, CardImage или без медиа-аддона."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.selection-commit-behavior",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.SelectType|component.interaction",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "behavior": {
+          "Single": "close-immediately",
+          "Multi": "apply-button"
+        },
+        "ruleText": "В Single список закрывается сразу после выбора. В Multi пользователь подтверждает выбранные счета кнопкой «Применить»."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.status-badge-is-contextual",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.StatusBadge",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Применение StatusBadge пока не регламентировано и определяется контекстом. Не выводи нарушение только из его наличия или отсутствия."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.text-overflow-follows-option-list-cell",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "text.overflow",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Ограничения длинного текста определяются общими правилами OptionListCell. AccountSelect не задаёт отдельного лимита."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.selected-state-follows-select-type",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.SelectType|variant.SelectedState|component.selection",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "requiredState": {
+          "Single": "Checkmark.SelectedState=true",
+          "Multi": "Checkbox checked"
+        },
+        "ruleText": "Выбранный счёт в Single отображается через Checkmark.SelectedState=true, а в Multi — через checked-состояние Checkbox."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.disabled-account-cannot-be-selected",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.disabled|component.selection",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Недоступный счёт не может находиться в выбранном состоянии."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.item-order-is-data-driven",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.order",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "allowedPrinciples": [
+          "alphabetical",
+          "ascending",
+          "descending"
+        ],
+        "ruleText": "Дизайнер не меняет порядок счетов вручную. Порядок определяется контекстной сортировкой данных: по алфавиту, по возрастанию или по убыванию."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.list-height-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "layout.height|component.overflow",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "requiredViewport": {
+          "platform": "desktop",
+          "height": "5.5 two-line OptionListItem",
+          "multiSelectionButtonBlockIncluded": false,
+          "overflow": "vertical-scroll"
+        },
+        "ruleText": "На desktop высота списка должна вмещать 5.5 двухстрочных OptionListItem. Блок кнопок множественного выбора не входит в эту высоту; остальной контент прокручивается вертикально. На Mobile Web ограничения высоты нет."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.empty-state-uses-option-list-empty-state",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.emptyState|component.noResults",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "requiredComponents": {
+          "desktop": "[D] OptionListEmptyState",
+          "mobile-web": "[M] OptionListEmptyState"
+        },
+        "buttons": false,
+        "ruleText": "Для пустого списка и отсутствия результатов используй OptionListEmptyState без кнопок: [D] на desktop и [M] на Mobile Web."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.loading-state-is-undefined",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.loading",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Loading-state AccountSelect пока не регламентирован. Не придумывай обязательную реализацию и не выводи нарушение только из её отсутствия."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.row-visuals-follow-effective-baseline",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "layout.*|fill|stroke|radius|effects.*|component.state",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "fixedProperties": [
+          "height",
+          "padding",
+          "gap",
+          "radius",
+          "fill",
+          "hover",
+          "selected"
+        ],
+        "ruleText": "Геометрия и визуальные стили строк AccountSelect должны соответствовать effective baseline. Ручное изменение высоты, padding, gap, radius, fill, hover или selected-состояния запрещено."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.multi-footer-composition",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.SelectType|component.footer",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "requiredComposition": {
+          "desktopComponent": "[D] OptionListFooter",
+          "mobileComponent": "[M] BottomSheetFooter",
+          "Primary": {
+            "label": "Применить",
+            "required": true
+          },
+          "Secondary": {
+            "label": "Сбросить",
+            "visibleWhen": "existing selection",
+            "action": "clear selection to zero"
+          },
+          "otherButtonsAllowed": false
+        },
+        "ruleText": "Для Multi на desktop используй [D] OptionListFooter, на Mobile Web — [M] BottomSheetFooter. Primary «Применить» обязательна. Secondary «Сбросить» появляется после сделанного выбора и очищает выбор до нуля. Другие кнопки не используются."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.list-content-is-uniform",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.Type|variant.Presets|component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Все строки одного AccountSelect должны использовать одинаковые AccountItem.Type и AccountInfo preset. Смешивать Sum и Number или разные схемы preset в одном списке нельзя."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.select-all-covers-entire-list",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.SelectType|component.header|component.selection",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "requiredComposition": {
+          "components": {
+            "desktop": "[D] OptionListHeader",
+            "mobile-web": "[M] OptionListHeader"
+          },
+          "Preset": "Select All",
+          "scope": "all-list",
+          "disabledAccountsIncluded": false
+        },
+        "ruleText": "Действие «Выбрать все» добавляется через OptionListHeader Preset=Select All: [D] на desktop и [M] на Mobile Web. Оно выбирает все доступные счета во всём списке, пропуская disabled-счета."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.platform-container-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.platform|component.container",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "requiredContainers": {
+          "desktop": "OptionList",
+          "mobile-web": "BottomSheet"
+        },
+        "ruleText": "[D] AccountSelect открывается в OptionList. [M] AccountSelect открывается в BottomSheet."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.search-is-recommended-for-large-list",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.search|component.itemCount",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "recommendedFromAccountCount": 10,
+        "requiredComposition": {
+          "components": {
+            "desktop": "[D] OptionListHeader",
+            "mobile-web": "[M] OptionListHeader"
+          },
+          "Preset": "Search"
+        },
+        "selectionModes": [
+          "Single",
+          "Multi"
+        ],
+        "ruleText": "Для списка из 10 и более счетов в Single и Multi рекомендуется добавить поиск через OptionListHeader Preset=Search: [D] на desktop и [M] на Mobile Web."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.empty-state-text-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.emptyState|text.content",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Текст внутри [D] OptionListEmptyState фиксирован и не должен редактироваться."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.apply-is-always-enabled",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.footer|component.selection",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Кнопка Primary «Применить» всегда активна. Нулевой явный выбор приравнивается к выбору всех доступных счетов."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.reset-clears-and-hides",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.footer|component.selection",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Кнопка Secondary «Сбросить» очищает выбор до нуля и после сброса сразу скрывается."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.select-all-state-machine",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.header|component.selection|variant.IndeterminateState|variant.SelectedState",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "labelMutable": false,
+        "states": {
+          "noneSelected": {
+            "IndeterminateState": false,
+            "SelectedState": false,
+            "clickAction": "select all available accounts"
+          },
+          "partiallySelected": {
+            "IndeterminateState": true,
+            "SelectedState": false,
+            "clickAction": "select all available accounts"
+          },
+          "allAvailableSelected": {
+            "IndeterminateState": false,
+            "SelectedState": true,
+            "clickAction": "clear all selection"
+          }
+        },
+        "ruleText": "Текст Select All не меняется. При частичном выборе используй IndeterminateState=true; при выборе всех доступных счетов — SelectedState=true. Клик при none или partial выбирает все доступные счета, при all — сбрасывает весь выбор."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.search-placeholder-describes-scope",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.search|text.placeholder",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Критерии поиска определяет продуктовая команда. Placeholder поля поиска должен явно отражать, по каким данным выполняется поиск."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.select-all-required-for-large-multi",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.SelectType|component.itemCount|component.header",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "requiredFromItemCount": 10,
+        "ruleText": "В Multi со списком из 10 и более элементов OptionListHeader Preset=Select All обязателен."
+      },
+      {
+        "ruleId": "component:web-corp.account-select.header-stack-order",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.header|component.order",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "requiredOrder": [
+          "Search",
+          "Select All"
+        ],
+        "direction": "vertical",
+        "ruleText": "Если одновременно используются Search и Select All, располагай Header вертикально: сначала Search, затем Select All."
       }
     ]
   }

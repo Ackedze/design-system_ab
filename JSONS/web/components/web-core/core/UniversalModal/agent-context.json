@@ -493,6 +493,17 @@
       "componentFamily": "UniversalModal",
       "library": "Web _ Core",
       "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
-    }
+    },
+    "criticalBaselines": [
+      "Заголовок модального окна задаётся через активную конфигурацию [D] UniversalModalHeader и его declared title/MiddleSlot content. Не дублируй заголовок ручным Text-узлом в BodyContent.",
+      "BodyContent должен иметь width=Fill и height=Hug. Fixed height допустима только при фактическом overflow и явно выбранном scroll-сценарии.",
+      "Scrollbar в [D] UniversalModalBody выключен, когда body-content полностью помещается в доступную высоту. Его включают только при подтверждённом вертикальном overflow.",
+      "Overlap у [D] UniversalModalHeader и [D] UniversalModalFooter выключен в нескроллируемом modal. Он включается только когда scroll-content действительно заезжает под фиксированные header или footer."
+    ],
+    "agentInstructions": [
+      "Перед сборкой модального окна прочитай component properties Header, Body и Footer; при наличии системного title preset используй его вместо ручной типографики.",
+      "Не оставляй Scrollbar, Overlap или fixed height как значения по умолчанию: проверь фактическую высоту body-content после наполнения слотa.",
+      "Для confirm-flow проверяй три состояния: entry action, confirmation и result; все action controls и menu/popover должны быть активными библиотечными компонентами."
+    ]
   }
 }

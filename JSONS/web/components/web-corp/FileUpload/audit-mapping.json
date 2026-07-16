@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-09"
+      "updatedAt": "2026-07-16"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -25,12 +25,12 @@
     "ownershipMigrationRevision": 2
   },
   "generated": {
-    "generatedAt": "2026-07-09T07:11:39.994Z",
+    "generatedAt": "2026-07-16T15:03:54.811Z",
     "source": {
       "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- FileUpload.json",
       "library": "Web _ Corp Components",
       "file": "Web _ Corp Components",
-      "generatedAt": "2026-07-09T07:11:39.994Z",
+      "generatedAt": "2026-07-16T15:03:54.811Z",
       "exportVersion": "0.1.0-rest",
       "files": [
         "FileUpload"
@@ -266,5 +266,45 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentPolicy": {
+      "publicRoots": [
+        "[D] FileUpload",
+        "[M] FileUpload"
+      ],
+      "internalStandaloneAllowed": false,
+      "viewSemantics": {
+        "Primary": "standalone",
+        "Secondary": "inside-another-block"
+      },
+      "disableState": "new uploads blocked; existing file interactions remain available; Border=false",
+      "validation": {
+        "block": "required block with zero files -> root Error",
+        "reset": "clear root Error only after successful repeated validation",
+        "file": "independent FileUploadItem errors",
+        "rootAndFileErrorsMayCoexist": false
+      },
+      "fileItem": {
+        "detailedContract": "separate FileUploadItem package",
+        "uploading": "Preset=Uploading",
+        "download": "all states",
+        "delete": "all states",
+        "retry": "Default and Error only"
+      },
+      "fileList": "full list in upload order; manual reorder and collapse forbidden; limit counts all items including Uploading and Error",
+      "moreExtensions": "counts additional allowed file extensions, not uploaded files",
+      "counter": "Всего файлов N = all list items including Uploading and Error; recommended for batches over 50 files",
+      "titleView": "use only parameters allowed by the TitleView contract for the current size; Title required, Subtitle optional",
+      "sizing": "Fill horizontally and Hug vertically on desktop and mobile-web",
+      "visualBaseline": "layout and visual properties follow effective baseline; manual changes forbidden",
+      "textOverrides": "Title, Subtitle, Counter.N, File extension, file name and values inside square brackets only",
+      "slotVisibility": "component-properties-only",
+      "platforms": {
+        "desktop": "entire Dropzone clickable; system picker + drag-and-drop + background surface; Border allowed in Primary and Secondary except Disable",
+        "mobile-web": "system picker from the attach button only + no background surface; Border forbidden"
+      },
+      "maxFiles": "keep Dropzone visible and set the entire FileUpload to State=Disable; return to Default after deletion only when the scenario allows further uploads",
+      "emptyState": "FilesGroup and Counter hidden"
+    }
+  }
 }

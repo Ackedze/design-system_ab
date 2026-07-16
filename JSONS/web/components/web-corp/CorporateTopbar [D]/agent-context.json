@@ -52,6 +52,8 @@
       {
         "name": "[D] OptionList",
         "key": "89e540665837191013a4637b6d68c3cf02438637",
+        "description": "",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "desktop",
@@ -66,6 +68,8 @@
       {
         "name": "[D] Settings",
         "key": "e4fe5478cf0449862c3d4c952f8b0037e966eda9",
+        "description": "",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "desktop",
@@ -79,6 +83,8 @@
       {
         "name": "[D] StartAddon",
         "key": "469c8973981e2cae24bab8b2f8a56520b2f97a81",
+        "description": "",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "desktop",
@@ -92,6 +98,8 @@
       {
         "name": "[D] TopBar",
         "key": "636e6d4474770d65d5b077757a9c1c62c08a8f8c",
+        "description": "",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "desktop",
@@ -109,6 +117,8 @@
       {
         "name": "[D] OptionListHeader",
         "key": "8cc757eb9bf63ceb33dd3be2f6ba048f2da2320d",
+        "description": "",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "desktop",
@@ -117,6 +127,8 @@
       {
         "name": "[D] SortableListItem",
         "key": "c10e94711f5aec81753a9309cf54ae0932fd5752",
+        "description": "",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "desktop",
@@ -125,6 +137,8 @@
       {
         "name": "Control",
         "key": "e0ce7153952bfd2bc096f6eaa82a048fdc78ea50",
+        "description": "",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "universal",
@@ -133,6 +147,8 @@
       {
         "name": "Divider",
         "key": "e35a1c0edc453cf729a7f5610550bb240eeb2f37",
+        "description": "",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "universal",
@@ -161,6 +177,22 @@
     }
   },
   "manual": {
+    "componentSemantics": [
+      {
+        "componentKey": "636e6d4474770d65d5b077757a9c1c62c08a8f8c",
+        "name": "[D] TopBar",
+        "purpose": "Desktop-панель управления представлением данных: показывает количество объектов, массовые и контекстные действия и настройки вида.",
+        "useWhen": [
+          "Над таблицей, списком или карточками нужны счётчик, действия или переключение настроек представления."
+        ],
+        "doNotUseWhen": [
+          "Под панелью нет связанного представления данных."
+        ],
+        "relationship": "Публичный корень CorporateTopbar; остальные компоненты пакета являются его внутренними областями и контролами.",
+        "status": "approved",
+        "provenance": "design-system-author"
+      }
+    ],
     "summary": "[D] TopBar — desktop-панель управления табличным, списочным или карточным представлением данных. Она показывает обязательный Counter, поддерживает контекстные массовые и дополнительные действия и открывает настройки вида данных.",
     "criticalBaselines": [
       "Публичным корнем является только [D] TopBar; остальные компоненты пакета являются внутренними.",
@@ -168,7 +200,8 @@
       "Skeleton=true блокирует взаимодействие и сохраняет состояние Filtered после загрузки.",
       "OptionList Mode должен соответствовать Table Basic, Table Wide или Core-представлению.",
       "Корень использует Fill по ширине и Hug по высоте; геометрия и визуальные стили защищены effective baseline.",
-      "TopBar применяется только на desktop от 768 px и всегда связан с таблицей, списком или карточками."
+      "TopBar применяется только на desktop от 768 px и всегда связан с таблицей, списком или карточками.",
+      "Для Table Wide [D] TopBar является sibling [D] BackgroundPlateSlot в общем Level-0 контейнере. Его нельзя размещать внутри Slot плейта."
     ],
     "agentInstructions": [
       "Не объявляй служебные компоненты пакета самостоятельными публичными компонентами.",
@@ -176,7 +209,8 @@
       "Проверяй максимум одну дополнительную Button с Size=32 и View=Primary или Secondary.",
       "Проверяй минимум одну видимую колонку и мгновенное применение настроек.",
       "Не предлагай переход Basic ↔ Core: допустимы только Basic ↔ Wide и Core ↔ Wide.",
-      "Не разрешай переименование фиксированных служебных подписей."
+      "Не разрешай переименование фиксированных служебных подписей.",
+      "При проверке Table Wide отклоняй композицию, где [D] TopBar вложен в BackgroundPlateSlot, даже если визуально отступы совпадают."
     ],
     "auditInterpretation": {
       "baselinePolicy": "Сначала разреши Filtered, Skeleton и состояния вложенных компонентов, затем сравнивай layer properties с effective baseline.",

@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.account-select",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -223,14 +223,173 @@
         "replaceAllowed": false
       }
     },
+    "disabledAccountPolicy": {
+      "interactive": false,
+      "hoverTooltip": {
+        "required": true,
+        "view": "hint",
+        "content": "Короткая причина недоступности счёта."
+      },
+      "Multi": {
+        "Checkbox.DisabledState": true,
+        "Amount.color": "text/tertiary",
+        "PaymentMaskedNumber.color": "text/tertiary",
+        "AccountInfo.color": "text/tertiary"
+      },
+      "Single": {
+        "Amount.color": "text/tertiary",
+        "PaymentMaskedNumber.color": "text/tertiary",
+        "AccountInfo.color": "text/tertiary"
+      }
+    },
     "mediaPolicy": {
       "default": "none",
+      "modes": [
+        "none",
+        "IconView",
+        "CardImage"
+      ],
+      "mutuallyExclusive": true,
+      "uniformWithinList": true,
       "IconView": {
-        "usedByDefault": false
+        "usedByDefault": false,
+        "allowedWhen": "Нужно показать иконку типа счёта."
       },
       "CardImage": {
         "allowedWhen": "Выбор карточного счёта."
       }
+    },
+    "statusBadgePolicy": {
+      "usage": "contextual",
+      "semanticsDefined": false
+    },
+    "selectionCommitPolicy": {
+      "Single": "После выбора счёта список закрывается сразу.",
+      "Multi": "Выбор подтверждается отдельной кнопкой «Применить»."
+    },
+    "selectedStatePolicy": {
+      "Single": "Checkmark.SelectedState=true.",
+      "Multi": "Checkbox принимает checked-состояние.",
+      "disabledAccountCanBeSelected": false
+    },
+    "itemOrderPolicy": {
+      "designerReorderAllowed": false,
+      "sortingPrinciple": "Определяется контекстом: алфавитный порядок, возрастание или убывание значений."
+    },
+    "listViewportPolicy": {
+      "desktop": {
+        "height": "5.5 two-line OptionListItem",
+        "multiSelectionButtonBlockIncluded": false,
+        "overflow": "vertical-scroll"
+      },
+      "mobile-web": {
+        "heightLimit": "none"
+      }
+    },
+    "statePolicy": {
+      "loading": "not-defined",
+      "empty": {
+        "desktop": "[D] OptionListEmptyState without buttons",
+        "mobile-web": "[M] OptionListEmptyState without buttons"
+      },
+      "noResults": {
+        "desktop": "[D] OptionListEmptyState without buttons",
+        "mobile-web": "[M] OptionListEmptyState without buttons"
+      },
+      "emptyStateTextEditable": false
+    },
+    "searchPolicy": {
+      "recommendedFromAccountCount": 10,
+      "components": {
+        "desktop": "[D] OptionListHeader",
+        "mobile-web": "[M] OptionListHeader"
+      },
+      "Preset": "Search",
+      "selectionModes": [
+        "Single",
+        "Multi"
+      ],
+      "searchScope": "Определяется продуктовой командой.",
+      "placeholderMustDescribeSearchScope": true,
+      "requirement": "recommendation"
+    },
+    "multiFooterPolicy": {
+      "desktopComponent": "[D] OptionListFooter",
+      "mobileComponent": "[M] BottomSheetFooter",
+      "Primary": {
+        "label": "Применить",
+        "required": true,
+        "alwaysEnabled": true,
+        "zeroExplicitSelectionMeaning": "all available accounts"
+      },
+      "Secondary": {
+        "label": "Сбросить",
+        "visibleWhen": "Выбор уже был сделан.",
+        "action": "Очистить выбор до нулевого состояния.",
+        "hideAfterReset": true
+      },
+      "otherButtonsAllowed": false
+    },
+    "listConsistencyPolicy": {
+      "uniformAccountItemType": true,
+      "uniformAccountInfoPreset": true
+    },
+    "selectAllPolicy": {
+      "components": {
+        "desktop": "[D] OptionListHeader",
+        "mobile-web": "[M] OptionListHeader"
+      },
+      "Preset": "Select All",
+      "scope": "all-list",
+      "requiredForMultiFromItemCount": 10,
+      "disabledAccountsIncluded": false,
+      "labelMutable": false,
+      "states": {
+        "noneSelected": {
+          "IndeterminateState": false,
+          "SelectedState": false,
+          "clickAction": "select all available accounts"
+        },
+        "partiallySelected": {
+          "IndeterminateState": true,
+          "SelectedState": false,
+          "clickAction": "select all available accounts"
+        },
+        "allAvailableSelected": {
+          "IndeterminateState": false,
+          "SelectedState": true,
+          "clickAction": "clear all selection"
+        }
+      }
+    },
+    "headerStackPolicy": {
+      "whenSearchAndSelectAllArePresent": [
+        "Search",
+        "Select All"
+      ],
+      "direction": "vertical"
+    },
+    "platformContainerPolicy": {
+      "desktop": "OptionList",
+      "mobile-web": "BottomSheet"
+    },
+    "visualBaselinePolicy": {
+      "manualGeometryChangesAllowed": false,
+      "manualVisualStyleChangesAllowed": false,
+      "properties": [
+        "height",
+        "padding",
+        "gap",
+        "radius",
+        "fill",
+        "hover",
+        "selected"
+      ],
+      "baseline": "effective baseline"
+    },
+    "textOverflowPolicy": {
+      "source": "OptionListCell",
+      "localRulesDefined": false
     },
     "accountItemPolicy": {
       "Type": {
@@ -301,7 +460,18 @@
       "AccountItem.Type=❌ Number",
       "changing group order",
       "hiding or replacing selection controls",
-      "manually hiding values defined by AccountInfo preset"
+      "manually hiding values defined by AccountInfo preset",
+      "clickable disabled account",
+      "disabled account without reason tooltip",
+      "mixing IconView and CardImage in one list",
+      "different media modes within one list",
+      "selected disabled account",
+      "manual item reorder",
+      "manual row geometry or visual style changes",
+      "mixed AccountItem.Type within one list",
+      "mixed AccountInfo preset within one list",
+      "mobile AccountSelect outside BottomSheet",
+      "desktop AccountSelect outside OptionList"
     ],
     "note": "Семантический overlay семейства AccountSelect. Публичными точками использования являются только desktop и mobile-web AccountOptionListContent; остальные компоненты семейства служебные."
   }

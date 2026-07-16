@@ -442,15 +442,24 @@
         "Подобрать ширину каждой ячейки в detached-композиции."
       ],
       "requiredSurroundingComponents": [
-        "CorporateTopbar",
+        "[D] TopBar (sibling Level-0)",
         "HeaderRow",
         "BodyRow",
-        "Pagination",
+        "[D] StickyPagination",
         "[D] BackgroundPlateSlot"
       ],
       "unrelatedComponents": [
         "TableView"
-      ]
+      ],
+      "placementPolicy": {
+        "topBarAndPlate": "siblings-in-common-level-0-parent",
+        "topBarInsideBackgroundPlateSlot": false,
+        "tablePartsInsidePlateSlot": [
+          "[D] HeadRow :: Universal",
+          "[D] BodyRow :: Wide",
+          "[D] StickyPagination"
+        ]
+      }
     },
     "usagePolicy": {
       "cellTextSlots": 1,
@@ -465,6 +474,14 @@
         "designerEditable": true,
         "userEditable": true,
         "headAndBodyMustMatch": true
+      },
+      "headCellTitle": {
+        "whenColumnHasInteractiveControls": {
+          "width": "FILL",
+          "height": "HUG",
+          "textTruncation": "ENDING"
+        },
+        "fixedHeightAfterWidthChange": false
       },
       "fixedWidthCells": [
         "[D] BodyControlCell :: Wide",
@@ -487,7 +504,19 @@
     "interactionPolicy": {
       "wholeRowClickable": true,
       "selectAllScope": "current-page",
-      "headControlRequiredWhenSelectable": true
+      "headControlRequiredWhenSelectable": true,
+      "rowActionFlow": {
+        "requiresVisibleEntryState": true,
+        "entryState": "active menu or popover anchored to the row ActionButton and listing the named action",
+        "bareActionButtonIsInsufficient": true,
+        "requiredStates": [
+          "entry-action-menu",
+          "confirmation",
+          "post-action-result"
+        ],
+        "postActionState": "must visibly reflect the completed mutation or a system result; a duplicate of the entry state is invalid",
+        "componentPolicy": "Use an active library menu/popover discovered from agent-context; do not hand-draw the action menu."
+      }
     },
     "columnControlPolicy": {
       "required": true,
@@ -497,7 +526,7 @@
       "sortingActionsVisibleOnlyForSortableColumns": true
     },
     "bottomBlockPolicy": {
-      "component": "Pagination",
+      "component": "[D] StickyPagination",
       "alwaysPresent": true,
       "singlePagePreset": "None",
       "selectedRowsPreset": "BulkActions",
@@ -525,9 +554,9 @@
         "component": "CorporateSystemMessage",
         "replaces": "BodyRow only",
         "preserves": [
-          "CorporateTopbar",
+          "[D] TopBar",
           "[D] HeadRow :: Universal",
-          "Pagination"
+          "[D] StickyPagination"
         ]
       }
     },
@@ -553,6 +582,7 @@
       "disabled": "effective-baseline"
     },
     "paginationPolicy": {
+      "component": "[D] StickyPagination",
       "rowsPerPageUserEditable": true,
       "allowedRowsPerPage": [
         10,

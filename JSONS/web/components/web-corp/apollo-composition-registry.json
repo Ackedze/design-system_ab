@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-composition-contract-registry",
-  "generatedAt": "2026-07-16T07:54:59.486Z",
+  "generatedAt": "2026-07-16T15:49:49.185Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -1166,7 +1166,7 @@
         "schemaVersion": 1,
         "documentType": "composition-contract",
         "componentKey": "web-corp.account-select",
-        "status": "generated-draft",
+        "status": "ready",
         "applicability": {
           "channels": [
             "b2b"
@@ -1216,11 +1216,135 @@
               "mutable": false
             }
           },
+          "disabledAccount": {
+            "interactive": false,
+            "tooltip": {
+              "required": true,
+              "view": "hint",
+              "content": "short unavailability reason"
+            },
+            "Multi": {
+              "Checkbox.DisabledState": true,
+              "contentColor": "text/tertiary"
+            },
+            "Single": {
+              "contentColor": "text/tertiary"
+            },
+            "affectedContent": [
+              "Amount",
+              "PaymentMaskedNumber",
+              "AccountInfo"
+            ]
+          },
           "media": {
             "default": "none",
             "CardImage": "Используется для выбора карточного счёта.",
-            "IconView": "По умолчанию не используется."
+            "IconView": "Используется для иконки типа счёта; по умолчанию не используется.",
+            "mutuallyExclusive": true,
+            "uniformWithinList": true
           },
+          "selectionCommit": {
+            "Single": "close-immediately",
+            "Multi": "apply-button"
+          },
+          "selectedState": {
+            "Single": "Checkmark.SelectedState=true",
+            "Multi": "Checkbox checked",
+            "disabledAccountCanBeSelected": false
+          },
+          "itemOrder": {
+            "designerReorderAllowed": false,
+            "sortingPrinciple": "contextual: alphabetical, ascending or descending"
+          },
+          "listViewport": {
+            "desktop": {
+              "height": "5.5 two-line OptionListItem",
+              "multiSelectionButtonBlockIncluded": false,
+              "overflow": "vertical-scroll"
+            },
+            "mobile-web": {
+              "heightLimit": "none"
+            }
+          },
+          "states": {
+            "loading": "not-defined",
+            "empty": {
+              "desktop": "[D] OptionListEmptyState without buttons",
+              "mobile-web": "[M] OptionListEmptyState without buttons"
+            },
+            "noResults": {
+              "desktop": "[D] OptionListEmptyState without buttons",
+              "mobile-web": "[M] OptionListEmptyState without buttons"
+            },
+            "emptyStateTextEditable": false
+          },
+          "search": {
+            "recommendedFromAccountCount": 10,
+            "components": {
+              "desktop": "[D] OptionListHeader",
+              "mobile-web": "[M] OptionListHeader"
+            },
+            "Preset": "Search",
+            "selectionModes": [
+              "Single",
+              "Multi"
+            ],
+            "searchScope": "contextual",
+            "placeholderMustDescribeSearchScope": true
+          },
+          "multiFooter": {
+            "desktopComponent": "[D] OptionListFooter",
+            "mobileComponent": "[M] BottomSheetFooter",
+            "Primary": "Применить; always visible and enabled; zero explicit selection means all available accounts",
+            "Secondary": "Сбросить; visible after a selection already exists; clears selection to zero and then hides",
+            "otherButtonsAllowed": false
+          },
+          "listConsistency": {
+            "uniformAccountItemType": true,
+            "uniformAccountInfoPreset": true
+          },
+          "selectAll": {
+            "components": {
+              "desktop": "[D] OptionListHeader",
+              "mobile-web": "[M] OptionListHeader"
+            },
+            "Preset": "Select All",
+            "scope": "all-list",
+            "requiredForMultiFromItemCount": 10,
+            "disabledAccountsIncluded": false,
+            "labelMutable": false,
+            "states": {
+              "noneSelected": "IndeterminateState=false, SelectedState=false; click selects all available",
+              "partiallySelected": "IndeterminateState=true, SelectedState=false; click selects all available",
+              "allAvailableSelected": "IndeterminateState=false, SelectedState=true; click clears all"
+            }
+          },
+          "headerStack": {
+            "whenSearchAndSelectAllArePresent": [
+              "Search",
+              "Select All"
+            ],
+            "direction": "vertical"
+          },
+          "platformContainers": {
+            "desktop": "OptionList",
+            "mobile-web": "BottomSheet"
+          },
+          "visualBaseline": {
+            "manualChangesAllowed": false,
+            "properties": [
+              "height",
+              "padding",
+              "gap",
+              "radius",
+              "fill",
+              "hover",
+              "selected"
+            ],
+            "baseline": "effective baseline"
+          },
+          "statusBadgeUsage": "contextual",
+          "textOverflowSource": "OptionListCell",
           "allowedAccountItemTypes": [
             "Sum",
             "Number"
@@ -60041,6 +60165,125 @@
           ],
           "source": "path-policy",
           "updatedAt": "2026-07-04"
+        },
+        "ownershipModel": {
+          "publicRoots": [
+            "[D] FileUpload",
+            "[M] FileUpload"
+          ],
+          "internalComponents": [
+            "[D] Attach",
+            "[M] Attach"
+          ],
+          "internalStandaloneAllowed": false,
+          "defaultNestedDiffPolicy": "compare-against-file-upload-effective-baseline"
+        },
+        "compositionPolicy": {
+          "views": {
+            "Primary": "standalone",
+            "Secondary": "inside-another-block"
+          },
+          "disableState": {
+            "newUploadAllowed": false,
+            "existingFileInteractionsAllowed": true,
+            "Border": false
+          },
+          "validation": {
+            "block": "required block with zero files -> root State=Error",
+            "reset": "root State=Error -> Default only after successful repeated block validation",
+            "file": "each FileUploadItem owns its independent error type",
+            "rootAndFileErrorsMayCoexist": false
+          },
+          "fileItem": {
+            "detailedContract": "separate FileUploadItem package",
+            "uploading": "FileUploadItem Preset=Uploading",
+            "actions": {
+              "download": "all states",
+              "delete": "all states",
+              "retry": [
+                "Default",
+                "Error"
+              ]
+            }
+          },
+          "fileList": {
+            "order": "upload-order",
+            "manualReorderAllowed": false,
+            "display": "full-list",
+            "collapseAllowed": false,
+            "limitCount": "all list items including Uploading and Error"
+          },
+          "moreExtensions": {
+            "meaning": "additional allowed file extensions",
+            "appliesToUploadedFilesCount": false
+          },
+          "counter": {
+            "label": "Всего файлов",
+            "value": "all list items including Uploading and Error",
+            "visibility": "recommended for batches over 50 files"
+          },
+          "titleView": {
+            "configuration": "use only parameters allowed by the TitleView contract for the current size",
+            "Title": "required",
+            "Subtitle": "optional"
+          },
+          "sizing": {
+            "desktop": "Fill/Hug",
+            "mobile-web": "Fill/Hug"
+          },
+          "visualBaseline": {
+            "manualChangesAllowed": false,
+            "properties": [
+              "padding",
+              "gap",
+              "radius",
+              "fill",
+              "stroke",
+              "typography",
+              "icon size"
+            ],
+            "baseline": "effective baseline"
+          },
+          "textOverrides": {
+            "allowed": [
+              "Title",
+              "Subtitle",
+              "Counter.N",
+              "File extension",
+              "file name",
+              "values inside square brackets"
+            ],
+            "otherTextOverridesAllowed": false
+          },
+          "slotVisibility": "component-properties-only",
+          "platforms": {
+            "desktop": {
+              "fileSelection": [
+                "system-picker",
+                "drag-and-drop"
+              ],
+              "dropzoneClickTarget": "entire-dropzone",
+              "backgroundSurface": true,
+              "Border": "allowed in Primary and Secondary except State=Disable"
+            },
+            "mobile-web": {
+              "fileSelection": [
+                "system-picker"
+              ],
+              "fileSelectionClickTarget": "attach-button-only",
+              "backgroundSurface": false,
+              "Border": false
+            }
+          },
+          "maxFiles": {
+            "componentState": "Disable",
+            "dropzoneVisible": true,
+            "returnToDefaultAfterDeletion": "only when the scenario allows further uploads and list count is below the limit"
+          },
+          "emptyState": {
+            "FilesGroup": false,
+            "Counter": false
+          }
         },
         "component": {
           "name": "FileUpload",

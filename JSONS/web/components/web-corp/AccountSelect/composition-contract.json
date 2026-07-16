@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web-corp.account-select",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -30067,11 +30067,135 @@
           "mutable": false
         }
       },
+      "disabledAccount": {
+        "interactive": false,
+        "tooltip": {
+          "required": true,
+          "view": "hint",
+          "content": "short unavailability reason"
+        },
+        "Multi": {
+          "Checkbox.DisabledState": true,
+          "contentColor": "text/tertiary"
+        },
+        "Single": {
+          "contentColor": "text/tertiary"
+        },
+        "affectedContent": [
+          "Amount",
+          "PaymentMaskedNumber",
+          "AccountInfo"
+        ]
+      },
       "media": {
         "default": "none",
         "CardImage": "Используется для выбора карточного счёта.",
-        "IconView": "По умолчанию не используется."
+        "IconView": "Используется для иконки типа счёта; по умолчанию не используется.",
+        "mutuallyExclusive": true,
+        "uniformWithinList": true
       },
+      "selectionCommit": {
+        "Single": "close-immediately",
+        "Multi": "apply-button"
+      },
+      "selectedState": {
+        "Single": "Checkmark.SelectedState=true",
+        "Multi": "Checkbox checked",
+        "disabledAccountCanBeSelected": false
+      },
+      "itemOrder": {
+        "designerReorderAllowed": false,
+        "sortingPrinciple": "contextual: alphabetical, ascending or descending"
+      },
+      "listViewport": {
+        "desktop": {
+          "height": "5.5 two-line OptionListItem",
+          "multiSelectionButtonBlockIncluded": false,
+          "overflow": "vertical-scroll"
+        },
+        "mobile-web": {
+          "heightLimit": "none"
+        }
+      },
+      "states": {
+        "loading": "not-defined",
+        "empty": {
+          "desktop": "[D] OptionListEmptyState without buttons",
+          "mobile-web": "[M] OptionListEmptyState without buttons"
+        },
+        "noResults": {
+          "desktop": "[D] OptionListEmptyState without buttons",
+          "mobile-web": "[M] OptionListEmptyState without buttons"
+        },
+        "emptyStateTextEditable": false
+      },
+      "search": {
+        "recommendedFromAccountCount": 10,
+        "components": {
+          "desktop": "[D] OptionListHeader",
+          "mobile-web": "[M] OptionListHeader"
+        },
+        "Preset": "Search",
+        "selectionModes": [
+          "Single",
+          "Multi"
+        ],
+        "searchScope": "contextual",
+        "placeholderMustDescribeSearchScope": true
+      },
+      "multiFooter": {
+        "desktopComponent": "[D] OptionListFooter",
+        "mobileComponent": "[M] BottomSheetFooter",
+        "Primary": "Применить; always visible and enabled; zero explicit selection means all available accounts",
+        "Secondary": "Сбросить; visible after a selection already exists; clears selection to zero and then hides",
+        "otherButtonsAllowed": false
+      },
+      "listConsistency": {
+        "uniformAccountItemType": true,
+        "uniformAccountInfoPreset": true
+      },
+      "selectAll": {
+        "components": {
+          "desktop": "[D] OptionListHeader",
+          "mobile-web": "[M] OptionListHeader"
+        },
+        "Preset": "Select All",
+        "scope": "all-list",
+        "requiredForMultiFromItemCount": 10,
+        "disabledAccountsIncluded": false,
+        "labelMutable": false,
+        "states": {
+          "noneSelected": "IndeterminateState=false, SelectedState=false; click selects all available",
+          "partiallySelected": "IndeterminateState=true, SelectedState=false; click selects all available",
+          "allAvailableSelected": "IndeterminateState=false, SelectedState=true; click clears all"
+        }
+      },
+      "headerStack": {
+        "whenSearchAndSelectAllArePresent": [
+          "Search",
+          "Select All"
+        ],
+        "direction": "vertical"
+      },
+      "platformContainers": {
+        "desktop": "OptionList",
+        "mobile-web": "BottomSheet"
+      },
+      "visualBaseline": {
+        "manualChangesAllowed": false,
+        "properties": [
+          "height",
+          "padding",
+          "gap",
+          "radius",
+          "fill",
+          "hover",
+          "selected"
+        ],
+        "baseline": "effective baseline"
+      },
+      "statusBadgeUsage": "contextual",
+      "textOverflowSource": "OptionListCell",
       "allowedAccountItemTypes": [
         "Sum",
         "Number"

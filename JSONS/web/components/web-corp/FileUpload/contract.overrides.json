@@ -67,5 +67,175 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicBoundary": {
+      "publicComponents": [
+        {
+          "name": "[D] FileUpload",
+          "platform": "desktop"
+        },
+        {
+          "name": "[M] FileUpload",
+          "platform": "mobile-web"
+        }
+      ],
+      "internalComponents": [
+        "[D] Attach",
+        "[M] Attach"
+      ],
+      "standaloneUseOfInternalComponentsAllowed": false
+    },
+    "viewPolicy": {
+      "Primary": "Самостоятельный блок загрузки файлов.",
+      "Secondary": "Блок загрузки, расположенный внутри другого блока или поверхности."
+    },
+    "statePolicy": {
+      "Default": "Доступна загрузка новых файлов.",
+      "Error": {
+        "blockValidation": "При валидации обязательного блока без файлов весь FileUpload принимает Error.",
+        "reset": "State=Error снимается только после успешной повторной валидации блока.",
+        "fileValidation": "Каждый FileUploadItem может иметь собственный тип ошибки независимо от других файлов.",
+        "rootAndFileErrorsMayCoexist": false
+      },
+      "Disable": {
+        "newUploadAllowed": false,
+        "existingFileInteractionsAllowed": true,
+        "Border": false
+      }
+    },
+    "fileItemPolicy": {
+      "detailedContract": "Отдельный пакет документов FileUploadItem.",
+      "uploadingState": {
+        "component": "FileUploadItem",
+        "Preset": "Uploading"
+      },
+      "actions": {
+        "download": [
+          "Default",
+          "Error",
+          "Disable",
+          "Uploading"
+        ],
+        "delete": [
+          "Default",
+          "Error",
+          "Disable",
+          "Uploading"
+        ],
+        "retry": [
+          "Default",
+          "Error"
+        ]
+      }
+    },
+    "fileListPolicy": {
+      "order": "upload-order",
+      "manualReorderAllowed": false,
+      "display": "full-list",
+      "collapseAllowed": false,
+      "hiddenFilesAllowed": false,
+      "limitCount": "all-list-items-including-uploading-and-error"
+    },
+    "moreExtensionsPolicy": {
+      "meaning": "Количество дополнительных допустимых расширений файлов.",
+      "appliesToUploadedFilesCount": false
+    },
+    "counterPolicy": {
+      "label": "Всего файлов",
+      "value": "Общее количество элементов списка, включая Uploading и Error.",
+      "visibility": "Рекомендуется показывать при единовременной загрузке более 50 файлов."
+    },
+    "titleViewPolicy": {
+      "configuration": "Используй только параметры, разрешённые контрактом TitleView соответствующего размера.",
+      "Title": "required",
+      "Subtitle": "optional"
+    },
+    "sizingPolicy": {
+      "desktop": {
+        "horizontal": "Fill",
+        "vertical": "Hug"
+      },
+      "mobile-web": {
+        "horizontal": "Fill",
+        "vertical": "Hug"
+      }
+    },
+    "visualBaselinePolicy": {
+      "manualChangesAllowed": false,
+      "properties": [
+        "padding",
+        "gap",
+        "radius",
+        "fill",
+        "stroke",
+        "typography",
+        "icon size"
+      ],
+      "baseline": "effective baseline"
+    },
+    "textOverridePolicy": {
+      "allowed": [
+        "Title",
+        "Subtitle",
+        "Counter.N",
+        "File extension",
+        "file name",
+        "values inside square brackets"
+      ],
+      "examples": [
+        "До [20] МБ каждый, всего — не больше [5] файлов",
+        "До [30] МБ каждый, всего — не больше [10] файлов"
+      ],
+      "otherTextOverridesAllowed": false
+    },
+    "slotPolicy": {
+      "visibilityAndPresence": "Управляются только штатными свойствами компонента.",
+      "manualDetachOrLayerVisibilityOverrideAllowed": false
+    },
+    "platformPolicy": {
+      "desktop": {
+        "component": "[D] FileUpload",
+        "fileSelection": [
+          "system-picker",
+          "drag-and-drop"
+        ],
+        "dropzoneClickTarget": "entire-dropzone",
+        "backgroundSurface": true,
+        "Border": {
+          "allowedViews": [
+            "Primary",
+            "Secondary"
+          ],
+          "forbiddenStates": [
+            "Disable"
+          ]
+        }
+      },
+      "mobile-web": {
+        "component": "[M] FileUpload",
+        "fileSelection": [
+          "system-picker"
+        ],
+        "fileSelectionClickTarget": "attach-button-only",
+        "dragAndDropAllowed": false,
+        "backgroundSurface": false,
+        "Border": false
+      }
+    },
+    "maxFilesPolicy": {
+      "whenListItemsReachLimit": {
+        "componentState": "Disable",
+        "dropzoneVisible": true
+      },
+      "afterFileDeletion": {
+        "componentState": "Default",
+        "condition": "Сценарий допускает дальнейшую загрузку и количество элементов списка стало меньше лимита."
+      }
+    },
+    "emptyStatePolicy": {
+      "FilesGroup": false,
+      "Counter": false
+    },
+    "note": "Семантический overlay семейства FileUpload. Публичны только [D]/[M] FileUpload; Attach является внутренней частью."
+  }
 }

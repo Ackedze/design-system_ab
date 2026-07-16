@@ -1,28 +1,49 @@
-# AccountSelect — MVP component contract
+# AccountSelect
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / AccountSelect**.
-
-The raw Figma catalog remains the source of truth:
-
-`../Web _ Corp Components -- AccountSelect.json`
-
-## Файлы
-
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+Комплект машиночитаемых документов компонента AccountSelect из библиотеки `Web _ Corp Components`.
 
 ## Источник
 
-- Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
-- Компонентов: `17`
+- Raw-каталог: `../Web _ Corp Components -- AccountSelect.json`
+- Платформы: desktop, mobile-web
+- Канал: b2b
+- Публичные компоненты: `[D] AccountOptionListContent`, `[M] AccountOptionListContent`
+- Остальные компоненты семейства являются служебными и не используются отдельно.
 
-## Current Scope
+## Документы
 
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+- `contract.generated.json` — автоматически сгенерированные Athena варианты, структура, ключи и базовые свойства компонентов.
+- `contract.overrides.json` — ручная семантика, публичная граница, состояния, платформенные контейнеры и допустимые композиции.
+- `composition-contract.json` — effective baseline вложенных компонентов и правила сборки AccountSelect.
+- `rules.json` — exact component rules для Apollo и агента.
+- `audit-mapping.json` — классификация отклонений и контекст их отображения в отчёте Apollo.
+- `agent-context.json` — компактный контекст для интерпретации отчёта агентом.
+- `examples.json` — валидные и ошибочные сценарии с ожидаемым результатом аудита.
+- `README.md` — назначение и состав комплекта.
+
+Компонентный паттерн расположен в `patterns/p_account-select.md`.
+
+## Ownership
+
+Документы используют `apollo.artifact-ownership.v2`:
+
+- `generated` формируется Athena CLI;
+- `manual` заполняется авторами дизайн-системы;
+- runtime-индексы и registry собираются Athena из актуального комплекта.
+
+Raw-каталог и `contract.generated.json` не редактируются вручную. Повторная генерация не должна удалять секции `manual`.
+
+## Runtime
+
+Apollo получает пакет через `componentContractIndex.json`, а exact rules — через `apollo-rules-registry.json`. После изменения документов необходимо выполнить:
+
+```bash
+npm run contracts:sync-apollo -- --catalog-path "web/components/web-corp/Web _ Corp Components -- AccountSelect.json"
+npm run contracts:check-apollo -- --catalog-path "web/components/web-corp/Web _ Corp Components -- AccountSelect.json"
+```
+
+## Готовность
+
+Статус комплекта: `Ready`.
+
+Loading-state и семантика `StatusBadge` пока не регламентированы. Это явно зафиксированные ограничения текущей версии и не должны интерпретироваться агентом как нарушения.
