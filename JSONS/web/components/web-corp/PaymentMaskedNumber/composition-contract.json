@@ -1,77 +1,88 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "documentType": "composition-contract",
-  "componentKey": "web-corp.payment-masked-number",
-  "status": "generated-draft",
-  "applicability": {
-    "channels": [
-      "b2b"
-    ],
-    "platforms": [
-      "desktop",
-      "mobile-web"
-    ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-04"
+  "metadata": {
+    "componentKey": "web-corp.payment-masked-number",
+    "status": "generated-draft",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "path-policy",
+      "updatedAt": "2026-07-04"
+    },
+    "ownershipSchema": "apollo.artifact-ownership.v2",
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "migratedFrom": 1,
+    "ownershipMigrationRevision": 2
   },
-  "component": {
-    "name": "PaymentMaskedNumber",
-    "library": "Web _ Corp Components"
+  "generated": {
+    "component": {
+      "name": "PaymentMaskedNumber",
+      "library": "Web _ Corp Components"
+    },
+    "wraps": [
+      {
+        "hostComponentName": "PaymentMaskedNumber",
+        "path": "PaymentMaskedNumber / Major",
+        "componentName": "Major",
+        "role": "internal-instance",
+        "visible": true,
+        "variantProperties": {
+          "Mask Number": "False"
+        }
+      },
+      {
+        "hostComponentName": "PaymentMaskedNumber",
+        "path": "PaymentMaskedNumber / Addon",
+        "componentName": "Addon",
+        "role": "internal-instance",
+        "visible": false,
+        "variantProperties": {
+          "Presets": "StatusBadge"
+        }
+      },
+      {
+        "hostComponentName": "PaymentMaskedNumber",
+        "path": "PaymentMaskedNumber / Addon / StatusBadge",
+        "componentName": "StatusBadge",
+        "role": "internal-instance",
+        "visible": true,
+        "variantProperties": {
+          "Size": "16",
+          "View": "NeutralInformation"
+        }
+      },
+      {
+        "hostComponentName": "PaymentMaskedNumber",
+        "path": "PaymentMaskedNumber / Addon / StatusBadge / 🔩 Content",
+        "componentName": "🔩 Content",
+        "role": "internal-instance",
+        "visible": true,
+        "variantProperties": {
+          "Size": "16",
+          "Type": "Icon"
+        }
+      },
+      {
+        "hostComponentName": "PaymentMaskedNumber",
+        "path": "PaymentMaskedNumber / Addon / StatusBadge / 🔩 Content / Fixer / PaintMe / information-compact",
+        "componentName": "information-compact",
+        "role": "internal-instance",
+        "visible": true,
+        "variantProperties": {
+          "Size": "s"
+        }
+      }
+    ]
   },
-  "wraps": [
-    {
-      "hostComponentName": "PaymentMaskedNumber",
-      "path": "PaymentMaskedNumber / Major",
-      "componentName": "Major",
-      "role": "internal-instance",
-      "visible": true,
-      "variantProperties": {
-        "Mask Number": "False"
-      }
-    },
-    {
-      "hostComponentName": "PaymentMaskedNumber",
-      "path": "PaymentMaskedNumber / Addon",
-      "componentName": "Addon",
-      "role": "internal-instance",
-      "visible": false,
-      "variantProperties": {
-        "Presets": "StatusBadge"
-      }
-    },
-    {
-      "hostComponentName": "PaymentMaskedNumber",
-      "path": "PaymentMaskedNumber / Addon / StatusBadge",
-      "componentName": "StatusBadge",
-      "role": "internal-instance",
-      "visible": true,
-      "variantProperties": {
-        "Size": "16",
-        "View": "NeutralInformation"
-      }
-    },
-    {
-      "hostComponentName": "PaymentMaskedNumber",
-      "path": "PaymentMaskedNumber / Addon / StatusBadge / 🔩 Content",
-      "componentName": "🔩 Content",
-      "role": "internal-instance",
-      "visible": true,
-      "variantProperties": {
-        "Size": "16",
-        "Type": "Icon"
-      }
-    },
-    {
-      "hostComponentName": "PaymentMaskedNumber",
-      "path": "PaymentMaskedNumber / Addon / StatusBadge / 🔩 Content / Fixer / PaintMe / information-compact",
-      "componentName": "information-compact",
-      "role": "internal-instance",
-      "visible": true,
-      "variantProperties": {
-        "Size": "s"
-      }
-    }
-  ],
-  "allowedOverrides": [],
-  "standaloneBaselines": []
+  "manual": {}
 }

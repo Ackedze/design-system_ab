@@ -1,79 +1,127 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "documentType": "component-agent-context",
-  "componentKey": "web-corp.buttons-group",
-  "status": "draft",
-  "applicability": {
-    "channels": [
-      "b2b"
-    ],
-    "platforms": [
-      "desktop",
-      "mobile-web"
-    ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-04"
-  },
-  "summary": "ButtonsGroup — composite wrapper вокруг повторяющихся desktop и mobile Button instances с опциональной overflow picker button.",
-  "source": {
-    "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- ButtonGroup [D].json",
-    "library": "Web _ Corp Components",
-    "file": "Web _ Corp Components",
-    "generatedAt": "2026-06-05T16:07:39.725Z",
-    "exportVersion": "0.1.0-rest",
-    "files": [
-      "ButtonGroup [D]"
-    ]
-  },
-  "components": [
-    {
-      "name": "[D] ButtonsGroup",
-      "key": "f05915599f71e822fd8b46a2b2509a2e395005cf",
-      "role": "main",
-      "platform": "desktop",
-      "status": "active",
-      "variantProperties": {
-        "Size": [
-          "32",
-          "40",
-          "48",
-          "56"
-        ],
-        "Overflow": [
-          "false",
-          "true"
-        ]
-      }
+  "metadata": {
+    "componentKey": "web-corp.buttons-group",
+    "status": "draft",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "path-policy",
+      "updatedAt": "2026-07-09"
     },
-    {
-      "name": "[M] ButtonsGroup",
-      "key": "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062",
-      "role": "main",
-      "platform": "mobile-web",
-      "status": "active",
-      "variantProperties": {
-        "Size": [
-          "32",
-          "40",
-          "48",
-          "56"
-        ],
-        "Overflow": [
-          "false",
-          "true"
-        ]
+    "ownershipSchema": "apollo.artifact-ownership.v2",
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "migratedFrom": 1,
+    "ownershipMigrationRevision": 2
+  },
+  "generated": {
+    "generatedAt": "2026-07-09T07:11:39.994Z",
+    "sourceFiles": [
+      "contract.generated.json",
+      "contract.overrides.json",
+      "rules.json",
+      "audit-mapping.json",
+      "examples.json",
+      "composition-contract.json"
+    ],
+    "source": {
+      "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- ButtonGroup [D].json",
+      "library": "Web _ Corp Components",
+      "file": "Web _ Corp Components",
+      "generatedAt": "2026-07-09T07:11:39.994Z",
+      "exportVersion": "0.1.0-rest",
+      "files": [
+        "ButtonGroup [D]"
+      ]
+    },
+    "summary": {
+      "componentFamily": "ButtonGroup [D]",
+      "library": "Web _ Corp Components",
+      "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
+    },
+    "components": [
+      {
+        "name": "[D] ButtonsGroup",
+        "key": "f05915599f71e822fd8b46a2b2509a2e395005cf",
+        "status": "active",
+        "role": "main",
+        "platform": "desktop",
+        "variantProperties": {
+          "Overflow": [
+            "false",
+            "true"
+          ],
+          "Size": [
+            "32",
+            "40",
+            "48",
+            "56"
+          ]
+        }
+      },
+      {
+        "name": "[M] ButtonsGroup",
+        "key": "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062",
+        "status": "active",
+        "role": "main",
+        "platform": "mobile-web",
+        "variantProperties": {
+          "Overflow": [
+            "false",
+            "true"
+          ],
+          "Size": [
+            "32",
+            "40",
+            "48",
+            "56"
+          ]
+        }
       }
+    ],
+    "auditInterpretation": {
+      "componentProperties": [
+        "variant.*"
+      ],
+      "layerProperties": [
+        "fill",
+        "stroke",
+        "stroke.*",
+        "styles.text",
+        "layout.*",
+        "radius",
+        "opacity",
+        "opacityToken",
+        "effects.*",
+        "blend.mode",
+        "blendMode",
+        "clipsContent"
+      ],
+      "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
     }
-  ],
-  "criticalBaselines": [
-    "Nested [D]/[M] Button variant properties inside ButtonsGroup are part of the group baseline and must be compared against the ButtonsGroup effective baseline.",
-    "Changing a nested button property such as SingleIcon, View, Size or DisabledState should be reported as a component-property customization.",
-    "Manual layer changes on the same nested button must use the nested button effective baseline after variant changes are applied."
-  ],
-  "agentInstructions": [
-    "Do not infer pattern violations from examples. Use exact rules and exact component contracts only.",
-    "Use component-property facts for variant changes and layer-property facts for styles/layout/paint changes.",
-    "If a nested diff is owned by the host wrapper and actual equals effective baseline, do not report it as designer customization.",
-    "If actual differs from effective baseline, report effectiveBaseline -> actual."
-  ]
+  },
+  "manual": {
+    "summary": "ButtonsGroup — composite wrapper вокруг повторяющихся desktop и mobile Button instances с опциональной overflow picker button.",
+    "criticalBaselines": [
+      "Nested [D]/[M] Button variant properties inside ButtonsGroup are part of the group baseline and must be compared against the ButtonsGroup effective baseline.",
+      "Changing a nested button property such as SingleIcon, View, Size or DisabledState should be reported as a component-property customization.",
+      "Manual layer changes on the same nested button must use the nested button effective baseline after variant changes are applied."
+    ],
+    "agentInstructions": [
+      "Do not infer pattern violations from examples. Use exact rules and exact component contracts only.",
+      "Use component-property facts for variant changes and layer-property facts for styles/layout/paint changes.",
+      "If a nested diff is owned by the host wrapper and actual equals effective baseline, do not report it as designer customization.",
+      "If actual differs from effective baseline, report effectiveBaseline -> actual."
+    ]
+  }
 }

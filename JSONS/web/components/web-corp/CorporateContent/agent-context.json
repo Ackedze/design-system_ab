@@ -1,143 +1,28 @@
 {
-  "summary": "CorporateContent — обязательная контентная область продуктовой страницы. Используй [D] CorporateContent для desktop и [M] CorporateContent для mobile-web.",
-  "lifecyclePolicy": {
-    "allowed": [
-      "[D] CorporateContent",
-      "[M] CorporateContent"
-    ],
-    "prohibited": [
-      "[T] CorporateContent",
-      "🔄 [T] CorporateContent"
-    ]
-  },
-  "pageComposition": {
-    "maxCorporateContentPerPage": 1,
-    "corporateContentRequired": true,
-    "figmaParentComponentRequired": false,
-    "standaloneFigmaUsageAllowed": true,
-    "frontendParentAssembly": "CorporatePage"
-  },
-  "platformSelection": {
-    "768-and-above": "[D] CorporateContent",
-    "320-767": "[M] CorporateContent",
-    "at768": {
-      "component": "[D] CorporateContent",
-      "gridAndColsMode": "768"
-    }
-  },
-  "bodySlotPolicy": {
-    "arbitraryContentAllowed": true,
-    "arbitraryCompositionAllowed": true,
-    "multipleChildrenAllowed": true,
-    "instanceSwapAllowed": true,
-    "directionAndItemSpacing": "Определяются вложенной композицией.",
-    "gutterRule": "Gutter не обязателен для Body; его можно использовать в любой вложенной горизонтальной композиции, Section не обязателен.",
-    "nestedCorporateContentAllowed": false,
-    "swapMeMustBeReplaced": true
-  },
-  "rootConfiguration": {
-    "background": "Выбирается через mode коллекции BackgroundPlate Color для всего фрейма; default — base-bg-alt (grey), разрешены base-bg-alt (grey) и base-bg (white), modal-bg-* запрещены; выбор page mode будет определён отдельным паттерном; ручной fill запрещён.",
-    "gridStyle": "Системный grid style нельзя менять вручную.",
-    "spacing": "Определяется mode коллекции [D] Grid & Cols или [M] Grid & Cols; ручные padding запрещены.",
-    "sizing": {
-      "width": "Fill container",
-      "height": "Hug contents"
-    },
-    "prohibitedManualOverrides": [
-      "radius",
-      "stroke",
-      "effects.*",
-      "opacity",
-      "clipsContent"
-    ],
-    "clickable": false,
-    "detachAllowed": false,
-    "bodyDetachAllowed": false,
-    "layoutDirection": "VERTICAL",
-    "itemSpacing": 0,
-    "clipsContent": false,
-    "mobileWebRequiredMargins": {
-      "TopMargin": "24",
-      "BottomMargin": "24"
-    }
-  },
-  "agentInstructions": [
-    "Не считай произвольный контент или несколько дочерних элементов внутри Body нарушением сами по себе.",
-    "Проверяй содержимое Body по собственным компонентным контрактам и паттернам.",
-    "Считай использование переходного [T] CorporateContent явным нарушением.",
-    "Не рекомендуй ручную правку fill, grid style или padding корня CorporateContent; рекомендуй правильный mode переменных.",
-    "Не требуй наличия родительского компонента CorporatePage в Figma: такого компонента нет, самостоятельное использование CorporateContent допустимо.",
-    "Не применяй Gutter как обязательный itemSpacing внутри Body; он допустим в любой горизонтальной композиции без обязательного Section.",
-    "На ширине 768 требуй [D] CorporateContent и mode 768 коллекции [D] Grid & Cols.",
-    "Не придумывай условия выбора между base-bg-alt и base-bg до появления отдельного паттерна; default — base-bg-alt (grey).",
-    "Не разрешай кликабельность корня или detach CorporateContent и Body.",
-    "Не разрешай вкладывать CorporateContent внутрь CorporateContent и не оставляй SwapMe после добавления реального содержимого.",
-    "Требуй Header или HeaderMenu непосредственно над CorporateContent в общем вертикальном контейнере с gap 0.",
-    "Не разрешай менять вертикальное направление, itemSpacing=0 или clipsContent=false корня CorporateContent."
-  ],
-  "pageHeaderRelation": {
-    "requiredPreviousSibling": "Header or HeaderMenu",
-    "sharedParentDirection": "VERTICAL",
-    "itemSpacing": 0
-  },
-  "sectionPolicy": {
-    "component": "[D] Section",
-    "role": "nested-supporting",
-    "required": false,
-    "purpose": "Горизонтальная группировка блоков и управление колонками.",
-    "gutterMayBeUsedWithoutSection": true,
-    "rootSizing": {
-      "width": "Fill container",
-      "height": "Hug contents"
-    },
-    "directionAndAlignment": "Определяются компонентом и текущим Grid & Cols mode; ручное изменение запрещено.",
-    "position": {
-      "true": "Isle ниже Content",
-      "false": "Isle выше Content"
-    },
-    "tabletIsle": {
-      "automatic": true,
-      "trueInModes": [
-        "1024",
-        "768"
-      ],
-      "manualToggleAllowed": false
-    },
-    "slots": {
-      "Content": "arbitrary-content",
-      "Isle": "arbitrary-content"
-    },
-    "instanceSwapAllowed": false,
-    "gutter": {
-      "required": true,
-      "source": "Gutter variable",
-      "manualItemSpacingAllowed": false
-    },
-    "columnWidths": {
-      "source": "Grid & Cols column variables",
-      "manualWidthAllowed": false
-    },
-    "swapMeMustBeReplacedIn": [
-      "Content",
-      "Isle"
-    ],
-    "detachAllowed": false,
-    "manualStyleOverridesAllowed": false
-  },
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "documentType": "component-agent-context",
-  "componentKey": "web-corp.corporate-content",
-  "status": "ready",
-  "applicability": {
-    "channels": [
-      "b2b"
-    ],
-    "platforms": [
-      "desktop",
-      "mobile-web"
-    ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-14"
+  "metadata": {
+    "componentKey": "web-corp.corporate-content",
+    "status": "ready",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "path-policy",
+      "updatedAt": "2026-07-14"
+    },
+    "ownershipSchema": "apollo.artifact-ownership.v2",
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "migratedFrom": 1,
+    "ownershipMigrationRevision": 2
   },
   "generated": {
     "generatedAt": "2026-07-14T16:25:50.970Z",
@@ -441,306 +326,26 @@
       ],
       "detachAllowed": false,
       "manualStyleOverridesAllowed": false
+    },
+    "auditInterpretation": {
+      "componentProperties": [
+        "variant.*"
+      ],
+      "layerProperties": [
+        "fill",
+        "stroke",
+        "stroke.*",
+        "styles.text",
+        "layout.*",
+        "radius",
+        "opacity",
+        "opacityToken",
+        "effects.*",
+        "blend.mode",
+        "blendMode",
+        "clipsContent"
+      ],
+      "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
     }
-  },
-  "sourceFiles": [
-    "contract.generated.json",
-    "contract.overrides.json",
-    "rules.json",
-    "audit-mapping.json",
-    "examples.json",
-    "composition-contract.json"
-  ],
-  "source": {
-    "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- CorporateContent.json",
-    "library": "Web _ Corp Components",
-    "file": "Web _ Corp Components",
-    "generatedAt": "2026-07-14T16:25:50.970Z",
-    "exportVersion": "0.1.0-rest",
-    "files": [
-      "CorporateContent"
-    ]
-  },
-  "components": [
-    {
-      "name": "[D] Section",
-      "key": "2bbced82d96c1347fea71a3922cd11cf4c25ad6a",
-      "status": "active",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {
-        "👽 TabletIsle": [
-          "false",
-          "true"
-        ],
-        "Position": [
-          "false",
-          "true"
-        ]
-      }
-    },
-    {
-      "name": "[D] CorporateContent",
-      "key": "a8d13cb6e1ae67a7296709f669238f41971c7197",
-      "status": "active",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "[M] CorporateContent",
-      "key": "11ae074b596a6b3dfb6696f51531439723c0225b",
-      "status": "active",
-      "role": "main",
-      "platform": "mobile-web",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D] BottomMagrin",
-      "key": "6591698ce64e5fb251ddd3333f031f48752cc3fc",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D] TopMargin",
-      "key": "b39de880aa488ffd6c4f8c9999b75cabb9b8748d",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D](1024+) Content",
-      "key": "8b94099d443b48f60dc41d421bbe33f7f7fc2136",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D](1024+) ContentBody",
-      "key": "8e9d9f57ac871fabb384962cd003b8a0957cbdc9",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D](768) Content",
-      "key": "6a1ac51aa3c1ece935cfedc1f9495996be2badba",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D](768) ContentBody",
-      "key": "d2c99e2bc68edfeff4f8ff86d57bdad10531189a",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [M] Content",
-      "key": "fbb6e066a8d095f2f3bfe719560daab7a820680d",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "mobile-web",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [M](320-767) ContentBody",
-      "key": "be1e3046f16a416106f9215480e128c2d4c3fda2",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "mobile-web",
-      "variantProperties": {}
-    },
-    {
-      "name": "🔄 [D] Body",
-      "key": "28b1ffd86a806eab0daa7c5c75975c5ed103dca2",
-      "status": "scheduled",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "🔄 [M} Body",
-      "key": "1119d41dfbb9ff16f27f5fee96fdc73d1588ddf6",
-      "status": "scheduled",
-      "role": "main",
-      "platform": "universal",
-      "variantProperties": {}
-    },
-    {
-      "name": "🔄 [T] Body",
-      "key": "71d8e8a07ab68673e4cb61bea9d92f3b68212087",
-      "status": "scheduled",
-      "role": "main",
-      "platform": "universal",
-      "variantProperties": {}
-    },
-    {
-      "name": "🔄 [T] CorporateContent",
-      "key": "598681c2a2dbe45e5529de354d8681cabc9a42d6",
-      "status": "scheduled",
-      "role": "main",
-      "platform": "universal",
-      "variantProperties": {}
-    }
-  ],
-  "includedComponents": [
-    {
-      "name": "[D] Section",
-      "key": "2bbced82d96c1347fea71a3922cd11cf4c25ad6a",
-      "status": "active",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {
-        "👽 TabletIsle": [
-          "false",
-          "true"
-        ],
-        "Position": [
-          "false",
-          "true"
-        ]
-      }
-    },
-    {
-      "name": "[D] CorporateContent",
-      "key": "a8d13cb6e1ae67a7296709f669238f41971c7197",
-      "status": "active",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "[M] CorporateContent",
-      "key": "11ae074b596a6b3dfb6696f51531439723c0225b",
-      "status": "active",
-      "role": "main",
-      "platform": "mobile-web",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D] BottomMagrin",
-      "key": "6591698ce64e5fb251ddd3333f031f48752cc3fc",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D] TopMargin",
-      "key": "b39de880aa488ffd6c4f8c9999b75cabb9b8748d",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D](1024+) Content",
-      "key": "8b94099d443b48f60dc41d421bbe33f7f7fc2136",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D](1024+) ContentBody",
-      "key": "8e9d9f57ac871fabb384962cd003b8a0957cbdc9",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D](768) Content",
-      "key": "6a1ac51aa3c1ece935cfedc1f9495996be2badba",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [D](768) ContentBody",
-      "key": "d2c99e2bc68edfeff4f8ff86d57bdad10531189a",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [M] Content",
-      "key": "fbb6e066a8d095f2f3bfe719560daab7a820680d",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "mobile-web",
-      "variantProperties": {}
-    },
-    {
-      "name": "❌ [M](320-767) ContentBody",
-      "key": "be1e3046f16a416106f9215480e128c2d4c3fda2",
-      "status": "deprecated",
-      "role": "main",
-      "platform": "mobile-web",
-      "variantProperties": {}
-    },
-    {
-      "name": "🔄 [D] Body",
-      "key": "28b1ffd86a806eab0daa7c5c75975c5ed103dca2",
-      "status": "scheduled",
-      "role": "main",
-      "platform": "desktop",
-      "variantProperties": {}
-    },
-    {
-      "name": "🔄 [M} Body",
-      "key": "1119d41dfbb9ff16f27f5fee96fdc73d1588ddf6",
-      "status": "scheduled",
-      "role": "main",
-      "platform": "universal",
-      "variantProperties": {}
-    },
-    {
-      "name": "🔄 [T] Body",
-      "key": "71d8e8a07ab68673e4cb61bea9d92f3b68212087",
-      "status": "scheduled",
-      "role": "main",
-      "platform": "universal",
-      "variantProperties": {}
-    },
-    {
-      "name": "🔄 [T] CorporateContent",
-      "key": "598681c2a2dbe45e5529de354d8681cabc9a42d6",
-      "status": "scheduled",
-      "role": "main",
-      "platform": "universal",
-      "variantProperties": {}
-    }
-  ],
-  "auditInterpretation": {
-    "componentProperties": [
-      "variant.*"
-    ],
-    "layerProperties": [
-      "fill",
-      "stroke",
-      "stroke.*",
-      "styles.text",
-      "layout.*",
-      "radius",
-      "opacity",
-      "opacityToken",
-      "effects.*",
-      "blend.mode",
-      "blendMode",
-      "clipsContent"
-    ],
-    "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
   }
 }

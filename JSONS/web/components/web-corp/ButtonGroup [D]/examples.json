@@ -1,49 +1,64 @@
 {
-  "schemaVersion": 1,
-  "documentType": "component-contract-examples",
-  "componentKey": "web-corp.buttons-group",
-  "status": "draft",
-  "applicability": {
-    "channels": [
-      "b2b"
-    ],
-    "platforms": [
-      "desktop",
-      "mobile-web"
-    ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-04"
-  },
-  "examples": [
-    {
-      "exampleId": "buttons-group-single-icon-change",
-      "title": "Nested button SingleIcon change should be detected",
-      "inputChange": {
-        "hostComponent": "[D] ButtonsGroup",
-        "nestedComponent": "[D] Button",
-        "property": "variant.SingleIcon",
-        "buttonsGroupEffectiveValue": "False",
-        "actualValue": "True"
-      },
-      "expectedAudit": {
-        "category": "customizations",
-        "showAs": "singleIcon: false → true"
-      }
+  "schemaVersion": 2,
+  "documentType": "component-examples",
+  "metadata": {
+    "componentKey": "web-corp.buttons-group",
+    "status": "draft",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "path-policy",
+      "updatedAt": "2026-07-04"
     },
-    {
-      "exampleId": "buttons-group-button-fill-after-view-change",
-      "title": "Manual fill change after nested button view change should use effective variant baseline",
-      "inputChange": {
-        "hostComponent": "[D] ButtonsGroup",
-        "nestedComponent": "[D] Button",
-        "property": "fill",
-        "buttonsGroupEffectiveValue": "Button/Desktop/Colors/Accent/bg",
-        "actualValue": "text/positive"
+    "ownershipSchema": "apollo.artifact-ownership.v2",
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "migratedFrom": 1,
+    "ownershipMigrationRevision": 2
+  },
+  "generated": {
+    "examples": []
+  },
+  "manual": {
+    "examples": [
+      {
+        "exampleId": "buttons-group-single-icon-change",
+        "title": "Nested button SingleIcon change should be detected",
+        "inputChange": {
+          "hostComponent": "[D] ButtonsGroup",
+          "nestedComponent": "[D] Button",
+          "property": "variant.SingleIcon",
+          "buttonsGroupEffectiveValue": "False",
+          "actualValue": "True"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "showAs": "singleIcon: false → true"
+        }
       },
-      "expectedAudit": {
-        "category": "customizations",
-        "showAs": "заливка: Button/Desktop/Colors/Accent/bg → text/positive"
+      {
+        "exampleId": "buttons-group-button-fill-after-view-change",
+        "title": "Manual fill change after nested button view change should use effective variant baseline",
+        "inputChange": {
+          "hostComponent": "[D] ButtonsGroup",
+          "nestedComponent": "[D] Button",
+          "property": "fill",
+          "buttonsGroupEffectiveValue": "Button/Desktop/Colors/Accent/bg",
+          "actualValue": "text/positive"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "showAs": "заливка: Button/Desktop/Colors/Accent/bg → text/positive"
+        }
       }
-    }
-  ]
+    ]
+  }
 }

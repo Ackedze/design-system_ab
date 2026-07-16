@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-component-rules-registry",
-  "generatedAt": "2026-07-14T16:49:10.303Z",
+  "generatedAt": "2026-07-16T07:54:59.486Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -279,6 +279,179 @@
           "appliesTo": "component.status",
           "checkType": "manual",
           "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.public-roots-only",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "allowedRoots": [
+            "[D] AccountOptionListContent ",
+            "[M] AccountOptionListContent "
+          ],
+          "ruleText": "Дизайнер должен использовать только [D] AccountOptionListContent или [M] AccountOptionListContent. Остальные компоненты семейства AccountSelect являются служебными и не используются отдельно."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.selection-type-semantics",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.SelectType",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "semantics": {
+            "Single": "Выбор одного счёта.",
+            "Multi": "Выбор нескольких счетов через Checkbox."
+          },
+          "ruleText": "SelectType=Single используется для выбора одного счёта. SelectType=Multi используется для множественного выбора через Checkbox."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.multi-selection-has-no-limit",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.SelectType|component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Для SelectType=Multi компонент не задаёт максимальное количество выбранных счетов."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.grouping-criterion-is-contextual",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Grouped|component.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "defaultCriterion": "company ownership",
+          "ruleText": "Grouped=True объединяет счета по критерию продуктовой команды. По умолчанию используется принадлежность к компании, но допустим другой контекстный критерий."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.swap-me-must-be-replaced",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Type",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenState": {
+            "AccountItem.Type": "SwapMe"
+          },
+          "ruleText": "AccountItem.Type=SwapMe является placeholder и должен быть заменён на Sum или Number до завершения макета."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.legacy-number-forbidden",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Type",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "forbiddenState": {
+            "AccountItem.Type": "❌ Number"
+          },
+          "ruleText": "AccountItem.Type=❌ Number является legacy-вариантом и запрещён к использованию."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.account-info-follows-item-type",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Type|variant.Presets|component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredBinding": {
+            "Sum": "AccountInfo / Sum",
+            "Number": "AccountInfo / Number"
+          },
+          "ruleText": "AccountItem.Type=Sum должен использовать AccountInfo / Sum, а AccountItem.Type=Number — AccountInfo / Number. Preset внутри соответствующего AccountInfo выбирается по контексту и доступным данным."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.grouped-list-defaults-expanded",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Grouped|component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "При Grouped=True пользователь может сворачивать отдельные группы. По умолчанию все группы раскрыты."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.group-header-follows-criterion",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Grouped|text.groupHeader",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "По умолчанию заголовок группы содержит название компании. При другом критерии группировки допустим соответствующий ему текст."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.group-order-is-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.order",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Порядок групп в AccountSelect менять нельзя."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.selection-controls-are-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition|component.visibility",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredControls": {
+            "Single": {
+              "control": "checkmark",
+              "position": "right"
+            },
+            "Multi": {
+              "control": "checkbox",
+              "position": "left"
+            }
+          },
+          "ruleText": "В Single checkmark всегда расположен справа, а в Multi Checkbox всегда расположен слева. Эти контролы нельзя скрывать, заменять или переносить."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.card-image-only-for-card-account",
+          "severity": "warning",
+          "source": "component-contract",
+          "appliesTo": "component.media",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "CardImage используется только при выборе карточного счёта. По умолчанию AccountSelect не использует IconView."
+        },
+        {
+          "ruleId": "component:web-corp.account-select.account-info-preset-defines-visible-values",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Presets|component.visibility",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "presetValues": {
+            "AccountInfo / Sum": {
+              "name": [
+                "название счёта"
+              ],
+              "number": [
+                "полный номер счёта"
+              ],
+              "name + maskedNumber": [
+                "название счёта",
+                "короткий номер счёта"
+              ],
+              "name + number": [
+                "название счёта",
+                "полный номер счёта"
+              ]
+            },
+            "AccountInfo / Number": {
+              "name": [
+                "название счёта"
+              ],
+              "name + sum": [
+                "название счёта",
+                "баланс"
+              ]
+            }
+          },
+          "ruleText": "Состав отображаемых значений определяется preset компонента AccountInfo. Значения, предусмотренные выбранным preset, нельзя скрывать вручную."
         }
       ]
     },
@@ -297,6 +470,50 @@
       ],
       "rulesFile": "JSONS/web/components/web-corp/AmountStyles/rules.json",
       "rules": [
+        {
+          "ruleId": "component:web-corp.amount-styles.component-properties-are-first-class",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "[D] AmountHeadline",
+              "[M] AmountHeadline",
+              "🔒 [D] AmountHeadline",
+              "🔒 [M] AmountHeadline",
+              "🔒 AmountParagraph",
+              "AmountParagraph",
+              "AmountStyles",
+              "Operation"
+            ]
+          },
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.layer-properties-use-effective-baseline",
+          "severity": "warning",
+          "source": "composition-contract",
+          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "[D] AmountHeadline",
+              "[M] AmountHeadline",
+              "🔒 [D] AmountHeadline",
+              "🔒 [M] AmountHeadline",
+              "🔒 AmountParagraph",
+              "AmountParagraph",
+              "AmountStyles",
+              "Operation"
+            ]
+          },
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        },
         {
           "ruleId": "component:web-corp.amount-styles.style-is-component-property",
           "severity": "info",
@@ -457,32 +674,6 @@
           "ruleText": "Изменения variant/property в компонентах семейства BackgroundPlate являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
-          "ruleId": "component:web-corp.background-plate.background-plate-view-is-alias",
-          "severity": "info",
-          "source": "component-contract",
-          "appliesTo": "component.identity|codeExport.*",
-          "checkType": "deterministic",
-          "matchKind": "exact_component_rule",
-          "target": {
-            "component": "web-corp.background-plate",
-            "codeExports": [
-              "BackgroundPlateView"
-            ],
-            "mapsTo": [
-              "[D] BackgroundPlate",
-              "[M] BackgroundPlate",
-              "[D][Promo] BackgroundPlate",
-              "[M][Promo] BackgroundPlate"
-            ]
-          },
-          "classification": {
-            "reportAsCustomization": false,
-            "doNotTreatAsViolationByDefault": true,
-            "useComponentKey": "web-corp.background-plate"
-          },
-          "ruleText": "BackgroundPlateView — code/private alias семейства BackgroundPlate. Не создавай отдельную рекомендацию “неизвестный компонент”; применяй правила BackgroundPlate, включая effective baseline, reset model, radius и composition rules."
-        },
-        {
           "ruleId": "component:web-corp.background-plate.layer-properties-use-effective-baseline",
           "severity": "warning",
           "source": "component-contract",
@@ -509,6 +700,32 @@
             ]
           },
           "ruleText": "Изменения layer/style внутри компонентов семейства BackgroundPlate нужно сравнивать с effective baseline текущего component variant и nested owner context. Изменения layout.padding.* у BackgroundPlateSlot являются допустимыми дизайнерскими кастомизациями, если они нужны композиции и заданы через токены Spacing. Это правило не разрешает изменение radius: скругления BackgroundPlate и Style Level фиксируются компонентным baseline и не должны изменяться вручную."
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.background-plate-view-is-alias",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.identity|codeExport.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.background-plate",
+            "codeExports": [
+              "BackgroundPlateView"
+            ],
+            "mapsTo": [
+              "[D] BackgroundPlate",
+              "[M] BackgroundPlate",
+              "[D][Promo] BackgroundPlate",
+              "[M][Promo] BackgroundPlate"
+            ]
+          },
+          "classification": {
+            "reportAsCustomization": false,
+            "doNotTreatAsViolationByDefault": true,
+            "useComponentKey": "web-corp.background-plate"
+          },
+          "ruleText": "BackgroundPlateView — code/private alias семейства BackgroundPlate. Не создавай отдельную рекомендацию “неизвестный компонент”; применяй правила BackgroundPlate, включая effective baseline, reset model, radius и composition rules."
         },
         {
           "ruleId": "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
@@ -1387,6 +1604,40 @@
       ],
       "rulesFile": "JSONS/web/components/web-corp/ButtonGroup [D]/rules.json",
       "rules": [
+        {
+          "ruleId": "component:web-corp.button-group.component-properties-are-first-class",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup",
+              "ButtonGroup [D]"
+            ]
+          },
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+        },
+        {
+          "ruleId": "component:web-corp.button-group.layer-properties-use-effective-baseline",
+          "severity": "warning",
+          "source": "composition-contract",
+          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup",
+              "ButtonGroup [D]"
+            ]
+          },
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        },
         {
           "id": "component:web-corp.buttons-group.component-properties",
           "title": "Component properties ButtonGroup [D] нужно проверять как параметры компонента",
@@ -6747,6 +6998,110 @@
       "rulesFile": "JSONS/web/components/web-corp/Table Basic [D]/rules.json",
       "rules": [
         {
+          "ruleId": "component:web-corp.table-basic.component-properties-are-first-class",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Table Basic [D]",
+            "layers": [
+              "[D] BodyActionCell",
+              "[D] BodyActionCell :: Basic",
+              "[D] BodyCell",
+              "[D] BodyCell :: Basic",
+              "[D] BodyControlCell",
+              "[D] BodyControlCell :: Basic",
+              "[D] BodyRow :: Basic",
+              "[D] BodyRow :: Core",
+              "[D] GroupDivider :: Basic",
+              "[D] HeadActionCell",
+              "[D] HeadCell",
+              "[D] HeadControlCell",
+              "[D] HeadRow :: Core",
+              "[D] ListHeaderRow :: Core",
+              "🔄 [D] BodyActionCell",
+              "🔄 [D] BodyCell",
+              "🔄 [D] BodyControlCell",
+              "🔄 [D] BodyRow :: Core",
+              "🔄 [D] HeadActionCell",
+              "🔄 [D] HeadCell",
+              "🔄 [D] HeadControlCell",
+              "🔄 [D] HeadRow :: Core",
+              "🔄 [D] ListHeaderRow :: Core",
+              "🔄 Chevron",
+              "🔄 HeadControl",
+              "🔄 Sorting",
+              "🔒 [D] BodyCell",
+              "ActionButton",
+              "Chevron",
+              "Control",
+              "Graphics",
+              "GraphicsSkeleton",
+              "HeadControl",
+              "LeftAddon",
+              "RightAddon",
+              "Sorting",
+              "Table Basic [D]",
+              "Text"
+            ]
+          },
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic.layer-properties-use-effective-baseline",
+          "severity": "warning",
+          "source": "composition-contract",
+          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Table Basic [D]",
+            "layers": [
+              "[D] BodyActionCell",
+              "[D] BodyActionCell :: Basic",
+              "[D] BodyCell",
+              "[D] BodyCell :: Basic",
+              "[D] BodyControlCell",
+              "[D] BodyControlCell :: Basic",
+              "[D] BodyRow :: Basic",
+              "[D] BodyRow :: Core",
+              "[D] GroupDivider :: Basic",
+              "[D] HeadActionCell",
+              "[D] HeadCell",
+              "[D] HeadControlCell",
+              "[D] HeadRow :: Core",
+              "[D] ListHeaderRow :: Core",
+              "🔄 [D] BodyActionCell",
+              "🔄 [D] BodyCell",
+              "🔄 [D] BodyControlCell",
+              "🔄 [D] BodyRow :: Core",
+              "🔄 [D] HeadActionCell",
+              "🔄 [D] HeadCell",
+              "🔄 [D] HeadControlCell",
+              "🔄 [D] HeadRow :: Core",
+              "🔄 [D] ListHeaderRow :: Core",
+              "🔄 Chevron",
+              "🔄 HeadControl",
+              "🔄 Sorting",
+              "🔒 [D] BodyCell",
+              "ActionButton",
+              "Chevron",
+              "Control",
+              "Graphics",
+              "GraphicsSkeleton",
+              "HeadControl",
+              "LeftAddon",
+              "RightAddon",
+              "Sorting",
+              "Table Basic [D]",
+              "Text"
+            ]
+          },
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        },
+        {
           "ruleId": "component:web-corp.table-basic-d.component-properties-are-first-class",
           "severity": "info",
           "source": "component-contract",
@@ -7621,6 +7976,80 @@
       ],
       "rulesFile": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
       "rules": [
+        {
+          "ruleId": "component:web-corp.table-wide.component-properties-are-first-class",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Table Wide [D]",
+            "layers": [
+              "[D] BodyActionCell :: Wide",
+              "[D] BodyCell :: Wide",
+              "[D] BodyControlCell :: Wide",
+              "[D] BodyGroupRow :: Wide",
+              "[D] BodyRow :: Wide",
+              "[D] HeadActionCell",
+              "[D] HeadCell",
+              "[D] HeadControlCell",
+              "[D] HeadRow :: Universal",
+              "ActionButton",
+              "BorderLine",
+              "Chevron",
+              "ColumnControl",
+              "ColumnControl :: OptionList",
+              "ControlAddon",
+              "GroupBorderLine",
+              "HeadDivider",
+              "HeaderAddon",
+              "LeftAddon",
+              "RightAddon",
+              "Sorting",
+              "Table Wide [D]",
+              "Text"
+            ]
+          },
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide.layer-properties-use-effective-baseline",
+          "severity": "warning",
+          "source": "composition-contract",
+          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Table Wide [D]",
+            "layers": [
+              "[D] BodyActionCell :: Wide",
+              "[D] BodyCell :: Wide",
+              "[D] BodyControlCell :: Wide",
+              "[D] BodyGroupRow :: Wide",
+              "[D] BodyRow :: Wide",
+              "[D] HeadActionCell",
+              "[D] HeadCell",
+              "[D] HeadControlCell",
+              "[D] HeadRow :: Universal",
+              "ActionButton",
+              "BorderLine",
+              "Chevron",
+              "ColumnControl",
+              "ColumnControl :: OptionList",
+              "ControlAddon",
+              "GroupBorderLine",
+              "HeadDivider",
+              "HeaderAddon",
+              "LeftAddon",
+              "RightAddon",
+              "Sorting",
+              "Table Wide [D]",
+              "Text"
+            ]
+          },
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        },
         {
           "ruleId": "component:web-corp.table-wide-d.component-properties-are-first-class",
           "severity": "info",
@@ -9261,6 +9690,40 @@
       ],
       "rulesFile": "JSONS/web/components/web-corp/TabsView/rules.json",
       "rules": [
+        {
+          "ruleId": "component:web-corp.tabs-view.component-properties-are-first-class",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "TabsView",
+            "layers": [
+              "[D] TabsView",
+              "[M] TabsView",
+              "TabsView"
+            ]
+          },
+          "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+        },
+        {
+          "ruleId": "component:web-corp.tabs-view.layer-properties-use-effective-baseline",
+          "severity": "warning",
+          "source": "composition-contract",
+          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "TabsView",
+            "layers": [
+              "[D] TabsView",
+              "[M] TabsView",
+              "TabsView"
+            ]
+          },
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        },
         {
           "ruleId": "component:web-corp.tabs-view.skeleton-is-component-property",
           "severity": "info",

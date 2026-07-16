@@ -1,57 +1,107 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "documentType": "component-rules",
-  "componentKey": "web-corp.buttons-group",
-  "status": "draft",
-  "applicability": {
-    "channels": [
-      "b2b"
-    ],
-    "platforms": [
-      "desktop",
-      "mobile-web"
-    ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-04"
-  },
-  "rules": [
-    {
-      "id": "component:web-corp.buttons-group.component-properties",
-      "title": "Component properties ButtonGroup [D] нужно проверять как параметры компонента",
-      "matchKind": "exact_rule",
-      "severity": "medium",
-      "selector": {
-        "componentNames": [
-          "[D] ButtonsGroup",
-          "[M] ButtonsGroup"
-        ],
-        "propertyPrefix": "variant."
-      },
-      "rule": "Изменения variant/property на instance компонента являются component-property customizations. Не превращай их в несвязанные paint или layout findings."
+  "metadata": {
+    "componentKey": "web-corp.buttons-group",
+    "status": "draft",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "path-policy",
+      "updatedAt": "2026-07-04"
     },
-    {
-      "id": "component:web-corp.buttons-group.layer-properties",
-      "title": "Layer properties ButtonGroup [D] должны использовать effective baseline",
-      "matchKind": "exact_rule",
-      "severity": "medium",
-      "selector": {
-        "componentNames": [
-          "[D] ButtonsGroup",
-          "[M] ButtonsGroup"
-        ],
-        "properties": [
-          "layout.itemSpacing",
-          "layout.padding.*",
-          "styles.text",
-          "styles.fill",
-          "styles.stroke",
-          "fill",
-          "stroke",
-          "radius",
-          "opacity"
-        ]
+    "ownershipSchema": "apollo.artifact-ownership.v2",
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "migratedFrom": 1,
+    "ownershipMigrationRevision": 2
+  },
+  "generated": {
+    "rules": [
+      {
+        "ruleId": "component:web-corp.button-group.component-properties-are-first-class",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.*",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup",
+            "ButtonGroup [D]"
+          ]
+        },
+        "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
       },
-      "rule": "Изменения layer/style нужно сравнивать с effective baseline текущего component variant и nested owner context."
-    }
-  ]
+      {
+        "ruleId": "component:web-corp.button-group.layer-properties-use-effective-baseline",
+        "severity": "warning",
+        "source": "composition-contract",
+        "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup",
+            "ButtonGroup [D]"
+          ]
+        },
+        "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+      }
+    ]
+  },
+  "manual": {
+    "rules": [
+      {
+        "id": "component:web-corp.buttons-group.component-properties",
+        "title": "Component properties ButtonGroup [D] нужно проверять как параметры компонента",
+        "matchKind": "exact_rule",
+        "severity": "medium",
+        "selector": {
+          "componentNames": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ],
+          "propertyPrefix": "variant."
+        },
+        "rule": "Изменения variant/property на instance компонента являются component-property customizations. Не превращай их в несвязанные paint или layout findings."
+      },
+      {
+        "id": "component:web-corp.buttons-group.layer-properties",
+        "title": "Layer properties ButtonGroup [D] должны использовать effective baseline",
+        "matchKind": "exact_rule",
+        "severity": "medium",
+        "selector": {
+          "componentNames": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ],
+          "properties": [
+            "layout.itemSpacing",
+            "layout.padding.*",
+            "styles.text",
+            "styles.fill",
+            "styles.stroke",
+            "fill",
+            "stroke",
+            "radius",
+            "opacity"
+          ]
+        },
+        "rule": "Изменения layer/style нужно сравнивать с effective baseline текущего component variant и nested owner context."
+      }
+    ]
+  }
 }

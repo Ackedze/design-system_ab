@@ -1,734 +1,750 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "documentType": "component-rules",
-  "componentKey": "web-corp.table-view",
-  "status": "ready",
-  "applicability": {
-    "channels": [
-      "b2b"
-    ],
-    "platforms": [
-      "desktop",
-      "mobile-web"
-    ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-15"
+  "metadata": {
+    "componentKey": "web-corp.table-view",
+    "status": "ready",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "path-policy",
+      "updatedAt": "2026-07-15"
+    },
+    "ownershipSchema": "apollo.artifact-ownership.v2",
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "migratedFrom": 1,
+    "ownershipMigrationRevision": 2
   },
-  "rules": [
-    {
-      "ruleId": "component:web-corp.table-view.component-properties-are-first-class",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "variant.*",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "component": "TableView",
-        "layers": [
+  "generated": {
+    "rules": [
+      {
+        "ruleId": "component:web-corp.table-view.component-properties-are-first-class",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.*",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "TableView",
+          "layers": [
+            "[D] TableView :: Horizontal",
+            "[D] TableView :: Horizontal SidePanel",
+            "Caption",
+            "Column",
+            "RightAddon",
+            "Row",
+            "Row :: SidePanel",
+            "ShowMore",
+            "Subtitle",
+            "TableView",
+            "TableView :: Vertical",
+            "Title"
+          ]
+        },
+        "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.layer-properties-use-effective-baseline",
+        "severity": "warning",
+        "source": "composition-contract",
+        "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "TableView",
+          "layers": [
+            "[D] TableView :: Horizontal",
+            "[D] TableView :: Horizontal SidePanel",
+            "Caption",
+            "Column",
+            "RightAddon",
+            "Row",
+            "Row :: SidePanel",
+            "ShowMore",
+            "Subtitle",
+            "TableView",
+            "TableView :: Vertical",
+            "Title"
+          ]
+        },
+        "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+      }
+    ]
+  },
+  "manual": {
+    "rules": [
+      {
+        "ruleId": "component:web-corp.table-view.lifecycle-context-is-informational",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.status",
+        "checkType": "manual",
+        "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.horizontal-compact-one-column",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.horizontal-compact-one-column",
+        "appliesTo": "component.variant",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "variant": "[D] TableView :: Horizontal",
+          "compact": true
+        },
+        "requiredUsage": {
+          "dataColumns": 1,
+          "readingDirection": "left-to-right by row"
+        },
+        "forbidden": {
+          "multipleDataColumnsInCompact": true
+        },
+        "ruleText": "Horizontal compact используется для одной колонки данных. Линия чтения идёт слева направо: пользователь читает каждую строку отдельно."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.horizontal-compact-width",
+        "severity": "warning",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.horizontal-compact-width",
+        "appliesTo": "screen.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "variant": "[D] TableView :: Horizontal",
+          "compact": true
+        },
+        "recommendedContext": {
+          "contentGridColumns": 8,
+          "modalOrSidePanelMaxWidthPx": 800
+        },
+        "ruleText": "Horizontal compact рекомендуется использовать в контентной области шириной 8 колонок, модальном окне или сайд-панели не шире 800 px."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.horizontal-multi-column",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.horizontal-multi-column",
+        "appliesTo": "component.variant",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "variant": "[D] TableView :: Horizontal",
+          "compact": false
+        },
+        "requiredUsage": {
+          "dataColumnsMin": 2,
+          "readingDirection": "top-to-bottom for search and comparison"
+        },
+        "forbidden": {
+          "singleDataColumnAsMultiColumn": true
+        },
+        "ruleText": "Horizontal multi-column используется для нескольких колонок данных, когда пользователь ищет и сравнивает значения сверху вниз."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.multi-column-width",
+        "severity": "warning",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.multi-column-width",
+        "appliesTo": "screen.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "variant": "[D] TableView :: Horizontal",
+          "compact": false,
+          "context": "8-column content area or modal below 1140 px"
+        },
+        "recommendedState": {
+          "maxDataColumns": 2
+        },
+        "ruleText": "Для контентной области в 8 колонок или модальных окон меньше 1140 px рекомендуется использовать не больше 2 колонок данных в Horizontal multi-column."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.vertical-context",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.vertical-context",
+        "appliesTo": "component.variant",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "variant": "TableView :: Vertical"
+        },
+        "requiredUsage": {
+          "contexts": [
+            "desktop island",
+            "Mobile Web"
+          ],
+          "dataColumns": 1,
+          "mainValueStyle": "larger text size"
+        },
+        "ruleText": "Vertical располагает данные в одну колонку и выделяет основное значение большим кеглем. Используй этот вид в островках на Desktop и на Mobile Web."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.default-visible-rows",
+        "severity": "warning",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.default-visible-rows",
+        "appliesTo": "component.state",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "rowsCanBeCollapsed": true
+        },
+        "recommendedState": {
+          "collapsedVisibleRowsMax": 5,
+          "hiddenRowsControl": "ShowMore",
+          "productOwnsFinalRowCount": true
+        },
+        "ruleText": "Определи количество строк по умолчанию и спрячь остальные под Ещё N. В свёрнутом состоянии рекомендуется показывать не больше 5 строк, но финальное количество остаётся на стороне продукта."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.no-single-hidden-row",
+        "severity": "recommendation",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.no-single-hidden-row",
+        "appliesTo": "component.state",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "totalRows": 6
+        },
+        "requiredState": {
+          "visibleRows": 6,
+          "showMoreVisible": false
+        },
+        "forbidden": {
+          "showMoreText": "Ещё 1"
+        },
+        "ruleText": "Если всего 6 пунктов, показывай все 6 без кнопки Ещё 1."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.more-link-context",
+        "severity": "warning",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.more-link-context",
+        "appliesTo": "component.content",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "layer": "ShowMore"
+        },
+        "requiredContent": {
+          "collapsedTextPatterns": [
+            "Ещё N",
+            "Ещё N [тип данных]"
+          ],
+          "expandedText": "Свернуть"
+        },
+        "forbiddenText": [
+          "Показать больше",
+          "Скрыть данные назад"
+        ],
+        "ruleText": "Текст ShowMore зависит от контекста данных: используй Ещё N или Ещё N [тип данных]. В раскрытом состоянии используй Свернуть."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.last-row-divider",
+        "severity": "warning",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.last-row-divider",
+        "appliesTo": "component.layout",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "variant": "[D] TableView :: Horizontal",
+          "compact": false,
+          "isLastElementInBlock": true
+        },
+        "requiredState": {
+          "lastRowDivider": false
+        },
+        "ruleText": "Если после Horizontal multi-column TableView нет элементов, отключи divider в последней строке."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.first-column-caption",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.first-column-caption",
+        "appliesTo": "component.content",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "column": "first",
+          "layer": "Caption",
+          "captionVisible": true
+        },
+        "requiredContent": {
+          "captionRole": "data type for the row",
+          "infoIconAllowedWhen": "caption text needs explanation"
+        },
+        "ruleText": "Caption опционален. Если он включён, то описывает тип данных в строке; если текст требует расшифровки, включи Info-иконку."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.title-columns-same-data-type",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.title-columns-same-data-type",
+        "appliesTo": "component.content",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "variant": "[D] TableView :: Horizontal",
+          "compact": false,
+          "dataColumnsMin": 2
+        },
+        "requiredContent": {
+          "titleColumnsDataType": "same across data columns"
+        },
+        "ruleText": "В TableView с несколькими колонками тип данных в колонках Title должен совпадать."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.additional-header",
+        "severity": "warning",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.additional-header",
+        "appliesTo": "component.composition",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "needsColumnGroupExplanation": true
+        },
+        "requiredComposition": {
+          "additionalHeaderRow": true,
+          "purpose": "shared explanation for several columns"
+        },
+        "ruleText": "Если нужно пояснение в нескольких колонках TableView, добавь дополнительную строку с общим заголовком."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.group-actions-titleview",
+        "severity": "warning",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.table-view",
+        "patternRuleId": "rule:components.table-view.group-actions-titleview",
+        "appliesTo": "component.composition",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView",
+          "hasGroupAction": true
+        },
+        "requiredComposition": {
+          "containerComponent": "TitleView",
+          "placement": "RightAddon",
+          "actionType": "link"
+        },
+        "forbidden": {
+          "duplicateGroupActionInEachCell": true
+        },
+        "ruleText": "Групповые действия с ячейками TableView выноси в правый аддон со ссылкой в блоке TitleView, не дублируй действие в каждой строке."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.advanced-interactions-require-team-implementation",
+        "severity": "warning",
+        "source": "component-contract",
+        "appliesTo": "component.interaction",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "hasSortingOrFilteringOrBulkSelectionOrNavigation": true
+        },
+        "requiredState": {
+          "teamImplementationConfirmed": true
+        },
+        "ruleText": "Штатные кнопки действий в TableView допустимы. Сортировка, фильтрация, массовый выбор и интерактивная табличная навигация также возможны, но требуют дополнительных доработок команды и отдельного внимания."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.compact-is-consistent-across-rows",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.Compact|layout.itemSpacing",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "requiredState": {
+          "allRowsMatchRootCompact": true,
+          "spacingByCompact": {
+            "False": 16,
+            "True": 12
+          }
+        },
+        "ruleText": "Все Row внутри одного TableView должны иметь одинаковое значение Compact. При Compact=False ↕ SpacingVertical каждой строки равен 16 px, при Compact=True — 12 px."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.horizontal-sidepanel-surfaces",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.composition",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "[D] TableView :: Horizontal SidePanel"
+        },
+        "allowedContexts": [
+          "SidePanel",
+          "UniversalModal",
+          "Modal"
+        ],
+        "ruleText": "[D] TableView :: Horizontal SidePanel допустим только в SidePanel, UniversalModal и Modal."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.internal-parts-not-standalone",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.usage",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "layers": [
+            "Caption",
+            "Column",
+            "Row",
+            "Row :: SidePanel",
+            "ShowMore",
+            "Title",
+            "Subtitle",
+            "RightAddon"
+          ]
+        },
+        "ruleText": "Caption, Column, Row, Row :: SidePanel, ShowMore, Title, Subtitle и RightAddon являются служебными частями TableView и не используются отдельно."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.manual-visual-overrides-forbidden",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "styles.text|layout.padding|layout.itemSpacing|fill|stroke",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Работай с предусмотренными presets и штатными возможностями TableView. Ручное изменение текстовых стилей, отступов, заливок и обводок запрещено."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.horizontal-multi-column-recommended-max-three-data-columns",
+        "severity": "recommendation",
+        "source": "component-contract",
+        "appliesTo": "component.composition",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "[D] TableView :: Horizontal",
+          "compact": false
+        },
+        "recommendedComposition": {
+          "maxDataColumns": 3,
+          "maxColumnsIncludingCaption": 4
+        },
+        "ruleText": "В Horizontal TableView с Compact=False не рекомендуется использовать более трёх колонок с данными: максимум четыре колонки вместе с заглавной колонкой Caption."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.caption-is-optional",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.composition",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "allowedState": {
+          "captionVisible": false,
+          "rowContainsOnlyDataValues": true
+        },
+        "ruleText": "Caption опционален: строка TableView может содержать только значения Title и Subtitle без заглавной ячейки."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.title-subtitle-presets-are-contextual",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.Presets",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "components": [
+            "Title",
+            "Subtitle"
+          ]
+        },
+        "ruleText": "Дизайнер свободно выбирает предусмотренные presets у Title и Subtitle в зависимости от типа данных."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.right-addon-type-is-contextual",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.Type",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "RightAddon"
+        },
+        "ruleText": "Тип RightAddon можно свободно менять между предусмотренными значениями в зависимости от типа действия."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.partial-skeleton-is-allowed",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.Skeleton",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "components": [
+            "Row",
+            "Column"
+          ]
+        },
+        "ruleText": "Отдельные Row и Column могут независимо переходить в Skeleton; весь TableView не обязан загружаться одновременно."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.show-more-is-configurable",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.Open|component.visibility|characters",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ShowMore"
+        },
+        "allowedConfiguration": {
+          "designerCanEnable": true,
+          "designerCanChooseVisibleRowCount": true,
+          "labelIsContextual": true
+        },
+        "ruleText": "Дизайнер может включать ShowMore, выбирать количество видимых строк и задавать контекстную подпись Ещё N; в раскрытом состоянии используется Свернуть."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.divider-visibility-only-last-row",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.visibility",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "layer": "Divider"
+        },
+        "allowedState": {
+          "manualVisibilityChange": "last Row only"
+        },
+        "ruleText": "Вручную менять видимость divider можно только у последней строки TableView. У остальных строк divider должен соответствовать effective baseline."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.manual-column-width-changes-forbidden",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "layout.width|layoutSizingHorizontal",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "components": [
+            "Caption",
+            "Column"
+          ]
+        },
+        "ruleText": "Ручное изменение ширины Caption и колонок данных запрещено. Геометрия должна соответствовать effective baseline выбранного варианта TableView."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.multiple-actions-follow-data-columns",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.composition",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "dataColumnsMin": 2
+        },
+        "allowedComposition": {
+          "multipleActions": true,
+          "placement": "RightAddon in corresponding data columns"
+        },
+        "ruleText": "Если в строке несколько колонок данных, в ней может быть несколько действий — через RightAddon соответствующих колонок."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.vertical-has-one-data-column",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.composition",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "TableView :: Vertical"
+        },
+        "requiredComposition": {
+          "dataColumns": 1
+        },
+        "ruleText": "TableView :: Vertical всегда содержит одну колонку данных."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.horizontal-sidepanel-is-single-column-compact",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.composition|layout.itemSpacing",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "[D] TableView :: Horizontal SidePanel"
+        },
+        "requiredComposition": {
+          "dataColumns": 1,
+          "compact": true,
+          "rowSpacing": 12
+        },
+        "ruleText": "[D] TableView :: Horizontal SidePanel использует одну колонку данных и компактные отступы Row 12 px."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.horizontal-multi-column-header-required",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "[D] TableView :: Horizontal",
+          "compact": false
+        },
+        "requiredComposition": {
+          "rowPresetHeader": true
+        },
+        "ruleText": "В Horizontal TableView с Compact=False обязательна строка Row с Presets=Header."
+      },
+      {
+        "ruleId": "component:web-corp.table-view.show-more-allowed-in-all-public-roots",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.composition",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "allowedContexts": [
           "[D] TableView :: Horizontal",
-          "[D] TableView :: Horizontal SidePanel",
-          "Caption",
-          "Column",
-          "RightAddon",
-          "Row",
-          "Row :: SidePanel",
-          "ShowMore",
-          "Subtitle",
-          "TableView",
           "TableView :: Vertical",
-          "Title"
-        ]
-      },
-      "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.layer-properties-use-effective-baseline",
-      "severity": "warning",
-      "source": "composition-contract",
-      "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "component": "TableView",
-        "layers": [
-          "[D] TableView :: Horizontal",
-          "[D] TableView :: Horizontal SidePanel",
-          "Caption",
-          "Column",
-          "RightAddon",
-          "Row",
-          "Row :: SidePanel",
-          "ShowMore",
-          "Subtitle",
-          "TableView",
-          "TableView :: Vertical",
-          "Title"
-        ]
-      },
-      "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.lifecycle-context-is-informational",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "component.status",
-      "checkType": "manual",
-      "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.horizontal-compact-one-column",
-      "severity": "error",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.horizontal-compact-one-column",
-      "appliesTo": "component.variant",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "variant": "[D] TableView :: Horizontal",
-        "compact": true
-      },
-      "requiredUsage": {
-        "dataColumns": 1,
-        "readingDirection": "left-to-right by row"
-      },
-      "forbidden": {
-        "multipleDataColumnsInCompact": true
-      },
-      "ruleText": "Horizontal compact используется для одной колонки данных. Линия чтения идёт слева направо: пользователь читает каждую строку отдельно."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.horizontal-compact-width",
-      "severity": "warning",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.horizontal-compact-width",
-      "appliesTo": "screen.composition",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "variant": "[D] TableView :: Horizontal",
-        "compact": true
-      },
-      "recommendedContext": {
-        "contentGridColumns": 8,
-        "modalOrSidePanelMaxWidthPx": 800
-      },
-      "ruleText": "Horizontal compact рекомендуется использовать в контентной области шириной 8 колонок, модальном окне или сайд-панели не шире 800 px."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.horizontal-multi-column",
-      "severity": "error",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.horizontal-multi-column",
-      "appliesTo": "component.variant",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "variant": "[D] TableView :: Horizontal",
-        "compact": false
-      },
-      "requiredUsage": {
-        "dataColumnsMin": 2,
-        "readingDirection": "top-to-bottom for search and comparison"
-      },
-      "forbidden": {
-        "singleDataColumnAsMultiColumn": true
-      },
-      "ruleText": "Horizontal multi-column используется для нескольких колонок данных, когда пользователь ищет и сравнивает значения сверху вниз."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.multi-column-width",
-      "severity": "warning",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.multi-column-width",
-      "appliesTo": "screen.composition",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "variant": "[D] TableView :: Horizontal",
-        "compact": false,
-        "context": "8-column content area or modal below 1140 px"
-      },
-      "recommendedState": {
-        "maxDataColumns": 2
-      },
-      "ruleText": "Для контентной области в 8 колонок или модальных окон меньше 1140 px рекомендуется использовать не больше 2 колонок данных в Horizontal multi-column."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.vertical-context",
-      "severity": "error",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.vertical-context",
-      "appliesTo": "component.variant",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "variant": "TableView :: Vertical"
-      },
-      "requiredUsage": {
-        "contexts": [
-          "desktop island",
-          "Mobile Web"
+          "[D] TableView :: Horizontal SidePanel"
         ],
-        "dataColumns": 1,
-        "mainValueStyle": "larger text size"
+        "ruleText": "ShowMore можно использовать во всех публичных вариантах TableView: Horizontal, Vertical и Horizontal SidePanel."
       },
-      "ruleText": "Vertical располагает данные в одну колонку и выделяет основное значение большим кеглем. Используй этот вид в островках на Desktop и на Mobile Web."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.default-visible-rows",
-      "severity": "warning",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.default-visible-rows",
-      "appliesTo": "component.state",
-      "checkType": "manual",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "rowsCanBeCollapsed": true
+      {
+        "ruleId": "component:web-corp.table-view.title-subtitle-instance-swap-forbidden",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "instance.swap",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "components": [
+            "Title",
+            "Subtitle"
+          ]
+        },
+        "ruleText": "Instance swap внутри Title и Subtitle запрещён. Используй только предусмотренные presets и штатные параметры вложенных элементов."
       },
-      "recommendedState": {
-        "collapsedVisibleRowsMax": 5,
-        "hiddenRowsControl": "ShowMore",
-        "productOwnsFinalRowCount": true
+      {
+        "ruleId": "component:web-corp.table-view.content-text-is-editable",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "characters",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "layers": [
+            "Caption",
+            "Title",
+            "Subtitle",
+            "Row / Presets=Header",
+            "additional header"
+          ]
+        },
+        "ruleText": "Текстовые значения Caption, Title, Subtitle, заголовков Header и дополнительного заголовка можно свободно менять."
       },
-      "ruleText": "Определи количество строк по умолчанию и спрячь остальные под Ещё N. В свёрнутом состоянии рекомендуется показывать не больше 5 строк, но финальное количество остаётся на стороне продукта."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.no-single-hidden-row",
-      "severity": "recommendation",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.no-single-hidden-row",
-      "appliesTo": "component.state",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "totalRows": 6
+      {
+        "ruleId": "component:web-corp.table-view.header-matches-data-columns",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "component": "[D] TableView :: Horizontal",
+          "compact": false
+        },
+        "requiredComposition": {
+          "headerColumnCountMatchesDataColumns": true,
+          "headerColumnOrderMatchesDataColumns": true
+        },
+        "ruleText": "Количество и порядок заголовков в Row / Presets=Header должны совпадать с колонками данных."
       },
-      "requiredState": {
-        "visibleRows": 6,
-        "showMoreVisible": false
+      {
+        "ruleId": "component:web-corp.table-view.right-addon-type-semantics",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.Type",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "RightAddon"
+        },
+        "semantics": {
+          "Info": "показывает пояснение",
+          "Copy": "копирует значение",
+          "Edit": "запускает редактирование",
+          "Icon20": "контекстное действие"
+        },
+        "ruleText": "Выбирай Type у RightAddon по действию: Info — пояснение, Copy — копирование значения, Edit — запуск редактирования, Icon20 — контекстное действие."
       },
-      "forbidden": {
-        "showMoreText": "Ещё 1"
+      {
+        "ruleId": "component:web-corp.table-view.additional-header-is-optional",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.composition|characters",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "allowedState": {
+          "additionalHeaderRequired": false,
+          "useWhen": "shared explanation for a group of columns",
+          "textEditable": true
+        },
+        "ruleText": "Дополнительный заголовок опционален: используй его для общего пояснения группы колонок; текст можно свободно менять."
       },
-      "ruleText": "Если всего 6 пунктов, показывай все 6 без кнопки Ещё 1."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.more-link-context",
-      "severity": "warning",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.more-link-context",
-      "appliesTo": "component.content",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "layer": "ShowMore"
-      },
-      "requiredContent": {
-        "collapsedTextPatterns": [
-          "Ещё N",
-          "Ещё N [тип данных]"
-        ],
-        "expandedText": "Свернуть"
-      },
-      "forbiddenText": [
-        "Показать больше",
-        "Скрыть данные назад"
-      ],
-      "ruleText": "Текст ShowMore зависит от контекста данных: используй Ещё N или Ещё N [тип данных]. В раскрытом состоянии используй Свернуть."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.last-row-divider",
-      "severity": "warning",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.last-row-divider",
-      "appliesTo": "component.layout",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "variant": "[D] TableView :: Horizontal",
-        "compact": false,
-        "isLastElementInBlock": true
-      },
-      "requiredState": {
-        "lastRowDivider": false
-      },
-      "ruleText": "Если после Horizontal multi-column TableView нет элементов, отключи divider в последней строке."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.first-column-caption",
-      "severity": "error",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.first-column-caption",
-      "appliesTo": "component.content",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-    "conditions": {
-      "component": "TableView",
-      "column": "first",
-      "layer": "Caption",
-      "captionVisible": true
-    },
-      "requiredContent": {
-        "captionRole": "data type for the row",
-        "infoIconAllowedWhen": "caption text needs explanation"
-      },
-    "ruleText": "Caption опционален. Если он включён, то описывает тип данных в строке; если текст требует расшифровки, включи Info-иконку."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.title-columns-same-data-type",
-      "severity": "error",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.title-columns-same-data-type",
-      "appliesTo": "component.content",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "variant": "[D] TableView :: Horizontal",
-        "compact": false,
-        "dataColumnsMin": 2
-      },
-      "requiredContent": {
-        "titleColumnsDataType": "same across data columns"
-      },
-      "ruleText": "В TableView с несколькими колонками тип данных в колонках Title должен совпадать."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.additional-header",
-      "severity": "warning",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.additional-header",
-      "appliesTo": "component.composition",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "needsColumnGroupExplanation": true
-      },
-      "requiredComposition": {
-        "additionalHeaderRow": true,
-        "purpose": "shared explanation for several columns"
-      },
-      "ruleText": "Если нужно пояснение в нескольких колонках TableView, добавь дополнительную строку с общим заголовком."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.group-actions-titleview",
-      "severity": "warning",
-      "source": "pattern-link",
-      "patternId": "ptrn:components.table-view",
-      "patternRuleId": "rule:components.table-view.group-actions-titleview",
-      "appliesTo": "component.composition",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView",
-        "hasGroupAction": true
-      },
-      "requiredComposition": {
-        "containerComponent": "TitleView",
-        "placement": "RightAddon",
-        "actionType": "link"
-      },
-      "forbidden": {
-        "duplicateGroupActionInEachCell": true
-      },
-      "ruleText": "Групповые действия с ячейками TableView выноси в правый аддон со ссылкой в блоке TitleView, не дублируй действие в каждой строке."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.advanced-interactions-require-team-implementation",
-      "severity": "warning",
-      "source": "component-contract",
-      "appliesTo": "component.interaction",
-      "checkType": "manual",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "hasSortingOrFilteringOrBulkSelectionOrNavigation": true
-      },
-      "requiredState": {
-        "teamImplementationConfirmed": true
-      },
-      "ruleText": "Штатные кнопки действий в TableView допустимы. Сортировка, фильтрация, массовый выбор и интерактивная табличная навигация также возможны, но требуют дополнительных доработок команды и отдельного внимания."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.compact-is-consistent-across-rows",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "variant.Compact|layout.itemSpacing",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "requiredState": {
-        "allRowsMatchRootCompact": true,
-        "spacingByCompact": {
-          "False": 16,
-          "True": 12
-        }
-      },
-      "ruleText": "Все Row внутри одного TableView должны иметь одинаковое значение Compact. При Compact=False ↕ SpacingVertical каждой строки равен 16 px, при Compact=True — 12 px."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.horizontal-sidepanel-surfaces",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "component.composition",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "[D] TableView :: Horizontal SidePanel"
-      },
-      "allowedContexts": [
-        "SidePanel",
-        "UniversalModal",
-        "Modal"
-      ],
-      "ruleText": "[D] TableView :: Horizontal SidePanel допустим только в SidePanel, UniversalModal и Modal."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.internal-parts-not-standalone",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "component.usage",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "layers": [
-          "Caption",
-          "Column",
-          "Row",
-          "Row :: SidePanel",
-          "ShowMore",
-          "Title",
-          "Subtitle",
-          "RightAddon"
-        ]
-      },
-      "ruleText": "Caption, Column, Row, Row :: SidePanel, ShowMore, Title, Subtitle и RightAddon являются служебными частями TableView и не используются отдельно."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.manual-visual-overrides-forbidden",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "styles.text|layout.padding|layout.itemSpacing|fill|stroke",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "ruleText": "Работай с предусмотренными presets и штатными возможностями TableView. Ручное изменение текстовых стилей, отступов, заливок и обводок запрещено."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.horizontal-multi-column-recommended-max-three-data-columns",
-      "severity": "recommendation",
-      "source": "component-contract",
-      "appliesTo": "component.composition",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "[D] TableView :: Horizontal",
-        "compact": false
-      },
-      "recommendedComposition": {
-        "maxDataColumns": 3,
-        "maxColumnsIncludingCaption": 4
-      },
-      "ruleText": "В Horizontal TableView с Compact=False не рекомендуется использовать более трёх колонок с данными: максимум четыре колонки вместе с заглавной колонкой Caption."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.caption-is-optional",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "component.composition",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "allowedState": {
-        "captionVisible": false,
-        "rowContainsOnlyDataValues": true
-      },
-      "ruleText": "Caption опционален: строка TableView может содержать только значения Title и Subtitle без заглавной ячейки."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.title-subtitle-presets-are-contextual",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "variant.Presets",
-      "checkType": "manual",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "components": [
-          "Title",
-          "Subtitle"
-        ]
-      },
-      "ruleText": "Дизайнер свободно выбирает предусмотренные presets у Title и Subtitle в зависимости от типа данных."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.right-addon-type-is-contextual",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "variant.Type",
-      "checkType": "manual",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "component": "RightAddon"
-      },
-      "ruleText": "Тип RightAddon можно свободно менять между предусмотренными значениями в зависимости от типа действия."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.partial-skeleton-is-allowed",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "variant.Skeleton",
-      "checkType": "manual",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "components": [
-          "Row",
-          "Column"
-        ]
-      },
-      "ruleText": "Отдельные Row и Column могут независимо переходить в Skeleton; весь TableView не обязан загружаться одновременно."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.show-more-is-configurable",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "variant.Open|component.visibility|characters",
-      "checkType": "manual",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "component": "ShowMore"
-      },
-      "allowedConfiguration": {
-        "designerCanEnable": true,
-        "designerCanChooseVisibleRowCount": true,
-        "labelIsContextual": true
-      },
-      "ruleText": "Дизайнер может включать ShowMore, выбирать количество видимых строк и задавать контекстную подпись Ещё N; в раскрытом состоянии используется Свернуть."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.divider-visibility-only-last-row",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "component.visibility",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "layer": "Divider"
-      },
-      "allowedState": {
-        "manualVisibilityChange": "last Row only"
-      },
-      "ruleText": "Вручную менять видимость divider можно только у последней строки TableView. У остальных строк divider должен соответствовать effective baseline."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.manual-column-width-changes-forbidden",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "layout.width|layoutSizingHorizontal",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "components": [
-          "Caption",
-          "Column"
-        ]
-      },
-      "ruleText": "Ручное изменение ширины Caption и колонок данных запрещено. Геометрия должна соответствовать effective baseline выбранного варианта TableView."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.multiple-actions-follow-data-columns",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "component.composition",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "dataColumnsMin": 2
-      },
-      "allowedComposition": {
-        "multipleActions": true,
-        "placement": "RightAddon in corresponding data columns"
-      },
-      "ruleText": "Если в строке несколько колонок данных, в ней может быть несколько действий — через RightAddon соответствующих колонок."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.vertical-has-one-data-column",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "component.composition",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "TableView :: Vertical"
-      },
-      "requiredComposition": {
-        "dataColumns": 1
-      },
-      "ruleText": "TableView :: Vertical всегда содержит одну колонку данных."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.horizontal-sidepanel-is-single-column-compact",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "component.composition|layout.itemSpacing",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "[D] TableView :: Horizontal SidePanel"
-      },
-      "requiredComposition": {
-        "dataColumns": 1,
-        "compact": true,
-        "rowSpacing": 12
-      },
-      "ruleText": "[D] TableView :: Horizontal SidePanel использует одну колонку данных и компактные отступы Row 12 px."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.horizontal-multi-column-header-required",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "component.composition",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "[D] TableView :: Horizontal",
-        "compact": false
-      },
-      "requiredComposition": {
-        "rowPresetHeader": true
-      },
-      "ruleText": "В Horizontal TableView с Compact=False обязательна строка Row с Presets=Header."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.show-more-allowed-in-all-public-roots",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "component.composition",
-      "checkType": "manual",
-      "matchKind": "exact_component_rule",
-      "allowedContexts": [
-        "[D] TableView :: Horizontal",
-        "TableView :: Vertical",
-        "[D] TableView :: Horizontal SidePanel"
-      ],
-      "ruleText": "ShowMore можно использовать во всех публичных вариантах TableView: Horizontal, Vertical и Horizontal SidePanel."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.title-subtitle-instance-swap-forbidden",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "instance.swap",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "components": [
-          "Title",
-          "Subtitle"
-        ]
-      },
-      "ruleText": "Instance swap внутри Title и Subtitle запрещён. Используй только предусмотренные presets и штатные параметры вложенных элементов."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.content-text-is-editable",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "characters",
-      "checkType": "manual",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "layers": [
-          "Caption",
-          "Title",
-          "Subtitle",
-          "Row / Presets=Header",
-          "additional header"
-        ]
-      },
-      "ruleText": "Текстовые значения Caption, Title, Subtitle, заголовков Header и дополнительного заголовка можно свободно менять."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.header-matches-data-columns",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "component.composition",
-      "checkType": "deterministic",
-      "matchKind": "exact_component_rule",
-      "conditions": {
-        "component": "[D] TableView :: Horizontal",
-        "compact": false
-      },
-      "requiredComposition": {
-        "headerColumnCountMatchesDataColumns": true,
-        "headerColumnOrderMatchesDataColumns": true
-      },
-      "ruleText": "Количество и порядок заголовков в Row / Presets=Header должны совпадать с колонками данных."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.right-addon-type-semantics",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "variant.Type",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "target": {
-        "component": "RightAddon"
-      },
-      "semantics": {
-        "Info": "показывает пояснение",
-        "Copy": "копирует значение",
-        "Edit": "запускает редактирование",
-        "Icon20": "контекстное действие"
-      },
-      "ruleText": "Выбирай Type у RightAddon по действию: Info — пояснение, Copy — копирование значения, Edit — запуск редактирования, Icon20 — контекстное действие."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.additional-header-is-optional",
-      "severity": "info",
-      "source": "component-contract",
-      "appliesTo": "component.composition|characters",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "allowedState": {
-        "additionalHeaderRequired": false,
-        "useWhen": "shared explanation for a group of columns",
-        "textEditable": true
-      },
-      "ruleText": "Дополнительный заголовок опционален: используй его для общего пояснения группы колонок; текст можно свободно менять."
-    },
-    {
-      "ruleId": "component:web-corp.table-view.public-root-platforms",
-      "severity": "error",
-      "source": "component-contract",
-      "appliesTo": "component.usage",
-      "checkType": "llm",
-      "matchKind": "exact_component_rule",
-      "allowedContexts": {
-        "TableView :: Vertical": [
-          "desktop island",
-          "mobile-web"
-        ],
-        "[D] TableView :: Horizontal SidePanel": [
-          "desktop"
-        ]
-      },
-      "ruleText": "TableView :: Vertical допустим в островках на Desktop и на Mobile Web. [D] TableView :: Horizontal SidePanel используется только на Desktop."
-    }
-  ]
+      {
+        "ruleId": "component:web-corp.table-view.public-root-platforms",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.usage",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "allowedContexts": {
+          "TableView :: Vertical": [
+            "desktop island",
+            "mobile-web"
+          ],
+          "[D] TableView :: Horizontal SidePanel": [
+            "desktop"
+          ]
+        },
+        "ruleText": "TableView :: Vertical допустим в островках на Desktop и на Mobile Web. [D] TableView :: Horizontal SidePanel используется только на Desktop."
+      }
+    ]
+  }
 }

@@ -1,18 +1,201 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "documentType": "component-examples",
-  "componentKey": "web-corp.account-select",
-  "status": "generated-draft",
-  "applicability": {
-    "channels": [
-      "b2b"
-    ],
-    "platforms": [
-      "desktop",
-      "mobile-web"
-    ],
-    "source": "path-policy",
-    "updatedAt": "2026-07-04"
+  "metadata": {
+    "componentKey": "web-corp.account-select",
+    "status": "generated-draft",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "path-policy",
+      "updatedAt": "2026-07-04"
+    },
+    "ownershipSchema": "apollo.artifact-ownership.v2",
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "migratedFrom": 1,
+    "ownershipMigrationRevision": 2
   },
-  "examples": []
+  "generated": {
+    "examples": []
+  },
+  "manual": {
+    "examples": [
+      {
+        "exampleId": "account-select.single-flat-sum",
+        "title": "Одиночный выбор из плоского списка с балансом",
+        "inputState": {
+          "root": "[D] AccountOptionListContent ",
+          "SelectType": "Single",
+          "Grouped": "False",
+          "AccountItem.Type": "Sum",
+          "content": "AccountInfo / Sum"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "account-select.multi-grouped-number",
+        "title": "Множественный выбор сгруппированных счетов",
+        "inputState": {
+          "root": "[D] AccountOptionListContent ",
+          "SelectType": "Multi",
+          "Grouped": "True",
+          "groupingCriterion": "company ownership",
+          "AccountItem.Type": "Number",
+          "content": "AccountInfo / Number"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "account-select.internal-cell-standalone",
+        "title": "Служебная ячейка используется отдельно",
+        "inputState": {
+          "root": "[D] AccountOptionCell / Single"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.account-select.public-roots-only",
+          "recommendation": "Использовать [D] AccountOptionListContent."
+        }
+      },
+      {
+        "exampleId": "account-select.swap-me",
+        "title": "Placeholder Type не заменён",
+        "inputState": {
+          "AccountItem.Type": "SwapMe"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.account-select.swap-me-must-be-replaced",
+          "recommendation": "Выбрать Sum или Number."
+        }
+      },
+      {
+        "exampleId": "account-select.legacy-number",
+        "title": "Использован legacy-вариант Number",
+        "inputState": {
+          "AccountItem.Type": "❌ Number"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.account-select.legacy-number-forbidden"
+        }
+      },
+      {
+        "exampleId": "account-select.invalid-info-binding",
+        "title": "Композиция AccountInfo не соответствует Type",
+        "inputState": {
+          "AccountItem.Type": "Number",
+          "content": "AccountInfo / Sum"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.account-select.account-info-follows-item-type",
+          "recommendation": "Использовать AccountInfo / Number."
+        }
+      },
+      {
+        "exampleId": "account-select.grouped-default-state",
+        "title": "Группы счетов по компаниям раскрыты по умолчанию",
+        "inputState": {
+          "Grouped": "True",
+          "groupingCriterion": "company ownership",
+          "groupHeaders": [
+            "ООО Альфа",
+            "ООО Бета"
+          ],
+          "expandedGroups": "all"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "account-select.invalid-group-order",
+        "title": "Порядок групп изменён вручную",
+        "inputState": {
+          "Grouped": "True",
+          "groupOrderChanged": true
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.account-select.group-order-is-fixed"
+        }
+      },
+      {
+        "exampleId": "account-select.invalid-selection-control",
+        "title": "Checkbox в Multi скрыт",
+        "inputState": {
+          "SelectType": "Multi",
+          "checkboxVisible": false
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.account-select.selection-controls-are-fixed"
+        }
+      },
+      {
+        "exampleId": "account-select.card-account-image",
+        "title": "Карточный счёт с CardImage",
+        "inputState": {
+          "accountKind": "card",
+          "CardImage": true,
+          "IconView": false
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "account-select.sum-name-masked-number",
+        "title": "AccountInfo Sum показывает название и короткий номер",
+        "inputState": {
+          "AccountItem.Type": "Sum",
+          "content": "AccountInfo / Sum",
+          "Presets": "name + maskedNumber",
+          "visibleValues": [
+            "account name",
+            "short account number"
+          ]
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "account-select.invalid-hidden-preset-value",
+        "title": "Значение выбранного preset скрыто вручную",
+        "inputState": {
+          "content": "AccountInfo / Number",
+          "Presets": "name + sum",
+          "visibleValues": [
+            "account name"
+          ]
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.account-select.account-info-preset-defines-visible-values"
+        }
+      }
+    ]
+  }
 }
