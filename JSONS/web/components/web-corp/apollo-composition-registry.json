@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-composition-contract-registry",
-  "generatedAt": "2026-07-16T15:49:49.185Z",
+  "generatedAt": "2026-07-17T04:21:27.616Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -57852,7 +57852,7 @@
         "schemaVersion": 1,
         "documentType": "composition-contract",
         "componentKey": "web-corp.faq",
-        "status": "generated-draft",
+        "status": "ready",
         "applicability": {
           "channels": [
             "b2b"
@@ -57862,7 +57862,91 @@
             "mobile-web"
           ],
           "source": "path-policy",
-          "updatedAt": "2026-07-04"
+          "updatedAt": "2026-07-20"
+        },
+        "ownershipModel": {
+          "publicRoots": [
+            "[D][Promo] FAQ",
+            "[M][Promo] FAQ",
+            "FAQ"
+          ],
+          "internalComponents": [
+            "[D][Promo] FAQItem",
+            "[M][Promo] FAQItem",
+            "FAQItem"
+          ],
+          "internalStandaloneAllowed": false,
+          "defaultNestedDiffPolicy": "compare-against-faq-effective-baseline"
+        },
+        "compositionPolicy": {
+          "familyMatrix": {
+            "[D][Promo] FAQ": "[D][Promo] FAQItem",
+            "[M][Promo] FAQ": "[M][Promo] FAQItem",
+            "FAQ": "FAQItem"
+          },
+          "crossFamilyCompositionAllowed": false,
+          "platforms": {
+            "[D][Promo] FAQ": "desktop promo pages only",
+            "[M][Promo] FAQ": "mobile-web promo pages only",
+            "FAQ": "desktop and mobile-web product pages"
+          },
+          "items": {
+            "minimum": 2,
+            "recommendedMaximum": 8,
+            "overMaximum": "warning: divide questions into categories and render each category in a separate tab",
+            "maximumPerCategory": 8,
+            "visibilityChangeAllowed": true,
+            "manualReorderAllowed": true,
+            "duplicateAllowedWithinMaximum": true
+          },
+          "accordion": {
+            "defaultOpenItems": 0,
+            "maximumOpenItems": 1,
+            "openingItemClosesPrevious": true,
+            "clickingOpenItemClosesIt": true,
+            "allClosedAllowed": true,
+            "clickTarget": "entire-question-row",
+            "controlIcon": "fixed"
+          },
+          "content": {
+            "questionRequired": true,
+            "answerRequired": true,
+            "questionMaxCharacters": 120,
+            "answerMaxCharacters": 800,
+            "limitViolationSeverity": "error",
+            "questionLineWrapAllowed": true,
+            "questionLinksAllowed": false,
+            "answerContent": "textual content including paragraphs, lists and links",
+            "answerLinksAllowed": true,
+            "answerLinksContract": "Link"
+          },
+          "sizing": {
+            "horizontal": "Fill",
+            "vertical": "Hug",
+            "outerWidthMayFollowPageGrid": true
+          },
+          "surfaces": {
+            "[D][Promo] FAQ": "built-in [D][Promo] BackgroundPlate",
+            "[M][Promo] FAQ": "built-in [M][Promo] BackgroundPlate",
+            "FAQ": "no background plate; built-in dividers"
+          },
+          "visualBaseline": {
+            "manualChangesAllowed": false,
+            "properties": [
+              "padding",
+              "gap",
+              "radius",
+              "fill",
+              "stroke",
+              "divider",
+              "typography",
+              "control icon",
+              "opacity",
+              "effects"
+            ],
+            "baseline": "effective baseline"
+          },
+          "instanceSwapAllowed": false
         },
         "component": {
           "name": "FAQ",

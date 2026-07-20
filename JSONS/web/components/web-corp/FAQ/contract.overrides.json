@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.faq",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-20"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -83,5 +83,64 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "semanticComponents": [
+      {
+        "name": "[D][Promo] FAQ",
+        "role": "public-root",
+        "platform": "desktop",
+        "matchingItem": "[D][Promo] FAQItem"
+      },
+      {
+        "name": "[M][Promo] FAQ",
+        "role": "public-root",
+        "platform": "mobile-web",
+        "matchingItem": "[M][Promo] FAQItem"
+      },
+      {
+        "name": "FAQ",
+        "role": "public-root",
+        "platform": "universal",
+        "matchingItem": "FAQItem"
+      }
+    ],
+    "internalOnly": [
+      "[D][Promo] FAQItem",
+      "[M][Promo] FAQItem",
+      "FAQItem",
+      "🔩 AccordionHeader",
+      "🔩 AccordionControl",
+      "🔩 AccordionBody"
+    ],
+    "allowedOverrides": {
+      "text": [
+        "question",
+        "answer",
+        "answer links"
+      ],
+      "componentProperties": [
+        "FAQItem.Open"
+      ],
+      "composition": [
+        "FAQItem visibility",
+        "FAQItem order",
+        "duplicate matching FAQItem up to 8 per category"
+      ],
+      "layout": [
+        "outer container width according to page grid"
+      ]
+    },
+    "forbiddenOverrides": [
+      "standalone FAQItem",
+      "cross-family instance swap",
+      "manual typography",
+      "manual fill or stroke",
+      "manual padding or gap",
+      "manual radius",
+      "manual divider",
+      "manual control icon",
+      "manual opacity or effects",
+      "surface replacement"
+    ]
+  }
 }

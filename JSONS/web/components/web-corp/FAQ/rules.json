@@ -3,7 +3,7 @@
   "documentType": "component-rules",
   "metadata": {
     "componentKey": "web-corp.faq",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-20"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -77,6 +77,182 @@
         "appliesTo": "component.status",
         "checkType": "manual",
         "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+      },
+      {
+        "ruleId": "component:web-corp.faq.public-roots-only",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.public-roots-only",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Используй только публичные корни [D][Promo] FAQ, [M][Promo] FAQ или FAQ. FAQItem является служебной частью и не используется отдельно."
+      },
+      {
+        "ruleId": "component:web-corp.faq.family-must-match-host",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.family-must-match-host",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Не смешивай семейства FAQ: desktop promo содержит только [D][Promo] FAQItem, mobile promo — только [M][Promo] FAQItem, универсальный FAQ — только FAQItem."
+      },
+      {
+        "ruleId": "component:web-corp.faq.platform-version-must-match",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.platform-version-must-match",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "На promo-странице используй [D][Promo] FAQ на desktop и [M][Promo] FAQ на mobile-web. Универсальный FAQ разрешён на продуктовых desktop и mobile-web страницах."
+      },
+      {
+        "ruleId": "component:web-corp.faq.minimum-two-items",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.minimum-two-items",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "В FAQ должно быть не менее двух отображаемых вопросов."
+      },
+      {
+        "ruleId": "component:web-corp.faq.maximum-eight-per-category",
+        "severity": "warning",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.maximum-eight-per-category",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Рекомендуется использовать не более восьми вопросов в одном FAQ или в одной категории. Больший набор разделяй по категориям и показывай в отдельных табах."
+      },
+      {
+        "ruleId": "component:web-corp.faq.single-open-item",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.single-open-item",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Одновременно может быть открыт только один FAQItem. Открытие нового вопроса закрывает предыдущий."
+      },
+      {
+        "ruleId": "component:web-corp.faq.default-state-is-closed",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.default-state-is-closed",
+        "appliesTo": "component",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Начальное состояние FAQ содержит только FAQItem с Open=False. Для демонстрации сценария допустимо открыть один вопрос."
+      },
+      {
+        "ruleId": "component:web-corp.faq.question-and-answer-required",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.question-and-answer-required",
+        "appliesTo": "text",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Каждый отображаемый FAQItem должен содержать непустые вопрос и ответ."
+      },
+      {
+        "ruleId": "component:web-corp.faq.question-length-limit",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.question-length-limit",
+        "appliesTo": "text",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Текст вопроса не должен превышать 120 символов. Перенос на несколько строк допустим."
+      },
+      {
+        "ruleId": "component:web-corp.faq.answer-length-limit",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.answer-length-limit",
+        "appliesTo": "text",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Текст ответа в одном FAQItem не должен превышать 800 символов."
+      },
+      {
+        "ruleId": "component:web-corp.faq.links-only-in-answer",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.links-only-in-answer",
+        "appliesTo": "text",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Ссылки разрешены только внутри ответа и должны соответствовать контракту Link. Вопрос не должен содержать ссылку."
+      },
+      {
+        "ruleId": "component:web-corp.faq.visuals-follow-effective-baseline",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.visuals-follow-effective-baseline",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Не меняй вручную отступы, интервалы, скругления, заливки, обводки, разделители, типографику, opacity, эффекты и иконку раскрытия FAQ."
+      },
+      {
+        "ruleId": "component:web-corp.faq.surface-is-fixed-by-family",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.surface-is-fixed-by-family",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Promo FAQ сохраняет встроенный Promo BackgroundPlate, а универсальный FAQ — штатные разделители без BackgroundPlate. Поверхности нельзя отключать или заменять."
+      },
+      {
+        "ruleId": "component:web-corp.faq.fill-hug-sizing",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.fill-hug-sizing",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "FAQ использует Fill по ширине и Hug по высоте. Внешнюю ширину контейнера можно ограничивать сеткой страницы."
+      },
+      {
+        "ruleId": "component:web-corp.faq.entire-question-row-is-clickable",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.entire-question-row-is-clickable",
+        "appliesTo": "component",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Вся строка вопроса является единой областью раскрытия. Не ограничивай действие только иконкой."
+      },
+      {
+        "ruleId": "component:web-corp.faq.instance-swap-forbidden",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternId": "ptrn:components.faq",
+        "patternRuleId": "rule:components.faq.instance-swap-forbidden",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Не заменяй вложенные FAQItem, AccordionControl, AccordionHeader, AccordionBody и поверхности через instance swap."
       }
     ]
   }
