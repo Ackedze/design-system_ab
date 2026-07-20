@@ -168,5 +168,72 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "semanticComponents": [
+      {
+        "name": "[D] PromoCard",
+        "role": "public-root",
+        "platform": "desktop"
+      },
+      {
+        "name": "[M] PromoCard",
+        "role": "public-root",
+        "platform": "mobile-web"
+      }
+    ],
+    "internalOnly": [
+      "[D] BottomContent",
+      "[D] ButtonGroup",
+      "[D] ContentWrapper",
+      "[D] ImageContainerLarge",
+      "[D] ImageContainerMedium",
+      "[D] ImageContainerSmall",
+      "[M] BottomContent",
+      "[M] ButtonGroup",
+      "[M] ContentWrapper",
+      "[M] ImageContainerLarge",
+      "[M] ImageContainerMedium",
+      "[M] ImageContainerSmall"
+    ],
+    "allowedOverrides": {
+      "text": [
+        "Title up to 60 characters and 2 lines",
+        "Subtitle up to 120 characters and 3 lines"
+      ],
+      "componentProperties": [
+        "PromoCard.Size according to composition",
+        "PromoCard.Image",
+        "PromoCard.ImageCrop",
+        "ContentWrapper.Centred",
+        "ContentWrapper.Title",
+        "ButtonGroup.Axis",
+        "ButtonGroup.PrimaryButton",
+        "ButtonGroup.SecondaryButton"
+      ],
+      "composition": [
+        "hide Subtitle",
+        "use Image=None for a composition that does not require an image",
+        "make the entire PromoCard clickable",
+        "use up to two buttons"
+      ],
+      "layout": [
+        "outer width and height according to context",
+        "choose Small, Medium or Large according to composition"
+      ]
+    },
+    "forbiddenOverrides": [
+      "standalone BottomContent",
+      "standalone ButtonGroup",
+      "standalone ContentWrapper",
+      "standalone ImageContainerLarge",
+      "standalone ImageContainerMedium",
+      "standalone ImageContainerSmall",
+      "hide Title",
+      "more than two buttons",
+      "button combination other than Primary / Secondary or Secondary / Transparent",
+      "desktop button size other than 48",
+      "mobile-web button size other than 56",
+      "cross-family instance swap"
+    ]
+  }
 }

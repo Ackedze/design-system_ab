@@ -605,5 +605,93 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "ownershipModel": {
+      "publicRoots": [
+        "[D] PromoCard",
+        "[M] PromoCard"
+      ],
+      "internalComponents": [
+        "[D] BottomContent",
+        "[D] ButtonGroup",
+        "[D] ContentWrapper",
+        "[D] ImageContainerLarge",
+        "[D] ImageContainerMedium",
+        "[D] ImageContainerSmall",
+        "[M] BottomContent",
+        "[M] ButtonGroup",
+        "[M] ContentWrapper",
+        "[M] ImageContainerLarge",
+        "[M] ImageContainerMedium",
+        "[M] ImageContainerSmall"
+      ],
+      "internalStandaloneAllowed": false,
+      "defaultNestedDiffPolicy": "compare-against-promo-card-effective-baseline"
+    },
+    "compositionPolicy": {
+      "purpose": "Визуальное представление отдельного промопредложения, преимущества или акции с выразительным сочетанием текста и изображения.",
+      "platforms": {
+        "[D] PromoCard": "desktop at viewport width 768 px or greater",
+        "[M] PromoCard": "mobile-web below 768 px"
+      },
+      "sizes": {
+        "allowed": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "selectionPolicy": "according to composition"
+      },
+      "requiredContent": [
+        "Title"
+      ],
+      "optionalContent": [
+        "Subtitle",
+        "Image",
+        "ButtonGroup"
+      ],
+      "contentLimits": {
+        "Title": {
+          "maximumCharacters": 60,
+          "maximumLines": 2
+        },
+        "Subtitle": {
+          "maximumCharacters": 120,
+          "maximumLines": 3
+        }
+      },
+      "image": {
+        "required": false,
+        "noneAllowed": true,
+        "noneUseCase": "compositions such as a bento grid where a particular card does not require an image",
+        "replacementTarget": "ImageView",
+        "sourceLibrary": "Corp :: Image Library"
+      },
+      "contentWrapper": {
+        "allowedTitleValues": [
+          "Primary",
+          "Secondary"
+        ],
+        "centredMayChange": true
+      },
+      "interaction": {
+        "entireCardMayBeClickable": true,
+        "maximumButtons": 2,
+        "allowedButtonCombinations": [
+          [
+            "Primary",
+            "Secondary"
+          ],
+          [
+            "Secondary",
+            "Transparent"
+          ]
+        ],
+        "buttonSizes": {
+          "desktop": 48,
+          "mobile-web": 56
+        }
+      }
+    }
+  }
 }

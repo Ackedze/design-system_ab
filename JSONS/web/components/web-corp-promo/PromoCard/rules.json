@@ -75,5 +75,54 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "rules": [
+      {
+        "ruleId": "component:web.promo-card.public-roots-only",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Используй только публичные корни [D] PromoCard и [M] PromoCard. BottomContent, ButtonGroup, ContentWrapper и ImageContainer являются служебными частями и не используются отдельно."
+      },
+      {
+        "ruleId": "component:web.promo-card.platform-version-must-match",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Используй [D] PromoCard при ширине 768 px и больше, а [M] PromoCard — на mobile-web при ширине меньше 768 px."
+      },
+      {
+        "ruleId": "component:web.promo-card.title-required",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "text.Title",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Title обязателен. Subtitle и изображение можно не использовать, если это соответствует композиции."
+      },
+      {
+        "ruleId": "component:web.promo-card.content-limits",
+        "severity": "warning",
+        "designSeverity": "warning",
+        "source": "component-guideline",
+        "appliesTo": "text",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Рекомендуется ограничивать Title 60 символами и двумя строками, Subtitle — 120 символами и тремя строками."
+      },
+      {
+        "ruleId": "component:web.promo-card.button-composition",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "component.ButtonGroup",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Используй не более двух кнопок. Разрешены сочетания Primary / Secondary и Secondary / Transparent. Размер кнопок: 48 на desktop и 56 на mobile-web."
+      }
+    ]
+  }
 }
