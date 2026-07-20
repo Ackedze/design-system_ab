@@ -1,23 +1,39 @@
-# BenefitCard — MVP component contract
+# BenefitCard — component contract
 
-Папка содержит сгенерированный слой component-contract для **Web _ Сorp Promo Components / BenefitCard**.
+Готовый комплект машиночитаемых документов для **Web _ Сorp Promo Components / BenefitCard**.
 
-Raw Figma catalog остаётся source of truth:
+Raw Figma catalog остаётся source of truth для структуры и effective baseline:
 
-`../../../../web/components/web-corp-promo/Web _ Сorp Promo Components -- BenefitCard.json`
+`../Web _ Сorp Promo Components -- BenefitCard.json`
+
+Компонентный паттерн:
+
+`../../../../../patterns/p_benefit-card.md`
+
+## Публичные компоненты
+
+- `[D] BenefitCard` — desktop, ширина `768 px` и больше.
+- `[M] BenefitCard` — mobile-web, ширина меньше `768 px`.
+
+`BottomContent`, `ContentWrapper` и `Graphic` являются служебными частями и не используются отдельно.
 
 ## Файлы
 
-- `contract.generated.json` — сгенерированный compact contract, извлечённый из raw Figma catalog.
-- `contract.overrides.json` — semantic layer, заполняемый вручную.
-- `composition-contract.json` — context владения internal instances.
-- `rules.json` — component-level classification и design rules.
-- `audit-mapping.json` — модель группировки Apollo.
-- `examples.json` — примеры трактовки.
-- `agent-context.json` — compact context для интерпретации на стороне агента.
+- `contract.generated.json` — сгенерированный compact contract из raw-каталога.
+- `contract.overrides.json` — ручная семантика, разрешённые и запрещённые overrides.
+- `composition-contract.json` — структура, слоты, responsive-поведение и effective baseline.
+- `rules.json` — exact component rules и ссылки на `p_benefit-card.md`.
+- `audit-mapping.json` — группировка и reset-модель Apollo.
+- `examples.json` — положительные и отрицательные сценарии аудита.
+- `agent-context.json` — компактный контекст для интерпретации агентом.
 
-## Источник
+## Применимость
 
-- Библиотека: `Web _ Сorp Promo Components`
-- Сгенерировано: `2026-06-02T08:28:22.629Z`
-- Компонентов: `8`
+- Канал: `b2b`.
+- Платформы: `desktop`, `mobile-web`.
+- Статус комплекта: `ready`.
+- Обновлено: `2026-07-20`.
+
+## Генерация
+
+`contract.generated.json`, generated-секции и индекс формируются Athena CLI. Ручные секции документов сохраняются при повторной генерации.
