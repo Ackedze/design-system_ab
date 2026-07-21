@@ -3,7 +3,7 @@
   "documentType": "component-agent-context",
   "metadata": {
     "componentKey": "web.promo-card",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -327,10 +327,89 @@
     }
   },
   "manual": {
+    "patternReferences": [
+      {
+        "patternId": "ptrn:components.promo-card",
+        "patternKey": "components.promo-card",
+        "file": "shared/design-system_ab/patterns/p_promo-card.md",
+        "sourceType": "component-guideline",
+        "updatedAt": "2026-07-20"
+      },
+      {
+        "patternId": "ptrn:media.images-and-formats",
+        "patternKey": "media.images-and-formats",
+        "file": "shared/design-system_ab/patterns/p_images_format.md",
+        "sourceType": "design-guideline"
+      },
+      {
+        "patternId": "ptrn:components.background-plate",
+        "patternKey": "components.background-plate",
+        "file": "shared/design-system_ab/patterns/p_background-plate.md",
+        "sourceType": "component-guideline"
+      }
+    ],
     "summary": {
       "componentFamily": "PromoCard",
       "library": "Web _ Сorp Promo Components",
-      "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
-    }
+      "purpose": "PromoCard показывает отдельное промопредложение, преимущество или акцию с помощью текста, изображения и опционального действия."
+    },
+    "usageGuidance": [
+      "Используй [D] PromoCard при ширине 768 px и больше, [M] PromoCard — при ширине меньше 768 px.",
+      "BottomContent, ButtonGroup, ContentWrapper и ImageContainer являются служебными частями и отдельно не используются.",
+      "Small, Medium и Large выбираются по композиции.",
+      "Title обязателен. Subtitle можно скрыть.",
+      "Рекомендуемые лимиты: Title до 60 символов и двух строк, Subtitle до 120 символов и трёх строк.",
+      "Используй Image=Top или Image=Bottom. Image=None разрешён только в бенто-композиции.",
+      "При Image=None установи ImageCrop=False и Offset=False.",
+      "Изображение заменяй через ImageView и бери из Corp :: Image Library.",
+      "В ImageView можно менять Segment. Crop и Size сохраняются по effective baseline; обрезкой управляет PromoCard.ImageCrop.",
+      "Offset разрешён только при Image=Top и может сочетаться с ImageCrop.",
+      "Image Centred служебного ImageContainer не является публичной настройкой и остаётся по effective baseline.",
+      "При Image=Top используется fade. На Colored поверхности градиент использует тот же цветовой токен, что и заливка [Promo] BackgroundPlate.",
+      "ContentWrapper.Centred выбирается по контексту. При Centred=True рекомендуется вертикальная группа кнопок.",
+      "BottomContent — открытый slot для одного локального или библиотечного component instance.",
+      "В готовом макете замени SwapMe. Вложенный компонент не детачь и настраивай по его собственному контракту.",
+      "Допустимо не использовать кнопки. Для одной кнопки доступны Primary и Secondary; для двух — Primary / Secondary и Secondary / Transparent.",
+      "Размер кнопок: 48 на desktop и 56 на mobile-web. Публичные настройки кнопок следуют контракту Button.",
+      "PromoCard может быть полностью кликабельной. Один интерактивный элемент должен дублировать действие карточки.",
+      "Текстовая ссылка внутри текстового блока может выполнять отдельное поясняющее действие, например открыть Tooltip.",
+      "При двух кнопках карточка не кликабельна целиком; каждая кнопка может выполнять своё действие.",
+      "Не рекомендуется одновременно использовать кнопки и другой интерактивный элемент, кроме текстовой ссылки внутри текста.",
+      "Настраивай [Promo] BackgroundPlate по его контракту. Для Colored разрешена токенизированная заливка, для Border — токенизированная обводка.",
+      "Type=Secondary разрешён, но не рекомендуется.",
+      "Skeleton=True доступен для любого Type поверхности, скрывает весь контент и блокирует карточку.",
+      "Корень обычно использует Hug по высоте, Stopper — Fill. Ширина и итоговая высота зависят от композиции.",
+      "Внутренние padding, gap, radius, typography, opacity и effects должны соответствовать effective baseline."
+    ],
+    "contentGuidance": {
+      "Title": "Обязательный заголовок: рекомендуется до 60 символов и двух строк.",
+      "Subtitle": "Опциональное пояснение: рекомендуется до 120 символов и трёх строк.",
+      "Image": "Изображение из Corp :: Image Library; обязательно вне бенто-композиции.",
+      "BottomContent": "Один локальный или библиотечный component instance, выбранный через instance swap."
+    },
+    "ruleHighlights": [
+      "component:web.promo-card.public-roots-only",
+      "component:web.promo-card.platform-version-must-match",
+      "component:web.promo-card.title-required",
+      "component:web.promo-card.content-limits",
+      "component:web.promo-card-image-none-bento-only",
+      "component:web.promo-card-image-none-disables-image-effects",
+      "component:web.promo-card-offset-top-only",
+      "component:web.promo-card-image-view-overrides",
+      "component:web.promo-card-internal-image-alignment-baseline",
+      "component:web.promo-card-top-fade-matches-surface",
+      "component:web.promo-card-bottom-content-is-open-slot",
+      "component:web.promo-card-bottom-content-single-instance",
+      "component:web.promo-card-bottom-content-follows-own-contract",
+      "component:web.promo-card.button-composition",
+      "component:web.promo-card-content-alignment-contextual",
+      "component:web.promo-card-click-action-consistency",
+      "component:web.promo-card-two-buttons-disable-card-click",
+      "component:web.promo-card-avoid-multiple-interactive-elements",
+      "component:web.promo-card-surface-follows-contract",
+      "component:web.promo-card-secondary-surface-not-recommended",
+      "component:web.promo-card-skeleton-covers-entire-card",
+      "component:web.promo-card-visuals-follow-effective-baseline"
+    ]
   }
 }

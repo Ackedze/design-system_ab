@@ -3,7 +3,18 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web.promo-card",
-    "status": "generated-draft",
+    "status": "ready",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "path-policy",
+      "updatedAt": "2026-07-20"
+    },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
       "generated": "athena-cli",
@@ -204,16 +215,26 @@
         "PromoCard.Size according to composition",
         "PromoCard.Image",
         "PromoCard.ImageCrop",
+        "PromoCard.Offset when Image=Top",
+        "ImageView.Segment according to task context",
         "ContentWrapper.Centred",
         "ContentWrapper.Title",
+        "BottomContent instance swap",
         "ButtonGroup.Axis",
         "ButtonGroup.PrimaryButton",
         "ButtonGroup.SecondaryButton"
       ],
       "composition": [
         "hide Subtitle",
-        "use Image=None for a composition that does not require an image",
+        "use Image=None only in a bento grid",
+        "replace ImageView content with an image from Corp :: Image Library",
+        "combine Offset with ImageCrop when Image=Top",
+        "show BottomContent with a context-specific nested element",
+        "swap BottomContent to one local or design-system component",
         "make the entire PromoCard clickable",
+        "use one Primary or one Secondary button",
+        "change button text, addons, SingleIcon and DisabledState according to the Button contract",
+        "use ButtonGroup.Axis=Vertical when ContentWrapper.Centred=True",
         "use up to two buttons"
       ],
       "layout": [
@@ -229,11 +250,29 @@
       "standalone ImageContainerMedium",
       "standalone ImageContainerSmall",
       "hide Title",
+      "Image=None outside a bento grid",
+      "Offset when Image is not Top",
+      "ImageCrop=True or Offset=True when Image=None",
+      "manual Image Centred override on internal ImageContainer",
+      "Presets=SwapMe in a finished design",
+      "more than one nested instance in BottomContent",
+      "detach nested BottomContent component",
+      "ImageView.Crop override",
+      "ImageView.Size override",
       "more than two buttons",
       "button combination other than Primary / Secondary or Secondary / Transparent",
       "desktop button size other than 48",
       "mobile-web button size other than 56",
-      "cross-family instance swap"
+      "different action for a clickable PromoCard and its action button",
+      "clickable PromoCard with two buttons",
+      "buttons and another interactive BottomContent element in the same card, except an inline text link",
+      "manual typography",
+      "manual fill outside nested Colored [Promo] BackgroundPlate",
+      "manual stroke outside nested Border [Promo] BackgroundPlate",
+      "manual padding or gap",
+      "manual radius",
+      "manual opacity or effects",
+      "instance swap outside BottomContent"
     ]
   }
 }
