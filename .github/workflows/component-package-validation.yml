@@ -1,0 +1,25 @@
+name: Component package validation
+
+on:
+  pull_request:
+    paths:
+      - "JSONS/web/components/**"
+      - "patterns/**"
+      - ".claude/skills/corp-component-authoring/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Validate changed component packages
+        run: |
+          node .claude/skills/corp-component-authoring/scripts/validate-component-package.mjs \
+            --changed-from "origin/${{ github.base_ref }}"

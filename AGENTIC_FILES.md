@@ -4,6 +4,8 @@
 
 Цель комплекта — отделить стабильный raw-каталог Figma от смыслового слоя: правил компонента, composition baseline, подсказок для агента, regression-примеров и маппинга аудита.
 
+Командный процесс аудита, вопросов владельцу, наполнения manual-секций и targeted validation описан в [`COMPONENT_AUTHORING.md`](./COMPONENT_AUTHORING.md). Для Claude Code тот же процесс доступен через project skill `/corp-component-authoring`.
+
 ## Где лежат файлы
 
 Компонентный комплект хранится в отдельной папке компонента:

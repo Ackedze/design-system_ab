@@ -1,6 +1,6 @@
 ---
 name: figma-b2b-interface
-description: Draw or update B2B product interfaces in Figma using the DS AB design system. Use when Codex needs to create screens, sections, widgets, headers, forms, statuses, tables, or other B2B UI using only working files from the `design-system_ab` repository.
+description: Draw or update B2B product interfaces in Figma using the DS AB design system and repository examples as visual references. Use when Codex needs to create screens, pages, sections, widgets, headers, forms, statuses, tables, or other B2B UI using only working files from the `design-system_ab` repository.
 ---
 
 # Figma B2B Interface
@@ -10,6 +10,8 @@ Use this skill to draw B2B interfaces in Figma from the local DS AB source of tr
 ## Repository Source Gate
 
 All working context must come from one repository root: `$DS_AB_ROOT`.
+
+The canonical skill is the repository-owned file `$DS_AB_ROOT/.codex/skills/figma-b2b-interface/SKILL.md`. Update and use this version. Do not treat a copy under `~/.codex/skills`, plugin cache, or another repository as the working skill source.
 
 Before the first design action, resolve `$DS_AB_ROOT` to the recipient's local clone of `design-system_ab` and verify that it contains `JSONS`, `patterns`, `examples`, and `redpolrules`. If the root is not available, ask for its path and do not start generation.
 
@@ -27,7 +29,22 @@ Hard rules:
 - If the required catalog, contract, token, style, pattern, or redpolicy file is absent from `design-system_ab`, stop and report the missing source. Do not substitute a look-alike or infer an unrecorded rule.
 - Never use arbitrary components, icons, colors, typography, shadows, radii, or copy rules when an equivalent exists in the allowed sources.
 
-Use images from `examples` only as visual references for patterns already selected from `patterns`; do not treat examples as component, token, or copy source of truth.
+Use files from `examples` only as visual and compositional references after selecting the applicable patterns. Do not treat examples as component, token, style, lifecycle-status, contract, or copy source of truth.
+
+## Example Reference Workflow
+
+Search `$DS_AB_ROOT/examples` before composing every generated page or content surface. Reference discovery is mandatory; using a specific example is conditional on finding a relevant match.
+
+1. List available example files with `rg --files "$DS_AB_ROOT/examples"`.
+2. Inspect candidate metadata before loading the full artifact. Match in this order: exact `pageType` or surface role, exact platform, exact breakpoint; then page type plus platform; then the closest pattern-compatible example.
+3. Prefer reviewed or golden examples over draft candidates when their page type, platform, and current patterns are equally relevant. Treat `requiresManualReview: true` and candidate statuses as lower-confidence references.
+4. For responsive generation, inspect the requested breakpoint and available adjacent breakpoints from the same `exampleSetId` to understand reflow, slot availability, and hierarchy.
+5. Extract only reference-level decisions: hierarchy, composition, density, relative scale, section order, responsive behavior, and component roles.
+6. Resolve every actual component, variant, token, style, property, and slot again from current `JSONS` catalogs and component agent files. Never import a component key, variable id, local instance, or lifecycle state solely because it appears in an example.
+7. Apply current patterns and component rules when an example conflicts with them. Record the conflict and the newer rule followed in the generation report.
+8. If no relevant example exists, continue from catalogs, agent files, patterns, and redpolicy, and report that the examples search produced no applicable reference.
+
+Do not clone an example mechanically. Reconstruct its valid composition with current active DS components and current contracts.
 
 ## Input Contract
 
@@ -51,31 +68,31 @@ If a parameter is missing but can be inferred from the target node or surroundin
 5. Resolve the matching companion folder inside `design-system_ab/JSONS` by package/component family name, then read `agent-context.json` before choosing the component.
 6. Read the component's `rules.json`, `composition-contract.json`, `contract.generated.json`, and `contract.overrides.json` when present; apply those rules while using the component.
 7. Read the relevant pattern files before composing UI behavior.
-8. Read relevant redpolicy rules before writing visible text.
-9. Import DS components by published component key from the raw JSON catalog.
-10. Mutate component properties, slot replacements, and instance swaps declared by the contract rather than detaching or manually editing internals.
-11. Return every created and mutated node id from write calls.
-12. Validate with a screenshot or read-back inspection before finishing.
+8. Search `design-system_ab/examples`, select matching references through the Example Reference Workflow, and inspect every relevant match before composing the layout.
+9. Read relevant redpolicy rules before writing visible text.
+10. Import DS components by published component key from the raw JSON catalog.
+11. Mutate component properties, slot replacements, and instance swaps declared by the contract rather than detaching or manually editing internals.
+12. Return every created and mutated node id from write calls.
+13. Validate with a screenshot or read-back inspection before finishing.
 
 ## Desktop Page Composition
 
-For any desktop Alfa-Business product page, standalone generated form, or full-page screen, `CorporatePage` is the required page shell. Read `patterns/p_corporate-page.md`, the raw `CorporatePage` catalog, and the companion `design-system_ab/JSONS/web/components/web-corp/CorporatePage` files before composing navigation or content. If the user says "page", "screen", "form" without naming an existing local section/container, or asks to generate an end-to-end flow surface, classify the target as a desktop product page and use `CorporatePage`.
+For any desktop Alfa-Business product page, standalone generated form, or full-page screen, use the assembly described by `patterns/p_corporate-page.md`. `CorporatePage` is not a Figma component: never search for it, select it, import it, or report it as a missing catalog component. If the user says "page", "screen", or "form" without naming an existing local section/container, classify the target as a desktop product page and assemble it from active `[D] SideMenu`, `[D] Header`, and `[D] CorporateContent`.
 
 Hard rules:
 
-- Treat `CorporatePage` as a component family/page template, not only as a single root key. If the raw index exposes `[D] CorporateContent`, `[D] Section`, `Body`, or slot parts instead of a standalone root key, read the `design-system_ab` composition contract before deciding the component is unavailable.
-- Use `[D] CorporatePage` / `CorporatePage` as the target page component family for new desktop product pages and standalone generated forms/screens. Do not manually assemble a page from separate `Header`, `SideMenu`, and content frames when `CorporatePage` applies.
-- Add page content through the contract-defined content/body slot. Replace `SwapMe` with the intended content assembly according to `composition-contract.json`; do not detach `Content`, `Body`, `CorporateContent`, or page-shell internals.
-- Control desktop page resolution through variable mode `[D] Grid & Cols` in Appearance. For `1600`, the base page is `1600 x 900` and max content width is `1248 px`. Do not resize the page shell manually as a substitute for `[D] Grid & Cols`.
-- Set the explicit `[D] Grid & Cols` mode only on the root `CorporatePage` / generated page frame. `CorporateContent`, `Body`, `Section`, `Header`, `SideMenu`, and all descendants must inherit that mode; never set the same grid collection explicitly on a nested system instance.
+- The required shell is a horizontal Auto Layout root: `[D] SideMenu` on the left; a right vertical Auto Layout containing `[D] Header` above `[D] CorporateContent` with `0 px` gap. This constrained root scaffold is allowed and required for a desktop page.
+- Import the three system parts by active catalog keys. Do not replace them with local components or arbitrary manual UI.
+- Add page content through the `Body` slot of `[D] CorporateContent`. Replace and remove `SwapMe`; do not detach `Body`, `CorporateContent`, `Header`, or `SideMenu`.
+- Control desktop page resolution through variable mode `[D] Grid & Cols` in Appearance. For `1600+`, the base viewport is `1600 x 900` and max content width is `1248 px`. Do not use manual width changes as a substitute for the grid mode.
+- Set the explicit `[D] Grid & Cols` mode only on the generated root page frame. `CorporateContent`, `Body`, `Section`, `Header`, `SideMenu`, and all descendants must inherit that mode; never set the same grid collection explicitly on a nested system instance.
 - Before finishing, inspect `explicitVariableModes`: the root page frame must hold the intended `[D] Grid & Cols` mode, while `CorporateContent` and other nested page-family nodes must have no explicit mode for that collection. Clear any nested override with `clearExplicitVariableModeForCollection` and then restore the intended mode on the root if Figma resets it.
-- `[D] Header`, `[D] SideMenu`, `Content`, `Body`, `CorporateContent`, and `Section` must remain system component instances when they are contract-defined parts of the page family. Do not detach them and do not recreate them as manual frames.
-- A generated desktop product page must visibly include the page navigation: active `CorporateAppHeaderNew [D]` `[D] SideMenu` on the left and active `[D] Header` above `CorporateContent` on the right. The right work area is a vertical Auto Layout with `Header` and `CorporateContent` gap `0 px`, matching `p_corporate-page.md`.
-- If the catalog does not expose a single importable `[D] CorporatePage` root, compose the page only from the active contract-defined family parts (`[D] SideMenu`, `[D] Header`, `[D] CorporateContent`, `Body`, `Section`) and report this as a catalog fallback. Do not treat that fallback as permission to use arbitrary manual page chrome.
+- `[D] Header`, `[D] SideMenu`, `Body`, `CorporateContent`, and `Section` must remain system component instances when they are contract-defined parts of the page assembly. Do not detach them and do not recreate them as manual frames.
+- A generated desktop product page must visibly include active `[D] SideMenu` on the left and active `[D] Header` above `[D] CorporateContent` on the right.
 - Use `Gutter`, column variables, `12 Cols`, or `Fill Container` for page-content widths and block spacing according to `p_corporate-page.md`.
 - Inside a `Section` slot on desktop pages, assign column widths through `[D] Grid & Cols` variables: primary `Content` area uses `8 Cols`, right `Isle` area uses `4 Cols`, and the gap follows `Gutter`/pattern rules. Do not hardcode `824 px` / `400 px` or similar pixel widths when the grid variables can be bound or selected through the page mode.
 - If a section has only one content area, use the relevant `[D] Grid & Cols` width variable such as `12 Cols` or the component contract's declared column variable instead of manual pixel sizing.
-- Only skip `CorporatePage` when the target is clearly a local block, modal, drawer, widget, or another non-page surface. The burden of proof is on the generator: if context is ambiguous, use `CorporatePage`. State any non-page assumption in the final response.
+- Only skip the desktop page assembly when the target is clearly a local block, modal, drawer, widget, or another non-page surface. The burden of proof is on the generator: if context is ambiguous, use the `[D] SideMenu` + `[D] Header` + `[D] CorporateContent` assembly. State any non-page assumption in the final response.
 
 ## Component Selection
 
@@ -177,6 +194,33 @@ Validation requirements:
 - Treat any raw visible white fill on an agent-created structural Auto Layout frame as a token/style violation. Remove it unless the component or pattern explicitly requires a token-bound surface.
 - Verify that normal content is a direct child of the `Slot`, the slot width is `FILL`, the slot height is `HUG`, and padding bindings resolve to `Spacing` variables.
 
+## Table And Modal Workflows
+
+For desktop data scenarios, read the companion contracts for `Table Wide [D]`, `CorporateTopbar [D]`, and `UniversalModal` before drawing.
+
+- `[D] TopBar` and the table `BackgroundPlateSlot` are siblings in the same Level-0 Auto Layout parent. The TopBar precedes the plate and is never appended to its `Slot`. The plate contains `[D] HeadRow :: Universal`, all required `[D] BodyRow :: Wide`, and `[D] StickyPagination`; append each to its Auto Layout parent before assigning `FILL`.
+- For a `Table Wide [D]` plate, bind the root/slot insets to `top=Spacing/0` and `right/bottom/left=Spacing/16`. Do not add table padding to rows, wrappers, or cells.
+- When a header cell contains title text and interactive controls, preserve its minimum width and make the `Title` area `FILL` with vertical `HUG`. Apply end truncation to the title so it yields to `Sorting`, `HeaderAddon`, and `ColumnControl`; never hide or overlap those controls or leave its height `FIXED` after changing width.
+- If a published `Table Wide [D]` row prevents a contract-required column-width change, detach only `[D] HeadRow :: Universal` and the matching `[D] BodyRow :: Wide` rows, as permitted by that family’s composition contract. Keep the library cell instances, resize the same column in head and body equally, and do not rebuild cells manually.
+- Do not use `Holding` in `TitleView` unless the brief explicitly names a company group, holding, or group-level context. Set `Holding=false` otherwise.
+- A confirmation modal must use the active desktop `UniversalModal` family (`[D] UniversalModalHeader`, `[D] UniversalModalBody`, `[D] UniversalModalFooter`) and their declared slots. Do not assemble a confirmation modal from `BackgroundPlate`, manual modal surfaces, or scheduled `🔄 [D][Corporate] UniversalModalFooter` parts.
+- Put the modal title into the declared title configuration of `[D] UniversalModalHeader`, not into `BodyContent` as a manual text node. Use `BodyContent` for the modal message and form content only.
+- After modal content is assembled, set `BodyContent` to `FILL` width and `HUG` height. Disable `Scrollbar` when it fits. Set `Overlap=false` on Header and Footer unless a real scroll area moves beneath those fixed regions.
+- Before importing any `UniversalModal` part, obtain its exact active component key from the current catalog or Figma library search; do not hand-copy, infer, or reuse a stale key. If import fails, re-query the active library and agent context. Do not replace a failed active part with a scheduled component, a local component, or a manually drawn surrogate.
+- To populate `BodyContent` or `FooterContent`, find the actual node with `findAllWithCriteria({ types: ['SLOT'] })`; do not target an identically named internal frame. For `Custom=True` variants, remove the default slot placeholder after appending the intended DS content, otherwise it creates duplicate vertical space or a visible `CUSTOM` placeholder.
+- Keep the modal grouping wrapper transparent and Auto Layout. Append it to the page layout before setting `layoutPositioning='ABSOLUTE'`, then position it above the overlay. Use hug sizing for the wrapper and intrinsic sizing for active modal parts; only the page overlay itself may be absolute and viewport-sized.
+- For a multi-step business action, draw each meaningful state: an active library menu/popover opened from the row `ActionButton` and showing the named action, the confirmation state, and the result state after the operation. The result must visibly show the completed mutation or an explicit system result; duplicating the entry-state data is invalid. A bare ellipsis and a modal alone are not a complete interaction scenario.
+
+Validation requirements:
+
+- Reject a wide-table assembly unless `[D] TopBar` is a Level-0 sibling of the plate, `[D] StickyPagination` is inside the plate, and every row is `FILL`.
+- Reject a table plate unless its insets are `top=Spacing/0`, `right/bottom/left=Spacing/16` and no descendant duplicates them.
+- Reject a HeadCell whose title needs `FILL` but has a fixed height.
+- Reject a `TitleView` with `Holding=true` when no group-company context is in the request.
+- Reject a confirmation surface that lacks active `UniversalModal` family parts.
+- Reject a non-overflowing modal with `Scrollbar=true`, Header/Footer `Overlap=true`, a fixed-height `BodyContent`, or a body-level manual duplicate of the header title.
+- Reject a task flow that omits either the actionable entry point or the post-action state.
+
 ## Pattern Checks
 
 Read pattern files based on the UI being drawn. Common mappings:
@@ -198,7 +242,7 @@ Do not copy pattern values into this skill. For each requested surface, derive a
 
 - source pattern files and applicable rule ids;
 - component role -> required DS component, variant, size, or state;
-- page shell role -> required `CorporatePage`, `Body` slot usage, `[D] Grid & Cols` mode, and `Gutter` / column variable constraints;
+- page shell role -> required `[D] SideMenu` + `[D] Header` + `[D] CorporateContent` assembly, `Body` slot usage, `[D] Grid & Cols` mode, and `Gutter` / column variable constraints;
 - section slot role -> required `[D] Grid & Cols` column variables: `Content` = `8 Cols`, `Isle` = `4 Cols`, single full-width content = `12 Cols` or contract-defined equivalent;
 - spacing/layout role -> required value from deterministic rules or template snippets;
 - title hierarchy role -> required `TitleView` role and variant;
@@ -242,15 +286,15 @@ Text rules:
 ## Drawing Workflow
 
 1. Parse the request into: platform, target node, purpose, component roles, required states, and copy.
-2. If the surface is a desktop product page or full-page screen, read `patterns/p_corporate-page.md`, select the `CorporatePage` family, read the raw catalog plus composition contract from `design-system_ab`, set the intended `[D] Grid & Cols` mode, and plan content insertion through the contract-defined slot before choosing navigation or content components.
+2. If the surface is a desktop product page or full-page screen, read `patterns/p_corporate-page.md`, read the active `[D] SideMenu`, `[D] Header`, and `[D] CorporateContent` catalogs and contracts, set the intended `[D] Grid & Cols` mode on the generated root frame, and plan content insertion through `CorporateContent.Body` before choosing page content components.
 3. Discover the matching raw component catalog entries in `design-system_ab/JSONS/indexes`.
 4. Resolve each candidate's companion folder in `design-system_ab/JSONS` and read the agent context/rules/contracts.
 5. For each candidate component, compare catalog `status` values and reject deprecated entries and disallowed standalone scheduled entries before deciding to use it.
 6. Read the component rules and contracts needed to apply it correctly.
 7. Prefer `web-corp` over `web-core` for matching B2B roles.
 8. Read patterns and redpolicy rules for the requested UI.
-9. Create a compact implementation plan listing selected components, variants, catalog statuses, tokens, component rules, patterns, composition slots, and the derived pattern contract. Track every context file actually read for the generation; this list is required in the final report after each generation.
-10. When helpful, inspect matching images in `$DS_AB_ROOT/examples` as visual references for the selected patterns.
+9. Search `$DS_AB_ROOT/examples`, inspect matching metadata, and load every relevant page/surface reference according to the Example Reference Workflow. For responsive work, inspect the matching example set across relevant breakpoints.
+10. Create a compact implementation plan listing selected components, variants, catalog statuses, tokens, component rules, patterns, composition slots, selected examples, and the derived pattern contract. Track every context file actually read for the generation; this list is required in the final report after each generation.
 11. Use `use_figma` incrementally:
    - import components by key from the JSON catalog;
    - create Auto Layout containers for structural layout scaffolding;
@@ -263,7 +307,7 @@ Text rules:
    - bind variables/styles before considering any visible manual node finished;
    - write final text.
 12. Validate:
-   - desktop product pages use `CorporatePage` as the page shell;
+   - desktop product pages use the required `[D] SideMenu` + `[D] Header` + `[D] CorporateContent` assembly; no `CorporatePage` component was searched, selected, or imported;
    - page content is inserted through the `Body` slot and `SwapMe` is removed;
    - page resolution is controlled through `[D] Grid & Cols`, not manual shell resizing;
    - the intended `[D] Grid & Cols` variable mode is explicit only on the root page frame; `CorporateContent`, `Body`, `Section`, `Header`, `SideMenu`, and their descendants inherit it without nested explicit overrides;
@@ -278,6 +322,8 @@ Text rules:
    - corp/core preference was applied;
    - no local Figma components were used;
    - `agent-context.json` and component rules were considered for each selected component;
+   - the examples directory was searched, relevant references were inspected, and any absence or mismatch was recorded;
+   - no component key, variable id, style, lifecycle status, or copy was taken from an example without re-resolving it in current `JSONS` and component agent files;
    - no detached or arbitrary replacement for an available DS component;
    - form content starts `32 px` below the main `TitleView :: xLarge`;
    - the form action group starts `32 px` below the last content block/sections stack;
@@ -298,7 +344,7 @@ Text rules:
 
 ## Allowed Manual Construction
 
-Manual Figma nodes are allowed only as layout scaffolding or when no DS component exists for the role. Manual page shells are not allowed for desktop Alfa-Business product pages when `CorporatePage` applies.
+Manual Figma nodes are allowed only as layout scaffolding or when no DS component exists for the role. For desktop Alfa-Business pages, the root and right-work-area Auto Layout frames are required shell scaffolding around active `[D] SideMenu`, `[D] Header`, and `[D] CorporateContent`; do not treat this as permission to manually recreate system UI.
 
 When manual nodes are necessary:
 
