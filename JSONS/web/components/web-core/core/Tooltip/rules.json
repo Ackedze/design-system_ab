@@ -55,5 +55,23 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "rules": [
+      {
+        "ruleId": "component:web-core.tooltip.default-colors-only",
+        "severity": "error",
+        "source": "pattern:ptrn:controls.tooltip-hint",
+        "appliesTo": "variant.Colors",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Tooltip",
+          "variantProperties": {
+            "Colors": "Default"
+          }
+        },
+        "ruleText": "Используй только Default-состояние Tooltip и Hint. Инверсные варианты Colors=Inverted не применяются в интерфейсе."
+      }
+    ]
+  }
 }

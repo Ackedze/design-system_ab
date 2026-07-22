@@ -1,28 +1,61 @@
-# Onboarding Tooltip [D] — MVP component contract
+# Onboarding Tooltip [D]
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / Onboarding Tooltip [D]**.
+Компонент помогает пользователю освоить изменившийся или неочевидный интерфейс, например после крупного обновления или запуска полезной функции с неочевидной точкой входа.
 
-The raw Figma catalog remains the source of truth:
+`Onboarding Tooltip` используется только на desktop от 768 px. На mobile-web этот сценарий реализуется через `BottomSheet`.
+
+Raw Figma catalog остаётся источником наблюдаемой структуры:
 
 `../Web _ Corp Components -- Onboarding Tooltip [D].json`
 
 ## Файлы
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+- `contract.generated.json` — сгенерированный Athena контракт структуры, variants и baseline.
+- `contract.overrides.json` — ручная семантика публичного API и разрешённых overrides.
+- `composition-contract.json` — ownership вложенных частей и правила композиции.
+- `rules.json` — точные component rules для Apollo и агента.
+- `audit-mapping.json` — классификация изменений и reset semantics Apollo.
+- `examples.json` — regression-кейсы для аудита и ответа агента.
+- `agent-context.json` — компактный контекст для интерпретации отчёта агентом.
 
 ## Источник
 
 - Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
+- Последняя generated-сборка: `2026-07-09T07:11:39.994Z`
 - Компонентов: `6`
 
-## Current Scope
+## Состав
 
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+- Публичный корень: `Onboarding Tooltip`.
+- Служебные части: `👻 TooltipTail`, `Pips`, `Close`, `Onboarding footer`, `Text content`.
+- Обязательные элементы: `Title`, `Subtitle`, `Close`, минимум одна кнопка.
+- Допустимы автоматический запуск и запуск по триггерному событию; повторный запуск определяется бизнес-логикой.
+- Хвост должен указывать на целевой объект или область.
+- В одношаговом onboarding `Pips` скрыты. В многошаговом они обязательны на каждом шаге, их число совпадает с числом шагов, выбран один `Pip`.
+- `Pips` являются индикаторами и не используются для навигации.
+- Используется одна или две кнопки `Size=40`, `Shape=Rectangular`, `SingleIcon=False`, без addons и с `DisabledState=False`: обязательная `Primary` и опциональная `Secondary`.
+- `Subhead` опционален; тексты контента и кнопок редактируются по контексту.
+- Контент содержит только обычный текст без ссылок, списков и rich text.
+- Рекомендуемые максимумы: `Subhead` 20 символов, `Title` 30, `Subtitle` 90, label кнопки 10.
+- Один onboarding содержит не более 10 шагов.
+- `Close` завершает onboarding без подтверждения; скрывать и заменять его нельзя.
+- Tooltip не должен перекрывать целевой объект или область, но цель может оставаться интерактивной.
+- Tooltip должен полностью помещаться в viewport; остальной интерфейс во время onboarding блокируется.
+- Целевое действие может перевести onboarding на следующий шаг или завершить его.
+- В одношаговом и на первом шаге используется только `Primary`; на промежуточных — `Secondary` назад и `Primary` далее; на последнем — `Primary` завершить.
+- Одновременно показывается только один tooltip; закрытие доступно через `Close` или финальное действие, но не через `Esc` или клик снаружи.
+- `Subhead` остаётся в одну строку и обрезается многоточием; `Title` и `Subtitle` переносятся без truncation; label кнопки остаётся в одну строку.
+- Блокирующий слой с выделенной целевой областью является обязательной частью композиции.
+- Onboarding допустим поверх `Modal` и `Drawer`, если цель находится внутри поверхности.
+- Сценарий не запускается, если цель отсутствует, скрыта или находится вне viewport.
+- Порядок шагов, переходы между страницами, повторный запуск и пропуск определяются бизнес-логикой.
+- Loading, disabled, error и interrupted states не поддерживаются.
+- Ширина и визуальные параметры фиксированы effective baseline; высота определяется контентом.
+
+Комплект находится в работе. Ограничения текста, шагов, кнопок и позиционирования хвоста требуют дальнейшего подтверждения владельцем.
+
+Паттерн применения обычных `Tooltip` и `Hint` используется для выбора между этими двумя компонентами. Его ограничения текста и поведения не являются правилами `Onboarding Tooltip`.
+
+## Статус
+
+`Draft` — manual-семантика наполняется и ещё не прошла runtime-тест Apollo.

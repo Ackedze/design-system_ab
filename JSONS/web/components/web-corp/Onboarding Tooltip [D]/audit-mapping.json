@@ -266,5 +266,34 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentPolicy": {
+      "publicRoots": [
+        "Onboarding Tooltip"
+      ],
+      "internalStandaloneAllowed": false,
+      "platform": "desktop only; use BottomSheet on mobile-web",
+      "requiredAnatomy": "Title, Subtitle, Close and at least one visible Button",
+      "tail": "Tail Direction and Tail Position are component properties; the tail must point to the target object or area",
+      "steps": "Pips are hidden for one step; multi-step onboarding requires non-interactive Pips on every step, count matches steps and exactly one Pip is selected",
+      "buttons": "one or two Size=40 Rectangular buttons without addons; SingleIcon and DisabledState are false; Primary required, Secondary optional",
+      "stepButtons": "single and first step: Primary; intermediate: Secondary previous and Primary next; last: Primary finish",
+      "contentLimits": "warning over Subhead 20, Title 30, Subtitle 90 or Button label 10 characters",
+      "close": "required and fixed; closes current onboarding without confirmation",
+      "target": "target object or area must remain visible; it may remain interactive",
+      "content": "plain text only; links, lists and rich text are forbidden",
+      "placement": "must fit the viewport; resolve insufficient space through Tail Direction or Tail Position",
+      "states": "default only; loading, disabled, error and interrupted are unsupported",
+      "interaction": "outside interface is blocked; target object may remain interactive and may advance or finish the scenario",
+      "visibility": "only one Onboarding Tooltip is visible; next step replaces previous",
+      "dismiss": "Close or final Primary action only; Escape and outside click do not dismiss",
+      "textOverflow": "Subhead single-line ellipsis; Title and Subtitle wrap without truncation; Button label single-line",
+      "overlay": "blocking overlay with highlighted target area is required",
+      "temporarySurfaces": "Modal and Drawer are allowed when the target is inside",
+      "targetPreconditions": "target exists, is visible and is inside the viewport before launch",
+      "flowOwnership": "step order, cross-page navigation, repeat launch and skip are business logic",
+      "visualBaseline": "width, padding, spacing, radius, fill, typography, opacity and effects are fixed; height is Hug by content",
+      "baseline": "Use the effective baseline after Tail Direction and Tail Position resolution."
+    }
+  }
 }

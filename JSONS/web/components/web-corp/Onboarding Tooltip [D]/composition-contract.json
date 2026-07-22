@@ -483,5 +483,193 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "ownershipModel": {
+      "publicRoots": [
+        "Onboarding Tooltip"
+      ],
+      "internalComponents": [
+        "👻 TooltipTail",
+        "Pips",
+        "Close",
+        "Onboarding footer",
+        "Text content"
+      ],
+      "internalStandaloneAllowed": false,
+      "defaultNestedDiffPolicy": "compare-against-onboarding-tooltip-effective-baseline"
+    },
+    "compositionPolicy": {
+      "purpose": "Помочь пользователю разобраться в изменившемся или неочевидном интерфейсе, например после крупного обновления или при запуске полезной функции с неочевидной точкой входа.",
+      "platform": {
+        "desktop": "Используй Onboarding Tooltip на desktop от 768 px.",
+        "mobileWeb": "Не используй Onboarding Tooltip [D]. Переноси onboarding-сценарий в BottomSheet."
+      },
+      "requiredContent": {
+        "title": true,
+        "subtitle": true,
+        "close": true,
+        "minimumVisibleButtons": 1
+      },
+      "trigger": {
+        "allowed": [
+          "automatic",
+          "trigger-event"
+        ],
+        "repeatLaunch": "business-logic"
+      },
+      "tail": {
+        "directionAndPositionSelectedByDesigner": true,
+        "mustPointTo": "target object or target area"
+      },
+      "steps": {
+        "singleStepAllowed": true,
+        "maximum": 10,
+        "singleStep": {
+          "pipsVisible": false,
+          "buttons": [
+            "Primary"
+          ]
+        },
+        "multiStep": {
+          "pipsCountMatchesStepCount": true,
+          "exactlyOneSelectedPip": true,
+          "pipsInteractive": false,
+          "pipsRequiredOnEveryStep": true,
+          "firstStepButtons": [
+            "Primary"
+          ],
+          "intermediateStepButtons": [
+            "Secondary: previous",
+            "Primary: next"
+          ],
+          "lastStepButtons": [
+            "Primary: finish"
+          ]
+        }
+      },
+      "buttons": {
+        "minimum": 1,
+        "maximum": 2,
+        "primaryRequired": true,
+        "secondaryOptional": true,
+        "size": 40,
+        "shape": "Rectangular",
+        "singleIcon": false,
+        "addons": false,
+        "disabledState": false,
+        "actions": [
+          "switch onboarding step",
+          "navigate",
+          "finish onboarding"
+        ]
+      },
+      "text": {
+        "subheadRequired": false,
+        "editable": [
+          "Subhead",
+          "Title",
+          "Subtitle",
+          "Button label"
+        ],
+        "recommendedMaximumCharacters": {
+          "Subhead": 20,
+          "Title": 30,
+          "Subtitle": 90,
+          "Button label": 10
+        },
+        "limitSeverity": "warning",
+        "format": "plain text only",
+        "linksAllowed": false,
+        "listsAllowed": false,
+        "richTextAllowed": false,
+        "overflow": {
+          "Subhead": "single line with ellipsis",
+          "Title": "wrap without truncation",
+          "Subtitle": "wrap without truncation",
+          "Button label": "single line"
+        }
+      },
+      "interaction": {
+        "close": {
+          "required": true,
+          "action": "finish-current-onboarding-without-confirmation",
+          "visibilityChangeAllowed": false,
+          "iconReplacementAllowed": false
+        },
+        "overlap": {
+          "otherControlsMayBeCovered": true,
+          "targetObjectMayBeCovered": false
+        },
+        "targetMayRemainInteractive": true,
+        "targetActionMayAdvanceOrFinish": true,
+        "outsideTargetInteractionBlocked": true,
+        "blockingOverlay": {
+          "required": true,
+          "targetAreaHighlighted": true,
+          "partOfComponentComposition": true
+        },
+        "simultaneousTooltipsMaximum": 1,
+        "nextStepReplacesPreviousTooltip": true,
+        "dismissMethods": [
+          "Close",
+          "final Primary action"
+        ],
+        "escapeDismissAllowed": false,
+        "outsideClickDismissAllowed": false,
+        "supportedStates": [
+          "default"
+        ],
+        "unsupportedStates": [
+          "loading",
+          "disabled",
+          "error",
+          "interrupted"
+        ]
+      },
+      "placement": {
+        "mustFitViewport": true,
+        "viewportClippingAllowed": false,
+        "insufficientSpaceResolution": "change Tail Direction or Tail Position",
+        "allowedTemporarySurfaces": [
+          "Modal",
+          "Drawer"
+        ],
+        "targetPreconditions": {
+          "exists": true,
+          "visible": true,
+          "insideViewport": true,
+          "onboardingMustNotStartWhenMissing": true
+        }
+      },
+      "flowOwnership": {
+        "stepOrder": "business-logic",
+        "crossPageNavigation": "business-logic",
+        "skipThroughClose": "business-logic"
+      },
+      "visualBaseline": {
+        "fixed": [
+          "width",
+          "padding",
+          "spacing",
+          "radius",
+          "fill",
+          "typography",
+          "opacity",
+          "effects"
+        ],
+        "height": "Hug; determined by content"
+      },
+      "internalParts": {
+        "standaloneUsageAllowed": false,
+        "parts": [
+          "👻 TooltipTail",
+          "Pips",
+          "Close",
+          "Onboarding footer",
+          "Text content"
+        ]
+      },
+      "effectiveBaseline": "Сравнивай вложенные части с effective baseline выбранных Tail Direction и Tail Position."
+    }
+  }
 }

@@ -8713,6 +8713,240 @@
           "appliesTo": "component.status",
           "checkType": "manual",
           "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.public-root-only",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Используй Onboarding Tooltip как публичный корень. 👻 TooltipTail, Pips, Close, Onboarding footer и Text content являются служебными частями и не используются отдельно."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.desktop-only",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.platform",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Onboarding Tooltip [D] используется только на desktop от 768 px. На mobile-web onboarding-сценарий показывается в BottomSheet."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.required-anatomy",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component|text",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Onboarding Tooltip должен содержать Title, Subtitle, Close и как минимум одну видимую кнопку."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.scenario-purpose",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.context",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Используй onboarding, когда нужно помочь пользователю освоить изменившийся или неочевидный интерфейс: например после крупного обновления или при запуске полезной функции с неочевидным расположением."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.trigger-model",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.trigger",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Onboarding может запускаться автоматически или по триггерному событию. Возможность повторного запуска определяется бизнес-логикой продукта."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.tail-points-to-target",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Tail Direction|variant.Tail Position|component.position",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Выбирай Tail Direction и Tail Position по расположению связанного элемента. Хвост Onboarding Tooltip должен указывать на целевой объект или область."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.pips-match-steps",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.steps|variant.Selected",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "В одношаговом onboarding Pips скрыты. В многошаговом Pips обязательны на каждом шаге, их количество совпадает с количеством шагов, выбранным может быть только один Pip. Pips служат индикатором и не являются интерактивными."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.button-configuration",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.buttons|variant.View|variant.Size",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Используй одну или две кнопки Size=40, Shape=Rectangular, SingleIcon=False, без addons и с DisabledState=False. Primary обязательна, Secondary опциональна. Кнопки переключают шаг, выполняют навигацию или завершают onboarding."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.editable-content",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "text|component.visibility",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Subhead опционален. Тексты Subhead, Title, Subtitle и labels кнопок можно менять по контексту onboarding."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.content-length-recommendations",
+          "severity": "warning",
+          "source": "component-contract",
+          "appliesTo": "text",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Рекомендуемые максимумы: Subhead — 20 символов, Title — 30, Subtitle — 90, label кнопки — 10. Превышение является предупреждением, а не запретом."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.maximum-ten-steps",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.steps",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Один onboarding может содержать не более десяти шагов."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.close-is-required-and-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.Close",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Close обязателен, закрывает текущий onboarding без подтверждения и не может быть скрыт или заменён другой иконкой."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.target-must-remain-visible",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.position",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Onboarding Tooltip может перекрывать другие элементы управления, но не должен перекрывать связанный объект или область. Целевой объект может оставаться интерактивным."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.visuals-follow-effective-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.width|layout.padding.*|layout.itemSpacing|radius|fill|styles.text|opacity|effects.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Ширина, padding, spacing, radius, fill, typography, opacity и effects должны соответствовать effective baseline. Высота использует Hug и определяется контентом."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.plain-text-content-only",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "text",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Subhead, Title и Subtitle содержат только обычный текст. Не добавляй ссылки, списки и rich-text элементы."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.must-fit-viewport",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.position",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Onboarding Tooltip должен полностью помещаться в viewport без обрезания. Если места недостаточно, измени Tail Direction или Tail Position."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.default-state-only",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.state",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "У Onboarding Tooltip нет loading, disabled, error и interrupted states. Не создавай эти состояния вручную."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.blocks-outside-interaction",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Во время onboarding взаимодействие с остальным интерфейсом блокируется. Связанный объект может оставаться интерактивным."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.step-button-model",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.steps|component.buttons",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "В одношаговом и на первом шаге многошагового onboarding показывай только Primary. На промежуточных шагах используй Secondary для возврата и Primary для перехода далее. На последнем шаге показывай Primary для завершения."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.single-visible-tooltip",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Одновременно отображается только один Onboarding Tooltip. При переходе следующий tooltip заменяет предыдущий."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.dismiss-methods",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Закрывай onboarding только через Close или финальное Primary-действие. Esc и клик вне компонента не закрывают onboarding. Действие целевого объекта может перевести сценарий на следующий шаг или завершить его."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.text-overflow-model",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "text",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Subhead остаётся в одну строку и обрезается многоточием. Title и Subtitle переносятся без truncation. Label кнопки всегда остаётся в одну строку."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.blocking-overlay-required",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Блокирующий слой с выделенной целевой областью является обязательной частью композиции onboarding."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.target-must-be-available",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.trigger|component.position",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Не запускай onboarding, если целевой объект отсутствует, скрыт или находится за пределами viewport."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.temporary-surfaces-allowed",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.context",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Onboarding Tooltip можно использовать поверх Modal или Drawer, если целевой объект расположен внутри этой поверхности."
+        },
+        {
+          "ruleId": "component:web-corp.onboarding-tooltip.flow-is-business-logic",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.flow",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Порядок шагов, переходы между страницами, повторный запуск и пропуск onboarding через Close определяются бизнес-логикой продукта."
         }
       ]
     },
