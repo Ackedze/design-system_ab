@@ -10,7 +10,7 @@
 - доступ к репозиториям `design-system_ab` и Athena CLI;
 - Node.js и установленные зависимости Athena;
 - доступ к таблице готовности компонентов;
-- Claude Code с доверенным project configuration.
+- Codex или Claude Code с доверенным project configuration.
 
 Рекомендуемая структура checkout:
 
@@ -28,6 +28,8 @@ claude --add-dir "../Athena CLI"
 ```
 
 Проверь командой `/memory`, что загружен корневой `CLAUDE.md`, а командой `/skills` — что доступен `corp-component-authoring`.
+
+В Codex открой репозиторий `design-system_ab` как workspace и попроси использовать `$corp-component-authoring`. Project skill лежит в `.codex/skills/corp-component-authoring`.
 
 ## Координация
 
@@ -47,6 +49,12 @@ claude --add-dir "../Athena CLI"
 
 ### 2. Запустить authoring workflow
 
+В Codex:
+
+```text
+Используй $corp-component-authoring для BackgroundPlate
+```
+
 В Claude Code:
 
 ```text
@@ -59,7 +67,7 @@ claude --add-dir "../Athena CLI"
 /corp-component-authoring JSONS/web/components/web-corp/BackgroundPlate
 ```
 
-Claude сначала проводит аудит и затем задаёт вопросы группами до пяти. Ответы владельца являются source of truth для продуктовой семантики.
+Ассистент сначала проводит аудит и затем задаёт вопросы группами до пяти. Ответы владельца являются source of truth для продуктовой семантики.
 
 ### 3. Заполнить manual-документы
 
@@ -75,7 +83,7 @@ Claude сначала проводит аудит и затем задаёт в�
 ### 4. Проверить package
 
 ```bash
-node .claude/skills/corp-component-authoring/scripts/validate-component-package.mjs \
+node .codex/skills/corp-component-authoring/scripts/validate-component-package.mjs \
   "JSONS/web/components/web-corp/BackgroundPlate"
 ```
 

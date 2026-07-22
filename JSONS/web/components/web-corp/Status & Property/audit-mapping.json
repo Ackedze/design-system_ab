@@ -3,7 +3,7 @@
   "documentType": "component-audit-mapping",
   "metadata": {
     "componentKey": "web-corp.status-property",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-09"
+      "updatedAt": "2026-07-21"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -25,12 +25,12 @@
     "ownershipMigrationRevision": 2
   },
   "generated": {
-    "generatedAt": "2026-07-09T07:11:39.994Z",
+    "generatedAt": "2026-07-21T15:05:44.932Z",
     "source": {
       "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- Status & Property.json",
       "library": "Web _ Corp Components",
       "file": "Web _ Corp Components",
-      "generatedAt": "2026-07-09T07:11:39.994Z",
+      "generatedAt": "2026-07-21T15:05:44.932Z",
       "exportVersion": "0.1.0-rest",
       "files": [
         "Status & Property"
@@ -266,5 +266,44 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentPolicy": {
+      "componentProperties": [
+        "variant.Type",
+        "variant.Color",
+        "variant.Style",
+        "variant.Size",
+        "variant.LeftAddon"
+      ],
+      "allowedComponentPropertyChanges": "Показывай как настройки компонента. Оценивай Style по поверхности, Type по семантике статуса и платформенную версию по ширине экрана.",
+      "effectiveBaseline": "Производные fill, typography, radius и layout сравнивай с effective baseline выбранных Type/Color, Style, Size и LeftAddon."
+    },
+    "conditionalLayerPolicies": [
+      {
+        "when": {
+          "component": "PropertyPreset",
+          "variant.Color": "Custom",
+          "property": "fill"
+        },
+        "classification": "allowed-conditional-layer-customization",
+        "ruleId": "component:web-corp.status-property.custom-color-uses-contrasting-tokens",
+        "resetRecommendation": "Не рекомендуй сброс, если текст и фон назначены через цветовые токены и сохраняют контраст."
+      },
+      {
+        "when": {
+          "property": "fill",
+          "except": "PropertyPreset Color=Custom"
+        },
+        "classification": "forbidden-layer-customization",
+        "ruleId": "component:web-corp.status-property.fill-follows-effective-baseline"
+      }
+    ],
+    "compositionChecks": [
+      "Один StatusPreset на объект.",
+      "Не больше двух PropertyPreset в одной композиции.",
+      "StatusPreset и PropertyPreset не используются вместе.",
+      "Label обязателен.",
+      "Фиксированный интервал между PropertyPreset не определён."
+    ]
+  }
 }

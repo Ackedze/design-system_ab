@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.status-property",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-22"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -77,5 +77,84 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "semanticComponents": [
+      {
+        "name": "🔒 [D] StatusPreset",
+        "role": "public-root",
+        "platform": "desktop",
+        "shape": "Rounded"
+      },
+      {
+        "name": "🔒 [M] StatusPreset",
+        "role": "public-root",
+        "platform": "mobile-web",
+        "shape": "Rounded"
+      },
+      {
+        "name": "🔒 [D] PropertyPreset",
+        "role": "public-root",
+        "platform": "desktop",
+        "shape": "Rectangular"
+      },
+      {
+        "name": "🔒 [M] PropertyPreset",
+        "role": "public-root",
+        "platform": "mobile-web",
+        "shape": "Rectangular"
+      }
+    ],
+    "allowedOverrides": {
+      "text": [
+        "Label content"
+      ],
+      "componentProperties": [
+        "StatusPreset.Type",
+        "PropertyPreset.Color",
+        "Style",
+        "Size",
+        "nested Status.LeftAddon"
+      ],
+      "behavior": [
+        "hover",
+        "Tooltip"
+      ],
+      "composition": [
+        "one StatusPreset per object",
+        "up to two visible PropertyPreset components",
+        "either StatusPreset or PropertyPreset, not both"
+      ],
+      "conditionalLayerProperties": [
+        "PropertyPreset Color=Custom: tokenized text fill",
+        "PropertyPreset Color=Custom: tokenized background fill"
+      ]
+    },
+    "forbiddenOverrides": [
+      "manual shape or radius",
+      "manual layout",
+      "manual typography",
+      "manual stroke",
+      "manual opacity or effects",
+      "click or action on click",
+      "direct standalone core Status instead of StatusPreset or PropertyPreset",
+      "desktop preset below 768 px",
+      "mobile-web preset at 768 px and above",
+      "manual Uppercase or text case",
+      "PropertyPreset multiline text",
+      "PropertyPreset overflow without ellipsis",
+      "StatusPreset text longer than two words",
+      "StatusPreset multiline text",
+      "StatusPreset overflow without ellipsis",
+      "hidden or empty Label",
+      "LeftAddon without Label",
+      "manual stretch or fixed width/height",
+      "more than two visible PropertyPreset components",
+      "more than one StatusPreset for the same object",
+      "StatusPreset and PropertyPreset in the same composition",
+      "manual fill when PropertyPreset.Color is not Custom",
+      "manual fill in StatusPreset",
+      "raw color without token binding",
+      "non-contrasting custom text and background colors"
+    ]
+  }
 }

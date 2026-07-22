@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-component-rules-registry",
-  "generatedAt": "2026-07-20T22:28:27.570Z",
+  "generatedAt": "2026-07-22T08:40:46.389Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -8049,11 +8049,51 @@
           "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
         },
         {
-          "ruleId": "component:web-corp.status-property.status-preset-contrast-on-grey-surface",
+          "ruleId": "component:web-corp.status-property.presets-are-public-components",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.usage",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "StatusPreset и PropertyPreset являются самостоятельными публичными Figma-компонентами. Их можно использовать отдельно или как вложенные части других компонентов. Значок блокировки в названии не запрещает самостоятельное использование preset-компонента."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.style-follows-surface",
           "severity": "error",
           "source": "composition-contract",
           "appliesTo": "variant.Style",
-          "checkType": "deterministic",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "components": [
+              "🔒 [D] StatusPreset",
+              "🔒 [M] StatusPreset",
+              "[D] StatusPreset",
+              "[M] StatusPreset",
+              "🔒 [D] PropertyPreset",
+              "🔒 [M] PropertyPreset",
+              "[D] PropertyPreset",
+              "[M] PropertyPreset"
+            ],
+            "variantProperty": "Style"
+          },
+          "requiredBySurface": {
+            "grey": "Contrast",
+            "white": "Muted"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "Style определяется цветом поверхности: на сером фоне используй Style=Contrast, на белом фоне — Style=Muted. Обратное сочетание нарушает компонентный контракт."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.status-type-has-fixed-semantics",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Type|text",
+          "checkType": "llm",
           "matchKind": "exact_component_rule",
           "conditions": {
             "components": [
@@ -8061,23 +8101,410 @@
               "🔒 [M] StatusPreset",
               "[D] StatusPreset",
               "[M] StatusPreset"
-            ],
-            "variantProperty": "Style",
-            "backgroundSurface": [
-              "grey",
-              "neutral",
-              "page-grey",
-              "surface-grey",
-              "CorporateContent grey background"
             ]
           },
-          "requiredVariant": {
-            "Style": "Contrast"
+          "typeSemantics": {
+            "Approved": "успешный результат",
+            "Attention": "частичный успех или повышенное внимание",
+            "Error / Risk": "ошибка, негативный результат или критичный риск",
+            "Action": "ожидается действие пользователя",
+            "Processing": "процесс выполняется банком или системой",
+            "Neutral": "нейтральное состояние без требуемого действия"
           },
-          "forbiddenVariant": {
-            "Style": "Muted"
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error"
           },
-          "ruleText": "Если StatusPreset размещён на сером или нейтральном фоне страницы/контентной области, используй Style=Contrast. Не используй Style=Muted на сером фоне: muted-версия теряет контраст и хуже отделяется от поверхности. Для белого или явно контрастного контейнера Style=Muted допустим, если это соответствует статусной семантике и соседним компонентам."
+          "ruleText": "Type у StatusPreset выбирается по смыслу состояния. Не используй тип только из-за желаемого цвета: текст статуса и семантика Type должны совпадать."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.shape-is-fixed-by-preset",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "variant.Shape|radius|cornerRadius|layout.*|styles.text|stroke|opacity|effects.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredShape": {
+            "StatusPreset": "Rounded",
+            "PropertyPreset": "Rectangular"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true
+          },
+          "ruleText": "StatusPreset всегда использует Rounded, PropertyPreset — Rectangular. Форму, radius, layout, типографику, stroke, opacity и эффекты вложенного Status нельзя менять вручную; они должны соответствовать effective baseline выбранных Type/Color, Style и Size."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.fill-follows-effective-baseline",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "fill",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "except": {
+              "component": "PropertyPreset",
+              "variant": {
+                "Color": "Custom"
+              }
+            }
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true
+          },
+          "ruleText": "Ручное изменение заливки текста или поверхности запрещено для StatusPreset и штатных Color у PropertyPreset. Цвет должен соответствовать effective baseline. Исключение — PropertyPreset с Color=Custom."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.custom-color-uses-contrasting-tokens",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "fill",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "PropertyPreset",
+            "variant": {
+              "Color": "Custom"
+            }
+          },
+          "required": {
+            "textFill": "any color token",
+            "backgroundFill": "any color token",
+            "relationship": "complementary and mutually contrasting"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "doNotTreatAsViolationWhenRequirementsMet": true,
+            "treatAsViolationWhenRequirementsFail": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "Color=Custom у PropertyPreset разрешает менять цвет текста и заливки. Пока допустимы любые цветовые токены без ограничения коллекции. Оба цвета должны быть назначены через токены, быть комплементарными и обеспечивать достаточный взаимный контраст. Raw color без token binding или неконтрастная пара являются нарушением."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.size-is-context-controlled",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Size",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "allowedValues": [
+            "20",
+            "24",
+            "32",
+            "40"
+          ],
+          "classification": {
+            "reportAsCustomization": true,
+            "doNotTreatAsViolationByDefault": true,
+            "doNotRecommendResetWithoutContextRule": true
+          },
+          "ruleText": "Size=20/24/32/40 выбирается дизайнером по контексту и размеру окружающих элементов. Переключение между штатными Size является разрешённым изменением параметра компонента и само по себе не считается нарушением."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.case-is-fixed-by-platform",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "variant.Uppercase|text.case|styles.text",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredByPlatform": {
+            "desktop": {
+              "Uppercase": true
+            },
+            "mobile-web": {
+              "Uppercase": false
+            }
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true
+          },
+          "ruleText": "Регистр текста фиксирован платформенной версией: desktop использует Uppercase=True, mobile-web — Uppercase=False. Менять регистр или типографику вручную нельзя."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.property-text-limit",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "text",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "PropertyPreset"
+          },
+          "maximumVisibleCharacters": 20,
+          "lineWrapAllowed": false,
+          "overflow": "ellipsis",
+          "fullTextTooltipAllowed": true,
+          "classification": {
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "PropertyPreset показывает до 20 символов в одной строке. Более длинное значение должно обрезаться многоточием; полное значение можно вынести в Tooltip. Перенос текста запрещён."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.status-text-limit",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "pattern-link",
+          "patternRuleId": "rule:ux.status-model.short-status",
+          "appliesTo": "text",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "component": "StatusPreset"
+          },
+          "maximumVisibleCharacters": 20,
+          "maximumWords": 2,
+          "lineWrapAllowed": false,
+          "overflow": "ellipsis",
+          "fullTextTooltipAllowed": true,
+          "classification": {
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "Текст StatusPreset должен состоять максимум из двух слов и занимать одну строку. Показывай до 20 символов; переполнение обрезай многоточием, полное значение можно вынести в Tooltip. Ограничение по двум словам и запрет переноса обязательны."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.label-is-required",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "component.visibility|text",
+          "checkType": "deterministic",
+          "matchKind": "composition_rule",
+          "required": {
+            "Label.visible": true,
+            "Label.text": "non-empty"
+          },
+          "classification": {
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "Label обязателен в StatusPreset и PropertyPreset. Нельзя скрывать Label или оставлять только LeftAddon без текста."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.hug-sizing-is-fixed",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "layoutSizingHorizontal|layoutSizingVertical|layout.width|layout.height",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredValues": {
+            "layoutSizingHorizontal": "HUG",
+            "layoutSizingVertical": "HUG"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true
+          },
+          "ruleText": "StatusPreset и PropertyPreset должны сохранять Hug по ширине и высоте. Растягивать preset вручную или задавать ему произвольные width/height нельзя; размер определяется штатным параметром Size и текстом."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.maximum-two-properties",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "composition-contract",
+          "appliesTo": "composition.children",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "component": "PropertyPreset"
+          },
+          "maximumVisible": 2,
+          "classification": {
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "В одной композиции можно размещать несколько PropertyPreset, но одновременно должно быть видно не больше двух. Третий и последующие PropertyPreset являются нарушением."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.maximum-one-status-per-object",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "composition-contract",
+          "appliesTo": "composition.children",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "component": "StatusPreset",
+            "scope": "same object"
+          },
+          "maximumVisible": 1,
+          "classification": {
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "У одного объекта может быть только один StatusPreset. Несколько одновременных статусов для одного объекта являются нарушением."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.status-and-property-are-mutually-exclusive",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "composition-contract",
+          "appliesTo": "composition.children",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "forbiddenCombination": [
+            "StatusPreset",
+            "PropertyPreset"
+          ],
+          "classification": {
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "Не размещай StatusPreset и PropertyPreset вместе для одного объекта или в одной группе. Используй либо один StatusPreset, либо до двух PropertyPreset."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.property-spacing-is-not-specified",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "layout.itemSpacing",
+          "checkType": "manual",
+          "matchKind": "no_rule",
+          "classification": {
+            "doNotInferFixedValue": true,
+            "doNotTreatAsViolationByDefault": true
+          },
+          "ruleText": "Текущий контракт не задаёт фиксированный интервал между двумя PropertyPreset. Не придумывай нормативное значение и не объявляй itemSpacing нарушением без отдельного правила или effective baseline родительской композиции."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.property-colors-are-context-controlled",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Color",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "allowedValues": [
+            "Green",
+            "Orange",
+            "Red",
+            "Blue",
+            "Grey",
+            "Indigo",
+            "Custom"
+          ],
+          "classification": {
+            "reportAsCustomization": true,
+            "doNotTreatAsViolationByDefault": true,
+            "doNotInferStatusSemantics": true
+          },
+          "ruleText": "Штатные Color у PropertyPreset выбираются свободно по визуальному контексту и не имеют фиксированной статусной семантики. Не переноси значения Type из StatusPreset на PropertyPreset и не объявляй выбор цвета Property нарушением без отдельного правила."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.hover-and-tooltip-are-allowed",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.behavior",
+          "checkType": "manual",
+          "matchKind": "composition_rule",
+          "allowedBehavior": {
+            "hover": true,
+            "tooltip": true
+          },
+          "ruleText": "StatusPreset и PropertyPreset могут реагировать на hover и показывать Tooltip, чтобы пояснить значение статуса или свойства. Ограничений на View Tooltip в этом контракте нет. Наличие hover или поясняющего Tooltip само по себе не является нарушением."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.click-is-forbidden",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "component.behavior",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "disallowedBehavior": {
+            "clickable": true,
+            "actionOnClick": true
+          },
+          "classification": {
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "StatusPreset и PropertyPreset являются информационными элементами и пока не могут выполнять действие по клику. Hover и поясняющий Tooltip разрешены, клик — запрещён."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.platform-version-must-match",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "component.platform",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredByWidth": {
+            "minWidth768": "[D]",
+            "below768": "[M]"
+          },
+          "classification": {
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "Используй [D] StatusPreset/PropertyPreset при ширине 768 px и больше, [M] — ниже 768 px в mobile-web. Смешивать платформенные версии нельзя."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.use-preset-instead-of-core-status",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "component.identity|composition",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "requiredComponents": [
+            "StatusPreset",
+            "PropertyPreset"
+          ],
+          "forbiddenStandaloneComponent": "core Status",
+          "classification": {
+            "treatAsViolation": true,
+            "designSeverity": "error"
+          },
+          "ruleText": "Для отображения статуса или свойства всегда используй готовый StatusPreset или PropertyPreset. Не собирай такую сущность прямым самостоятельным использованием вложенного core-компонента Status."
+        },
+        {
+          "ruleId": "component:web-corp.status-property.left-addon-is-configurable",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.LeftAddon|component.LeftAddon",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "classification": {
+            "reportAsCustomization": true,
+            "doNotTreatAsViolationByDefault": true,
+            "deferValidationTo": "Status component contract"
+          },
+          "ruleText": "LeftAddon вложенного Status можно включать и настраивать. Само изменение LeftAddon является разрешённой настройкой preset-компонента; допустимое содержимое и правила аддона определяются отдельным контрактом компонента Status."
         }
       ]
     },

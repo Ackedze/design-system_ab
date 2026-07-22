@@ -1,28 +1,38 @@
-# Status & Property — MVP component contract
+# Status & Property — component contract
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / Status & Property**.
+Папка содержит готовый component-contract для **Web _ Corp Components / Status & Property**.
 
-The raw Figma catalog remains the source of truth:
+Raw-каталог Figma остаётся источником структурных данных:
 
 `../Web _ Corp Components -- Status & Property.json`
 
 ## Файлы
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+- `contract.generated.json` — структурный контракт, который Athena генерирует из raw-каталога.
+- `contract.overrides.json` — публичные preset-компоненты и допустимые semantic overrides.
+- `composition-contract.json` — ownership вложенного core Status и правила композиции.
+- `rules.json` — точные правила для Apollo и агента.
+- `audit-mapping.json` — классификация изменений и условная обработка `Color=Custom`.
+- `examples.json` — положительные и ошибочные сценарии с ожидаемым аудитом.
+- `agent-context.json` — компактный контекст для интерпретации отчёта агентом.
+- `../../../patterns/p_status-model.md` — общий паттерн статусной модели.
 
 ## Источник
 
 - Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
+- Последняя продуктовая проверка: `2026-07-22`
 - Компонентов: `4`
 
-## Current Scope
+## Статус
 
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+Пакет имеет статус **Ready**. Generated-секции обновляет Athena, manual-секции принадлежат авторам дизайн-системы и должны сохраняться при повторной генерации.
+
+Публичные компоненты: `🔒 [D] StatusPreset`, `🔒 [M] StatusPreset`, `🔒 [D] PropertyPreset`, `🔒 [M] PropertyPreset`. Вложенный core `Status` отдельно не используется.
+
+## Краткая модель
+
+- `StatusPreset` показывает состояние объекта или процесса; на один объект допускается один статус.
+- `PropertyPreset` показывает характеристику объекта; в одной композиции допускается до двух свойств.
+- `StatusPreset` и `PropertyPreset` не используются вместе.
+- На серой поверхности используется `Style=Contrast`, на белой — `Style=Muted`.
+- `Color=Custom` разрешён только для PropertyPreset и требует контрастных токенизированных цветов текста и фона.
