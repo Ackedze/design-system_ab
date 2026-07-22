@@ -867,6 +867,231 @@
           "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
+          "ruleId": "component:web-corp.amount-styles.locked-components-are-figma-only-presets",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.identity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "🔒 [D] AmountHeadline",
+              "🔒 [M] AmountHeadline",
+              "🔒 AmountParagraph"
+            ]
+          },
+          "ruleText": "Компоненты с префиксом 🔒 являются Figma-only presets: дизайнер может использовать их в Figma, но прямых code exports для них нет."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.operation-is-internal",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.usage",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Operation"
+          },
+          "ruleText": "Operation является внутренней служебной частью AmountHeadline и AmountParagraph. Использовать Operation отдельно запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.parts-default-visibility",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.visibility",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Operation",
+              "Minor",
+              "Currency",
+              "Addon"
+            ]
+          },
+          "ruleText": "По умолчанию Minor и Currency включены, а Operation и Addon выключены. Эти опциональные части разрешено включать и скрывать штатными properties компонента."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.major-is-required",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.major-required",
+          "appliesTo": "component.structure",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Major"
+            ]
+          },
+          "ruleText": "Major является обязательной частью AmountHeadline и AmountParagraph. Текст Major можно менять, но удалять или скрывать эту часть нельзя."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.math-space-is-required",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.math-space",
+          "appliesTo": "text.content",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Major"
+            ]
+          },
+          "ruleText": "Разряды в Major разделяются математическим пробелом. Обычный пробел для разделения разрядов не используется."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.math-minus-is-required",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.math-minus",
+          "appliesTo": "text.content",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Operation",
+            "layers": [
+              "Minus"
+            ]
+          },
+          "ruleText": "Для отрицательной операции используется математический минус. Дефис и текстовые тире вместо него запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.addon-uses-supported-components",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.slot.Addon",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Addon"
+            ]
+          },
+          "ruleText": "В Addon разрешено размещать IconView или StatusBadge. Параметры Addon определяются штатными настройками выбранного вложенного компонента."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.addon-does-not-exceed-text-line-height",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.size",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Addon",
+              "IconView",
+              "StatusBadge"
+            ]
+          },
+          "ruleText": "Размер IconView или StatusBadge в Addon не должен превышать line-height текстовой части Amount."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.parts-share-color",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "fill|fills",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Operation",
+              "Minus",
+              "Major",
+              "Minor",
+              "Currency"
+            ]
+          },
+          "ruleText": "Operation, Major, Minor и Currency внутри одного Amount должны использовать один цветовой токен. Ручная перекраска только одной текстовой части запрещена. Addon сохраняет собственные контекстные цвета и в это правило не входит."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.addon-keeps-own-contextual-colors",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "fill|fills",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Addon",
+              "IconView",
+              "StatusBadge"
+            ]
+          },
+          "ruleText": "IconView и StatusBadge в Addon сохраняют собственные контекстные цвета. Они не обязаны совпадать с цветом Operation, Major, Minor и Currency."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.positive-color-context",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.positive-color-context",
+          "appliesTo": "fill|fills",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "actualToken": "text/positive"
+          },
+          "ruleText": "Цвет text/positive разрешён только для пополнений в таблицах и табличных списках. В остальных сценариях используй цветовой токен, разрешённый точным контекстным правилом; не назначай text/positive только из-за положительного значения."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.contextual-color-token-is-allowed",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "fill|fills",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "ruleText": "Все части Amount разрешено вручную перекрасить в один общий цветовой токен, выбранный по контексту. Не объявляй токен нарушением без точного применимого правила; отдельно проверяй ограничения text/positive и отрицательных операций."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.opacity-is-forbidden",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.no-opacity",
+          "appliesTo": "opacity|variant.Opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Minor",
+              "Currency"
+            ]
+          },
+          "ruleText": "Изменение opacity у Minor и Currency запрещено во всех вариантах AmountHeadline и AmountParagraph."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.style-is-context-controlled",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Style",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "🔒 [D] AmountHeadline",
+              "🔒 [M] AmountHeadline",
+              "🔒 AmountParagraph"
+            ]
+          },
+          "ruleText": "Дизайнер свободно выбирает любой штатный Style соответствующего preset по контексту и платформе. Accent в AmountParagraph разрешён и вне таблиц."
+        },
+        {
           "ruleId": "component:web-corp.amount-styles.style-is-component-property",
           "severity": "info",
           "source": "component-contract",
@@ -886,6 +1111,399 @@
           "ruleText": "Изменения AmountParagraph или AmountHeadline Style являются component property changes и должны показываться отдельно от производных text layer customizations."
         },
         {
+          "ruleId": "component:web-corp.amount-styles.geometry-follows-effective-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "ruleText": "Direction, item spacing, alignment и размеры внутренних частей AmountHeadline и AmountParagraph должны полностью соответствовать effective baseline текущего Style. Ручные изменения геометрии запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.currency-type-is-component-property",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Type|text.content",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Currency"
+          },
+          "ruleText": "Для Currency разрешено выбирать любой штатный Type. Type=Custom используется только для кода валюты или символа, отсутствующего среди штатных Type."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.negative-uses-primary",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.negative-primary",
+          "appliesTo": "fill|fills",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "operation": "negative"
+          },
+          "ruleText": "Для списаний используется text/primary. Красный и другие статусные цвета отрицательной суммы запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.table-align-right",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.table-align-right",
+          "appliesTo": "layout.alignment",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "container": "table"
+          },
+          "ruleText": "Amount в таблице выравнивается по правому краю."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.table-weight-follows-role",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.table-weight",
+          "appliesTo": "variant.Style",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "container": "table"
+          },
+          "ruleText": "В таблице основная сумма использует Medium, а второстепенная сумма — Regular."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.table-currency-not-duplicated",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.table-currency-not-duplicated",
+          "appliesTo": "component.visibility.Currency",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "container": "table",
+            "currencyInColumnHeader": true
+          },
+          "ruleText": "Если единая валюта указана в заголовке колонки таблицы, Currency в значениях этой колонки не дублируется."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.table-bulk-actions-neutral",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.table-bulk-actions",
+          "appliesTo": "component.visibility.Operation|fill|fills",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "container": "TableBulkActions"
+          },
+          "ruleText": "В TableBulkActions знак операции не используется, а сумма отображается нейтральным цветом без text/positive."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.steps-use-regular",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.steps-regular",
+          "appliesTo": "variant.Style",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "container": "steps"
+          },
+          "ruleText": "В steps рекомендуется использовать Regular style. Другой штатный Style требует осознанного контекстного решения, но сам по себе не является нарушением."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.side-panel-matches-source",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.side-panel-match-source",
+          "appliesTo": "component.format",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "container": "side-panel"
+          },
+          "ruleText": "В сайд-панели формат Amount повторяет формат соответствующего значения на исходной странице."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.platform-preset-matches-breakpoint",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.platform",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "🔒 [D] AmountHeadline",
+              "🔒 [M] AmountHeadline",
+              "🔒 AmountParagraph"
+            ]
+          },
+          "ruleText": "🔒 [D] AmountHeadline используется при ширине от 768 px, 🔒 [M] AmountHeadline — ниже 768 px. 🔒 AmountParagraph применяется на desktop и mobile-web."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.amount-stays-on-one-line",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "text.wrapping|layout.wrap",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "ruleText": "Amount всегда отображается в одну строку. Перенос частей суммы на следующую строку запрещён. Контейнер должен обеспечить достаточную ширину; при её недостатке Amount клипуется контейнером."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.has-no-own-system-states",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.state",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "ruleText": "У AmountStyles нет собственных loading, skeleton, disabled или error states. Правила skeleton будут определены отдельным pattern; до его появления не придумывай поведение Amount при skeleton родителя."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.clickability-is-context-controlled",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "interaction.click",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "ruleText": "Amount может быть кликабельным, если это требуется контекстом сценария. Сам факт кликабельности не является нарушением; hover-состояния будут определены позднее."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.manual-interactive-decoration-is-forbidden",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "styles.textDecoration|layer.background|effects",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "clickable": true,
+            "manualInteractiveDecoration": true
+          },
+          "ruleText": "Для обозначения кликабельности запрещено вручную добавлять Amount подчёркивание, фон или другие визуальные эффекты. Hover-состояния будут определены отдельным правилом позднее."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.amount-input-uses-core-amount",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.usage",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountInput"
+          },
+          "ruleText": "Внутри AmountInput используется Amount из Web Core. Не применяй к нему контракт Figma-only presets семейства Web Corp AmountStyles и не трактуй его как вложенный AmountParagraph или AmountHeadline."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.optional-parts-can-coexist",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Operation",
+              "Minor",
+              "Currency",
+              "Addon"
+            ]
+          },
+          "ruleText": "Operation, Minor, Currency и Addon являются совместимыми опциональными частями и могут быть включены одновременно."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.container-provides-single-line-width",
+          "severity": "warning",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "ruleText": "Контейнер должен обеспечивать ширину для однострочного Amount. Если ширины недостаточно, контейнер клипует Amount; перенос, ellipsis, fade и ручное сокращение значения не применяются."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.addon-action-matches-amount",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "interaction.action",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Addon",
+              "IconView",
+              "StatusBadge"
+            ]
+          },
+          "conditions": {
+            "amountClickable": true,
+            "addonInteractive": true
+          },
+          "ruleText": "Кликабельный Amount может содержать интерактивный IconView или StatusBadge в Addon, но действие Amount и Addon должно совпадать."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.minor-has-one-or-two-digits",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "text.content.Minor",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Minor"
+            ]
+          },
+          "ruleText": "Minor содержит один или два знака после запятой."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.zero-format",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "text.content",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "value": 0
+          },
+          "ruleText": "Нулевое значение отображается как Major=0 или как Major=0 и Minor=00."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.unknown-value-uses-separate-placeholder",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.usage",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "value": "unknown"
+          },
+          "ruleText": "Для неизвестного значения Amount не используется. Вместо него отдельным текстовым элементом выводится длинное тире —."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.ru-format",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "text.content",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "conditions": {
+            "locale": "ru-RU"
+          },
+          "ruleText": "Для ru-RU используется запятая как десятичный разделитель, математический пробел между разрядами и математический минус перед отрицательным числом. Скобочная запись отрицательной суммы запрещена."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.round-to-two-minor-digits",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.round-to-two-minor-digits",
+          "appliesTo": "text.content.Minor",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Minor"
+            ]
+          },
+          "conditions": {
+            "sourceFractionDigitsGreaterThan": 2
+          },
+          "ruleText": "Если исходное значение содержит больше двух знаков после запятой, его округляют до двух знаков перед отображением в Amount."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.fixed-part-order",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.fixed-part-order",
+          "appliesTo": "component.composition.order",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "ruleText": "Порядок частей Amount фиксирован: Operation, Major, Minor, Currency, Addon. Переставлять части вручную запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.monetary-values-only",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.monetary-values-only",
+          "appliesTo": "component.usage",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles"
+          },
+          "ruleText": "Amount используется для денежных сумм и балансов. Баллы поддерживаются компонентом, но регулируются отдельным паттерном. Проценты и произвольные числовые величины с единицами не относятся к этому контракту."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.major-max-13-digits",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.major-max-13-digits",
+          "appliesTo": "text.content.Major",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Major"
+            ]
+          },
+          "conditions": {
+            "maxCharactersExcludingGroupSeparators": 13
+          },
+          "ruleText": "Major содержит не более 13 символов без учёта математических пробелов между разрядами."
+        },
+        {
           "ruleId": "component:web-corp.amount-styles.operation-negative-is-part-property",
           "severity": "info",
           "source": "pattern-link",
@@ -899,7 +1517,7 @@
               "Operation"
             ]
           },
-          "ruleText": "Изменения Operation Negative являются part/component configuration для знака операции суммы."
+          "ruleText": "Operation Negative=True показывает математический минус, Negative=False показывает плюс. Полное отсутствие знака задаётся скрытием Operation штатным property, а не ручным удалением или заменой текста."
         },
         {
           "ruleId": "component:web-corp.amount-styles.parts-share-text-style",
@@ -923,7 +1541,7 @@
         },
         {
           "ruleId": "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
-          "severity": "warning",
+          "severity": "info",
           "source": "component-contract",
           "appliesTo": "fill|fills",
           "checkType": "deterministic",
@@ -935,11 +1553,11 @@
               "Minus"
             ]
           },
-          "ruleText": "Ручные изменения fill на Operation / Minus являются layer customizations знака операции суммы. Сохраняй точный Minus leaf layer для reset, но описывай semantic owner как AmountParagraph / Operation."
+          "ruleText": "Ручные изменения fill на Operation / Minus являются layer customizations знака операции суммы. Они разрешены как часть перекраски всего Amount в один контекстный токен. Сохраняй точный Minus leaf layer для reset, но описывай semantic owner как AmountParagraph / Operation."
         },
         {
           "ruleId": "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
-          "severity": "warning",
+          "severity": "info",
           "source": "component-contract",
           "appliesTo": "fill|fills",
           "checkType": "deterministic",
@@ -952,12 +1570,13 @@
               "Currency"
             ]
           },
-          "ruleText": "Ручные изменения fill на Major, Minor или Currency text layers являются layer customizations текста суммы. Сохраняй точный leaf layer для reset, но группируй объяснение под AmountParagraph / Amount."
+          "ruleText": "Ручные изменения fill на Major, Minor или Currency являются layer customizations текста суммы. Они разрешены, если все части Amount перекрашены в один контекстный токен и точное правило не запрещает этот токен. Сохраняй точный leaf layer для reset, но группируй объяснение под AmountParagraph / Amount."
         },
         {
           "ruleId": "component:web-corp.amount-styles.manual-text-style-is-layer-property",
-          "severity": "warning",
-          "source": "component-contract",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.same-text-style-for-parts",
           "appliesTo": "styles.text",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
@@ -971,7 +1590,7 @@
               "Currency"
             ]
           },
-          "ruleText": "Ручные изменения text style на AmountStyles leaf text layers являются layer customizations. Они должны сбрасываться независимо и не схлопываться в Style variant change."
+          "ruleText": "Ручное изменение text style на Operation, Minus, Major, Minor или Currency запрещено. Стиль всей суммы выбирается только штатным component property Style; Apollo должен сохранять точный leaf target для независимого reset и не схлопывать нарушение в Style variant change."
         }
       ]
     },
@@ -1991,42 +2610,509 @@
           "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
-          "id": "component:web-corp.buttons-group.component-properties",
-          "title": "Component properties ButtonGroup [D] нужно проверять как параметры компонента",
-          "matchKind": "exact_rule",
-          "severity": "medium",
-          "selector": {
-            "componentNames": [
+          "ruleId": "component:web-corp.buttons-group.exists-in-code",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.identity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
               "[D] ButtonsGroup",
               "[M] ButtonsGroup"
-            ],
-            "propertyPrefix": "variant."
-          },
-          "rule": "Изменения variant/property на instance компонента являются component-property customizations. Не превращай их в несвязанные paint или layout findings."
-        },
-        {
-          "id": "component:web-corp.buttons-group.layer-properties",
-          "title": "Layer properties ButtonGroup [D] должны использовать effective baseline",
-          "matchKind": "exact_rule",
-          "severity": "medium",
-          "selector": {
-            "componentNames": [
-              "[D] ButtonsGroup",
-              "[M] ButtonsGroup"
-            ],
-            "properties": [
-              "layout.itemSpacing",
-              "layout.padding.*",
-              "styles.text",
-              "styles.fill",
-              "styles.stroke",
-              "fill",
-              "stroke",
-              "radius",
-              "opacity"
             ]
           },
-          "rule": "Изменения layer/style нужно сравнивать с effective baseline текущего component variant и nested owner context."
+          "ruleText": "[D] ButtonsGroup и [M] ButtonsGroup существуют в коде и разрешены к использованию как рабочие компоненты соответствующих платформ."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.prefer-group-for-related-buttons",
+          "severity": "warning",
+          "source": "component-contract",
+          "appliesTo": "component.usage",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Для композиции связанных кнопок предпочтительно использовать ButtonsGroup, а не собирать группу вручную из отдельных Button."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.visible-button-limit",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.structure",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "В [D] ButtonsGroup допускается не более четырёх видимых кнопок, в [M] ButtonsGroup — не более двух."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.primary-is-first-and-unique",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:controls.buttons-and-button-groups.primary-left",
+          "appliesTo": "variant.View",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Primary в ButtonsGroup необязателен. Если Primary используется, он должен быть единственным и располагаться первым."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.minimum-one-button",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.structure",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "ButtonsGroup содержит минимум одну видимую кнопку."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.uniform-size",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.Size",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Все вложенные кнопки используют Size группы. Для [D] и [M] разрешены штатные значения 32, 40, 48 и 56."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.nested-buttons-follow-button-contract",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.*|text.content|component.addon",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "View, DisabledState, addons и Label вложенных кнопок настраиваются по правилам соответствующего компонента Button, если точное правило ButtonsGroup не задаёт более узкое ограничение."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.use-only-built-in-button-slots",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.structure|component.swap",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Используй только предусмотренные компонентом button slots: до четырёх в [D] и до двух в [M]. Кнопки можно скрывать и показывать; добавлять, дублировать или заменять их через instance swap запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.horizontal-layout-is-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.direction",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "ButtonsGroup всегда использует горизонтальный auto layout. Менять направление на вертикальное запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.spacing-uses-effective-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.itemSpacing",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Отступ между кнопками определяется effective baseline выбранного Size. Менять itemSpacing вручную запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.root-sizing-is-hug-hug",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.sizing.horizontal|layout.sizing.vertical",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Корневой ButtonsGroup использует Hug по ширине и Hug по высоте."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.actions-descend-by-priority",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:controls.buttons-and-button-groups.primary-left",
+          "appliesTo": "component.order",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Кнопки располагаются слева направо в порядке убывания приоритета действия; SingleIcon при его наличии остаётся последним."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.built-in-buttons-can-be-hidden",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.visibility",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Штатные кнопки разрешено скрывать, включая кнопку в середине группы, если итоговая композиция сохраняет правила приоритета и SingleIcon."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.overflow-moves-nearest-action-first",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.order|variant.Overflow",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "При переносе действий в список у SingleIcon первым переносится действие кнопки, расположенной непосредственно перед SingleIcon; дальнейший перенос продолжается справа налево по убыванию приоритета."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.has-no-group-state",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.state",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "В Figma у ButtonsGroup нет общего Disabled или Loading state. Состояния настраиваются у вложенных Button по их контракту; общий Skeleton пока существует только в коде."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.single-icon-opens-overflow-list",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Последняя кнопка с SingleIcon=true открывает список перенесённых действий: [D] OptionList на desktop или BottomSheet на mobile-web. Использовать её для другого действия запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.addon|component.icon",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Иконка SingleIcon уже задана компонентом и не может быть изменена или заменена дизайнером."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.overflow-container-follows-platform",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition|component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "SingleIcon открывает [D] OptionList на desktop и BottomSheet на mobile-web. Mobile BottomSheet содержит только список действий без footer."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.overflow-items-preserve-action-content",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "text.content|component.icon|component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Пункт списка для перенесённой кнопки сохраняет её label, действие и наличие иконки: если у исходной кнопки иконки нет, пункт списка также остаётся без иконки."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.overflow-item-count-is-contextual",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.structure",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Для количества перенесённых действий в OptionList или BottomSheet отдельного максимального ограничения нет."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.button-labels-follow-button-contract",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "text.content",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Labels вложенных кнопок свободно меняются по правилам соответствующего Button и паттерна кнопок; дополнительных текстовых ограничений у ButtonsGroup нет."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.visible-and-overflow-actions-are-unique",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.interaction|text.content",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button",
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Каждая видимая текстовая кнопка может запускать отдельное действие, а SingleIcon служит только входом в список перенесённых действий. Одно действие нельзя одновременно оставлять видимым и дублировать в списке."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.visual-and-layout-baseline-is-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.*|styles.*|fill|stroke|radius|opacity|effects.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup",
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Visual и layout properties корня и вложенных кнопок сохраняются по effective baseline ButtonsGroup и правилам Button. Ручные изменения fill, stroke, radius, padding, spacing, opacity, effects и typography запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.overflow-enables-last-single-icon",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Overflow|variant.SingleIcon",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Overflow=true переводит последнюю кнопку группы в SingleIcon=true; эта кнопка открывает платформенный список перенесённых действий."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.overflow-is-optional-from-two-buttons",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Overflow|component.structure",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Overflow=true разрешено включать добровольно в группе минимум из двух кнопок, даже если лимит видимых кнопок платформы ещё не достигнут."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.disabled-state-is-preserved-in-overflow",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.DisabledState|component.state",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button",
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Если перенесённое действие недоступно, его disabled state должно сохраняться в соответствующем пункте OptionList или BottomSheet; по hover показывается Tooltip с причиной недоступности."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.overflow-list-closes-after-action",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "После выбора доступного действия [D] OptionList или BottomSheet сразу закрывается."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.visible-button-loading-follows-button",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.state",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Loading разрешён у отдельной видимой Button, например после запуска её действия, и настраивается по контракту Button. У OptionListCell нет Loading state."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.skeleton-is-code-only",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.state",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "Skeleton state существует в коде, но пока отсутствует в Figma-компоненте. Не требуй от дизайнера включить или настроить Skeleton до обновления библиотеки."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.single-icon-is-last",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:controls.buttons-and-button-groups.icon-only-last",
+          "appliesTo": "variant.SingleIcon|component.order",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] Button",
+              "[M] Button"
+            ]
+          },
+          "ruleText": "Кнопка с SingleIcon=true всегда располагается последней в ButtonsGroup."
+        },
+        {
+          "ruleId": "component:web-corp.buttons-group.single-icon-requires-two-buttons",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "variant.SingleIcon|component.structure",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "ButtonGroup [D]",
+            "layers": [
+              "[D] ButtonsGroup",
+              "[M] ButtonsGroup"
+            ]
+          },
+          "ruleText": "SingleIcon используется только в группе минимум из двух кнопок."
         }
       ]
     },

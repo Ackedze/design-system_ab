@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.amount-styles",
-    "status": "draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-22"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -70,6 +70,168 @@
     ]
   },
   "manual": {
+    "availability": {
+      "figmaOnlyPresets": [
+        "🔒 [D] AmountHeadline",
+        "🔒 [M] AmountHeadline",
+        "🔒 AmountParagraph"
+      ],
+      "codeExports": [],
+      "internalOnly": [
+        "Operation"
+      ]
+    },
+    "partDefaults": {
+      "Major": "required",
+      "Minor": true,
+      "Currency": true,
+      "Operation": false,
+      "Addon": false
+    },
+    "contentPolicy": {
+      "editableTextLayers": [
+        "Major",
+        "Minor",
+        "Currency"
+      ],
+      "requiredLayers": [
+        "Major"
+      ],
+      "addon": {
+        "allowedComponents": [
+          "IconView",
+          "StatusBadge"
+        ],
+        "configuration": "nested-component-properties",
+        "maxHeight": "text-line-height",
+        "oversizeAllowed": false,
+        "keepsOwnContextualColors": true
+      }
+    },
+    "anatomyPolicy": {
+      "fixedOrder": [
+        "Operation",
+        "Major",
+        "Minor",
+        "Currency",
+        "Addon"
+      ],
+      "reorderAllowed": false
+    },
+    "usagePolicy": {
+      "AmountInput": {
+        "embeddedComponent": "Web Core / Amount",
+        "usesCorpAmountStylesContract": false
+      }
+    },
+    "visualPolicy": {
+      "sharedColorLayers": [
+        "Operation",
+        "Minus",
+        "Major",
+        "Minor",
+        "Currency"
+      ],
+      "positiveTokenContexts": [
+        "table",
+        "table-list"
+      ],
+      "contextualTokensAllowed": true,
+      "manualWholeAmountColorOverrideAllowed": true,
+      "requireSameTokenForAllTextParts": true,
+      "opacityOverridesAllowed": false,
+      "leafTextStyleOverridesAllowed": false
+    },
+    "layoutPolicy": {
+      "baseline": "current-style-effective-baseline",
+      "manualOverridesAllowed": false,
+      "singleLine": true,
+      "containerProvidesWidth": true,
+      "overflowBehavior": "clip-by-container"
+    },
+    "responsivePolicy": {
+      "desktop": {
+        "minWidth": 768,
+        "headlinePreset": "🔒 [D] AmountHeadline"
+      },
+      "mobileWeb": {
+        "maxWidthExclusive": 768,
+        "headlinePreset": "🔒 [M] AmountHeadline"
+      },
+      "paragraphPreset": "🔒 AmountParagraph"
+    },
+    "statePolicy": {
+      "ownStates": [],
+      "skeleton": "future-pattern"
+    },
+    "interactionPolicy": {
+      "clickable": true,
+      "dependsOnContext": true,
+      "interactiveAddonAllowed": true,
+      "addonActionMustMatchAmount": true,
+      "manualUnderlineAllowed": false,
+      "manualBackgroundAllowed": false,
+      "hoverState": "future-rule"
+    },
+    "optionalPartsPolicy": {
+      "canCoexist": true
+    },
+    "valueFormatPolicy": {
+      "locale": "ru-RU",
+      "decimalSeparator": ",",
+      "groupSeparator": "mathematical-space",
+      "negativeSign": "mathematical-minus",
+      "parenthesesForNegative": false,
+      "minorDigits": [
+        1,
+        2
+      ],
+      "moreThanTwoMinorDigits": "round-to-two",
+      "majorMaxCharactersExcludingGroupSeparators": 13,
+      "zeroFormats": [
+        "0",
+        "0,00"
+      ],
+      "unknownValue": {
+        "useAmount": false,
+        "replacement": "—",
+        "replacementType": "separate-text-element"
+      }
+    },
+    "valueDomainPolicy": {
+      "allowed": [
+        "money",
+        "balance"
+      ],
+      "points": "separate-pattern",
+      "percentagesAllowed": false,
+      "arbitraryUnitsAllowed": false
+    },
+    "currencyPolicy": {
+      "allowedTypes": "all-component-types",
+      "customPurpose": "Код валюты или символ, отсутствующий среди штатных Type."
+    },
+    "contextPolicies": {
+      "table": {
+        "alignment": "right",
+        "primaryWeight": "Medium",
+        "secondaryWeight": "Regular",
+        "hideCurrencyWhenDeclaredInHeader": true,
+        "currencyRuleSeverity": "error"
+      },
+      "TableBulkActions": {
+        "operationVisible": false,
+        "positiveColorAllowed": false
+      },
+      "steps": {
+        "recommendedWeight": "Regular",
+        "ruleSeverity": "warning"
+      },
+      "sidePanel": {
+        "format": "match-source-page",
+        "required": true
+      }
+    },
     "resetModel": {
       "componentProperties": [
         "variant.Style",
@@ -88,7 +250,8 @@
       {
         "name": "AmountParagraph",
         "sourceName": "🔒 AmountParagraph",
-        "role": "amount-text",
+        "role": "figma-only-amount-paragraph-preset",
+        "purpose": "Суммы в таблицах, списках, карточках и второстепенные значения.",
         "publicProperties": [
           "variant.Style"
         ],
@@ -101,7 +264,7 @@
             "leafLayers": [
               "Minus"
             ],
-            "description": "Опциональный minus sign перед суммой."
+            "description": "Опциональный знак операции перед суммой. Negative=True показывает математический минус, Negative=False — плюс."
           },
           {
             "slot": "majorPart",
@@ -132,12 +295,62 @@
               "Currency"
             ],
             "description": "Currency symbol или marker."
+          },
+          {
+            "slot": "addon",
+            "paths": [
+              "Amount / Addon"
+            ],
+            "allowedComponents": [
+              "IconView",
+              "StatusBadge"
+            ],
+            "description": "Опциональный вложенный компонент после суммы. Настраивается через его штатные properties."
+          }
+        ]
+      },
+      {
+        "name": "AmountHeadlineDesktop",
+        "sourceName": "🔒 [D] AmountHeadline",
+        "role": "figma-only-amount-headline-preset",
+        "platform": "desktop",
+        "purpose": "Крупное акцентное отображение суммы.",
+        "publicProperties": [
+          "variant.Style"
+        ],
+        "semanticSlots": [
+          {
+            "slot": "addon",
+            "allowedComponents": [
+              "IconView",
+              "StatusBadge"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "AmountHeadlineMobile",
+        "sourceName": "🔒 [M] AmountHeadline",
+        "role": "figma-only-amount-headline-preset",
+        "platform": "mobile-web",
+        "purpose": "Крупное акцентное отображение суммы.",
+        "publicProperties": [
+          "variant.Style"
+        ],
+        "semanticSlots": [
+          {
+            "slot": "addon",
+            "allowedComponents": [
+              "IconView",
+              "StatusBadge"
+            ]
           }
         ]
       },
       {
         "name": "Operation",
-        "role": "amount-operation-part",
+        "role": "internal-amount-operation-part",
+        "standalone": false,
         "publicProperties": [
           "variant.Negative"
         ],

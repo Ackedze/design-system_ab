@@ -44,9 +44,10 @@
 
 ## Layout и responsive
 
+- Используй универсальный web-breakpoint из `rule:layout.adaptive-alfa-business.breakpoints`: `MobileWeb` — `320–767 px`, `Desktop` — от `768 px`. Не спрашивай его повторно для каждого компонента; уточняй только исключения, отсутствие платформенной версии или специальное адаптивное поведение.
 - Какие width/height sizing обязательны: Fill, Hug или Fixed?
 - Можно ли менять direction, spacing, padding, alignment и размеры?
-- Какие breakpoint и платформенные версии используются?
+- Есть ли исключение из универсального breakpoint или отсутствующая платформенная версия?
 - Какие properties переключаются автоматически?
 - Какие responsive-различия являются штатными?
 

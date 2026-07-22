@@ -9,7 +9,7 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: active
-- updatedAt: 2026-04-26
+- updatedAt: 2026-07-22
 - sourceType: editorial-guideline
 - tags: buttons, button-group, hierarchy, action-labels, web-core
 - figmaLink: https://www.figma.com/design/JzeK5OjfUevjNSP3bm7I19/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0-%3A%3A-%D0%9A%D0%BD%D0%BE%D0%BF%D0%BA%D0%B8-%D0%B8-%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D1%8B-%D0%BA%D0%BD%D0%BE%D0%BF%D0%BE%D0%BA?node-id=1-211&t=oV9kj05Y2jgCqBZ7-1
@@ -216,7 +216,7 @@ Desktop · Button · Hint inside
 
 Пользователь должен быстро считывать приоритет действий без дополнительного анализа.
 
-### Rule 5: Уводи лишние действия в PickerButton
+### Rule 5: Уводи лишние действия в штатный overflow-контрол
 
 - ruleId: rule:controls.buttons-and-button-groups.use-picker-for-overflow
 - severity: warning
@@ -224,11 +224,16 @@ Desktop · Button · Hint inside
 - checkType: manual
 - autofix: no
 
-Если в группе больше четырёх кнопок на desktop или первые действия получаются слишком длинными, оставляй видимыми только основные действия, а остальные уводи в `PickerButton`.
+Если действия перегружают группу, оставляй видимыми только основные действия, а остальные уводи в штатный overflow-контрол компонента.
+
+В `ButtonsGroup` включай `Overflow=true`: последняя `Button` получает `SingleIcon=true` и открывает список скрытых действий. На desktop используется `[D] OptionList`, на mobile-web — `BottomSheet`. Не заменяй этот механизм отдельным `PickerButton` внутри `ButtonsGroup`.
+
+Для композиций вне `ButtonsGroup` используй `PickerButton`. В `[D] ButtonsGroup` допускается не более четырёх видимых кнопок, в `[M] ButtonsGroup` — не более двух. `Overflow=true` можно включать добровольно уже в группе из двух кнопок, даже если платформенный лимит ещё не достигнут.
 
 #### Правильно
 
 ```text
+ButtonsGroup · Overflow=true
 Подписать | Сохранить | Отменить | ⋯
 ```
 
@@ -276,15 +281,21 @@ Desktop · Button · Hint inside
 - checkType: manual
 - autofix: no
 
-Если в группе используется кнопка только с иконкой и без текста, размещай её после текстовых кнопок — в конце группы.
+Если в группе используется кнопка только с иконкой и без текста, размещай её после текстовых кнопок — в конце группы. В `ButtonsGroup` это последняя `Button` с `SingleIcon=true`, которую включает `Overflow=true`.
 
 #### Правильно
 
-````text
+```text
 Подписать | Скачать | ⋯
-Неправильно
+```
+
+#### Неправильно
+
+```text
 ⋯ | Подписать | Скачать
-Почему
+```
+
+#### Почему
 
 Кнопка без текста обычно считывается как дополнительное, служебное или overflow-действие. Если поставить её перед текстовыми кнопками, она ломает порядок чтения и иерархию действий.
 
