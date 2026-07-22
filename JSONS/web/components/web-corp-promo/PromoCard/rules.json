@@ -3,7 +3,18 @@
   "documentType": "component-rules",
   "metadata": {
     "componentKey": "web.promo-card",
-    "status": "generated-draft",
+    "status": "ready",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "path-policy",
+      "updatedAt": "2026-07-20"
+    },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
       "generated": "athena-cli",
@@ -122,6 +133,163 @@
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "ruleText": "Используй не более двух кнопок. Разрешены сочетания Primary / Secondary и Secondary / Transparent. Размер кнопок: 48 на desktop и 56 на mobile-web."
+      },
+      {
+        "ruleId": "component:web.promo-card-image-none-bento-only",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "variant.Image",
+        "checkType": "contextual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Image=None разрешён только для PromoCard внутри бенто-сетки. В остальных композициях используй Image=Top или Image=Bottom."
+      },
+      {
+        "ruleId": "component:web.promo-card-offset-top-only",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "variant.Offset",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Offset используется только при Image=Top, чтобы изображение выходило за границы [Promo] BackgroundPlate. Offset можно сочетать с ImageCrop."
+      },
+      {
+        "ruleId": "component:web.promo-card-internal-image-alignment-baseline",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "nested.ImageContainer.Image Centred",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Image Centred относится к служебному ImageContainer и не является публичной настройкой PromoCard. Не меняй его вручную; сравнивай с effective baseline. Для выравнивания текстового блока используй ContentWrapper.Centred."
+      },
+      {
+        "ruleId": "component:web.promo-card-surface-follows-contract",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "nested.[Promo] BackgroundPlate",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Настраивай вложенный [Promo] BackgroundPlate по его контракту. Для Colored разрешена токенизированная заливка, для Border — токенизированная обводка."
+      },
+      {
+        "ruleId": "component:web.promo-card-skeleton-covers-entire-card",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "variant.Skeleton",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Skeleton=True доступен для любого Type вложенного [Promo] BackgroundPlate, скрывает весь контент PromoCard и блокирует взаимодействие со всей карточкой. Частичный skeleton не используется."
+      },
+      {
+        "ruleId": "component:web.promo-card-content-alignment-contextual",
+        "severity": "info",
+        "designSeverity": "info",
+        "source": "component-guideline",
+        "appliesTo": "variant.Centred",
+        "checkType": "contextual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Выбирай ContentWrapper.Centred по контексту задачи. При Centred=True рекомендуется ButtonGroup.Axis=Vertical."
+      },
+      {
+        "ruleId": "component:web.promo-card-click-action-consistency",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "interaction",
+        "checkType": "contextual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "PromoCard может быть полностью кликабельной и содержать один интерактивный элемент, который дублирует действие карточки. Исключение — текстовая ссылка внутри текстового блока: она может открывать отдельное пояснение или Tooltip."
+      },
+      {
+        "ruleId": "component:web.promo-card-visuals-follow-effective-baseline",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "styles.*,layout.*",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Не меняй вручную внутренние padding, gap, radius, typography, opacity и effects. Используй effective baseline выбранного размера и состояния."
+      },
+      {
+        "ruleId": "component:web.promo-card-two-buttons-disable-card-click",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "interaction",
+        "checkType": "contextual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "PromoCard с двумя кнопками не должна быть полностью кликабельной. Каждая кнопка может выполнять собственное действие."
+      },
+      {
+        "ruleId": "component:web.promo-card-image-view-overrides",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "nested.ImageView",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Во вложенном ImageView можно менять Segment по контексту задачи. Не меняй ImageView.Crop и ImageView.Size: обрезкой управляет публичный параметр PromoCard.ImageCrop."
+      },
+      {
+        "ruleId": "component:web.promo-card-bottom-content-is-open-slot",
+        "severity": "info",
+        "designSeverity": "info",
+        "source": "component-guideline",
+        "appliesTo": "slot.BottomContent",
+        "checkType": "contextual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "BottomContent — разрешённый произвольный slot PromoCard. Presets=SwapMe означает возможность выполнить instance swap и добавить контекстный элемент; BottomContent может быть видимым без кнопок."
+      },
+      {
+        "ruleId": "component:web.promo-card-image-none-disables-image-effects",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "variant.Image",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "При Image=None используй ImageCrop=False и Offset=False, поскольку изображение отсутствует."
+      },
+      {
+        "ruleId": "component:web.promo-card-top-fade-matches-surface",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "styles.gradient",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Для Image=Top используется fade. Если [Promo] BackgroundPlate имеет цветную подложку, градиент должен использовать тот же цветовой токен, что и её заливка."
+      },
+      {
+        "ruleId": "component:web.promo-card-bottom-content-single-instance",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "slot.BottomContent",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Замени BottomContent на один локальный или библиотечный component instance. Presets=SwapMe не должен оставаться в готовом макете; несколько вложенных instances запрещены."
+      },
+      {
+        "ruleId": "component:web.promo-card-avoid-multiple-interactive-elements",
+        "severity": "warning",
+        "designSeverity": "warning",
+        "source": "component-guideline",
+        "appliesTo": "interaction",
+        "checkType": "contextual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Не рекомендуется одновременно использовать кнопки и другой кликабельный элемент в BottomContent. Исключение — текстовая ссылка внутри текстового блока."
+      },
+      {
+        "ruleId": "component:web.promo-card-secondary-surface-not-recommended",
+        "severity": "warning",
+        "designSeverity": "warning",
+        "source": "component-guideline",
+        "appliesTo": "nested.[Promo] BackgroundPlate.variant.Type",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Type=Secondary вложенного [Promo] BackgroundPlate разрешён, но не рекомендуется для PromoCard."
+      },
+      {
+        "ruleId": "component:web.promo-card-bottom-content-follows-own-contract",
+        "severity": "error",
+        "source": "component-guideline",
+        "appliesTo": "slot.BottomContent",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Вложенный в BottomContent локальный или библиотечный компонент должен оставаться instance и настраиваться по собственному контракту. Detach и ручные изменения его внутренних стилей запрещены."
       }
     ]
   }

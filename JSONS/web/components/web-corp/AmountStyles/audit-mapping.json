@@ -3,7 +3,7 @@
   "documentType": "component-audit-mapping",
   "metadata": {
     "componentKey": "web-corp.amount-styles",
-    "status": "draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -270,7 +270,8 @@
     "classification": [
       {
         "match": {
-          "property": "fill"
+          "property": "fill",
+          "pathPattern": "Operation / Minus"
         },
         "scope": "layer-property",
         "groupTitle": "Параметры слоя",
@@ -281,7 +282,14 @@
       },
       {
         "match": {
-          "property": "styles.text"
+          "property": "styles.text",
+          "targetLayers": [
+            "Operation",
+            "Minus",
+            "Major",
+            "Minor",
+            "Currency"
+          ]
         },
         "scope": "layer-property",
         "groupTitle": "Параметры слоя",
@@ -289,7 +297,24 @@
         "semanticOwner": "AmountParagraph / Amount",
         "priority": 30,
         "resetAction": "reset-layer-properties",
-        "effectiveBaseline": "current-variant"
+        "effectiveBaseline": "current-variant",
+        "ruleId": "component:web-corp.amount-styles.manual-text-style-is-layer-property"
+      },
+      {
+        "match": {
+          "propertyPrefix": "opacity",
+          "targetLayers": [
+            "Minor",
+            "Currency"
+          ]
+        },
+        "scope": "layer-property",
+        "groupTitle": "Параметры слоя",
+        "displayName": "Прозрачность",
+        "priority": 40,
+        "resetAction": "reset-layer-properties",
+        "effectiveBaseline": "current-variant",
+        "ruleId": "component:web-corp.amount-styles.opacity-is-forbidden"
       }
     ]
   }

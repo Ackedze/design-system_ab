@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-22"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -97,6 +97,76 @@
           }
         }
       ]
+    },
+    "usagePolicy": {
+      "codeAvailability": "[D] ButtonsGroup и [M] ButtonsGroup существуют в коде.",
+      "groupingRecommendation": "Для связанных кнопок предпочтительно использовать ButtonsGroup вместо ручной композиции отдельных Button.",
+      "visibleButtonLimits": {
+        "[D] ButtonsGroup": 4,
+        "[M] ButtonsGroup": 2
+      },
+      "minimumVisibleButtonCount": 1,
+      "slotPolicy": {
+        "useBuiltInSlotsOnly": true,
+        "canToggleVisibility": true,
+        "canHideMiddleSlot": true,
+        "canAddOrDuplicate": false,
+        "instanceSwapAllowed": false
+      },
+      "primaryPolicy": {
+        "required": false,
+        "maximumCount": 1,
+        "requiredPositionWhenPresent": "first"
+      },
+      "uniformSize": {
+        "required": true,
+        "allowedValues": [
+          "32",
+          "40",
+          "48",
+          "56"
+        ]
+      },
+      "layoutPolicy": {
+        "direction": "horizontal",
+        "horizontalSizing": "HUG",
+        "verticalSizing": "HUG",
+        "itemSpacing": "effective-baseline"
+      },
+      "orderPolicy": "Кнопки располагаются слева направо в порядке убывания приоритета действия.",
+      "overflowOrderPolicy": "В платформенный список первым переносится действие кнопки непосредственно перед SingleIcon; затем перенос продолжается справа налево.",
+      "overflowContentPolicy": {
+        "desktopContainer": "[D] OptionList",
+        "mobileWebContainer": "BottomSheet",
+        "preserveLabel": true,
+        "preserveAction": true,
+        "preserveIcon": true,
+        "maximumItemCount": null,
+        "duplicateVisibleActionAllowed": false,
+        "disabledStatePreserved": true,
+        "disabledTooltipRequired": true,
+        "preserveIconPresence": true,
+        "closeAfterAvailableAction": true,
+        "optionListCellHasLoadingState": false,
+        "mobileBottomSheetFooter": false,
+        "hiddenActionLoadingBehavior": "unresolved"
+      },
+      "groupStatePolicy": "Общего Disabled или Loading state в Figma нет. Skeleton существует в коде и будет добавлен в Figma позже. Loading разрешён у отдельной видимой Button; у OptionListCell Loading state отсутствует.",
+      "visualPolicy": "Visual и layout properties сохраняются по effective baseline ButtonsGroup и правилам Button.",
+      "nestedButtonPolicy": "Настройки View, DisabledState, addons и Label следуют контракту соответствующего Button."
+    },
+    "variantSemantics": {
+      "Overflow": {
+        "false": "Последняя кнопка сохраняет текстовый вариант.",
+        "true": "Последняя кнопка получает SingleIcon=true и открывает платформенный список перенесённых действий. Overflow разрешено включать добровольно уже в группе из двух кнопок."
+      },
+      "SingleIcon": {
+        "minimumGroupSize": 2,
+        "position": "last",
+        "interaction": "open-platform-overflow-list",
+        "iconEditable": false,
+        "optionalFromButtonCount": 2
+      }
     },
     "nestedComponentAliases": [
       {

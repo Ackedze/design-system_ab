@@ -1,29 +1,47 @@
-# ButtonGroup [D] contract package
+# ButtonGroup [D]
 
-Source raw catalog:
+Machine-readable комплект семейства `Web _ Corp Components / ButtonGroup [D]` для Apollo, Athena CLI и agentic pipeline.
 
-`JSONS/web/components/web-corp/Web _ Corp Components -- ButtonGroup [D].json`
+## Статус
 
-This folder is an experimental Apollo contract package. It does not replace the raw catalog used by the current Apollo audit.
+`Draft / In progress`. Продуктовая семантика подтверждена владельцем. До статуса `Ready` нужны targeted Athena sync/check, проверка registries и минимум один корректный и один нарушающий runtime-кейс в Apollo.
 
-## Файлы
+## Назначение
 
-- `contract.generated.json` - compact generated baseline from the raw catalog.
-- `contract.overrides.json` - public API, aliases and reset model.
-- `composition-contract.json` - composition and nested ownership model.
-- `rules.json` - draft machine-readable rules.
-- `audit-mapping.json` - mapping from diff properties to Apollo audit categories.
-- `examples.json` - regression examples for expected Apollo behavior.
-- `agent-context.json` - compact context for Apollo agent.
+- `[D] ButtonsGroup` — рабочая desktop-группа связанных кнопок; существует в Figma и коде.
+- `[M] ButtonsGroup` — рабочая mobile-web-группа связанных кнопок; существует в Figma и коде.
 
-## Источник
+Для связанных действий предпочтительно использовать `ButtonsGroup`, а не ручную композицию отдельных `Button`.
 
-- Библиотека: `Web _ Corp Components`
-- File: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
+## Источники
 
-## Примечания
+- Raw: `../Web _ Corp Components -- ButtonGroup [D].json`.
+- Index: `../../../indexes/web/components/web-corp/Web _ Corp Components -- ButtonGroup [D].index.json`.
+- Pattern: `../../../../../patterns/p_buttons-and-buttons-group.md`.
+- Generated contract: `contract.generated.json`, формируется Athena CLI.
 
-- Nested [D]/[M] Button variant properties inside ButtonsGroup are part of the group baseline and must be compared against the ButtonsGroup effective baseline.
-- Changing a nested button property such as SingleIcon, View, Size or DisabledState should be reported as a component-property customization.
-- Manual layer changes on the same nested button must use the nested button effective baseline after variant changes are applied.
+## Состав комплекта
+
+- `contract.generated.json` — generated variants и structural baseline.
+- `contract.overrides.json` — public API, variant semantics и reset model.
+- `composition-contract.json` — ownership вложенных Button и effective baseline.
+- `rules.json` — component rules и ссылки на pattern rules.
+- `audit-mapping.json` — host integration и reset semantics для Apollo diffs.
+- `examples.json` — regression cases Apollo и агента.
+- `agent-context.json` — назначение, baselines и anti-hallucination context.
+
+## Подтверждённая модель
+
+В `[D] ButtonsGroup` допускается до четырёх видимых кнопок, в `[M] ButtonsGroup` — до двух. Минимум — одна видимая кнопка. Используются только штатные button slots: их можно скрывать и показывать, включая средний слот, но нельзя добавлять, дублировать или заменять через instance swap.
+
+Primary необязателен. Если он есть, то должен быть единственным и располагаться первым. Остальные действия идут слева направо в порядке убывания приоритета. Все вложенные кнопки используют общий `Size` группы: `32`, `40`, `48` или `56`. Остальные настройки следуют контракту соответствующего `[D] Button` или `[M] Button`.
+
+Группа всегда горизонтальная и использует `Hug / Hug`. Direction, item spacing и остальные visual/layout properties сохраняются по effective baseline. Ручные изменения fill, stroke, radius, padding, spacing, opacity, effects и typography запрещены.
+
+`Overflow=true` можно включать добровольно уже в группе из двух кнопок. Он переводит последнюю кнопку в `SingleIcon=true`. Иконка этой кнопки фиксирована; сама кнопка используется только для открытия списка скрытых действий и всегда остаётся последней.
+
+На desktop SingleIcon открывает `[D] OptionList`, на mobile-web — `BottomSheet` только со списком действий без footer. Первым переносится действие кнопки непосредственно перед SingleIcon, затем перенос продолжается справа налево. Пункты сохраняют label, action, наличие icon и disabled state исходных действий. Если у исходной кнопки иконки нет, пункт также остаётся без иконки. Disabled-пункт показывает Tooltip с причиной недоступности. После выбора доступного действия поверхность сразу закрывается. Количество скрытых действий отдельно не ограничено. Одно действие нельзя одновременно оставлять видимым и дублировать в списке.
+
+Общего Disabled или Loading state у Figma-компонента нет. Loading разрешён у отдельной видимой Button по её контракту. У `OptionListCell` нет Loading state; поведение скрытого действия, которое перешло в Loading, пока не определено и не должно трактоваться агентом как правило. Общий Skeleton существует в коде, но пока отсутствует в Figma и будет добавлен позднее.
+
+В Apollo variant changes вложенной Button показываются как параметры компонента. Ручные paint/layout/style changes остаются отдельными параметрами слоя и сравниваются с effective baseline после применения текущих View, Size и других variant properties.

@@ -8,6 +8,14 @@
 
 JSON-отчёты проверок Apollo хранятся отдельно в `Ackedze/design-system_stats`.
 
+## Наполнение component packages
+
+- `COMPONENT_AUTHORING.md` — командный workflow подготовки corp-компонентов.
+- `AGENTIC_FILES.md` — назначение, ownership и runtime-роль каждого документа.
+- `CLAUDE.md` и `.claude/skills/corp-component-authoring/` — воспроизводимые инструкции для Claude Code.
+
+Для начала новой сессии в Claude Code открой репозиторий и вызови `/corp-component-authoring <ComponentName>`.
+
 ## Точность REST-каталогов
 
 Если Figma REST не возвращает радиус маски или `BOOLEAN_OPERATION`, Athena CLI сохраняет известное значение из предыдущего опубликованного каталога по точному совпадению component key, variant key и semantic path. Для `IconView` эталонная матрица Shape/Border: размеры `128/80/72` используют радиус `6`, `64/56/48` — `4`, `40/32/24/20/16` — `2`.

@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web-corp.amount-styles",
-    "status": "draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-22"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -126,6 +126,122 @@
     ]
   },
   "manual": {
+    "componentRoles": [
+      {
+        "componentName": "🔒 [D] AmountHeadline",
+        "role": "figma-only-preset",
+        "platform": "desktop",
+        "purpose": "Крупное акцентное отображение суммы.",
+        "standaloneInFigma": true,
+        "codeExport": false
+      },
+      {
+        "componentName": "🔒 [M] AmountHeadline",
+        "role": "figma-only-preset",
+        "platform": "mobile-web",
+        "purpose": "Крупное акцентное отображение суммы.",
+        "standaloneInFigma": true,
+        "codeExport": false
+      },
+      {
+        "componentName": "🔒 AmountParagraph",
+        "role": "figma-only-preset",
+        "platform": "universal",
+        "purpose": "Отображение суммы в таблицах, списках, карточках и второстепенных значениях.",
+        "standaloneInFigma": true,
+        "codeExport": false
+      },
+      {
+        "componentName": "Operation",
+        "role": "internal-component",
+        "platform": "universal",
+        "standaloneInFigma": false,
+        "codeExport": false
+      }
+    ],
+    "partDefaults": {
+      "Major": "required",
+      "Minor": true,
+      "Currency": true,
+      "Operation": false,
+      "Addon": false
+    },
+    "slots": [
+      {
+        "slot": "Addon",
+        "required": false,
+        "defaultVisible": false,
+        "allowedComponents": [
+          "IconView",
+          "StatusBadge"
+        ],
+        "configurationPolicy": "Используй штатные параметры выбранного вложенного компонента.",
+        "maxHeight": "text-line-height",
+        "oversizeAllowed": false,
+        "keepsOwnContextualColors": true
+      }
+    ],
+    "anatomyPolicy": {
+      "fixedOrder": [
+        "Operation",
+        "Major",
+        "Minor",
+        "Currency",
+        "Addon"
+      ],
+      "reorderAllowed": false
+    },
+    "usagePolicy": {
+      "AmountInput": {
+        "embeddedComponent": "Web Core / Amount",
+        "usesThisContract": false
+      }
+    },
+    "layoutPolicy": {
+      "baseline": "current-style-effective-baseline",
+      "manualOverridesAllowed": false,
+      "singleLine": true,
+      "containerProvidesWidth": true,
+      "insufficientWidth": "clip-by-container",
+      "protectedProperties": [
+        "layout.direction",
+        "layout.itemSpacing",
+        "layout.alignment",
+        "layout.sizing"
+      ]
+    },
+    "optionalPartsPolicy": {
+      "parts": [
+        "Operation",
+        "Minor",
+        "Currency",
+        "Addon"
+      ],
+      "canCoexist": true
+    },
+    "valuePolicy": {
+      "domains": [
+        "money",
+        "balance"
+      ],
+      "points": "separate-pattern",
+      "majorMaxCharactersExcludingGroupSeparators": 13,
+      "fractionDigits": {
+        "displayed": [
+          1,
+          2
+        ],
+        "moreThanTwo": "round-to-two"
+      }
+    },
+    "interactionPolicy": {
+      "amountCanBeClickable": true,
+      "interactiveAddonAllowed": true,
+      "addonActionMustMatchAmount": true,
+      "manualUnderlineAllowed": false,
+      "manualBackgroundAllowed": false,
+      "hoverState": "future-rule"
+    },
     "semanticOwners": [
       {
         "owner": "AmountParagraph / Operation",

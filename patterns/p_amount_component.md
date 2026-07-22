@@ -9,8 +9,8 @@
 - platforms: desktop, mobileweb, mobile
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: draft
-- updatedAt: 2026-07-05
+- status: ready
+- updatedAt: 2026-07-22
 - sourceType: component-guideline
 - tags: amount, currency, numeric-data, tables, table-lists, side-panel, input, typography, color, formatting
 - figmaLink: https://www.figma.com/design/VcHkzjFmNGCbKpO2YFCogJ/%E2%9C%85-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82----Amount?m=auto&t=yxdKGIY4gfsWChEc-7
@@ -18,16 +18,15 @@
 
 ## Section 1: Определение
 
-Amount — компонент для отображения денежных сумм и других числовых данных с размерностью в интерфейсах.
+Amount — компонент для отображения денежных сумм и балансов в интерфейсах. Компонент может отображать баллы, но правила баллов будут описаны отдельным паттерном.
 
-Паттерн фиксирует структуру компонента, правила настройки `Operation`, частей суммы, требования к типографике, цвету, математическим знакам, пробелам и использованию Amount в таблицах, табличных списках, steps, `TableBulkActions`, input и сайд-панели.
+Паттерн фиксирует структуру компонента, правила настройки `Operation`, частей суммы, требования к типографике, цвету, математическим знакам, пробелам и использованию Amount в таблицах, табличных списках, steps, `TableBulkActions`, input и сайд-панели. Внутри `AmountInput` используется `Amount` из Web Core; Figma-only presets Web Corp AmountStyles не заменяют его.
 
 ## Section 2: Когда использовать
 
 Используйте Amount, когда нужно показать:
 
 - сумму с валютой;
-- числовые данные с размерностью;
 - пополнение или списание;
 - баланс или остаток;
 - сумму в таблице, табличном списке, steps, `TableBulkActions`, input или сайд-панели.
@@ -35,6 +34,8 @@ Amount — компонент для отображения денежных с�
 ## Section 3: Когда не использовать
 
 Не используйте Amount для числовых идентификаторов без размерности: телефонов, дат, номеров счетов, ИНН, номеров документов.
+
+Не используйте этот паттерн для процентов и произвольных числовых величин с единицами. Для баллов применяйте отдельный паттерн после его появления.
 
 Не используйте Amount, если значение должно быть набрано обычным текстом без компонентной структуры `Major`, `Minor`, `Currency` и `Addon`.
 
@@ -44,7 +45,7 @@ Amount — компонент для отображения денежных с�
 2. `Operation` располагается перед суммой и отвечает за отображение знака операции.
 3. `Negative=True` показывает отрицательную операцию, `Negative=False` — положительную.
 4. `Minor`, `Currency` и `Addon` опциональны и включаются через пропсы.
-5. `Addon` вставляется через слот и должен соответствовать высоте строки `Major`.
+5. `Addon` вставляется через слот и не должен быть выше line-height текстовой части Amount.
 6. Все текстовые части компонента должны использовать один text style.
 7. Для `Minor` не используется opacity.
 8. Между разрядами используется математический пробел.
@@ -54,6 +55,8 @@ Amount — компонент для отображения денежных с�
 ## Section 5: Структура текста
 
 Amount состоит из первой части `Operation`, обязательной целой части `Major` и опциональных частей `Minor`, `Currency`, `Addon`.
+
+Порядок частей фиксирован: `Operation → Major → Minor → Currency → Addon`. `IconView` и `StatusBadge` в Addon сохраняют собственные контекстные цвета и не обязаны повторять цвет текстовых частей Amount.
 
 ```text
 +1 234 567,00 ₽
@@ -131,7 +134,7 @@ Operation Negative=False -> +
 - checkType: deterministic
 - autofix: no
 
-`Minor`, `Currency` и `Addon` включаются через пропсы. `Addon` вставляется через слот и должен соответствовать высоте строки `Major`.
+`Minor`, `Currency` и `Addon` включаются через пропсы. `Addon` вставляется через слот, а его размер не должен превышать line-height текстовой части Amount.
 
 #### Правильно
 
@@ -268,7 +271,7 @@ Opacity ухудшает читаемость суммы и создаёт ли�
 - checkType: llm
 - autofix: no
 
-Цвет `text/positive` используется для пополнений только в таблицах и табличных списках. Во всех остальных случаях используется `text/primary`.
+Цвет `text/positive` используется для пополнений только в таблицах и табличных списках. Другие цветовые токены могут быть разрешены точным правилом конкретного контекста; без такого правила нельзя автоматически требовать `text/primary` или объявлять контекстный токен нарушением.
 
 #### Правильно
 
@@ -368,7 +371,7 @@ Amount -> align left
 ### Rule 12: Не дублируй валюту, если она вынесена в заголовок
 
 - ruleId: rule:components.amount.table-currency-not-duplicated
-- severity: warning
+- severity: error
 - appliesTo: text
 - checkType: llm
 - autofix: partial
@@ -421,7 +424,7 @@ Amount -> align left
 
 В массовых действиях Amount показывает выбранное значение, а не должен кодировать операцию цветом и знаком.
 
-### Rule 14: В steps используй только Regular
+### Rule 14: В steps предпочитай Regular
 
 - ruleId: rule:components.amount.steps-regular
 - severity: warning
@@ -429,7 +432,7 @@ Amount -> align left
 - checkType: deterministic
 - autofix: partial
 
-В steps Amount отображается только в начертании `Regular`, без opacity для `Minor`.
+В steps рекомендуется отображать Amount в начертании `Regular`, без opacity для `Minor`. Другой штатный Style требует осознанного контекстного решения, но сам по себе не является нарушением.
 
 #### Правильно
 
@@ -456,6 +459,8 @@ Amount в steps -> Medium
 - checkType: deterministic
 - autofix: partial
 
+Это правило применяется только к компоненту `Amount` из Web Core. К Figma-only presets семейства Web Corp AmountStyles оно не применяется.
+
 В табличных списках не используйте opacity и одинаковую жирность для значений Amount. Общая сумма набирается `Bold`, остальные суммы — `Medium`.
 
 #### Правильно
@@ -478,7 +483,7 @@ Amount в steps -> Medium
 ### Rule 16: В сайд-панели повторяй формат со страницы
 
 - ruleId: rule:components.amount.side-panel-match-source
-- severity: warning
+- severity: error
 - appliesTo: component
 - checkType: llm
 - autofix: no
@@ -502,6 +507,46 @@ Amount в steps -> Medium
 #### Почему
 
 Сайд-панель должна подтверждать выбранную строку, а не менять смысл суммы.
+
+### Rule 17: Округляй дробную часть до двух знаков
+
+- ruleId: rule:components.amount.round-to-two-minor-digits
+- severity: error
+- appliesTo: text
+- checkType: deterministic
+- autofix: yes
+
+Если исходное значение содержит больше двух знаков после запятой, округляйте его до двух знаков перед отображением в Amount.
+
+### Rule 18: Сохраняй фиксированный порядок частей
+
+- ruleId: rule:components.amount.fixed-part-order
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+Порядок частей всегда остаётся `Operation → Major → Minor → Currency → Addon`. Переставлять части вручную запрещено.
+
+### Rule 19: Используй Amount для денежных значений
+
+- ruleId: rule:components.amount.monetary-values-only
+- severity: error
+- appliesTo: component
+- checkType: llm
+- autofix: no
+
+Amount используется для денежных сумм и балансов. Баллы регулируются отдельным паттерном. Проценты и произвольные величины с единицами не относятся к этому паттерну.
+
+### Rule 20: Ограничивай Major 13 символами
+
+- ruleId: rule:components.amount.major-max-13-digits
+- severity: error
+- appliesTo: text
+- checkType: deterministic
+- autofix: no
+
+`Major` содержит не более 13 символов без учёта математических пробелов между разрядами.
 
 ## Section 7: Шаблоны
 

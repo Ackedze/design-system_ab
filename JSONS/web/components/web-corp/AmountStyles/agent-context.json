@@ -3,7 +3,7 @@
   "documentType": "component-agent-context",
   "metadata": {
     "componentKey": "web-corp.amount-styles",
-    "status": "draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -53,6 +53,8 @@
       {
         "name": "🔒 [D] AmountHeadline",
         "key": "46d9453084998704a7c26aefd8c2d4427e3a4f5c",
+        "description": "Вспомогательный компонент Figma, в коде существует только Amount.",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "desktop",
@@ -69,6 +71,8 @@
       {
         "name": "🔒 [M] AmountHeadline",
         "key": "cee3a597980650c3d43dbe8bf283d2c4f6c1507e",
+        "description": "Вспомогательный компонент Figma, в коде существует только Amount.",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "mobile-web",
@@ -85,6 +89,8 @@
       {
         "name": "🔒 AmountParagraph",
         "key": "6276f825ec9ee2ceded5305171c715a7dd73637e",
+        "description": "Вспомогательный компонент Figma, в коде существует только Amount.",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "universal",
@@ -105,6 +111,8 @@
       {
         "name": "Operation",
         "key": "576418aee5b143662e51e4d8f27d6fcbd57dc540",
+        "description": "",
+        "descriptionProvenance": "figma",
         "status": "active",
         "role": "main",
         "platform": "universal",
@@ -141,7 +149,71 @@
     "summary": {
       "componentFamily": "AmountStyles",
       "library": "Web _ Corp Components",
-      "purpose": "AmountStyles предоставляет компоненты amount typography и внутренние operation/amount text parts. Apollo должен трактовать Style и Negative как component/part properties, а ручные paint/text style changes на leaf text layers как layer customizations."
+      "purpose": "AmountStyles предоставляет Figma-only presets AmountHeadline для крупных акцентных сумм и AmountParagraph для таблиц, списков, карточек и второстепенных значений. Operation является внутренней частью и не используется отдельно."
+    },
+    "availability": {
+      "figmaOnlyPresets": [
+        "🔒 [D] AmountHeadline",
+        "🔒 [M] AmountHeadline",
+        "🔒 AmountParagraph"
+      ],
+      "codeExports": [],
+      "internalOnly": [
+        "Operation"
+      ]
+    },
+    "partDefaults": {
+      "Major": "required",
+      "Minor": true,
+      "Currency": true,
+      "Operation": false,
+      "Addon": false
+    },
+    "contentPolicy": {
+      "editableTextLayers": [
+        "Major",
+        "Minor",
+        "Currency"
+      ],
+      "requiredLayers": [
+        "Major"
+      ],
+      "addonComponents": [
+        "IconView",
+        "StatusBadge"
+      ],
+      "addonMaxHeight": "Line-height текстовой части Amount.",
+      "addonColorPolicy": "IconView и StatusBadge сохраняют собственные контекстные цвета и не обязаны совпадать с цветом текстовых частей Amount."
+    },
+    "anatomyPolicy": {
+      "fixedOrder": "Operation → Major → Minor → Currency → Addon",
+      "reorderAllowed": false
+    },
+    "usagePolicy": {
+      "AmountInput": "Внутри AmountInput используется Web Core Amount; контракт Web Corp AmountStyles к нему не применяется."
+    },
+    "currencyPolicy": {
+      "allowedTypes": "Любой штатный Type.",
+      "customPurpose": "Type=Custom используется для отсутствующего в штатных Type кода валюты или символа."
+    },
+    "responsivePolicy": {
+      "desktopHeadline": "🔒 [D] AmountHeadline при ширине от 768 px.",
+      "mobileWebHeadline": "🔒 [M] AmountHeadline при ширине ниже 768 px.",
+      "paragraph": "🔒 AmountParagraph применяется на desktop и mobile-web."
+    },
+    "valueFormatPolicy": {
+      "locale": "ru-RU",
+      "minorDigits": "Один или два знака.",
+      "moreThanTwoMinorDigits": "Округлить до двух знаков.",
+      "majorMaxCharacters": "13 без учёта математических пробелов между разрядами.",
+      "zero": "0 или 0,00.",
+      "unknown": "Не используй Amount; выведи отдельным текстовым элементом длинное тире —.",
+      "negativeParentheses": false
+    },
+    "valueDomainPolicy": {
+      "allowed": "Денежные суммы и балансы.",
+      "points": "Поддерживаются компонентом, но требуют отдельного паттерна.",
+      "excluded": "Проценты и произвольные числовые величины с единицами."
     },
     "publicComponentProperties": {
       "AmountParagraph.variant.Style": [
@@ -205,11 +277,63 @@
         "layout.itemSpacing"
       ],
       "baselinePolicy": "Если Style или Negative изменились, а затем leaf text layer был кастомизирован, сравнивай layer с текущим AmountStyles state baseline. Сохраняй точный leaf target для reset.",
-      "wordingPolicy": "When Apollo reports Operation / Minus fill, describe it as a color customization of the amount operation sign, not as an unrelated Minus layer."
+      "wordingPolicy": "Когда Apollo находит изменение fill у Operation / Minus, описывай его как изменение цвета знака операции суммы, а не как несвязанный слой Minus.",
+      "stylePolicy": "Выбор штатного Style для всего Amount разрешён. Ручное изменение styles.text у отдельных Operation, Minus, Major, Minor или Currency запрещено, даже если дизайнер вручную сделал стили одинаковыми.",
+      "operationPolicy": "Negative=True показывает математический минус, Negative=False — плюс. Отсутствие знака задаётся выключением Operation штатным property.",
+      "colorPolicy": "Operation, Major, Minor и Currency используют один цветовой токен. Дизайнер может вручную перекрасить все текстовые части Amount в контекстный токен. Addon сохраняет собственные контекстные цвета. text/positive допустим только для пополнений в таблицах и табличных списках; без точного правила не объявляй остальные контекстные токены нарушением. Отдельный leaf fill является информационным фактом, пока не доказано рассогласование текстовых частей или нарушение точного контекстного правила.",
+      "opacityPolicy": "Не разрешай изменение opacity у Minor и Currency ни в одном AmountHeadline или AmountParagraph.",
+      "contentPolicy": "Текст Major, Minor и Currency можно менять. Major обязателен; проверяй математический пробел между разрядами и математический минус для отрицательных операций.",
+      "layoutPolicy": "Геометрия Amount полностью следует effective baseline текущего Style. Ручные direction, item spacing, alignment и sizing запрещены.",
+      "contextPolicy": "Для table, TableBulkActions, steps и side panel применяй только точные context rules. В steps Regular является рекомендацией. В сайд-панели совпадение формата с исходной страницей обязательно. Если валюта указана в заголовке одновалютной колонки, Currency в строках обязательно скрывается. Rule table-list-weight применяется только к Web Core Amount и не относится к Web Corp AmountStyles.",
+      "singleLinePolicy": "Amount всегда остаётся в одну строку. Контейнер должен обеспечить достаточную ширину; иначе он клипует Amount. Не предлагай перенос, ellipsis, fade или ручное сокращение значения.",
+      "statePolicy": "Не приписывай Amount собственные loading, skeleton, disabled или error states. Skeleton будет описан отдельным pattern.",
+      "interactionPolicy": "Amount может быть кликабельным по контексту. Operation, Minor, Currency и Addon могут использоваться одновременно. Если интерактивный Addon находится внутри кликабельного Amount, их действия должны совпадать. Не разрешай ручное подчёркивание, фон или эффекты для обозначения кликабельности; hover-состояния будут описаны позднее.",
+      "valuePolicy": "Для ru-RU используй запятую, математический пробел и математический минус без скобочной записи. Minor содержит 1–2 знака; больше двух округляются до двух. Major содержит не более 13 символов без учёта разделителей. Ноль — 0 или 0,00; неизвестное значение заменяется отдельным текстовым элементом —. Порядок частей фиксирован. Этот контракт относится к деньгам и балансам; для баллов нужен отдельный паттерн."
     },
     "ruleReferences": [
       "component:web-corp.amount-styles.style-is-component-property",
+      "component:web-corp.amount-styles.locked-components-are-figma-only-presets",
+      "component:web-corp.amount-styles.operation-is-internal",
+      "component:web-corp.amount-styles.parts-default-visibility",
+      "component:web-corp.amount-styles.major-is-required",
+      "component:web-corp.amount-styles.math-space-is-required",
+      "component:web-corp.amount-styles.math-minus-is-required",
+      "component:web-corp.amount-styles.addon-uses-supported-components",
+      "component:web-corp.amount-styles.addon-does-not-exceed-text-line-height",
+      "component:web-corp.amount-styles.parts-share-color",
+      "component:web-corp.amount-styles.addon-keeps-own-contextual-colors",
+      "component:web-corp.amount-styles.positive-color-context",
+      "component:web-corp.amount-styles.contextual-color-token-is-allowed",
+      "component:web-corp.amount-styles.opacity-is-forbidden",
+      "component:web-corp.amount-styles.style-is-context-controlled",
+      "component:web-corp.amount-styles.geometry-follows-effective-baseline",
+      "component:web-corp.amount-styles.currency-type-is-component-property",
+      "component:web-corp.amount-styles.negative-uses-primary",
+      "component:web-corp.amount-styles.table-align-right",
+      "component:web-corp.amount-styles.table-weight-follows-role",
+      "component:web-corp.amount-styles.table-currency-not-duplicated",
+      "component:web-corp.amount-styles.table-bulk-actions-neutral",
+      "component:web-corp.amount-styles.steps-use-regular",
+      "component:web-corp.amount-styles.side-panel-matches-source",
+      "component:web-corp.amount-styles.platform-preset-matches-breakpoint",
+      "component:web-corp.amount-styles.amount-stays-on-one-line",
+      "component:web-corp.amount-styles.has-no-own-system-states",
+      "component:web-corp.amount-styles.clickability-is-context-controlled",
+      "component:web-corp.amount-styles.manual-interactive-decoration-is-forbidden",
+      "component:web-corp.amount-styles.amount-input-uses-core-amount",
+      "component:web-corp.amount-styles.optional-parts-can-coexist",
+      "component:web-corp.amount-styles.container-provides-single-line-width",
+      "component:web-corp.amount-styles.addon-action-matches-amount",
+      "component:web-corp.amount-styles.minor-has-one-or-two-digits",
+      "component:web-corp.amount-styles.zero-format",
+      "component:web-corp.amount-styles.unknown-value-uses-separate-placeholder",
+      "component:web-corp.amount-styles.ru-format",
+      "component:web-corp.amount-styles.round-to-two-minor-digits",
+      "component:web-corp.amount-styles.fixed-part-order",
+      "component:web-corp.amount-styles.monetary-values-only",
+      "component:web-corp.amount-styles.major-max-13-digits",
       "component:web-corp.amount-styles.operation-negative-is-part-property",
+      "component:web-corp.amount-styles.parts-share-text-style",
       "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
       "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
       "component:web-corp.amount-styles.manual-text-style-is-layer-property"

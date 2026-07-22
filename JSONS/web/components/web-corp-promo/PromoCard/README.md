@@ -1,23 +1,36 @@
-# PromoCard — MVP component contract
+# PromoCard
 
-Папка содержит сгенерированный слой component-contract для **Web _ Сorp Promo Components / PromoCard**.
+Машиночитаемый комплект компонента `Web _ Сorp Promo Components / PromoCard` для Apollo и агента.
 
-Raw Figma catalog остаётся source of truth:
+## Назначение
 
-`../../../../web/components/web-corp-promo/Web _ Сorp Promo Components -- PromoCard.json`
+PromoCard показывает отдельное промопредложение, преимущество или акцию. Публичные корни: `[D] PromoCard` для desktop и `[M] PromoCard` для Mobile Web.
+
+Raw Figma catalog остаётся источником структуры и effective baseline:
+
+`../Web _ Сorp Promo Components -- PromoCard.json`
 
 ## Файлы
 
-- `contract.generated.json` — сгенерированный compact contract, извлечённый из raw Figma catalog.
-- `contract.overrides.json` — semantic layer, заполняемый вручную.
-- `composition-contract.json` — context владения internal instances.
-- `rules.json` — component-level classification и design rules.
-- `audit-mapping.json` — модель группировки Apollo.
-- `examples.json` — примеры трактовки.
-- `agent-context.json` — compact context для интерпретации на стороне агента.
+- `contract.generated.json` — сгенерированная структура, варианты, токены и baseline.
+- `contract.overrides.json` — семантика публичных корней, разрешённых и запрещённых изменений.
+- `composition-contract.json` — правила композиции, slot `BottomContent`, изображение, поверхность и взаимодействия.
+- `rules.json` — точные компонентные правила для Apollo и агента.
+- `audit-mapping.json` — классификация изменений и reset surfaces Apollo.
+- `examples.json` — положительные и отрицательные сценарии трактовки.
+- `agent-context.json` — компактный нормативный контекст для агента.
+- `patterns/p_promo-card.md` — человекочитаемый компонентный паттерн.
 
-## Источник
+## Ключевые правила
 
-- Библиотека: `Web _ Сorp Promo Components`
-- Сгенерировано: `2026-06-02T08:28:22.629Z`
-- Компонентов: `14`
+- `Title` обязателен; `Subtitle` опционален.
+- `Image=None` разрешён только в бенто-композиции.
+- `Offset` используется только при `Image=Top`.
+- `BottomContent` принимает один локальный или библиотечный component instance.
+- До двух кнопок; при двух кнопках карточка не кликабельна целиком.
+- Skeleton скрывает и блокирует всю карточку.
+- Внутренние визуальные свойства сохраняются по effective baseline.
+
+## Статус
+
+Комплект проверен и имеет статус `ready`.

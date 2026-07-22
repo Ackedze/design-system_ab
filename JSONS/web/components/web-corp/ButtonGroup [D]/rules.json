@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-22"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -65,42 +65,509 @@
   "manual": {
     "rules": [
       {
-        "id": "component:web-corp.buttons-group.component-properties",
-        "title": "Component properties ButtonGroup [D] нужно проверять как параметры компонента",
-        "matchKind": "exact_rule",
-        "severity": "medium",
-        "selector": {
-          "componentNames": [
+        "ruleId": "component:web-corp.buttons-group.exists-in-code",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.identity",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
             "[D] ButtonsGroup",
             "[M] ButtonsGroup"
-          ],
-          "propertyPrefix": "variant."
-        },
-        "rule": "Изменения variant/property на instance компонента являются component-property customizations. Не превращай их в несвязанные paint или layout findings."
-      },
-      {
-        "id": "component:web-corp.buttons-group.layer-properties",
-        "title": "Layer properties ButtonGroup [D] должны использовать effective baseline",
-        "matchKind": "exact_rule",
-        "severity": "medium",
-        "selector": {
-          "componentNames": [
-            "[D] ButtonsGroup",
-            "[M] ButtonsGroup"
-          ],
-          "properties": [
-            "layout.itemSpacing",
-            "layout.padding.*",
-            "styles.text",
-            "styles.fill",
-            "styles.stroke",
-            "fill",
-            "stroke",
-            "radius",
-            "opacity"
           ]
         },
-        "rule": "Изменения layer/style нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        "ruleText": "[D] ButtonsGroup и [M] ButtonsGroup существуют в коде и разрешены к использованию как рабочие компоненты соответствующих платформ."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.prefer-group-for-related-buttons",
+        "severity": "warning",
+        "source": "component-contract",
+        "appliesTo": "component.usage",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Для композиции связанных кнопок предпочтительно использовать ButtonsGroup, а не собирать группу вручную из отдельных Button."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.visible-button-limit",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.structure",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "В [D] ButtonsGroup допускается не более четырёх видимых кнопок, в [M] ButtonsGroup — не более двух."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.primary-is-first-and-unique",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:controls.buttons-and-button-groups.primary-left",
+        "appliesTo": "variant.View",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Primary в ButtonsGroup необязателен. Если Primary используется, он должен быть единственным и располагаться первым."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.minimum-one-button",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.structure",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "ButtonsGroup содержит минимум одну видимую кнопку."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.uniform-size",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.Size",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Все вложенные кнопки используют Size группы. Для [D] и [M] разрешены штатные значения 32, 40, 48 и 56."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.nested-buttons-follow-button-contract",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.*|text.content|component.addon",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "View, DisabledState, addons и Label вложенных кнопок настраиваются по правилам соответствующего компонента Button, если точное правило ButtonsGroup не задаёт более узкое ограничение."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.use-only-built-in-button-slots",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.structure|component.swap",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Используй только предусмотренные компонентом button slots: до четырёх в [D] и до двух в [M]. Кнопки можно скрывать и показывать; добавлять, дублировать или заменять их через instance swap запрещено."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.horizontal-layout-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "layout.direction",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "ButtonsGroup всегда использует горизонтальный auto layout. Менять направление на вертикальное запрещено."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.spacing-uses-effective-baseline",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "layout.itemSpacing",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Отступ между кнопками определяется effective baseline выбранного Size. Менять itemSpacing вручную запрещено."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.root-sizing-is-hug-hug",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "layout.sizing.horizontal|layout.sizing.vertical",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Корневой ButtonsGroup использует Hug по ширине и Hug по высоте."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.actions-descend-by-priority",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:controls.buttons-and-button-groups.primary-left",
+        "appliesTo": "component.order",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Кнопки располагаются слева направо в порядке убывания приоритета действия; SingleIcon при его наличии остаётся последним."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.built-in-buttons-can-be-hidden",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.visibility",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Штатные кнопки разрешено скрывать, включая кнопку в середине группы, если итоговая композиция сохраняет правила приоритета и SingleIcon."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.overflow-moves-nearest-action-first",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.order|variant.Overflow",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "При переносе действий в список у SingleIcon первым переносится действие кнопки, расположенной непосредственно перед SingleIcon; дальнейший перенос продолжается справа налево по убыванию приоритета."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.has-no-group-state",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.state",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "В Figma у ButtonsGroup нет общего Disabled или Loading state. Состояния настраиваются у вложенных Button по их контракту; общий Skeleton пока существует только в коде."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.single-icon-opens-overflow-list",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.interaction",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Последняя кнопка с SingleIcon=true открывает список перенесённых действий: [D] OptionList на desktop или BottomSheet на mobile-web. Использовать её для другого действия запрещено."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.addon|component.icon",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Иконка SingleIcon уже задана компонентом и не может быть изменена или заменена дизайнером."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.overflow-container-follows-platform",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.composition|component.interaction",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "SingleIcon открывает [D] OptionList на desktop и BottomSheet на mobile-web. Mobile BottomSheet содержит только список действий без footer."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.overflow-items-preserve-action-content",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "text.content|component.icon|component.interaction",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Пункт списка для перенесённой кнопки сохраняет её label, действие и наличие иконки: если у исходной кнопки иконки нет, пункт списка также остаётся без иконки."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.overflow-item-count-is-contextual",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.structure",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Для количества перенесённых действий в OptionList или BottomSheet отдельного максимального ограничения нет."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.button-labels-follow-button-contract",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "text.content",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Labels вложенных кнопок свободно меняются по правилам соответствующего Button и паттерна кнопок; дополнительных текстовых ограничений у ButtonsGroup нет."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.visible-and-overflow-actions-are-unique",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.interaction|text.content",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button",
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Каждая видимая текстовая кнопка может запускать отдельное действие, а SingleIcon служит только входом в список перенесённых действий. Одно действие нельзя одновременно оставлять видимым и дублировать в списке."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.visual-and-layout-baseline-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "layout.*|styles.*|fill|stroke|radius|opacity|effects.*",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup",
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Visual и layout properties корня и вложенных кнопок сохраняются по effective baseline ButtonsGroup и правилам Button. Ручные изменения fill, stroke, radius, padding, spacing, opacity, effects и typography запрещены."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.overflow-enables-last-single-icon",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.Overflow|variant.SingleIcon",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Overflow=true переводит последнюю кнопку группы в SingleIcon=true; эта кнопка открывает платформенный список перенесённых действий."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.overflow-is-optional-from-two-buttons",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "variant.Overflow|component.structure",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Overflow=true разрешено включать добровольно в группе минимум из двух кнопок, даже если лимит видимых кнопок платформы ещё не достигнут."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.disabled-state-is-preserved-in-overflow",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.DisabledState|component.state",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button",
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Если перенесённое действие недоступно, его disabled state должно сохраняться в соответствующем пункте OptionList или BottomSheet; по hover показывается Tooltip с причиной недоступности."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.overflow-list-closes-after-action",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.interaction",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "После выбора доступного действия [D] OptionList или BottomSheet сразу закрывается."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.visible-button-loading-follows-button",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.state",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Loading разрешён у отдельной видимой Button, например после запуска её действия, и настраивается по контракту Button. У OptionListCell нет Loading state."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.skeleton-is-code-only",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "component.state",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "Skeleton state существует в коде, но пока отсутствует в Figma-компоненте. Не требуй от дизайнера включить или настроить Skeleton до обновления библиотеки."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.single-icon-is-last",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:controls.buttons-and-button-groups.icon-only-last",
+        "appliesTo": "variant.SingleIcon|component.order",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] Button",
+            "[M] Button"
+          ]
+        },
+        "ruleText": "Кнопка с SingleIcon=true всегда располагается последней в ButtonsGroup."
+      },
+      {
+        "ruleId": "component:web-corp.buttons-group.single-icon-requires-two-buttons",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.SingleIcon|component.structure",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "ButtonGroup [D]",
+          "layers": [
+            "[D] ButtonsGroup",
+            "[M] ButtonsGroup"
+          ]
+        },
+        "ruleText": "SingleIcon используется только в группе минимум из двух кнопок."
       }
     ]
   }
