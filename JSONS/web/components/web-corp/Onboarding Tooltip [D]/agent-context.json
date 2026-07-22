@@ -160,12 +160,27 @@
     }
   },
   "manual": {
-    "summary": {
-      "componentFamily": "Onboarding Tooltip [D]",
-      "library": "Web _ Corp Components",
-      "purpose": "Desktop-компонент онбординга, который помогает пользователю освоить изменившийся или неочевидный интерфейс после крупного обновления или запуска полезной функции."
-    },
-    "usageGuidance": [
+    "componentSemantics": [
+      {
+        "componentKey": "c9a8db25e3fb6bc7907464f81547a6295816c59b",
+        "name": "Onboarding Tooltip",
+        "purpose": "Пошагово знакомит пользователя с изменившимся или неочевидным desktop-интерфейсом.",
+        "useWhen": [
+          "После крупного обновления нужно показать новое расположение блоков.",
+          "Полезная функция существует, но её точка входа неочевидна."
+        ],
+        "doNotUseWhen": [
+          "Интерфейс понятен без отдельного обучения.",
+          "Нужно показать обычную короткую подсказку Tooltip или Hint.",
+          "Сценарий предназначен для mobile-web: там используется BottomSheet."
+        ],
+        "relationship": "Единственный публичный корень семейства; TooltipTail, Pips, Close, Onboarding footer и Text content являются внутренними частями.",
+        "status": "approved",
+        "provenance": "design-system-author"
+      }
+    ],
+    "summary": "Onboarding Tooltip — desktop-компонент онбординга, который помогает пользователю освоить изменившийся или неочевидный интерфейс после крупного обновления или запуска полезной функции.",
+    "criticalBaselines": [
       "Используй Onboarding Tooltip только на desktop от 768 px.",
       "На mobile-web переноси onboarding-сценарий в BottomSheet.",
       "Публичным компонентом является только Onboarding Tooltip.",
@@ -199,6 +214,16 @@
       "Не переноси ограничения обычных Tooltip/Hint, включая лимиты 70 и 200 символов, на Onboarding Tooltip без отдельного exact rule.",
       "Не придумывай лимиты текста, число шагов, правила кнопок или настройки хвоста, пока они не подтверждены отдельным exact rule."
     ],
+    "agentInstructions": [
+      "Не выводи нарушение из примера: используй только exact component rule или отдельное применимое pattern rule.",
+      "Не смешивай Onboarding Tooltip с обычными Tooltip и Hint. Лимиты 70 и 200 символов к onboarding не относятся.",
+      "Изменения Tail Direction и Tail Position являются штатными component properties. Оценивай их только вместе с расположением целевого объекта и не называй нарушением без composition evidence.",
+      "Переключение Selected между Pips является штатной настройкой текущего шага, если выбран ровно один Pip и количество Pips совпадает с количеством шагов.",
+      "Для вложенных кнопок используй exact rules Onboarding Tooltip: Size=40, Shape=Rectangular, SingleIcon=False, DisabledState=False; Button 1 остаётся Primary, Button 2 — Secondary.",
+      "Изменения Size, Color или Style встроенной иконки Close трактуй как нарушение её фиксированного baseline.",
+      "Изменения width, padding, spacing, radius, fill, typography, opacity и effects трактуй как нарушения effective baseline, если они зафиксированы Apollo как layer customization.",
+      "Наличие overlay, доступность целевого объекта, попадание в viewport и корректность порядка шагов требуют composition/prototype evidence; не подтверждай их только по atomic diff."
+    ],
     "ruleHighlights": [
       "component:web-corp.onboarding-tooltip.public-root-only",
       "component:web-corp.onboarding-tooltip.desktop-only",
@@ -208,10 +233,13 @@
       "component:web-corp.onboarding-tooltip.tail-points-to-target",
       "component:web-corp.onboarding-tooltip.pips-match-steps",
       "component:web-corp.onboarding-tooltip.button-configuration",
+      "component:web-corp.onboarding-tooltip.primary-button-role-is-fixed",
+      "component:web-corp.onboarding-tooltip.secondary-button-role-is-fixed",
       "component:web-corp.onboarding-tooltip.editable-content",
       "component:web-corp.onboarding-tooltip.content-length-recommendations",
       "component:web-corp.onboarding-tooltip.maximum-ten-steps",
       "component:web-corp.onboarding-tooltip.close-is-required-and-fixed",
+      "component:web-corp.onboarding-tooltip.close-icon-configuration-is-fixed",
       "component:web-corp.onboarding-tooltip.target-must-remain-visible",
       "component:web-corp.onboarding-tooltip.visuals-follow-effective-baseline",
       "component:web-corp.onboarding-tooltip.plain-text-content-only",

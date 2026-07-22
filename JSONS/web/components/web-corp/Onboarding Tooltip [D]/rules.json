@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-22"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -149,10 +149,58 @@
         "ruleId": "component:web-corp.onboarding-tooltip.button-configuration",
         "severity": "error",
         "source": "component-contract",
-        "appliesTo": "component.buttons|variant.View|variant.Size",
+        "ruleKind": "design-rule",
+        "appliesTo": "variant.Size|variant.Shape|variant.SingleIcon|variant.DisabledState",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Onboarding Tooltip [D]",
+          "layers": [
+            "Onboarding footer/Button group/[D][Corporate] Button 1",
+            "Onboarding footer/Button group/[D][Corporate] Button 2"
+          ]
+        },
+        "requiredVariant": {
+          "Size": "40",
+          "Shape": "Rectangular",
+          "SingleIcon": "False",
+          "DisabledState": "False"
+        },
         "ruleText": "Используй одну или две кнопки Size=40, Shape=Rectangular, SingleIcon=False, без addons и с DisabledState=False. Primary обязательна, Secondary опциональна. Кнопки переключают шаг, выполняют навигацию или завершают onboarding."
+      },
+      {
+        "ruleId": "component:web-corp.onboarding-tooltip.primary-button-role-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "variant.View",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Onboarding Tooltip [D]",
+          "layer": "Onboarding footer/Button group/[D][Corporate] Button 1"
+        },
+        "requiredVariant": {
+          "View": "Primary"
+        },
+        "ruleText": "Первая кнопка в Onboarding footer выполняет роль Primary. Не меняй её View вручную."
+      },
+      {
+        "ruleId": "component:web-corp.onboarding-tooltip.secondary-button-role-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "variant.View",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Onboarding Tooltip [D]",
+          "layer": "Onboarding footer/Button group/[D][Corporate] Button 2"
+        },
+        "requiredVariant": {
+          "View": "Secondary"
+        },
+        "ruleText": "Вторая кнопка в Onboarding footer, когда она видима, выполняет роль Secondary. Не меняй её View вручную."
       },
       {
         "ruleId": "component:web-corp.onboarding-tooltip.editable-content",
@@ -191,6 +239,25 @@
         "ruleText": "Close обязателен, закрывает текущий onboarding без подтверждения и не может быть скрыт или заменён другой иконкой."
       },
       {
+        "ruleId": "component:web-corp.onboarding-tooltip.close-icon-configuration-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "variant.Size|variant.Color|variant.Style",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Onboarding Tooltip [D]",
+          "layer": "Content/Content/Close/cross"
+        },
+        "requiredVariant": {
+          "Size": "24",
+          "Color": "False",
+          "Style": "Line"
+        },
+        "ruleText": "Встроенная иконка Close использует Size=24, Color=False и Style=Line. Её конфигурацию нельзя менять вручную."
+      },
+      {
         "ruleId": "component:web-corp.onboarding-tooltip.target-must-remain-visible",
         "severity": "error",
         "source": "component-contract",
@@ -203,6 +270,7 @@
         "ruleId": "component:web-corp.onboarding-tooltip.visuals-follow-effective-baseline",
         "severity": "error",
         "source": "component-contract",
+        "ruleKind": "design-rule",
         "appliesTo": "layout.width|layout.padding.*|layout.itemSpacing|radius|fill|styles.text|opacity|effects.*",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
