@@ -266,7 +266,132 @@
     }
   },
   "manual": {
-    "categories": [],
-    "classification": []
+    "runtimeStatus": {
+      "generatedClassification": "available",
+      "manualDisplayMapping": "requires-athena-registry-sync",
+      "interactionRules": "agentic-only"
+    },
+    "classification": [
+      {
+        "match": {
+          "property": "variant.View"
+        },
+        "scope": "component-property",
+        "groupTitle": "Параметры компонента",
+        "displayName": "Оформление",
+        "priority": 10,
+        "resetAction": "reset-component-properties"
+      },
+      {
+        "match": {
+          "property": "Search"
+        },
+        "scope": "component-property",
+        "groupTitle": "Параметры компонента",
+        "displayName": "Поиск",
+        "priority": 20,
+        "resetAction": "reset-component-properties"
+      },
+      {
+        "match": {
+          "property": "SearchConfig"
+        },
+        "scope": "component-composition",
+        "groupTitle": "Состав компонента",
+        "displayName": "Конфигурация поиска",
+        "priority": 25,
+        "resetAction": "reset-component-properties",
+        "effectiveBaseline": "composition-contract"
+      },
+      {
+        "match": {
+          "property": "FiltersConfig"
+        },
+        "scope": "component-composition",
+        "groupTitle": "Состав компонента",
+        "displayName": "Фильтры",
+        "priority": 30,
+        "resetAction": "reset-component-properties",
+        "effectiveBaseline": "composition-contract"
+      },
+      {
+        "match": {
+          "property": "ShowAll"
+        },
+        "scope": "component-property",
+        "groupTitle": "Параметры компонента",
+        "displayName": "Дополнительные фильтры",
+        "priority": 40,
+        "resetAction": "reset-component-properties"
+      },
+      {
+        "match": {
+          "property": "ResetAll"
+        },
+        "scope": "component-property",
+        "groupTitle": "Параметры компонента",
+        "displayName": "Сброс",
+        "priority": 50,
+        "resetAction": "reset-component-properties"
+      },
+      {
+        "match": {
+          "property": "FilterAll"
+        },
+        "scope": "component-property",
+        "groupTitle": "Параметры компонента",
+        "displayName": "Все фильтры",
+        "priority": 60,
+        "resetAction": "reset-component-properties"
+      },
+      {
+        "match": {
+          "property": "Filters"
+        },
+        "scope": "component-property",
+        "groupTitle": "Параметры компонента",
+        "displayName": "Быстрые фильтры",
+        "priority": 65,
+        "resetAction": "reset-component-properties"
+      },
+      {
+        "match": {
+          "property": "variant.Skeleton"
+        },
+        "scope": "component-property",
+        "groupTitle": "Параметры компонента",
+        "displayName": "Скелетон",
+        "priority": 70,
+        "resetAction": "reset-component-properties",
+        "interpretation": "Наблюдаемый variant не определяет ownership продуктовой загрузки."
+      },
+      {
+        "match": {
+          "propertyPrefix": "layout."
+        },
+        "scope": "layer-property",
+        "groupTitle": "Параметры слоя",
+        "priority": 100,
+        "resetAction": "reset-layer-properties",
+        "effectiveBaseline": "composition-contract"
+      }
+    ],
+    "resetSemantics": {
+      "apolloPropertyReset": "Возвращает изменённое component property или layer property к effective baseline.",
+      "productActionReset": "Действие «Сбросить» внутри FilterBar очищает значения и Search, но не пользовательскую конфигурацию.",
+      "doNotConflate": true
+    },
+    "evidencePolicy": {
+      "exactRuleRequiredForViolation": true,
+      "legacyFiltersBlockIsNotFilterBarEvidence": true,
+      "examplesDoNotCreateRules": true,
+      "surfacePairRequiresContext": true,
+      "interactionRulesAreAgenticUntilRuntimeSupport": true
+    },
+    "runtimeLimitations": [
+      "Manual classification и rule IDs должны пройти Athena registry sync после изменения package.",
+      "Interaction, callbacks и persistence нельзя проверить по статическому Figma diff.",
+      "Surface View требует контекста родительской поверхности."
+    ]
   }
 }
