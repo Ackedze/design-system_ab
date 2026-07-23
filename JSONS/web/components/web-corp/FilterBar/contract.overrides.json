@@ -4,6 +4,17 @@
   "metadata": {
     "componentKey": "web-corp.filter-bar",
     "status": "generated-draft",
+    "applicability": {
+      "channels": [
+        "b2b"
+      ],
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "source": "owner-interview+figma",
+      "updatedAt": "2026-07-23"
+    },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "ownershipMigrationRevision": 2,
     "owners": {
@@ -206,5 +217,193 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "identity": {
+      "canonicalName": "FilterBar",
+      "family": [
+        "FilterBarDesktop",
+        "FilterBarMobile"
+      ],
+      "replaces": {
+        "component": "FiltersBlock",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ]
+      },
+      "figmaFile": {
+        "name": "Web — Corp Components",
+        "fileKey": "NrzEFUSTXgzOUmsfYym0xD",
+        "pageNodeId": "151016:27699",
+        "url": "https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=151016-27699&p=f&t=RG0TDLM01YcZmfF5-11"
+      },
+      "figmaRoots": [
+        {
+          "name": "[D] FilterBar",
+          "semanticAlias": "FilterBarDesktop",
+          "nodeId": "151181:10280",
+          "platform": "desktop",
+          "componentKey": "2a247a2c7b2a13618bf76e2d63f29af784e11aa1"
+        },
+        {
+          "name": "[M] FilterBar",
+          "semanticAlias": "FilterBarMobile",
+          "nodeId": "151203:3398",
+          "platform": "mobile-web",
+          "componentKey": "3b14f314fb1ee7df802d3f55f61cd125a27f9c13"
+        }
+      ],
+      "logicalComponentKeyStatus": "confirmed",
+      "figmaKeysStatus": "available"
+    },
+    "publicApi": {
+      "desktop": {
+        "observedProperties": [
+          "View",
+          "FiltersConfig",
+          "SearchConfig",
+          "Search",
+          "ShowAll",
+          "ResetAll",
+          "Skeleton"
+        ],
+        "observedPropertyKeys": {
+          "ResetAll": "ResetAll#151181:0",
+          "ShowAll": "ShowAll#151181:1",
+          "SearchConfig": "SearchConfig#151186:0",
+          "FiltersConfig": "FiltersConfig#151186:3",
+          "Search": "Search#151198:0",
+          "View": "View",
+          "Skeleton": "Skeleton"
+        },
+        "semanticProperties": {
+          "View": [
+            "Muted",
+            "Field"
+          ],
+          "Search": "Опциональное подключение поиска.",
+          "SearchConfig": "Desktop slot для платформенного Search того же View.",
+          "FiltersConfig": "Закрытый slot поддерживаемых пресетов.",
+          "ShowAll": "Платформенная механика More или FilterSettings.",
+          "ResetAll": "Действие с каноническим текстом «Сбросить».",
+          "Skeleton": "Наблюдаемый Figma variant; не подтверждает ownership загрузки."
+        }
+      },
+      "mobile-web": {
+        "observedProperties": [
+          "Search",
+          "FilterAll",
+          "Filters",
+          "FiltersConfig",
+          "Skeleton"
+        ],
+        "observedPropertyKeys": {
+          "FiltersConfig": "FiltersConfig#151203:2",
+          "Search": "Search#151203:3",
+          "FilterAll": "FilterAll#151203:6",
+          "Filters": "Filters#151203:9",
+          "Skeleton": "Skeleton"
+        },
+        "semanticProperties": {
+          "Search": "Опциональный host-owned мобильный Search.",
+          "FilterAll": "Показ контроля «Все фильтры».",
+          "Filters": "Показ быстрого ряда.",
+          "FiltersConfig": "Закрытый slot поддерживаемых пресетов.",
+          "Skeleton": "Наблюдаемый Figma variant; не подтверждает ownership загрузки."
+        }
+      },
+      "excludedFromConfirmedApi": [
+        "Skeleton"
+      ]
+    },
+    "variantSemantics": {
+      "View": {
+        "Muted": "Белые контролы на сером фоне.",
+        "Field": "Серые контролы на белом фоне."
+      }
+    },
+    "responsive": {
+      "mobileWeb": {
+        "minWidth": 320,
+        "maxWidth": 767
+      },
+      "desktop": {
+        "minWidth": 768
+      },
+      "stateTransfer": "Выбранные значения сохраняются при смене платформенного представления."
+    },
+    "interactionResetModel": {
+      "label": "Сбросить",
+      "position": "end",
+      "disabledState": "not-used",
+      "clears": [
+        "filter-values",
+        "search-query"
+      ],
+      "preserves": [
+        "visibility",
+        "order",
+        "user-added-filters"
+      ],
+      "layoutResetAction": "absent"
+    },
+    "stateOwnership": {
+      "component": [
+        "control-layout",
+        "control-state",
+        "mobile-apply-mode",
+        "callbacks"
+      ],
+      "product": [
+        "data",
+        "loading",
+        "error",
+        "empty-state",
+        "search-history-storage",
+        "filter-configuration-storage",
+        "dependent-filter-behavior",
+        "alfametrics"
+      ]
+    },
+    "configurationPersistence": {
+      "storageKey": [
+        "user",
+        "screen"
+      ],
+      "stored": [
+        "visibility",
+        "order",
+        "user-added-filters"
+      ],
+      "notStored": [
+        "filter-values",
+        "search-query"
+      ],
+      "transport": "product-callback",
+      "baseConfigurationMerge": "Удалить отсутствующие фильтры, добавить новые и по возможности сохранить пользовательские видимость и порядок."
+    },
+    "unresolvedForRuntime": [
+      "Фактические public code exports и Code Connect mapping.",
+      "Является ли Skeleton публичным продуктовым prop в коде или только представлением Figma."
+    ],
+    "interactionModel": {
+      "valueTransport": "product-callback",
+      "singleSelection": "applies-immediately",
+      "multipleSelection": "requires-apply",
+      "customDatePeriod": "requires-apply",
+      "closeWithoutApply": "discard-pending-changes",
+      "settingsVisibilityAndOrder": "applies-immediately-through-product-callback"
+    },
+    "searchModel": {
+      "suggestionsWhileTyping": "none",
+      "emptyFocusContent": "recent-searches",
+      "submit": "Enter applies the query and sends it to the product for history storage",
+      "historyClear": "required when recent searches are shown",
+      "recentCount": "up-to-3-recommended-more-allowed"
+    },
+    "filterCount": {
+      "hardLimit": null,
+      "recommendation": "Показывать основные фильтры сразу; второстепенные можно вынести в «Ещё». Количество определяет команда."
+    }
+  }
 }
