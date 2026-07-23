@@ -193,6 +193,44 @@
         "ruleText": "Высота Onboarding Hint всегда использует Hug. Padding, spacing, radius, fill, stroke, typography, opacity и effects должны соответствовать effective baseline. Ширину разрешено менять по контексту."
       },
       {
+        "ruleId": "component:web-corp.onboarding-hint.recommended-width",
+        "severity": "warning",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "layout.width",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "components": [
+            "Onboarding Hint",
+            "Onboarding Hint [D]"
+          ]
+        },
+        "numericConstraint": {
+          "recommended": 360
+        },
+        "ruleText": "Рекомендуемая ширина Onboarding Hint — 360 px. Другую ширину до 420 px можно использовать по контексту."
+      },
+      {
+        "ruleId": "component:web-corp.onboarding-hint.maximum-width",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "layout.width",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "components": [
+            "Onboarding Hint",
+            "Onboarding Hint [D]"
+          ]
+        },
+        "numericConstraint": {
+          "maximum": 420
+        },
+        "ruleText": "Максимальная ширина Onboarding Hint — 420 px. Значения больше 420 px запрещены."
+      },
+      {
         "ruleId": "component:web-corp.onboarding-hint.must-fit-viewport",
         "severity": "error",
         "source": "component-contract",
@@ -238,6 +276,65 @@
           "Icon.Type": "icon-20"
         },
         "ruleText": "Close должен соответствовать effective baseline: Cross Size=24, TransparentBg=False, View=Primary и Icon Type=icon-20. Заменять иконку или вложенный компонент нельзя."
+      },
+      {
+        "ruleId": "component:web-corp.onboarding-hint.close-icon-type-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "variant.Type|component.swap",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Onboarding Hint [D]",
+          "layers": [
+            "Content / Cross / 🔩 Icon",
+            "Content / Cross / Icon"
+          ]
+        },
+        "requiredVariant": {
+          "Type": "icon-20"
+        },
+        "ruleText": "Вложенная иконка Close использует Type=icon-20. Заменять её или менять Type нельзя."
+      },
+      {
+        "ruleId": "component:web-corp.onboarding-hint.close-icon-fill-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "fill|fills",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Onboarding Hint [D]",
+          "layers": [
+            "Content / Cross / 🔩 Icon / Fixer / PaintMe",
+            "Content / Cross / Icon / Fixer / PaintMe"
+          ]
+        },
+        "ruleText": "Заливка вложенной иконки Close должна соответствовать effective baseline. Менять её вручную нельзя."
+      },
+      {
+        "ruleId": "component:web-corp.onboarding-hint.close-glyph-configuration-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "variant.Size|variant.Color|variant.Style|component.swap",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Onboarding Hint [D]",
+          "layers": [
+            "Content / Cross / 🔩 Icon / Fixer / PaintMe / cross",
+            "Content / Cross / Icon / Fixer / PaintMe / cross"
+          ]
+        },
+        "requiredVariant": {
+          "Size": "20",
+          "Color": "False",
+          "Style": "Thinline"
+        },
+        "ruleText": "Glyph Close использует Size=20, Color=False и Style=Thinline. Его конфигурацию нельзя менять вручную."
       },
       {
         "ruleId": "component:web-corp.onboarding-hint.default-state-only",

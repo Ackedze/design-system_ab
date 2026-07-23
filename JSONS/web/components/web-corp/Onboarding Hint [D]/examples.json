@@ -164,14 +164,31 @@
       },
       {
         "exampleId": "onboarding-hint.contextual-width",
-        "title": "Ширина изменена под контекст",
+        "title": "Допустимая ширина отличается от рекомендуемой",
         "inputState": {
-          "widthChanged": true,
+          "width": 400,
           "heightSizing": "HUG",
           "otherVisualsMatchEffectiveBaseline": true
         },
         "expectedAudit": {
-          "category": "none"
+          "category": "customizations",
+          "severity": "warning",
+          "ruleId": "component:web-corp.onboarding-hint.recommended-width"
+        },
+        "mustNotSay": [
+          "Ширина 400 px запрещена."
+        ]
+      },
+      {
+        "exampleId": "onboarding-hint.invalid-maximum-width",
+        "title": "Ширина превышает максимальную",
+        "inputState": {
+          "width": 421
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.onboarding-hint.maximum-width"
         }
       },
       {
@@ -227,12 +244,37 @@
         "exampleId": "onboarding-hint.invalid-close-swap",
         "title": "Иконка Close заменена",
         "inputState": {
-          "closeIconReplaced": true
+          "closeIconReplaced": true,
+          "closeIconType": "Icon 16"
         },
         "expectedAudit": {
           "category": "customizations",
           "severity": "error",
-          "ruleId": "component:web-corp.onboarding-hint.close-configuration-is-fixed"
+          "ruleId": "component:web-corp.onboarding-hint.close-icon-type-is-fixed"
+        }
+      },
+      {
+        "exampleId": "onboarding-hint.invalid-close-fill",
+        "title": "Изменена заливка иконки Close",
+        "inputState": {
+          "closeIconFillChanged": true
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.onboarding-hint.close-icon-fill-is-fixed"
+        }
+      },
+      {
+        "exampleId": "onboarding-hint.invalid-close-glyph-size",
+        "title": "Изменён размер glyph Close",
+        "inputState": {
+          "closeGlyphSize": "s"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.onboarding-hint.close-glyph-configuration-is-fixed"
         }
       },
       {

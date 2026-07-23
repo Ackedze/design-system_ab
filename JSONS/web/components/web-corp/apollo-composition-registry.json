@@ -64482,6 +64482,155 @@
         "documentType": "composition-contract",
         "componentKey": "web-corp.filter-bar",
         "status": "generated-draft",
+        "applicability": {
+          "channels": [
+            "b2b"
+          ],
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "source": "owner-interview+figma",
+          "updatedAt": "2026-07-23"
+        },
+        "publicRoots": [
+          {
+            "name": "[D] FilterBar",
+            "semanticAlias": "FilterBarDesktop",
+            "role": "public-root",
+            "platform": "desktop",
+            "figmaFileKey": "NrzEFUSTXgzOUmsfYym0xD",
+            "figmaNodeId": "151181:10280",
+            "figmaKeyStatus": "available",
+            "figmaComponentKey": "2a247a2c7b2a13618bf76e2d63f29af784e11aa1"
+          },
+          {
+            "name": "[M] FilterBar",
+            "semanticAlias": "FilterBarMobile",
+            "role": "public-root",
+            "platform": "mobile-web",
+            "figmaFileKey": "NrzEFUSTXgzOUmsfYym0xD",
+            "figmaNodeId": "151203:3398",
+            "figmaKeyStatus": "available",
+            "figmaComponentKey": "3b14f314fb1ee7df802d3f55f61cd125a27f9c13"
+          }
+        ],
+        "ownershipModel": {
+          "host": "FilterBar",
+          "description": "Host владеет порядком Search, слотом фильтров и платформенными контролами. Продукт владеет данными, хранением, loading/error/empty и зависимостями фильтров.",
+          "effectiveBaselineStatus": "generated-wraps-available"
+        },
+        "slots": [
+          {
+            "slotName": "SearchConfig",
+            "platforms": [
+              "desktop"
+            ],
+            "kind": "figma-slot",
+            "required": false,
+            "allowedComponents": [
+              "[D] Search_Muted",
+              "[D] Search_Field"
+            ],
+            "constraints": [
+              "Если Search подключён, он стоит первым.",
+              "Пользователь не может скрыть или переместить Search."
+            ]
+          },
+          {
+            "slotName": "FiltersConfig",
+            "platforms": [
+              "desktop",
+              "mobile-web"
+            ],
+            "kind": "figma-slot",
+            "required": true,
+            "allowedComponents": [
+              "Tag",
+              "FilterTag",
+              "Date",
+              "FilterCompanySelect",
+              "AccountSelect",
+              "FilterRange"
+            ],
+            "constraints": [
+              "Произвольные контролы вне закрытого списка не допускаются.",
+              "Активный фильтр нельзя скрыть.",
+              "Закреплённые фильтры нельзя скрыть или переместить."
+            ]
+          },
+          {
+            "slotName": "DesktopControls",
+            "platforms": [
+              "desktop"
+            ],
+            "kind": "host-owned-region",
+            "required": true,
+            "allowedComponents": [
+              "More",
+              "FilterSettings",
+              "Reset"
+            ],
+            "constraints": [
+              "More добавляет скрытый фильтр в конец ряда.",
+              "Если скрытых фильтров нет, More заменяется на FilterSettings.",
+              "Reset находится в конце."
+            ]
+          },
+          {
+            "slotName": "MobileAllFilters",
+            "platforms": [
+              "mobile-web"
+            ],
+            "kind": "host-owned-region",
+            "required": false,
+            "allowedComponents": [
+              "AllFilters"
+            ],
+            "constraints": [
+              "Представление значений определяет продукт.",
+              "Значения синхронизируются с быстрыми фильтрами.",
+              "Состав и порядок FilterBar не изменяются."
+            ]
+          }
+        ],
+        "presetRoles": {
+          "builtIn": [
+            "Tag",
+            "FilterTag",
+            "Date"
+          ],
+          "externalSupported": [
+            "FilterCompanySelect",
+            "AccountSelect",
+            "FilterRange"
+          ]
+        },
+        "platformComposition": {
+          "desktop": [
+            "SearchConfig?",
+            "PinnedFilters",
+            "VisibleFilters",
+            "More|FilterSettings",
+            "Reset"
+          ],
+          "mobile-web": [
+            "[M] Search?",
+            "QuickFilters",
+            "AllFilters?"
+          ]
+        },
+        "prohibitedComposition": [
+          "Mobile AllFilters на Desktop.",
+          "Desktop More или FilterSettings на Mobile.",
+          "Произвольный контрол в FiltersConfig.",
+          "Пользовательский reorder или hide закреплённого фильтра."
+        ],
+        "runtimeLimitations": [
+          "Interaction, callbacks и persistence не проверяются статическим Figma diff и остаются agentic rules.",
+          "Проверка пары Desktop View и родительской поверхности требует контекста экрана.",
+          "Публичные code exports и Code Connect mapping не подтверждены."
+        ],
         "component": {
           "name": "FilterBar",
           "library": "Web _ Corp Components"
@@ -84476,7 +84625,25 @@
               "Size": "24",
               "TransparentBg": "False",
               "View": "Primary",
-              "Icon.Type": "icon-20"
+              "Icon.Type": "icon-20",
+              "Icon.Fill": "effective-baseline",
+              "Icon.Glyph.Size": "20",
+              "Icon.Glyph.Color": "False",
+              "Icon.Glyph.Style": "Thinline"
+            },
+            "nestedPaths": {
+              "icon": [
+                "Content / Cross / 🔩 Icon",
+                "Content / Cross / Icon"
+              ],
+              "iconPaint": [
+                "Content / Cross / 🔩 Icon / Fixer / PaintMe",
+                "Content / Cross / Icon / Fixer / PaintMe"
+              ],
+              "glyph": [
+                "Content / Cross / 🔩 Icon / Fixer / PaintMe / cross",
+                "Content / Cross / Icon / Fixer / PaintMe / cross"
+              ]
             }
           },
           "states": {
@@ -84517,7 +84684,12 @@
             ]
           },
           "visualBaseline": {
-            "width": "contextual; may be changed",
+            "width": {
+              "recommended": 360,
+              "maximum": 420,
+              "unit": "px",
+              "contextualChangeAllowed": true
+            },
             "height": "Hug",
             "fixed": [
               "padding",
