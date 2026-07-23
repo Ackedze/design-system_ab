@@ -266,5 +266,67 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "classificationRules": [
+      {
+        "when": {
+          "propertyPrefix": "variant."
+        },
+        "category": "component-property",
+        "resetSurface": "component",
+        "baselinePolicy": "Используй effective baseline выбранных Tail Direction и Tail Position."
+      },
+      {
+        "when": {
+          "layer": "Content/Content/[D] Button",
+          "propertyPrefix": "variant."
+        },
+        "category": "component-property",
+        "resetSurface": "component",
+        "baselinePolicy": "Сравнивай с фиксированной конфигурацией вложенной кнопки Onboarding Hint."
+      },
+      {
+        "when": {
+          "layers": [
+            "Title",
+            "Content/Content/[D] Button",
+            "Content/Cross",
+            "Tail"
+          ],
+          "property": "visible"
+        },
+        "category": "component-property",
+        "resetSurface": "component",
+        "baselinePolicy": "Обязательные части должны оставаться видимыми."
+      },
+      {
+        "when": {
+          "property": "layout.width"
+        },
+        "category": "allowed-override",
+        "resetSurface": "layer",
+        "baselinePolicy": "Ширину Onboarding Hint разрешено менять по контексту."
+      },
+      {
+        "when": {
+          "property": "layout.height"
+        },
+        "category": "layer-property",
+        "resetSurface": "layer",
+        "baselinePolicy": "Высота должна оставаться Hug."
+      }
+    ],
+    "runtimeLimitations": [
+      "Назначение Onboarding Hint и смысл действия кнопки требуют контекстной проверки агентом.",
+      "Проверка лимита Title требует наличия текстового значения в отчёте Apollo.",
+      "Замена desktop-компонента на BottomSheet в mobile-web проверяется по платформенному контексту, а не по layer diff.",
+      "Направление Tail, перекрытие цели, доступность целевого объекта, способ закрытия и попадание во viewport требуют проверки композиционного или интерактивного контекста.",
+      "Количество одновременно видимых hints и отсутствие блокировки остального интерфейса требуют анализа всей композиции.",
+      "Apollo может зафиксировать swap или variant change в Close, но смысловую замену иконки нужно подтверждать по nested owner context.",
+      "Перенос Title, кликабельность поверхности и последовательный flow требуют анализа текстового и прототипного контекста.",
+      "Изменение Tail Direction или Tail Position является штатной настройкой, пока Tail указывает на связанный объект.",
+      "Количество кнопок можно проверить по композиции; назначение текста, отсутствие backdrop и выбор компонента для результата действия требуют контекстной проверки агентом.",
+      "Финальная точка в Title не является нарушением для Onboarding Hint."
+    ]
+  }
 }

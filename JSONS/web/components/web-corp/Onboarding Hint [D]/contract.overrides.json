@@ -9,11 +9,10 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-23"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -50,5 +49,85 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "semanticComponents": [
+      {
+        "name": "Onboarding Hint",
+        "role": "public-root",
+        "platform": "desktop",
+        "requiredParts": [
+          "Title",
+          "[D] Button",
+          "Cross",
+          "Tail"
+        ]
+      }
+    ],
+    "internalOnly": [
+      "Tail"
+    ],
+    "allowedOverrides": {
+      "text": [
+        "Title",
+        "Button label"
+      ],
+      "componentProperties": [
+        "Tail Direction",
+        "Tail Position"
+      ],
+      "layerProperties": [
+        "layout.width"
+      ],
+      "behavior": [
+        "Button closes Onboarding Hint",
+        "Button launches the related function",
+        "automatic trigger",
+        "event trigger",
+        "repeat launch defined by business logic",
+        "Button and Close interaction",
+        "external target remains interactive"
+      ]
+    },
+    "forbiddenOverrides": [
+      "standalone Tail",
+      "Onboarding Hint [D] on mobile-web",
+      "hidden Title",
+      "hidden Button",
+      "more than one Button",
+      "hidden Close",
+      "hidden Tail",
+      "Title longer than 70 characters",
+      "button Size other than 32",
+      "button View other than Text",
+      "button Shape other than Rectangular",
+      "button SingleIcon=true",
+      "button DisabledState=true",
+      "button addon",
+      "link, list or rich text in Title",
+      "replaced Close icon",
+      "changed Close configuration",
+      "loading, disabled or error state",
+      "more than one simultaneous Onboarding Hint",
+      "launch without a visible target inside the viewport",
+      "blocking the rest of the interface",
+      "Title truncation or ellipsis",
+      "clickable whole hint surface",
+      "clickable Title",
+      "clickable Tail",
+      "sequential flow made from several Onboarding Hint instances",
+      "backdrop, dimming or spotlight",
+      "error, restriction, consequence or critical information as Title content",
+      "action result shown in Onboarding Hint",
+      "Tail not pointing to the target object or area",
+      "Onboarding Hint covering its target object",
+      "non-interactive target object",
+      "dismiss by Escape or outside click",
+      "non-Hug height",
+      "manual padding or spacing",
+      "manual radius, fill or stroke",
+      "manual typography",
+      "manual opacity or effects",
+      "Onboarding Hint clipped by the viewport"
+    ]
+  }
 }

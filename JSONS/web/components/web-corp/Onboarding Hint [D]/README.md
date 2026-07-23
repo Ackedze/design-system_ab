@@ -1,28 +1,56 @@
-# Onboarding Hint [D] — MVP component contract
+# Onboarding Hint [D]
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / Onboarding Hint [D]**.
+Комплект машиночитаемых документов для **Web _ Corp Components / Onboarding Hint [D]**.
 
-The raw Figma catalog remains the source of truth:
+## Статус
 
-`../Web _ Corp Components -- Onboarding Hint [D].json`
+`Draft`: подтверждена первая группа правил. Комплект дополняется по результатам интервью и ещё не прошёл финальный runtime-тест Apollo.
+
+## Назначение
+
+`Onboarding Hint` знакомит пользователя с новой или изменившейся функцией. Для обычного краткого пояснения элемента интерфейса используется `Hint`.
+
+Компонент применяется только на desktop от 768 px. На mobile-web onboarding-сценарий показывается в `BottomSheet`.
+
+## Подтверждённые правила
+
+- Публичный корень — `Onboarding Hint`; `Tail` отдельно не используется.
+- `Title`, одна кнопка, `Close` и `Tail` обязательны, скрывать их нельзя.
+- `Title` содержит не более 70 символов.
+- Встроенная кнопка использует `Size=32`, `View=Text`, `Shape=Rectangular`, `SingleIcon=False`, `DisabledState=False`, без addons.
+- Кнопка может закрыть hint или запустить связанную функцию.
+- Hint запускается автоматически или по триггерному событию; повторный показ определяется бизнес-логикой.
+- `Tail` указывает на связанный объект или область. Hint не перекрывает цель, а цель остаётся интерактивной.
+- Самостоятельно закрыть hint можно только через `Close`, без подтверждения. `Esc` и клик снаружи не закрывают компонент.
+- Ширину разрешено менять, высота всегда `Hug`; остальные визуальные параметры соответствуют effective baseline.
+- Hint должен полностью помещаться во viewport. Использование поверх `Modal` и `Drawer` допустимо.
+- `Title` содержит только обычный текст, без ссылок, списков и rich text.
+- `Close` нельзя заменять; его конфигурация соответствует effective baseline.
+- У компонента есть только обычное состояние, без `loading`, `disabled` и `error`.
+- Одновременно отображается только один hint. Запуск без видимой цели внутри viewport запрещён.
+- Остальной интерфейс не блокируется и остаётся интерактивным.
+- `Title` переносится без truncation. Label кнопки можно менять по общим правилам `Button`.
+- Внутри hint интерактивны только `Button` и `Close`; связанный внешний объект остаётся интерактивным.
+- `Tail Direction` и `Tail Position` выбираются по расположению связанного объекта.
+- Из нескольких `Onboarding Hint` нельзя собирать последовательный onboarding-flow.
+- В компоненте всегда ровно одна кнопка.
+- Точка в конце `Title` допустима.
+- Backdrop, затемнение и spotlight не используются.
+- Компонент не предназначен для ошибок, ограничений, последствий и критически важной информации.
+- Для результата действия используются `Toast`, `Notification` или `CorporateStatusScreen`.
 
 ## Файлы
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+- `contract.generated.json` — компактный контракт, который Athena CLI формирует из raw-каталога.
+- `contract.overrides.json` — ручные семантические уточнения, разрешённые и запрещённые overrides.
+- `composition-contract.json` — ownership и правила композиции вложенных частей.
+- `rules.json` — детерминированные и контекстные правила для Apollo и агента.
+- `audit-mapping.json` — классификация отклонений и ограничения runtime-проверки.
+- `examples.json` — положительные и нарушающие примеры.
+- `agent-context.json` — компактный контекст для интерпретации отчёта агентом.
 
 ## Источник
 
-- Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
-- Компонентов: `2`
-
-## Current Scope
-
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+- Raw-каталог: `../Web _ Corp Components -- Onboarding Hint [D].json`
+- Индекс: `../../../indexes/web/components/web-corp/Web _ Corp Components -- Onboarding Hint [D].index.json`
+- Паттерн выбора Tooltip и Hint: `../../../../patterns/p_tooltip_hint.md`

@@ -9,11 +9,10 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-07-23"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -130,5 +129,165 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "ownershipModel": {
+      "publicRoots": [
+        "Onboarding Hint"
+      ],
+      "internalComponents": [
+        "Tail"
+      ],
+      "internalStandaloneAllowed": false,
+      "defaultNestedDiffPolicy": "compare-against-onboarding-hint-effective-baseline"
+    },
+    "compositionPolicy": {
+      "purpose": "Познакомить пользователя с новой или изменившейся функцией.",
+      "platform": {
+        "desktop": "Используй Onboarding Hint на desktop от 768 px.",
+        "mobileWeb": "Используй BottomSheet вместо Onboarding Hint [D]."
+      },
+      "requiredContent": {
+        "title": true,
+        "button": true,
+        "close": true,
+        "tail": true,
+        "visibilityChangeAllowed": false
+      },
+      "text": {
+        "titleMaximumCharacters": 70,
+        "format": "plain text only",
+        "finalDotAllowed": true,
+        "linksAllowed": false,
+        "listsAllowed": false,
+        "richTextAllowed": false,
+        "overflow": {
+          "Title": "wrap without truncation"
+        },
+        "editable": [
+          "Title",
+          "Button label"
+        ]
+      },
+      "button": {
+        "required": true,
+        "minimum": 1,
+        "maximum": 1,
+        "size": 32,
+        "view": "Text",
+        "shape": "Rectangular",
+        "singleIcon": false,
+        "disabledState": false,
+        "addons": false,
+        "allowedActions": [
+          "close-hint",
+          "launch-related-function"
+        ]
+      },
+      "trigger": {
+        "allowed": [
+          "automatic",
+          "trigger-event"
+        ],
+        "repeatLaunch": "business-logic"
+      },
+      "tail": {
+        "directionAndPositionSelectedByDesigner": true,
+        "mustPointTo": "target object or target area"
+      },
+      "interaction": {
+        "targetMayBeCovered": false,
+        "targetMustRemainVisible": true,
+        "targetMustRemainInteractive": true,
+        "standaloneDismissMethod": "Close",
+        "closeRequiresConfirmation": false,
+        "escapeDismissAllowed": false,
+        "outsideClickDismissAllowed": false
+      },
+      "interactiveParts": {
+        "insideHint": [
+          "Button",
+          "Close"
+        ],
+        "wholeSurfaceClickable": false,
+        "titleClickable": false,
+        "tailClickable": false,
+        "externalTargetRemainsInteractive": true
+      },
+      "close": {
+        "required": true,
+        "replacementAllowed": false,
+        "effectiveBaseline": {
+          "Size": "24",
+          "TransparentBg": "False",
+          "View": "Primary",
+          "Icon.Type": "icon-20"
+        }
+      },
+      "states": {
+        "supported": [
+          "default"
+        ],
+        "unsupported": [
+          "loading",
+          "disabled",
+          "error"
+        ]
+      },
+      "composition": {
+        "maximumSimultaneousHints": 1,
+        "sequentialFlowAllowed": false,
+        "blockingOverlayRequired": false,
+        "backdropAllowed": false,
+        "dimmingAllowed": false,
+        "spotlightAllowed": false,
+        "outsideInterfaceInteractionBlocked": false
+      },
+      "contentScope": {
+        "allowed": [
+          "introduction to a new function",
+          "introduction to a changed function"
+        ],
+        "forbidden": [
+          "error",
+          "restriction",
+          "action consequence",
+          "critical information",
+          "action result"
+        ],
+        "actionResultComponents": [
+          "Toast",
+          "Notification",
+          "CorporateStatusScreen"
+        ]
+      },
+      "visualBaseline": {
+        "width": "contextual; may be changed",
+        "height": "Hug",
+        "fixed": [
+          "padding",
+          "spacing",
+          "radius",
+          "fill",
+          "stroke",
+          "typography",
+          "opacity",
+          "effects"
+        ]
+      },
+      "placement": {
+        "mustFitViewport": true,
+        "viewportClippingAllowed": false,
+        "allowedTemporarySurfaces": [
+          "Modal",
+          "Drawer"
+        ],
+        "targetPreconditions": {
+          "visible": true,
+          "insideViewport": true,
+          "hintMustNotStartWhenUnavailable": true
+        }
+      },
+      "effectiveBaseline": "Сравнивай вложенные части с effective baseline выбранных Tail Direction и Tail Position."
+    }
+  }
 }

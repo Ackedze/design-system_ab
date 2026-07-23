@@ -189,6 +189,7 @@ function validatePackage(rootDir, packageDir) {
 
   validateGeneratedContract(documents.get("contract.generated.json"), errors, warnings);
   validateRules(documents.get("rules.json"), errors, warnings);
+  validateAgentContext(documents.get("agent-context.json"), errors);
   validateReadyContent(documents, metadataStatuses, errors, warnings);
 
   const readmePath = path.join(packageDir, "README.md");
@@ -293,6 +294,41 @@ function validateRules(document, errors, warnings) {
   const manualRules = document.manual?.rules;
   if (Array.isArray(manualRules) && manualRules.length === 0) {
     warnings.push("rules.json: manual.rules пуст; компонент содержит только generated defaults.");
+  }
+}
+
+function validateAgentContext(document, errors) {
+  if (!document) {
+    return;
+  }
+
+  const semantics = document.manual?.componentSemantics;
+  if (semantics === undefined) {
+    return;
+  }
+  if (!Array.isArray(semantics)) {
+    errors.push("agent-context.json: manual.componentSemantics должен быть массивом.");
+    return;
+  }
+
+  for (let index = 0; index < semantics.length; index += 1) {
+    const semantic = semantics[index];
+    const location = `manual.componentSemantics[${index}]`;
+    if (!isPlainObject(semantic)) {
+      errors.push(`agent-context.json ${location}: запись должна быть object.`);
+      continue;
+    }
+
+    for (const field of ["componentKey", "purpose", "provenance"]) {
+      if (typeof semantic[field] !== "string" || !semantic[field].trim()) {
+        errors.push(`agent-context.json ${location}: отсутствует ${field}.`);
+      }
+    }
+    if (semantic.status !== "approved") {
+      errors.push(
+        `agent-context.json ${location}: status должен быть "approved".`,
+      );
+    }
   }
 }
 
