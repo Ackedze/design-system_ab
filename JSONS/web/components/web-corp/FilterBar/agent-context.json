@@ -347,5 +347,111 @@
       "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
     }
   },
-  "manual": {}
+  "manual": {
+    "summary": {
+      "componentFamily": "FilterBar",
+      "library": "Web _ Corp Components",
+      "purpose": "Панель управления выдачей перед таблицей, списком или другой группой данных.",
+      "lifecycle": "In progress",
+      "replaces": "FiltersBlock"
+    },
+    "figmaEvidence": {
+      "fileKey": "NrzEFUSTXgzOUmsfYym0xD",
+      "pageNodeId": "151016:27699",
+      "publicRoots": [
+        {
+          "name": "[D] FilterBar",
+          "nodeId": "151181:10280",
+          "componentKey": "2a247a2c7b2a13618bf76e2d63f29af784e11aa1"
+        },
+        {
+          "name": "[M] FilterBar",
+          "nodeId": "151203:3398",
+          "componentKey": "3b14f314fb1ee7df802d3f55f61cd125a27f9c13"
+        }
+      ],
+      "observedPresetSectionNodeId": "151044:17017",
+      "evidenceLimit": "Figma подтверждает структуру, properties и variants, но не продуктовую семантику."
+    },
+    "patternReferences": [
+      {
+        "patternId": "ptrn:components.filter-bar",
+        "purpose": "Расположение на экране, тексты, продуктовые обязанности, состояния выдачи и межкомпонентный flow."
+      },
+      {
+        "patternId": "ptrn:layout.adaptive-alfa-business",
+        "purpose": "Универсальный брейкпоинт Desktop и Mobile Web."
+      },
+      {
+        "patternId": "ptrn:controls.input-fields",
+        "purpose": "Плейсхолдер Search и общие правила текста поля."
+      }
+    ],
+    "purpose": [
+      "Дать пользователю единый блок поиска, фильтрации и настройки выдачи.",
+      "Сохранить предсказуемую структуру на Desktop и Mobile.",
+      "Заменить FiltersBlock без смешивания старой и новой семантики."
+    ],
+    "usageGuidance": [
+      "Располагая FilterBar, связывай его с конкретной таблицей, списком или реестром.",
+      "Подключай Search только при необходимости; подключённый Search всегда первый.",
+      "Используй только закрытый список поддерживаемых пресетов.",
+      "Не переноси Desktop controls на Mobile и наоборот.",
+      "Сохраняй выбранные значения при переключении платформенного вида."
+    ],
+    "contentGuidance": [
+      "Называй фильтры существительными в единственном числе.",
+      "Для нескольких значений используй формат «Счёт (3)».",
+      "Если период не выбран, используй «Период».",
+      "Канонический текст действия — «Сбросить».",
+      "При пустом фокусе Search можно показать «Недавно искали»; во время ввода вариантов нет.",
+      "Если показаны недавние запросы, предоставь очистку истории; до трёх запросов — рекомендация, а не лимит."
+    ],
+    "ruleHighlights": [
+      "component:web-corp.filter-bar.search-optional-but-pinned",
+      "component:web-corp.filter-bar.supported-presets-only",
+      "component:web-corp.filter-bar.active-filter-cannot-hide",
+      "component:web-corp.filter-bar.mobile-apply-mode",
+      "component:web-corp.filter-bar.reset-values-only",
+      "component:web-corp.filter-bar.surface-view-pair",
+      "component:web-corp.filter-bar.other-period-position"
+    ],
+    "responsibilityBoundary": {
+      "component": [
+        "composition",
+        "control-states",
+        "mobile-apply-mode",
+        "callbacks",
+        "reset-values"
+      ],
+      "product": [
+        "data",
+        "loading-error-empty",
+        "history-storage",
+        "configuration-storage",
+        "dependent-filters",
+        "alfametrics"
+      ]
+    },
+    "agentInstructions": [
+      "Не выводи запрет из legacy FiltersBlock, raw или generated contract без exact FilterBar rule.",
+      "Не называй Search автокомплитом: во время ввода варианты не показываются.",
+      "Не требуй сохранять значения фильтров или Search между сессиями.",
+      "Не утверждай, что «Сбросить» очищает видимость или порядок.",
+      "Не навязывай конкретное представление внутри «Все фильтры»: его выбирает продукт.",
+      "Не превращай рекомендацию показывать все фильтры в количественный лимит.",
+      "Не объявляй поведение взаимосвязанных фильтров нарушением без продуктового правила.",
+      "Не считай наличие Skeleton variant доказательством того, что FilterBar управляет загрузкой продуктовых данных.",
+      "Не выдавай manual interaction и persistence rules за статические проверки Apollo до registry sync и runtime-теста.",
+      "Не считай больше трёх недавних запросов нарушением: это рекомендация.",
+      "Не выводи public code API из названий Figma component properties."
+    ],
+    "runtimeLimitations": [
+      "Generated contract, raw catalog и composition wraps доступны; manual rules требуют Athena registry sync после изменения.",
+      "Interaction, persistence, callbacks и responsive state transfer остаются agentic-only до runtime-поддержки.",
+      "Surface View требует контекста родительской поверхности.",
+      "Публичные code exports и статус Skeleton как code prop не подтверждены."
+    ],
+    "codeExports": []
+  }
 }
