@@ -8,6 +8,12 @@
 
 JSON-отчёты проверок Apollo хранятся отдельно в `Ackedze/design-system_stats`.
 
+## Apollo Agent и Langflow
+
+Исходные prompts Apollo Agent находятся в `apollo/instructions`. Agent поддерживает два независимых режима: автоматический `audit-analysis` по `apollo-agent-report` и многоходовый `design-dialogue` о паттернах, правилах применения компонентов и проектировании.
+
+Экспортированные JSON flow хранятся в `apollo/flows`, но ручное обновление flow выполняется через интерфейс Langflow. Пошаговая настройка узлов, memory, tools и smoke tests описана в [`apollo/LANGFLOW_DIALOGUE_SETUP.md`](./apollo/LANGFLOW_DIALOGUE_SETUP.md).
+
 ## Наполнение component packages
 
 - `COMPONENT_AUTHORING.md` — командный workflow подготовки corp-компонентов.

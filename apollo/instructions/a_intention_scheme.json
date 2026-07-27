@@ -1,89 +1,121 @@
 {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-        "primaryIntent": {
-            "type": "string",
-            "enum": [
-                "analyze_report",
-                "summarize_report",
-                "explain_finding",
-                "find_pattern_context",
-                "find_examples",
-                "unknown"
-            ]
-        },
-        "confidence": {
-            "type": "string",
-            "enum": [
-                "high",
-                "medium",
-                "low"
-            ]
-        },
-        "action": {
-            "type": "string",
-            "enum": [
-                "analyze",
-                "summarize",
-                "explain",
-                "search",
-                "unknown"
-            ]
-        },
-        "inputType": {
-            "type": "string",
-            "enum": [
-                "apollo_agent_report",
-                "apollo_full_report",
-                "apollo_finding",
-                "follow_up",
-                "plain_request",
-                "unknown"
-            ]
-        },
-        "reportKind": {
-            "type": "string"
-        },
-        "sourceReportId": {
-            "type": "string"
-        },
-        "requestedCategory": {
-            "type": "string"
-        },
-        "requestedComponent": {
-            "type": "string"
-        },
-        "requestedRuleId": {
-            "type": "string"
-        },
-        "needsPattern": {
-            "type": "boolean"
-        },
-        "needsRag": {
-            "type": "boolean"
-        },
-        "shouldAnalyzeReport": {
-            "type": "boolean"
-        },
-        "taskSummary": {
-            "type": "string",
-            "maxLength": 240
-        }
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": [
+        "audit-analysis",
+        "design-dialogue"
+      ]
     },
-    "required": [
-        "primaryIntent",
-        "confidence",
-        "action",
-        "inputType",
-        "reportKind",
-        "sourceReportId",
-        "requestedCategory",
-        "requestedComponent",
-        "requestedRuleId",
-        "needsPattern",
-        "needsRag",
-        "shouldAnalyzeReport",
-        "taskSummary"
-    ]
+    "primaryIntent": {
+      "type": "string",
+      "enum": [
+        "analyze_report",
+        "summarize_report",
+        "explain_finding",
+        "find_pattern_context",
+        "explain_component_usage",
+        "design_consultation",
+        "find_examples",
+        "unknown"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "analyze",
+        "summarize",
+        "explain",
+        "search",
+        "consult",
+        "clarify",
+        "unknown"
+      ]
+    },
+    "inputType": {
+      "type": "string",
+      "enum": [
+        "apollo_agent_request",
+        "apollo_agent_report",
+        "apollo_full_report",
+        "apollo_finding",
+        "follow_up",
+        "plain_request",
+        "unknown"
+      ]
+    },
+    "contextMode": {
+      "type": "string",
+      "enum": [
+        "none",
+        "selection",
+        "finding",
+        "audit_report",
+        "mixed"
+      ]
+    },
+    "reportKind": {
+      "type": "string"
+    },
+    "sourceReportId": {
+      "type": "string"
+    },
+    "requestedCategory": {
+      "type": "string"
+    },
+    "requestedComponent": {
+      "type": "string"
+    },
+    "requestedRuleId": {
+      "type": "string"
+    },
+    "needsPattern": {
+      "type": "boolean"
+    },
+    "needsRag": {
+      "type": "boolean"
+    },
+    "shouldAnalyzeReport": {
+      "type": "boolean"
+    },
+    "shouldUseConversationHistory": {
+      "type": "boolean"
+    },
+    "needsClarification": {
+      "type": "boolean"
+    },
+    "taskSummary": {
+      "type": "string",
+      "maxLength": 320
+    }
+  },
+  "required": [
+    "mode",
+    "primaryIntent",
+    "confidence",
+    "action",
+    "inputType",
+    "contextMode",
+    "reportKind",
+    "sourceReportId",
+    "requestedCategory",
+    "requestedComponent",
+    "requestedRuleId",
+    "needsPattern",
+    "needsRag",
+    "shouldAnalyzeReport",
+    "shouldUseConversationHistory",
+    "needsClarification",
+    "taskSummary"
+  ]
 }
