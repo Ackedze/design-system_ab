@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Validate Apollo pattern registry coverage and critical ingest metadata."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[2]
+REGISTRY_PATH = ROOT / "apollo" / "pattern-registry.json"
+
+
+EXPECTED_COMPONENT_ROUTES = {
+    "Button": "p_buttons-and-buttons-group.md",
+    "ButtonsGroup": "p_buttons-and-buttons-group.md",
+    "BackgroundPlate": "p_background-plate.md",
+    "BenefitCard": "p_benefit-card.md",
+    "FileUpload": "p_file-upload.md",
+    "FilterBar": "p_filter-bar.md",
+    "IconView": "p_images_format.md",
+    "Input": "p_input-fields.md",
+    "IsleBlock": "p_islands.md",
+    "Status": "p_status-model.md",
+    "StatusScreen": "p_status-screen.md",
+    "TableView": "p_table-view.md",
+    "TabsView": "p_tabs-view.md",
+    "TitleView": "p_title-view.md",
+    "Tooltip": "p_tooltip_hint.md",
+    "WideGrid": "p_wide-grid.md",
+}
+
+
+def main() -> int:
+    registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+    if registry.get("usage") != "pattern-rag-ingestion":
+        raise SystemExit("Registry is not configured for pattern RAG ingestion")
+
+    policy = registry.get("retrievalPolicy", {})
+    if not policy.get("domainIsolationRequired"):
+        raise SystemExit("Pattern RAG domain isolation must be required")
+    if policy.get("fallbackToModelKnowledge") is not False:
+        raise SystemExit("Model-knowledge fallback must be disabled")
+
+    routes = registry.get("routes", [])
+    if len(routes) != 32:
+        raise SystemExit(f"Expected 32 routes, got {len(routes)}")
+
+    component_routes: dict[str, list[str]] = {}
+    rule_routes: dict[str, str] = {}
+    source_files: set[str] = set()
+    for route in routes:
+        source_file = route["sourceFile"]
+        source_files.add(source_file)
+        if not route.get("patternId") or not route.get("patternKey"):
+            raise SystemExit(f"Missing pattern identity for {source_file}")
+        if not route.get("aliases") and not route.get("components"):
+            raise SystemExit(f"Missing retrieval terms for {source_file}")
+
+        for component in route["components"]:
+            component_routes.setdefault(component, []).append(source_file)
+        for rule_id in route["ruleIds"]:
+            if rule_id in rule_routes:
+                raise SystemExit(f"Duplicate ruleId: {rule_id}")
+            rule_routes[rule_id] = source_file
+
+    pattern_files = {path.name for path in (ROOT / "patterns").glob("p_*.md")}
+    if source_files != pattern_files:
+        raise SystemExit(
+            "Pattern source coverage mismatch: "
+            f"missing={sorted(pattern_files - source_files)}, "
+            f"stale={sorted(source_files - pattern_files)}"
+        )
+
+    for component, expected_file in EXPECTED_COMPONENT_ROUTES.items():
+        actual_files = component_routes.get(component, [])
+        if actual_files != [expected_file]:
+            raise SystemExit(
+                f"Unexpected source for {component}: expected {expected_file}, got {actual_files}"
+            )
+
+    required_rule = "rule:controls.buttons-and-button-groups.primary-left"
+    if rule_routes.get(required_rule) != "p_buttons-and-buttons-group.md":
+        raise SystemExit(f"Missing critical rule metadata: {required_rule}")
+
+    print(
+        "Pattern registry checks passed: "
+        f"{len(routes)} patterns, {len(rule_routes)} ruleIds, "
+        f"{len(component_routes)} components"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

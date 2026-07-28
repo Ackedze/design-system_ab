@@ -14,6 +14,8 @@ JSON-отчёты проверок Apollo хранятся отдельно в `
 
 Экспортированные JSON flow хранятся в `apollo/flows`, но ручное обновление flow выполняется через интерфейс Langflow. Пошаговая настройка узлов, memory, tools и smoke tests описана в [`apollo/LANGFLOW_DIALOGUE_SETUP.md`](./apollo/LANGFLOW_DIALOGUE_SETUP.md).
 
+Нормативные pattern-файлы индексируются в отдельном ARAG-домене и читаются стандартным Langflow-компонентом `RAG v.2`. Этот домен нельзя смешивать с RAG-базой продуктовых примеров. [`apollo/pattern-registry.json`](./apollo/pattern-registry.json) используется при подготовке и проверке индекса: он связывает source files с pattern ids, component names, aliases и rule ids. Registry пересобирается командой `python3 apollo/scripts/build_pattern_registry.py`.
+
 ## Наполнение component packages
 
 - `COMPONENT_AUTHORING.md` — командный workflow подготовки corp-компонентов.

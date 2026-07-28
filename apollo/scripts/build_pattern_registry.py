@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the deterministic Apollo pattern routing registry from pattern metadata."""
+"""Build Apollo pattern metadata for isolated RAG ingestion and coverage checks."""
 
 from __future__ import annotations
 
@@ -60,7 +60,10 @@ ROUTING = {
         "aliases": [
             "кнопка",
             "кнопки",
+            "кнопок",
             "группа кнопок",
+            "группы кнопок",
+            "групп кнопок",
             "иерархия действий",
             "главное действие",
             "overflow действий",
@@ -255,18 +258,20 @@ def build_registry() -> dict[str, object]:
     return {
         "schemaVersion": 1,
         "sourceRoot": "patterns",
-        "routingPolicy": {
-            "maxFiles": 3,
-            "maxTotalCharacters": 60000,
-            "fallbackToAllFiles": False,
-            "priority": [
+        "usage": "pattern-rag-ingestion",
+        "retrievalPolicy": {
+            "domainIsolationRequired": True,
+            "documentType": "pattern",
+            "maxQueriesPerRequest": 2,
+            "fallbackToModelKnowledge": False,
+            "requiredEvidenceFields": ["sourceFile", "ruleText"],
+            "preferredLookupOrder": [
                 "ruleId-exact",
                 "patternId-exact",
                 "sourceFile-exact",
-                "component-exact",
-                "component-alias",
-                "category-exact",
-                "question-alias",
+                "component-and-property",
+                "component-and-question",
+                "scenario-and-platform",
             ],
         },
         "routes": [build_route(path) for path in files],
