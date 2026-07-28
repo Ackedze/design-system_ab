@@ -1,17 +1,18 @@
 {
   "schemaVersion": 1,
   "sourceRoot": "patterns",
-  "usage": "pattern-rag-ingestion",
+  "usage": "pattern-evidence-catalog",
   "retrievalPolicy": {
-    "domainIsolationRequired": true,
-    "documentType": "pattern",
+    "runtimeScope": "design-space",
+    "acceptRelevantDocumentTypes": true,
+    "normativeDocumentType": "pattern",
     "maxQueriesPerRequest": 2,
     "fallbackToModelKnowledge": false,
-    "requiredEvidenceFields": [
-      "sourceFile",
-      "ruleText"
+    "requiredSourceFields": [
+      "sourceTitle",
+      "sourceUrl"
     ],
-    "preferredLookupOrder": [
+    "localCatalogLookupOrder": [
       "ruleId-exact",
       "patternId-exact",
       "sourceFile-exact",

@@ -14,7 +14,11 @@ JSON-отчёты проверок Apollo хранятся отдельно в `
 
 Экспортированные JSON flow хранятся в `apollo/flows`, но ручное обновление flow выполняется через интерфейс Langflow. Пошаговая настройка узлов, memory, tools и smoke tests описана в [`apollo/LANGFLOW_DIALOGUE_SETUP.md`](./apollo/LANGFLOW_DIALOGUE_SETUP.md).
 
-Нормативные pattern-файлы индексируются в отдельном ARAG-домене и читаются стандартным Langflow-компонентом `RAG v.2`. Этот домен нельзя смешивать с RAG-базой продуктовых примеров. [`apollo/pattern-registry.json`](./apollo/pattern-registry.json) используется при подготовке и проверке индекса: он связывает source files с pattern ids, component names, aliases и rule ids. Registry пересобирается командой `python3 apollo/scripts/build_pattern_registry.py`.
+Дочерний flow `apollo_reading_patterns` выполняет общий поиск по документам Confluence-пространства DESIGN через стандартный Langflow-компонент `RAG v.2` (`domain 571`, `source Confluence`). База продуктовых примеров остаётся отдельным инструментом `apollo_reading_rag`. [`apollo/pattern-registry.json`](./apollo/pattern-registry.json) является локальным каталогом нормативных pattern-файлов: он связывает source files с pattern ids, component names, aliases и rule ids, но не ограничивает runtime-поиск. Registry пересобирается командой `python3 apollo/scripts/build_pattern_registry.py`.
+
+Релевантные документы любого типа могут попасть в ответ DESIGN search. Только документ с точным `documentType: pattern` имеет нормативную силу; остальные материалы маркируются как контекст пространства и не превращаются в обязательные правила. Ответ всегда сохраняет title и URL источника, а отсутствие результатов нельзя компенсировать знаниями модели. Перечень паттернов считается полным только при наличии явного registry/inventory-документа в найденных источниках.
+
+Перед настройкой Pattern Agent доступность документов проверяется отдельным `apollo_pattern_rag_probe`: `Chat Input -> RAG v.2 -> Chat Output`, без LLM и post-filter. Пустой raw `chunks` в этом flow означает проблему ARAG domain/source/indexing, которую нельзя исправить prompt-правилами.
 
 ## Наполнение component packages
 

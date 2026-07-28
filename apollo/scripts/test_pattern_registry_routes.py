@@ -33,14 +33,21 @@ EXPECTED_COMPONENT_ROUTES = {
 
 def main() -> int:
     registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
-    if registry.get("usage") != "pattern-rag-ingestion":
-        raise SystemExit("Registry is not configured for pattern RAG ingestion")
+    if registry.get("usage") != "pattern-evidence-catalog":
+        raise SystemExit("Registry is not configured as a pattern evidence catalog")
 
     policy = registry.get("retrievalPolicy", {})
-    if not policy.get("domainIsolationRequired"):
-        raise SystemExit("Pattern RAG domain isolation must be required")
+    if policy.get("runtimeScope") != "design-space":
+        raise SystemExit("Runtime search must cover the DESIGN space")
+    if policy.get("acceptRelevantDocumentTypes") is not True:
+        raise SystemExit("Runtime search must accept relevant documents of every type")
+    if policy.get("normativeDocumentType") != "pattern":
+        raise SystemExit("Only pattern documents may be treated as normative")
     if policy.get("fallbackToModelKnowledge") is not False:
         raise SystemExit("Model-knowledge fallback must be disabled")
+    required_source_fields = policy.get("requiredSourceFields", [])
+    if not {"sourceTitle", "sourceUrl"}.issubset(required_source_fields):
+        raise SystemExit("Every accepted document must retain its title and URL")
 
     routes = registry.get("routes", [])
     if len(routes) != 32:
@@ -54,6 +61,9 @@ def main() -> int:
         source_files.add(source_file)
         if not route.get("patternId") or not route.get("patternKey"):
             raise SystemExit(f"Missing pattern identity for {source_file}")
+        source_text = (ROOT / "patterns" / source_file).read_text(encoding="utf-8")
+        if "- documentType: pattern" not in source_text:
+            raise SystemExit(f"Invalid documentType for {source_file}")
         if not route.get("aliases") and not route.get("components"):
             raise SystemExit(f"Missing retrieval terms for {source_file}")
 

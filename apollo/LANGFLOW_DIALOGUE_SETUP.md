@@ -24,11 +24,11 @@
 - `a_pattern_agent_system.md` как `a_pattern_agent_system`;
 - `a_rag_agent_system.md` как `a_rag_agent_system`.
 
-Для подготовки отдельного pattern-domain используйте:
+Для сопровождения нормативных pattern-документов используйте:
 
 - `apollo/pattern-registry.json` как реестр source metadata;
 - все `patterns/p_*.md` с точными исходными именами, включая `p_title-view.md` без суффикса `(1)`;
-- отдельный ARAG domain, содержащий только нормативные pattern-документы.
+- общий Confluence ARAG domain пространства DESIGN; `documentType` классифицирует доказательную силу результата, но не фильтрует поиск.
 
 После загрузки prompt-файлов откройте каждый соответствующий `AlfaFile` node, повторно выберите файл и нажмите save/refresh. Это важно: Langflow может сохранить старую ревизию при том же имени файла.
 
@@ -114,7 +114,46 @@ dialogue:<user>:<figmaFile>:<conversationId>
 
 ## 4. Flow `apollo_reading_patterns`
 
-Старый multi-file tool нельзя подключать к Pattern Agent. `AlfaFile`, содержащий все `p_*`, возвращает общий rollup: после tool-call модель получает весь корпус и может завершиться `400 input too long`. Пользовательский Python component для selective file loading не требуется: маршрутизацию выполняет отдельный нормативный ARAG domain через стандартный `RAG v.2`.
+Старый multi-file tool нельзя подключать к Design Knowledge Agent. `AlfaFile`, содержащий все `p_*`, возвращает общий rollup: после tool-call модель получает весь корпус и может завершиться `400 input too long`. Пользовательский Python component для selective file loading не требуется: поиск выполняет общий Confluence ARAG domain пространства DESIGN через стандартный `RAG v.2`.
+
+### Retrieval probe до настройки Agent
+
+До отладки prompts подтвердите, что ARAG действительно видит Confluence-документы. Создайте временный flow `apollo_pattern_rag_probe` только из стандартных блоков:
+
+```text
+Chat Input.message -> RAG v.2.query_input
+RAG v.2.rag_response_output -> Chat Output.input_value
+```
+
+Настройки `RAG v.2` должны совпадать с production pattern node:
+
+- `Тип RAG = ARAG`;
+- `System ID = ai_flow`;
+- `ID домена = 571`;
+- `Источник = Confluence`;
+- `Мультидомен = false`;
+- `Строгое форматирование = false`.
+
+В probe-flow нет Agent, system prompt, classifier, post-filter и tool mode. Он обязан показывать исходный `{ "chunks": [...] }` от ARAG.
+
+Выполните последовательно четыре запроса:
+
+```text
+Кнопки и группы кнопок
+как работать с адаптивом
+правила редакционной политики
+rule:controls.buttons-and-button-groups.primary-left
+```
+
+Интерпретация:
+
+- широкий запрос пустой — документы отсутствуют в domain, не проиндексированы или выбран неверный domain/source;
+- тематические запросы возвращают разные релевантные страницы — общий поиск DESIGN работает;
+- тематические запросы работают, а точный ruleId пустой — `ruleId` отсутствует в searchable chunk metadata/body;
+- найденный документ без `documentType: pattern` должен быть принят как контекст, а не отброшен;
+- все запросы пустые — prompts и Agent не являются причиной.
+
+Не добавляйте route hints для отдельных компонентов, пока probe не подтвердил наличие документов.
 
 ### Целевая схема
 
@@ -125,13 +164,13 @@ Pattern RAG v.2 ────────────> Pattern Agent.tools
 Pattern Agent ───────────────> Chat Output
 ```
 
-### Разделение RAG-доменов
+### Область поиска и доказательная сила
 
-Создайте отдельный ARAG domain для нормативных документов, например `apollo-patterns`. Не используйте domain из `apollo_reading_rag`: там находятся продуктовые примеры, которые не имеют доказательной силы правила.
+Используйте общий Confluence ARAG domain пространства DESIGN (`domain 571`). Он может содержать patterns, гайды, правила, описания процессов и другие документы пространства. Не используйте domain из `apollo_reading_rag`: тот инструмент предназначен для продуктовых примеров.
 
-В pattern-domain должны попадать только `patterns/p_*.md`. Registry не является нормативным документом и не должен возвращаться как evidence. Он используется вне runtime для подготовки metadata и проверки полноты загрузки.
+Не задавайте retrieval-фильтр по `documentType`. Релевантный документ принимается в результат независимо от типа, если RAG вернул его по запросу. `documentType` применяется после поиска: точное значение `pattern` даёт документу нормативную силу, неизвестный или другой тип означает только контекст пространства. Registry используется вне runtime для контроля локальных нормативных pattern-файлов и не отправляется Agent целиком.
 
-Минимальные metadata каждого индексируемого документа или chunk:
+Рекомендуемые metadata нормативного pattern-документа или chunk:
 
 ```json
 {
@@ -148,7 +187,7 @@ Pattern Agent ───────────────> Chat Output
 }
 ```
 
-Лучший размер индексации: один rule block вместе с его `ruleId`, severity и текстом правила в одном chunk. Не разрывайте `ruleId` и rule text между chunks. Общие разделы без ruleId индексируйте отдельными chunks с `section` и `sourceFile`.
+Для всех документов сохраняйте как минимум title и Confluence URL. Для pattern-документов лучший размер индексации: один rule block вместе с его `documentType`, `ruleId`, severity и текстом правила в одном chunk. Не разрывайте `ruleId` и rule text между chunks. Общие разделы без ruleId индексируйте отдельными chunks с `section` и `sourceFile`.
 
 Если ARAG сам выполняет chunking и не позволяет управлять metadata, сначала загрузите исходные Markdown-файлы и проверьте retrieval по точному `ruleId`. Production можно включать только если ответ возвращает rule text и source filename в одном chunk.
 
@@ -157,15 +196,15 @@ Pattern Agent ───────────────> Chat Output
 1. Удалите edge `AlfaFile с pattern-файлами -> Pattern Agent.tools`.
 2. Добавьте стандартный node `RAG v.2` и назовите его `Pattern RAG`.
 3. Установите `Тип RAG = ARAG`.
-4. В `System ID` укажите system id, в котором зарегистрирован отдельный pattern-domain.
-5. В `ID домена по умолчанию` укажите ID только pattern-domain.
-6. В `Источник данных в ARAG` выберите источник, куда загружены `p_*.md`, либо оставьте пустым, если domain физически содержит только patterns.
+4. В `System ID` укажите `ai_flow`.
+5. В `ID домена по умолчанию` укажите `571`.
+6. В `Источник данных в ARAG` выберите `Confluence`.
 7. Отключите `Мультидомен`.
 8. Отключите `Строгое форматирование ответа`: Pattern Agent нужны source metadata, а strict mode оставляет только chunk number/header/body.
 9. В Actions оставьте enabled только `get_rag_response`. `get_rag_json_schema` отключите.
 10. Подключите `Pattern RAG.component_as_tool` к `Pattern Agent.tools`.
 
-Числовой domain id нельзя переносить из примера или из flow `apollo_reading_rag`. Используйте ID, выданный именно для загруженной нормативной базы.
+Не подменяйте domain `571` доменом из flow `apollo_reading_rag`: продуктовые примеры остаются отдельным источником и отдельным tool.
 
 ### Pattern Agent
 
@@ -185,7 +224,7 @@ Pattern Agent ───────────────> Chat Output
 - Chat Input `Store messages = false`;
 - Chat Output `Store messages = false`.
 
-Не подключайте общую conversation memory к дочернему flow. Orchestrator уже передаёт нормализованный текущий запрос. Pattern Agent должен вызвать `get_rag_response` один раз; второй вызов допустим только для точного lookup отсутствующего `ruleId`.
+Не подключайте общую conversation memory к дочернему flow. Orchestrator уже передаёт нормализованный текущий запрос. Agent должен вызвать `get_rag_response` с исходным вопросом пользователя. Второй вызов допустим только при пустом результате и должен быть более широким переформулированием того же вопроса без вымышленных идентификаторов.
 
 Component rules и `agent-context` в этом MVP должны приходить из request context Apollo, а не загружаться все сразу в Langflow.
 
@@ -198,9 +237,9 @@ python3 apollo/scripts/build_pattern_registry.py
 python3 apollo/scripts/build_pattern_registry.py --check
 ```
 
-Если добавлен новый файл, generator потребует добавить для него routing aliases в `ROUTING`. После этого обновите соответствующий документ в pattern-domain и проверьте retrieval по новому `patternId`, component alias и хотя бы одному `ruleId`.
+Если добавлен новый файл, generator потребует добавить для него routing aliases в `ROUTING`. После этого обновите соответствующий документ в Confluence DESIGN и проверьте retrieval по естественному вопросу, component alias и хотя бы одному `ruleId`.
 
-Registry не подключается к Agent и не отправляется модели целиком. Он нужен для ingest mapping, контроля coverage и автоматических проверок соответствия source files индексу.
+Registry не подключается к Agent и не отправляется модели целиком. Он является локальным каталогом нормативных pattern sources и нужен для контроля coverage и metadata; общий runtime-поиск DESIGN от registry не зависит.
 
 ## 5. Flow `apollo_reading_rag`
 
@@ -244,7 +283,26 @@ RAG должен вызываться только для явных вопро�
 
 Ожидание: classifier возвращает `design-dialogue + find_pattern_context`; вызывается только patterns tool; ответ содержит source pattern и не содержит audit-таблицу.
 
-Если pattern tool возвращает HTTP error/timeout, финальный ответ должен завершиться коротким сообщением о недоступности нормативного источника. В нём не должно быть типовых размеров, состояний, ARIA, contrast ratios, spacing, вариантов применения, примеров или проектных рекомендаций.
+Если DESIGN search возвращает HTTP error/timeout, финальный ответ должен завершиться коротким сообщением о недоступности пространства. В нём не должно быть сведений о документах, правил, типовых размеров, состояний, ARIA, contrast ratios, spacing, вариантов применения, примеров или проектных рекомендаций из памяти модели.
+
+### Pattern inventory
+
+```json
+{
+  "schemaVersion": 1,
+  "mode": "design-dialogue",
+  "conversationId": "dialogue-inventory-1",
+  "message": "Какие паттерны ты знаешь?",
+  "context": {
+    "selection": null,
+    "finding": null,
+    "auditReport": null,
+    "componentContext": null
+  }
+}
+```
+
+Ожидание: Agent выполняет общий поиск по исходному вопросу и возвращает только фактически найденные документы. Полным список можно назвать только если среди chunks есть явный registry/inventory source; иначе ответ маркируется как частичный. Общеизвестные UI-паттерны из памяти модели не добавляются.
 
 ### Broad pattern question: adaptive
 
@@ -263,7 +321,7 @@ RAG должен вызываться только для явных вопро�
 }
 ```
 
-Ожидание: Pattern Agent вызывает `get_rag_response` с `Адаптив в Альфа-Бизнес`, `ptrn:layout.adaptive-alfa-business` и исходной формулировкой. Результат имеет `match_kind = pattern_context` или `exact_rule`, содержит source `p_adaptive-alfa-business.md` и использует только зафиксированные в source значения, включая `MobileWeb 320–767 px` и `Desktop от 768 px`. Generic breakpoints, fluid-grid, `clamp()`, WCAG и responsive tokens не добавляются.
+Ожидание: Agent вызывает `get_rag_response` сначала с исходной формулировкой без заранее заданного patternId. Результат имеет `match_kind = pattern_context` или `document_context`, содержит title и URL фактически найденного source и использует только сведения из chunks. Generic breakpoints, fluid-grid, `clamp()`, WCAG и responsive tokens из памяти модели не добавляются.
 
 ### No-rule fail-closed
 
@@ -282,7 +340,7 @@ RAG должен вызываться только для явных вопро�
 }
 ```
 
-Ожидание: `found = false`, `match_kind = no_rule`; финальный ответ сообщает об отсутствии контекста и не содержит проектного предложения, общих UI-рекомендаций или accessibility guidance.
+Ожидание: `found = false`, `match_kind = no_source`; финальный ответ сообщает об отсутствии документов и не содержит проектного предложения, общих UI-рекомендаций или accessibility guidance.
 
 ### Component usage
 
@@ -374,8 +432,10 @@ RAG должен вызываться только для явных вопро�
 - report автоматически получает `mode = audit-analysis`;
 - обычный вопрос получает `mode = design-dialogue`;
 - follow-up использует history только своей session;
-- pattern questions запускают только отдельный Pattern RAG, но не RAG продуктовых примеров;
-- Pattern RAG domain содержит только документы с `documentType = pattern`;
+- вопросы о дизайне запускают DESIGN search, но не RAG продуктовых примеров;
+- DESIGN search принимает релевантные документы любого типа из Confluence domain `571`;
+- только chunk с точным `documentType: pattern` используется как нормативное требование;
+- каждый принятый chunk сохраняет title и URL источника;
 - Pattern Agent не имеет multi-file AlfaFile tool и не получает весь corpus в одном ответе;
 - `get_rag_json_schema` отключён, а `get_rag_response` вызывается не более двух раз;
 - каждый нормативный вывод содержит `sourceFile` и source quote;
@@ -410,6 +470,6 @@ RAG должен вызываться только для явных вопро�
 1. Временно оставьте в старом AlfaFile только один релевантный pattern.
 2. Запустите тот же child-flow request в новой session.
 3. Если ответ проходит, ошибка подтверждает переполнение после multi-file rollup.
-4. Перейдите на отдельный Pattern RAG domain; не пытайтесь исправлять входной лимит через `Max tokens`, потому что это ограничение output.
+4. Перейдите на общий DESIGN RAG domain; не пытайтесь исправлять входной лимит через `Max tokens`, потому что это ограничение output.
 
-После миграции проверьте trace `get_rag_response`: tool должен возвращать только несколько релевантных chunks, а не все pattern-файлы. Для каждого exact-rule теста в одном chunk должны одновременно присутствовать `ruleId`, rule text и `sourceFile`; chunk из продуктового RAG считается ошибкой изоляции доменов.
+После миграции проверьте trace `get_rag_response`: tool должен возвращать только несколько релевантных chunks, а не весь корпус. Для каждого exact-rule теста в одном chunk должны одновременно присутствовать `documentType: pattern`, `ruleId`, rule text и source identity. Другие документы допустимы как context evidence, но не как нормативное правило.

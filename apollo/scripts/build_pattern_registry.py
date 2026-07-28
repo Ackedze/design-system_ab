@@ -258,14 +258,15 @@ def build_registry() -> dict[str, object]:
     return {
         "schemaVersion": 1,
         "sourceRoot": "patterns",
-        "usage": "pattern-rag-ingestion",
+        "usage": "pattern-evidence-catalog",
         "retrievalPolicy": {
-            "domainIsolationRequired": True,
-            "documentType": "pattern",
+            "runtimeScope": "design-space",
+            "acceptRelevantDocumentTypes": True,
+            "normativeDocumentType": "pattern",
             "maxQueriesPerRequest": 2,
             "fallbackToModelKnowledge": False,
-            "requiredEvidenceFields": ["sourceFile", "ruleText"],
-            "preferredLookupOrder": [
+            "requiredSourceFields": ["sourceTitle", "sourceUrl"],
+            "localCatalogLookupOrder": [
                 "ruleId-exact",
                 "patternId-exact",
                 "sourceFile-exact",
