@@ -3,7 +3,7 @@
   "documentType": "component-audit-mapping",
   "metadata": {
     "componentKey": "web-corp.button-stack",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -266,5 +266,122 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentPolicy": {
+      "presetRoot": "🔒 [M] ButtonStack",
+      "figmaOnly": true,
+      "lifecycle": "active",
+      "codeExportExpected": false,
+      "usage": "absolute bottom action zone for mobile-web",
+      "positioning": {
+        "requiredPosition": "absolute",
+        "requiredBottom": 0,
+        "scrollsWithContent": false,
+        "hostContentSpaceReserved": true,
+        "violationSeverity": "error",
+        "runtimeSupport": "requires composition or agent review"
+      },
+      "presets": {
+        "Primary": "one Primary button",
+        "Secondary": "one Secondary button",
+        "Group Horizontal": "equal Secondary left and Primary right; single-line labels required",
+        "Group Vertical": "Primary top and Secondary bottom; both Fill",
+        "Primary + Icon": "Primary fills remaining width; icon-only action right"
+      },
+      "rootSizing": {
+        "width": "Fill",
+        "height": "Hug",
+        "paddingHorizontal": 20,
+        "paddingVertical": 16,
+        "violationSeverity": "error"
+      },
+      "option": {
+        "component": "CheckboxLabel_24",
+        "optional": true,
+        "interaction": "context-dependent",
+        "forbiddenStates": [
+          "DisabledLabel",
+          "ErrorMessage",
+          "Hint"
+        ],
+        "informationAddon": "optional NeutralInformation StatusBadge with information icon",
+        "recommendedTextLimit": "80 characters and 2 lines unless upstream CheckboxLabel_24 says otherwise"
+      },
+      "nestedButtons": {
+        "inheritButtonContract": true,
+        "allowedCustomizations": [
+          "Label",
+          "loading",
+          "DisabledState",
+          "allowed addons",
+          "allowed icons"
+        ],
+        "presetOwned": [
+          "count",
+          "order",
+          "View hierarchy",
+          "layout",
+          "sizing"
+        ]
+      },
+      "primaryIcon": {
+        "preferred": "glyph-26/dots-three-horizontal",
+        "otherContextualIconsAllowed": true,
+        "differentValidIconSeverity": "none"
+      },
+      "responsiveParity": {
+        "preserve": [
+          "action count",
+          "action priority",
+          "labels",
+          "action meaning"
+        ],
+        "violationSeverity": "error",
+        "runtimeSupport": "requires paired screen evidence"
+      },
+      "background": {
+        "allowedValues": [
+          "False",
+          "True"
+        ],
+        "selectionRule": "unresolved",
+        "readyBlocking": false,
+        "defaultClassification": "info"
+      },
+      "runtimeLimitations": [
+        "Apollo can classify variant and layer diffs but cannot infer viewport anchoring or reserved page space without composition evidence.",
+        "D/M action parity requires paired desktop and mobile-web evidence and is not guaranteed by a single-instance audit.",
+        "Text fit and the 80-character recommendation require agent or manual review.",
+        "The scenario rule for Background=True/False is intentionally unresolved; neither value is a violation.",
+        "The root is discoverable through componentContractIndex.json; examples.json remains an authoring/regression artifact rather than an active runtime source."
+      ]
+    },
+    "displayOverrides": [
+      {
+        "match": {
+          "property": "variant.Presets"
+        },
+        "displayName": "Композиция действий",
+        "groupTitle": "Параметры компонента",
+        "resetSurface": "parameters"
+      },
+      {
+        "match": {
+          "property": "variant.Background"
+        },
+        "displayName": "Подложка зоны действий",
+        "groupTitle": "Параметры компонента",
+        "resetSurface": "parameters",
+        "defaultSeverity": "info"
+      },
+      {
+        "match": {
+          "propertyPrefix": "layout."
+        },
+        "groupTitle": "Параметры слоя",
+        "resetSurface": "layer",
+        "baselinePolicy": "Resolve ButtonStack Presets and nested Button variants before reset."
+      }
+    ]
+  }
 }

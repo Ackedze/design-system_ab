@@ -3,7 +3,7 @@
   "documentType": "component-agent-context",
   "metadata": {
     "componentKey": "web.promo-main-block",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -256,7 +256,49 @@
     "summary": {
       "componentFamily": "PromoMainBlock",
       "library": "Web _ Сorp Promo Components",
-      "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
-    }
+      "purpose": "Главный промо-блок с ключевым сообщением, изображением и CTA; всегда первый и единственный на странице."
+    },
+    "usageGuidance": [
+      "Используй только [D] PromoMainBlock и [M] PromoMainBlock.",
+      "Размещай PromoMainBlock первым и не более одного раза на странице.",
+      "На desktop View=Page относится к странице, View=Modal — к modal container; mobile root общий.",
+      "Используй Compact=True при viewport <=1024 px или когда контент не помещается.",
+      "На desktop для View=Page обязательно используй Background=False; Background=True является error.",
+      "В mobile-web разрешён только Background=True; Background=False является error.",
+      "Appearance не является темой: Light — светлые цветные подложки ММБ, Dark — тёмная подложка КИБ.",
+      "Для View=Page BlurEffect обязателен; для View=Modal опционален.",
+      "Title, Subtitle и ImageContainer обязательны.",
+      "Status опционален: показывай 1–3 StatusBadge по их полному контракту; 2–3 статуса дают warning, больше 3 — error.",
+      "Holding используй только при работе от группы компаний; он наследует FilterCompanySelect/AccountSelect и сохраняется между D/M.",
+      "Bottom slot опционален и принимает простой текст или произвольный компонент.",
+      "CTA можно скрыть; иначе используй Primary, Secondary или оба действия.",
+      "На mobile используй figma-only пресет 🔒 [M] ButtonStack вместо ButtonGroup; детальный pattern contract будет добавлен позже.",
+      "Сохраняй порядок Status → Title/Holding → Subtitle → Bottom slot → actions и не меняй gap/padding вручную.",
+      "Title ограничен 40 символами/2 строками, Subtitle — 120 символами/3 строками.",
+      "Изображение обязательно бери из Corp Image Library с Crop=Center, Size=534; Segment должен соответствовать сегменту страницы и Appearance.",
+      "Не меняй вручную размеры/позицию ImageContainer, crop, fade, высоты блока, gap или padding.",
+      "LightOverlay/DarkOverlay и их Presets выбираются автоматически из Appearance.",
+      "Между D/M сохраняй текст, тип и количество StatusBadge; casing D=True/M=False принадлежит пресетам.",
+      "Не создавай loading-состояние и не назначай interaction контейнеру.",
+      "PromoMainBlock активен и каноничен, без replacement/legacy.",
+      "Между D/M сохраняй контент, изображение, Status, Holding, Bottom slot, действия и Appearance; Background следует платформенному правилу: D Page=False, M=True."
+    ],
+    "ruleHighlights": [
+      "first-and-single-on-page",
+      "page-background-false-recommended",
+      "appearance-matches-surface",
+      "page-blur-required",
+      "required-content",
+      "status-count-and-contract",
+      "holding-context",
+      "mobile-actions-use-button-stack",
+      "content-order-is-fixed",
+      "text-limits",
+      "image-source-and-settings",
+      "layout-is-component-owned",
+      "overlay-is-derived-from-appearance",
+      "container-is-not-clickable",
+      "responsive-parity"
+    ]
   }
 }

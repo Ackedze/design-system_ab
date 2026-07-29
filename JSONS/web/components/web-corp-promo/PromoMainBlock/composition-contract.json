@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web.promo-main-block",
-    "status": "generated-draft",
+    "status": "ready",
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
       "generated": "athena-cli",
@@ -637,5 +637,67 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicBoundary": {
+      "publicRoots": [
+        "[D] PromoMainBlock",
+        "[M] PromoMainBlock"
+      ],
+      "internalOnly": [
+        "ButtonGroup",
+        "SwapMe",
+        "LightOverlay",
+        "DarkOverlay"
+      ]
+    },
+    "compositionPolicy": {
+      "pagePlacement": "first",
+      "maxPerPage": 1,
+      "desktopViewContexts": {
+        "Page": "page",
+        "Modal": "modal container"
+      },
+      "mobileViewContext": "shared root for page and modal",
+      "responsiveParity": [
+        "content",
+        "image",
+        "Status",
+        "Holding",
+        "Bottom slot",
+        "actions",
+        "Appearance"
+      ],
+      "platformBackground": {
+        "desktopPage": "False",
+        "mobileWeb": "True"
+      },
+      "contentOrder": [
+        "Status",
+        "Title/Holding",
+        "Subtitle",
+        "Bottom slot",
+        "actions"
+      ],
+      "mobileActions": {
+        "preset": "🔒 [M] ButtonStack",
+        "figmaOnly": true,
+        "patternStatus": "pending"
+      },
+      "image": {
+        "required": true,
+        "source": "Corp Image Library",
+        "Crop": "Center",
+        "Size": "534",
+        "Segment": "page segment and Appearance"
+      },
+      "overlaySelection": "internal and derived from Appearance",
+      "containerClickable": false,
+      "optionalRegions": [
+        "Status",
+        "Holding",
+        "Bottom slot",
+        "actions"
+      ]
+    }
+  }
 }

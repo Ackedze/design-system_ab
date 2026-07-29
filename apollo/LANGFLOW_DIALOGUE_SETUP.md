@@ -235,6 +235,7 @@ Component rules и `agent-context` в этом MVP должны приходит
 ```bash
 python3 apollo/scripts/build_pattern_registry.py
 python3 apollo/scripts/build_pattern_registry.py --check
+python3 apollo/scripts/test_agent_prompt_contracts.py
 ```
 
 Если добавлен новый файл, generator потребует добавить для него routing aliases в `ROUTING`. После этого обновите соответствующий документ в Confluence DESIGN и проверьте retrieval по естественному вопросу, component alias и хотя бы одному `ruleId`.
@@ -321,7 +322,18 @@ RAG должен вызываться только для явных вопро�
 }
 ```
 
-Ожидание: Agent вызывает `get_rag_response` сначала с исходной формулировкой без заранее заданного patternId. Результат имеет `match_kind = pattern_context` или `document_context`, содержит title и URL фактически найденного source и использует только сведения из chunks. Generic breakpoints, fluid-grid, `clamp()`, WCAG и responsive tokens из памяти модели не добавляются.
+Ожидание: Agent передаёт в `get_rag_response` точную исходную формулировку без добавления `responsive`, названия дизайн-системы или заранее заданного patternId. Результат имеет `match_kind = pattern_context` или `document_context`, содержит title, URL и атомарные claims с source quote. Если найденный excerpt говорит только о том, что паттерн описывает брейкпоинты, но не содержит значений, ответ не должен называть значения.
+
+Регрессионные запреты для этого теста: в ответе не должно быть `≤ 599`, `600–1023`, `≥ 1024`, `grid`, `flex`, `responsive-spacing`, `fallback-компонент`, автоматического переключения, эмуляторов или тестовой стратегии, если соответствующая строка буквально не присутствует в возвращённом `source_quote`.
+
+Проверьте presentation-layer финального ответа:
+
+- ключи `source_quote`, `source_url`, `evidence_kind` и `document_type` не отображаются;
+- цитата вынесена в Markdown blockquote `> «...»`;
+- source отображается ссылкой `[Источник: <название документа>](<URL>)`;
+- символы `【】` и их URL-encoded варианты не попадают в ссылку;
+- блок `Итого` не повторяет уже перечисленные требования;
+- шаблонный призыв задать дополнительные вопросы отсутствует.
 
 ### No-rule fail-closed
 
@@ -436,6 +448,8 @@ RAG должен вызываться только для явных вопро�
 - DESIGN search принимает релевантные документы любого типа из Confluence domain `571`;
 - только chunk с точным `documentType: pattern` используется как нормативное требование;
 - каждый принятый chunk сохраняет title и URL источника;
+- каждый факт финального design-dialogue ответа имеет source quote и source URL;
+- число или технический термин отсутствуют в ответе, если они отсутствуют в соответствующем source quote;
 - Pattern Agent не имеет multi-file AlfaFile tool и не получает весь corpus в одном ответе;
 - `get_rag_json_schema` отключён, а `get_rag_response` вызывается не более двух раз;
 - каждый нормативный вывод содержит `sourceFile` и source quote;

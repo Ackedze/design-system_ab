@@ -3,7 +3,7 @@
   "documentType": "component-audit-mapping",
   "metadata": {
     "componentKey": "web.benefits",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -266,5 +266,68 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentPolicy": {
+      "presetRoots": [
+        "🔒 [D] Benefits",
+        "🔒 [M] Benefits"
+      ],
+      "figmaOnly": true,
+      "lifecycle": "active",
+      "canonicalForSupportedCapacity": true,
+      "codeExportExpected": false,
+      "usage": "landing pages with exactly 3 or 4 BenefitCard instances",
+      "capacity": {
+        "allowedValues": [
+          3,
+          4
+        ],
+        "mustMatchVisibleCardCount": true,
+        "mismatchSeverity": "error",
+        "manualBenefitCardCompositionAllowedOutsideRange": true
+      },
+      "desktopCompact": {
+        "requiredMapping": {
+          "viewport<=1024": true,
+          "viewport>1024": false
+        },
+        "falseLayout": "single row, gap 24 px",
+        "trueLayout": "gap 16 px; Capacity=4 uses 2x2, Capacity=3 stays in one row"
+      },
+      "desktopView": {
+        "Page": "base-bg-alt baseline",
+        "Modal": "modal-bg baseline",
+        "allowedAlternatives": [
+          "Border",
+          "Colored"
+        ]
+      },
+      "nestedBenefitCard": {
+        "editableProperties": [
+          "Background",
+          "CardAxis",
+          "Compact",
+          "GraphicPosition"
+        ],
+        "uniformAcrossPreset": true,
+        "uniformSurfaceType": true,
+        "instanceSwapAllowed": false,
+        "perCardContentMayDiffer": true,
+        "inheritRulesFrom": "ptrn:components.benefit-card",
+        "allowedPerCardDifferences": "token-bound fill and stroke colors for Border and Colored surfaces; no additional segment palette restriction"
+      },
+      "responsiveParity": "desktop and mobile-web must preserve Capacity, card order and card content; manual reorder is allowed only when mirrored across platforms",
+      "mobileSurface": "supports Page and Modal contexts; inherits surface context from host and nested BenefitCard settings",
+      "sizing": "Fill horizontally, Hug vertically; all BenefitCard instances in the preset have equal height",
+      "layoutOwnership": "gap, padding, axis and wrap are preset-owned and must match effective baseline",
+      "loading": "all nested BenefitCard instances use loading/Skeleton synchronously",
+      "interaction": "Benefits container has no action; all cards are either clickable or non-clickable, while per-card targets may differ",
+      "runtimeLimitations": [
+        "Contextual landing-page usage and View-to-host matching may require agent or manual review.",
+        "Cross-platform content parity requires agent or manual review until Apollo can compare paired desktop/mobile compositions.",
+        "Do not classify Border or Colored fill/stroke differences as violations without checking the exact surface context.",
+        "Benefits is discoverable through componentContractIndex.json. The legacy apollo-rules-registry.json builder currently includes only web/components/web-corp packages, so web-corp-promo Benefits rule IDs are not copied into that legacy registry."
+      ]
+    }
+  }
 }

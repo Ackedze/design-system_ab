@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web.benefits-block",
-    "status": "generated-draft",
+    "status": "ready",
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
       "generated": "athena-cli",
@@ -602,6 +602,158 @@
     ]
   },
   "manual": {
+    "publicBoundary": {
+      "roots": [
+        "[D] BenefitsBlock",
+        "[M] BenefitsBlock"
+      ],
+      "internalFamilies": [
+        "[D] ButtonGroup",
+        "[M] ButtonGroup",
+        "[D] ContentPresets",
+        "[M] ContentPresets"
+      ]
+    },
+    "compositionPolicy": {
+      "recommendedMaximumPerPromoPage": 1,
+      "multiplePerPageAllowed": true,
+      "imagePosition": {
+        "desktop": [
+          "Left",
+          "Right"
+        ],
+        "mobileWeb": [
+          "Top",
+          "Bottom"
+        ],
+        "crossPlatformMappingRequired": false
+      },
+      "desktopCompact": {
+        "requiredWhen": [
+          "viewport<=1024",
+          "content-does-not-fit-standard-format"
+        ]
+      },
+      "background": {
+        "falseMeaning": "external shared surface; no own BackgroundPlate",
+        "allowedOwnSurfaceTypes": [
+          "Primary",
+          "Colored"
+        ]
+      },
+      "heightCustom": {
+        "desktopOnly": true,
+        "trueMeaning": "custom BackgroundPlate height",
+        "falseMeaning": "BackgroundPlate height follows content only and does not include image bounds",
+        "widthLimit": null,
+        "contentImageOverlapAllowed": false
+      },
+      "contentPresets": {
+        "optional": true,
+        "types": {
+          "Text": "simple text block with heading support",
+          "List": "list of items",
+          "Steps": "instructional sequence of steps"
+        },
+        "stepsCountGuidance": {
+          "recommended": 3,
+          "warnWhenGreaterThan": 3,
+          "severity": "warning"
+        }
+      },
+      "title": {
+        "required": true
+      },
+      "image": {
+        "required": true
+      },
+      "buttonGroup": {
+        "optional": true,
+        "allowedVisibleStates": [
+          "Primary only",
+          "Secondary only",
+          "Primary + Secondary"
+        ]
+      },
+      "responsiveParity": {
+        "preserve": [
+          "content",
+          "image",
+          "action count",
+          "action order"
+        ],
+        "imagePositionMayDiffer": true
+      },
+      "titleView": {
+        "rightAddonVisible": false,
+        "titleAddonAllowedType": "StatusBadge"
+      },
+      "imageView": {
+        "Crop": "Center",
+        "Size": "348",
+        "Segment": "landing segment",
+        "rawBaselineSize": "534",
+        "ownerOverrideWins": true
+      },
+      "surfaceOverrides": {
+        "Colored": "token-bound fill only",
+        "Primary": "no color overrides"
+      },
+      "loading": {
+        "allowedWhenBackgroundFalse": true,
+        "scope": "whole block",
+        "actionsBlocked": true
+      },
+      "rootSizing": {
+        "horizontal": "Fill",
+        "vertical": "Hug",
+        "heightCustomAffectsOnly": "BackgroundPlate height"
+      },
+      "textLimits": {
+        "Title": "60 characters / 2 lines",
+        "Text": "240 characters / 4 lines",
+        "ButtonLabel": "Button contract"
+      },
+      "imageSource": {
+        "library": "Corp :: Image Library",
+        "swapWithinLibraryAllowed": true
+      },
+      "interaction": {
+        "containerClickable": false,
+        "actionsSource": "ButtonGroup"
+      },
+      "segmentSync": {
+        "imageSegmentMatchesColoredFillSegment": true
+      },
+      "imageOverflow": {
+        "HeightCustom=False": {
+          "outsideBackgroundPlateAllowed": true,
+          "contentOverlapAllowed": false,
+          "outsideRootAllowed": false
+        },
+        "HeightCustom=True": {
+          "outsideBackgroundPlateAllowed": false
+        }
+      },
+      "layoutOwnership": {
+        "manualChangesAllowed": false,
+        "properties": [
+          "gap",
+          "padding",
+          "axis",
+          "internal region order",
+          "ImageContainer size"
+        ]
+      },
+      "titleAddon": {
+        "component": "StatusBadge",
+        "inheritFullContract": true
+      },
+      "colorPolicy": {
+        "rawColorsAllowed": false,
+        "ColoredFill": "token-bound and Segment-matched"
+      }
+    },
     "wraps": [
       {
         "hostComponentName": "[D] BenefitsBlock",

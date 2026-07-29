@@ -3,7 +3,7 @@
   "documentType": "component-audit-mapping",
   "metadata": {
     "componentKey": "web.promo-main-block",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -266,5 +266,35 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentPolicy": {
+      "publicRoots": [
+        "[D] PromoMainBlock",
+        "[M] PromoMainBlock"
+      ],
+      "internalFamilies": "ButtonGroup, SwapMe, LightOverlay and DarkOverlay",
+      "placement": "first and single on page",
+      "desktopView": "Page for page, Modal for modal container",
+      "desktopCompact": "required at viewport <=1024 or content overflow",
+      "pageBackground": "False required; True produces error",
+      "mobileBackground": "True required; False produces error",
+      "appearance": "segment-derived: Light for light colored MMB surface, Dark for dark KIB surface; not a theme",
+      "blurEffect": "required for View=Page; optional for View=Modal",
+      "requiredContent": "Title, Subtitle and ImageContainer",
+      "status": "optional; 1-3 StatusBadge instances inheriting full contract; 2-3 warn, more than 3 error",
+      "holding": "only for group-of-companies context; inherits FilterCompanySelect/AccountSelect; D/M parity",
+      "bottomSlot": "optional plain text or arbitrary component",
+      "actions": "optional; Primary, Secondary, both or hidden; mobile uses figma-only 🔒 [M] ButtonStack",
+      "contentOrder": "Status > Title/Holding > Subtitle > Bottom slot > actions; component-owned gap/padding",
+      "textLimits": "Title 40/2 lines; Subtitle 120/3 lines",
+      "image": "required Corp Image Library; Crop Center; Size 534; Segment matches page and Appearance",
+      "imageContainer": "size, position, crop, fade and block height are component-owned",
+      "overlays": "internal and automatically derived from Appearance",
+      "statusCasing": "desktop Uppercase=True, mobile False; preset-owned",
+      "loading": "not supported",
+      "interaction": "container not clickable; CTA, Holding and interactive Bottom slot only",
+      "lifecycle": "active canonical; no replacement or legacy variants",
+      "responsiveParity": "content, image, Status, Holding, Bottom slot, actions and Appearance; Background maps to D Page=False / M=True"
+    }
+  }
 }

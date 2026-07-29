@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web.benefits",
-    "status": "generated-draft",
+    "status": "ready",
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
       "generated": "athena-cli",
@@ -1293,5 +1293,138 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "ownershipModel": {
+      "presetRoots": [
+        "🔒 [D] Benefits",
+        "🔒 [M] Benefits"
+      ],
+      "figmaOnly": true,
+      "lifecycle": "active",
+      "canonicalForSupportedCapacity": true,
+      "plannedReplacement": false,
+      "codeExportExpected": false,
+      "nestedComponents": [
+        "[D] BenefitCard",
+        "[M] BenefitCard"
+      ],
+      "nestedBenefitCardEditable": true,
+      "nestedBenefitCardInstanceSwapAllowed": false,
+      "defaultNestedDiffPolicy": "compare-against-benefits-effective-baseline-and-check-group-uniformity"
+    },
+    "compositionPolicy": {
+      "usage": {
+        "context": "landing pages",
+        "minimumCards": 3,
+        "maximumCards": 4,
+        "outsideRangeAllowed": false,
+        "manualBenefitCardCompositionAllowedOutsideRange": true
+      },
+      "capacity": {
+        "3": {
+          "requiredBenefitCards": 3
+        },
+        "4": {
+          "requiredBenefitCards": 4
+        },
+        "manualAddOrRemoveAllowed": false
+      },
+      "desktopLayout": {
+        "Compact=False": {
+          "arrangement": "single-row",
+          "gap": 24
+        },
+        "Compact=True": {
+          "gap": 16,
+          "Capacity=3": "single-row",
+          "Capacity=4": "2x2"
+        },
+        "compactByViewport": {
+          "viewport<=1024": true,
+          "viewport>1024": false
+        }
+      },
+      "desktopSurface": {
+        "View=Page": "base-bg-alt baseline",
+        "View=Modal": "modal-bg baseline",
+        "allowedAlternatives": [
+          "Border",
+          "Colored"
+        ]
+      },
+      "mobileSurface": {
+        "supportedContexts": [
+          "Page",
+          "Modal"
+        ],
+        "viewPropertyExposed": false,
+        "surfaceContextSource": "host container and nested BenefitCard settings"
+      },
+      "responsiveParity": {
+        "breakpointRule": "rule:layout.adaptive-alfa-business.breakpoints",
+        "preserve": [
+          "Capacity",
+          "card order",
+          "card content"
+        ],
+        "manualReorderAllowed": true,
+        "reorderMustBeMirroredAcrossPlatforms": true
+      },
+      "sizing": {
+        "horizontal": "Fill",
+        "vertical": "Hug",
+        "equalCardHeightAcrossPreset": true
+      },
+      "layoutOwnership": {
+        "owner": "Benefits preset",
+        "manualChangesAllowed": false,
+        "properties": [
+          "gap",
+          "padding",
+          "axis",
+          "wrap"
+        ]
+      },
+      "nestedBenefitCards": {
+        "inheritRulesFrom": "ptrn:components.benefit-card",
+        "perCardContentMayDiffer": true,
+        "editableProperties": [
+          "Background",
+          "CardAxis",
+          "Compact",
+          "GraphicPosition"
+        ],
+        "uniformProperties": [
+          "Background",
+          "CardAxis",
+          "Compact",
+          "GraphicPosition"
+        ],
+        "uniformSurfaceType": true,
+        "allowedPerCardVisualDifferences": {
+          "surfaceTypes": [
+            "Border",
+            "Colored"
+          ],
+          "properties": [
+            "fill",
+            "stroke"
+          ],
+          "tokenBindingRequired": true,
+          "additionalSegmentPaletteRestriction": false
+        }
+      },
+      "loading": {
+        "uniformAcrossPreset": true,
+        "mixedLoadingStateAllowed": false,
+        "inheritPerCardRulesFrom": "ptrn:components.benefit-card"
+      },
+      "interaction": {
+        "containerAction": false,
+        "uniformClickabilityAcrossCards": true,
+        "perCardActionMayDiffer": true,
+        "inheritPerCardRulesFrom": "ptrn:components.benefit-card"
+      }
+    }
+  }
 }

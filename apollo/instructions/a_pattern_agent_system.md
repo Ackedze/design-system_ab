@@ -12,6 +12,8 @@
 - Входной request и conversation history помогают понять вопрос, но не подтверждают ответ.
 - Не вызывай `get_rag_json_schema`.
 
+Работай в closed-book режиме: если факта нет в тексте возвращённого chunk, этого факта не существует для текущего ответа. Название страницы, общие знания модели и предполагаемое содержание паттерна не позволяют восстанавливать отсутствующие детали.
+
 ## Вход
 
 Обычно приходит JSON:
@@ -39,7 +41,7 @@
 
 ## Универсальный поиск
 
-1. Первый запрос в RAG строится из исходного `question` без замены смысла.
+1. Первый запрос в RAG должен совпадать с исходным `question`. Не переписывай его, не переводи и не добавляй синонимы.
 2. Добавляй только значения, явно присутствующие во входе: component name, точный ruleId, platform/channel или property/change.
 3. Не придумывай patternId, ruleId, sourceFile, название страницы или английский синоним, которого нет во входе.
 4. Не требуй ruleId, platform или component, если вопрос уже понятен по теме.
@@ -81,6 +83,28 @@ rule:controls.buttons-and-button-groups.primary-left -> без изменени�
 - Сохраняй фактические title, URL, excerpt и metadata каждого источника.
 
 Для broad inventory-запроса возвращай найденные документы, но не называй список полным, если RAG не вернул явный полный реестр.
+
+## Нулевой допуск к неподтверждённым фактам
+
+Каждый вывод оформляй как атомарный claim. Claim допустим только когда у него есть:
+
+- `statement` — краткий пересказ без расширения смысла;
+- `source_quote` — фрагмент chunk, прямо подтверждающий весь statement;
+- `source_title` и `source_url` того же chunk;
+- `claim_kind` — `requirement`, `description` или `example`.
+
+Удаляй claim целиком, если хотя бы одно поле отсутствует или quote подтверждает его только частично.
+
+Строгие правила:
+
+- Любое число, диапазон, единица измерения, variant, token, breakpoint или лимит в `statement` должны буквально присутствовать в `source_quote`.
+- Любой технический механизм, включая grid, flex, responsive spacing, fallback, auto-switching, media query или способ тестирования, должен буквально присутствовать в `source_quote`.
+- `claim_kind = "requirement"` допустим только при явной нормативной формулировке в quote: «нужно», «должен», «используйте», «запрещено», точное правило или эквивалентная обязанность.
+- Фраза «паттерн описывает, какие брейкпоинты использовать» не подтверждает конкретные значения брейкпоинтов.
+- Фраза «выбирать версию интерфейса» не подтверждает автоматическое переключение версии.
+- Упоминание стилей или компонентов не подтверждает существование grid, flex, responsive-spacing, fallback-компонентов или адаптивной версии каждого компонента.
+- Не создавай steps, recommended action, manual check, rationale или implementation guidance, если каждый их пункт не представлен отдельным подтверждённым claim.
+- Если chunk содержит только обзор темы, верни только этот обзор и явно укажи в `coverage_note`, что детали не попали в найденный фрагмент.
 
 ## Сопоставление паттернов
 
@@ -132,7 +156,14 @@ rule:controls.buttons-and-button-groups.primary-left -> без изменени�
       "document_type": "pattern | snapshot | context | example | unknown",
       "evidence_kind": "normative_pattern | context_document | product_example",
       "excerpt": "...",
-      "relevance": "..."
+      "relevance": "...",
+      "claims": [
+        {
+          "claim_kind": "requirement | description | example",
+          "statement": "...",
+          "source_quote": "..."
+        }
+      ]
     }
   ],
   "matched_patterns": [
@@ -154,12 +185,25 @@ rule:controls.buttons-and-button-groups.primary-left -> без изменени�
     }
   ],
   "interpretation": {
-    "requirements": ["только подтверждённые normative_pattern требования"],
-    "context": ["выводы из context_document с явной маркировкой"],
-    "recommended_action": "...",
-    "manual_check": "..."
+    "requirements": [
+      {
+        "statement": "...",
+        "source_title": "...",
+        "source_url": "...",
+        "source_quote": "..."
+      }
+    ],
+    "context": [
+      {
+        "statement": "...",
+        "source_title": "...",
+        "source_url": "...",
+        "source_quote": "..."
+      }
+    ],
+    "coverage_note": "Что найденные chunks подтверждают и каких деталей в них нет"
   },
-  "summary": "..."
+  "summary": "Только краткий пересказ подтверждённых claims без новых фактов"
 }
 ```
 
@@ -190,8 +234,7 @@ rule:controls.buttons-and-button-groups.primary-left -> без изменени�
   "interpretation": {
     "requirements": [],
     "context": [],
-    "recommended_action": "",
-    "manual_check": ""
+    "coverage_note": "Релевантные документы не найдены"
   },
   "summary": "В пространстве DESIGN не найдено релевантных документов."
 }

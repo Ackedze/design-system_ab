@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web-corp.button-stack",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -142,5 +142,197 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "ownershipModel": {
+      "presetRoots": [
+        "🔒 [M] ButtonStack"
+      ],
+      "figmaOnly": true,
+      "lifecycle": "active",
+      "codeExportExpected": false,
+      "nestedComponents": [
+        "[M] Button",
+        "CheckboxLabel_24",
+        "Checkbox",
+        "StatusBadge",
+        "information-compact"
+      ],
+      "nestedButtonEditable": true,
+      "nestedInstanceSwapAllowed": false,
+      "defaultNestedDiffPolicy": "resolve the ButtonStack preset and nested component variants before comparing layer changes"
+    },
+    "compositionPolicy": {
+      "usage": {
+        "platform": "mobile-web",
+        "role": "bottom action zone",
+        "position": "absolute",
+        "bottom": 0,
+        "scrollsWithContent": false,
+        "inlinePlacementAllowed": false,
+        "contentSpaceMustBeReserved": true
+      },
+      "presets": {
+        "Primary": {
+          "children": [
+            {
+              "component": "[M] Button",
+              "View": "Primary",
+              "width": "Fill"
+            }
+          ]
+        },
+        "Secondary": {
+          "children": [
+            {
+              "component": "[M] Button",
+              "View": "Secondary",
+              "width": "Fill"
+            }
+          ]
+        },
+        "Group Horizontal": {
+          "direction": "horizontal",
+          "children": [
+            {
+              "component": "[M] Button",
+              "View": "Secondary",
+              "position": "left",
+              "width": "equal"
+            },
+            {
+              "component": "[M] Button",
+              "View": "Primary",
+              "position": "right",
+              "width": "equal"
+            }
+          ],
+          "requiresSingleLineLabels": true
+        },
+        "Group Vertical": {
+          "direction": "vertical",
+          "children": [
+            {
+              "component": "[M] Button",
+              "View": "Primary",
+              "position": "top",
+              "width": "Fill"
+            },
+            {
+              "component": "[M] Button",
+              "View": "Secondary",
+              "position": "bottom",
+              "width": "Fill"
+            }
+          ]
+        },
+        "Primary + Icon": {
+          "direction": "horizontal",
+          "children": [
+            {
+              "component": "[M] Button",
+              "View": "Primary",
+              "position": "left",
+              "width": "Fill remaining width"
+            },
+            {
+              "component": "[M] Button",
+              "kind": "icon-only",
+              "position": "right",
+              "width": "component fixed size",
+              "preferredIcon": "glyph-26/dots-three-horizontal"
+            }
+          ]
+        }
+      },
+      "structure": {
+        "manualAddOrRemoveAllowed": false,
+        "instanceSwapAllowed": false,
+        "presetOwnedProperties": [
+          "button count",
+          "button order",
+          "View hierarchy",
+          "direction",
+          "gap",
+          "padding",
+          "sizing"
+        ]
+      },
+      "rootSizing": {
+        "horizontal": "Fill",
+        "vertical": "Hug",
+        "padding": {
+          "top": 16,
+          "right": 20,
+          "bottom": 16,
+          "left": 20
+        }
+      },
+      "option": {
+        "component": "CheckboxLabel_24",
+        "optional": true,
+        "purpose": "contextual option that complements the main action",
+        "controlsPrimaryAvailability": "context-dependent",
+        "labelLimit": {
+          "characters": 80,
+          "lines": 2,
+          "severity": "warning",
+          "upstreamContractWins": true
+        },
+        "states": {
+          "DisabledLabel": false,
+          "ErrorMessage": false,
+          "Hint": false
+        },
+        "informationAddon": {
+          "optional": true,
+          "component": "StatusBadge",
+          "View": "NeutralInformation",
+          "icon": "information-compact"
+        }
+      },
+      "nestedButtons": {
+        "inheritFrom": "[M] Button",
+        "editableProperties": [
+          "Label",
+          "loading",
+          "DisabledState",
+          "allowed addons",
+          "allowed icons"
+        ],
+        "presetOwnedProperties": [
+          "count",
+          "order",
+          "View",
+          "layout",
+          "sizing"
+        ]
+      },
+      "responsiveParity": {
+        "compareWithDesktopWhenPresent": true,
+        "preserve": [
+          "action count",
+          "action priority",
+          "labels",
+          "action meaning"
+        ]
+      },
+      "background": {
+        "allowedValues": [
+          false,
+          true
+        ],
+        "selectionRule": "unresolved",
+        "readyBlocking": false
+      },
+      "effectiveBaseline": {
+        "resolveOrder": [
+          "ButtonStack Presets",
+          "ButtonStack Background",
+          "optional Checkbox",
+          "nested [M] Button state"
+        ],
+        "compareManualLayersAfterResolution": true
+      }
+    }
+  }
 }
