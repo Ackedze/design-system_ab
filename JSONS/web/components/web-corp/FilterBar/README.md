@@ -10,7 +10,7 @@
 - Figma: [Web Corp Components](https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=151016-27699&p=f&t=RG0TDLM01YcZmfF5-11)
 - Public roots: `[D] FilterBar` (`2a247a2c7b2a13618bf76e2d63f29af784e11aa1`) и `[M] FilterBar` (`3b14f314fb1ee7df802d3f55f61cd125a27f9c13`)
 
-Семантика manual-документов подтверждена владельцем в интервью 2026-07-23. Raw-каталог, generated contract и composition wraps присутствуют. Комплект остаётся `In progress`, пока manual-изменения не синхронизированы с registry через Athena и не проверены в Apollo.
+Семантика manual-документов подтверждена владельцем в интервью 2026-07-23. Актуальный raw и generated-слой сформированы Athena 2026-07-27T12:58:40.628Z. В семейство входят 22 компонента, включая `[M] ShowAll`; роли всех членов и запрет standalone-use для non-public компонентов подтверждены владельцем 2026-07-30. Runtime-классификация разделяет 2 Apollo-active, 8 future-runtime и 12 agentic-only rules. После этой правки package `rules.json` расходится с опубликованным registry по 20 manual rules, поэтому требуется штатный targeted Athena sync. По решению владельца публикация package выполняется до Athena sync и Apollo/agent regression run; комплект сохраняет статус `In progress`.
 
 ## Назначение
 
@@ -65,10 +65,19 @@ Raw-каталог находится рядом с package:
 
 ## Текущая готовность
 
-- Raw-каталог, `contract.generated.json`, generated composition и Figma component keys доступны.
+- Snapshot: raw и generated-слой от `2026-07-27T12:58:40.628Z`, 22 компонента.
+- Raw-каталог, `contract.generated.json`, generated composition, Figma component keys, index и registries доступны.
 - Manual rules, composition, overrides, examples, agent context и audit mapping заполнены.
-- JSON и package validator должны проходить до публикации изменений.
-- После изменения package требуется targeted Athena registry sync.
+- Rules разделены на 2 Apollo-active generated baseline rules, 8 future-runtime и 12 agentic-only.
+- Классификация всех 22 членов семейства подтверждена владельцем: 2 public, 6 supporting, 3 preset, 11 service/private, legacy отсутствуют; standalone-use разрешён только public roots.
+- В Figma создана страница [FilterBar — Apollo readiness tests](https://www.figma.com/design/Ix36hQwrhom9xIghTTDbtD/MCP-test?node-id=1987-7) с допустимым кейсом, точным `fills` override и разрешённым `Skeleton=True`.
+- Структура трёх fixture-кейсов проверена через Figma MCP; фактический Apollo report и соответствующий `*_agent.json` ещё не получены.
+- Текущий raw содержит 120 предупреждений `untokenized-paint`: 81 уникальная комбинация и 39 дублей diagnostics. Все 81 уникальное предупреждение классифицированы: 73 относятся к служебным `PaintMe` descendants, 8 — к вложенному `[M] FilterAll` внутри `[M] ShowAll`; прямых безопасных FilterBar-owned paint fixes не найдено.
+- Package validator проходит без ошибок и предупреждений; локальная targeted-конвертация raw в generated contract совпадает byte-for-byte.
+- Targeted Athena registry sync/check недоступен в текущем checkout; legacy-генератор несовместим с hybrid `rules.json` и не должен использоваться.
+- Для paint readiness нужны принятое Athena-исключение/owner attribution для `PaintMe` и upstream-решение по восьми fills `[M] FilterAll`; массово менять вложенные paints в FilterBar нельзя.
 - Interaction, persistence, callbacks и responsive state transfer пока остаются agentic-only.
+- Опубликованный `apollo-rules-registry.json` отстаёт от package на 20 manual rules.
 - Public code exports, Code Connect mapping и статус `Skeleton` как code prop не подтверждены.
-- Apollo runtime cases и reviewer approval ещё не выполнены.
+- Apollo runtime output, agent response и reviewer approval ещё не выполнены.
+- Athena sync и Apollo/agent regression run отложены по решению владельца и не считаются пройденными.

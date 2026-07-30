@@ -268,7 +268,9 @@
   "manual": {
     "runtimeStatus": {
       "generatedClassification": "available",
-      "manualDisplayMapping": "requires-athena-registry-sync",
+      "manualDisplayMapping": "published-but-not-primary-runtime-source",
+      "componentRules": "generated-baseline-active",
+      "futureRuntimeRules": "not-executable",
       "interactionRules": "agentic-only"
     },
     "classification": [
@@ -386,12 +388,182 @@
       "legacyFiltersBlockIsNotFilterBarEvidence": true,
       "examplesDoNotCreateRules": true,
       "surfacePairRequiresContext": true,
-      "interactionRulesAreAgenticUntilRuntimeSupport": true
+      "interactionRulesAreAgenticUntilRuntimeSupport": true,
+      "futureRuntimeRulesAreNotViolations": true,
+      "unsupportedConditionsDoNotExecute": true
     },
     "runtimeLimitations": [
-      "Manual classification и rule IDs должны пройти Athena registry sync после изменения package.",
+      "После текущих manual-изменений требуется targeted Athena registry sync.",
+      "Apollo runtime пока не использует audit-mapping как основной источник группировки.",
+      "Future-runtime и agentic-only rules не должны создавать deterministic violations.",
       "Interaction, callbacks и persistence нельзя проверить по статическому Figma diff.",
-      "Surface View требует контекста родительской поверхности."
-    ]
+      "Surface View требует контекста родительской поверхности.",
+      "Три Figma fixture-кейса структурно проверены, но Apollo report и agent response ещё не получены."
+    ],
+    "runtimeTests": {
+      "figmaFileKey": "Ix36hQwrhom9xIghTTDbtD",
+      "pageNodeId": "1987:7",
+      "url": "https://www.figma.com/design/Ix36hQwrhom9xIghTTDbtD/MCP-test?node-id=1987-7",
+      "fixtureValidation": "passed",
+      "apolloExecution": "pending",
+      "agentExecution": "pending",
+      "publicationDecision": "deferred-by-component-owner-2026-07-30",
+      "cases": [
+        {
+          "caseId": "valid-baseline",
+          "frameNodeId": "1988:3773",
+          "instanceNodeId": "1988:3776",
+          "directOverrides": [],
+          "expectedRuleIds": [],
+          "expectedSeverity": "none"
+        },
+        {
+          "caseId": "exact-fill-override",
+          "frameNodeId": "1988:4011",
+          "instanceNodeId": "1988:4014",
+          "directOverrides": [
+            "fills"
+          ],
+          "expectedRuleIds": [
+            "component:web-corp.filter-bar.layer-properties-use-effective-baseline"
+          ],
+          "expectedSeverity": "warning"
+        },
+        {
+          "caseId": "skeleton-contextual-info",
+          "frameNodeId": "1988:4103",
+          "instanceNodeId": "1988:4106",
+          "directOverrides": [],
+          "componentPropertyChange": "variant.Skeleton=True",
+          "expectedRuleIds": [
+            "component:web-corp.filter-bar.component-properties-are-first-class"
+          ],
+          "expectedSeverity": "info"
+        }
+      ],
+      "evidenceBoundary": "Figma MCP подтверждает структуру fixture и overrides, но не заменяет фактический Apollo report или *_agent.json."
+    },
+    "paintDiagnostics": {
+      "snapshot": "2026-07-27T12:58:40.628Z",
+      "status": "classified-upstream-actions-pending",
+      "reportedWarnings": 120,
+      "uniqueWarnings": 81,
+      "duplicateDiagnostics": 39,
+      "uniqueByVisibility": {
+        "visible": 45,
+        "hidden": 36
+      },
+      "uniqueByProperty": {
+        "fills": 81
+      },
+      "uniqueByLayerType": {
+        "VECTOR": 73,
+        "ELLIPSE": 3,
+        "BOOLEAN_OPERATION": 2,
+        "RECTANGLE": 3
+      },
+      "uniqueByColor": {
+        "#747474": 61,
+        "#9032EE": 9,
+        "#0024E1": 3,
+        "#D9D9D9": 5,
+        "#000000": 3
+      },
+      "uniqueByComponent": {
+        "[D] CalendarRange": 6,
+        "[D] ConfigureModal": 5,
+        "[D] FilterBar": 9,
+        "[D] FilterCell_Field": 10,
+        "[D] FilterCell_Muted": 9,
+        "[D] HistoryOptionList": 1,
+        "[D] pinnedItem": 1,
+        "[D] Search_Field": 1,
+        "[D] Search_Muted": 1,
+        "[D] ShowAllOptionList": 1,
+        "[D] sortableItem": 1,
+        "[M] Date": 4,
+        "[M] FilterBar": 8,
+        "[M] FilterCell": 12,
+        "[M] ShowAll": 10,
+        "🔒 [M] SubFilter": 2
+      },
+      "triage": [
+        {
+          "category": "duplicate-diagnostic",
+          "count": 39,
+          "action": "Не создавать Figma-правки; исправить или учесть дедупликацию diagnostics."
+        },
+        {
+          "category": "visible-unique-paint",
+          "count": 45,
+          "action": "Определить фактического владельца nested layer и привязать токен либо оформить подтверждённое исключение."
+        },
+        {
+          "category": "hidden-unique-paint",
+          "count": 36,
+          "action": "Проверить, почему layerVisible=false остаётся warning после excludedInvisiblePaints; не менять Figma до решения ownership/filtering."
+        },
+        {
+          "category": "paintme-or-placeholder-path",
+          "count": 73,
+          "action": "Сначала проверить upstream icon/addon owner: локальная правка FilterBar может быть неверным уровнем исправления."
+        }
+      ],
+      "ownershipTriage": {
+        "directFilterBarOwnedFixes": 0,
+        "nestedComponentOwnerWarnings": 79,
+        "localPaintCarrierWarnings": 2,
+        "categories": [
+          {
+            "category": "paint-carrier-descendant",
+            "count": 73,
+            "visibility": {
+              "visible": 37,
+              "hidden": 36
+            },
+            "colors": {
+              "#747474": 61,
+              "#9032EE": 9,
+              "#0024E1": 3
+            },
+            "evidence": "Все layerPath содержат PaintMe или diamonds. 71 warning находятся под явно вложенными [D]/[M] owners; ещё 2 — внутри service components [D] pinnedItem и [D] sortableItem.",
+            "owner": "paint-carrier diagnostics / nearest nested icon owner",
+            "action": "Не менять paints массово в FilterBar. Athena должна исключать служебные PaintMe descendants либо атрибутировать warning ближайшему component owner; до этого требуется подтверждённое исключение."
+          },
+          {
+            "category": "nested-filter-all-unbound-shape",
+            "count": 8,
+            "visibility": {
+              "visible": 8,
+              "hidden": 0
+            },
+            "colors": {
+              "#D9D9D9": 5,
+              "#000000": 3
+            },
+            "evidence": {
+              "hostComponent": "[M] ShowAll",
+              "ownerComponent": "[M] FilterAll",
+              "variant": "SelectedState=True",
+              "variantNodeId": "155692:18474",
+              "ownerPaths": [
+                "[M] FilterAll / Shape / down rounder",
+                "[M] FilterAll / Shape / extension",
+                "[M] FilterAll / Shape / extension / base",
+                "[M] FilterAll / Shape / extension / base / indicator",
+                "[M] FilterAll / Shape / extension / base / rect",
+                "[M] FilterAll / Shape / extension / down extension",
+                "[M] FilterAll / Shape / extension / up extension",
+                "[M] FilterAll / Shape / up rounder"
+              ],
+              "figmaMcpObservation": "У всех восьми fills boundVariable=null."
+            },
+            "owner": "[M] FilterAll",
+            "action": "Владелец [M] FilterAll должен выбрать semantic color tokens или оформить явное исключение для внутренней shape geometry; локальный override в [M] ShowAll запрещён."
+          }
+        ]
+      },
+      "blockingPolicy": "Paint scope полностью классифицирован, но Ready требует принятого Athena-исключения/owner attribution для 73 PaintMe warnings и upstream-решения по 8 fills [M] FilterAll. Количество raw diagnostics не равно количеству Figma-исправлений; прямые FilterBar-owned правки отсутствуют."
+    }
   }
 }

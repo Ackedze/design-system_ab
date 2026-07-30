@@ -12,8 +12,8 @@
         "desktop",
         "mobile-web"
       ],
-      "source": "owner-interview+figma",
-      "updatedAt": "2026-07-23"
+      "source": "owner-interview+figma+runtime-review",
+      "updatedAt": "2026-07-30"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "ownershipMigrationRevision": 2,
@@ -110,13 +110,13 @@
         "severity": "error",
         "source": "figma:NrzEFUSTXgzOUmsfYym0xD:151044:17017+owner-interview:2026-07-23",
         "appliesTo": "component.composition",
-        "checkType": "deterministic",
+        "checkType": "manual",
         "matchKind": "exact_component_rule",
         "target": {
           "component": "FilterBar",
-          "platforms": [
-            "desktop",
-            "mobile-web"
+          "layers": [
+            "[D] FilterBar",
+            "[M] FilterBar"
           ]
         },
         "conditions": {
@@ -125,18 +125,23 @@
         "ruleText": "Search опционален на уровне конфигурации продукта. Если Search подключён, он всегда стоит первым; пользователь не может скрыть или переместить его.",
         "remediation": "Верни подключённый Search на первое место и исключи его из пользовательской настройки видимости и порядка.",
         "patternRuleIds": [],
-        "runtimeSupport": "requires-filterbar-raw-and-composition"
+        "runtimeSupport": "future-runtime"
       },
       {
         "ruleId": "component:web-corp.filter-bar.supported-presets-only",
         "severity": "error",
         "source": "owner-interview:2026-07-23",
         "appliesTo": "component.composition",
-        "checkType": "deterministic",
+        "checkType": "manual",
         "matchKind": "exact_component_rule",
         "target": {
           "component": "FilterBar",
-          "slot": "FiltersConfig"
+          "slot": "FiltersConfig",
+          "layers": [
+            "[D] FilterCell_Field",
+            "[D] FilterCell_Muted",
+            "[M] FilterCell"
+          ]
         },
         "conditions": {
           "allowedPresets": [
@@ -151,14 +156,14 @@
         "ruleText": "FiltersConfig принимает только поддерживаемые пресеты: Tag, FilterTag, Date, FilterCompanySelect, AccountSelect и FilterRange.",
         "remediation": "Используй существующий пресет. Если сценарий невозможно реализовать закрытым списком, запроси новый пресет у дизайн-системы.",
         "patternRuleIds": [],
-        "runtimeSupport": "requires-filterbar-raw-and-slot-ownership"
+        "runtimeSupport": "future-runtime"
       },
       {
         "ruleId": "component:web-corp.filter-bar.desktop-controls-only",
         "severity": "error",
         "source": "owner-interview:2026-07-23",
         "appliesTo": "component.platform",
-        "checkType": "deterministic",
+        "checkType": "manual",
         "matchKind": "exact_component_rule",
         "conditions": {
           "platform": "desktop"
@@ -166,14 +171,23 @@
         "ruleText": "Контролы «Ещё» и «Настройки фильтров» используются только на Desktop.",
         "remediation": "На Mobile замени десктопные контролы на «Все фильтры».",
         "patternRuleIds": [],
-        "runtimeSupport": "requires-filterbar-component-identification"
+        "runtimeSupport": "future-runtime",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] FilterBar",
+            "[D] ShowAll_Field",
+            "[D] ShowAll_Muted",
+            "[D] ConfigureModal"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.mobile-all-filters-only",
         "severity": "error",
         "source": "owner-interview:2026-07-23",
         "appliesTo": "component.platform",
-        "checkType": "deterministic",
+        "checkType": "manual",
         "matchKind": "exact_component_rule",
         "conditions": {
           "platform": "mobile-web"
@@ -181,14 +195,21 @@
         "ruleText": "Контрол «Все фильтры» используется только на Mobile и не заменяет десктопную настройку состава.",
         "remediation": "На Desktop используй «Ещё» и «Настройки фильтров».",
         "patternRuleIds": [],
-        "runtimeSupport": "requires-filterbar-component-identification"
+        "runtimeSupport": "future-runtime",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[M] FilterBar",
+            "[M] ShowAll"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.more-falls-back-to-settings",
         "severity": "error",
         "source": "owner-interview:2026-07-23",
         "appliesTo": "component.state",
-        "checkType": "deterministic",
+        "checkType": "manual",
         "matchKind": "exact_component_rule",
         "conditions": {
           "platform": "desktop",
@@ -197,7 +218,15 @@
         "ruleText": "Если скрытых фильтров нет, «Ещё» заменяется на «Настройки фильтров».",
         "remediation": "Скрой «Ещё» и покажи прямой переход в «Настройки фильтров».",
         "patternRuleIds": [],
-        "runtimeSupport": "future-runtime-state-check"
+        "runtimeSupport": "future-runtime",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] FilterBar",
+            "[D] ShowAll_Field",
+            "[D] ShowAll_Muted"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.settings-apply-immediately",
@@ -212,7 +241,14 @@
         "ruleText": "Изменения видимости и порядка в «Настройках фильтров» применяются сразу.",
         "remediation": "Не добавляй отдельное подтверждение для изменения видимости и порядка.",
         "patternRuleIds": [],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] ConfigureModal",
+            "[D] FilterBar"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.active-filter-cannot-hide",
@@ -227,14 +263,21 @@
         "ruleText": "Активный фильтр нельзя скрыть. Его управление видимостью блокируется, пока в фильтре есть значение.",
         "remediation": "Оставь активный фильтр видимым и заблокируй его чекбокс скрытия.",
         "patternRuleIds": [],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] ConfigureModal",
+            "[D] sortableItem"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.pinned-filters-cannot-change",
         "severity": "error",
         "source": "owner-interview:2026-07-23",
         "appliesTo": "component.composition",
-        "checkType": "deterministic",
+        "checkType": "manual",
         "matchKind": "exact_component_rule",
         "conditions": {
           "filterRole": "pinned"
@@ -242,7 +285,14 @@
         "ruleText": "Пользователь не может скрывать или перемещать закреплённые фильтры. Search закреплён при подключении; Company закрепляется по умолчанию для группы компаний; команда может закрепить другие обязательные фильтры.",
         "remediation": "Верни закреплённые фильтры в начало и исключи их из пользовательского reorder и hide.",
         "patternRuleIds": [],
-        "runtimeSupport": "requires-filterbar-raw-and-role-metadata"
+        "runtimeSupport": "future-runtime",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] ConfigureModal",
+            "[D] pinnedItem"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.mobile-all-filters-synchronizes-values",
@@ -257,7 +307,15 @@
         "ruleText": "Значения в «Все фильтры» синхронизируются с быстрыми фильтрами. Через «Все фильтры» нельзя менять состав или порядок FilterBar.",
         "remediation": "Синхронизируй значения с быстрым рядом и убери настройку состава и порядка из мобильной модалки.",
         "patternRuleIds": [],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[M] FilterBar",
+            "[M] ShowAll",
+            "🔒 [M] SubFilter"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.mobile-apply-mode",
@@ -274,7 +332,17 @@
         "patternRuleIds": [
           "rule:components.filter-bar.mobile-apply-flow"
         ],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[M] FilterBar",
+            "[M] ShowAll",
+            "[M] Date",
+            "[M] FilterCell",
+            "🔒 [M] SubFilter"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.reset-values-only",
@@ -289,7 +357,15 @@
         "ruleText": "«Сбросить» находится в конце FilterBar, всегда доступен и очищает только значения фильтров и поисковый запрос. Видимость, порядок и добавленные фильтры не меняются.",
         "remediation": "Сохрани пользовательскую конфигурацию и очищай только условия выдачи.",
         "patternRuleIds": [],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] FilterBar",
+            "[D] ResetAll",
+            "[M] FilterBar"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.surface-view-pair",
@@ -314,14 +390,20 @@
         "ruleText": "На Desktop Muted используется на сером фоне, а Field — на белом. Обратные сочетания запрещены.",
         "remediation": "Выбери View, соответствующий поверхности.",
         "patternRuleIds": [],
-        "runtimeSupport": "requires-surface-context"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] FilterBar"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.other-period-position",
         "severity": "error",
         "source": "owner-interview:2026-07-23",
         "appliesTo": "component.composition",
-        "checkType": "deterministic",
+        "checkType": "manual",
         "matchKind": "exact_component_rule",
         "conditions": {
           "preset": "Date"
@@ -329,14 +411,24 @@
         "ruleText": "В Date пункт «Другой период» встроенно стоит первым на Desktop и последним на Mobile.",
         "remediation": "Используй платформенный порядок Date, заданный компонентом.",
         "patternRuleIds": [],
-        "runtimeSupport": "requires-date-preset-structure"
+        "runtimeSupport": "future-runtime",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] Date_Field",
+            "[D] Date_Muted",
+            "[D] CalendarRange",
+            "[D] DateOptionList",
+            "[M] Date"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.responsive-breakpoint",
         "severity": "error",
         "source": "owner-interview+rule:layout.adaptive-alfa-business.breakpoints",
         "appliesTo": "component.responsive",
-        "checkType": "deterministic",
+        "checkType": "manual",
         "matchKind": "exact_component_rule",
         "conditions": {
           "mobileMaxWidth": 767,
@@ -347,7 +439,14 @@
         "patternRuleIds": [
           "rule:components.filter-bar.preserve-responsive-values"
         ],
-        "runtimeSupport": "future-responsive-check"
+        "runtimeSupport": "future-runtime",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] FilterBar",
+            "[M] FilterBar"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.preserve-values-on-responsive-switch",
@@ -364,7 +463,14 @@
         "patternRuleIds": [
           "rule:components.filter-bar.preserve-responsive-values"
         ],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] FilterBar",
+            "[M] FilterBar"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.search-recent-only",
@@ -381,7 +487,17 @@
         "patternRuleIds": [
           "rule:components.filter-bar.search-history"
         ],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] FilterBar",
+            "[D] Search_Field",
+            "[D] Search_Muted",
+            "[D] HistoryOptionList",
+            "[M] FilterBar"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.product-owns-loading",
@@ -396,7 +512,14 @@
         "patternRuleIds": [
           "rule:components.filter-bar.product-owned-loading"
         ],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] FilterBar",
+            "[M] FilterBar"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.more-adds-filter-to-end",
@@ -412,7 +535,15 @@
         "ruleText": "Фильтр, добавленный через «Ещё», появляется в конце ряда фильтров перед завершающими действиями FilterBar.",
         "remediation": "Перемести добавленный фильтр в конец ряда фильтров и сохрани новый состав через продуктовый callback.",
         "patternRuleIds": [],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] FilterBar",
+            "[D] ShowAll_Field",
+            "[D] ShowAll_Muted"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.search-history-clear",
@@ -430,7 +561,16 @@
         "patternRuleIds": [
           "rule:components.filter-bar.search-history"
         ],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] Search_Field",
+            "[D] Search_Muted",
+            "[D] HistoryOptionList",
+            "[M] FilterBar"
+          ]
+        }
       },
       {
         "ruleId": "component:web-corp.filter-bar.search-history-count-recommendation",
@@ -447,8 +587,57 @@
         "patternRuleIds": [
           "rule:components.filter-bar.search-history"
         ],
-        "runtimeSupport": "agentic-only"
+        "runtimeSupport": "agentic-only",
+        "target": {
+          "component": "FilterBar",
+          "layers": [
+            "[D] HistoryOptionList",
+            "[D] Search_Field",
+            "[D] Search_Muted",
+            "[M] FilterBar"
+          ]
+        }
       }
-    ]
+    ],
+    "runtimeClassification": {
+      "apolloActiveRuleIds": [
+        "component:web-corp.filter-bar.component-properties-are-first-class",
+        "component:web-corp.filter-bar.layer-properties-use-effective-baseline"
+      ],
+      "futureRuntimeRuleIds": [
+        "component:web-corp.filter-bar.search-optional-but-pinned",
+        "component:web-corp.filter-bar.supported-presets-only",
+        "component:web-corp.filter-bar.desktop-controls-only",
+        "component:web-corp.filter-bar.mobile-all-filters-only",
+        "component:web-corp.filter-bar.more-falls-back-to-settings",
+        "component:web-corp.filter-bar.pinned-filters-cannot-change",
+        "component:web-corp.filter-bar.other-period-position",
+        "component:web-corp.filter-bar.responsive-breakpoint"
+      ],
+      "agenticOnlyRuleIds": [
+        "component:web-corp.filter-bar.settings-apply-immediately",
+        "component:web-corp.filter-bar.active-filter-cannot-hide",
+        "component:web-corp.filter-bar.mobile-all-filters-synchronizes-values",
+        "component:web-corp.filter-bar.mobile-apply-mode",
+        "component:web-corp.filter-bar.reset-values-only",
+        "component:web-corp.filter-bar.surface-view-pair",
+        "component:web-corp.filter-bar.preserve-values-on-responsive-switch",
+        "component:web-corp.filter-bar.search-recent-only",
+        "component:web-corp.filter-bar.product-owns-loading",
+        "component:web-corp.filter-bar.more-adds-filter-to-end",
+        "component:web-corp.filter-bar.search-history-clear",
+        "component:web-corp.filter-bar.search-history-count-recommendation"
+      ],
+      "policy": "Apollo-active содержит только generated baseline rules. Manual rules с произвольными conditions не исполняются как deterministic violations до поддержки соответствующих predicates и runtime-тестов.",
+      "unsupportedRuntimeFields": [
+        "target.platforms",
+        "conditions.allowedPresets",
+        "conditions.hiddenFilterCount",
+        "conditions.filterRole",
+        "conditions.allowedPairs",
+        "conditions.crossesBreakpoint",
+        "conditions.recentSearchesEnabled"
+      ]
+    }
   }
 }
