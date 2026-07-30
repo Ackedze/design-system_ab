@@ -388,6 +388,51 @@
       "observedPresetSectionNodeId": "151044:17017",
       "evidenceLimit": "Figma подтверждает структуру, properties и variants, но не продуктовую семантику."
     },
+    "figmaRegressionFixtures": {
+      "fileKey": "Ix36hQwrhom9xIghTTDbtD",
+      "pageNodeId": "1987:7",
+      "url": "https://www.figma.com/design/Ix36hQwrhom9xIghTTDbtD/MCP-test?node-id=1987-7",
+      "status": "fixtures-validated-runtime-pending",
+      "cases": [
+        {
+          "caseId": "valid-baseline",
+          "frameNodeId": "1988:3773",
+          "instanceNodeId": "1988:3776",
+          "observed": {
+            "variant": "View=Muted, Skeleton=False",
+            "overrides": []
+          },
+          "expectedApollo": "no-warning-or-error"
+        },
+        {
+          "caseId": "exact-fill-override",
+          "frameNodeId": "1988:4011",
+          "instanceNodeId": "1988:4014",
+          "observed": {
+            "variant": "View=Muted, Skeleton=False",
+            "overriddenFields": [
+              "fills"
+            ]
+          },
+          "expectedApollo": "warning:component:web-corp.filter-bar.layer-properties-use-effective-baseline"
+        },
+        {
+          "caseId": "skeleton-contextual-info",
+          "frameNodeId": "1988:4103",
+          "instanceNodeId": "1988:4106",
+          "observed": {
+            "variant": "View=Muted, Skeleton=True",
+            "overrides": []
+          },
+          "expectedApollo": "info-only:component:web-corp.filter-bar.component-properties-are-first-class"
+        }
+      ],
+      "runtimeEvidence": {
+        "apolloReport": "pending",
+        "agentJson": "pending",
+        "agentResponse": "pending"
+      }
+    },
     "patternReferences": [
       {
         "patternId": "ptrn:components.filter-bar",
@@ -457,16 +502,49 @@
       "Не превращай рекомендацию показывать все фильтры в количественный лимит.",
       "Не объявляй поведение взаимосвязанных фильтров нарушением без продуктового правила.",
       "Не считай наличие Skeleton variant доказательством того, что FilterBar управляет загрузкой продуктовых данных.",
-      "Не выдавай manual interaction и persistence rules за статические проверки Apollo до registry sync и runtime-теста.",
       "Не считай больше трёх недавних запросов нарушением: это рекомендация.",
-      "Не выводи public code API из названий Figma component properties."
+      "Не выводи public code API из названий Figma component properties.",
+      "Не выдавай future-runtime и agentic-only rules за работающие статические проверки Apollo.",
+      "Учитывай conditions manual rules только при наличии соответствующего продуктового контекста; не считай неподдержанное условие выполненным по умолчанию."
     ],
     "runtimeLimitations": [
-      "Generated contract, raw catalog и composition wraps доступны; manual rules требуют Athena registry sync после изменения.",
-      "Interaction, persistence, callbacks и responsive state transfer остаются agentic-only до runtime-поддержки.",
-      "Surface View требует контекста родительской поверхности.",
+      "После текущих manual-изменений требуется targeted Athena registry sync.",
+      "Два generated baseline rules классифицированы как Apollo-active, но фактический Apollo report по подготовленным fixture-кейсам ещё не получен.",
+      "Interaction, persistence, callbacks, responsive state transfer и surface context остаются agentic-only.",
+      "Восемь composition/platform rules являются future-runtime до поддержки predicates.",
+      "Соответствующий *_agent.json и ответ агента недоступны до запуска внешнего Apollo/Langflow pipeline.",
       "Публичные code exports и статус Skeleton как code prop не подтверждены."
     ],
-    "codeExports": []
+    "codeExports": [],
+    "runtimeRuleClassification": {
+      "apolloActiveRuleIds": [
+        "component:web-corp.filter-bar.component-properties-are-first-class",
+        "component:web-corp.filter-bar.layer-properties-use-effective-baseline"
+      ],
+      "futureRuntimeRuleIds": [
+        "component:web-corp.filter-bar.search-optional-but-pinned",
+        "component:web-corp.filter-bar.supported-presets-only",
+        "component:web-corp.filter-bar.desktop-controls-only",
+        "component:web-corp.filter-bar.mobile-all-filters-only",
+        "component:web-corp.filter-bar.more-falls-back-to-settings",
+        "component:web-corp.filter-bar.pinned-filters-cannot-change",
+        "component:web-corp.filter-bar.other-period-position",
+        "component:web-corp.filter-bar.responsive-breakpoint"
+      ],
+      "agenticOnlyRuleIds": [
+        "component:web-corp.filter-bar.settings-apply-immediately",
+        "component:web-corp.filter-bar.active-filter-cannot-hide",
+        "component:web-corp.filter-bar.mobile-all-filters-synchronizes-values",
+        "component:web-corp.filter-bar.mobile-apply-mode",
+        "component:web-corp.filter-bar.reset-values-only",
+        "component:web-corp.filter-bar.surface-view-pair",
+        "component:web-corp.filter-bar.preserve-values-on-responsive-switch",
+        "component:web-corp.filter-bar.search-recent-only",
+        "component:web-corp.filter-bar.product-owns-loading",
+        "component:web-corp.filter-bar.more-adds-filter-to-end",
+        "component:web-corp.filter-bar.search-history-clear",
+        "component:web-corp.filter-bar.search-history-count-recommendation"
+      ]
+    }
   }
 }
