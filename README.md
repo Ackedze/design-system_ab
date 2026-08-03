@@ -44,6 +44,17 @@ Design dialogue работает в closed-book режиме: каждое фа�
 
 ## Apollo DS contracts
 
+Runtime registry находится в `JSONS/apollo/indexes/componentContractIndex.json` и использует schema v2. Каждый пакет объявляет coverage `required | optional | none`; для `required` обязательны `rules.json` и `composition-contract.json`. Figma keys в итоговом индексе уникальны: если один компонент встречается в нескольких catalog pages, Athena назначает владельца детерминированно с приоритетом active/current компонента, совпадения имени family и более нового каталога.
+
+Перед публикацией обязательно выполнить в Athena CLI:
+
+```bash
+npm run contracts:check-apollo
+npm run catalogs:sync-apollo -- --check
+```
+
+Reference manifest и contract index публикуются одним снимком. Apollo schema v2 не использует fallback для отсутствующих component indexes и блокирует проверку при неполном обязательном bootstrap.
+
 Конвертация нормализованных Figma-каталогов в компактные runtime-контракты выполняется локальным скриптом:
 
 ```bash
