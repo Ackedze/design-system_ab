@@ -17775,7 +17775,7 @@
         "schemaVersion": 1,
         "documentType": "composition-contract",
         "componentKey": "web-corp.card-image",
-        "status": "generated-draft",
+        "status": "ready",
         "applicability": {
           "channels": [
             "b2b"
@@ -17786,6 +17786,207 @@
           ],
           "source": "path-policy",
           "updatedAt": "2026-07-04"
+        },
+        "ownershipModel": {
+          "publicRoots": [
+            "CardImage"
+          ],
+          "internalRoots": [
+            "🔩 CardItem",
+            "🔩 Cover",
+            "🔩 Shadow",
+            "🔩 SilverLine",
+            "🔩 State",
+            "🔩 UserData"
+          ],
+          "internalRootsStandaloneAllowed": false,
+          "detachAllowed": false,
+          "hostOwns": [
+            "internal component selection",
+            "geometry and radius",
+            "logo and payment-system placement",
+            "state overlay anatomy",
+            "SilverLine type by size",
+            "UserData visibility by size"
+          ]
+        },
+        "compositionPolicy": {
+          "root": {
+            "name": "CardImage",
+            "platform": "universal",
+            "interactive": false,
+            "hostOwnsInteraction": true,
+            "allowedSizes": [
+              "264x164",
+              "212x132",
+              "68x42",
+              "44x28",
+              "24x16"
+            ],
+            "manualResizeAllowed": false
+          },
+          "sizeBaselines": {
+            "264x164": {
+              "alias": "XL",
+              "userData": [
+                "cardholderName",
+                "lastFourDigits"
+              ],
+              "silverLine": "complex",
+              "shadowAvailable": true,
+              "stackAllowed": false,
+              "states": [
+                "Active",
+                "Inactive",
+                "Locked"
+              ]
+            },
+            "212x132": {
+              "alias": "L",
+              "userData": [
+                "lastFourDigits"
+              ],
+              "silverLine": "complex",
+              "shadowAvailable": true,
+              "stackAllowed": false,
+              "states": [
+                "Active",
+                "Inactive",
+                "Locked"
+              ]
+            },
+            "68x42": {
+              "alias": "M",
+              "userData": [
+                "lastFourDigits"
+              ],
+              "silverLine": "simple",
+              "shadowAvailable": true,
+              "stackAllowed": true,
+              "states": [
+                "Active",
+                "Inactive",
+                "Locked"
+              ]
+            },
+            "44x28": {
+              "alias": "S",
+              "userData": [],
+              "silverLine": "simple",
+              "shadowAvailable": true,
+              "stackAllowed": true,
+              "states": [
+                "Active",
+                "Inactive",
+                "Locked"
+              ]
+            },
+            "24x16": {
+              "alias": "XS",
+              "userData": [],
+              "silverLine": "hidden",
+              "shadowAvailable": false,
+              "stackAllowed": true,
+              "states": [
+                "Active"
+              ]
+            }
+          },
+          "stack": {
+            "minimumCards": 2,
+            "renderedCardItems": 2,
+            "topItem": "Первая карта списка с выбранной рубашкой.",
+            "backItem": "Одна служебная подложка без изображения независимо от фактического количества карт.",
+            "requiredState": "Active",
+            "countPresentation": {
+              "68x42": "+N карты",
+              "44x28": "ellipsis",
+              "24x16": "ellipsis"
+            },
+            "shadow": {
+              "68x42": true,
+              "44x28": true,
+              "24x16": false
+            }
+          },
+          "userData": {
+            "cardholderName": {
+              "editable": true,
+              "uppercase": true,
+              "maxLines": 1,
+              "overflow": "ellipsis"
+            },
+            "lastFourDigits": {
+              "editable": true,
+              "maskRequired": true,
+              "format": "·· 1234"
+            },
+            "manualAddOrRemoveAllowed": false
+          },
+          "cover": {
+            "presetOwnedValues": [
+              "Alfa Business",
+              "Alfa Business Premium",
+              "Alfa Business Credit"
+            ],
+            "fallback": "None",
+            "customImageOverride": {
+              "allowed": true,
+              "requiredCover": "None",
+              "targetPath": "Details/CardCover / Image Container",
+              "operation": "add Image fill as the first fill",
+              "detachAllowed": false,
+              "newLayersAllowed": false,
+              "structureChangesAllowed": false
+            },
+            "silverLine": {
+              "defaultBySize": {
+                "264x164": "complex",
+                "212x132": "complex",
+                "68x42": "simple",
+                "44x28": "simple",
+                "24x16": "hidden"
+              },
+              "otherBankCustomCover": "hidden",
+              "alternativeAlfaCustomCover": "Скрывай, если полоса уже встроена в изображение или конфликтует с дизайном."
+            }
+          },
+          "state": {
+            "Active": "Без state overlay.",
+            "Inactive": "Вложенный 🔩 State показывает inactive overlay и штатный indicator.",
+            "Locked": "Вложенный 🔩 State показывает locked overlay и lock icon.",
+            "customStateCompositionAllowed": false
+          },
+          "shadow": {
+            "singleCard": "Show Shadow можно менять в размерах XL, L, M и S.",
+            "stackMAndS": "Show Shadow обязан быть включён.",
+            "xs": "Тень отсутствует."
+          },
+          "loadingErrorEmpty": {
+            "ownedByHost": true,
+            "cardImageProvidesOwnStates": false,
+            "coverNoneMeaning": "fallback without preset image, not loading"
+          },
+          "effectiveBaseline": {
+            "resolveOrder": [
+              "CardImage Size",
+              "CardImage Cover",
+              "CardImage State",
+              "CardImage Stack",
+              "Show Shadow",
+              "allowed custom cover Image fill",
+              "conditional SilverLine visibility",
+              "allowed content values"
+            ],
+            "compareLayerChangesAfterResolution": true,
+            "suppressHostOwnedNestedDiffs": true,
+            "preserveAllowedOverrides": [
+              "cardholder name",
+              "last four digits",
+              "custom cover Image fill when Cover=None",
+              "SilverLine visibility for a custom cover"
+            ]
+          }
         },
         "component": {
           "name": "CardImage",
@@ -17978,17 +18179,172 @@
         "schemaVersion": 1,
         "documentType": "composition-contract",
         "componentKey": "web-corp.card-swiper-mobile",
-        "status": "generated-draft",
+        "status": "draft",
         "applicability": {
           "channels": [
             "b2b"
           ],
           "platforms": [
-            "desktop",
             "mobile-web"
           ],
-          "source": "path-policy",
-          "updatedAt": "2026-07-04"
+          "source": "owner-confirmed",
+          "updatedAt": "2026-08-03"
+        },
+        "ownershipModel": {
+          "publicRoots": [
+            "CardSwiperMobile"
+          ],
+          "internalRoots": [
+            "CardsCollection",
+            "LeftCardWrapper",
+            "RightCardWrapper",
+            "↕ SpacingVertical"
+          ],
+          "nestedConfigurableComponents": [
+            "CardImage"
+          ],
+          "internalRootsStandaloneAllowed": false,
+          "detachAllowed": false,
+          "manualReorderAllowed": false,
+          "hostOwns": [
+            "visible previous/current/next window",
+            "CardImage Size and Stack",
+            "current-card centering",
+            "neighbor offsets and clipping",
+            "vertical spacing",
+            "Screen Size selection"
+          ]
+        },
+        "compositionPolicy": {
+          "root": {
+            "name": "CardSwiperMobile",
+            "platform": "mobile-web",
+            "minimumCards": 1,
+            "maximumCards": null,
+            "emptyStateProvided": false
+          },
+          "ordering": {
+            "preserveInputOrder": true,
+            "leftRole": "previous",
+            "centerRole": "current",
+            "rightRole": "next",
+            "defaultSelectedIndex": 0,
+            "explicitSelectionRecommendedWhenMultiple": true
+          },
+          "visibleWindow": {
+            "oneCard": [
+              "current"
+            ],
+            "twoCardsAtStart": [
+              "current",
+              "next"
+            ],
+            "twoCardsAtEnd": [
+              "previous",
+              "current"
+            ],
+            "threeOrMore": [
+              "previous",
+              "current",
+              "next"
+            ],
+            "edgeBehavior": "Keep current centered and omit the unavailable neighbor."
+          },
+          "cardBaselines": {
+            "current": {
+              "component": "CardImage",
+              "Size": "264x164",
+              "Stack": false,
+              "position": "center"
+            },
+            "previous": {
+              "component": "CardImage",
+              "Size": "212x132",
+              "Stack": false
+            },
+            "next": {
+              "component": "CardImage",
+              "Size": "212x132",
+              "Stack": false
+            },
+            "manualResizeAllowed": false,
+            "manualPositioningAllowed": false
+          },
+          "nestedCardImage": {
+            "contract": "web-corp.card-image",
+            "stateValues": [
+              "Active",
+              "Inactive",
+              "Locked"
+            ],
+            "stateAffectsSelection": false,
+            "stateBlocksCarouselNavigation": false,
+            "independentPerCard": [
+              "Cover",
+              "State",
+              "content",
+              "allowed CardImage leaf overrides"
+            ],
+            "hostOwnedPerCard": [
+              "Size",
+              "Stack",
+              "position"
+            ],
+            "detachAllowed": false
+          },
+          "responsive": {
+            "Screen Size=320-360": {
+              "viewport": "320–359 px",
+              "topSpacing": 24,
+              "bottomSpacing": 32
+            },
+            "Screen Size=360+": {
+              "viewport": "360 px and wider within mobile-web",
+              "topSpacing": 24,
+              "bottomSpacing": 32
+            },
+            "propertySelection": "automatic",
+            "manualSpacingChangeAllowed": false,
+            "rawConflict": "Generated delta reports bottom spacing 24 for 320-360; owner-confirmed effective baseline is 32."
+          },
+          "interaction": {
+            "cyclic": false,
+            "selectionStep": 1,
+            "selectionInputs": [
+              "horizontal swipe",
+              "tap adjacent card"
+            ],
+            "currentCardCarouselAction": false,
+            "nestedCardActionAllowed": true,
+            "nestedActionExample": "Tap an icon to reveal card details.",
+            "internalAuxiliaryControlsAllowed": false,
+            "motion": "Horizontal translation and card size transition remain; implementation details belong to the React contract."
+          },
+          "accessibility": {
+            "semanticRole": "carousel/list",
+            "currentState": "Expose current/selected on the center card.",
+            "announcement": "Expose N of M and CardImage state.",
+            "focusOrder": "input order",
+            "swipeAlternative": "tap adjacent card"
+          },
+          "effectiveBaseline": {
+            "resolveOrder": [
+              "viewport and Screen Size",
+              "cards and selectedIndex",
+              "previous/current/next role",
+              "host-owned CardImage Size and Stack",
+              "each CardImage Cover and State",
+              "allowed CardImage content and leaf overrides"
+            ],
+            "compareLayerChangesAfterResolution": true,
+            "suppressHostOwnedNestedDiffs": true,
+            "preserveAllowedOverrides": [
+              "per-card Cover",
+              "per-card State",
+              "per-card content",
+              "allowed CardImage custom cover leaf override"
+            ]
+          }
         },
         "component": {
           "name": "CardSwiperMobile [M]",

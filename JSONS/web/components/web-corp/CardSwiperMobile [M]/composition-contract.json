@@ -3,17 +3,16 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web-corp.card-swiper-mobile",
-    "status": "generated-draft",
+    "status": "draft",
     "applicability": {
       "channels": [
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
-      "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "source": "owner-confirmed",
+      "updatedAt": "2026-08-03"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -407,17 +406,161 @@
     ]
   },
   "manual": {
-    "wraps": [
-      {
-        "hostComponentName": "CardSwiperMobile",
-        "path": "Screen Size=360+ / ↕ SpacingVertical",
-        "componentName": "↕ SpacingVertical",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "Size": "24"
-        }
+    "ownershipModel": {
+      "publicRoots": [
+        "CardSwiperMobile"
+      ],
+      "internalRoots": [
+        "CardsCollection",
+        "LeftCardWrapper",
+        "RightCardWrapper",
+        "↕ SpacingVertical"
+      ],
+      "nestedConfigurableComponents": [
+        "CardImage"
+      ],
+      "internalRootsStandaloneAllowed": false,
+      "detachAllowed": false,
+      "manualReorderAllowed": false,
+      "hostOwns": [
+        "visible previous/current/next window",
+        "CardImage Size and Stack",
+        "current-card centering",
+        "neighbor offsets and clipping",
+        "vertical spacing",
+        "Screen Size selection"
+      ]
+    },
+    "compositionPolicy": {
+      "root": {
+        "name": "CardSwiperMobile",
+        "platform": "mobile-web",
+        "minimumCards": 1,
+        "maximumCards": null,
+        "emptyStateProvided": false
+      },
+      "ordering": {
+        "preserveInputOrder": true,
+        "leftRole": "previous",
+        "centerRole": "current",
+        "rightRole": "next",
+        "defaultSelectedIndex": 0,
+        "explicitSelectionRecommendedWhenMultiple": true
+      },
+      "visibleWindow": {
+        "oneCard": [
+          "current"
+        ],
+        "twoCardsAtStart": [
+          "current",
+          "next"
+        ],
+        "twoCardsAtEnd": [
+          "previous",
+          "current"
+        ],
+        "threeOrMore": [
+          "previous",
+          "current",
+          "next"
+        ],
+        "edgeBehavior": "Keep current centered and omit the unavailable neighbor."
+      },
+      "cardBaselines": {
+        "current": {
+          "component": "CardImage",
+          "Size": "264x164",
+          "Stack": false,
+          "position": "center"
+        },
+        "previous": {
+          "component": "CardImage",
+          "Size": "212x132",
+          "Stack": false
+        },
+        "next": {
+          "component": "CardImage",
+          "Size": "212x132",
+          "Stack": false
+        },
+        "manualResizeAllowed": false,
+        "manualPositioningAllowed": false
+      },
+      "nestedCardImage": {
+        "contract": "web-corp.card-image",
+        "stateValues": [
+          "Active",
+          "Inactive",
+          "Locked"
+        ],
+        "stateAffectsSelection": false,
+        "stateBlocksCarouselNavigation": false,
+        "independentPerCard": [
+          "Cover",
+          "State",
+          "content",
+          "allowed CardImage leaf overrides"
+        ],
+        "hostOwnedPerCard": [
+          "Size",
+          "Stack",
+          "position"
+        ],
+        "detachAllowed": false
+      },
+      "responsive": {
+        "Screen Size=320-360": {
+          "viewport": "320–359 px",
+          "topSpacing": 24,
+          "bottomSpacing": 32
+        },
+        "Screen Size=360+": {
+          "viewport": "360 px and wider within mobile-web",
+          "topSpacing": 24,
+          "bottomSpacing": 32
+        },
+        "propertySelection": "automatic",
+        "manualSpacingChangeAllowed": false,
+        "rawConflict": "Generated delta reports bottom spacing 24 for 320-360; owner-confirmed effective baseline is 32."
+      },
+      "interaction": {
+        "cyclic": false,
+        "selectionStep": 1,
+        "selectionInputs": [
+          "horizontal swipe",
+          "tap adjacent card"
+        ],
+        "currentCardCarouselAction": false,
+        "nestedCardActionAllowed": true,
+        "nestedActionExample": "Tap an icon to reveal card details.",
+        "internalAuxiliaryControlsAllowed": false,
+        "motion": "Horizontal translation and card size transition remain; implementation details belong to the React contract."
+      },
+      "accessibility": {
+        "semanticRole": "carousel/list",
+        "currentState": "Expose current/selected on the center card.",
+        "announcement": "Expose N of M and CardImage state.",
+        "focusOrder": "input order",
+        "swipeAlternative": "tap adjacent card"
+      },
+      "effectiveBaseline": {
+        "resolveOrder": [
+          "viewport and Screen Size",
+          "cards and selectedIndex",
+          "previous/current/next role",
+          "host-owned CardImage Size and Stack",
+          "each CardImage Cover and State",
+          "allowed CardImage content and leaf overrides"
+        ],
+        "compareLayerChangesAfterResolution": true,
+        "suppressHostOwnedNestedDiffs": true,
+        "preserveAllowedOverrides": [
+          "per-card Cover",
+          "per-card State",
+          "per-card content",
+          "allowed CardImage custom cover leaf override"
+        ]
       }
-    ]
+    }
   }
 }
