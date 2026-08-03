@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.card-swiper-mobile",
-    "status": "draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -97,6 +97,21 @@
         "ownerOverride": "Верхний spacing равен 24 px и нижний 32 px для обоих значений. Generated delta с нижним 24 px для 320-360 не является целевым правилом."
       }
     },
+    "componentPropertySemantics": {
+      "Show Start#17127:0": {
+        "type": "BOOLEAN",
+        "default": true,
+        "meaning": "Show previous card in LeftCardWrapper.",
+        "requiredWhen": "selectedIndex > 0"
+      },
+      "Show End#17127:3": {
+        "type": "BOOLEAN",
+        "default": true,
+        "meaning": "Show next card in RightCardWrapper.",
+        "requiredWhen": "selectedIndex < cards.length - 1"
+      },
+      "source": "live Figma inspection 2026-08-03; current raw exporter omits these definitions"
+    },
     "dataModel": {
       "cards": {
         "minimum": 1,
@@ -181,7 +196,7 @@
       "nonGestureAlternative": "Tap the adjacent card."
     },
     "resetModel": {
-      "variant.Screen Size": "reset-component-properties",
+      "variant.Screen Size|boolean.Show Start#17127:0|boolean.Show End#17127:3": "reset-component-properties",
       "content.cards|content.selectedIndex": "reset-data-and-selection",
       "nested.CardImage.Cover|nested.CardImage.State|nested.CardImage.content": "reset-against-card-image-effective-baseline",
       "layout.*|nested.CardImage.Size|nested.CardImage.Stack|component.composition": "reset-host-owned-carousel-composition"

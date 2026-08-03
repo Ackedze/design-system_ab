@@ -3,7 +3,7 @@
   "documentType": "component-examples",
   "metadata": {
     "componentKey": "web-corp.card-swiper-mobile",
-    "status": "draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -42,6 +42,8 @@
             }
           ],
           "selectedIndex": 0,
+          "Show Start#17127:0": false,
+          "Show End#17127:3": false,
           "visibleRoles": [
             "current"
           ],
@@ -60,6 +62,8 @@
           "Screen Size": "360+",
           "cardCount": 4,
           "selectedIndex": 0,
+          "Show Start#17127:0": false,
+          "Show End#17127:3": true,
           "visibleRoles": [
             "current",
             "next"
@@ -70,6 +74,24 @@
         },
         "expectedAudit": {
           "category": "none"
+        }
+      },
+      {
+        "exampleId": "card-swiper-mobile.invalid-neighbor-visibility",
+        "title": "Previous показан на первой карте",
+        "inputState": {
+          "cardCount": 3,
+          "selectedIndex": 0,
+          "Show Start#17127:0": true,
+          "Show End#17127:3": true
+        },
+        "expectedAudit": {
+          "category": "component-property",
+          "severity": "error",
+          "ruleId": "component:web-corp.card-swiper-mobile.neighbor-visibility-properties"
+        },
+        "expectedAgent": {
+          "recommendation": "Установите Show Start#17127:0=false для selectedIndex 0."
         }
       },
       {

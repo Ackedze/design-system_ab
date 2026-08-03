@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web-corp.card-swiper-mobile",
-    "status": "draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -464,7 +464,11 @@
           "current",
           "next"
         ],
-        "edgeBehavior": "Keep current centered and omit the unavailable neighbor."
+        "edgeBehavior": "Keep current centered and omit the unavailable neighbor.",
+        "visibilityProperties": {
+          "Show Start#17127:0": "selectedIndex > 0",
+          "Show End#17127:3": "selectedIndex < cardCount - 1"
+        }
       },
       "cardBaselines": {
         "current": {
@@ -547,6 +551,7 @@
         "resolveOrder": [
           "viewport and Screen Size",
           "cards and selectedIndex",
+          "Show Start and Show End from selectedIndex",
           "previous/current/next role",
           "host-owned CardImage Size and Stack",
           "each CardImage Cover and State",
