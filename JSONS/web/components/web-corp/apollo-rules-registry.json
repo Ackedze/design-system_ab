@@ -3950,6 +3950,20 @@
           "ruleText": "При одной карте показывается только центральная карта. При двух — текущая и один доступный сосед. При трёх и более — previous/current/next. На первом и последнем элементе отсутствующий сосед скрыт, а текущая карта остаётся по центру."
         },
         {
+          "ruleId": "component:web-corp.card-swiper-mobile.neighbor-visibility-properties",
+          "severity": "error",
+          "source": "owner-confirmed-live-figma",
+          "appliesTo": "boolean.Show Start#17127:0|boolean.Show End#17127:3|content.selectedIndex",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "Show Start#17127:0": "selectedIndex > 0",
+            "Show End#17127:3": "selectedIndex < cardCount - 1"
+          },
+          "remediation": "Показывайте previous только когда selectedIndex > 0, а next — только когда selectedIndex меньше последнего индекса.",
+          "ruleText": "Управляйте соседями только root properties: Show Start#17127:0 показывает previous, Show End#17127:3 показывает next. Для одной карты оба false; на первом элементе false/true, внутри списка true/true, на последнем true/false."
+        },
+        {
           "ruleId": "component:web-corp.card-swiper-mobile.screen-size-follows-viewport",
           "severity": "error",
           "source": "owner-confirmed",

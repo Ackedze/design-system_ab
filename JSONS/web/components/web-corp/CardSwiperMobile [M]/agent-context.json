@@ -3,7 +3,7 @@
   "documentType": "component-agent-context",
   "metadata": {
     "componentKey": "web-corp.card-swiper-mobile",
-    "status": "draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -97,6 +97,7 @@
       "Сохраняй исходный порядок карт. Если selectedIndex не задан, используется индекс 0; при нескольких картах явный selectedIndex рекомендуется.",
       "Текущая карта находится по центру и использует CardImage Size=264x164; доступные соседи используют 212x132.",
       "При одной карте показывай только current; при двух — current и доступного соседа; при трёх и более — previous/current/next.",
+      "Управляй соседями exact root properties: Show Start#17127:0 для previous и Show End#17127:3 для next; значения следуют selectedIndex.",
       "На краях списка current остаётся по центру, отсутствующий сосед не отображается.",
       "Карусель нециклическая. Один свайп или тап по боковой карте переключает ровно одну позицию.",
       "Screen Size=320-360 соответствует viewport 320–359 px, Screen Size=360+ — от 360 px включительно.",
@@ -119,6 +120,10 @@
       {
         "ruleId": "component:web-corp.card-swiper-mobile.selection-geometry",
         "baseline": "Current = center/264x164; previous и next = 212x132; Stack=false."
+      },
+      {
+        "ruleId": "component:web-corp.card-swiper-mobile.neighbor-visibility-properties",
+        "baseline": "Show Start истинно только при previous; Show End — только при next."
       },
       {
         "ruleId": "component:web-corp.card-swiper-mobile.screen-size-follows-viewport",
@@ -144,6 +149,7 @@
       "component:web-corp.card-swiper-mobile.preserves-source-order",
       "component:web-corp.card-swiper-mobile.selection-geometry",
       "component:web-corp.card-swiper-mobile.edge-window-behavior",
+      "component:web-corp.card-swiper-mobile.neighbor-visibility-properties",
       "component:web-corp.card-swiper-mobile.screen-size-follows-viewport",
       "component:web-corp.card-swiper-mobile.fixed-vertical-spacing",
       "component:web-corp.card-swiper-mobile.non-cyclic-navigation",
@@ -173,7 +179,9 @@
     },
     "auditInterpretation": {
       "componentProperties": [
-        "variant.Screen Size"
+        "variant.Screen Size",
+        "boolean.Show Start#17127:0",
+        "boolean.Show End#17127:3"
       ],
       "contentProperties": [
         "cards",
