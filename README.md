@@ -57,6 +57,12 @@ npm run contracts:check-apollo
 npm run catalogs:sync-apollo -- --check
 ```
 
+Athena release публикуется только из локальной ветки `main` в `origin/main`.
+Feature-ветки нельзя использовать как накопительный target для выгрузок каталогов:
+независимые Android, Web и contract batches переносятся и проверяются поэтапно,
+после чего каждый следующий batch строится поверх уже валидного `main` snapshot.
+Publisher Athena CLI отклоняет запуск из любой другой ветки до создания commit.
+
 Reference manifest и contract index публикуются одним снимком. Apollo schema v2 не использует fallback для отсутствующих component indexes и блокирует проверку при неполном обязательном bootstrap.
 
 Конвертация нормализованных Figma-каталогов в компактные runtime-контракты выполняется локальным скриптом:
