@@ -42,6 +42,10 @@ Design dialogue работает в closed-book режиме: каждое фа�
 
 После изменения правил нужно проверить валидность JSON и опубликовать этот репозиторий. Apollo загружает конфиг при каждом запуске с cache-busting параметром, поэтому после публикации достаточно перезапустить плагин; пересборка Apollo не требуется. Не удаляйте конфиг и не меняйте поддерживаемый `schemaVersion` без синхронного изменения валидатора Apollo: невалидный конфиг блокирует reference bootstrap.
 
+Явные замены устаревших компонентов и стилей находятся в `JSONS/apollo/remediations.json`; путь объявлен как `apollo.remediationConfigPath` в bootstrap manifest. Ключ объекта — исходный опубликованный Figma key, target key задаётся через `replacementComponentKey` или `replacementStyleKey`. Apollo показывает действие только для валидной однозначной записи и повторно проверяет исходный key перед мутацией. Изменения этого файла не требуют пересборки Apollo, но требуют публикации GitHub Pages и перезапуска плагина.
+
+Пары Desktop/MobileWeb не дублируются в этом конфиге: Athena записывает безопасные same-page пары в `channelCounterparts` соответствующего component index. Если family неоднозначна, связь не публикуется и кнопка замены в Apollo не появляется.
+
 ## Apollo DS contracts
 
 Runtime registry находится в `JSONS/apollo/indexes/componentContractIndex.json` и использует schema v2. Каждый пакет объявляет coverage `required | optional | none`; для `required` обязательны `rules.json` и `composition-contract.json`. Figma keys в итоговом индексе уникальны: если один компонент встречается в нескольких catalog pages, Athena назначает владельца детерминированно с приоритетом active/current компонента, совпадения имени family и более нового каталога.
