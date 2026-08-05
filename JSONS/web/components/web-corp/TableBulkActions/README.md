@@ -1,28 +1,61 @@
-# TableBulkActions — MVP component contract
+# TableBulkActions
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / TableBulkActions**.
+Машиночитаемый комплект компонента **Web _ Corp Components / TableBulkActions** для Apollo и агентского анализа.
 
-The raw Figma catalog remains the source of truth:
+## Назначение и статус
 
-`../Web _ Corp Components -- TableBulkActions.json`
+TableBulkActions — sticky-панель массовых действий над выбранными объектами. В React компонент называется `CorporateTableBulkActions`.
 
-## Файлы
+Lifecycle status — `scheduled`: компонент пока разрешено использовать, но он запланирован к выводу из эксплуатации. В новых Table Basic и Table Wide отдельный TableBulkActions уже не применяется: массовые действия реализуются через Pagination с preset `BulkActions`. В карточных и других списочных представлениях, а также как самостоятельная sticky-панель компонент остаётся допустимым.
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+## Публичные компоненты
+
+- `🔄 [D] TableBulkActions` — desktop от 768 px.
+- `🔄 [M] TableBulkActions` — только adaptive на ширине 320–767 px; не для Mobile Web.
+
+Остальные корни raw-каталога являются служебными частями и не должны использоваться отдельно.
+
+## Основные правила
+
+- Counter обязателен для массового выбора. Его можно скрыть только в самостоятельной sticky-панели кнопок.
+- Текст Counter фиксирован: `Выбрано N`. На ширине 768–1023 px Label можно скрыть, чтобы освободить место.
+- Checkbox Counter по умолчанию выбран; нажатие снимает весь выбор. `IndeterminateState` запрещён.
+- `N` в Counter автоматически равно количеству всех выбранных объектов во всём наборе данных, а не только на текущей странице.
+- Spacer выравнивает Counter с checkbox элементов данных; для самостоятельной sticky-панели используется `Spacer=false`.
+- `Amount=single` показывает одну сумму, `Amount=multiple` — несколько сумм, помещающихся в одну линию без слайдера. При переполнении используется `AmountRowSlider`.
+- Суммы могут быть в разных валютах. Жёсткого лимита нет, рекомендуется не более 10.
+- Название, сумма, валюта и штатные параметры Amount настраиваются. `N` в AmountItem равно количеству объектов этой суммы; визуальные стили фиксированы.
+- Допускается максимум четыре видимые кнопки и не более одной `Primary`; группа только из `Secondary` разрешена.
+- При переполнении последняя кнопка становится `PickerButton`; действия скрываются справа налево, их количество в Picker не ограничено.
+- `Size`, `Shape` и `View` кнопок сохраняются по effective baseline.
+- Labels, addons, disabled и loading кнопок можно настраивать через штатный API Button.
+- Если суммы и кнопки не помещаются вместе, включается `TopRow`. `TopRow=true` и `Overflow=true` совместимы.
+- PickerButton открывает OptionList на desktop/tablet и BottomSheet в adaptive mobile.
+- AmountRowSlider использует кнопки и fade на desktop/tablet; в adaptive mobile используется touch-scroll без fade и кнопок.
+- Компонент всегда закреплён снизу. Положение, fill, shadow, height и padding сохраняются по effective baseline.
+- `Tablet=true` автоматически применяется на 768–1023 px, `Tablet=false` — от 1024 px. В adaptive 320–767 px `TopRow` всегда включён.
+- У компонента нет общего loading или disabled состояния; они доступны только отдельным кнопкам.
+- Панель отображается только при ненулевом выборе. Суммы и действия относятся только к выбранным объектам.
+- Поведение выбора после выполнения действия определяется конкретным сценарием.
 
 ## Источник
 
-- Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
-- Компонентов: `12`
+Raw-каталог остаётся источником Figma-структуры:
 
-## Current Scope
+`../Web _ Corp Components -- TableBulkActions.json`
 
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+Спецификация Figma: `Web Corp Components`, node `187:24210`.
+
+## Файлы
+
+- `contract.generated.json` — автоматически извлечённая структура и свойства компонентов.
+- `contract.overrides.json` — ручная семантика публичного API, lifecycle, платформ и вариантов.
+- `composition-contract.json` — ownership вложенных компонентов и композиционные ограничения.
+- `rules.json` — точные component rules для Apollo и агента.
+- `audit-mapping.json` — условия, при которых правила можно подтверждать по фактам аудита.
+- `examples.json` — позитивные и нарушающие сценарии для проверки интерпретации.
+- `agent-context.json` — компактный нормативный контекст для агента.
+
+## Статус
+
+Комплект остаётся в статусе `Draft`: подтверждены lifecycle, публичные корни, платформы и логика `TopRow`. Правила Counter, Spacer, Amount и Buttons ещё уточняются у владельца компонента.

@@ -58,6 +58,54 @@ Apollo Agent работает в двух независимых режимах:
 - `audit_report` — есть только отчёт;
 - `mixed` — передано несколько видов контекста.
 
+## Сценарный контекст
+
+Отдельно выделяй сценарий применения, если вопрос говорит не только о компоненте, но и о месте/поверхности/паттерне использования.
+
+Заполняй:
+
+- `requestedComponent` — явно названный компонент или близкий компонентный объект (`TitleView`, `ProgressBar`, `FilterBar`, `TableView`, `заголовок`, `кнопка`);
+- `requestedPattern` — явно или сценарно названный паттерн (`forms.construction-rules`, `components.title-view`, `layout.islands`, `layout.wide-grid`, `components.corporate-page`, `tables.data-formatting`);
+- `requestedScenario` — пользовательский сценарий обычными словами (`заголовок блока формы`, `вложенный блок формы`, `таблица с действиями`, `островок справа`, `главный заголовок страницы`);
+- `requestedSurface` — место применения (`форма`, `блок формы`, `страница`, `таблица`, `островок`, `лендинг`, `модалка`, `side panel`, `mobile web`);
+- `routingHints` — короткий список слов/фраз для retrieval, только из текущего вопроса и очевидного нормализованного названия паттерна/компонента.
+
+Не оставляй сценарий только в `taskSummary`, если он влияет на выбор источника. Для вопросов о применении компонента внутри сценария классифицируй по сценарию, а не только по компоненту.
+
+Примеры:
+
+```json
+{
+  "question": "какой заголовок использовать в блоке формы ?",
+  "primaryIntent": "design_consultation",
+  "requestedComponent": "TitleView",
+  "requestedPattern": "forms.construction-rules",
+  "requestedScenario": "заголовок блока формы",
+  "requestedSurface": "блок формы",
+  "routingHints": ["форма", "блок формы", "TitleView", "Medium", "Small"]
+}
+```
+
+```json
+{
+  "question": "как корректно использовать заголовок на странице ?",
+  "primaryIntent": "explain_component_usage",
+  "requestedComponent": "TitleView",
+  "requestedPattern": "components.title-view",
+  "requestedScenario": "главный заголовок страницы",
+  "requestedSurface": "страница",
+  "routingHints": ["TitleView", "заголовок страницы", "xLarge"]
+}
+```
+
+Сценарные соответствия:
+
+- `форма`, `блок формы`, `подложка формы`, `вложенный блок`, `логический блок` -> `requestedPattern = "forms.construction-rules"`;
+- `заголовок`, `TitleView`, `шапка блока`, `главный заголовок` -> `requestedComponent = "TitleView"`;
+- `таблица`, `колонки`, `ячейки`, `выравнивание данных` -> `requestedPattern = "tables.data-formatting"` или конкретный table component, если он явно назван;
+- `островок`, `правая колонка`, `secondary content` -> `requestedPattern = "layout.islands"`;
+- `страница`, `CorporatePage`, `широкая сетка`, `адаптив` -> соответствующий page/layout pattern по формулировке.
+
 ## Интенты
 
 - `analyze_report` — автоматически разобрать `apollo-agent-report` и подготовить приоритетные рекомендации.
@@ -103,6 +151,8 @@ Apollo Agent работает в двух независимых режимах:
    - `needsPattern = true`;
    - `needsRag = false`, если реальные примеры не запрошены.
 
+   Если в вопросе о компоненте есть сценарная поверхность (`в блоке формы`, `в таблице`, `в островке`, `на лендинге`, `в модалке`), не ограничивайся компонентом. Заполни `requestedPattern`, `requestedScenario`, `requestedSurface`, `routingHints`; для выбора решения используй `primaryIntent = "design_consultation"`, если вопрос звучит как «какой/что выбрать/как применить».
+
 5. Запрос на проектирование: «как спроектировать», «предложи структуру», «какой паттерн выбрать», «предложи несколько вариантов», «как организовать сценарий/форму/страницу»:
    - `mode = "design-dialogue"`;
    - `primaryIntent = "design_consultation"`;
@@ -136,6 +186,8 @@ Apollo Agent работает в двух независимых режимах:
 
 - `reportKind` и `sourceReportId` заполняй только из явных данных.
 - `requestedCategory`, `requestedComponent`, `requestedRuleId` заполняй, если они явно присутствуют в вопросе или прикреплённом контексте; иначе возвращай пустую строку.
+- `requestedPattern`, `requestedScenario`, `requestedSurface` заполняй, если сценарий явно присутствует в вопросе или однозначно следует из слов пользователя. Если нет — возвращай пустую строку.
+- `routingHints` возвращай массивом. Если подсказок нет — возвращай пустой массив `[]`.
 - `shouldUseConversationHistory = true` для follow-up и `design-dialogue`; для нового автоматического анализа отчёта — `false`.
 - `needsClarification = true`, если запрос неоднозначен и отсутствует критически необходимый объект, сценарий или platform/channel context.
 - Не выставляй `needsClarification = true` только из-за отсутствия ruleId, platform или component key, если в вопросе есть понятная тема для поиска по документам.

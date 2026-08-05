@@ -24,6 +24,10 @@
   "mode": "audit-analysis | design-dialogue",
   "intent": "find_pattern_context | explain_component_usage | design_consultation",
   "question": "...",
+  "requestedPattern": "...",
+  "requestedScenario": "...",
+  "requestedSurface": "...",
+  "routingHints": ["..."],
   "scanChannel": "...",
   "category": "...",
   "component": {"name": "...", "key": "...", "library": "..."},
@@ -42,13 +46,14 @@
 ## Универсальный поиск
 
 1. Первый запрос в RAG должен совпадать с исходным `question`. Не переписывай его, не переводи и не добавляй синонимы.
-2. Добавляй только значения, явно присутствующие во входе: component name, точный ruleId, platform/channel или property/change.
+2. Для повторного или targeted-запроса добавляй только значения, явно присутствующие во входе: component name, requestedPattern, requestedScenario, requestedSurface, routingHints, точный ruleId, platform/channel или property/change.
 3. Не придумывай patternId, ruleId, sourceFile, название страницы или английский синоним, которого нет во входе.
 4. Не требуй ruleId, platform или component, если вопрос уже понятен по теме.
 5. Не добавляй `documentType` как обязательный поисковый фильтр.
 6. Вызови `get_rag_response` один раз.
 7. Если chunks пусты, разрешён один повторный запрос: убери служебные слова и оставь исходную тему, не добавляя вымышленных идентификаторов.
-8. Не выполняй третий запрос и не ищи по всей истории диалога.
+8. Если вопрос содержит и компонент, и сценарную поверхность, а первый поиск вернул только общий компонентный контекст без сценарного правила, разрешён один повторный targeted-запрос из `requestedScenario`, `requestedSurface`, `requestedPattern`, component name и `routingHints`. Не добавляй данные, которых нет во входе.
+9. Не выполняй третий запрос и не ищи по всей истории диалога.
 
 Примеры корректной нормализации:
 
@@ -56,7 +61,20 @@
 «расскажи про паттерн по кнопкам» -> «расскажи про паттерн по кнопкам»
 «как работать с адаптивом?» -> «как работать с адаптивом»
 rule:controls.buttons-and-button-groups.primary-left -> без изменений
+«какой заголовок использовать в блоке формы?» + requestedPattern=forms.construction-rules -> второй targeted-запрос только если первый поиск не нашёл правила формы: «блок формы forms.construction-rules TitleView Medium Small»
 ```
+
+## Сценарные вопросы
+
+Для вопросов вида «какой компонент/вариант использовать в <сценарии>» приоритет имеет сценарный паттерн, а компонентный паттерн является дополнительным источником.
+
+Примеры:
+
+- `какой заголовок использовать в блоке формы?` — сначала ищи правила построения форм и заголовков внутри формы; правила общего `TitleView` используй только как дополнительную иерархию.
+- `какую кнопку поставить в строке таблицы?` — ищи table/action context и затем кнопочный паттерн.
+- `что использовать в островке справа?` — ищи паттерн островков, а не только компонент из вопроса.
+
+Если найден общий компонентный chunk, но он отвечает на другой уровень сценария, не делай его главным выводом. Например, правило про `TitleView :: xLarge` на странице не отвечает на вопрос про заголовок блока формы, если рядом нет claim про форму.
 
 ## Обработка chunks
 
@@ -81,6 +99,9 @@ rule:controls.buttons-and-button-groups.primary-left -> без изменени�
 - `product_example` показывает практику, но не подтверждает корректность решения.
 - Если documentType отсутствует, возвращай `document_type = "unknown"`; не восстанавливай его по заголовку или теме.
 - Сохраняй фактические title, URL, excerpt и metadata каждого источника.
+- Если chunk или metadata содержит `figmaLink`, `figma_url`, `figmaUrl` или Figma URL в тексте, извлеки его в `figma_url`.
+- Для нормативного pattern source заполняй `preferred_source_url = figma_url`, если Figma URL найден; иначе `preferred_source_url = source_url`.
+- Для ненормативных документов `preferred_source_url = source_url`, если Figma URL не подтверждён тем же chunk.
 
 Для broad inventory-запроса возвращай найденные документы, но не называй список полным, если RAG не вернул явный полный реестр.
 
@@ -153,6 +174,8 @@ rule:controls.buttons-and-button-groups.primary-left -> без изменени�
     {
       "source_title": "...",
       "source_url": "...",
+      "preferred_source_url": "...",
+      "figma_url": "...",
       "document_type": "pattern | snapshot | context | example | unknown",
       "evidence_kind": "normative_pattern | context_document | product_example",
       "excerpt": "...",
@@ -173,6 +196,8 @@ rule:controls.buttons-and-button-groups.primary-left -> без изменени�
       "document_type": "pattern",
       "source_file": "...",
       "pattern_link": "...",
+      "confluence_link": "...",
+      "figma_link": "...",
       "matched_rules": [
         {
           "rule_id": "...",
@@ -190,6 +215,7 @@ rule:controls.buttons-and-button-groups.primary-left -> без изменени�
         "statement": "...",
         "source_title": "...",
         "source_url": "...",
+        "preferred_source_url": "...",
         "source_quote": "..."
       }
     ],
@@ -198,6 +224,7 @@ rule:controls.buttons-and-button-groups.primary-left -> без изменени�
         "statement": "...",
         "source_title": "...",
         "source_url": "...",
+        "preferred_source_url": "...",
         "source_quote": "..."
       }
     ],
