@@ -1,4 +1,497 @@
 {
   "schemaVersion": 1,
-  "rules": []
+  "rules": [
+    {
+      "id": "buttons-group.first-button-primary",
+      "match": {
+        "hostComponentNames": ["[D] ButtonsGroup", "[M] ButtonsGroup"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[D] Button", "[M] Button"],
+        "occurrence": "first"
+      },
+      "assert": {
+        "variantProperties": {
+          "View": { "oneOf": ["Primary"] }
+        }
+      },
+      "messages": {
+        "allowed": "Первая кнопка соответствует паттерну ButtonsGroup",
+        "violation": "Первая кнопка должна иметь View=Primary"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "buttons-group.following-buttons-secondary",
+      "match": {
+        "hostComponentNames": ["[D] ButtonsGroup", "[M] ButtonsGroup"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[D] Button", "[M] Button"],
+        "occurrence": "after-first"
+      },
+      "assert": {
+        "variantProperties": {
+          "View": { "oneOf": ["Secondary"] }
+        }
+      },
+      "messages": {
+        "allowed": "Кнопка соответствует паттерну ButtonsGroup",
+        "violation": "После первой кнопки допускается только View=Secondary"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "buttons-group.fourth-button-single-icon",
+      "match": {
+        "hostComponentNames": ["[D] ButtonsGroup", "[M] ButtonsGroup"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[D] Button", "[M] Button"],
+        "occurrence": "last"
+      },
+      "when": { "nestedCount": 4 },
+      "assert": {
+        "variantProperties": {
+          "SingleIcon": { "oneOf": ["False", "True"] }
+        }
+      },
+      "messages": {
+        "allowed": "Последняя кнопка может использовать SingleIcon в группе из четырёх кнопок",
+        "violation": "SingleIcon допускается только для последней кнопки группы из четырёх кнопок"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "buttons-group.single-icon-position",
+      "match": {
+        "hostComponentNames": ["[D] ButtonsGroup", "[M] ButtonsGroup"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[D] Button", "[M] Button"]
+      },
+      "assert": {
+        "variantProperties": {
+          "SingleIcon": { "oneOf": ["False"] }
+        }
+      },
+      "messages": {
+        "allowed": "Кнопка соответствует паттерну ButtonsGroup",
+        "violation": "SingleIcon допускается только для последней кнопки группы из четырёх кнопок"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "background-plate.level-one-type",
+      "match": {
+        "hostComponentKeys": [
+          "2c7332d281570f4d5af6d334f8df378d24a1f235",
+          "c49f08db71ab44ea64f0880730220de1d93ac263",
+          "4cfe3915785e5c37255190ae16314f6f2a1d05b3",
+          "a58fa7ae11989280fc24069f204ba617fdb1f93c"
+        ]
+      },
+      "selector": {
+        "nestedComponentKeys": [
+          "adb65a62cde9ebedc5d0d41d2d77cd63e71e0745",
+          "2b46e94cdecdab7d4cb977055c0405b2f6204127",
+          "efc528bd86582d96a824edeb2c257dc8b22a8f14",
+          "19b4b6ed5718d82888a6551b56e0c776f4993ccc"
+        ]
+      },
+      "assert": {
+        "variantProperties": {
+          "Type": { "oneOf": ["Primary", "Secondary", "Colored", "Border"] }
+        }
+      },
+      "messages": {
+        "allowed": "Тип Style Level 1 соответствует паттерну BackgroundPlate",
+        "violation": "Style Level 1 использует недопустимый Type"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "content-card-wrapper.desktop-background-level",
+      "match": {
+        "hostComponentNames": ["[D] ContentCardWrapper"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[D] BackgroundPlate"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Position": { "oneOf": ["Level 2 (inner)"] }
+        }
+      },
+      "messages": {
+        "allowed": "Уровень BackgroundPlate соответствует desktop-композиции ContentCardWrapper",
+        "violation": "В [D] ContentCardWrapper требуется BackgroundPlate Position=Level 2 (inner)"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "content-card-wrapper.mobile-background-level",
+      "match": {
+        "hostComponentNames": ["[M] ContentCardWrapper"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[M] BackgroundPlate"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Position": { "oneOf": ["Level 1 (outer)"] }
+        }
+      },
+      "messages": {
+        "allowed": "Уровень BackgroundPlate соответствует mobile-композиции ContentCardWrapper",
+        "violation": "В [M] ContentCardWrapper требуется BackgroundPlate Position=Level 1 (outer)"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "title-view.status-size-24",
+      "match": {
+        "hostComponentNames": ["[D] TitleView", "[M] TitleView"]
+      },
+      "selector": {
+        "nestedComponentNames": ["StatusPreset"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Size": { "oneOf": ["24"] }
+        }
+      },
+      "messages": {
+        "allowed": "StatusPreset соответствует конфигурации TitleView",
+        "violation": "StatusPreset внутри TitleView должен использовать Size=24"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "onboarding-hint.button-fixed",
+      "match": {
+        "hostComponentNames": ["Onboarding Hint"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[D] Button"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Size": { "oneOf": ["32"] },
+          "View": { "oneOf": ["Text"] },
+          "Shape": { "oneOf": ["Rectangular"] },
+          "SingleIcon": { "oneOf": ["False"] },
+          "DisabledState": { "oneOf": ["False"] }
+        }
+      },
+      "messages": {
+        "allowed": "Кнопка соответствует конфигурации Onboarding Hint",
+        "violation": "Встроенная кнопка Onboarding Hint должна использовать Size=32, View=Text и штатную форму"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "onboarding-hint.close-fixed",
+      "match": {
+        "hostComponentNames": ["Onboarding Hint"]
+      },
+      "selector": {
+        "nestedComponentNames": ["Cross"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Size": { "oneOf": ["24"] },
+          "TransparentBg": { "oneOf": ["False"] },
+          "View": { "oneOf": ["Primary"] }
+        }
+      },
+      "messages": {
+        "allowed": "Close соответствует конфигурации Onboarding Hint",
+        "violation": "Close внутри Onboarding Hint должен использовать Size=24, TransparentBg=False и View=Primary"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "onboarding-hint.close-icon-type",
+      "match": {
+        "hostComponentNames": ["Onboarding Hint"]
+      },
+      "selector": {
+        "nestedComponentNames": ["🔩 Icon"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Type": { "oneOf": ["icon-20"] }
+        }
+      },
+      "messages": {
+        "allowed": "Иконка Close соответствует конфигурации Onboarding Hint",
+        "violation": "Иконка Close внутри Onboarding Hint должна использовать Type=icon-20"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "onboarding-hint.close-glyph-fixed",
+      "match": {
+        "hostComponentNames": ["Onboarding Hint"]
+      },
+      "selector": {
+        "nestedComponentNames": ["cross"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Size": { "oneOf": ["20"] },
+          "Color": { "oneOf": ["False"] },
+          "Style": { "oneOf": ["Thinline"] }
+        }
+      },
+      "messages": {
+        "allowed": "Glyph Close соответствует конфигурации Onboarding Hint",
+        "violation": "Glyph Close внутри Onboarding Hint должен использовать Size=20, Color=False и Style=Thinline"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "onboarding-tooltip.buttons-fixed",
+      "match": {
+        "hostComponentNames": ["Onboarding Tooltip"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[D] Button"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Size": { "oneOf": ["40"] },
+          "Shape": { "oneOf": ["Rectangular"] },
+          "SingleIcon": { "oneOf": ["False"] },
+          "DisabledState": { "oneOf": ["False"] }
+        }
+      },
+      "messages": {
+        "allowed": "Кнопка соответствует общей конфигурации Onboarding Tooltip",
+        "violation": "Кнопки Onboarding Tooltip должны использовать Size=40, Shape=Rectangular, SingleIcon=False и DisabledState=False"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "onboarding-tooltip.close-glyph-fixed",
+      "match": {
+        "hostComponentNames": ["Onboarding Tooltip"]
+      },
+      "selector": {
+        "nestedComponentNames": ["cross"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Size": { "oneOf": ["24"] },
+          "Color": { "oneOf": ["False"] },
+          "Style": { "oneOf": ["Line"] }
+        }
+      },
+      "messages": {
+        "allowed": "Close соответствует конфигурации Onboarding Tooltip",
+        "violation": "Close внутри Onboarding Tooltip должен использовать Size=24, Color=False и Style=Line"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "button-stack.option-states-fixed",
+      "match": {
+        "hostComponentNames": ["🔒 [M] ButtonStack"]
+      },
+      "selector": {
+        "nestedComponentNames": ["CheckboxLabel_24"]
+      },
+      "assert": {
+        "variantProperties": {
+          "DisabledLabel": { "oneOf": ["False"] },
+          "ErrorMessage": { "oneOf": ["False"] },
+          "Hint": { "oneOf": ["False"] }
+        }
+      },
+      "messages": {
+        "allowed": "Option соответствует конфигурации ButtonStack",
+        "violation": "Option внутри ButtonStack не должна использовать DisabledLabel, ErrorMessage или Hint"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "button-stack.information-addon-fixed",
+      "match": {
+        "hostComponentNames": ["🔒 [M] ButtonStack"]
+      },
+      "selector": {
+        "nestedComponentNames": ["StatusBadge"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Size": { "oneOf": ["16"] },
+          "View": { "oneOf": ["NeutralInformation"] }
+        }
+      },
+      "messages": {
+        "allowed": "Information addon соответствует конфигурации ButtonStack",
+        "violation": "Information addon внутри ButtonStack должен использовать StatusBadge Size=16 и View=NeutralInformation"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "status-preset.desktop-shape",
+      "match": {
+        "hostComponentNames": ["🔒 [D] StatusPreset"]
+      },
+      "selector": {
+        "nestedComponentNames": ["Status"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Shape": { "oneOf": ["Rounded"] }
+        }
+      },
+      "messages": {
+        "allowed": "Shape соответствует конфигурации desktop StatusPreset",
+        "violation": "Status внутри desktop StatusPreset должен использовать Shape=Rounded"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "status-preset.mobile-shape",
+      "match": {
+        "hostComponentNames": ["🔒 [M] StatusPreset"]
+      },
+      "selector": {
+        "nestedComponentNames": ["Status"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Shape": { "oneOf": ["Rounded"] }
+        }
+      },
+      "messages": {
+        "allowed": "Shape соответствует конфигурации mobile StatusPreset",
+        "violation": "Status внутри mobile StatusPreset должен использовать Shape=Rounded"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "property-preset.desktop-shape",
+      "match": {
+        "hostComponentNames": ["🔒 [D] PropertyPreset"]
+      },
+      "selector": {
+        "nestedComponentNames": ["Status"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Shape": { "oneOf": ["Rectangular"] }
+        }
+      },
+      "messages": {
+        "allowed": "Shape соответствует конфигурации desktop PropertyPreset",
+        "violation": "Status внутри desktop PropertyPreset должен использовать Shape=Rectangular"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "property-preset.mobile-shape",
+      "match": {
+        "hostComponentNames": ["🔒 [M] PropertyPreset"]
+      },
+      "selector": {
+        "nestedComponentNames": ["Status"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Shape": { "oneOf": ["Rectangular"] }
+        }
+      },
+      "messages": {
+        "allowed": "Shape соответствует конфигурации mobile PropertyPreset",
+        "violation": "Status внутри mobile PropertyPreset должен использовать Shape=Rectangular"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "status-property.desktop-uppercase",
+      "match": {
+        "hostComponentNames": ["🔒 [D] StatusPreset", "🔒 [D] PropertyPreset"]
+      },
+      "selector": {
+        "nestedComponentNames": ["🔩 Label"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Uppercase": { "oneOf": ["True"] }
+        }
+      },
+      "messages": {
+        "allowed": "Регистр соответствует desktop-версии Status/Property",
+        "violation": "Label внутри desktop Status/Property должен использовать Uppercase=True"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "status-property.mobile-uppercase",
+      "match": {
+        "hostComponentNames": ["🔒 [M] StatusPreset", "🔒 [M] PropertyPreset"]
+      },
+      "selector": {
+        "nestedComponentNames": ["Label"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Uppercase": { "oneOf": ["False"] }
+        }
+      },
+      "messages": {
+        "allowed": "Регистр соответствует mobile-версии Status/Property",
+        "violation": "Label внутри mobile Status/Property должен использовать Uppercase=False"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "tabs-view.desktop-secondary-fixed",
+      "match": {
+        "hostComponentNames": ["[D] TabsView"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[D] Tag"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Size": { "oneOf": ["40"] },
+          "View": { "oneOf": ["Filled"] },
+          "Shape": { "oneOf": ["Rounded"] },
+          "SingleIcon": { "oneOf": ["False"] }
+        }
+      },
+      "messages": {
+        "allowed": "Secondary tab соответствует конфигурации desktop TabsView",
+        "violation": "Secondary tabs в desktop TabsView должны использовать Size=40, View=Filled, Shape=Rounded и SingleIcon=False"
+      },
+      "presentation": "semantic-variant"
+    },
+    {
+      "id": "tabs-view.mobile-secondary-fixed",
+      "match": {
+        "hostComponentNames": ["[M] TabsView"]
+      },
+      "selector": {
+        "nestedComponentNames": ["[M] Tag"]
+      },
+      "assert": {
+        "variantProperties": {
+          "Size": { "oneOf": ["40"] },
+          "View": { "oneOf": ["Filled"] },
+          "Shape": { "oneOf": ["Rounded"] },
+          "SingleIcon": { "oneOf": ["False"] }
+        }
+      },
+      "messages": {
+        "allowed": "Secondary tab соответствует конфигурации mobile TabsView",
+        "violation": "Secondary tabs в mobile TabsView должны использовать Size=40, View=Filled, Shape=Rounded и SingleIcon=False"
+      },
+      "presentation": "semantic-variant"
+    }
+  ]
 }

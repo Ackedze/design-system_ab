@@ -38,7 +38,7 @@ Design dialogue работает в closed-book режиме: каждое фа�
 
 ## Runtime-конфиг Apollo
 
-Декларативные правила оценки кастомизаций находятся в `JSONS/apollo/patternRules.json`. Ссылка на них задаётся через `apollo.patternRulesPath` в `JSONS/referenceSourcesMVP.json`.
+Декларативные правила оценки кастомизаций находятся в `JSONS/apollo/patternRules.json`. Ссылка на них задаётся через `apollo.patternRulesPath` в `JSONS/referenceSourcesMVP.json`. Текущий schema v1 набор содержит 24 проверенных правила для ButtonsGroup, BackgroundPlate, ContentCardWrapper, TitleView, Onboarding Hint/Tooltip, ButtonStack, Status/Property и secondary TabsView. Правило добавляется только тогда, когда его host/nested selector и каждое допустимое variant value подтверждены официальным composition-каталогом. Зависимости от варианта родителя, visibility, instance swap, count и order не следует приближённо выражать через v1.
 
 После изменения правил нужно проверить валидность JSON и опубликовать этот репозиторий. Apollo загружает конфиг при каждом запуске с cache-busting параметром, поэтому после публикации достаточно перезапустить плагин; пересборка Apollo не требуется. Не удаляйте конфиг и не меняйте поддерживаемый `schemaVersion` без синхронного изменения валидатора Apollo: невалидный конфиг блокирует reference bootstrap.
 
