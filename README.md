@@ -44,6 +44,8 @@ Design dialogue работает в closed-book режиме: каждое фа�
 
 Явные замены устаревших компонентов и стилей находятся в `JSONS/apollo/remediations.json`; путь объявлен как `apollo.remediationConfigPath` в bootstrap manifest. Ключ объекта — исходный опубликованный Figma key, target key задаётся через `replacementComponentKey` или `replacementStyleKey`. Apollo показывает действие только для валидной однозначной записи и повторно проверяет исходный key перед мутацией. Изменения этого файла не требуют пересборки Apollo, но требуют публикации GitHub Pages и перезапуска плагина.
 
+Исключения аудита находятся в `JSONS/apollo/auditPolicies.json`; путь объявлен как `apollo.auditPolicyConfigPath`. Raw-typography правило обязано задавать точное имя text node и scope через component keys или ancestry path. Конфиг загружается с cache-busting, поэтому после публикации правила применяются после перезапуска Apollo без пересборки плагина. Athena CLI валидирует файл до release commit.
+
 Пары Desktop/MobileWeb не дублируются в этом конфиге: Athena записывает безопасные same-page пары в `channelCounterparts` соответствующего component index. Если family неоднозначна, связь не публикуется и кнопка замены в Apollo не появляется.
 
 ## Apollo DS contracts
