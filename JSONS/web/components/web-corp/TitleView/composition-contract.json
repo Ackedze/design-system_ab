@@ -1347,6 +1347,140 @@
     ]
   },
   "manual": {
+    "contracts": [
+      {
+        "id": "title-view.status.composition",
+        "match": {
+          "hostComponentNames": [
+            "[D] TitleView",
+            "[M] TitleView"
+          ]
+        },
+        "select": {
+          "nestedComponentNames": [
+            "StatusPreset"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "status-size",
+            "op": "propertyDomain",
+            "property": "Size",
+            "values": [
+              "24"
+            ],
+            "message": "StatusPreset внутри TitleView должен использовать Size=24"
+          }
+        ]
+      },
+      {
+        "id": "title-view.button-group.composition",
+        "match": {
+          "hostComponentNames": [
+            "[D] TitleView",
+            "[M] TitleView"
+          ]
+        },
+        "select": {
+          "nestedComponentNames": [
+            "[D] Button",
+            "[M] Button"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "allowed-views",
+            "op": "propertyDomain",
+            "property": "View",
+            "values": [
+              "Primary",
+              "Secondary"
+            ],
+            "message": "В Button group внутри TitleView допускаются только View=Primary и View=Secondary"
+          },
+          {
+            "id": "primary-position",
+            "op": "valuePosition",
+            "property": "View",
+            "value": "Primary",
+            "positions": [
+              "first"
+            ],
+            "maxCount": 1,
+            "replacement": "Secondary",
+            "message": "Primary-кнопка внутри TitleView необязательна, но может быть только первой"
+          },
+          {
+            "id": "single-icon-position",
+            "op": "valuePosition",
+            "property": "SingleIcon",
+            "value": "True",
+            "positions": [
+              "last"
+            ],
+            "maxCount": 1,
+            "replacement": "False",
+            "message": "SingleIcon внутри TitleView допускается только у последней кнопки и только один раз"
+          }
+        ]
+      },
+      {
+        "id": "title-view.desktop-button-size.composition",
+        "match": {
+          "hostComponentNames": [
+            "[D] TitleView"
+          ]
+        },
+        "select": {
+          "nestedComponentNames": [
+            "[D] Button"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "button-size",
+            "op": "propertyDomain",
+            "property": "Size",
+            "values": [
+              "56"
+            ],
+            "message": "Button внутри [D] TitleView должен использовать Size=56"
+          }
+        ]
+      },
+      {
+        "id": "title-view.mobile-button-size.composition",
+        "match": {
+          "hostComponentNames": [
+            "[M] TitleView"
+          ]
+        },
+        "select": {
+          "nestedComponentNames": [
+            "[M] Button"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "button-size",
+            "op": "propertyDomain",
+            "property": "Size",
+            "values": [
+              "48"
+            ],
+            "message": "Button внутри [M] TitleView должен использовать Size=48"
+          }
+        ]
+      }
+    ],
     "ownershipModel": {
       "defaultNestedDiffPolicy": "compare-against-component-effective-baseline",
       "wrapperOwnedOverridePolicy": "Не показывай wrapper-owned nested overrides, когда actual совпадает с effective baseline этого компонента. Если actual отличается, показывай effectiveBaseline -> actual.",

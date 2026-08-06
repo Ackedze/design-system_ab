@@ -58,7 +58,9 @@ Variant-структуры также служат effective baseline для в�
 
 ## Apollo DS contracts
 
-Runtime registry находится в `JSONS/apollo/indexes/componentContractIndex.json` и использует schema v2. Каждый пакет объявляет coverage `required | optional | none`; для `required` обязательны `rules.json` и `composition-contract.json`. Figma keys в итоговом индексе уникальны: если один компонент встречается в нескольких catalog pages, Athena назначает владельца детерминированно с приоритетом active/current компонента, совпадения имени family и более нового каталога.
+Runtime registry находится в `JSONS/apollo/indexes/componentContractIndex.json` и использует schema v2. Каждый пакет объявляет coverage `required | optional | none`; для `required` обязательны `contract.generated.json`, `rules.json` и `composition-contract.json`. Figma keys в итоговом индексе уникальны: если один компонент встречается в нескольких catalog pages, Athena назначает владельца детерминированно с приоритетом active/current компонента, совпадения имени family и более нового каталога.
+
+`contract.generated.json` является машиночитаемым Component API пакета. Apollo компилирует из него identity компонента, public variant properties, допустимые значения, allowed combinations и variant keys, затем формирует нарушения через общий assessment/report pipeline. Основная схема — `apollo.ds-contracts.v1`; временно поддерживается один опубликованный legacy-format `component-contract-generated` schema 1 для пакета Tabs. Неизвестная схема или семантически невалидный контракт блокирует загрузку required-пакета без fallback к raw catalog.
 
 Перед публикацией обязательно выполнить в Athena CLI:
 
