@@ -36,6 +36,8 @@ Design dialogue работает в closed-book режиме: каждое фа�
 
 Если Figma REST не возвращает радиус маски или `BOOLEAN_OPERATION`, Athena CLI сохраняет известное значение из предыдущего опубликованного каталога по точному совпадению component key, variant key и semantic path. Для `IconView` эталонная матрица Shape/Border: размеры `128/80/72` используют радиус `6`, `64/56/48` — `4`, `40/32/24/20/16` — `2`.
 
+Канонический каталог OptionsList — `JSONS/web/components/web-core/core/Web _ Core -- _ _ OptionsList.json`. Legacy-файл без `_ _` не публикуется и не должен добавляться в `referenceSourcesMVP.json`, иначе одинаковые component keys создают неоднозначный выбор каталога в Apollo.
+
 ## Runtime-конфиг Apollo
 
 Декларативные правила оценки конкретных nested overrides находятся в `JSONS/apollo/patternRules.json`. Ссылка на них задаётся через `apollo.patternRulesPath` в `JSONS/referenceSourcesMVP.json`. Текущий schema v1 набор содержит 20 проверенных правил для BackgroundPlate, ContentCardWrapper, TitleView, Onboarding Hint/Tooltip, ButtonStack, Status/Property и secondary TabsView. Правило добавляется только тогда, когда его host/nested selector и каждое допустимое variant value подтверждены официальным composition-каталогом.
@@ -45,6 +47,8 @@ Design dialogue работает в closed-book режиме: каждое фа�
 Variant-структуры также служат effective baseline для вложенных компонентов. Если выбранный ancestor variant уже задаёт значение descendant-компонента, Apollo не выводит его второй кастомизацией; отдельное изменение транслируемого одноимённого variant-свойства считается нарушением selected ancestor configuration. Совпадение имени свойства само по себе не создаёт ownership: public variant вложенного компонента остаётся самостоятельным, если значение родителя не совпадает с selected-reference этого узла. Если host-каталог явно задаёт layout/radius корня nested instance, это значение имеет приоритет над standalone-каталогом вложенного компонента.
 
 Поля component rules `requiredTokenBinding` и `requiredPaintState` исполняются детерминированно. Для BackgroundPlate это означает: разрешённый paint должен оставаться tokenized, но конкретный цветовой токен может меняться; запрещённые paint surfaces и fixed baseline продолжают давать violation даже при token binding.
+
+Пакет `AmountStyles` использует `sharedValueConstraint.strategy=all-visible-targets-equal`: все видимые текстовые части суммы, кроме `Addon`, должны иметь один фактический цвет. Единая контекстная перекраска разрешена, частичная считается нарушением. Исполняемые design rules также защищают text style leaf-слоёв, opacity `Minor/Currency` и внутреннюю геометрию. Форматные и сценарные правила с `checkType=llm` остаются контекстом агента и не повышаются до автоматических ошибок без наблюдаемого evidence.
 
 `requiredPaintState=none-or-not-visible` применяется непосредственно к actual snapshot, а не только к уже сформированному reference diff. Поэтому видимый `Border/fill` остаётся нарушением даже если устаревший variant patch не очистил fill default-варианта. Контракт `TitleView` сопоставляется по стабильным именам `[D] TitleView`/`[M] TitleView`, так как runtime identity может содержать ключ выбранного варианта вместо component-set key.
 

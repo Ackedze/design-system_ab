@@ -218,6 +218,13 @@
             "Currency"
           ]
         },
+        "sharedValueConstraint": {
+          "strategy": "all-visible-targets-equal",
+          "groupByPathBranches": [
+            "Operation",
+            "Amount"
+          ]
+        },
         "ruleText": "Operation, Major, Minor и Currency внутри одного Amount должны использовать один цветовой токен. Ручная перекраска только одной текстовой части запрещена. Addon сохраняет собственные контекстные цвета и в это правило не входит."
       },
       {
@@ -270,6 +277,7 @@
         "severity": "error",
         "source": "pattern-link",
         "patternRuleId": "rule:components.amount.no-opacity",
+        "ruleKind": "design-rule",
         "appliesTo": "opacity|variant.Opacity",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
@@ -322,11 +330,19 @@
         "ruleId": "component:web-corp.amount-styles.geometry-follows-effective-baseline",
         "severity": "error",
         "source": "component-contract",
+        "ruleKind": "design-rule",
         "appliesTo": "layout.*",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "target": {
-          "component": "AmountStyles"
+          "component": "AmountStyles",
+          "layers": [
+            "Operation",
+            "Major",
+            "Minor",
+            "Currency",
+            "Addon"
+          ]
         },
         "ruleText": "Direction, item spacing, alignment и размеры внутренних частей AmountHeadline и AmountParagraph должны полностью соответствовать effective baseline текущего Style. Ручные изменения геометрии запрещены."
       },
@@ -732,6 +748,7 @@
         "severity": "error",
         "source": "pattern-link",
         "patternRuleId": "rule:components.amount.same-text-style-for-parts",
+        "ruleKind": "design-rule",
         "appliesTo": "styles.text",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
