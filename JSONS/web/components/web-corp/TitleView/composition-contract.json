@@ -1376,6 +1376,32 @@
         ]
       },
       {
+        "id": "title-view.status-type-relation.composition",
+        "match": {
+          "hostComponentNames": [
+            "[D] TitleView",
+            "[M] TitleView"
+          ]
+        },
+        "select": {
+          "nestedComponentNames": [
+            "StatusPreset",
+            "[D] TitleStatus",
+            "[M] TitleStatus"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "matching-status-type",
+            "op": "propertyEqualsFirst",
+            "property": "Type",
+            "message": "TitleStatus.Type должен совпадать с Type видимого StatusPreset"
+          }
+        ]
+      },
+      {
         "id": "title-view.button-group.composition",
         "match": {
           "hostComponentNames": [
