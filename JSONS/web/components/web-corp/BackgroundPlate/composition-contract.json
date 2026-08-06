@@ -81,6 +81,65 @@
     ]
   },
   "manual": {
+    "contracts": [
+      {
+        "id": "background-plate.composition",
+        "match": {
+          "hostComponentKeys": [
+            "2c7332d281570f4d5af6d334f8df378d24a1f235",
+            "c49f08db71ab44ea64f0880730220de1d93ac263",
+            "4cfe3915785e5c37255190ae16314f6f2a1d05b3",
+            "a58fa7ae11989280fc24069f204ba617fdb1f93c"
+          ]
+        },
+        "select": {
+          "nestedComponentKeys": [
+            "adb65a62cde9ebedc5d0d41d2d77cd63e71e0745",
+            "2b46e94cdecdab7d4cb977055c0405b2f6204127",
+            "efc528bd86582d96a824edeb2c257dc8b22a8f14",
+            "19b4b6ed5718d82888a6551b56e0c776f4993ccc"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "level-one-type",
+            "op": "propertyDomain",
+            "property": "Type",
+            "values": [
+              "Primary",
+              "Secondary",
+              "Colored",
+              "Border"
+            ],
+            "message": "Style Level 1 допускает Type=Primary, Secondary, Colored или Border"
+          }
+        ],
+        "subtreePropertyPolicies": [
+          {
+            "id": "surface-paint",
+            "variantProperty": "Type",
+            "controlledProperties": [
+              "fill",
+              "stroke"
+            ],
+            "allowedPropertiesByValue": {
+              "Primary": [],
+              "Secondary": [],
+              "Colored": [
+                "fill"
+              ],
+              "Border": [
+                "stroke"
+              ]
+            },
+            "allowedMessage": "Цвет поверхности разрешён выбранным Type BackgroundPlate",
+            "violationMessage": "Выбранный Type BackgroundPlate не разрешает это изменение поверхности"
+          }
+        ]
+      }
+    ],
     "slotPolicies": [
       {
         "hostComponentName": "[D] BackgroundPlateSlot",

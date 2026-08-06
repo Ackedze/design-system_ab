@@ -15480,6 +15480,65 @@
           "source": "path-policy",
           "updatedAt": "2026-07-10"
         },
+        "contracts": [
+          {
+            "id": "background-plate.composition",
+            "match": {
+              "hostComponentKeys": [
+                "2c7332d281570f4d5af6d334f8df378d24a1f235",
+                "c49f08db71ab44ea64f0880730220de1d93ac263",
+                "4cfe3915785e5c37255190ae16314f6f2a1d05b3",
+                "a58fa7ae11989280fc24069f204ba617fdb1f93c"
+              ]
+            },
+            "select": {
+              "nestedComponentKeys": [
+                "adb65a62cde9ebedc5d0d41d2d77cd63e71e0745",
+                "2b46e94cdecdab7d4cb977055c0405b2f6204127",
+                "efc528bd86582d96a824edeb2c257dc8b22a8f14",
+                "19b4b6ed5718d82888a6551b56e0c776f4993ccc"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "level-one-type",
+                "op": "propertyDomain",
+                "property": "Type",
+                "values": [
+                  "Primary",
+                  "Secondary",
+                  "Colored",
+                  "Border"
+                ],
+                "message": "Style Level 1 допускает Type=Primary, Secondary, Colored или Border"
+              }
+            ],
+            "subtreePropertyPolicies": [
+              {
+                "id": "surface-paint",
+                "variantProperty": "Type",
+                "controlledProperties": [
+                  "fill",
+                  "stroke"
+                ],
+                "allowedPropertiesByValue": {
+                  "Primary": [],
+                  "Secondary": [],
+                  "Colored": [
+                    "fill"
+                  ],
+                  "Border": [
+                    "stroke"
+                  ]
+                },
+                "allowedMessage": "Цвет поверхности разрешён выбранным Type BackgroundPlate",
+                "violationMessage": "Выбранный Type BackgroundPlate не разрешает это изменение поверхности"
+              }
+            ]
+          }
+        ],
         "slotPolicies": [
           {
             "hostComponentName": "[D] BackgroundPlateSlot",
@@ -85905,9 +85964,169 @@
           "source": "path-policy",
           "updatedAt": "2026-07-04"
         },
+        "publicRoots": [
+          {
+            "name": "🔄 [D] TableBulkActions",
+            "componentKey": "e5dafdda4ce8bf06e41108061ba487dd3065c4de",
+            "platform": "desktop"
+          },
+          {
+            "name": "🔄 [M] TableBulkActions",
+            "componentKey": "145420e9fd1f756cc6f0ada663b72ef3f81e22e3",
+            "platform": "adaptive-mobile",
+            "viewportRange": "320–767 px"
+          }
+        ],
+        "internalComponents": [
+          "[D] AmountItem",
+          "[D] AmountRow",
+          "[D] AmountRowSlider",
+          "[D] ButtonsGroup",
+          "[D] Slider",
+          "[M] AmountItem",
+          "[M] AmountRow",
+          "[D] Counter",
+          "[M] ButtonsGroup",
+          "[M] Counter"
+        ],
+        "internalComponentsAreStandalone": false,
+        "compositionPolicy": {
+          "newBasicAndWideTables": {
+            "allowSeparateTableBulkActions": false,
+            "requiredReplacement": "Pagination с preset BulkActions"
+          },
+          "otherDataViews": {
+            "allowed": true,
+            "contexts": [
+              "карточки",
+              "списки",
+              "самостоятельные sticky-действия"
+            ]
+          },
+          "counter": {
+            "required": true,
+            "mayBeHiddenWhen": "Компонент используется как самостоятельная sticky-панель кнопок.",
+            "propertyWhenHidden": "Counter=false",
+            "label": {
+              "fixedText": "Выбрано N",
+              "mayBeHiddenAtViewport": "768–1023 px",
+              "condition": "Нужно освободить место для сумм или кнопок."
+            },
+            "checkbox": {
+              "defaultState": "selected",
+              "indeterminateAllowed": false,
+              "clickAction": "Снять выбор со всех объектов."
+            },
+            "value": {
+              "meaning": "Количество всех выбранных объектов во всём наборе данных, включая объекты вне текущей страницы.",
+              "automatic": true,
+              "manualOverrideAllowed": false
+            }
+          },
+          "spacer": {
+            "trueWhen": "Counter выравнивается с checkbox элементов таблицы, списка или карточек.",
+            "falseWhen": "Компонент используется как самостоятельная sticky-панель кнопок."
+          },
+          "amount": {
+            "single": "Одна сумма.",
+            "multiple": "Несколько сумм, которые полностью помещаются в одну линию без слайдера.",
+            "slider": "Если несколько сумм не помещаются в одну линию, используй AmountRowSlider.",
+            "itemComposition": "Название показателя и Amount.",
+            "mixedCurrenciesAllowed": true,
+            "recommendedMaxItems": 10,
+            "hardMaxItems": null
+          },
+          "amountItem": {
+            "customizableContent": [
+              "название показателя",
+              "сумма",
+              "валюта",
+              "штатные параметры Amount"
+            ],
+            "N": "Количество объектов, относящихся к этой AmountItem.",
+            "fixedVisuals": "Typography, spacing, dividers и остальные визуальные стили сохраняются по effective baseline."
+          },
+          "buttons": {
+            "maxVisible": 4,
+            "maxPrimary": 1,
+            "allSecondaryAllowed": true,
+            "overflow": "При превышении лимита последняя кнопка становится PickerButton и открывает скрытые действия.",
+            "hiddenActionsOrder": "Справа налево: сначала скрывается самое правое действие перед PickerButton.",
+            "hiddenActionsLimit": null,
+            "sizeShapeAndView": "Сохраняются по effective baseline.",
+            "customizableThroughNestedButton": [
+              "Label",
+              "addons",
+              "DisabledState",
+              "loading"
+            ],
+            "overflowSurface": {
+              "desktopAndTablet": "OptionList",
+              "adaptiveMobile": "BottomSheet"
+            }
+          }
+        },
+        "responsivePolicy": {
+          "desktop": "Используй 🔄 [D] TableBulkActions от 768 px.",
+          "adaptiveMobile": "Используй 🔄 [M] TableBulkActions в адаптиве на ширине 320–767 px.",
+          "mobileWeb": "Не используй TableBulkActions в Mobile Web.",
+          "tabletVariant": {
+            "automatic": true,
+            "manualOverrideAllowed": false,
+            "trueAt": "768–1023 px",
+            "falseAt": "1024 px и шире"
+          },
+          "adaptiveTopRow": {
+            "requiredValue": true,
+            "viewport": "320–767 px",
+            "manualOverrideAllowed": false
+          }
+        },
+        "topRowPolicy": {
+          "property": "variant.TopRow",
+          "falseWhen": "Суммы и кнопки помещаются на общей линии.",
+          "trueWhen": "Суммы и кнопки не помещаются на общей линии; кнопки должны перейти на отдельную линию.",
+          "controlledBy": "composition-fit",
+          "compatibleWithOverflow": true,
+          "decisionOrder": [
+            "Сначала включи TopRow, если суммы и кнопки не помещаются на общей линии.",
+            "Затем включи Overflow, если количество видимых действий превышает лимит."
+          ]
+        },
+        "amountSliderPolicy": {
+          "desktopAndTablet": "Боковые кнопки прокрутки и fade переполнения.",
+          "adaptiveMobile": "Touch-scroll без fade и без дополнительных кнопок."
+        },
+        "stickyPolicy": {
+          "position": "bottom",
+          "pageContentScrollsUnder": true,
+          "horizontalOffsets": "По сетке страницы.",
+          "fixedVisuals": [
+            "fill",
+            "shadow",
+            "height",
+            "padding"
+          ]
+        },
+        "globalStatePolicy": {
+          "loadingStateExists": false,
+          "disabledStateExists": false,
+          "nestedButtonsMayUseLoading": true,
+          "nestedButtonsMayUseDisabled": true
+        },
+        "selectionPolicy": {
+          "showComponentWhen": "Выбран хотя бы один объект.",
+          "hideComponentWhen": "Не выбрано ни одного объекта.",
+          "counterScope": "Все выбранные объекты во всём наборе данных.",
+          "amountScope": "Суммы рассчитываются только по выбранным объектам и обновляются при изменении выбора.",
+          "buttonActionScope": "Только выбранные объекты.",
+          "postActionSelection": "Определяется конкретным сценарием."
+        },
         "component": {
           "name": "TableBulkActions",
-          "library": "Web _ Corp Components"
+          "library": "Web _ Corp Components",
+          "codeName": "CorporateTableBulkActions",
+          "lifecycleStatus": "scheduled"
         },
         "wraps": [
           {
@@ -103479,6 +103698,140 @@
           "source": "path-policy",
           "updatedAt": "2026-07-04"
         },
+        "contracts": [
+          {
+            "id": "title-view.status.composition",
+            "match": {
+              "hostComponentNames": [
+                "[D] TitleView",
+                "[M] TitleView"
+              ]
+            },
+            "select": {
+              "nestedComponentNames": [
+                "StatusPreset"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "status-size",
+                "op": "propertyDomain",
+                "property": "Size",
+                "values": [
+                  "24"
+                ],
+                "message": "StatusPreset внутри TitleView должен использовать Size=24"
+              }
+            ]
+          },
+          {
+            "id": "title-view.button-group.composition",
+            "match": {
+              "hostComponentNames": [
+                "[D] TitleView",
+                "[M] TitleView"
+              ]
+            },
+            "select": {
+              "nestedComponentNames": [
+                "[D] Button",
+                "[M] Button"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "allowed-views",
+                "op": "propertyDomain",
+                "property": "View",
+                "values": [
+                  "Primary",
+                  "Secondary"
+                ],
+                "message": "В Button group внутри TitleView допускаются только View=Primary и View=Secondary"
+              },
+              {
+                "id": "primary-position",
+                "op": "valuePosition",
+                "property": "View",
+                "value": "Primary",
+                "positions": [
+                  "first"
+                ],
+                "maxCount": 1,
+                "replacement": "Secondary",
+                "message": "Primary-кнопка внутри TitleView необязательна, но может быть только первой"
+              },
+              {
+                "id": "single-icon-position",
+                "op": "valuePosition",
+                "property": "SingleIcon",
+                "value": "True",
+                "positions": [
+                  "last"
+                ],
+                "maxCount": 1,
+                "replacement": "False",
+                "message": "SingleIcon внутри TitleView допускается только у последней кнопки и только один раз"
+              }
+            ]
+          },
+          {
+            "id": "title-view.desktop-button-size.composition",
+            "match": {
+              "hostComponentNames": [
+                "[D] TitleView"
+              ]
+            },
+            "select": {
+              "nestedComponentNames": [
+                "[D] Button"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "button-size",
+                "op": "propertyDomain",
+                "property": "Size",
+                "values": [
+                  "56"
+                ],
+                "message": "Button внутри [D] TitleView должен использовать Size=56"
+              }
+            ]
+          },
+          {
+            "id": "title-view.mobile-button-size.composition",
+            "match": {
+              "hostComponentNames": [
+                "[M] TitleView"
+              ]
+            },
+            "select": {
+              "nestedComponentNames": [
+                "[M] Button"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "button-size",
+                "op": "propertyDomain",
+                "property": "Size",
+                "values": [
+                  "48"
+                ],
+                "message": "Button внутри [M] TitleView должен использовать Size=48"
+              }
+            ]
+          }
+        ],
         "ownershipModel": {
           "defaultNestedDiffPolicy": "compare-against-component-effective-baseline",
           "wrapperOwnedOverridePolicy": "Не показывай wrapper-owned nested overrides, когда actual совпадает с effective baseline этого компонента. Если actual отличается, показывай effectiveBaseline -> actual.",
