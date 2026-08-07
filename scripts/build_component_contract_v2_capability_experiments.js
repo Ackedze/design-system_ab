@@ -365,9 +365,10 @@ function inferAssertion(rule) {
       Object.values(rule.requiredPaintState).length > 0 &&
       Object.values(rule.requiredPaintState).every((value) => value === 'effective-baseline')
     ) {
-      return executable('matchesEffectiveBaseline', {
-        properties: splitAppliesTo(rule.appliesTo),
-      });
+      return executable(
+        'matchesEffectiveBaseline',
+        baselineAssertionParameters(rule, splitAppliesTo(rule.appliesTo)),
+      );
     }
     return executable('paintStateEquals', { state: rule.requiredPaintState });
   }
@@ -400,7 +401,10 @@ function inferAssertion(rule) {
   }
   if (rule.requiredValue != null) {
     return rule.requiredValue === 'effective-baseline'
-      ? executable('matchesEffectiveBaseline', { properties: splitAppliesTo(rule.appliesTo) })
+      ? executable(
+          'matchesEffectiveBaseline',
+          baselineAssertionParameters(rule, splitAppliesTo(rule.appliesTo)),
+        )
       : executable('propertiesEqual', {
           properties: splitAppliesTo(rule.appliesTo),
           value: rule.requiredValue,
@@ -431,14 +435,16 @@ function inferAssertion(rule) {
     return executable('compositionPolicy', rule.requiredComposition);
   }
   if (BASELINE_RULE_SUFFIXES.has(suffix)) {
-    return executable('matchesEffectiveBaseline', {
-      properties: splitAppliesTo(rule.appliesTo),
-    });
+    return executable(
+      'matchesEffectiveBaseline',
+      baselineAssertionParameters(rule, splitAppliesTo(rule.appliesTo)),
+    );
   }
   if (rule.classification && rule.classification.useEffectiveBaseline === true) {
-    return executable('matchesEffectiveBaseline', {
-      properties: splitAppliesTo(rule.appliesTo),
-    });
+    return executable(
+      'matchesEffectiveBaseline',
+      baselineAssertionParameters(rule, splitAppliesTo(rule.appliesTo)),
+    );
   }
   if (CLASSIFICATION_RULE_SUFFIXES.has(suffix) || rule.classification) {
     return executable(
@@ -478,6 +484,14 @@ function inferAssertion(rule) {
     reason: 'The source declares a deterministic rule but contains no structured assertion parameters.',
     capabilities: candidateCapabilities(rule),
   };
+}
+
+function baselineAssertionParameters(rule, properties) {
+  const parameters = { properties };
+  if (rule.classification?.baselineSource === 'host-variant') {
+    parameters.baselineSource = 'host-variant';
+  }
+  return parameters;
 }
 
 function isDirectVariantState(rule) {
