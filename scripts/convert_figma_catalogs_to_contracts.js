@@ -381,16 +381,14 @@ function parseVariantName(name, warnings) {
     const separatorIndex = segment.indexOf('=');
     if (separatorIndex === -1) {
       warnings.push(`variant name cannot be fully parsed: ${source}`);
-      result.raw = source;
-      return result;
+      return {};
     }
 
     const key = segment.slice(0, separatorIndex).trim();
     const value = segment.slice(separatorIndex + 1).trim();
     if (!key || !value) {
       warnings.push(`variant name cannot be fully parsed: ${source}`);
-      result.raw = source;
-      return result;
+      return {};
     }
 
     result[key] = value;
@@ -1012,6 +1010,7 @@ function runSelfTest() {
     Background: 'True',
     Compact: 'False',
   });
+  assertDeepEqual(parseVariantName('PaymentMaskedNumber', warnings), {});
   assertEqual(normalizeComponentName('[D] BenefitCard'), 'benefit-card');
   assertEqual(`${normalizeComponentName('❌ [D] TopMargin')}.desktop`, 'top-margin.desktop');
   assertDeepEqual(

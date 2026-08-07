@@ -56,6 +56,8 @@ Variant-структуры также служат effective baseline для в�
 
 При глубокой materialization variant-owned свойства host reference сохраняются и не заменяются standalone baseline вложенного компонента. Это критично для AmountParagraph/AmountHeadline: типографика `Minus` сравнивается с выбранным Amount Style. Составные runtime properties (`fill|styles.fill`, `stroke|styles.stroke`) канонизируются перед дедупликацией exact и baseline-правил.
 
+Явно заданный text style в структуре host-каталога также имеет приоритет без дополнительного ручного ownership-маркера: standalone-каталог nested-компонента может заполнить отсутствующие данные, но не заменить эффективную типографику родителя. Имена singleton-компонентов без пар `Property=Value` сохраняются как имена вариантов, но не превращаются в синтетическое API-свойство `raw`; их public API публикуется с пустым набором variant properties.
+
 `requiredPaintState=none-or-not-visible` применяется непосредственно к actual snapshot, а не только к уже сформированному reference diff. Поэтому видимый `Border/fill` остаётся нарушением даже если устаревший variant patch не очистил fill default-варианта. Контракт `TitleView` сопоставляется по стабильным именам `[D] TitleView`/`[M] TitleView`, так как runtime identity может содержать ключ выбранного варианта вместо component-set key.
 
 После изменения правил нужно проверить валидность JSON и опубликовать этот репозиторий. Apollo загружает конфиг при каждом запуске с cache-busting параметром, поэтому после публикации достаточно перезапустить плагин; пересборка Apollo не требуется. Не удаляйте конфиг и не меняйте поддерживаемый `schemaVersion` без синхронного изменения валидатора Apollo: невалидный конфиг блокирует reference bootstrap.

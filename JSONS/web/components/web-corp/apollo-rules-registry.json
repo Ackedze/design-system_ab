@@ -1665,7 +1665,7 @@
           "ruleId": "component:web-corp.background-plate.layer-properties-use-effective-baseline",
           "severity": "warning",
           "source": "component-contract",
-          "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|opacity",
+          "appliesTo": "layout.*|styles.text|opacity",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "target": {
@@ -2315,13 +2315,12 @@
           "ruleText": "Для Type=Border базовая толщина обводки равна 1 px, но дизайнер может изменить strokeWeight под контекст. Само отличие толщины от standalone baseline не является нарушением и не требует сброса."
         },
         {
-          "ruleId": "component:web-corp.background-plate.border-stroke-align-is-fixed",
-          "severity": "error",
+          "ruleId": "component:web-corp.background-plate.border-stroke-is-designer-controlled",
+          "severity": "info",
           "ruleKind": "design-rule",
           "severityScope": "design",
-          "source": "pattern-link",
-          "patternRuleId": "rule:components.background-plate.border-stroke-align-inside",
-          "appliesTo": "stroke.align|strokeAlign",
+          "source": "component-contract",
+          "appliesTo": "stroke|styles.stroke|stroke.*",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "conditions": {
@@ -2330,18 +2329,12 @@
               "Type": "Border"
             }
           },
-          "requiredValues": {
-            "stroke.align": "INSIDE",
-            "strokeAlign": "INSIDE"
-          },
           "classification": {
             "reportAsCustomization": true,
-            "treatAsViolation": true,
-            "designSeverity": "error",
-            "resetSurface": "layer"
+            "doNotTreatAsViolationByDefault": true,
+            "allStrokeParametersAreDesignerControlled": true
           },
-          "remediation": "Верните положение обводки в Inside.",
-          "ruleText": "Для Type=Border положение обводки фиксировано: strokeAlign должен оставаться INSIDE. CENTER и OUTSIDE нарушают компонентный контракт."
+          "ruleText": "Для Type=Border дизайнер может изменять цвет, толщину, положение и другие параметры обводки. Отличие stroke от baseline не является нарушением."
         },
         {
           "ruleId": "component:web-corp.background-plate.border-is-not-clickable",
@@ -10846,6 +10839,28 @@
           "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
+          "ruleId": "component:web-corp.payment-masked-number.text-color-follows-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "fill|styles.fill",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "PaymentMaskedNumber",
+            "layers": [
+              "Major",
+              "Minor"
+            ]
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "useEffectiveBaseline": true,
+            "resetSurface": "layer"
+          },
+          "ruleText": "Цвет Major и Minor в PaymentMaskedNumber фиксируется effective baseline компонента. Менять цвет отдельной части вручную запрещено."
+        },
+        {
           "ruleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational",
           "severity": "info",
           "source": "component-contract",
@@ -11185,6 +11200,14 @@
           "appliesTo": "fill",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Status & Property",
+            "layers": [
+              "Status",
+              "[D] Status",
+              "[M] Status"
+            ]
+          },
           "conditions": {
             "except": {
               "component": "PropertyPreset",
@@ -11251,6 +11274,36 @@
           "ruleText": "Size=20/24/32/40 выбирается дизайнером по контексту и размеру окружающих элементов. Переключение между штатными Size является разрешённым изменением параметра компонента и само по себе не считается нарушением."
         },
         {
+          "ruleId": "component:web-corp.status-property.nested-status-size-matches-preset",
+          "severity": "error",
+          "ruleKind": "design-rule",
+          "severityScope": "design",
+          "source": "component-contract",
+          "appliesTo": "variant.Size",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Status & Property",
+            "layers": [
+              "Status",
+              "[D] Status",
+              "[M] Status"
+            ]
+          },
+          "requiredFactRelation": {
+            "op": "equals",
+            "targetFact": "target.variant.Size",
+            "hostFact": "host.variant.Size"
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "component-property"
+          },
+          "ruleText": "Размер вложенного Status должен совпадать с Size родительского StatusPreset или PropertyPreset. Менять Size вложенного Status независимо от preset-компонента запрещено."
+        },
+        {
           "ruleId": "component:web-corp.status-property.case-is-fixed-by-platform",
           "severity": "error",
           "ruleKind": "design-rule",
@@ -11259,6 +11312,14 @@
           "appliesTo": "variant.Uppercase|text.case|styles.text",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Status & Property",
+            "layers": [
+              "Status",
+              "[D] Status",
+              "[M] Status"
+            ]
+          },
           "requiredByPlatform": {
             "desktop": {
               "Uppercase": true
@@ -15066,7 +15127,7 @@
           "ruleId": "component:web-corp.title-view.layer-properties-use-effective-baseline",
           "severity": "warning",
           "source": "component-contract",
-          "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
+          "appliesTo": "layout.*|styles.stroke|stroke|radius|opacity",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "target": {
@@ -15087,6 +15148,49 @@
             ]
           },
           "ruleText": "Изменения layer/style внутри компонентов семейства TitleView нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.title-and-subtitle-typography-is-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "styles.text",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.title-view",
+            "layers": [
+              "Title",
+              "Subtitle"
+            ]
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "useEffectiveBaseline": true
+          },
+          "ruleText": "Типографика Title и Subtitle фиксируется выбранным View компонента TitleView. Менять текстовый стиль заголовка или подзаголовка вручную запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.title-view.title-and-subtitle-color-is-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "fill|styles.fill",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.title-view",
+            "layers": [
+              "Title",
+              "Subtitle",
+              "PaintMe"
+            ]
+          },
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "useEffectiveBaseline": true
+          },
+          "ruleText": "Цвет текста Title и Subtitle определяется компонентом TitleView и его вложенными статусными блоками. Менять токен заливки текста вручную запрещено."
         },
         {
           "ruleId": "component:web-corp.title-view.single-xlarge-on-screen",
