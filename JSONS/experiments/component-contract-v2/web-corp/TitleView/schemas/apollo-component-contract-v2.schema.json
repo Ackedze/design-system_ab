@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ackedze.github.io/design-system_ab/JSONS/experiments/component-contract-v2/schemas/apollo-component-contract-v2.schema.json",
+  "title": "Apollo experimental component contract v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "documentType",
+    "status",
+    "runtimePolicy",
+    "package",
+    "capabilities",
+    "facts",
+    "rules",
+    "nonExecutableRules",
+    "coverage"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "apollo.component-contract.v2-experimental"
+    },
+    "documentType": {
+      "const": "component-contract"
+    },
+    "status": {
+      "enum": [
+        "experimental",
+        "active",
+        "deprecated"
+      ]
+    },
+    "runtimePolicy": {
+      "type": "object"
+    },
+    "package": {
+      "type": "object"
+    },
+    "capabilities": {
+      "type": "object"
+    },
+    "facts": {
+      "type": "object"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "nonExecutableRules": {
+      "type": "array"
+    },
+    "coverage": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source",
+        "severity",
+        "enforcement",
+        "select",
+        "when",
+        "assert",
+        "verdict",
+        "evidence",
+        "remediation",
+        "presentation",
+        "capabilities"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "object"
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "warning",
+            "error"
+          ]
+        },
+        "enforcement": {
+          "enum": [
+            "enforced",
+            "classification"
+          ]
+        },
+        "select": {
+          "type": "object"
+        },
+        "when": {
+          "type": "object"
+        },
+        "assert": {
+          "type": "object",
+          "required": [
+            "op"
+          ],
+          "properties": {
+            "op": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "verdict": {
+          "type": "object"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remediation": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "presentation": {
+          "type": "object"
+        },
+        "capabilities": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

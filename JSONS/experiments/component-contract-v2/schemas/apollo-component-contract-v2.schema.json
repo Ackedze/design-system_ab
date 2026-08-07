@@ -1,0 +1,611 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ackedze.github.io/design-system_ab/JSONS/experiments/component-contract-v2/schemas/apollo-component-contract-v2.schema.json",
+  "title": "Apollo experimental component contract v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "documentType",
+    "status",
+    "runtimePolicy",
+    "package",
+    "capabilities",
+    "facts",
+    "rules",
+    "nonExecutableRules",
+    "coverage"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "apollo.component-contract.v2-experimental"
+    },
+    "documentType": {
+      "const": "component-contract"
+    },
+    "status": {
+      "enum": [
+        "experimental",
+        "active",
+        "deprecated"
+      ]
+    },
+    "runtimePolicy": {
+      "$ref": "#/$defs/runtimePolicy"
+    },
+    "package": {
+      "$ref": "#/$defs/package"
+    },
+    "capabilities": {
+      "$ref": "#/$defs/capabilities"
+    },
+    "facts": {
+      "type": "object"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "nonExecutableRules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonExecutableRule"
+      }
+    },
+    "coverage": {
+      "$ref": "#/$defs/coverage"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "runtimePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumedByApollo",
+        "publishedToRuntimeIndexes",
+        "purpose"
+      ],
+      "properties": {
+        "consumedByApollo": {
+          "type": "boolean"
+        },
+        "publishedToRuntimeIndexes": {
+          "type": "boolean"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "family",
+        "library",
+        "sourcePath",
+        "sourceGeneratedAt",
+        "sourceExportVersion",
+        "sourceFiles"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "library": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourcePath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceGeneratedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sourceExportVersion": {
+          "type": [
+            "string",
+            "number",
+            "null"
+          ]
+        },
+        "sourceFiles": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selectorVersion",
+        "factModelVersion",
+        "ruleIrVersion",
+        "selectors",
+        "facts",
+        "operators",
+        "remediations",
+        "unknownCapabilityPolicy",
+        "missingEvidencePolicy"
+      ],
+      "properties": {
+        "selectorVersion": {
+          "const": 2
+        },
+        "factModelVersion": {
+          "const": 1
+        },
+        "ruleIrVersion": {
+          "const": 2
+        },
+        "selectors": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "component-identity",
+              "descendant",
+              "document-order",
+              "page-descendants",
+              "selection-root",
+              "self-and-descendants",
+              "semantic-role",
+              "visibility"
+            ]
+          }
+        },
+        "facts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ancestry",
+              "baseline.effective",
+              "blendMode",
+              "component-api.anatomy",
+              "component-api.contract",
+              "component.editMode",
+              "component.identity",
+              "component.properties",
+              "diff.actual",
+              "diff.domain",
+              "diff.owner",
+              "diff.property",
+              "effects",
+              "host.component.contract",
+              "host.surface.kind",
+              "host.variant.Skeleton",
+              "host.variant.View",
+              "icon.identity",
+              "layout.properties",
+              "layoutSizingHorizontal",
+              "layoutSizingVertical",
+              "neighbor.componentIdentity",
+              "node.bounds",
+              "node.documentOrder",
+              "node.visibility",
+              "opacity",
+              "ownership.owner",
+              "page.context",
+              "paint.fill",
+              "paint.stroke",
+              "prototype.reactions",
+              "selector.matches",
+              "semanticRole",
+              "style.text",
+              "target.component.contract",
+              "target.componentKey",
+              "target.documentOrder",
+              "target.semanticRole",
+              "target.variant.Style",
+              "target.variant.Type",
+              "target.variant.properties",
+              "target.visible",
+              "text.characters",
+              "text.maxLines",
+              "text.overflow",
+              "variable.binding",
+              "variant.properties"
+            ]
+          }
+        },
+        "operators": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "absenceAllowed",
+              "allEqual",
+              "allMatch",
+              "allowedChildrenByHostProperty",
+              "allowedPropertiesByVariant",
+              "boundToTokenByVariant",
+              "boundToTokenFromSource",
+              "changePolicy",
+              "classificationPolicy",
+              "classifyDiffDomain",
+              "componentApiValid",
+              "compositionPolicy",
+              "configurationPolicy",
+              "contentPolicy",
+              "countBetween",
+              "delegateToContract",
+              "digitCountBetween",
+              "equalsFact",
+              "interactionByContext",
+              "matchesEffectiveBaseline",
+              "neighborSpacingByPair",
+              "noOverridesOrReactions",
+              "noneMatch",
+              "notMatches",
+              "oneOf",
+              "paintStateEquals",
+              "propertiesEqual",
+              "relativeOrder",
+              "requiredChild",
+              "stringLengthBetween",
+              "valueByContext",
+              "valuePosition",
+              "visibleAndNonEmpty"
+            ]
+          }
+        },
+        "remediations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "remove-reaction",
+              "restore-effective-baseline",
+              "rule-defined-remediation",
+              "set-variant-properties"
+            ]
+          }
+        },
+        "unknownCapabilityPolicy": {
+          "const": "unsupported-fail-closed"
+        },
+        "missingEvidencePolicy": {
+          "const": "unknown-never-violation"
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source",
+        "severity",
+        "enforcement",
+        "select",
+        "when",
+        "assert",
+        "verdict",
+        "evidence",
+        "remediation",
+        "presentation",
+        "capabilities"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "object"
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "warning",
+            "error"
+          ]
+        },
+        "enforcement": {
+          "enum": [
+            "enforced",
+            "classification"
+          ]
+        },
+        "select": {
+          "type": "object"
+        },
+        "when": {
+          "$ref": "#/$defs/condition"
+        },
+        "assert": {
+          "$ref": "#/$defs/assertion"
+        },
+        "verdict": {
+          "type": "object"
+        },
+        "evidence": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "remediation": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "presentation": {
+          "type": "object"
+        },
+        "capabilities": {
+          "$ref": "#/$defs/ruleCapabilities"
+        }
+      }
+    },
+    "assertion": {
+      "type": "object",
+      "required": [
+        "op"
+      ],
+      "properties": {
+        "op": {
+          "enum": [
+            "absenceAllowed",
+            "allEqual",
+            "allMatch",
+            "allowedChildrenByHostProperty",
+            "allowedPropertiesByVariant",
+            "boundToTokenByVariant",
+            "boundToTokenFromSource",
+            "changePolicy",
+            "classificationPolicy",
+            "classifyDiffDomain",
+            "componentApiValid",
+            "compositionPolicy",
+            "configurationPolicy",
+            "contentPolicy",
+            "countBetween",
+            "delegateToContract",
+            "digitCountBetween",
+            "equalsFact",
+            "interactionByContext",
+            "matchesEffectiveBaseline",
+            "neighborSpacingByPair",
+            "noOverridesOrReactions",
+            "noneMatch",
+            "notMatches",
+            "oneOf",
+            "paintStateEquals",
+            "propertiesEqual",
+            "relativeOrder",
+            "requiredChild",
+            "stringLengthBetween",
+            "valueByContext",
+            "valuePosition",
+            "visibleAndNonEmpty"
+          ]
+        }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "required": [
+        "op"
+      ],
+      "properties": {
+        "op": {
+          "enum": [
+            "all",
+            "evidenceComplete"
+          ]
+        }
+      }
+    },
+    "ruleCapabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selectors",
+        "facts",
+        "operators",
+        "remediations"
+      ],
+      "properties": {
+        "selectors": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "component-identity",
+              "descendant",
+              "document-order",
+              "page-descendants",
+              "selection-root",
+              "self-and-descendants",
+              "semantic-role",
+              "visibility"
+            ]
+          }
+        },
+        "facts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ancestry",
+              "baseline.effective",
+              "blendMode",
+              "component-api.anatomy",
+              "component-api.contract",
+              "component.editMode",
+              "component.identity",
+              "component.properties",
+              "diff.actual",
+              "diff.domain",
+              "diff.owner",
+              "diff.property",
+              "effects",
+              "host.component.contract",
+              "host.surface.kind",
+              "host.variant.Skeleton",
+              "host.variant.View",
+              "icon.identity",
+              "layout.properties",
+              "layoutSizingHorizontal",
+              "layoutSizingVertical",
+              "neighbor.componentIdentity",
+              "node.bounds",
+              "node.documentOrder",
+              "node.visibility",
+              "opacity",
+              "ownership.owner",
+              "page.context",
+              "paint.fill",
+              "paint.stroke",
+              "prototype.reactions",
+              "selector.matches",
+              "semanticRole",
+              "style.text",
+              "target.component.contract",
+              "target.componentKey",
+              "target.documentOrder",
+              "target.semanticRole",
+              "target.variant.Style",
+              "target.variant.Type",
+              "target.variant.properties",
+              "target.visible",
+              "text.characters",
+              "text.maxLines",
+              "text.overflow",
+              "variable.binding",
+              "variant.properties"
+            ]
+          }
+        },
+        "operators": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "absenceAllowed",
+              "allEqual",
+              "allMatch",
+              "allowedChildrenByHostProperty",
+              "allowedPropertiesByVariant",
+              "boundToTokenByVariant",
+              "boundToTokenFromSource",
+              "changePolicy",
+              "classificationPolicy",
+              "classifyDiffDomain",
+              "componentApiValid",
+              "compositionPolicy",
+              "configurationPolicy",
+              "contentPolicy",
+              "countBetween",
+              "delegateToContract",
+              "digitCountBetween",
+              "equalsFact",
+              "interactionByContext",
+              "matchesEffectiveBaseline",
+              "neighborSpacingByPair",
+              "noOverridesOrReactions",
+              "noneMatch",
+              "notMatches",
+              "oneOf",
+              "paintStateEquals",
+              "propertiesEqual",
+              "relativeOrder",
+              "requiredChild",
+              "stringLengthBetween",
+              "valueByContext",
+              "valuePosition",
+              "visibleAndNonEmpty"
+            ]
+          }
+        },
+        "remediations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "remove-reaction",
+              "restore-effective-baseline",
+              "rule-defined-remediation",
+              "set-variant-properties"
+            ]
+          }
+        }
+      }
+    },
+    "nonExecutableRule": {
+      "type": "object",
+      "required": [
+        "sourceRuleId",
+        "status",
+        "reason"
+      ],
+      "properties": {
+        "sourceRuleId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceCheckType": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "unsupported",
+            "manual",
+            "advisory",
+            "llm"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidateCapabilities": {
+          "type": "object"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": [
+        "summary",
+        "report"
+      ],
+      "properties": {
+        "summary": {
+          "type": "object"
+        },
+        "report": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
