@@ -598,7 +598,7 @@ function buildAuthoredRules(sourceRuleById) {
       'component:web-corp.title-view.root-fill-hug-sizing',
       'root-sizing',
       'warning',
-      'enforced',
+      'classification',
       { host: 'host.title-view', targets: 'host.title-view' },
       { op: 'propertiesEqual', values: { layoutSizingHorizontal: 'FILL', layoutSizingVertical: 'HUG' } },
       ['layoutSizingHorizontal', 'layoutSizingVertical'],
