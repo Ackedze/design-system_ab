@@ -185,6 +185,14 @@
         "appliesTo": "fill",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Status & Property",
+          "layers": [
+            "Status",
+            "[D] Status",
+            "[M] Status"
+          ]
+        },
         "conditions": {
           "except": {
             "component": "PropertyPreset",
@@ -251,6 +259,36 @@
         "ruleText": "Size=20/24/32/40 выбирается дизайнером по контексту и размеру окружающих элементов. Переключение между штатными Size является разрешённым изменением параметра компонента и само по себе не считается нарушением."
       },
       {
+        "ruleId": "component:web-corp.status-property.nested-status-size-matches-preset",
+        "severity": "error",
+        "ruleKind": "design-rule",
+        "severityScope": "design",
+        "source": "component-contract",
+        "appliesTo": "variant.Size",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Status & Property",
+          "layers": [
+            "Status",
+            "[D] Status",
+            "[M] Status"
+          ]
+        },
+        "requiredFactRelation": {
+          "op": "equals",
+          "targetFact": "target.variant.Size",
+          "hostFact": "host.variant.Size"
+        },
+        "classification": {
+          "reportAsCustomization": true,
+          "treatAsViolation": true,
+          "designSeverity": "error",
+          "resetSurface": "component-property"
+        },
+        "ruleText": "Размер вложенного Status должен совпадать с Size родительского StatusPreset или PropertyPreset. Менять Size вложенного Status независимо от preset-компонента запрещено."
+      },
+      {
         "ruleId": "component:web-corp.status-property.case-is-fixed-by-platform",
         "severity": "error",
         "ruleKind": "design-rule",
@@ -259,6 +297,14 @@
         "appliesTo": "variant.Uppercase|text.case|styles.text",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Status & Property",
+          "layers": [
+            "Status",
+            "[D] Status",
+            "[M] Status"
+          ]
+        },
         "requiredByPlatform": {
           "desktop": {
             "Uppercase": true

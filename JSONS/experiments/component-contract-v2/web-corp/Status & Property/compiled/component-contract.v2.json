@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/Status & Property/rules.json",
-        "bytes": 25272,
-        "sha256": "1aa72638ed3d4fae2040d37624da72b063c26975ebc5298d3571e6a875b18e35"
+        "bytes": 26830,
+        "sha256": "193303debe4ab8fd36d10e79049dd1cd2f551324f8c5219729a6e5b7080736b2"
       }
     ]
   },
@@ -83,8 +83,10 @@
       "variant.properties"
     ],
     "operators": [
+      "allMatch",
       "classificationPolicy",
       "componentApiValid",
+      "equalsFact",
       "matchesEffectiveBaseline",
       "propertiesEqual"
     ],
@@ -1965,13 +1967,16 @@
             "op": "oneOf",
             "values": [
               "[D] PropertyPreset",
+              "[D] Status",
               "[D] StatusPreset",
               "[M] PropertyPreset",
+              "[M] Status",
               "[M] StatusPreset",
               "🔒 [D] PropertyPreset",
               "🔒 [D] StatusPreset",
               "🔒 [M] PropertyPreset",
               "🔒 [M] StatusPreset",
+              "Status",
               "Status & Property"
             ]
           }
@@ -2056,25 +2061,40 @@
         "patternRuleId": null
       },
       "severity": "error",
-      "enforcement": "classification",
+      "enforcement": "enforced",
       "select": {
         "host": "host.package",
-        "targets": "tree.package"
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] Status",
+                "[M] Status",
+                "Status"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
       },
       "when": {
         "op": "evidenceComplete"
       },
       "assert": {
-        "op": "classificationPolicy",
-        "reportAsCustomization": true,
-        "treatAsViolation": true,
-        "designSeverity": "error",
-        "resetSurface": "layer",
-        "useEffectiveBaseline": true
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "variant.Uppercase",
+          "text.case",
+          "styles.text"
+        ]
       },
       "verdict": {
-        "pass": "allowed",
-        "fail": "unknown",
+        "pass": "expected",
+        "fail": "violation",
         "unknown": "unknown"
       },
       "evidence": [
@@ -2100,7 +2120,7 @@
           "variant.properties"
         ],
         "operators": [
-          "classificationPolicy"
+          "matchesEffectiveBaseline"
         ],
         "remediations": []
       }
@@ -2187,10 +2207,25 @@
         "patternRuleId": null
       },
       "severity": "error",
-      "enforcement": "classification",
+      "enforcement": "enforced",
       "select": {
         "host": "host.package",
-        "targets": "tree.package"
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] Status",
+                "[M] Status",
+                "Status"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
       },
       "when": {
         "op": "all",
@@ -2204,16 +2239,14 @@
         }
       },
       "assert": {
-        "op": "classificationPolicy",
-        "reportAsCustomization": true,
-        "treatAsViolation": true,
-        "designSeverity": "error",
-        "resetSurface": "layer",
-        "useEffectiveBaseline": true
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "fill"
+        ]
       },
       "verdict": {
-        "pass": "allowed",
-        "fail": "unknown",
+        "pass": "expected",
+        "fail": "violation",
         "unknown": "unknown"
       },
       "evidence": [
@@ -2241,7 +2274,7 @@
           "variable.binding"
         ],
         "operators": [
-          "classificationPolicy"
+          "matchesEffectiveBaseline"
         ],
         "remediations": []
       }
@@ -2501,6 +2534,79 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.status-property.nested-status-size-matches-preset",
+      "source": {
+        "file": "JSONS/web/components/web-corp/Status & Property/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.status-property.nested-status-size-matches-preset"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] Status",
+                "[M] Status",
+                "Status"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "allMatch",
+        "predicate": {
+          "op": "equalsFact",
+          "fact": "target.variant.Size",
+          "expectedFact": "host.variant.Size"
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "layout.properties",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Размер вложенного Status должен совпадать с Size родительского StatusPreset или PropertyPreset. Менять Size вложенного Status независимо от preset-компонента запрещено.",
+        "group": "variant.Size"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties",
+          "variant.properties"
+        ],
+        "operators": [
+          "allMatch",
+          "equalsFact"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp.status-property.platform-version-must-match",
       "source": {
         "file": "JSONS/web/components/web-corp/Status & Property/rules.json",
@@ -2560,7 +2666,7 @@
         "patternRuleId": null
       },
       "severity": "error",
-      "enforcement": "classification",
+      "enforcement": "enforced",
       "select": {
         "host": "host.package",
         "targets": "tree.package"
@@ -2569,16 +2675,21 @@
         "op": "evidenceComplete"
       },
       "assert": {
-        "op": "classificationPolicy",
-        "reportAsCustomization": true,
-        "treatAsViolation": true,
-        "designSeverity": "error",
-        "resetSurface": "layer",
-        "useEffectiveBaseline": true
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "variant.Shape",
+          "radius",
+          "cornerRadius",
+          "layout.*",
+          "styles.text",
+          "stroke",
+          "opacity",
+          "effects.*"
+        ]
       },
       "verdict": {
-        "pass": "allowed",
-        "fail": "unknown",
+        "pass": "expected",
+        "fail": "violation",
         "unknown": "unknown"
       },
       "evidence": [
@@ -2618,7 +2729,7 @@
           "variant.properties"
         ],
         "operators": [
-          "classificationPolicy"
+          "matchesEffectiveBaseline"
         ],
         "remediations": []
       }
@@ -3056,11 +3167,11 @@
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 25,
-      "deterministicSourceRules": 10,
-      "executableDeterministicSourceRules": 10,
+      "sourceRules": 26,
+      "deterministicSourceRules": 11,
+      "executableDeterministicSourceRules": 11,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 10,
+      "executable": 11,
       "advisory": 10,
       "manual": 5,
       "unsupported": 0,

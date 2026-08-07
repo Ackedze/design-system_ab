@@ -1,11 +1,11 @@
 {
   "schemaVersion": "apollo.rule-coverage.v1",
   "summary": {
-    "sourceRules": 25,
-    "deterministicSourceRules": 10,
-    "executableDeterministicSourceRules": 10,
+    "sourceRules": 26,
+    "deterministicSourceRules": 11,
+    "executableDeterministicSourceRules": 11,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 10,
+    "executable": 11,
     "advisory": 10,
     "manual": 5,
     "unsupported": 0,
@@ -36,7 +36,7 @@
           "variant.properties"
         ],
         "operators": [
-          "classificationPolicy"
+          "matchesEffectiveBaseline"
         ],
         "remediations": []
       }
@@ -142,7 +142,7 @@
           "variable.binding"
         ],
         "operators": [
-          "classificationPolicy"
+          "matchesEffectiveBaseline"
         ],
         "remediations": []
       }
@@ -357,6 +357,35 @@
       }
     },
     {
+      "sourceRuleId": "component:web-corp.status-property.nested-status-size-matches-preset",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.status-property.nested-status-size-matches-preset"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "classification",
+        "requiredFactRelation"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties",
+          "variant.properties"
+        ],
+        "operators": [
+          "allMatch",
+          "equalsFact"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "sourceRuleId": "component:web-corp.status-property.platform-version-must-match",
       "sourceCheckType": "deterministic",
       "status": "executable",
@@ -517,7 +546,7 @@
           "variant.properties"
         ],
         "operators": [
-          "classificationPolicy"
+          "matchesEffectiveBaseline"
         ],
         "remediations": []
       }

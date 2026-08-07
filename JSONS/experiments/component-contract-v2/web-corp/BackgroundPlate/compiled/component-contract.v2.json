@@ -3328,7 +3328,7 @@
         "patternRuleId": null
       },
       "severity": "error",
-      "enforcement": "classification",
+      "enforcement": "enforced",
       "select": {
         "host": "host.package",
         "targets": {
@@ -3364,16 +3364,17 @@
         "op": "evidenceComplete"
       },
       "assert": {
-        "op": "classificationPolicy",
-        "reportAsCustomization": true,
-        "treatAsViolation": true,
-        "designSeverity": "error",
-        "resetSurface": "layer",
-        "useEffectiveBaseline": true
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "radius",
+          "layout.radius",
+          "cornerRadius",
+          "cornerRadius.*"
+        ]
       },
       "verdict": {
-        "pass": "allowed",
-        "fail": "unknown",
+        "pass": "expected",
+        "fail": "violation",
         "unknown": "unknown"
       },
       "evidence": [
@@ -3402,7 +3403,7 @@
           "ownership.owner"
         ],
         "operators": [
-          "classificationPolicy"
+          "matchesEffectiveBaseline"
         ],
         "remediations": [
           "restore-effective-baseline"

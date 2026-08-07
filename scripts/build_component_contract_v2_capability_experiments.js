@@ -355,6 +355,24 @@ function inferAssertion(rule) {
   if (rule.requiredValues) {
     return executable('propertiesEqual', { values: rule.requiredValues });
   }
+  if (rule.requiredFactRelation) {
+    const relation = rule.requiredFactRelation;
+    if (
+      relation.op === 'equals' &&
+      typeof relation.targetFact === 'string' &&
+      typeof relation.hostFact === 'string'
+    ) {
+      const inferred = executable('allMatch', {
+        predicate: {
+          op: 'equalsFact',
+          fact: relation.targetFact,
+          expectedFact: relation.hostFact,
+        },
+      });
+      inferred.capabilities.operators.push('equalsFact');
+      return inferred;
+    }
+  }
   if (rule.requiredValue != null) {
     return rule.requiredValue === 'effective-baseline'
       ? executable('matchesEffectiveBaseline', { properties: splitAppliesTo(rule.appliesTo) })
@@ -388,6 +406,11 @@ function inferAssertion(rule) {
     return executable('compositionPolicy', rule.requiredComposition);
   }
   if (BASELINE_RULE_SUFFIXES.has(suffix)) {
+    return executable('matchesEffectiveBaseline', {
+      properties: splitAppliesTo(rule.appliesTo),
+    });
+  }
+  if (rule.classification && rule.classification.useEffectiveBaseline === true) {
     return executable('matchesEffectiveBaseline', {
       properties: splitAppliesTo(rule.appliesTo),
     });
