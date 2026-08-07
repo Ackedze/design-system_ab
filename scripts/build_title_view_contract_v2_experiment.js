@@ -142,23 +142,34 @@ function main() {
 }
 
 function buildSelectors(generatedContract) {
-  const packageComponentKeys = generatedContract.contracts
-    .map((contract) => contract.componentKey)
-    .filter(Boolean);
+  const packageComponentKeys = uniqueSorted(
+    generatedContract.contracts.flatMap(componentRoutingKeys),
+  );
+  const desktopTitleViewKeys = routingKeysForContract(
+    generatedContract,
+    '[D] TitleView',
+    TITLE_VIEW_KEYS.desktop,
+  );
+  const mobileTitleViewKeys = routingKeysForContract(
+    generatedContract,
+    '[M] TitleView',
+    TITLE_VIEW_KEYS.mobile,
+  );
+  const titleViewKeys = uniqueSorted(desktopTitleViewKeys.concat(mobileTitleViewKeys));
   return {
     'host.title-view': {
       scope: 'selection-root',
       where: {
-        componentKey: { op: 'oneOf', values: Object.values(TITLE_VIEW_KEYS) },
+        componentKey: { op: 'oneOf', values: titleViewKeys },
       },
     },
     'host.title-view.desktop': {
       scope: 'selection-root',
-      where: { componentKey: { op: 'equals', value: TITLE_VIEW_KEYS.desktop } },
+      where: { componentKey: { op: 'oneOf', values: desktopTitleViewKeys } },
     },
     'host.title-view.mobile': {
       scope: 'selection-root',
-      where: { componentKey: { op: 'equals', value: TITLE_VIEW_KEYS.mobile } },
+      where: { componentKey: { op: 'oneOf', values: mobileTitleViewKeys } },
     },
     'descendant.status-preset': {
       scope: 'descendants',
@@ -227,7 +238,7 @@ function buildSelectors(generatedContract) {
     'screen.title-view': {
       scope: 'page-descendants',
       where: {
-        componentKey: { op: 'oneOf', values: Object.values(TITLE_VIEW_KEYS) },
+        componentKey: { op: 'oneOf', values: titleViewKeys },
       },
       occurrence: 'all',
       orderBy: 'document',
@@ -811,6 +822,7 @@ function compactComponentApi(contract) {
     id: contract.id,
     name: contract.name,
     componentKey: contract.componentKey,
+    componentKeys: componentRoutingKeys(contract),
     platform: contract.platform,
     status: contract.status,
     publicApi: {
@@ -823,6 +835,23 @@ function compactComponentApi(contract) {
       structureNodeCount: contract.figma.structureSignature.length,
     },
   };
+}
+
+function routingKeysForContract(generatedContract, name, fallbackKey) {
+  const contract = generatedContract.contracts.find((entry) => entry.name === name);
+  return contract ? componentRoutingKeys(contract) : [fallbackKey];
+}
+
+function componentRoutingKeys(contract) {
+  return uniqueSorted([
+    contract.componentKey,
+    contract.figma && contract.figma.defaultVariantKey,
+    ...(
+      contract.figma && contract.figma.variants && Array.isArray(contract.figma.variants.variantKeys)
+        ? contract.figma.variants.variantKeys.map((entry) => entry && entry.key)
+        : []
+    ),
+  ].filter(Boolean));
 }
 
 function buildCoverage(sourceRules, executableRules) {

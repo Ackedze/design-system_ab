@@ -636,9 +636,9 @@ function buildComponentApiRule(profile) {
 }
 
 function buildSelectors(generatedContract, compositionDocument, sourceRules) {
-  const componentKeys = generatedContract.contracts
-    .map((contract) => contract.componentKey)
-    .filter(Boolean);
+  const componentKeys = uniqueSorted(
+    generatedContract.contracts.flatMap(componentRoutingKeys),
+  );
   const selectors = {
     'host.package': {
       scope: 'selection-root',
@@ -875,7 +875,9 @@ function buildExperimentalRuntimeIndex(packageResults) {
       library: result.contract.package.library,
       contractPath: result.contractPath.split(path.sep).join('/'),
       componentKeys: uniqueSorted(
-        result.contract.facts.componentApi.map((entry) => entry.componentKey),
+        result.contract.facts.componentApi.flatMap((entry) =>
+          Array.isArray(entry.componentKeys) ? entry.componentKeys : [entry.componentKey],
+        ),
       ),
       aliases: uniqueSorted(
         result.contract.facts.componentApi
@@ -1068,6 +1070,7 @@ function compactComponentApi(contract, profile) {
     id: contract.id,
     name: contract.name,
     componentKey: contract.componentKey,
+    componentKeys: componentRoutingKeys(contract),
     platform: contract.platform,
     status: contract.status,
     publicApi: {
@@ -1080,6 +1083,18 @@ function compactComponentApi(contract, profile) {
       structureNodeCount: contract.figma.structureSignature.length,
     },
   };
+}
+
+function componentRoutingKeys(contract) {
+  return uniqueSorted([
+    contract.componentKey,
+    contract.figma && contract.figma.defaultVariantKey,
+    ...(
+      contract.figma && contract.figma.variants && Array.isArray(contract.figma.variants.variantKeys)
+        ? contract.figma.variants.variantKeys.map((entry) => entry && entry.key)
+        : []
+    ),
+  ].filter(Boolean));
 }
 
 function sourceFile(profile, fileName) {
@@ -1158,6 +1173,10 @@ on every plugin start and never falls back to prose or production schema-v1 deci
 Only rules published as \`enforcement=enforced\` and fully supported by the versioned runtime
 selector/operator vocabulary may produce a violation. Unsupported rules, missing evidence and
 unknown evaluations are reported as diagnostics and never become violations.
+
+Each Component API publishes \`componentKeys\` containing its canonical component-set key and every
+known variant key. \`runtime-index.json\` indexes the complete union; package routing by a displayed
+name or heuristic alias is forbidden.
 
 The package inventory is a read-only snapshot of Google Sheets tab \`Corp components\`, range
 \`A2:F101\`, filtered by \`Общий статус=Ready\` and \`Ready=10\`. It contains

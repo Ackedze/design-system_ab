@@ -83,6 +83,16 @@ function main() {
     indexedPackageIds.add(entry.id);
     const contractPath = path.join(EXPERIMENT_ROOT, entry.contractPath);
     if (!fs.existsSync(contractPath)) throw new Error(`Missing runtime contract: ${entry.contractPath}`);
+    const indexedKeysForPackage = new Set(entry.componentKeys);
+    const runtimeContract = readJson(contractPath);
+    for (const api of runtimeContract.facts.componentApi) {
+      const routingKeys = Array.isArray(api.componentKeys) ? api.componentKeys : [api.componentKey];
+      for (const routingKey of routingKeys) {
+        if (!indexedKeysForPackage.has(routingKey)) {
+          throw new Error(`${entry.id}: runtime index misses component key ${routingKey}`);
+        }
+      }
+    }
     for (const componentKey of entry.componentKeys) {
       if (indexedComponentKeys.has(componentKey)) {
         throw new Error(`Duplicate runtime component key: ${componentKey}`);

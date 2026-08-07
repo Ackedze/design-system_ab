@@ -9,6 +9,10 @@ Only rules published as `enforcement=enforced` and fully supported by the versio
 selector/operator vocabulary may produce a violation. Unsupported rules, missing evidence and
 unknown evaluations are reported as diagnostics and never become violations.
 
+Each Component API publishes `componentKeys` containing its canonical component-set key and every
+known variant key. `runtime-index.json` indexes the complete union; package routing by a displayed
+name or heuristic alias is forbidden.
+
 The package inventory is a read-only snapshot of Google Sheets tab `Corp components`, range
 `A2:F101`, filtered by `Общий статус=Ready` and `Ready=10`. It contains
 25 packages. The spreadsheet selects the sample only; executable
