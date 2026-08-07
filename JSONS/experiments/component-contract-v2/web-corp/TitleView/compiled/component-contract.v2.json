@@ -52,8 +52,8 @@
       },
       {
         "file": "source/rules.json",
-        "bytes": 43271,
-        "sha256": "faf18f676681b3d0003e6e54e0af6099587107d8c6719a1de57f17fa27a60a9a"
+        "bytes": 45021,
+        "sha256": "fe01508f0cb2aab29028c8aecbddacad1a2ecd16963c5d46794b4f9265827054"
       }
     ]
   },
@@ -935,6 +935,37 @@
               "slot.subtitle",
               "slot.titlestatus",
               "slot.button-group"
+            ]
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "text.title-and-subtitle": {
+        "scope": "descendants",
+        "from": "host.title-view",
+        "where": {
+          "semanticRoleOrLayerName": {
+            "op": "oneOf",
+            "values": [
+              "Title",
+              "Subtitle"
+            ]
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "paint.title-subtitle-and-paintme": {
+        "scope": "descendants",
+        "from": "host.title-view",
+        "where": {
+          "semanticRoleOrLayerName": {
+            "op": "oneOf",
+            "values": [
+              "Title",
+              "Subtitle",
+              "PaintMe"
             ]
           }
         },
@@ -1873,8 +1904,6 @@
         "op": "matchesEffectiveBaseline",
         "properties": [
           "layout.*",
-          "styles.text",
-          "fill",
           "stroke",
           "radius",
           "opacity",
@@ -1899,12 +1928,135 @@
       },
       "presentation": {
         "message": "Изменения layer/style внутри компонентов семейства TitleView нужно сравнивать с effective baseline текущего component variant и nested owner context.",
-        "group": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity"
+        "group": "layout.*|styles.stroke|stroke|radius|opacity"
       },
       "capabilities": {
         "selectors": [
           "selection-root",
           "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "diff.actual",
+          "diff.property",
+          "ownership.owner"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": [
+          "restore-effective-baseline"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:title-view.title-and-subtitle-typography-is-fixed",
+      "source": {
+        "file": "source/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.title-view.title-and-subtitle-typography-is-fixed"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.title-view",
+        "targets": "text.title-and-subtitle"
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "styles.text"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "diff.property",
+        "diff.actual",
+        "baseline.effective",
+        "ownership.owner"
+      ],
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "target": "$failingTarget"
+      },
+      "presentation": {
+        "message": "Типографика Title и Subtitle фиксируется выбранным View компонента TitleView. Менять текстовый стиль заголовка или подзаголовка вручную запрещено.",
+        "group": "styles.text"
+      },
+      "capabilities": {
+        "selectors": [
+          "selection-root"
+        ],
+        "facts": [
+          "baseline.effective",
+          "diff.actual",
+          "diff.property",
+          "ownership.owner"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": [
+          "restore-effective-baseline"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:title-view.title-and-subtitle-color-is-fixed",
+      "source": {
+        "file": "source/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.title-view.title-and-subtitle-color-is-fixed"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.title-view",
+        "targets": "paint.title-subtitle-and-paintme"
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "fill",
+          "styles.fill"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "diff.property",
+        "diff.actual",
+        "baseline.effective",
+        "ownership.owner"
+      ],
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "target": "$failingTarget"
+      },
+      "presentation": {
+        "message": "Цвет текста Title и Subtitle определяется компонентом TitleView и его вложенными статусными блоками. Менять токен заливки текста вручную запрещено.",
+        "group": "fill|styles.fill"
+      },
+      "capabilities": {
+        "selectors": [
+          "selection-root"
         ],
         "facts": [
           "baseline.effective",
@@ -3195,15 +3347,15 @@
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 39,
-      "deterministicSourceRules": 25,
-      "executableDeterministicSourceRules": 25,
+      "sourceRules": 41,
+      "deterministicSourceRules": 27,
+      "executableDeterministicSourceRules": 27,
       "promotedAdvisorySourceRules": 1,
-      "executable": 26,
+      "executable": 28,
       "advisory": 13,
       "unsupported": 0,
       "additionalExecutableRules": 3,
-      "executableShare": 0.6667,
+      "executableShare": 0.6829,
       "deterministicCoverageRatio": 1
     },
     "report": "../coverage.json"

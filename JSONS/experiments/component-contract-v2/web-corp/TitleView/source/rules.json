@@ -114,7 +114,7 @@
         "ruleId": "component:web-corp.title-view.layer-properties-use-effective-baseline",
         "severity": "warning",
         "source": "component-contract",
-        "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
+        "appliesTo": "layout.*|styles.stroke|stroke|radius|opacity",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "target": {
@@ -135,6 +135,49 @@
           ]
         },
         "ruleText": "Изменения layer/style внутри компонентов семейства TitleView нужно сравнивать с effective baseline текущего component variant и nested owner context."
+      },
+      {
+        "ruleId": "component:web-corp.title-view.title-and-subtitle-typography-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "styles.text",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-corp.title-view",
+          "layers": [
+            "Title",
+            "Subtitle"
+          ]
+        },
+        "classification": {
+          "reportAsCustomization": true,
+          "treatAsViolation": true,
+          "useEffectiveBaseline": true
+        },
+        "ruleText": "Типографика Title и Subtitle фиксируется выбранным View компонента TitleView. Менять текстовый стиль заголовка или подзаголовка вручную запрещено."
+      },
+      {
+        "ruleId": "component:web-corp.title-view.title-and-subtitle-color-is-fixed",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "fill|styles.fill",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-corp.title-view",
+          "layers": [
+            "Title",
+            "Subtitle",
+            "PaintMe"
+          ]
+        },
+        "classification": {
+          "reportAsCustomization": true,
+          "treatAsViolation": true,
+          "useEffectiveBaseline": true
+        },
+        "ruleText": "Цвет текста Title и Subtitle определяется компонентом TitleView и его вложенными статусными блоками. Менять токен заливки текста вручную запрещено."
       },
       {
         "ruleId": "component:web-corp.title-view.single-xlarge-on-screen",

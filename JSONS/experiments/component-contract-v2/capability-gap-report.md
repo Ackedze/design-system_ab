@@ -48,6 +48,8 @@ reported independently from prose-only rules; candidate operators remain discove
 - `web-corp-promo.benefits-block`: selectors: none; facts: none; operators: none; remediations: bind-variable
 - `web-corp-promo.promo-card`: selectors: none; facts: none; operators: none; remediations: none
 - `web-corp-promo.promo-main-block`: selectors: none; facts: none; operators: none; remediations: none
+- `web-core.tag-group`: selectors: none; facts: none; operators: none; remediations: none
+- `web-corp.payment-masked-number`: selectors: none; facts: none; operators: none; remediations: none
 
 ## Unsupported deterministic rules
 
@@ -471,6 +473,14 @@ No unsupported deterministic rules.
 | `component:web.promo-main-block.required-content` | prose-existing-operator | requiredChild | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.promo-main-block.status-count-and-contract` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.promo-main-block.status-platform-casing-is-preset-owned` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+
+## web-core.tag-group
+
+No unsupported deterministic rules.
+
+## web-corp.payment-masked-number
+
+No unsupported deterministic rules.
 
 ## Interpretation
 

@@ -15,12 +15,12 @@ name or heuristic alias is forbidden.
 
 The package inventory is a read-only snapshot of Google Sheets tab `Corp components`, range
 `A2:F101`, filtered by `Общий статус=Ready` and `Ready=10`. It contains
-25 packages. The spreadsheet selects the sample only; executable
+27 packages. The spreadsheet selects the sample only; executable
 semantics always come from the local component-package JSON files.
 
 | Package | Deterministic coverage | Unsupported deterministic |
 | --- | ---: | ---: |
-| web-corp.title-view | 25/25 | 0 |
+| web-corp.title-view | 27/27 | 0 |
 | web-corp.account-select | 4/22 | 18 |
 | web-corp.amount-styles | 11/27 | 16 |
 | web-corp.background-plate | 22/22 | 0 |
@@ -41,14 +41,16 @@ semantics always come from the local component-package JSON files.
 | web-corp.table-view | 5/15 | 10 |
 | web-corp.tabs-view | 7/22 | 15 |
 | web-corp-promo.benefit-card | 2/22 | 20 |
-| web-corp-promo.benefits | 13/13 | 0 |
+| web-corp-promo.benefits | 14/14 | 0 |
 | web-corp-promo.benefits-block | 3/18 | 15 |
 | web-corp-promo.promo-card | 2/18 | 16 |
 | web-corp-promo.promo-main-block | 2/20 | 18 |
+| web-core.tag-group | 3/3 | 0 |
+| web-corp.payment-masked-number | 3/3 | 0 |
 
 The union and per-package novelty of selectors, facts, operators and remediations is stored in
-`capability-matrix.json`. Across the sample, 176
-of 477 deterministic rules compile (0.369);
+`capability-matrix.json`. Across the sample, 185
+of 486 deterministic rules compile (0.3807);
 301 remain unsupported. A source rule is executable only when its assertion
 parameters are structured; prose is never promoted into runtime behavior.
 

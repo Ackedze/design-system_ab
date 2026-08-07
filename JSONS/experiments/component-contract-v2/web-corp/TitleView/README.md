@@ -20,9 +20,9 @@ This directory is an isolated, non-runtime duplicate of the production package a
 ## Result
 
 - Component API facts: 12
-- Selectors: 15
-- Executable RuleIR entries: 30
-- Deterministic source rules covered as executable: 25/25
+- Selectors: 17
+- Executable RuleIR entries: 32
+- Deterministic source rules covered as executable: 27/27
 - LLM/advisory source rules promoted by stronger structural evidence: 1
 - Advisory source rules: 13
 - Unsupported deterministic source rules: 0

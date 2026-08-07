@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "bytes": 47336,
-        "sha256": "0eb6238b09c1b56efd4c01f28ab259d32bbc11e9238a4a330571e229b74dadaf"
+        "bytes": 47066,
+        "sha256": "c48980d685d2b5f671abab9efe2c311ab2547fd05145de4d91c58a9dd8138614"
       }
     ]
   },
@@ -2410,16 +2410,16 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.background-plate.border-stroke-align-is-fixed",
+      "id": "rule-ir:web-corp.background-plate.border-stroke-is-designer-controlled",
       "source": {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
         "sourceRuleIds": [
-          "component:web-corp.background-plate.border-stroke-align-is-fixed"
+          "component:web-corp.background-plate.border-stroke-is-designer-controlled"
         ],
-        "patternRuleId": "rule:components.background-plate.border-stroke-align-inside"
+        "patternRuleId": null
       },
-      "severity": "error",
-      "enforcement": "enforced",
+      "severity": "info",
+      "enforcement": "classification",
       "select": {
         "host": "host.package",
         "targets": "tree.package"
@@ -2434,15 +2434,14 @@
         }
       },
       "assert": {
-        "op": "propertiesEqual",
-        "values": {
-          "stroke.align": "INSIDE",
-          "strokeAlign": "INSIDE"
-        }
+        "op": "classificationPolicy",
+        "reportAsCustomization": true,
+        "doNotTreatAsViolationByDefault": true,
+        "allStrokeParametersAreDesignerControlled": true
       },
       "verdict": {
-        "pass": "expected",
-        "fail": "violation",
+        "pass": "allowed",
+        "fail": "unknown",
         "unknown": "unknown"
       },
       "evidence": [
@@ -2450,13 +2449,10 @@
         "paint.stroke",
         "variable.binding"
       ],
-      "remediation": {
-        "kind": "rule-defined-remediation",
-        "specification": "Верните положение обводки в Inside."
-      },
+      "remediation": null,
       "presentation": {
-        "message": "Для Type=Border положение обводки фиксировано: strokeAlign должен оставаться INSIDE. CENTER и OUTSIDE нарушают компонентный контракт.",
-        "group": "stroke.align|strokeAlign"
+        "message": "Для Type=Border дизайнер может изменять цвет, толщину, положение и другие параметры обводки. Отличие stroke от baseline не является нарушением.",
+        "group": "stroke|styles.stroke|stroke.*"
       },
       "capabilities": {
         "selectors": [
@@ -2469,11 +2465,9 @@
           "variable.binding"
         ],
         "operators": [
-          "propertiesEqual"
+          "classificationPolicy"
         ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
+        "remediations": []
       }
     },
     {
@@ -2825,10 +2819,6 @@
         "properties": [
           "layout.*",
           "styles.text",
-          "styles.fill",
-          "styles.stroke",
-          "fill",
-          "stroke",
           "opacity"
         ]
       },
@@ -2843,16 +2833,13 @@
         "layout.properties",
         "opacity",
         "ownership.owner",
-        "paint.fill",
-        "paint.stroke",
         "style.text",
-        "text.characters",
-        "variable.binding"
+        "text.characters"
       ],
       "remediation": null,
       "presentation": {
         "message": "Изменения layer/style внутри компонентов семейства BackgroundPlate нужно сравнивать с effective baseline текущего component variant и nested owner context. Изменения layout.padding.* у BackgroundPlateSlot являются допустимыми дизайнерскими кастомизациями, если они нужны композиции и заданы через токены Spacing. Это правило не разрешает изменение radius: скругления BackgroundPlate и Style Level фиксируются компонентным baseline и не должны изменяться вручную.",
-        "group": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|opacity"
+        "group": "layout.*|styles.text|opacity"
       },
       "capabilities": {
         "selectors": [
@@ -2865,11 +2852,8 @@
           "layout.properties",
           "opacity",
           "ownership.owner",
-          "paint.fill",
-          "paint.stroke",
           "style.text",
-          "text.characters",
-          "variable.binding"
+          "text.characters"
         ],
         "operators": [
           "matchesEffectiveBaseline"
@@ -3274,11 +3258,13 @@
         }
       },
       "assert": {
-        "op": "paintStateEquals",
-        "state": {
-          "fill": "effective-baseline",
-          "stroke": "effective-baseline"
-        }
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "fill",
+          "styles.fill",
+          "stroke",
+          "styles.stroke"
+        ]
       },
       "verdict": {
         "pass": "expected",
@@ -3311,7 +3297,7 @@
           "variable.binding"
         ],
         "operators": [
-          "paintStateEquals"
+          "matchesEffectiveBaseline"
         ],
         "remediations": [
           "restore-effective-baseline"

@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "apollo.rule-coverage.v1",
+  "summary": {
+    "sourceRules": 3,
+    "deterministicSourceRules": 3,
+    "executableDeterministicSourceRules": 3,
+    "promotedManualOrAdvisorySourceRules": 0,
+    "executable": 3,
+    "advisory": 0,
+    "manual": 0,
+    "unsupported": 0,
+    "deterministicCoverageRatio": 1
+  },
+  "rules": [
+    {
+      "sourceRuleId": "component:web-core.tag-group.component-properties-are-first-class",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-core.tag-group.component-properties-are-first-class"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "variant.properties"
+        ],
+        "operators": [
+          "classificationPolicy"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.tag-group.layer-properties-use-effective-baseline",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-core.tag-group.layer-properties-use-effective-baseline"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "layout.properties",
+          "opacity",
+          "ownership.owner",
+          "paint.fill",
+          "paint.stroke",
+          "style.text",
+          "text.characters",
+          "variable.binding"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.tag-group.nested-tag-size-matches-group",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-core.tag-group.nested-tag-size-matches-group"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "classification",
+        "requiredFactRelation"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties",
+          "variant.properties"
+        ],
+        "operators": [
+          "allMatch",
+          "equalsFact"
+        ],
+        "remediations": []
+      }
+    }
+  ]
+}

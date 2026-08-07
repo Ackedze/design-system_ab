@@ -69,6 +69,28 @@
   "manual": {
     "rules": [
       {
+        "ruleId": "component:web-corp.payment-masked-number.text-color-follows-baseline",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "fill|styles.fill",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "PaymentMaskedNumber",
+          "layers": [
+            "Major",
+            "Minor"
+          ]
+        },
+        "classification": {
+          "reportAsCustomization": true,
+          "treatAsViolation": true,
+          "useEffectiveBaseline": true,
+          "resetSurface": "layer"
+        },
+        "ruleText": "Цвет Major и Minor в PaymentMaskedNumber фиксируется effective baseline компонента. Менять цвет отдельной части вручную запрещено."
+      },
+      {
         "ruleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational",
         "severity": "info",
         "source": "component-contract",

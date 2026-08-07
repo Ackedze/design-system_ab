@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp-promo/Benefits/rules.json",
-        "bytes": 22731,
-        "sha256": "be47ba956c11e49df57a691b3f1be66ffe8209c4b4672282c03556b0432ca3f7"
+        "bytes": 23914,
+        "sha256": "e17d2577b38fa1c735b3b4b286f8b5513777d940418376ffe52cc16c3db1c4ed"
       }
     ]
   },
@@ -85,6 +85,7 @@
       "variant.properties"
     ],
     "operators": [
+      "allEqual",
       "classificationPolicy",
       "componentApiValid",
       "matchesEffectiveBaseline",
@@ -276,11 +277,15 @@
           "semanticRoleOrLayerName": {
             "op": "oneOf",
             "values": [
+              "[D] BenefitCard",
               "[D] Benefits",
+              "[M] BenefitCard",
               "[M] Benefits",
               "🔒 [D] Benefits",
               "🔒 [M] Benefits",
-              "Benefits"
+              "BenefitCard",
+              "Benefits",
+              "Content"
             ]
           }
         },
@@ -1028,7 +1033,22 @@
       "enforcement": "enforced",
       "select": {
         "host": "host.package",
-        "targets": "tree.package"
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] BenefitCard",
+                "[M] BenefitCard",
+                "BenefitCard"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
       },
       "when": {
         "op": "all",
@@ -1052,11 +1072,12 @@
         }
       },
       "assert": {
-        "op": "matchesEffectiveBaseline",
-        "properties": [
-          "nested.BenefitCard.variant.*",
-          "nested.BackgroundPlate.fill",
-          "nested.BackgroundPlate.stroke"
+        "op": "allEqual",
+        "facts": [
+          "variant.Background",
+          "variant.CardAxis",
+          "variant.Compact",
+          "variant.GraphicPosition"
         ]
       },
       "verdict": {
@@ -1092,7 +1113,79 @@
           "variant.properties"
         ],
         "operators": [
-          "matchesEffectiveBaseline"
+          "allEqual"
+        ],
+        "remediations": [
+          "rule-defined-remediation"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefits.nested-card-title-style-is-uniform",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/Benefits/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefits.nested-card-title-style-is-uniform"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Content"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "allEqual",
+        "facts": [
+          "variant.Title"
+        ],
+        "strategy": "propertyEqualsFirst"
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "rule-defined-remediation",
+        "specification": "Установите одинаковое значение Title у контента всех BenefitCard группы."
+      },
+      "presentation": {
+        "message": "Стиль Title должен быть одинаковым у всех BenefitCard внутри одного Benefits. Смешивать Primary и Secondary в одной группе запрещено.",
+        "group": "variant.Title"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "variant.properties"
+        ],
+        "operators": [
+          "allEqual"
         ],
         "remediations": [
           "rule-defined-remediation"
@@ -1423,11 +1516,11 @@
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 20,
-      "deterministicSourceRules": 13,
-      "executableDeterministicSourceRules": 13,
+      "sourceRules": 21,
+      "deterministicSourceRules": 14,
+      "executableDeterministicSourceRules": 14,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 13,
+      "executable": 14,
       "advisory": 4,
       "manual": 3,
       "unsupported": 0,

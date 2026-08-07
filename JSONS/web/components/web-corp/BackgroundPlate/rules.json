@@ -146,7 +146,7 @@
         "ruleId": "component:web-corp.background-plate.layer-properties-use-effective-baseline",
         "severity": "warning",
         "source": "component-contract",
-        "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|opacity",
+        "appliesTo": "layout.*|styles.text|opacity",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "target": {
@@ -770,13 +770,12 @@
         "ruleText": "Для Type=Border базовая толщина обводки равна 1 px, но дизайнер может изменить strokeWeight под контекст. Само отличие толщины от standalone baseline не является нарушением и не требует сброса."
       },
       {
-        "ruleId": "component:web-corp.background-plate.border-stroke-align-is-fixed",
-        "severity": "error",
+        "ruleId": "component:web-corp.background-plate.border-stroke-is-designer-controlled",
+        "severity": "info",
         "ruleKind": "design-rule",
         "severityScope": "design",
-        "source": "pattern-link",
-        "patternRuleId": "rule:components.background-plate.border-stroke-align-inside",
-        "appliesTo": "stroke.align|strokeAlign",
+        "source": "component-contract",
+        "appliesTo": "stroke|styles.stroke|stroke.*",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "conditions": {
@@ -785,18 +784,12 @@
             "Type": "Border"
           }
         },
-        "requiredValues": {
-          "stroke.align": "INSIDE",
-          "strokeAlign": "INSIDE"
-        },
         "classification": {
           "reportAsCustomization": true,
-          "treatAsViolation": true,
-          "designSeverity": "error",
-          "resetSurface": "layer"
+          "doNotTreatAsViolationByDefault": true,
+          "allStrokeParametersAreDesignerControlled": true
         },
-        "remediation": "Верните положение обводки в Inside.",
-        "ruleText": "Для Type=Border положение обводки фиксировано: strokeAlign должен оставаться INSIDE. CENTER и OUTSIDE нарушают компонентный контракт."
+        "ruleText": "Для Type=Border дизайнер может изменять цвет, толщину, положение и другие параметры обводки. Отличие stroke от baseline не является нарушением."
       },
       {
         "ruleId": "component:web-corp.background-plate.border-is-not-clickable",

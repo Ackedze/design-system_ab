@@ -1,0 +1,123 @@
+{
+  "schemaVersion": "apollo.rule-coverage.v1",
+  "summary": {
+    "sourceRules": 4,
+    "deterministicSourceRules": 3,
+    "executableDeterministicSourceRules": 3,
+    "promotedManualOrAdvisorySourceRules": 0,
+    "executable": 3,
+    "advisory": 0,
+    "manual": 1,
+    "unsupported": 0,
+    "deterministicCoverageRatio": 1
+  },
+  "rules": [
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.component-properties-are-first-class",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.payment-masked-number.component-properties-are-first-class"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "variant.properties"
+        ],
+        "operators": [
+          "classificationPolicy"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.layer-properties-use-effective-baseline",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.payment-masked-number.layer-properties-use-effective-baseline"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "layout.properties",
+          "opacity",
+          "ownership.owner",
+          "paint.fill",
+          "paint.stroke",
+          "style.text",
+          "text.characters",
+          "variable.binding"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational",
+      "sourceCheckType": "manual",
+      "status": "manual",
+      "targetRuleIds": [],
+      "reason": "Source checkType is manual.",
+      "structuredFields": [],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.text-color-follows-baseline",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.payment-masked-number.text-color-follows-baseline"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "classification"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "ownership.owner",
+          "paint.fill",
+          "variable.binding"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": []
+      }
+    }
+  ]
+}

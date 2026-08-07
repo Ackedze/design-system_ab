@@ -175,6 +175,14 @@
         "appliesTo": "nested.BenefitCard.variant.*|nested.BackgroundPlate.fill|nested.BackgroundPlate.stroke",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Benefits",
+          "layers": [
+            "[D] BenefitCard",
+            "[M] BenefitCard",
+            "BenefitCard"
+          ]
+        },
         "conditions": {
           "uniformProperties": [
             "Background",
@@ -200,6 +208,28 @@
         },
         "remediation": "Выровняйте Background, CardAxis, Compact и GraphicPosition у всех BenefitCard группы. Не выравнивайте разные разрешённые fill/stroke у Border или Colored автоматически.",
         "ruleText": "Все BenefitCard внутри одного Benefits должны иметь одинаковые значения Background, CardAxis, Compact и GraphicPosition. Единственное подтверждённое исключение — разные цвета заливки и обводки отдельных карточек при поверхностях Colored и Border."
+      },
+      {
+        "ruleId": "component:web.benefits.nested-card-title-style-is-uniform",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.Title",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Benefits",
+          "layers": [
+            "Content"
+          ]
+        },
+        "sharedValueConstraint": "propertyEqualsFirst",
+        "classification": {
+          "treatAsViolation": true,
+          "designSeverity": "error",
+          "resetSurface": "component-property"
+        },
+        "remediation": "Установите одинаковое значение Title у контента всех BenefitCard группы.",
+        "ruleText": "Стиль Title должен быть одинаковым у всех BenefitCard внутри одного Benefits. Смешивать Primary и Secondary в одной группе запрещено."
       },
       {
         "ruleId": "component:web.benefits.mobile-surface-inherits-host",

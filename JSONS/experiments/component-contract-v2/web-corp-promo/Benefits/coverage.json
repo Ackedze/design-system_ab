@@ -1,11 +1,11 @@
 {
   "schemaVersion": "apollo.rule-coverage.v1",
   "summary": {
-    "sourceRules": 20,
-    "deterministicSourceRules": 13,
-    "executableDeterministicSourceRules": 13,
+    "sourceRules": 21,
+    "deterministicSourceRules": 14,
+    "executableDeterministicSourceRules": 14,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 13,
+    "executable": 14,
     "advisory": 4,
     "manual": 3,
     "unsupported": 0,
@@ -451,7 +451,36 @@
           "variant.properties"
         ],
         "operators": [
-          "matchesEffectiveBaseline"
+          "allEqual"
+        ],
+        "remediations": [
+          "rule-defined-remediation"
+        ]
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefits.nested-card-title-style-is-uniform",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp-promo.benefits.nested-card-title-style-is-uniform"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "classification",
+        "sharedValueConstraint"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "variant.properties"
+        ],
+        "operators": [
+          "allEqual"
         ],
         "remediations": [
           "rule-defined-remediation"

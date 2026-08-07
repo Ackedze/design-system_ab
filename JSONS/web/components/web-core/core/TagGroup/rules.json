@@ -63,5 +63,35 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "rules": [
+      {
+        "ruleId": "component:web-core.tag-group.nested-tag-size-matches-group",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "nested.Tag.variant.Size",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "TagGroup",
+          "layers": [
+            "[D] Tag",
+            "[M] Tag",
+            "Tag"
+          ]
+        },
+        "requiredFactRelation": {
+          "op": "equals",
+          "targetFact": "target.variant.Size",
+          "hostFact": "host.variant.Size"
+        },
+        "classification": {
+          "reportAsCustomization": true,
+          "treatAsViolation": true,
+          "resetSurface": "component-property"
+        },
+        "ruleText": "Size каждого вложенного Tag должен совпадать с Size родительского TagGroup. Изменение размера отдельного элемента группы запрещено."
+      }
+    ]
+  }
 }

@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const REPO_ROOT = path.resolve(__dirname, '..');
 const EXPERIMENT_ROOT = path.join(REPO_ROOT, 'JSONS/experiments/component-contract-v2');
 const INVENTORY_PATH = path.join(EXPERIMENT_ROOT, 'ready-corp-components.inventory.json');
+const SUPPLEMENTAL_PATH = path.join(EXPERIMENT_ROOT, 'supplemental-packages.json');
 const SOURCE_FILES = [
   'README.md',
   'agent-context.json',
@@ -23,13 +24,18 @@ const TARGET_ALIASES = new Map([
 
 function main() {
   const inventory = readJson(INVENTORY_PATH);
+  const supplemental = readJson(SUPPLEMENTAL_PATH);
+  const profiles = inventory.packages.map((item) => ({
+    sourceName: item.name,
+    sourceLibrary: item.library,
+    targetName: TARGET_ALIASES.get(`${item.library}/${item.name}`) || item.name,
+  })).concat(supplemental.packages);
   const packageIds = new Set();
   let verifiedSourceFiles = 0;
   let executableRules = 0;
-  for (const item of inventory.packages) {
-    const targetName = TARGET_ALIASES.get(`${item.library}/${item.name}`) || item.name;
-    const sourceDir = path.join(REPO_ROOT, 'JSONS/web/components', item.library, item.name);
-    const packageDir = path.join(EXPERIMENT_ROOT, item.library, targetName);
+  for (const item of profiles) {
+    const sourceDir = path.join(REPO_ROOT, 'JSONS/web/components', item.sourceLibrary, item.sourceName);
+    const packageDir = path.join(EXPERIMENT_ROOT, item.sourceLibrary, item.targetName);
     const contract = readJson(path.join(packageDir, 'compiled/component-contract.v2.json'));
     const coverage = readJson(path.join(packageDir, 'coverage.json'));
     if (contract.runtimePolicy.consumedByApollo || contract.runtimePolicy.publishedToRuntimeIndexes) {
@@ -53,7 +59,7 @@ function main() {
       for (const fileName of SOURCE_FILES) {
         const source = fs.readFileSync(path.join(sourceDir, fileName));
         const copy = fs.readFileSync(path.join(sourceCopyDir, fileName));
-        if (!source.equals(copy)) throw new Error(`Source copy drift: ${item.library}/${item.name}/${fileName}`);
+        if (!source.equals(copy)) throw new Error(`Source copy drift: ${item.sourceLibrary}/${item.sourceName}/${fileName}`);
       }
     }
     if (coverage.summary.deterministicSourceRules
@@ -66,13 +72,13 @@ function main() {
   const profile = readJson(path.join(EXPERIMENT_ROOT, 'ready-package-rule-profile.json'));
   const registry = readJson(path.join(EXPERIMENT_ROOT, 'schemas/capability-registry.v1.json'));
   const runtimeIndex = readJson(path.join(EXPERIMENT_ROOT, 'runtime-index.json'));
-  if (matrix.coverage.packageCount !== inventory.packages.length) throw new Error('Matrix package count mismatch');
+  if (matrix.coverage.packageCount !== profiles.length) throw new Error('Matrix package count mismatch');
   if (profile.inventory.packageCount !== inventory.packages.length) throw new Error('Profile package count mismatch');
-  if (packageIds.size !== inventory.packages.length) throw new Error('Compiled package count mismatch');
+  if (packageIds.size !== profiles.length) throw new Error('Compiled package count mismatch');
   if (runtimeIndex.runtimePolicy.defaultEnabled !== false) {
     throw new Error('Experimental runtime index must remain disabled by default');
   }
-  if (runtimeIndex.packages.length !== inventory.packages.length) {
+  if (runtimeIndex.packages.length !== profiles.length) {
     throw new Error('Experimental runtime index package count mismatch');
   }
   const indexedPackageIds = new Set();

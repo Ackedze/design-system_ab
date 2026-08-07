@@ -83,6 +83,10 @@ const PACKAGE_PROFILE_OVERRIDES = {
   },
 };
 
+const SUPPLEMENTAL_PACKAGE_PROFILES = readJson(
+  path.join(EXPERIMENT_ROOT, 'supplemental-packages.json'),
+).packages;
+
 const BASELINE_RULE_SUFFIXES = new Set([
   'layer-properties-use-effective-baseline',
   'geometry-follows-effective-baseline',
@@ -248,7 +252,7 @@ function buildPackageExperiment(profile) {
 
 function readInventoryProfiles() {
   const inventory = readJson(INVENTORY_PATH);
-  return inventory.packages.map((entry) => {
+  const inventoryProfiles = inventory.packages.map((entry) => {
     const override = PACKAGE_PROFILE_OVERRIDES[`${entry.library}/${entry.name}`] || {};
     return {
       sourceName: entry.name,
@@ -258,6 +262,10 @@ function readInventoryProfiles() {
       compositionRuleSources: override.compositionRuleSources || {},
     };
   });
+  const existingIds = new Set(inventoryProfiles.map((profile) => profile.packageId));
+  return inventoryProfiles.concat(
+    SUPPLEMENTAL_PACKAGE_PROFILES.filter((profile) => !existingIds.has(profile.packageId)),
+  );
 }
 
 function inferSourceRule(rule, profile) {
@@ -325,6 +333,15 @@ function inferSourceRule(rule, profile) {
 
 function inferAssertion(rule) {
   const suffix = ruleSuffix(rule.ruleId);
+  if (
+    rule.conditions &&
+    Array.isArray(rule.conditions.uniformProperties) &&
+    rule.conditions.uniformProperties.length > 0
+  ) {
+    return executable('allEqual', {
+      facts: rule.conditions.uniformProperties.map((property) => `variant.${property}`),
+    });
+  }
   if (rule.requiredVariant) {
     return executable('propertiesEqual', { values: rule.requiredVariant });
   }
@@ -344,6 +361,14 @@ function inferAssertion(rule) {
     return executable('valueByContext', { mapping: rule.requiredMapping });
   }
   if (rule.requiredPaintState) {
+    if (
+      Object.values(rule.requiredPaintState).length > 0 &&
+      Object.values(rule.requiredPaintState).every((value) => value === 'effective-baseline')
+    ) {
+      return executable('matchesEffectiveBaseline', {
+        properties: splitAppliesTo(rule.appliesTo),
+      });
+    }
     return executable('paintStateEquals', { state: rule.requiredPaintState });
   }
   if (rule.requiredTokenBinding) {
