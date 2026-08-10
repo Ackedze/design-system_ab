@@ -207,6 +207,7 @@ function buildPackageExperiment(profile) {
     sourceRules,
     componentKeyFamilies,
   );
+  const contractOwnership = buildContractOwnership(compositionDocument, profile);
   const sourceFiles = sourceManifest(sourceDir);
 
   const contract = {
@@ -235,6 +236,7 @@ function buildPackageExperiment(profile) {
         source: `${sourceFile(profile, 'composition-contract.json')}#/manual/standaloneBaselines`,
         resolution: 'effective-component-variant-and-owner-context',
       },
+      ...(contractOwnership ? { contractOwnership } : {}),
     },
     rules,
     nonExecutableRules: coverage.rules
@@ -266,6 +268,40 @@ function buildPackageExperiment(profile) {
       EXPERIMENT_ROOT,
       path.join(compiledDir, 'component-contract.v2.json'),
     ),
+  };
+}
+
+function buildContractOwnership(compositionDocument, profile) {
+  const source = compositionDocument.manual && compositionDocument.manual.contractOwnership;
+  if (!source) return null;
+  if (!Array.isArray(source.nestedPackages)) {
+    throw new Error(`${profile.packageId}: contractOwnership.nestedPackages must be an array`);
+  }
+  const nestedPackages = source.nestedPackages.map((entry, index) => {
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
+      throw new Error(`${profile.packageId}: nested package ownership ${index} must be an object`);
+    }
+    if (typeof entry.packageId !== 'string' || !entry.packageId.trim()) {
+      throw new Error(`${profile.packageId}: nested package ownership ${index} has no packageId`);
+    }
+    if (entry.mode !== 'host-contract') {
+      throw new Error(`${profile.packageId}: unsupported nested package ownership mode ${entry.mode}`);
+    }
+    return {
+      packageId: entry.packageId.trim(),
+      mode: entry.mode,
+      ...(typeof entry.reason === 'string' && entry.reason.trim()
+        ? { reason: entry.reason.trim() }
+        : {}),
+    };
+  });
+  const packageIds = nestedPackages.map((entry) => entry.packageId);
+  if (new Set(packageIds).size !== packageIds.length) {
+    throw new Error(`${profile.packageId}: duplicate nested package ownership`);
+  }
+  return {
+    source: `${sourceFile(profile, 'composition-contract.json')}#/manual/contractOwnership`,
+    nestedPackages,
   };
 }
 

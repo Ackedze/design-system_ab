@@ -76,6 +76,8 @@ Runtime registry находится в `JSONS/apollo/indexes/componentContractIn
 
 `contract.generated.json` является машиночитаемым Component API пакета. Apollo компилирует из него identity компонента, public variant properties, допустимые значения, allowed combinations и variant keys, затем формирует нарушения через общий assessment/report pipeline. Основная схема — `apollo.ds-contracts.v1`; временно поддерживается один опубликованный legacy-format `component-contract-generated` schema 1 для пакета Tabs. Неизвестная схема или семантически невалидный контракт блокирует загрузку required-пакета без fallback к raw catalog.
 
+Package-level `composition-contract.json#/manual/contractOwnership` может объявить `nestedPackages` с режимом `host-contract`. Компилятор сохраняет эту политику в `facts.contractOwnership`: host package полностью оценивает соответствующий nested subtree, а Apollo не запускает вложенный package повторно. `AmountStyles` использует эту схему для `web-core.amount`, чтобы typography/color/opacity/layout сравнивались только с effective baseline выбранного preset Style; standalone Core Amount остаётся самостоятельным контрактным scope.
+
 Перед публикацией обязательно выполнить в Athena CLI:
 
 ```bash
