@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-core/core/Amount/rules.json",
-        "bytes": 2966,
-        "sha256": "49a2fa254b62a4220c636b66fdbb23e0645ed0814a982c9a1338ae5c11ab7d29"
+        "bytes": 3571,
+        "sha256": "563cadd35db3e7670155c7221a90730af9ded95c848648bfa00306b5f585db02"
       }
     ]
   },
@@ -264,16 +264,8 @@
         "platform": "universal",
         "status": "active",
         "publicApi": {
-          "properties": {
-            "raw": [
-              "🔩 Addon"
-            ]
-          },
-          "allowedCombinations": [
-            {
-              "raw": "🔩 Addon"
-            }
-          ]
+          "properties": {},
+          "allowedCombinations": []
         },
         "evidence": {
           "source": "JSONS/web/components/web-core/core/Amount/contract.generated.json",
@@ -291,16 +283,8 @@
         "platform": "universal",
         "status": "active",
         "publicApi": {
-          "properties": {
-            "raw": [
-              "🔩 Major"
-            ]
-          },
-          "allowedCombinations": [
-            {
-              "raw": "🔩 Major"
-            }
-          ]
+          "properties": {},
+          "allowedCombinations": []
         },
         "evidence": {
           "source": "JSONS/web/components/web-core/core/Amount/contract.generated.json",
@@ -318,16 +302,8 @@
         "platform": "universal",
         "status": "active",
         "publicApi": {
-          "properties": {
-            "raw": [
-              "Amount"
-            ]
-          },
-          "allowedCombinations": [
-            {
-              "raw": "Amount"
-            }
-          ]
+          "properties": {},
+          "allowedCombinations": []
         },
         "evidence": {
           "source": "JSONS/web/components/web-core/core/Amount/contract.generated.json",
@@ -717,13 +693,80 @@
       },
       "evidence": [
         "component.identity",
+        "opacity"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "В Альфа-Бизнес прямое изменение opacity слоя у Minor и Currency запрещено. Обе части Amount должны сохранять полную непрозрачность.",
+        "group": "opacity"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "opacity"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-core.amount.opacity-property-is-forbidden",
+      "source": {
+        "file": "JSONS/web/components/web-core/core/Amount/rules.json",
+        "sourceRuleIds": [
+          "component:web-core.amount.opacity-property-is-forbidden"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Currency",
+                "Minor"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "propertiesEqual",
+        "values": {
+          "Opacity": "False"
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
         "opacity",
         "variant.properties"
       ],
       "remediation": null,
       "presentation": {
-        "message": "В Альфа-Бизнес изменение opacity у Minor и Currency запрещено. Обе части Amount должны сохранять полную непрозрачность и штатное значение Opacity=False.",
-        "group": "opacity|variant.Opacity"
+        "message": "В Альфа-Бизнес включать component property Opacity у Minor и Currency запрещено. Штатное значение — Opacity=False.",
+        "group": "variant.Opacity"
       },
       "capabilities": {
         "selectors": [
@@ -745,11 +788,11 @@
   "nonExecutableRules": [],
   "coverage": {
     "summary": {
-      "sourceRules": 3,
-      "deterministicSourceRules": 3,
-      "executableDeterministicSourceRules": 3,
+      "sourceRules": 4,
+      "deterministicSourceRules": 4,
+      "executableDeterministicSourceRules": 4,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 3,
+      "executable": 4,
       "advisory": 0,
       "manual": 0,
       "unsupported": 0,

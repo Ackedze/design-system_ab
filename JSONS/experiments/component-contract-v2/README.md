@@ -22,7 +22,7 @@ semantics always come from the local component-package JSON files.
 | --- | ---: | ---: |
 | web-corp.title-view | 27/27 | 0 |
 | web-corp.account-select | 4/22 | 18 |
-| web-corp.amount-styles | 11/27 | 16 |
+| web-corp.amount-styles | 12/28 | 16 |
 | web-corp.background-plate | 22/22 | 0 |
 | web-corp.buttons-group | 7/16 | 9 |
 | web-corp.button-stack | 7/7 | 0 |
@@ -47,11 +47,11 @@ semantics always come from the local component-package JSON files.
 | web-corp-promo.promo-main-block | 2/20 | 18 |
 | web-core.tag-group | 3/3 | 0 |
 | web-corp.payment-masked-number | 3/3 | 0 |
-| web-core.amount | 3/3 | 0 |
+| web-core.amount | 4/4 | 0 |
 
 The union and per-package novelty of selectors, facts, operators and remediations is stored in
-`capability-matrix.json`. Across the sample, 193
-of 493 deterministic rules compile (0.3915);
+`capability-matrix.json`. Across the sample, 195
+of 495 deterministic rules compile (0.3939);
 300 remain unsupported. A source rule is executable only when its assertion
 parameters are structured; prose is never promoted into runtime behavior.
 

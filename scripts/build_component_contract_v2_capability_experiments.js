@@ -530,6 +530,9 @@ function inferAssertion(rule) {
   if (suffix === 'opacity-is-forbidden') {
     return executable('propertiesEqual', { values: { opacity: 1 } });
   }
+  if (suffix === 'opacity-property-is-forbidden') {
+    return executable('propertiesEqual', { values: { Opacity: 'False' } });
+  }
 
   return {
     executable: false,
@@ -1233,6 +1236,17 @@ function expandComponentKeys(componentKeys, componentKeyFamilies) {
 }
 
 function compactComponentApi(contract, profile) {
+  const properties = Object.fromEntries(
+    Object.entries(contract.figma.variants.properties || {})
+      .filter(([property]) => property !== 'raw'),
+  );
+  const allowedCombinations = Object.keys(properties).length
+    ? (contract.figma.variants.allowedCombinations || []).map((combination) =>
+        Object.fromEntries(
+          Object.entries(combination).filter(([property]) => property !== 'raw'),
+        ),
+      )
+    : [];
   return {
     id: contract.id,
     name: contract.name,
@@ -1241,8 +1255,8 @@ function compactComponentApi(contract, profile) {
     platform: contract.platform,
     status: contract.status,
     publicApi: {
-      properties: contract.figma.variants.properties,
-      allowedCombinations: contract.figma.variants.allowedCombinations,
+      properties,
+      allowedCombinations,
     },
     evidence: {
       source: sourceFile(profile, 'contract.generated.json'),

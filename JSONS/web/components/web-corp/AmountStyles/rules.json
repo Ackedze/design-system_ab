@@ -278,7 +278,7 @@
         "source": "pattern-link",
         "patternRuleId": "rule:components.amount.no-opacity",
         "ruleKind": "design-rule",
-        "appliesTo": "opacity|variant.Opacity",
+        "appliesTo": "opacity",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "target": {
@@ -288,7 +288,25 @@
             "Currency"
           ]
         },
-        "ruleText": "Изменение opacity у Minor и Currency запрещено во всех вариантах AmountHeadline и AmountParagraph."
+        "ruleText": "Прямое изменение opacity слоя у Minor и Currency запрещено во всех вариантах AmountHeadline и AmountParagraph."
+      },
+      {
+        "ruleId": "component:web-corp.amount-styles.opacity-property-is-forbidden",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:components.amount.no-opacity",
+        "ruleKind": "design-rule",
+        "appliesTo": "variant.Opacity",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "AmountStyles",
+          "layers": [
+            "Minor",
+            "Currency"
+          ]
+        },
+        "ruleText": "Включать component property Opacity у Minor и Currency запрещено во всех вариантах AmountHeadline и AmountParagraph. Штатное значение — Opacity=False."
       },
       {
         "ruleId": "component:web-corp.amount-styles.style-is-context-controlled",
