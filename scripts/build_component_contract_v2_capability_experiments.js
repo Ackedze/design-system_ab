@@ -492,9 +492,11 @@ function inferAssertion(rule) {
 function expandUniformPropertyRules(targetRule, sourceRule) {
   const properties = sourceRule?.conditions?.uniformProperties;
   if (!Array.isArray(properties) || properties.length <= 1) return [targetRule];
+  const runtimeWhen = stripUniformCompilationConditions(targetRule.when);
   return properties.map((property) => ({
     ...targetRule,
     id: `${targetRule.id}.${slugify(property)}`,
+    when: runtimeWhen,
     assert: {
       op: 'allEqual',
       fact: `variant.${property}`,
@@ -504,6 +506,20 @@ function expandUniformPropertyRules(targetRule, sourceRule) {
       group: `variant.${property}`,
     },
   }));
+}
+
+function stripUniformCompilationConditions(when) {
+  if (when?.op !== 'all' || !when.clauses || typeof when.clauses !== 'object') {
+    return when;
+  }
+  const clauses = Object.fromEntries(
+    Object.entries(when.clauses).filter(([key]) =>
+      key !== 'uniformProperties' && key !== 'allowedPerCardDifferences',
+    ),
+  );
+  return Object.keys(clauses).length
+    ? { ...when, clauses }
+    : { op: 'evidenceComplete' };
 }
 
 function baselineAssertionParameters(rule, properties) {
@@ -1191,6 +1207,16 @@ function validateContract(contract) {
     if (!rule.assert || !rule.assert.op) throw new Error(`${rule.id}: missing assertion`);
     if (!rule.capabilities.operators.includes(rule.assert.op)) {
       throw new Error(`${rule.id}: assertion operator missing from capabilities`);
+    }
+    if (
+      rule.assert.op === 'allEqual' &&
+      rule.when?.op === 'all' &&
+      (
+        Object.prototype.hasOwnProperty.call(rule.when.clauses ?? {}, 'uniformProperties') ||
+        Object.prototype.hasOwnProperty.call(rule.when.clauses ?? {}, 'allowedPerCardDifferences')
+      )
+    ) {
+      throw new Error(`${rule.id}: compile-time uniform metadata leaked into runtime conditions`);
     }
   }
   const summary = contract.coverage.summary;
