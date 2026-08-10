@@ -1021,7 +1021,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp-promo.benefits.nested-card-settings-are-uniform",
+      "id": "rule-ir:web-corp-promo.benefits.nested-card-settings-are-uniform.background",
       "source": {
         "file": "JSONS/web/components/web-corp-promo/Benefits/rules.json",
         "sourceRuleIds": [
@@ -1073,12 +1073,7 @@
       },
       "assert": {
         "op": "allEqual",
-        "facts": [
-          "variant.Background",
-          "variant.CardAxis",
-          "variant.Compact",
-          "variant.GraphicPosition"
-        ]
+        "fact": "variant.Background"
       },
       "verdict": {
         "pass": "expected",
@@ -1098,7 +1093,292 @@
       },
       "presentation": {
         "message": "Все BenefitCard внутри одного Benefits должны иметь одинаковые значения Background, CardAxis, Compact и GraphicPosition. Единственное подтверждённое исключение — разные цвета заливки и обводки отдельных карточек при поверхностях Colored и Border.",
-        "group": "nested.BenefitCard.variant.*|nested.BackgroundPlate.fill|nested.BackgroundPlate.stroke"
+        "group": "variant.Background"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "paint.fill",
+          "paint.stroke",
+          "variable.binding",
+          "variant.properties"
+        ],
+        "operators": [
+          "allEqual"
+        ],
+        "remediations": [
+          "rule-defined-remediation"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefits.nested-card-settings-are-uniform.card-axis",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/Benefits/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefits.nested-card-settings-are-uniform"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] BenefitCard",
+                "[M] BenefitCard",
+                "BenefitCard"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "uniformProperties": [
+            "Background",
+            "CardAxis",
+            "Compact",
+            "GraphicPosition"
+          ],
+          "allowedPerCardDifferences": {
+            "surfaceTypes": [
+              "Border",
+              "Colored"
+            ],
+            "properties": [
+              "fill",
+              "stroke"
+            ]
+          }
+        }
+      },
+      "assert": {
+        "op": "allEqual",
+        "fact": "variant.CardAxis"
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "paint.fill",
+        "paint.stroke",
+        "variable.binding",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "rule-defined-remediation",
+        "specification": "Выровняйте Background, CardAxis, Compact и GraphicPosition у всех BenefitCard группы. Не выравнивайте разные разрешённые fill/stroke у Border или Colored автоматически."
+      },
+      "presentation": {
+        "message": "Все BenefitCard внутри одного Benefits должны иметь одинаковые значения Background, CardAxis, Compact и GraphicPosition. Единственное подтверждённое исключение — разные цвета заливки и обводки отдельных карточек при поверхностях Colored и Border.",
+        "group": "variant.CardAxis"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "paint.fill",
+          "paint.stroke",
+          "variable.binding",
+          "variant.properties"
+        ],
+        "operators": [
+          "allEqual"
+        ],
+        "remediations": [
+          "rule-defined-remediation"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefits.nested-card-settings-are-uniform.compact",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/Benefits/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefits.nested-card-settings-are-uniform"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] BenefitCard",
+                "[M] BenefitCard",
+                "BenefitCard"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "uniformProperties": [
+            "Background",
+            "CardAxis",
+            "Compact",
+            "GraphicPosition"
+          ],
+          "allowedPerCardDifferences": {
+            "surfaceTypes": [
+              "Border",
+              "Colored"
+            ],
+            "properties": [
+              "fill",
+              "stroke"
+            ]
+          }
+        }
+      },
+      "assert": {
+        "op": "allEqual",
+        "fact": "variant.Compact"
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "paint.fill",
+        "paint.stroke",
+        "variable.binding",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "rule-defined-remediation",
+        "specification": "Выровняйте Background, CardAxis, Compact и GraphicPosition у всех BenefitCard группы. Не выравнивайте разные разрешённые fill/stroke у Border или Colored автоматически."
+      },
+      "presentation": {
+        "message": "Все BenefitCard внутри одного Benefits должны иметь одинаковые значения Background, CardAxis, Compact и GraphicPosition. Единственное подтверждённое исключение — разные цвета заливки и обводки отдельных карточек при поверхностях Colored и Border.",
+        "group": "variant.Compact"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "paint.fill",
+          "paint.stroke",
+          "variable.binding",
+          "variant.properties"
+        ],
+        "operators": [
+          "allEqual"
+        ],
+        "remediations": [
+          "rule-defined-remediation"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefits.nested-card-settings-are-uniform.graphic-position",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/Benefits/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefits.nested-card-settings-are-uniform"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] BenefitCard",
+                "[M] BenefitCard",
+                "BenefitCard"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "uniformProperties": [
+            "Background",
+            "CardAxis",
+            "Compact",
+            "GraphicPosition"
+          ],
+          "allowedPerCardDifferences": {
+            "surfaceTypes": [
+              "Border",
+              "Colored"
+            ],
+            "properties": [
+              "fill",
+              "stroke"
+            ]
+          }
+        }
+      },
+      "assert": {
+        "op": "allEqual",
+        "fact": "variant.GraphicPosition"
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "paint.fill",
+        "paint.stroke",
+        "variable.binding",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "rule-defined-remediation",
+        "specification": "Выровняйте Background, CardAxis, Compact и GraphicPosition у всех BenefitCard группы. Не выравнивайте разные разрешённые fill/stroke у Border или Colored автоматически."
+      },
+      "presentation": {
+        "message": "Все BenefitCard внутри одного Benefits должны иметь одинаковые значения Background, CardAxis, Compact и GraphicPosition. Единственное подтверждённое исключение — разные цвета заливки и обводки отдельных карточек при поверхностях Colored и Border.",
+        "group": "variant.GraphicPosition"
       },
       "capabilities": {
         "selectors": [

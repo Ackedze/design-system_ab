@@ -5,7 +5,7 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-corp-promo/Benefits`
 - Component API facts: 2
-- Executable RuleIR entries: 15
+- Executable RuleIR entries: 18
 - Deterministic coverage: 14/14
 - Unsupported deterministic rules: 0
 - Manual rules: 3

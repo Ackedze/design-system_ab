@@ -184,8 +184,11 @@ function buildPackageExperiment(profile) {
   );
   const inferred = sourceRules.map((rule) => inferSourceRule(rule, profile));
   const executableSourceRules = inferred.filter((entry) => entry.status === 'executable');
+  const compiledSourceRules = executableSourceRules.flatMap((entry) =>
+    expandUniformPropertyRules(entry.rule, sourceRuleById.get(entry.sourceRuleId)),
+  );
   const rules = ensureUniqueRuleIds([buildComponentApiRule(profile)]
-    .concat(compositionRules, executableSourceRules.map((entry) => entry.rule)));
+    .concat(compositionRules, compiledSourceRules));
   const coverage = buildCoverage(sourceRules, rules, inferred);
   const selectors = buildSelectors(generatedContract, compositionDocument, sourceRules);
   const sourceFiles = sourceManifest(sourceDir);
@@ -484,6 +487,23 @@ function inferAssertion(rule) {
     reason: 'The source declares a deterministic rule but contains no structured assertion parameters.',
     capabilities: candidateCapabilities(rule),
   };
+}
+
+function expandUniformPropertyRules(targetRule, sourceRule) {
+  const properties = sourceRule?.conditions?.uniformProperties;
+  if (!Array.isArray(properties) || properties.length <= 1) return [targetRule];
+  return properties.map((property) => ({
+    ...targetRule,
+    id: `${targetRule.id}.${slugify(property)}`,
+    assert: {
+      op: 'allEqual',
+      fact: `variant.${property}`,
+    },
+    presentation: {
+      ...targetRule.presentation,
+      group: `variant.${property}`,
+    },
+  }));
 }
 
 function baselineAssertionParameters(rule, properties) {
