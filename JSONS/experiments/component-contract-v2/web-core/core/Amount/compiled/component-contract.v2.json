@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-core/core/Amount/rules.json",
-        "bytes": 3571,
-        "sha256": "563cadd35db3e7670155c7221a90730af9ded95c848648bfa00306b5f585db02"
+        "bytes": 3758,
+        "sha256": "cc1987168093f2d17f1a0b12a46f233992e95e62cf52e7ab85276923573ee0cb"
       }
     ]
   },
@@ -763,7 +763,13 @@
         "opacity",
         "variant.properties"
       ],
-      "remediation": null,
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Opacity": "False"
+        }
+      },
       "presentation": {
         "message": "В Альфа-Бизнес включать component property Opacity у Minor и Currency запрещено. Штатное значение — Opacity=False.",
         "group": "variant.Opacity"
@@ -781,7 +787,9 @@
         "operators": [
           "propertiesEqual"
         ],
-        "remediations": []
+        "remediations": [
+          "set-variant-properties"
+        ]
       }
     }
   ],

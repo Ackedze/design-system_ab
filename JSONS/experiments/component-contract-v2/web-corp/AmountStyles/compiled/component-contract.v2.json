@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/AmountStyles/rules.json",
-        "bytes": 37272,
-        "sha256": "e26538cb9aeca308ae3404d75fcc0b148ccce5034c2705cfc97d695a78a50cc8"
+        "bytes": 37459,
+        "sha256": "19c1de10906454544f491b0638c2db8bd9a25862505054073e4a5de6f4054d6b"
       }
     ]
   },
@@ -1091,7 +1091,13 @@
         "opacity",
         "variant.properties"
       ],
-      "remediation": null,
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Opacity": "False"
+        }
+      },
       "presentation": {
         "message": "Включать component property Opacity у Minor и Currency запрещено во всех вариантах AmountHeadline и AmountParagraph. Штатное значение — Opacity=False.",
         "group": "variant.Opacity"
@@ -1109,7 +1115,9 @@
         "operators": [
           "propertiesEqual"
         ],
-        "remediations": []
+        "remediations": [
+          "set-variant-properties"
+        ]
       }
     },
     {

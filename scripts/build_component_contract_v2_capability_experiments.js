@@ -1183,6 +1183,17 @@ function normalizeConditions(conditions) {
 
 function normalizeRemediation(remediation) {
   if (!remediation) return null;
+  if (
+    typeof remediation === 'object' &&
+    !Array.isArray(remediation) &&
+    remediation.kind === 'set-variant-properties' &&
+    remediation.target === '$failingTarget' &&
+    remediation.properties &&
+    typeof remediation.properties === 'object' &&
+    !Array.isArray(remediation.properties)
+  ) {
+    return remediation;
+  }
   return { kind: 'rule-defined-remediation', specification: remediation };
 }
 
