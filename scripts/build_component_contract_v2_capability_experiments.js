@@ -186,10 +186,12 @@ function buildPackageExperiment(profile) {
   const rulesDocument = readJson(path.join(sourceDir, 'rules.json'));
   const sourceRules = uniqueRules(rulesDocument);
   const sourceRuleById = new Map(sourceRules.map((rule) => [rule.ruleId, rule]));
+  const componentKeyFamilies = buildComponentKeyFamilies(generatedContract);
   const compositionRules = compileCompositionRules(
     compositionDocument,
     profile,
     sourceRuleById,
+    componentKeyFamilies,
   );
   const inferred = sourceRules.map((rule) => inferSourceRule(rule, profile));
   const executableSourceRules = inferred.filter((entry) => entry.status === 'executable');
@@ -199,7 +201,12 @@ function buildPackageExperiment(profile) {
   const rules = ensureUniqueRuleIds([buildComponentApiRule(profile)]
     .concat(compositionRules, compiledSourceRules));
   const coverage = buildCoverage(sourceRules, rules, inferred);
-  const selectors = buildSelectors(generatedContract, compositionDocument, sourceRules);
+  const selectors = buildSelectors(
+    generatedContract,
+    compositionDocument,
+    sourceRules,
+    componentKeyFamilies,
+  );
   const sourceFiles = sourceManifest(sourceDir);
 
   const contract = {
@@ -580,7 +587,7 @@ function executable(op, parameters, enforcement = 'enforced') {
   };
 }
 
-function compileCompositionRules(document, profile, sourceRuleById) {
+function compileCompositionRules(document, profile, sourceRuleById, componentKeyFamilies) {
   const result = [];
   for (const contract of document.manual.contracts || []) {
     for (const constraint of contract.constraints || []) {
@@ -598,8 +605,8 @@ function compileCompositionRules(document, profile, sourceRuleById) {
         severity: 'error',
         enforcement: 'enforced',
         select: {
-          host: inlineHostSelector(contract.match),
-          targets: inlineTargetSelector(contract.select),
+          host: inlineHostSelector(contract.match, componentKeyFamilies),
+          targets: inlineTargetSelector(contract.select, componentKeyFamilies),
         },
         when: { op: 'evidenceComplete' },
         assert: assertion,
@@ -623,8 +630,8 @@ function compileCompositionRules(document, profile, sourceRuleById) {
         severity: 'error',
         enforcement: 'enforced',
         select: {
-          host: inlineHostSelector(contract.match),
-          targets: inlineTargetSelector(contract.select),
+          host: inlineHostSelector(contract.match, componentKeyFamilies),
+          targets: inlineTargetSelector(contract.select, componentKeyFamilies),
         },
         when: { op: 'evidenceComplete' },
         assert: {
@@ -742,7 +749,7 @@ function buildComponentApiRule(profile) {
   };
 }
 
-function buildSelectors(generatedContract, compositionDocument, sourceRules) {
+function buildSelectors(generatedContract, compositionDocument, sourceRules, componentKeyFamilies) {
   const componentKeys = uniqueSorted(
     generatedContract.contracts.flatMap(componentRoutingKeys),
   );
@@ -778,7 +785,10 @@ function buildSelectors(generatedContract, compositionDocument, sourceRules) {
     };
   }
   for (const contract of compositionDocument.manual.contracts || []) {
-    selectors[`composition.${contract.id}`] = inlineTargetSelector(contract.select);
+    selectors[`composition.${contract.id}`] = inlineTargetSelector(
+      contract.select,
+      componentKeyFamilies,
+    );
   }
   return selectors;
 }
@@ -1140,12 +1150,12 @@ function normalizeRemediation(remediation) {
   return { kind: 'rule-defined-remediation', specification: remediation };
 }
 
-function inlineHostSelector(match) {
+function inlineHostSelector(match, componentKeyFamilies) {
   return {
     scope: 'selection-root',
     where: {
       componentKey: match.hostComponentKeys
-        ? { op: 'oneOf', values: match.hostComponentKeys }
+        ? { op: 'oneOf', values: expandComponentKeys(match.hostComponentKeys, componentKeyFamilies) }
         : undefined,
       componentName: match.hostComponentNames
         ? { op: 'oneOf', values: match.hostComponentNames }
@@ -1154,13 +1164,13 @@ function inlineHostSelector(match) {
   };
 }
 
-function inlineTargetSelector(select) {
+function inlineTargetSelector(select, componentKeyFamilies) {
   return {
     scope: 'descendants',
     from: '$host',
     where: {
       componentKey: select.nestedComponentKeys
-        ? { op: 'oneOf', values: select.nestedComponentKeys }
+        ? { op: 'oneOf', values: expandComponentKeys(select.nestedComponentKeys, componentKeyFamilies) }
         : undefined,
       componentName: select.nestedComponentNames
         ? { op: 'oneOf', values: select.nestedComponentNames }
@@ -1170,6 +1180,23 @@ function inlineTargetSelector(select) {
     occurrence: 'all',
     orderBy: select.order || 'document',
   };
+}
+
+function buildComponentKeyFamilies(generatedContract) {
+  const result = new Map();
+  for (const contract of generatedContract.contracts || []) {
+    const familyKeys = componentRoutingKeys(contract);
+    for (const componentKey of familyKeys) result.set(componentKey, familyKeys);
+  }
+  return result;
+}
+
+function expandComponentKeys(componentKeys, componentKeyFamilies) {
+  return uniqueSorted(componentKeys.flatMap((componentKey) =>
+    componentKeyFamilies && componentKeyFamilies.get(componentKey)
+      ? componentKeyFamilies.get(componentKey)
+      : [componentKey],
+  ));
 }
 
 function compactComponentApi(contract, profile) {
