@@ -50,6 +50,7 @@ reported independently from prose-only rules; candidate operators remain discove
 - `web-corp-promo.promo-main-block`: selectors: none; facts: none; operators: none; remediations: none
 - `web-core.tag-group`: selectors: none; facts: none; operators: none; remediations: none
 - `web-corp.payment-masked-number`: selectors: none; facts: none; operators: none; remediations: none
+- `web-core.amount`: selectors: none; facts: none; operators: none; remediations: none
 
 ## Unsupported deterministic rules
 
@@ -478,6 +479,10 @@ No unsupported deterministic rules.
 No unsupported deterministic rules.
 
 ## web-corp.payment-masked-number
+
+No unsupported deterministic rules.
+
+## web-core.amount
 
 No unsupported deterministic rules.
 

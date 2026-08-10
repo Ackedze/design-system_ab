@@ -15,7 +15,7 @@ name or heuristic alias is forbidden.
 
 The package inventory is a read-only snapshot of Google Sheets tab `Corp components`, range
 `A2:F101`, filtered by `Общий статус=Ready` and `Ready=10`. It contains
-27 packages. The spreadsheet selects the sample only; executable
+28 packages. The spreadsheet selects the sample only; executable
 semantics always come from the local component-package JSON files.
 
 | Package | Deterministic coverage | Unsupported deterministic |
@@ -47,10 +47,11 @@ semantics always come from the local component-package JSON files.
 | web-corp-promo.promo-main-block | 2/20 | 18 |
 | web-core.tag-group | 3/3 | 0 |
 | web-corp.payment-masked-number | 3/3 | 0 |
+| web-core.amount | 3/3 | 0 |
 
 The union and per-package novelty of selectors, facts, operators and remediations is stored in
-`capability-matrix.json`. Across the sample, 190
-of 490 deterministic rules compile (0.3878);
+`capability-matrix.json`. Across the sample, 193
+of 493 deterministic rules compile (0.3915);
 300 remain unsupported. A source rule is executable only when its assertion
 parameters are structured; prose is never promoted into runtime behavior.
 

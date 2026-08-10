@@ -63,5 +63,25 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "rules": [
+      {
+        "ruleId": "component:web-core.amount.opacity-is-forbidden",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "opacity|variant.Opacity",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "Amount",
+          "layers": [
+            "Minor",
+            "Currency"
+          ]
+        },
+        "ruleText": "В Альфа-Бизнес изменение opacity у Minor и Currency запрещено. Обе части Amount должны сохранять полную непрозрачность и штатное значение Opacity=False."
+      }
+    ]
+  }
 }
