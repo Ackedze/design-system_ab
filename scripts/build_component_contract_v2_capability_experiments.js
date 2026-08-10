@@ -309,12 +309,17 @@ function inferSourceRule(rule, profile) {
     );
   }
 
+  const assertion = normalizeAssertionForProfile(
+    inference.assertion,
+    rule,
+    profile,
+  );
   const capabilities = mergeCapabilitySets(
     inference.capabilities,
     {
       selectors: ['component-identity', 'self-and-descendants'],
       facts: factsForRule(rule),
-      operators: [inference.assertion.op],
+      operators: [assertion.op],
       remediations: remediationCapabilities(rule),
     },
   );
@@ -329,7 +334,7 @@ function inferSourceRule(rule, profile) {
     enforcement: inference.enforcement,
     select: selectorForRule(rule),
     when: normalizeConditions(rule.conditions),
-    assert: inference.assertion,
+    assert: assertion,
     verdict: inference.enforcement === 'classification'
       ? { pass: 'allowed', fail: 'unknown', unknown: 'unknown' }
       : { pass: 'expected', fail: 'violation', unknown: 'unknown' },
@@ -348,6 +353,34 @@ function inferSourceRule(rule, profile) {
     capabilities,
     'Structured source fields map to typed RuleIR capabilities.',
   );
+}
+
+function normalizeAssertionForProfile(assertion, rule, profile) {
+  if (
+    profile.packageId !== 'web-corp.table-wide' ||
+    assertion.op !== 'matchesEffectiveBaseline' ||
+    !Array.isArray(assertion.properties) ||
+    !assertion.properties.includes('layout.*')
+  ) {
+    return assertion;
+  }
+
+  // Wide data columns intentionally allow width and alignment overrides. Keep
+  // their remaining layout baseline strict; fixed edge widths are enforced by
+  // the dedicated edge-cell-widths rule.
+  return {
+    ...assertion,
+    properties: assertion.properties.flatMap((property) =>
+      property === 'layout.*'
+        ? [
+            'layout.height',
+            'layout.padding.*',
+            'layout.itemSpacing',
+            'layout.sizing.vertical',
+          ]
+        : [property],
+    ),
+  };
 }
 
 function inferAssertion(rule) {

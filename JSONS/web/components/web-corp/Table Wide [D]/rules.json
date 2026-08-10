@@ -883,6 +883,59 @@
         "ruleText": "В строках и ячейках Table Wide запрещено вручную менять typography, fill, stroke, opacity, padding, spacing и radius. Разрешены alignment, ширина обычных колонок, текст и предусмотренные компонентом presets."
       },
       {
+        "ruleId": "component:web-corp.table-wide-d.amount-preset-parts-share-color",
+        "severity": "error",
+        "source": "component-contract",
+        "inheritedRuleId": "component:web-corp.amount-styles.parts-share-color",
+        "appliesTo": "fill|fills",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-corp.table-wide-d",
+          "layers": [
+            "Operation",
+            "Minus",
+            "Major",
+            "Minor",
+            "Currency"
+          ]
+        },
+        "sharedValueConstraint": {
+          "strategy": "all-visible-targets-equal",
+          "groupByPathBranches": [
+            "Operation",
+            "Amount"
+          ]
+        },
+        "ruleText": "Text с Presets=Amount внутри BodyCell :: Wide наследует цветовой контракт AmountStyles: Operation, Major, Minor и Currency должны использовать один цветовой токен. Ручная перекраска одной части запрещена."
+      },
+      {
+        "ruleId": "component:web-corp.table-wide-d.amount-preset-aligns-top-right",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:components.amount.table-align-right",
+        "inheritedRuleId": "component:web-corp.amount-styles.table-align-right",
+        "appliesTo": "layout.primaryAxisAlignItems|layout.counterAxisAlignItems",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-corp.table-wide-d",
+          "layers": [
+            "Text"
+          ]
+        },
+        "conditions": {
+          "variant": {
+            "Presets": "Amount"
+          }
+        },
+        "requiredLayout": {
+          "primaryAxisAlignItems": "MAX",
+          "counterAxisAlignItems": "MIN"
+        },
+        "ruleText": "Text с Presets=Amount внутри BodyCell :: Wide должен быть выровнен по верхнему правому краю: primaryAxisAlignItems=MAX и counterAxisAlignItems=MIN."
+      },
+      {
         "ruleId": "component:web-corp.table-wide-d.supported-presets-allowed",
         "severity": "info",
         "source": "component-contract",

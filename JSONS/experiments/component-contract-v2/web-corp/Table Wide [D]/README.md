@@ -5,8 +5,8 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-corp/Table Wide [D]`
 - Component API facts: 22
-- Executable RuleIR entries: 11
-- Deterministic coverage: 10/33
+- Executable RuleIR entries: 13
+- Deterministic coverage: 12/35
 - Unsupported deterministic rules: 23
 - Manual rules: 7
 - Advisory rules: 3

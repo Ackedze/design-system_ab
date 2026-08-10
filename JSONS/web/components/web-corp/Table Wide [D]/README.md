@@ -28,6 +28,7 @@
 - Разрешён один уровень группировки.
 - Высота строк и визуальные состояния следуют effective baseline.
 - Typography, fill, stroke, opacity, padding, spacing и radius вручную не меняются.
+- `Text` с `Presets=Amount` наследует контракт `AmountStyles`: части суммы используют один цветовой токен и выравниваются по верхнему правому краю.
 - Для empty/error `CorporateSystemMessage` заменяет только BodyRow.
 - Pagination не удаляется; доступны размеры страницы 10, 25, 50 и 100.
 - Разрешены только предусмотренные компонентом presets; arbitrary instance swap запрещён.

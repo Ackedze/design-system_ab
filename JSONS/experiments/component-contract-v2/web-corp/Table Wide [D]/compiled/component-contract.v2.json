@@ -17,8 +17,8 @@
     "sourceFiles": [
       {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/README.md",
-        "bytes": 2738,
-        "sha256": "603f69bca6867b3f25a02afcd87b8ff1a8de60ea3941da576a097c14a9986942"
+        "bytes": 2976,
+        "sha256": "526eeed71f62783261bcfdac67a42a54fe207d569a5176aba9b2cc09d900ab97"
       },
       {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/agent-context.json",
@@ -47,13 +47,13 @@
       },
       {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/examples.json",
-        "bytes": 4794,
-        "sha256": "b59794696481306d6e05dcb01c44c482c7f9aa68ff31d1d7c6fefcd0da65ed28"
+        "bytes": 5683,
+        "sha256": "34a83bd93b3207996bf7da2d5464d448fabdfcb7932aac657207589633176b2c"
       },
       {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
-        "bytes": 41773,
-        "sha256": "51ebcb00baf641118871b6f5f4399cb9a0216401c8b87b471d841f7907d3c3bb"
+        "bytes": 43939,
+        "sha256": "5f083cc01a8bbbc89bdaf2b595ec7c074aafc9579a3040e1b145719173aa58e9"
       }
     ]
   },
@@ -87,10 +87,12 @@
       "variant.properties"
     ],
     "operators": [
+      "allEqual",
       "classificationPolicy",
       "componentApiValid",
       "compositionPolicy",
-      "matchesEffectiveBaseline"
+      "matchesEffectiveBaseline",
+      "propertiesEqual"
     ],
     "remediations": [
       "set-variant-properties"
@@ -1229,10 +1231,15 @@
               "ColumnControl",
               "ColumnControl :: OptionList",
               "ControlAddon",
+              "Currency",
               "GroupBorderLine",
               "HeadDivider",
               "HeaderAddon",
               "LeftAddon",
+              "Major",
+              "Minor",
+              "Minus",
+              "Operation",
               "RightAddon",
               "Sorting",
               "Table Wide [D]",
@@ -1308,6 +1315,158 @@
         "remediations": [
           "set-variant-properties"
         ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.table-wide.amount-preset-aligns-top-right",
+      "source": {
+        "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.table-wide-d.amount-preset-aligns-top-right"
+        ],
+        "patternRuleId": "rule:components.amount.table-align-right"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Text"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Amount"
+          }
+        }
+      },
+      "assert": {
+        "op": "propertiesEqual",
+        "values": {
+          "primaryAxisAlignItems": "MAX",
+          "counterAxisAlignItems": "MIN"
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "layout.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Text с Presets=Amount внутри BodyCell :: Wide должен быть выровнен по верхнему правому краю: primaryAxisAlignItems=MAX и counterAxisAlignItems=MIN.",
+        "group": "layout.primaryAxisAlignItems|layout.counterAxisAlignItems"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.table-wide.amount-preset-parts-share-color",
+      "source": {
+        "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.table-wide-d.amount-preset-parts-share-color"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Currency",
+                "Major",
+                "Minor",
+                "Minus",
+                "Operation"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "allEqual",
+        "facts": [
+          "fill",
+          "fills"
+        ],
+        "strategy": {
+          "strategy": "all-visible-targets-equal",
+          "groupByPathBranches": [
+            "Operation",
+            "Amount"
+          ]
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "paint.fill",
+        "variable.binding"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Text с Presets=Amount внутри BodyCell :: Wide наследует цветовой контракт AmountStyles: Operation, Major, Minor и Currency должны использовать один цветовой токен. Ручная перекраска одной части запрещена.",
+        "group": "fill|fills"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "paint.fill",
+          "variable.binding"
+        ],
+        "operators": [
+          "allEqual"
+        ],
+        "remediations": []
       }
     },
     {
@@ -1454,7 +1613,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-wide.component-properties-are-first-class.e11e9d4814",
+      "id": "rule-ir:web-corp.table-wide.component-properties-are-first-class.2d3452f09a",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
         "sourceRuleIds": [
@@ -1683,7 +1842,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-wide.layer-properties-use-effective-baseline.65e489c26c",
+      "id": "rule-ir:web-corp.table-wide.layer-properties-use-effective-baseline.0c369e9475",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
         "sourceRuleIds": [
@@ -1742,7 +1901,10 @@
       "assert": {
         "op": "matchesEffectiveBaseline",
         "properties": [
-          "layout.*",
+          "layout.height",
+          "layout.padding.*",
+          "layout.itemSpacing",
+          "layout.sizing.vertical",
           "styles.text",
           "fill",
           "stroke",
@@ -1911,7 +2073,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-wide.component-properties-are-first-class.1cb9439848",
+      "id": "rule-ir:web-corp.table-wide.component-properties-are-first-class.7aeedc66a4",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
         "sourceRuleIds": [
@@ -1997,7 +2159,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-wide.layer-properties-use-effective-baseline.d303dbe6c8",
+      "id": "rule-ir:web-corp.table-wide.layer-properties-use-effective-baseline.228a18689c",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
         "sourceRuleIds": [
@@ -2052,7 +2214,10 @@
       "assert": {
         "op": "matchesEffectiveBaseline",
         "properties": [
-          "layout.*",
+          "layout.height",
+          "layout.padding.*",
+          "layout.itemSpacing",
+          "layout.sizing.vertical",
           "styles.text",
           "fill",
           "stroke",
@@ -2928,15 +3093,15 @@
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 43,
-      "deterministicSourceRules": 33,
-      "executableDeterministicSourceRules": 10,
+      "sourceRules": 45,
+      "deterministicSourceRules": 35,
+      "executableDeterministicSourceRules": 12,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 10,
+      "executable": 12,
       "advisory": 3,
       "manual": 7,
       "unsupported": 23,
-      "deterministicCoverageRatio": 0.303
+      "deterministicCoverageRatio": 0.3429
     },
     "report": "../coverage.json"
   }
