@@ -5,11 +5,11 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-corp/Table Basic [D]`
 - Component API facts: 26
-- Executable RuleIR entries: 8
-- Deterministic coverage: 7/32
-- Unsupported deterministic rules: 25
+- Executable RuleIR entries: 9
+- Deterministic coverage: 8/32
+- Unsupported deterministic rules: 24
 - Manual rules: 7
-- Advisory rules: 4
+- Advisory rules: 3
 
 Unsupported rules are intentional discovery results. Their candidate capabilities are recorded
 in `coverage.json` and the root `capability-matrix.json`; they are never inferred from prose.

@@ -32,8 +32,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/Table Basic [D]/composition-contract.json",
-        "bytes": 184370,
-        "sha256": "39afe96a47bb096f17905390119bc862851edde81d8b6e6cbeb952766f601023"
+        "bytes": 185119,
+        "sha256": "26f1d51d387db91b1d7f643d3db209f4d85b27ac1e0ca6f84649d9904252e02d"
       },
       {
         "file": "JSONS/web/components/web-corp/Table Basic [D]/contract.generated.json",
@@ -63,7 +63,10 @@
     "ruleIrVersion": 2,
     "selectors": [
       "component-identity",
-      "self-and-descendants"
+      "descendant",
+      "document-order",
+      "self-and-descendants",
+      "visibility"
     ],
     "facts": [
       "ancestry",
@@ -73,6 +76,7 @@
       "layout.properties",
       "node.bounds",
       "node.documentOrder",
+      "node.visibility",
       "opacity",
       "ownership.owner",
       "page.context",
@@ -90,6 +94,7 @@
       "classificationPolicy",
       "componentApiValid",
       "compositionPolicy",
+      "countBetween",
       "matchesEffectiveBaseline"
     ],
     "remediations": [
@@ -1663,6 +1668,24 @@
         },
         "occurrence": "all",
         "orderBy": "document"
+      },
+      "composition.table-basic.body-row.cells": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentKey": {
+            "op": "oneOf",
+            "values": [
+              "04acf0fa2142daa01998e1a39d18167a64a64a9a"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
       }
     },
     "baseline": {
@@ -1732,6 +1755,91 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.table-basic.table-basic.body-row.cells.visible-data-cell-count",
+      "source": {
+        "file": "JSONS/web/components/web-corp/Table Basic [D]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.table-basic-d.use-basic-for-simple-table",
+          "component:web-corp.table-basic-d.keep-one-visible-column"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentKey": {
+              "op": "oneOf",
+              "values": [
+                "aca58bac6a6137109081a0f7289424b5a240d0fd"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentKey": {
+              "op": "oneOf",
+              "values": [
+                "04acf0fa2142daa01998e1a39d18167a64a64a9a"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "countBetween",
+        "min": 1,
+        "max": 5
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "В BodyRow :: Basic должно быть от одной до пяти видимых информационных ячеек",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "countBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp.table-basic.background-plate-wrapper-in-content",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Basic [D]/rules.json",
@@ -1795,7 +1903,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-basic.component-properties-are-first-class.b57c86cf2b",
+      "id": "rule-ir:web-corp.table-basic.component-properties-are-first-class.2751a5453c",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Basic [D]/rules.json",
         "sourceRuleIds": [
@@ -2037,7 +2145,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-basic.layer-properties-use-effective-baseline.7346fd2895",
+      "id": "rule-ir:web-corp.table-basic.layer-properties-use-effective-baseline.ebf26751ee",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Basic [D]/rules.json",
         "sourceRuleIds": [
@@ -2163,7 +2271,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-basic.component-properties-are-first-class.72c4890eb5",
+      "id": "rule-ir:web-corp.table-basic.component-properties-are-first-class.1aad2625dc",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Basic [D]/rules.json",
         "sourceRuleIds": [
@@ -2264,7 +2372,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-basic.layer-properties-use-effective-baseline.67e76af1c9",
+      "id": "rule-ir:web-corp.table-basic.layer-properties-use-effective-baseline.896038d586",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Basic [D]/rules.json",
         "sourceRuleIds": [
@@ -2759,30 +2867,6 @@
       }
     },
     {
-      "sourceRuleId": "component:web-corp.table-basic-d.keep-one-visible-column",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "forbidden",
-        "requiredState"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "sourceRuleId": "component:web-corp.table-basic-d.manual-visual-styles-forbidden",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
@@ -3228,29 +3312,6 @@
       }
     },
     {
-      "sourceRuleId": "component:web-corp.table-basic-d.use-basic-for-simple-table",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "requiredUsage"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "sourceRuleId": "component:web-corp.table-basic-d.visual-states-use-effective-baseline",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
@@ -3284,13 +3345,13 @@
     "summary": {
       "sourceRules": 43,
       "deterministicSourceRules": 32,
-      "executableDeterministicSourceRules": 7,
-      "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 7,
-      "advisory": 4,
+      "executableDeterministicSourceRules": 8,
+      "promotedManualOrAdvisorySourceRules": 1,
+      "executable": 9,
+      "advisory": 3,
       "manual": 7,
-      "unsupported": 25,
-      "deterministicCoverageRatio": 0.2188
+      "unsupported": 24,
+      "deterministicCoverageRatio": 0.25
     },
     "report": "../coverage.json"
   }

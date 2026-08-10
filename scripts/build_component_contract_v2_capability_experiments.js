@@ -81,6 +81,15 @@ const PACKAGE_PROFILE_OVERRIDES = {
   'web-corp/AmountStyles': {
     packageId: 'web-corp.amount-styles',
   },
+  'web-corp/Table Basic [D]': {
+    packageId: 'web-corp.table-basic',
+    compositionRuleSources: {
+      'table-basic.body-row.cells:visible-data-cell-count': [
+        'component:web-corp.table-basic-d.use-basic-for-simple-table',
+        'component:web-corp.table-basic-d.keep-one-visible-column',
+      ],
+    },
+  },
 };
 
 const SUPPLEMENTAL_PACKAGE_PROFILES = readJson(

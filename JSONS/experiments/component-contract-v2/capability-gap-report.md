@@ -12,7 +12,7 @@ Candidate capabilities are discovery hints, not executable behavior.
 
 ## Unsupported classification
 
-- structured-fields-unmapped: 106
+- structured-fields-unmapped: 105
 - structured-fields-missing-runtime-operator: 7
 - prose-existing-operator: 20
 - prose-missing-runtime-operator: 8
@@ -302,7 +302,6 @@ No unsupported deterministic rules.
 | `component:web-corp.table-basic-d.desktop-from-768` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-basic-d.internal-parts-not-standalone` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-basic-d.keep-control-and-action-cells` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web-corp.table-basic-d.keep-one-visible-column` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-basic-d.manual-visual-styles-forbidden` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-basic-d.no-arbitrary-cell-instance-swap` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-basic-d.no-column-grouping` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |

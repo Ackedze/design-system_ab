@@ -4437,6 +4437,32 @@
       "defaultNestedDiffPolicy": "compare-against-table-effective-baseline",
       "wrapperOwnedOverridePolicy": "Не показывай wrapper-owned nested differences как customizations, когда actual совпадает с effective baseline семейства таблиц. Если actual отличается, показывай effectiveBaseline -> actual."
     },
+    "contracts": [
+      {
+        "id": "table-basic.body-row.cells",
+        "match": {
+          "hostComponentKeys": [
+            "aca58bac6a6137109081a0f7289424b5a240d0fd"
+          ]
+        },
+        "select": {
+          "nestedComponentKeys": [
+            "04acf0fa2142daa01998e1a39d18167a64a64a9a"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "visible-data-cell-count",
+            "op": "countBetween",
+            "min": 1,
+            "max": 5,
+            "message": "В BodyRow :: Basic должно быть от одной до пяти видимых информационных ячеек"
+          }
+        ]
+      }
+    ],
     "forbiddenOverrides": [
       "arbitrary instance swap",
       "width of ControlCell and ActionCell",
