@@ -730,7 +730,7 @@ function compileCompositionRules(document, profile, sourceRuleById, componentKey
           targets: inlineTargetSelector(contract.select, componentKeyFamilies),
         },
         when: contract.when && contract.when.variant
-          ? { op: 'all', clauses: { variant: contract.when.variant } }
+          ? { op: 'all', clauses: { hostVariant: contract.when.variant } }
           : { op: 'evidenceComplete' },
         assert: assertion,
         verdict: { pass: 'expected', fail: 'violation', unknown: 'unknown' },
