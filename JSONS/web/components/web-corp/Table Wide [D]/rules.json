@@ -754,6 +754,36 @@
         "ruleText": "BodyActionCell Table Wide содержит одну кнопку, PickerButton для нескольких действий или Presets=None. Другие композиции ActionCell запрещены."
       },
       {
+        "ruleId": "component:web-corp.table-wide-d.action-cell-control-uses-effective-baseline",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.identity|variant.*",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-corp.table-wide-d",
+          "layers": [
+            "ActionButton",
+            "[D] IconButton",
+            "[D] IconButton_Inverted"
+          ]
+        },
+        "classification": {
+          "useEffectiveBaseline": true
+        },
+        "remediation": {
+          "kind": "set-variant-properties",
+          "target": "$failingTarget",
+          "properties": {
+            "Presets": "$targets[0].variant.Presets",
+            "Size": "$targets[0].variant.Size",
+            "TransparentBg": "$targets[0].variant.TransparentBg",
+            "View": "$targets[0].variant.View"
+          }
+        },
+        "ruleText": "Вложенный control-компонент BodyActionCell должен сохранять предусмотренные компонентом identity и variant properties. Произвольный variant switch или instance swap запрещён."
+      },
+      {
         "ruleId": "component:web-corp.table-wide-d.no-arbitrary-cell-instance-swap",
         "severity": "error",
         "source": "component-contract",

@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
-        "bytes": 44000,
-        "sha256": "8544edad902b420e4a140b6b9bf9846c566a23ced889a52caa3649747d3a977c"
+        "bytes": 45257,
+        "sha256": "bba132c584033cab183901210550fcfebd215dc575b3734a187e4adce5e14731"
       }
     ]
   },
@@ -95,6 +95,7 @@
       "propertiesEqual"
     ],
     "remediations": [
+      "restore-effective-baseline",
       "set-variant-properties"
     ],
     "unknownCapabilityPolicy": "unsupported-fail-closed",
@@ -1185,6 +1186,8 @@
               "[D] HeadControlCell",
               "[D] HeadRow",
               "[D] HeadRow :: Universal",
+              "[D] IconButton",
+              "[D] IconButton_Inverted",
               "ActionButton",
               "BorderLine",
               "Chevron",
@@ -1273,6 +1276,91 @@
           "componentApiValid"
         ],
         "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.table-wide.action-cell-control-uses-effective-baseline",
+      "source": {
+        "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.table-wide-d.action-cell-control-uses-effective-baseline"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] IconButton",
+                "[D] IconButton_Inverted",
+                "ActionButton"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "component.identity",
+          "variant.*"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "baseline.effective",
+        "component.identity",
+        "ownership.owner",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Presets": "$targets[0].variant.Presets",
+          "Size": "$targets[0].variant.Size",
+          "TransparentBg": "$targets[0].variant.TransparentBg",
+          "View": "$targets[0].variant.View"
+        }
+      },
+      "presentation": {
+        "message": "Вложенный control-компонент BodyActionCell должен сохранять предусмотренные компонентом identity и variant properties. Произвольный variant switch или instance swap запрещён.",
+        "group": "component.identity|variant.*"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "ownership.owner",
+          "variant.properties"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": [
+          "restore-effective-baseline",
           "set-variant-properties"
         ]
       }
@@ -1573,7 +1661,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-wide.component-properties-are-first-class.2d3452f09a",
+      "id": "rule-ir:web-corp.table-wide.component-properties-are-first-class.d001774717",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
         "sourceRuleIds": [
@@ -1802,7 +1890,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-wide.layer-properties-use-effective-baseline.0c369e9475",
+      "id": "rule-ir:web-corp.table-wide.layer-properties-use-effective-baseline.6447028a07",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
         "sourceRuleIds": [
@@ -2033,7 +2121,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-wide.component-properties-are-first-class.7aeedc66a4",
+      "id": "rule-ir:web-corp.table-wide.component-properties-are-first-class.59aa27617b",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
         "sourceRuleIds": [
@@ -2119,7 +2207,7 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.table-wide.layer-properties-use-effective-baseline.228a18689c",
+      "id": "rule-ir:web-corp.table-wide.layer-properties-use-effective-baseline.acdecaa019",
       "source": {
         "file": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
         "sourceRuleIds": [
@@ -3053,15 +3141,15 @@
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 45,
-      "deterministicSourceRules": 35,
-      "executableDeterministicSourceRules": 12,
+      "sourceRules": 46,
+      "deterministicSourceRules": 36,
+      "executableDeterministicSourceRules": 13,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 12,
+      "executable": 13,
       "advisory": 3,
       "manual": 7,
       "unsupported": 23,
-      "deterministicCoverageRatio": 0.3429
+      "deterministicCoverageRatio": 0.3611
     },
     "report": "../coverage.json"
   }
