@@ -161,6 +161,246 @@
       "nestedInstanceSwapAllowed": false,
       "defaultNestedDiffPolicy": "resolve the ButtonStack preset and nested component variants before comparing layer changes"
     },
+    "contracts": [
+      {
+        "id": "button-stack.primary",
+        "match": {
+          "hostComponentNames": [
+            "🔒 [M] ButtonStack"
+          ]
+        },
+        "when": {
+          "variant": {
+            "Presets": "Primary"
+          }
+        },
+        "select": {
+          "nestedComponentNames": [
+            "[M] Button"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "button-count",
+            "op": "countBetween",
+            "min": 1,
+            "max": 1,
+            "message": "Presets=Primary должен содержать ровно одну кнопку"
+          },
+          {
+            "id": "button-view-order",
+            "op": "propertySequence",
+            "property": "View",
+            "values": [
+              "Primary"
+            ],
+            "message": "Presets=Primary должен содержать одну Primary-кнопку"
+          }
+        ]
+      },
+      {
+        "id": "button-stack.secondary",
+        "match": {
+          "hostComponentNames": [
+            "🔒 [M] ButtonStack"
+          ]
+        },
+        "when": {
+          "variant": {
+            "Presets": "Secondary"
+          }
+        },
+        "select": {
+          "nestedComponentNames": [
+            "[M] Button"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "button-count",
+            "op": "countBetween",
+            "min": 1,
+            "max": 1,
+            "message": "Presets=Secondary должен содержать ровно одну кнопку"
+          },
+          {
+            "id": "button-view-order",
+            "op": "propertySequence",
+            "property": "View",
+            "values": [
+              "Secondary"
+            ],
+            "message": "Presets=Secondary должен содержать одну Secondary-кнопку"
+          }
+        ]
+      },
+      {
+        "id": "button-stack.group-horizontal",
+        "match": {
+          "hostComponentNames": [
+            "🔒 [M] ButtonStack"
+          ]
+        },
+        "when": {
+          "variant": {
+            "Presets": "Group Horizontal"
+          }
+        },
+        "select": {
+          "nestedComponentNames": [
+            "[M] Button"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "button-count",
+            "op": "countBetween",
+            "min": 2,
+            "max": 2,
+            "message": "Presets=Group Horizontal должен содержать ровно две кнопки"
+          },
+          {
+            "id": "button-view-order",
+            "op": "propertySequence",
+            "property": "View",
+            "values": [
+              "Secondary",
+              "Primary"
+            ],
+            "message": "В Group Horizontal Secondary должна быть слева, Primary — справа"
+          }
+        ]
+      },
+      {
+        "id": "button-stack.group-vertical",
+        "match": {
+          "hostComponentNames": [
+            "🔒 [M] ButtonStack"
+          ]
+        },
+        "when": {
+          "variant": {
+            "Presets": "Group Vertical"
+          }
+        },
+        "select": {
+          "nestedComponentNames": [
+            "[M] Button"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "button-count",
+            "op": "countBetween",
+            "min": 2,
+            "max": 2,
+            "message": "Presets=Group Vertical должен содержать ровно две кнопки"
+          },
+          {
+            "id": "button-view-order",
+            "op": "propertySequence",
+            "property": "View",
+            "values": [
+              "Primary",
+              "Secondary"
+            ],
+            "message": "В Group Vertical Primary должна быть сверху, Secondary — снизу"
+          }
+        ]
+      },
+      {
+        "id": "button-stack.primary-icon",
+        "match": {
+          "hostComponentNames": [
+            "🔒 [M] ButtonStack"
+          ]
+        },
+        "when": {
+          "variant": {
+            "Presets": "Primary + Icon"
+          }
+        },
+        "select": {
+          "nestedComponentNames": [
+            "[M] Button"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "button-count",
+            "op": "countBetween",
+            "min": 2,
+            "max": 2,
+            "message": "Presets=Primary + Icon должен содержать ровно две кнопки"
+          },
+          {
+            "id": "button-view-order",
+            "op": "propertySequence",
+            "property": "View",
+            "values": [
+              "Primary",
+              "Secondary"
+            ],
+            "message": "В Primary + Icon основной Primary action должен быть первым"
+          },
+          {
+            "id": "single-icon-order",
+            "op": "propertySequence",
+            "property": "SingleIcon",
+            "values": [
+              "False",
+              "True"
+            ],
+            "message": "В Primary + Icon icon-only кнопка должна быть второй"
+          }
+        ]
+      },
+      {
+        "id": "button-stack.information-addon",
+        "match": {
+          "hostComponentNames": [
+            "🔒 [M] ButtonStack"
+          ]
+        },
+        "select": {
+          "nestedComponentNames": [
+            "StatusBadge"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "status-size",
+            "op": "propertyDomain",
+            "property": "Size",
+            "values": [
+              "16"
+            ],
+            "message": "Information addon должен использовать StatusBadge Size=16"
+          },
+          {
+            "id": "status-view",
+            "op": "propertyDomain",
+            "property": "View",
+            "values": [
+              "NeutralInformation"
+            ],
+            "message": "Information addon должен использовать StatusBadge View=NeutralInformation"
+          }
+        ]
+      }
+    ],
     "compositionPolicy": {
       "usage": {
         "platform": "mobile-web",

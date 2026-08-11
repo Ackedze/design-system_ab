@@ -451,20 +451,22 @@
         "ruleIrVersion": 2,
         "selectors": [
           "component-identity",
-          "self-and-descendants"
+          "descendant",
+          "document-order",
+          "self-and-descendants",
+          "visibility"
         ],
         "facts": [
-          "ancestry",
           "baseline.effective",
           "component-api.contract",
           "component.identity",
           "layout.properties",
           "node.documentOrder",
+          "node.visibility",
           "opacity",
           "ownership.owner",
           "paint.fill",
           "paint.stroke",
-          "semanticRole",
           "style.text",
           "target.componentKey",
           "target.variant.properties",
@@ -473,11 +475,14 @@
           "variant.properties"
         ],
         "operators": [
+          "allMatch",
           "classificationPolicy",
           "componentApiValid",
-          "compositionPolicy",
+          "countBetween",
           "matchesEffectiveBaseline",
-          "propertiesEqual"
+          "oneOf",
+          "propertiesEqual",
+          "sequenceEquals"
         ],
         "remediations": [
           "restore-effective-baseline",
@@ -2170,6 +2175,7 @@
           "web-corp.title-view",
           "web-corp.background-plate",
           "web-corp.buttons-group",
+          "web-corp.button-stack",
           "web-corp.table-basic"
         ]
       },
@@ -2179,6 +2185,7 @@
           "web-corp.title-view",
           "web-corp.background-plate",
           "web-corp.buttons-group",
+          "web-corp.button-stack",
           "web-corp.table-basic"
         ]
       },
@@ -2259,6 +2266,7 @@
           "web-corp.title-view",
           "web-corp.background-plate",
           "web-corp.buttons-group",
+          "web-corp.button-stack",
           "web-corp.table-basic"
         ]
       }
@@ -2270,7 +2278,6 @@
           "web-corp.account-select",
           "web-corp.amount-styles",
           "web-corp.buttons-group",
-          "web-corp.button-stack",
           "web-corp.card-image",
           "web-corp.card-swiper-mobile",
           "web-corp.corporate-content",
@@ -2569,6 +2576,7 @@
           "web-corp.title-view",
           "web-corp.background-plate",
           "web-corp.buttons-group",
+          "web-corp.button-stack",
           "web-corp.table-basic"
         ]
       },
@@ -2742,7 +2750,6 @@
           "web-corp.account-select",
           "web-corp.amount-styles",
           "web-corp.buttons-group",
-          "web-corp.button-stack",
           "web-corp.card-image",
           "web-corp.card-swiper-mobile",
           "web-corp.corporate-content",
@@ -3024,6 +3031,7 @@
           "web-corp.title-view",
           "web-corp.background-plate",
           "web-corp.buttons-group",
+          "web-corp.button-stack",
           "web-corp.status-property",
           "web-core.tag-group"
         ]
@@ -3158,7 +3166,6 @@
         "id": "compositionPolicy",
         "packages": [
           "web-corp.account-select",
-          "web-corp.button-stack",
           "web-corp.corporate-content",
           "web-corp.file-upload",
           "web-corp.table-basic",
@@ -3185,6 +3192,7 @@
         "packages": [
           "web-corp.title-view",
           "web-corp.buttons-group",
+          "web-corp.button-stack",
           "web-corp.table-basic"
         ]
       },
@@ -3282,7 +3290,8 @@
         "packages": [
           "web-corp.title-view",
           "web-corp.background-plate",
-          "web-corp.buttons-group"
+          "web-corp.buttons-group",
+          "web-corp.button-stack"
         ]
       },
       {
@@ -3331,6 +3340,12 @@
           "web-corp-promo.benefits-block",
           "web-corp-promo.promo-card",
           "web-corp-promo.promo-main-block"
+        ]
+      },
+      {
+        "id": "sequenceEquals",
+        "packages": [
+          "web-corp.button-stack"
         ]
       },
       {
@@ -3597,7 +3612,9 @@
       "packageId": "web-corp.button-stack",
       "selectors": [],
       "facts": [],
-      "operators": [],
+      "operators": [
+        "sequenceEquals"
+      ],
       "remediations": []
     },
     {
@@ -3760,7 +3777,7 @@
   "totals": {
     "selectors": 9,
     "facts": 47,
-    "operators": 37,
+    "operators": 38,
     "remediations": 5
   },
   "coverage": {

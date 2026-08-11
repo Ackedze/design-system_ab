@@ -7,7 +7,7 @@ Candidate capabilities are discovery hints, not executable behavior.
 
 - selectors: 9
 - facts: 47
-- operators: 37
+- operators: 38
 - remediations: 5
 
 ## Unsupported classification
@@ -28,7 +28,7 @@ reported independently from prose-only rules; candidate operators remain discove
 - `web-corp.amount-styles`: selectors: none; facts: none; operators: digitCountBetween, numericFormat, requiredChild, visibilityPolicy; remediations: none
 - `web-corp.background-plate`: selectors: none; facts: blendMode; operators: allowedPropertiesByVariant, boundToTokenByVariant, boundToTokenFromSource, noneMatch, notMatches, paintStateEquals; remediations: rule-defined-remediation
 - `web-corp.buttons-group`: selectors: none; facts: none; operators: configurationPolicy, equalsFact; remediations: none
-- `web-corp.button-stack`: selectors: none; facts: none; operators: none; remediations: none
+- `web-corp.button-stack`: selectors: none; facts: none; operators: sequenceEquals; remediations: none
 - `web-corp.card-image`: selectors: none; facts: none; operators: none; remediations: none
 - `web-corp.card-swiper-mobile`: selectors: none; facts: none; operators: none; remediations: none
 - `web-corp.corporate-app-header-new`: selectors: none; facts: none; operators: none; remediations: none

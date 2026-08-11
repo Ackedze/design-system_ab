@@ -5,7 +5,7 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-corp/ButtonStack [M]`
 - Component API facts: 1
-- Executable RuleIR entries: 8
+- Executable RuleIR entries: 19
 - Deterministic coverage: 7/7
 - Unsupported deterministic rules: 0
 - Manual rules: 5

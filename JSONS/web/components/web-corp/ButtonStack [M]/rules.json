@@ -192,6 +192,13 @@
           "padding.bottom": 16,
           "padding.left": 20
         },
+        "target": {
+          "layers": [
+            "[M] ButtonStack",
+            "🔒 [M] ButtonStack",
+            "ButtonStack [M]"
+          ]
+        },
         "classification": {
           "treatAsViolation": true,
           "designSeverity": "error",
@@ -204,13 +211,15 @@
         "ruleId": "component:web-corp.button-stack.preset-sizing-is-fixed",
         "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "variant.Presets|nested.Button.layout.width",
+        "appliesTo": "layout.sizing.*|layout.itemSpacing|layout.direction",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
-        "requiredSizing": {
-          "Group Horizontal": "equal button widths",
-          "Group Vertical": "both buttons Fill",
-          "Primary + Icon": "Primary fills remaining width; icon-only button keeps component fixed size"
+        "requiredValue": "effective-baseline",
+        "target": {
+          "layers": [
+            "MainButtonStack",
+            "[M] Button"
+          ]
         },
         "classification": {
           "treatAsViolation": true,
@@ -243,9 +252,14 @@
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "requiredValues": {
-          "DisabledLabel": false,
-          "ErrorMessage": false,
-          "Hint": false
+          "DisabledLabel": "False",
+          "ErrorMessage": "False",
+          "Hint": "False"
+        },
+        "target": {
+          "layers": [
+            "CheckboxLabel_24"
+          ]
         },
         "classification": {
           "treatAsViolation": true,

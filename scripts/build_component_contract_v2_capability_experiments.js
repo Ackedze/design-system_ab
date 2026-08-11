@@ -81,6 +81,50 @@ const PACKAGE_PROFILE_OVERRIDES = {
   'web-corp/AmountStyles': {
     packageId: 'web-corp.amount-styles',
   },
+  'web-corp/ButtonStack [M]': {
+    packageId: 'web-corp.button-stack',
+    compositionRuleSources: {
+      'button-stack.primary:button-count': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.primary:button-view-order': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.secondary:button-count': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.secondary:button-view-order': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.group-horizontal:button-count': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.group-horizontal:button-view-order': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.group-vertical:button-count': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.group-vertical:button-view-order': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.primary-icon:button-count': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.primary-icon:button-view-order': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.primary-icon:single-icon-order': [
+        'component:web-corp.button-stack.preset-composition-is-fixed',
+      ],
+      'button-stack.information-addon:status-size': [
+        'component:web-corp.button-stack.option-information-addon-is-fixed',
+      ],
+      'button-stack.information-addon:status-view': [
+        'component:web-corp.button-stack.option-information-addon-is-fixed',
+      ],
+    },
+  },
   'web-corp/Table Basic [D]': {
     packageId: 'web-corp.table-basic',
     compositionRuleSources: {
@@ -195,9 +239,14 @@ function buildPackageExperiment(profile) {
   );
   const inferred = sourceRules.map((rule) => inferSourceRule(rule, profile));
   const executableSourceRules = inferred.filter((entry) => entry.status === 'executable');
-  const compiledSourceRules = executableSourceRules.flatMap((entry) =>
-    expandUniformPropertyRules(entry.rule, sourceRuleById.get(entry.sourceRuleId)),
+  const compositionCoveredSourceRuleIds = new Set(
+    compositionRules.flatMap((rule) => rule.source.sourceRuleIds || []),
   );
+  const compiledSourceRules = executableSourceRules
+    .filter((entry) => !compositionCoveredSourceRuleIds.has(entry.sourceRuleId))
+    .flatMap((entry) =>
+    expandUniformPropertyRules(entry.rule, sourceRuleById.get(entry.sourceRuleId)),
+    );
   const rules = ensureUniqueRuleIds([buildComponentApiRule(profile)]
     .concat(compositionRules, compiledSourceRules));
   const coverage = buildCoverage(sourceRules, rules, inferred);
@@ -680,7 +729,9 @@ function compileCompositionRules(document, profile, sourceRuleById, componentKey
           host: inlineHostSelector(contract.match, componentKeyFamilies),
           targets: inlineTargetSelector(contract.select, componentKeyFamilies),
         },
-        when: { op: 'evidenceComplete' },
+        when: contract.when && contract.when.variant
+          ? { op: 'all', clauses: { variant: contract.when.variant } }
+          : { op: 'evidenceComplete' },
         assert: assertion,
         verdict: { pass: 'expected', fail: 'violation', unknown: 'unknown' },
         evidence: capabilities.facts,
@@ -750,6 +801,13 @@ function compileConstraint(constraint) {
   if (constraint.op === 'propertyEqualsFirst') {
     return { op: 'allEqual', fact: `target.variant.${constraint.property}` };
   }
+  if (constraint.op === 'propertySequence') {
+    return {
+      op: 'sequenceEquals',
+      fact: `target.variant.${constraint.property}`,
+      values: constraint.values,
+    };
+  }
   if (constraint.op === 'valuePosition') {
     return {
       op: 'valuePosition',
@@ -768,6 +826,7 @@ function compositionCapabilities(constraint) {
     propertyDomain: ['allMatch', 'oneOf'],
     propertyEqualsHost: ['allMatch', 'equalsFact'],
     propertyEqualsFirst: ['allEqual'],
+    propertySequence: ['sequenceEquals'],
     valuePosition: ['valuePosition'],
   }[constraint.op];
   return capability(
@@ -780,6 +839,13 @@ function compositionCapabilities(constraint) {
 
 function compositionRemediation(constraint) {
   if (constraint.op === 'countBetween') return null;
+  if (constraint.op === 'propertySequence') {
+    return {
+      kind: 'set-variant-properties',
+      target: '$failingTarget',
+      properties: { [constraint.property]: '$expectedValue' },
+    };
+  }
   const value = constraint.replacement
     || (constraint.values && constraint.values.length === 1 ? constraint.values[0] : null);
   return value

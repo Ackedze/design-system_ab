@@ -32,8 +32,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
-        "bytes": 9691,
-        "sha256": "9289e5d1f7276fe9013ea5fe105c210740fa74904a7c927176105c3020aee23d"
+        "bytes": 16254,
+        "sha256": "0dcb8fcc22fefa25f94ba601ff58567935c4811675a143d9b6022a73b0fa13e7"
       },
       {
         "file": "JSONS/web/components/web-corp/ButtonStack [M]/contract.generated.json",
@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/ButtonStack [M]/rules.json",
-        "bytes": 17632,
-        "sha256": "5f5a518d9d7a30a25ad6afd314adbb3e742c9b993c5575e5bd53108fdf15ca50"
+        "bytes": 17827,
+        "sha256": "a049555a6500d37c5554dc3dbc5eefee3587099eed301aa13000a98e9411829b"
       }
     ]
   },
@@ -63,20 +63,22 @@
     "ruleIrVersion": 2,
     "selectors": [
       "component-identity",
-      "self-and-descendants"
+      "descendant",
+      "document-order",
+      "self-and-descendants",
+      "visibility"
     ],
     "facts": [
-      "ancestry",
       "baseline.effective",
       "component-api.contract",
       "component.identity",
       "layout.properties",
       "node.documentOrder",
+      "node.visibility",
       "opacity",
       "ownership.owner",
       "paint.fill",
       "paint.stroke",
-      "semanticRole",
       "style.text",
       "target.componentKey",
       "target.variant.properties",
@@ -85,11 +87,14 @@
       "variant.properties"
     ],
     "operators": [
+      "allMatch",
       "classificationPolicy",
       "componentApiValid",
-      "compositionPolicy",
+      "countBetween",
       "matchesEffectiveBaseline",
-      "propertiesEqual"
+      "oneOf",
+      "propertiesEqual",
+      "sequenceEquals"
     ],
     "remediations": [
       "restore-effective-baseline",
@@ -243,10 +248,121 @@
           "semanticRoleOrLayerName": {
             "op": "oneOf",
             "values": [
+              "[M] Button",
               "[M] ButtonStack",
               "🔒 [M] ButtonStack",
-              "ButtonStack [M]"
+              "ButtonStack [M]",
+              "CheckboxLabel_24",
+              "MainButtonStack"
             ]
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.button-stack.primary": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "[M] Button"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.button-stack.secondary": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "[M] Button"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.button-stack.group-horizontal": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "[M] Button"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.button-stack.group-vertical": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "[M] Button"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.button-stack.primary-icon": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "[M] Button"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.button-stack.information-addon": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "StatusBadge"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
           }
         },
         "occurrence": "all",
@@ -313,6 +429,1245 @@
         ],
         "operators": [
           "componentApiValid"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.primary.button-count",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Primary"
+          }
+        }
+      },
+      "assert": {
+        "op": "countBetween",
+        "min": 1,
+        "max": 1
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Presets=Primary должен содержать ровно одну кнопку",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "countBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.primary.button-view-order",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Primary"
+          }
+        }
+      },
+      "assert": {
+        "op": "sequenceEquals",
+        "fact": "target.variant.View",
+        "values": [
+          "Primary"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "View": "$expectedValue"
+        }
+      },
+      "presentation": {
+        "message": "Presets=Primary должен содержать одну Primary-кнопку",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "sequenceEquals"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.secondary.button-count",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Secondary"
+          }
+        }
+      },
+      "assert": {
+        "op": "countBetween",
+        "min": 1,
+        "max": 1
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Presets=Secondary должен содержать ровно одну кнопку",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "countBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.secondary.button-view-order",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Secondary"
+          }
+        }
+      },
+      "assert": {
+        "op": "sequenceEquals",
+        "fact": "target.variant.View",
+        "values": [
+          "Secondary"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "View": "$expectedValue"
+        }
+      },
+      "presentation": {
+        "message": "Presets=Secondary должен содержать одну Secondary-кнопку",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "sequenceEquals"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.group-horizontal.button-count",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Group Horizontal"
+          }
+        }
+      },
+      "assert": {
+        "op": "countBetween",
+        "min": 2,
+        "max": 2
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Presets=Group Horizontal должен содержать ровно две кнопки",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "countBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.group-horizontal.button-view-order",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Group Horizontal"
+          }
+        }
+      },
+      "assert": {
+        "op": "sequenceEquals",
+        "fact": "target.variant.View",
+        "values": [
+          "Secondary",
+          "Primary"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "View": "$expectedValue"
+        }
+      },
+      "presentation": {
+        "message": "В Group Horizontal Secondary должна быть слева, Primary — справа",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "sequenceEquals"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.group-vertical.button-count",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Group Vertical"
+          }
+        }
+      },
+      "assert": {
+        "op": "countBetween",
+        "min": 2,
+        "max": 2
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Presets=Group Vertical должен содержать ровно две кнопки",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "countBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.group-vertical.button-view-order",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Group Vertical"
+          }
+        }
+      },
+      "assert": {
+        "op": "sequenceEquals",
+        "fact": "target.variant.View",
+        "values": [
+          "Primary",
+          "Secondary"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "View": "$expectedValue"
+        }
+      },
+      "presentation": {
+        "message": "В Group Vertical Primary должна быть сверху, Secondary — снизу",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "sequenceEquals"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.primary-icon.button-count",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Primary + Icon"
+          }
+        }
+      },
+      "assert": {
+        "op": "countBetween",
+        "min": 2,
+        "max": 2
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Presets=Primary + Icon должен содержать ровно две кнопки",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "countBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.primary-icon.button-view-order",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Primary + Icon"
+          }
+        }
+      },
+      "assert": {
+        "op": "sequenceEquals",
+        "fact": "target.variant.View",
+        "values": [
+          "Primary",
+          "Secondary"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "View": "$expectedValue"
+        }
+      },
+      "presentation": {
+        "message": "В Primary + Icon основной Primary action должен быть первым",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "sequenceEquals"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.primary-icon.single-icon-order",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.preset-composition-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Presets": "Primary + Icon"
+          }
+        }
+      },
+      "assert": {
+        "op": "sequenceEquals",
+        "fact": "target.variant.SingleIcon",
+        "values": [
+          "False",
+          "True"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "SingleIcon": "$expectedValue"
+        }
+      },
+      "presentation": {
+        "message": "В Primary + Icon icon-only кнопка должна быть второй",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "sequenceEquals"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.information-addon.status-size",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.option-information-addon-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "StatusBadge"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "allMatch",
+        "predicate": {
+          "op": "oneOf",
+          "fact": "target.variant.Size",
+          "values": [
+            "16"
+          ]
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Size": "16"
+        }
+      },
+      "presentation": {
+        "message": "Information addon должен использовать StatusBadge Size=16",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "allMatch",
+          "oneOf"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.button-stack.button-stack.information-addon.status-view",
+      "source": {
+        "file": "JSONS/web/components/web-corp/ButtonStack [M]/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.button-stack.option-information-addon-is-fixed"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "🔒 [M] ButtonStack"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "StatusBadge"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "allMatch",
+        "predicate": {
+          "op": "oneOf",
+          "fact": "target.variant.View",
+          "values": [
+            "NeutralInformation"
+          ]
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "View": "NeutralInformation"
+        }
+      },
+      "presentation": {
+        "message": "Information addon должен использовать StatusBadge View=NeutralInformation",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "allMatch",
+          "oneOf"
         ],
         "remediations": [
           "set-variant-properties"
@@ -475,62 +1830,6 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.button-stack.option-information-addon-is-fixed",
-      "source": {
-        "file": "JSONS/web/components/web-corp/ButtonStack [M]/rules.json",
-        "sourceRuleIds": [
-          "component:web-corp.button-stack.option-information-addon-is-fixed"
-        ],
-        "patternRuleId": null
-      },
-      "severity": "error",
-      "enforcement": "enforced",
-      "select": {
-        "host": "host.package",
-        "targets": "tree.package"
-      },
-      "when": {
-        "op": "evidenceComplete"
-      },
-      "assert": {
-        "op": "compositionPolicy",
-        "component": "StatusBadge",
-        "View": "NeutralInformation",
-        "icon": "information-compact"
-      },
-      "verdict": {
-        "pass": "expected",
-        "fail": "violation",
-        "unknown": "unknown"
-      },
-      "evidence": [
-        "component.identity"
-      ],
-      "remediation": {
-        "kind": "rule-defined-remediation",
-        "specification": "Верните нейтральный StatusBadge с information-иконкой либо скройте addon."
-      },
-      "presentation": {
-        "message": "Information addon рядом с Checkbox опционален. Если он показан, используй StatusBadge View=NeutralInformation со штатной information-иконкой.",
-        "group": "nested.StatusBadge|nested.icon"
-      },
-      "capabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "compositionPolicy"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
       "id": "rule-ir:web-corp.button-stack.option-states-are-limited",
       "source": {
         "file": "JSONS/web/components/web-corp/ButtonStack [M]/rules.json",
@@ -543,7 +1842,20 @@
       "enforcement": "enforced",
       "select": {
         "host": "host.package",
-        "targets": "tree.package"
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CheckboxLabel_24"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
       },
       "when": {
         "op": "evidenceComplete"
@@ -551,9 +1863,9 @@
       "assert": {
         "op": "propertiesEqual",
         "values": {
-          "DisabledLabel": false,
-          "ErrorMessage": false,
-          "Hint": false
+          "DisabledLabel": "False",
+          "ErrorMessage": "False",
+          "Hint": "False"
         }
       },
       "verdict": {
@@ -591,85 +1903,6 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.button-stack.preset-composition-is-fixed",
-      "source": {
-        "file": "JSONS/web/components/web-corp/ButtonStack [M]/rules.json",
-        "sourceRuleIds": [
-          "component:web-corp.button-stack.preset-composition-is-fixed"
-        ],
-        "patternRuleId": null
-      },
-      "severity": "error",
-      "enforcement": "enforced",
-      "select": {
-        "host": "host.package",
-        "targets": "tree.package"
-      },
-      "when": {
-        "op": "evidenceComplete"
-      },
-      "assert": {
-        "op": "compositionPolicy",
-        "Primary": [
-          "Primary button"
-        ],
-        "Secondary": [
-          "Secondary button"
-        ],
-        "Group Horizontal": [
-          "Secondary button left",
-          "Primary button right"
-        ],
-        "Group Vertical": [
-          "Primary button top",
-          "Secondary button bottom"
-        ],
-        "Primary + Icon": [
-          "Primary button left",
-          "icon-only button right"
-        ]
-      },
-      "verdict": {
-        "pass": "expected",
-        "fail": "violation",
-        "unknown": "unknown"
-      },
-      "evidence": [
-        "ancestry",
-        "component.identity",
-        "node.documentOrder",
-        "semanticRole",
-        "variant.properties"
-      ],
-      "remediation": {
-        "kind": "rule-defined-remediation",
-        "specification": "Верните точное число, порядок, View и тип кнопок выбранного Presets."
-      },
-      "presentation": {
-        "message": "Каждый Presets имеет фиксированное число, порядок и иерархию действий. Нельзя добавлять третью кнопку, удалять кнопку из группы, менять порядок Primary/Secondary или заменять icon-only действие обычной кнопкой.",
-        "group": "variant.Presets|component.composition"
-      },
-      "capabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "ancestry",
-          "component.identity",
-          "node.documentOrder",
-          "semanticRole",
-          "variant.properties"
-        ],
-        "operators": [
-          "compositionPolicy"
-        ],
-        "remediations": [
-          "restore-effective-baseline"
-        ]
-      }
-    },
-    {
       "id": "rule-ir:web-corp.button-stack.preset-sizing-is-fixed",
       "source": {
         "file": "JSONS/web/components/web-corp/ButtonStack [M]/rules.json",
@@ -682,7 +1915,21 @@
       "enforcement": "enforced",
       "select": {
         "host": "host.package",
-        "targets": "tree.package"
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[M] Button",
+                "MainButtonStack"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
       },
       "when": {
         "op": "evidenceComplete"
@@ -690,8 +1937,9 @@
       "assert": {
         "op": "matchesEffectiveBaseline",
         "properties": [
-          "variant.Presets",
-          "nested.Button.layout.width"
+          "layout.sizing.*",
+          "layout.itemSpacing",
+          "layout.direction"
         ]
       },
       "verdict": {
@@ -701,8 +1949,7 @@
       },
       "evidence": [
         "component.identity",
-        "layout.properties",
-        "variant.properties"
+        "layout.properties"
       ],
       "remediation": {
         "kind": "rule-defined-remediation",
@@ -710,7 +1957,7 @@
       },
       "presentation": {
         "message": "Group Horizontal использует равные ширины кнопок; Group Vertical растягивает обе кнопки; Primary + Icon растягивает Primary на остаток ширины и сохраняет фиксированный размер icon-only кнопки.",
-        "group": "variant.Presets|nested.Button.layout.width"
+        "group": "layout.sizing.*|layout.itemSpacing|layout.direction"
       },
       "capabilities": {
         "selectors": [
@@ -719,8 +1966,7 @@
         ],
         "facts": [
           "component.identity",
-          "layout.properties",
-          "variant.properties"
+          "layout.properties"
         ],
         "operators": [
           "matchesEffectiveBaseline"
@@ -743,7 +1989,22 @@
       "enforcement": "enforced",
       "select": {
         "host": "host.package",
-        "targets": "tree.package"
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[M] ButtonStack",
+                "🔒 [M] ButtonStack",
+                "ButtonStack [M]"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
       },
       "when": {
         "op": "evidenceComplete"
