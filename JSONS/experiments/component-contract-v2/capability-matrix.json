@@ -502,15 +502,15 @@
     {
       "packageId": "web-corp.card-image",
       "coverage": {
-        "sourceRules": 21,
-        "deterministicSourceRules": 13,
-        "executableDeterministicSourceRules": 2,
+        "sourceRules": 22,
+        "deterministicSourceRules": 14,
+        "executableDeterministicSourceRules": 7,
         "promotedManualOrAdvisorySourceRules": 0,
-        "executable": 2,
+        "executable": 7,
         "advisory": 3,
         "manual": 5,
-        "unsupported": 11,
-        "deterministicCoverageRatio": 0.1538
+        "unsupported": 7,
+        "deterministicCoverageRatio": 0.5
       },
       "required": {
         "selectorVersion": 2,
@@ -518,13 +518,18 @@
         "ruleIrVersion": 2,
         "selectors": [
           "component-identity",
-          "self-and-descendants"
+          "descendant",
+          "document-order",
+          "self-and-descendants",
+          "visibility"
         ],
         "facts": [
           "baseline.effective",
           "component-api.contract",
           "component.identity",
           "layout.properties",
+          "node.documentOrder",
+          "node.visibility",
           "opacity",
           "ownership.owner",
           "paint.fill",
@@ -537,11 +542,16 @@
           "variant.properties"
         ],
         "operators": [
+          "allMatch",
           "classificationPolicy",
           "componentApiValid",
-          "matchesEffectiveBaseline"
+          "countBetween",
+          "matchesEffectiveBaseline",
+          "oneOf",
+          "propertiesEqual"
         ],
         "remediations": [
+          "rule-defined-remediation",
           "set-variant-properties"
         ],
         "unknownCapabilityPolicy": "unsupported-fail-closed",
@@ -571,8 +581,7 @@
           "variant.properties"
         ],
         "operators": [
-          "author-structured-assertion",
-          "matchesEffectiveBaseline"
+          "author-structured-assertion"
         ],
         "remediations": [
           "rule-defined-remediation"
@@ -2176,6 +2185,7 @@
           "web-corp.background-plate",
           "web-corp.buttons-group",
           "web-corp.button-stack",
+          "web-corp.card-image",
           "web-corp.table-basic"
         ]
       },
@@ -2186,6 +2196,7 @@
           "web-corp.background-plate",
           "web-corp.buttons-group",
           "web-corp.button-stack",
+          "web-corp.card-image",
           "web-corp.table-basic"
         ]
       },
@@ -2267,6 +2278,7 @@
           "web-corp.background-plate",
           "web-corp.buttons-group",
           "web-corp.button-stack",
+          "web-corp.card-image",
           "web-corp.table-basic"
         ]
       }
@@ -2577,6 +2589,7 @@
           "web-corp.background-plate",
           "web-corp.buttons-group",
           "web-corp.button-stack",
+          "web-corp.card-image",
           "web-corp.table-basic"
         ]
       },
@@ -3032,6 +3045,7 @@
           "web-corp.background-plate",
           "web-corp.buttons-group",
           "web-corp.button-stack",
+          "web-corp.card-image",
           "web-corp.status-property",
           "web-core.tag-group"
         ]
@@ -3193,6 +3207,7 @@
           "web-corp.title-view",
           "web-corp.buttons-group",
           "web-corp.button-stack",
+          "web-corp.card-image",
           "web-corp.table-basic"
         ]
       },
@@ -3291,7 +3306,8 @@
           "web-corp.title-view",
           "web-corp.background-plate",
           "web-corp.buttons-group",
-          "web-corp.button-stack"
+          "web-corp.button-stack",
+          "web-corp.card-image"
         ]
       },
       {
@@ -3307,6 +3323,7 @@
           "web-corp.amount-styles",
           "web-corp.background-plate",
           "web-corp.button-stack",
+          "web-corp.card-image",
           "web-corp.corporate-content",
           "web-corp.onboarding-tooltip",
           "web-corp.status-property",
@@ -3782,10 +3799,10 @@
   },
   "coverage": {
     "packageCount": 28,
-    "sourceRules": 839,
-    "deterministicSourceRules": 496,
-    "executableDeterministicSourceRules": 196,
-    "unsupported": 300,
+    "sourceRules": 840,
+    "deterministicSourceRules": 497,
+    "executableDeterministicSourceRules": 201,
+    "unsupported": 296,
     "fullCoveragePackages": [
       "web-corp.title-view",
       "web-corp.background-plate",
@@ -3799,10 +3816,10 @@
     "unsupportedByGapKind": {
       "structured-fields-unmapped": 105,
       "structured-fields-missing-runtime-operator": 7,
-      "prose-existing-operator": 20,
+      "prose-existing-operator": 19,
       "prose-missing-runtime-operator": 8,
-      "prose-unclassified": 160
+      "prose-unclassified": 157
     },
-    "deterministicCoverageRatio": 0.3952
+    "deterministicCoverageRatio": 0.4044
   }
 }

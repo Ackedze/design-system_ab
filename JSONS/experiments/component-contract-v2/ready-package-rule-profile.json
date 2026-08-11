@@ -12,8 +12,8 @@
     "assertionFields": 130,
     "checkTypes": 5,
     "targetFields": 17,
-    "conditionFields": 321,
-    "remediationFields": 9,
+    "conditionFields": 317,
+    "remediationFields": 11,
     "compositionOperators": 6,
     "compositionMatchFields": 2,
     "compositionSelectFields": 4,
@@ -364,8 +364,6 @@
       "conditions.allowedPerCardDifferences.surfaceTypes[]",
       "conditions.allowedPlatforms",
       "conditions.allowedPlatforms[]",
-      "conditions.allowedSizes",
-      "conditions.allowedSizes[]",
       "conditions.allowedSurfaceAlternatives",
       "conditions.allowedSurfaceAlternatives[]",
       "conditions.allowedType",
@@ -488,7 +486,6 @@
       "conditions.maximumCardCount",
       "conditions.maxLines",
       "conditions.minimumCardCount",
-      "conditions.minimumCards",
       "conditions.minWhenVisible",
       "conditions.mobile",
       "conditions.mobileRoot",
@@ -536,7 +533,6 @@
       "conditions.replacement",
       "conditions.required",
       "conditions.required.Background",
-      "conditions.required.State",
       "conditions.required[]",
       "conditions.requiredAncestorVariableMode",
       "conditions.requiredAncestorVariableMode.collection",
@@ -556,7 +552,6 @@
       "conditions.requiredNestedComponents.🔒 [M] Benefits",
       "conditions.requiredPath",
       "conditions.requiredPresetWhenActionsVisible",
-      "conditions.requiredState",
       "conditions.requiredVisibleSlots",
       "conditions.requiredVisibleSlots[]",
       "conditions.requiredWhen",
@@ -623,6 +618,9 @@
       "conditions.variant.Color",
       "conditions.variant.Position",
       "conditions.variant.Presets",
+      "conditions.variant.Size",
+      "conditions.variant.Size[]",
+      "conditions.variant.Stack",
       "conditions.variant.Type",
       "conditions.variant.Type[]",
       "conditions.variant.View",
@@ -639,8 +637,6 @@
       "conditions.when.BlurEffect",
       "conditions.when.minimumCardCount",
       "conditions.when.platform",
-      "conditions.when.Size",
-      "conditions.when.Stack",
       "conditions.when.View",
       "conditions.whenBackgroundTrue",
       "conditions.whenBackgroundTrue[]",
@@ -656,6 +652,8 @@
       "remediation.properties.Opacity",
       "remediation.properties.Presets",
       "remediation.properties.Size",
+      "remediation.properties.Stack",
+      "remediation.properties.State",
       "remediation.properties.TransparentBg",
       "remediation.properties.View",
       "remediation.target"
@@ -2984,12 +2982,13 @@
     },
     {
       "field": "classification",
-      "packageCount": 7,
-      "ruleCount": 57,
+      "packageCount": 8,
+      "ruleCount": 58,
       "packages": [
         "web-corp-promo.benefits",
         "web-corp.backgroundplate",
         "web-corp.buttonstack",
+        "web-corp.cardimage",
         "web-corp.corporatecontent",
         "web-corp.status-property",
         "web-corp.table-wide",
@@ -3031,22 +3030,25 @@
     },
     {
       "field": "requiredValues",
-      "packageCount": 5,
-      "ruleCount": 6,
+      "packageCount": 6,
+      "ruleCount": 9,
       "packages": [
         "web-corp-promo.benefits",
         "web-corp-promo.benefitsblock",
         "web-corp.backgroundplate",
         "web-corp.buttonstack",
+        "web-corp.cardimage",
         "web-corp.status-property"
       ],
       "exampleRuleIds": [
         "component:web-corp.background-plate.slot-sizing-fill-width-hug-height",
         "component:web-corp.button-stack.option-states-are-limited",
         "component:web-corp.button-stack.root-sizing-and-padding-are-fixed",
+        "component:web-corp.card-image.stack-combination",
+        "component:web-corp.card-image.stack-disabled-for-large-sizes",
+        "component:web-corp.card-image.xs-active-only",
         "component:web-corp.status-property.hug-sizing-is-fixed",
-        "component:web.benefits-block.root-sizing-and-height-scope",
-        "component:web.benefits.fill-width-hug-height"
+        "component:web.benefits-block.root-sizing-and-height-scope"
       ]
     },
     {
@@ -3107,6 +3109,24 @@
       ]
     },
     {
+      "field": "requiredValue",
+      "packageCount": 4,
+      "ruleCount": 5,
+      "packages": [
+        "web-corp.backgroundplate",
+        "web-corp.buttonstack",
+        "web-corp.cardimage",
+        "web-corp.corporatecontent"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.background-plate.blend-mode-is-fixed",
+        "component:web-corp.background-plate.opacity-is-fixed",
+        "component:web-corp.button-stack.preset-sizing-is-fixed",
+        "component:web-corp.card-image.fixed-size-only",
+        "component:web-corp.corporate-content.clips-content-disabled"
+      ]
+    },
+    {
       "field": "sharedValueConstraint",
       "packageCount": 4,
       "ruleCount": 4,
@@ -3157,22 +3177,6 @@
         "component:web-corp.corporate-system-message.small-title-required",
         "component:web-corp.table-basic-d.keep-control-and-action-cells",
         "component:web-corp.table-wide-d.keep-control-and-action-cells"
-      ]
-    },
-    {
-      "field": "requiredValue",
-      "packageCount": 3,
-      "ruleCount": 4,
-      "packages": [
-        "web-corp.backgroundplate",
-        "web-corp.buttonstack",
-        "web-corp.corporatecontent"
-      ],
-      "exampleRuleIds": [
-        "component:web-corp.background-plate.blend-mode-is-fixed",
-        "component:web-corp.background-plate.opacity-is-fixed",
-        "component:web-corp.button-stack.preset-sizing-is-fixed",
-        "component:web-corp.corporate-content.clips-content-disabled"
       ]
     },
     {
@@ -4079,7 +4083,7 @@
     {
       "signature": "(prose-only)",
       "packageCount": 25,
-      "ruleCount": 258,
+      "ruleCount": 255,
       "packages": [
         "web-corp-promo.benefitcard",
         "web-corp-promo.benefits",
@@ -4312,6 +4316,22 @@
       ]
     },
     {
+      "signature": "classification+requiredValue",
+      "packageCount": 3,
+      "ruleCount": 4,
+      "packages": [
+        "web-corp.backgroundplate",
+        "web-corp.buttonstack",
+        "web-corp.cardimage"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.background-plate.blend-mode-is-fixed",
+        "component:web-corp.background-plate.opacity-is-fixed",
+        "component:web-corp.button-stack.preset-sizing-is-fixed",
+        "component:web-corp.card-image.fixed-size-only"
+      ]
+    },
+    {
       "signature": "requiredLayout",
       "packageCount": 2,
       "ruleCount": 4,
@@ -4327,6 +4347,21 @@
       ]
     },
     {
+      "signature": "requiredValues",
+      "packageCount": 2,
+      "ruleCount": 4,
+      "packages": [
+        "web-corp-promo.benefitsblock",
+        "web-corp.cardimage"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.card-image.stack-combination",
+        "component:web-corp.card-image.stack-disabled-for-large-sizes",
+        "component:web-corp.card-image.xs-active-only",
+        "component:web.benefits-block.root-sizing-and-height-scope"
+      ]
+    },
+    {
       "signature": "classification+requiredPaintState",
       "packageCount": 1,
       "ruleCount": 3,
@@ -4337,20 +4372,6 @@
         "component:web-corp.background-plate.border-has-no-visible-fill",
         "component:web-corp.background-plate.colored-uses-fill-without-stroke",
         "component:web-corp.background-plate.primary-secondary-paint-is-fixed"
-      ]
-    },
-    {
-      "signature": "classification+requiredValue",
-      "packageCount": 2,
-      "ruleCount": 3,
-      "packages": [
-        "web-corp.backgroundplate",
-        "web-corp.buttonstack"
-      ],
-      "exampleRuleIds": [
-        "component:web-corp.background-plate.blend-mode-is-fixed",
-        "component:web-corp.background-plate.opacity-is-fixed",
-        "component:web-corp.button-stack.preset-sizing-is-fixed"
       ]
     },
     {
@@ -5172,17 +5193,6 @@
       ]
     },
     {
-      "signature": "requiredValues",
-      "packageCount": 1,
-      "ruleCount": 1,
-      "packages": [
-        "web-corp-promo.benefitsblock"
-      ],
-      "exampleRuleIds": [
-        "component:web.benefits-block.root-sizing-and-height-scope"
-      ]
-    },
-    {
       "signature": "requiredVariantByContext",
       "packageCount": 1,
       "ruleCount": 1,
@@ -5378,7 +5388,7 @@
           "remediationFields:remediation.target"
         ],
         "cumulativeFeatures": 99,
-        "cumulativeCoverageRatio": 0.1518
+        "cumulativeCoverageRatio": 0.1523
       },
       {
         "packageId": "web-corp-promo.benefitsblock",
@@ -5461,7 +5471,7 @@
           "remediationFields:remediation"
         ],
         "cumulativeFeatures": 174,
-        "cumulativeCoverageRatio": 0.2669
+        "cumulativeCoverageRatio": 0.2677
       },
       {
         "packageId": "web-corp.backgroundplate",
@@ -5534,7 +5544,7 @@
           "compositionPolicyPaths:subtreePropertyPolicy.violationMessage"
         ],
         "cumulativeFeatures": 239,
-        "cumulativeCoverageRatio": 0.3666
+        "cumulativeCoverageRatio": 0.3677
       },
       {
         "packageId": "web-corp-promo.promomainblock",
@@ -5603,7 +5613,7 @@
           "conditionFields:conditions.whenVisibleCount[]"
         ],
         "cumulativeFeatures": 300,
-        "cumulativeCoverageRatio": 0.4601
+        "cumulativeCoverageRatio": 0.4615
       },
       {
         "packageId": "web-corp.accountselect",
@@ -5657,7 +5667,7 @@
           "assertionFields:states"
         ],
         "cumulativeFeatures": 346,
-        "cumulativeCoverageRatio": 0.5307
+        "cumulativeCoverageRatio": 0.5323
       },
       {
         "packageId": "web-corp.status-property",
@@ -5703,7 +5713,7 @@
           "conditionFields:conditions.variantProperty"
         ],
         "cumulativeFeatures": 384,
-        "cumulativeCoverageRatio": 0.589
+        "cumulativeCoverageRatio": 0.5908
       },
       {
         "packageId": "web-corp-promo.benefits",
@@ -5748,7 +5758,7 @@
           "conditionFields:conditions.variantPropertiesNotExposed[]"
         ],
         "cumulativeFeatures": 421,
-        "cumulativeCoverageRatio": 0.6457
+        "cumulativeCoverageRatio": 0.6477
       },
       {
         "packageId": "web-corp.corporatesystemmessage",
@@ -5789,7 +5799,7 @@
           "targetFields:statuses"
         ],
         "cumulativeFeatures": 454,
-        "cumulativeCoverageRatio": 0.6963
+        "cumulativeCoverageRatio": 0.6985
       },
       {
         "packageId": "web-corp.titleview",
@@ -5827,43 +5837,7 @@
           "compositionSelectFields:nestedComponentNames"
         ],
         "cumulativeFeatures": 484,
-        "cumulativeCoverageRatio": 0.7423
-      },
-      {
-        "packageId": "web-corp.cardimage",
-        "gain": 28,
-        "novelFeatures": [
-          "conditionFields:conditions.212x132",
-          "conditionFields:conditions.212x132[]",
-          "conditionFields:conditions.24x16",
-          "conditionFields:conditions.264x164",
-          "conditionFields:conditions.264x164[]",
-          "conditionFields:conditions.44x28",
-          "conditionFields:conditions.68x42",
-          "conditionFields:conditions.68x42[]",
-          "conditionFields:conditions.allowedSizes",
-          "conditionFields:conditions.allowedSizes[]",
-          "conditionFields:conditions.customImageRequiresCover",
-          "conditionFields:conditions.format",
-          "conditionFields:conditions.manualResizeAllowed",
-          "conditionFields:conditions.maxLines",
-          "conditionFields:conditions.minimumCards",
-          "conditionFields:conditions.operation",
-          "conditionFields:conditions.overflow",
-          "conditionFields:conditions.required.State",
-          "conditionFields:conditions.requiredState",
-          "conditionFields:conditions.singleCard",
-          "conditionFields:conditions.size24x16",
-          "conditionFields:conditions.stack44x28",
-          "conditionFields:conditions.stack68x42",
-          "conditionFields:conditions.targetPath",
-          "conditionFields:conditions.uppercase",
-          "conditionFields:conditions.visibleDigits",
-          "conditionFields:conditions.when.Size",
-          "conditionFields:conditions.when.Stack"
-        ],
-        "cumulativeFeatures": 512,
-        "cumulativeCoverageRatio": 0.7853
+        "cumulativeCoverageRatio": 0.7446
       },
       {
         "packageId": "web-corp.tableview",
@@ -5898,12 +5872,46 @@
           "conditionFields:conditions.rowsCanBeCollapsed",
           "conditionFields:conditions.totalRows"
         ],
-        "cumulativeFeatures": 540,
-        "cumulativeCoverageRatio": 0.8282
+        "cumulativeFeatures": 512,
+        "cumulativeCoverageRatio": 0.7877
+      },
+      {
+        "packageId": "web-corp.cardimage",
+        "gain": 26,
+        "novelFeatures": [
+          "conditionFields:conditions.212x132",
+          "conditionFields:conditions.212x132[]",
+          "conditionFields:conditions.24x16",
+          "conditionFields:conditions.264x164",
+          "conditionFields:conditions.264x164[]",
+          "conditionFields:conditions.44x28",
+          "conditionFields:conditions.68x42",
+          "conditionFields:conditions.68x42[]",
+          "conditionFields:conditions.customImageRequiresCover",
+          "conditionFields:conditions.format",
+          "conditionFields:conditions.maxLines",
+          "conditionFields:conditions.operation",
+          "conditionFields:conditions.overflow",
+          "conditionFields:conditions.singleCard",
+          "conditionFields:conditions.size24x16",
+          "conditionFields:conditions.stack44x28",
+          "conditionFields:conditions.stack68x42",
+          "conditionFields:conditions.targetPath",
+          "conditionFields:conditions.uppercase",
+          "conditionFields:conditions.variant.Size",
+          "conditionFields:conditions.variant.Size[]",
+          "conditionFields:conditions.variant.Stack",
+          "conditionFields:conditions.visibleDigits",
+          "remediationFields:remediation.properties.Stack",
+          "remediationFields:remediation.properties.State",
+          "compositionOperators:countBetween"
+        ],
+        "cumulativeFeatures": 538,
+        "cumulativeCoverageRatio": 0.8277
       },
       {
         "packageId": "web-corp.cardswipermobile",
-        "gain": 23,
+        "gain": 24,
         "novelFeatures": [
           "conditionFields:conditions.320-360",
           "conditionFields:conditions.320-360.maxViewport",
@@ -5920,6 +5928,7 @@
           "conditionFields:conditions.currentCard.Size",
           "conditionFields:conditions.currentCard.Stack",
           "conditionFields:conditions.fallback",
+          "conditionFields:conditions.manualResizeAllowed",
           "conditionFields:conditions.maximumCardCount",
           "conditionFields:conditions.minimumCardCount",
           "conditionFields:conditions.neighborCards",
@@ -5929,8 +5938,8 @@
           "conditionFields:conditions.Show Start#17127:0",
           "conditionFields:conditions.when.minimumCardCount"
         ],
-        "cumulativeFeatures": 563,
-        "cumulativeCoverageRatio": 0.8635
+        "cumulativeFeatures": 562,
+        "cumulativeCoverageRatio": 0.8646
       },
       {
         "packageId": "web-corp.fileupload",
@@ -5958,8 +5967,8 @@
           "conditionFields:conditions.maxFiles",
           "conditionFields:conditions.validationTriggered"
         ],
-        "cumulativeFeatures": 584,
-        "cumulativeCoverageRatio": 0.8957
+        "cumulativeFeatures": 583,
+        "cumulativeCoverageRatio": 0.8969
       },
       {
         "packageId": "web-corp.corporatecontent",
@@ -5983,12 +5992,12 @@
           "targetFields:prohibitedDescendants",
           "targetFields:slots"
         ],
-        "cumulativeFeatures": 601,
-        "cumulativeCoverageRatio": 0.9218
+        "cumulativeFeatures": 600,
+        "cumulativeCoverageRatio": 0.9231
       },
       {
         "packageId": "web-corp.buttonstack",
-        "gain": 16,
+        "gain": 15,
         "novelFeatures": [
           "ruleFields:recommendedLimit",
           "assertionFields:recommendedLimit",
@@ -6004,11 +6013,10 @@
           "conditionFields:conditions.readyBlocking",
           "conditionFields:conditions.scrollsWithContent",
           "conditionFields:conditions.selectionRule",
-          "compositionOperators:countBetween",
           "compositionOperators:propertySequence"
         ],
-        "cumulativeFeatures": 617,
-        "cumulativeCoverageRatio": 0.9463
+        "cumulativeFeatures": 615,
+        "cumulativeCoverageRatio": 0.9462
       },
       {
         "packageId": "web-corp.tabsview",
@@ -6028,8 +6036,8 @@
           "assertionFields:maximumValue",
           "targetFields:path"
         ],
-        "cumulativeFeatures": 630,
-        "cumulativeCoverageRatio": 0.9663
+        "cumulativeFeatures": 628,
+        "cumulativeCoverageRatio": 0.9662
       },
       {
         "packageId": "web-corp.amountstyles",
@@ -6048,8 +6056,8 @@
           "conditionFields:conditions.value",
           "remediationFields:remediation.properties.Opacity"
         ],
-        "cumulativeFeatures": 642,
-        "cumulativeCoverageRatio": 0.9847
+        "cumulativeFeatures": 640,
+        "cumulativeCoverageRatio": 0.9846
       },
       {
         "packageId": "web-corp.table-basic",
@@ -6063,7 +6071,7 @@
           "conditionFields:conditions.rows",
           "conditionFields:conditions.rows[]"
         ],
-        "cumulativeFeatures": 649,
+        "cumulativeFeatures": 647,
         "cumulativeCoverageRatio": 0.9954
       },
       {
@@ -6073,7 +6081,7 @@
           "ruleFields:designSeverity",
           "checkTypes:contextual"
         ],
-        "cumulativeFeatures": 651,
+        "cumulativeFeatures": 649,
         "cumulativeCoverageRatio": 0.9985
       },
       {
@@ -6082,42 +6090,42 @@
         "novelFeatures": [
           "compositionOperators:propertyEqualsHost"
         ],
-        "cumulativeFeatures": 652,
+        "cumulativeFeatures": 650,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp-promo.benefitcard",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 652,
+        "cumulativeFeatures": 650,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp.corporateappheadernew",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 652,
+        "cumulativeFeatures": 650,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp.corporatetopbar",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 652,
+        "cumulativeFeatures": 650,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp.faq",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 652,
+        "cumulativeFeatures": 650,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp.onboarding-tooltip",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 652,
+        "cumulativeFeatures": 650,
         "cumulativeCoverageRatio": 1
       }
     ],
@@ -6531,7 +6539,7 @@
           "overridePolicyPaths:manual.tableWidePolicy.topBarPlacement"
         ],
         "cumulativeFeatures": 403,
-        "cumulativeCoverageRatio": 0.1385
+        "cumulativeCoverageRatio": 0.1386
       },
       {
         "packageId": "web-corp.table-basic",
@@ -6841,7 +6849,7 @@
           "overridePolicyPaths:manual.visualStatePolicy.selected"
         ],
         "cumulativeFeatures": 705,
-        "cumulativeCoverageRatio": 0.2423
+        "cumulativeCoverageRatio": 0.2424
       },
       {
         "packageId": "web-corp.accountselect",
@@ -7088,7 +7096,7 @@
           "overridePolicyPaths:manual.visualBaselinePolicy.properties[]"
         ],
         "cumulativeFeatures": 944,
-        "cumulativeCoverageRatio": 0.3244
+        "cumulativeCoverageRatio": 0.3246
       },
       {
         "packageId": "web-corp-promo.benefitsblock",
@@ -7288,7 +7296,7 @@
           "overridePolicyPaths:manual.variantSemantics.Image"
         ],
         "cumulativeFeatures": 1136,
-        "cumulativeCoverageRatio": 0.3904
+        "cumulativeCoverageRatio": 0.3906
       },
       {
         "packageId": "web-corp.corporatesystemmessage",
@@ -7449,11 +7457,11 @@
           "overridePolicyPaths:manual.viewSemantics.Progress"
         ],
         "cumulativeFeatures": 1289,
-        "cumulativeCoverageRatio": 0.443
+        "cumulativeCoverageRatio": 0.4433
       },
       {
         "packageId": "web-corp.cardimage",
-        "gain": 141,
+        "gain": 142,
         "novelFeatures": [
           "conditionFields:conditions.212x132",
           "conditionFields:conditions.212x132[]",
@@ -7463,27 +7471,28 @@
           "conditionFields:conditions.44x28",
           "conditionFields:conditions.68x42",
           "conditionFields:conditions.68x42[]",
-          "conditionFields:conditions.allowedSizes",
-          "conditionFields:conditions.allowedSizes[]",
           "conditionFields:conditions.customImageRequiresCover",
           "conditionFields:conditions.format",
-          "conditionFields:conditions.manualResizeAllowed",
           "conditionFields:conditions.maxLines",
-          "conditionFields:conditions.minimumCards",
           "conditionFields:conditions.operation",
           "conditionFields:conditions.overflow",
-          "conditionFields:conditions.required.State",
-          "conditionFields:conditions.requiredState",
           "conditionFields:conditions.singleCard",
           "conditionFields:conditions.size24x16",
           "conditionFields:conditions.stack44x28",
           "conditionFields:conditions.stack68x42",
           "conditionFields:conditions.targetPath",
           "conditionFields:conditions.uppercase",
+          "conditionFields:conditions.variant.Size",
+          "conditionFields:conditions.variant.Size[]",
+          "conditionFields:conditions.variant.Stack",
           "conditionFields:conditions.visibleDigits",
-          "conditionFields:conditions.when",
-          "conditionFields:conditions.when.Size",
-          "conditionFields:conditions.when.Stack",
+          "remediationFields:remediation.kind",
+          "remediationFields:remediation.properties",
+          "remediationFields:remediation.properties.Stack",
+          "remediationFields:remediation.properties.State",
+          "remediationFields:remediation.target",
+          "compositionMatchFields:hostComponentNames",
+          "compositionSelectFields:nestedComponentNames",
           "overridePolicyPaths:manual.componentPropertySemantics",
           "overridePolicyPaths:manual.componentPropertySemantics.Show Shadow",
           "overridePolicyPaths:manual.componentPropertySemantics.Show Shadow.availableForSizes",
@@ -7597,22 +7606,305 @@
           "overridePolicyPaths:manual.visualPolicy.silverLineBySize.44x28",
           "overridePolicyPaths:manual.visualPolicy.silverLineBySize.68x42"
         ],
-        "cumulativeFeatures": 1430,
-        "cumulativeCoverageRatio": 0.4914
+        "cumulativeFeatures": 1431,
+        "cumulativeCoverageRatio": 0.4921
+      },
+      {
+        "packageId": "web-corp-promo.promomainblock",
+        "gain": 135,
+        "novelFeatures": [
+          "conditionFields:conditions.allowed",
+          "conditionFields:conditions.allowed[]",
+          "conditionFields:conditions.allowedInteractiveRegions",
+          "conditionFields:conditions.allowedInteractiveRegions[]",
+          "conditionFields:conditions.allowedWhen",
+          "conditionFields:conditions.appearanceIsTheme",
+          "conditionFields:conditions.canonical",
+          "conditionFields:conditions.componentOwned",
+          "conditionFields:conditions.componentOwned[]",
+          "conditionFields:conditions.containerClickable",
+          "conditionFields:conditions.Dark",
+          "conditionFields:conditions.desktop",
+          "conditionFields:conditions.desktopOnly",
+          "conditionFields:conditions.desktopOnly[]",
+          "conditionFields:conditions.figmaOnly",
+          "conditionFields:conditions.inherits",
+          "conditionFields:conditions.legacyVariants",
+          "conditionFields:conditions.Light",
+          "conditionFields:conditions.manualAlignmentRequired",
+          "conditionFields:conditions.manualGapAllowed",
+          "conditionFields:conditions.manualOverlaySelectionAllowed",
+          "conditionFields:conditions.manualPaddingAllowed",
+          "conditionFields:conditions.manualPresetChangeAllowed",
+          "conditionFields:conditions.max",
+          "conditionFields:conditions.maxCount",
+          "conditionFields:conditions.minWhenVisible",
+          "conditionFields:conditions.mobile",
+          "conditionFields:conditions.mobileViewExposed",
+          "conditionFields:conditions.Modal",
+          "conditionFields:conditions.modalOptional",
+          "conditionFields:conditions.order",
+          "conditionFields:conditions.order[]",
+          "conditionFields:conditions.Page",
+          "conditionFields:conditions.patternStatus",
+          "conditionFields:conditions.platformBackground",
+          "conditionFields:conditions.platformBackground.desktopPage",
+          "conditionFields:conditions.platformBackground.mobileWeb",
+          "conditionFields:conditions.preserve",
+          "conditionFields:conditions.preserve[]",
+          "conditionFields:conditions.preserveAcrossPlatforms",
+          "conditionFields:conditions.recommended",
+          "conditionFields:conditions.recommended.Background",
+          "conditionFields:conditions.replacement",
+          "conditionFields:conditions.required.Background",
+          "conditionFields:conditions.requiredPresetWhenActionsVisible",
+          "conditionFields:conditions.requiredWhen",
+          "conditionFields:conditions.requiredWhen[]",
+          "conditionFields:conditions.selectionSource",
+          "conditionFields:conditions.source",
+          "conditionFields:conditions.status",
+          "conditionFields:conditions.Subtitle",
+          "conditionFields:conditions.Subtitle.charactersMax",
+          "conditionFields:conditions.Subtitle.linesMax",
+          "conditionFields:conditions.supported",
+          "conditionFields:conditions.when",
+          "conditionFields:conditions.when.Background",
+          "conditionFields:conditions.when.BlurEffect",
+          "conditionFields:conditions.when.platform",
+          "conditionFields:conditions.when.View",
+          "conditionFields:conditions.whenVisibleCount",
+          "conditionFields:conditions.whenVisibleCount[]",
+          "overridePolicyPaths:manual.actionPolicy",
+          "overridePolicyPaths:manual.actionPolicy.desktopAllowed",
+          "overridePolicyPaths:manual.actionPolicy.desktopAllowed[]",
+          "overridePolicyPaths:manual.actionPolicy.mobilePreset",
+          "overridePolicyPaths:manual.actionPolicy.mobilePresetStatus",
+          "overridePolicyPaths:manual.actionPolicy.optional",
+          "overridePolicyPaths:manual.actionPolicy.rawMobileButtonGroupIsTarget",
+          "overridePolicyPaths:manual.contentModel.bottomSlot",
+          "overridePolicyPaths:manual.contentModel.bottomSlot.allowedContent",
+          "overridePolicyPaths:manual.contentModel.bottomSlot.allowedContent[]",
+          "overridePolicyPaths:manual.contentModel.bottomSlot.optional",
+          "overridePolicyPaths:manual.contentModel.holding",
+          "overridePolicyPaths:manual.contentModel.holding.allowedWhen",
+          "overridePolicyPaths:manual.contentModel.holding.componentContract",
+          "overridePolicyPaths:manual.contentModel.holding.optional",
+          "overridePolicyPaths:manual.contentModel.holding.preserveAcrossPlatforms",
+          "overridePolicyPaths:manual.contentModel.status",
+          "overridePolicyPaths:manual.contentModel.status.componentContract",
+          "overridePolicyPaths:manual.contentModel.status.count",
+          "overridePolicyPaths:manual.contentModel.status.count.max",
+          "overridePolicyPaths:manual.contentModel.status.count.minWhenVisible",
+          "overridePolicyPaths:manual.contentModel.status.count.recommended",
+          "overridePolicyPaths:manual.contentModel.status.count.warningWhen",
+          "overridePolicyPaths:manual.contentModel.status.count.warningWhen[]",
+          "overridePolicyPaths:manual.contentModel.status.optional",
+          "overridePolicyPaths:manual.contentModel.status.platformPresetCasing",
+          "overridePolicyPaths:manual.contentModel.status.platformPresetCasing.desktopUppercase",
+          "overridePolicyPaths:manual.contentModel.status.platformPresetCasing.manualAlignmentRequired",
+          "overridePolicyPaths:manual.contentModel.status.platformPresetCasing.mobileUppercase",
+          "overridePolicyPaths:manual.imagePolicy.source",
+          "overridePolicyPaths:manual.interactionPolicy.containerClickable",
+          "overridePolicyPaths:manual.interactionPolicy.interactiveRegions",
+          "overridePolicyPaths:manual.interactionPolicy.interactiveRegions[]",
+          "overridePolicyPaths:manual.layoutOwnership.componentOwned",
+          "overridePolicyPaths:manual.layoutOwnership.componentOwned[]",
+          "overridePolicyPaths:manual.layoutOwnership.order",
+          "overridePolicyPaths:manual.layoutOwnership.order[]",
+          "overridePolicyPaths:manual.lifecycle.replacement",
+          "overridePolicyPaths:manual.loadingPolicy.supported",
+          "overridePolicyPaths:manual.overlayPolicy",
+          "overridePolicyPaths:manual.overlayPolicy.internalFamilies",
+          "overridePolicyPaths:manual.overlayPolicy.internalFamilies[]",
+          "overridePolicyPaths:manual.overlayPolicy.manualPresetChangeAllowed",
+          "overridePolicyPaths:manual.overlayPolicy.manualSelectionAllowed",
+          "overridePolicyPaths:manual.overlayPolicy.selectionSource",
+          "overridePolicyPaths:manual.publicApi.roots",
+          "overridePolicyPaths:manual.publicApi.roots[]",
+          "overridePolicyPaths:manual.responsivePolicy.desktopOnly",
+          "overridePolicyPaths:manual.responsivePolicy.desktopOnly[]",
+          "overridePolicyPaths:manual.responsivePolicy.platformBackground",
+          "overridePolicyPaths:manual.responsivePolicy.platformBackground.desktopPage",
+          "overridePolicyPaths:manual.responsivePolicy.platformBackground.mobileWeb",
+          "overridePolicyPaths:manual.textLimits.Subtitle",
+          "overridePolicyPaths:manual.textLimits.Subtitle.characters",
+          "overridePolicyPaths:manual.textLimits.Subtitle.lines",
+          "overridePolicyPaths:manual.usage.maxPerPage",
+          "overridePolicyPaths:manual.usage.pagePlacement",
+          "overridePolicyPaths:manual.variantSemantics.Appearance",
+          "overridePolicyPaths:manual.variantSemantics.Appearance.Dark",
+          "overridePolicyPaths:manual.variantSemantics.Appearance.isTheme",
+          "overridePolicyPaths:manual.variantSemantics.Appearance.Light",
+          "overridePolicyPaths:manual.variantSemantics.Background.False",
+          "overridePolicyPaths:manual.variantSemantics.Background.True",
+          "overridePolicyPaths:manual.variantSemantics.BlurEffect",
+          "overridePolicyPaths:manual.variantSemantics.BlurEffect.effect",
+          "overridePolicyPaths:manual.variantSemantics.BlurEffect.optionalWhen",
+          "overridePolicyPaths:manual.variantSemantics.BlurEffect.requiredWhen",
+          "overridePolicyPaths:manual.variantSemantics.Compact.desktopOnly",
+          "overridePolicyPaths:manual.variantSemantics.Compact.requiredWhen",
+          "overridePolicyPaths:manual.variantSemantics.Compact.requiredWhen[]",
+          "overridePolicyPaths:manual.variantSemantics.View",
+          "overridePolicyPaths:manual.variantSemantics.View.mobileExposed",
+          "overridePolicyPaths:manual.variantSemantics.View.Modal",
+          "overridePolicyPaths:manual.variantSemantics.View.Page"
+        ],
+        "cumulativeFeatures": 1566,
+        "cumulativeCoverageRatio": 0.5385
+      },
+      {
+        "packageId": "web-corp.tabsview",
+        "gain": 134,
+        "novelFeatures": [
+          "ruleFields:allowedAddonTypes",
+          "ruleFields:allowedLevels",
+          "ruleFields:allowedState",
+          "ruleFields:indicatorSemantics",
+          "ruleFields:maximumCharacters",
+          "ruleFields:maximumLevels",
+          "ruleFields:maximumValue",
+          "ruleFields:requiredSpacing",
+          "assertionFields:allowedAddonTypes",
+          "assertionFields:allowedLevels",
+          "assertionFields:allowedState",
+          "assertionFields:indicatorSemantics",
+          "assertionFields:maximumCharacters",
+          "assertionFields:maximumLevels",
+          "assertionFields:maximumValue",
+          "assertionFields:requiredSpacing",
+          "targetFields:path",
+          "overridePolicyPaths:manual.adaptiveParityPolicy",
+          "overridePolicyPaths:manual.adaptiveParityPolicy.desktopAndMobileWebMustMatch",
+          "overridePolicyPaths:manual.adaptiveParityPolicy.desktopAndMobileWebMustMatch[]",
+          "overridePolicyPaths:manual.allowedOverrides",
+          "overridePolicyPaths:manual.allowedOverrides[]",
+          "overridePolicyPaths:manual.anatomySemantics.primaryItems",
+          "overridePolicyPaths:manual.anatomySemantics.primaryItems.designerEditable",
+          "overridePolicyPaths:manual.anatomySemantics.primaryItems.notes",
+          "overridePolicyPaths:manual.anatomySemantics.primaryItems.path",
+          "overridePolicyPaths:manual.anatomySemantics.primaryItems.scope",
+          "overridePolicyPaths:manual.anatomySemantics.primaryLabel",
+          "overridePolicyPaths:manual.anatomySemantics.primaryLabel.designerEditable",
+          "overridePolicyPaths:manual.anatomySemantics.primaryLabel.path",
+          "overridePolicyPaths:manual.anatomySemantics.primaryLabel.scope",
+          "overridePolicyPaths:manual.anatomySemantics.tabPrimary",
+          "overridePolicyPaths:manual.anatomySemantics.tabPrimary.designerEditable",
+          "overridePolicyPaths:manual.anatomySemantics.tabPrimary.path",
+          "overridePolicyPaths:manual.anatomySemantics.tabPrimary.scope",
+          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary",
+          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary.designerEditable",
+          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary.notes",
+          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary.path",
+          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary.scope",
+          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary",
+          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary.designerEditable",
+          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary.notes",
+          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary.path",
+          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary.scope",
+          "overridePolicyPaths:manual.availabilityPolicy",
+          "overridePolicyPaths:manual.availabilityPolicy.hideUnavailableTabs",
+          "overridePolicyPaths:manual.availabilityPolicy.unavailableTabBehavior",
+          "overridePolicyPaths:manual.contentBindingPolicy",
+          "overridePolicyPaths:manual.contentBindingPolicy.directPrimaryContentWhenSecondaryExists",
+          "overridePolicyPaths:manual.contentBindingPolicy.levels",
+          "overridePolicyPaths:manual.contentBindingPolicy.levels[]",
+          "overridePolicyPaths:manual.contentBindingPolicy.maximumTabLevels",
+          "overridePolicyPaths:manual.contentBindingPolicy.thirdLevelAllowed",
+          "overridePolicyPaths:manual.contentBindingPolicy.whenSecondaryExists",
+          "overridePolicyPaths:manual.contentPolicy.duplicateLabelsWithinLevelAllowed",
+          "overridePolicyPaths:manual.contentPolicy.labelEditable",
+          "overridePolicyPaths:manual.contentPolicy.labelLines",
+          "overridePolicyPaths:manual.contentPolicy.labelMaximumCharacters",
+          "overridePolicyPaths:manual.contentPolicy.labelOverflowBehavior",
+          "overridePolicyPaths:manual.contentPolicy.primaryAddonAllowed",
+          "overridePolicyPaths:manual.contentPolicy.primaryAddonAllowedTypes",
+          "overridePolicyPaths:manual.contentPolicy.primaryAddonAllowedTypes[]",
+          "overridePolicyPaths:manual.contentPolicy.primaryAddonSwapAllowed",
+          "overridePolicyPaths:manual.contentPolicy.primaryAddonVisibility",
+          "overridePolicyPaths:manual.forbiddenOverrides",
+          "overridePolicyPaths:manual.forbiddenOverrides[]",
+          "overridePolicyPaths:manual.interactionPolicy.activeTabRepeatedClick",
+          "overridePolicyPaths:manual.interactionPolicy.navigationModes",
+          "overridePolicyPaths:manual.interactionPolicy.navigationModes[]",
+          "overridePolicyPaths:manual.interactionPolicy.onActiveTabBecomesUnavailable",
+          "overridePolicyPaths:manual.loadingPolicy.activeTabRemainsActiveWhileReloading",
+          "overridePolicyPaths:manual.loadingPolicy.individualReloadAllowedFor",
+          "overridePolicyPaths:manual.loadingPolicy.individualTabReloadAllowed",
+          "overridePolicyPaths:manual.loadingPolicy.navigationAvailableWhileTabReloading",
+          "overridePolicyPaths:manual.loadingPolicy.rootSkeletonPresentation",
+          "overridePolicyPaths:manual.loadingPolicy.rootSkeletonScope",
+          "overridePolicyPaths:manual.overflowPolicy",
+          "overridePolicyPaths:manual.overflowPolicy.desktop",
+          "overridePolicyPaths:manual.overflowPolicy.mobileWeb",
+          "overridePolicyPaths:manual.publicApi.variantProperties",
+          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton",
+          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton.description",
+          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton.kind",
+          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton.values",
+          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton.values[]",
+          "overridePolicyPaths:manual.resetModel.wrapperOwnedLayerProperties",
+          "overridePolicyPaths:manual.resetModel.wrapperOwnedLayerProperties[]",
+          "overridePolicyPaths:manual.secondaryContextPolicy",
+          "overridePolicyPaths:manual.secondaryContextPolicy.dependsOnSelectedPrimary",
+          "overridePolicyPaths:manual.secondaryContextPolicy.eachPrimaryMayHaveOwnSecondarySet",
+          "overridePolicyPaths:manual.secondaryContextPolicy.onPrimarySelection",
+          "overridePolicyPaths:manual.secondaryContextPolicy.restorePreviousSecondarySelection",
+          "overridePolicyPaths:manual.secondaryContextPolicy.secondaryMayBeAbsentForSelectedPrimary",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.designerEditable",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.designerEditable[]",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed.Shape",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed.SingleIcon",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed.Size",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed.View",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorPurpose",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorPurpose.Collapsed",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorPurpose.Digit",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorPurpose.Hidden",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorValues",
+          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorValues[]",
+          "overridePolicyPaths:manual.spacingPolicy",
+          "overridePolicyPaths:manual.spacingPolicy.designerEditable",
+          "overridePolicyPaths:manual.spacingPolicy.lastVisibleTabLevelToContent",
+          "overridePolicyPaths:manual.spacingPolicy.primaryToSecondary",
+          "overridePolicyPaths:manual.spacingPolicy.unit",
+          "overridePolicyPaths:manual.statePolicy.activePrimaryCount",
+          "overridePolicyPaths:manual.statePolicy.activeSecondaryCountWhenVisible",
+          "overridePolicyPaths:manual.statePolicy.activeTabCanBeDisabled",
+          "overridePolicyPaths:manual.statePolicy.disabledTabsCountTowardMinimumVisible",
+          "overridePolicyPaths:manual.statePolicy.individualDisabledStateAllowed",
+          "overridePolicyPaths:manual.statePolicy.minimumEnabledActiveTabsPerVisibleLevel",
+          "overridePolicyPaths:manual.structurePolicy",
+          "overridePolicyPaths:manual.structurePolicy.maximumVisibleTabs",
+          "overridePolicyPaths:manual.structurePolicy.minimumVisibleTabs",
+          "overridePolicyPaths:manual.structurePolicy.minimumVisibleTabs.primary",
+          "overridePolicyPaths:manual.structurePolicy.minimumVisibleTabs.secondaryWhenVisible",
+          "overridePolicyPaths:manual.structurePolicy.primaryRequired",
+          "overridePolicyPaths:manual.structurePolicy.secondaryRequired",
+          "overridePolicyPaths:manual.tabCollectionPolicy",
+          "overridePolicyPaths:manual.tabCollectionPolicy.designerCanAddTabs",
+          "overridePolicyPaths:manual.tabCollectionPolicy.designerCanHideTabs",
+          "overridePolicyPaths:manual.tabCollectionPolicy.designerCanReorderTabs",
+          "overridePolicyPaths:manual.tabCollectionPolicy.minimumVisibleTabsPerLevel",
+          "overridePolicyPaths:manual.visualBaselinePolicy.forbiddenProperties",
+          "overridePolicyPaths:manual.visualBaselinePolicy.forbiddenProperties[]",
+          "overridePolicyPaths:manual.visualBaselinePolicy.manualVisualOverridesAllowed"
+        ],
+        "cumulativeFeatures": 1700,
+        "cumulativeCoverageRatio": 0.5846
       },
       {
         "packageId": "web-corp.titleview",
-        "gain": 136,
+        "gain": 132,
         "novelFeatures": [
           "ruleFields:recommendedContent",
           "ruleFields:recommendedLayout",
-          "ruleFields:requiredSpacing",
           "ruleFields:requiredVariant",
           "ruleFields:requiredVariantByContext",
           "ruleFields:requiredVariantByHost",
           "assertionFields:recommendedContent",
           "assertionFields:recommendedLayout",
-          "assertionFields:requiredSpacing",
           "assertionFields:requiredVariant",
           "assertionFields:requiredVariantByContext",
           "assertionFields:requiredVariantByHost",
@@ -7632,8 +7924,6 @@
           "conditionFields:conditions.visibleSlot",
           "compositionOperators:propertyEqualsFirst",
           "compositionOperators:valuePosition",
-          "compositionMatchFields:hostComponentNames",
-          "compositionSelectFields:nestedComponentNames",
           "overridePolicyPaths:manual.addonInteractionPolicy",
           "overridePolicyPaths:manual.addonInteractionPolicy.RightAddon",
           "overridePolicyPaths:manual.addonInteractionPolicy.TitleAddon",
@@ -7741,154 +8031,12 @@
           "overridePolicyPaths:manual.statusRelation.whenVisible",
           "overridePolicyPaths:manual.statusRelation.whenVisible[]"
         ],
-        "cumulativeFeatures": 1566,
-        "cumulativeCoverageRatio": 0.5381
-      },
-      {
-        "packageId": "web-corp-promo.promomainblock",
-        "gain": 134,
-        "novelFeatures": [
-          "conditionFields:conditions.allowed",
-          "conditionFields:conditions.allowed[]",
-          "conditionFields:conditions.allowedInteractiveRegions",
-          "conditionFields:conditions.allowedInteractiveRegions[]",
-          "conditionFields:conditions.allowedWhen",
-          "conditionFields:conditions.appearanceIsTheme",
-          "conditionFields:conditions.canonical",
-          "conditionFields:conditions.componentOwned",
-          "conditionFields:conditions.componentOwned[]",
-          "conditionFields:conditions.containerClickable",
-          "conditionFields:conditions.Dark",
-          "conditionFields:conditions.desktop",
-          "conditionFields:conditions.desktopOnly",
-          "conditionFields:conditions.desktopOnly[]",
-          "conditionFields:conditions.figmaOnly",
-          "conditionFields:conditions.inherits",
-          "conditionFields:conditions.legacyVariants",
-          "conditionFields:conditions.Light",
-          "conditionFields:conditions.manualAlignmentRequired",
-          "conditionFields:conditions.manualGapAllowed",
-          "conditionFields:conditions.manualOverlaySelectionAllowed",
-          "conditionFields:conditions.manualPaddingAllowed",
-          "conditionFields:conditions.manualPresetChangeAllowed",
-          "conditionFields:conditions.max",
-          "conditionFields:conditions.maxCount",
-          "conditionFields:conditions.minWhenVisible",
-          "conditionFields:conditions.mobile",
-          "conditionFields:conditions.mobileViewExposed",
-          "conditionFields:conditions.Modal",
-          "conditionFields:conditions.modalOptional",
-          "conditionFields:conditions.order",
-          "conditionFields:conditions.order[]",
-          "conditionFields:conditions.Page",
-          "conditionFields:conditions.patternStatus",
-          "conditionFields:conditions.platformBackground",
-          "conditionFields:conditions.platformBackground.desktopPage",
-          "conditionFields:conditions.platformBackground.mobileWeb",
-          "conditionFields:conditions.preserve",
-          "conditionFields:conditions.preserve[]",
-          "conditionFields:conditions.preserveAcrossPlatforms",
-          "conditionFields:conditions.recommended",
-          "conditionFields:conditions.recommended.Background",
-          "conditionFields:conditions.replacement",
-          "conditionFields:conditions.required.Background",
-          "conditionFields:conditions.requiredPresetWhenActionsVisible",
-          "conditionFields:conditions.requiredWhen",
-          "conditionFields:conditions.requiredWhen[]",
-          "conditionFields:conditions.selectionSource",
-          "conditionFields:conditions.source",
-          "conditionFields:conditions.status",
-          "conditionFields:conditions.Subtitle",
-          "conditionFields:conditions.Subtitle.charactersMax",
-          "conditionFields:conditions.Subtitle.linesMax",
-          "conditionFields:conditions.supported",
-          "conditionFields:conditions.when.Background",
-          "conditionFields:conditions.when.BlurEffect",
-          "conditionFields:conditions.when.platform",
-          "conditionFields:conditions.when.View",
-          "conditionFields:conditions.whenVisibleCount",
-          "conditionFields:conditions.whenVisibleCount[]",
-          "overridePolicyPaths:manual.actionPolicy",
-          "overridePolicyPaths:manual.actionPolicy.desktopAllowed",
-          "overridePolicyPaths:manual.actionPolicy.desktopAllowed[]",
-          "overridePolicyPaths:manual.actionPolicy.mobilePreset",
-          "overridePolicyPaths:manual.actionPolicy.mobilePresetStatus",
-          "overridePolicyPaths:manual.actionPolicy.optional",
-          "overridePolicyPaths:manual.actionPolicy.rawMobileButtonGroupIsTarget",
-          "overridePolicyPaths:manual.contentModel.bottomSlot",
-          "overridePolicyPaths:manual.contentModel.bottomSlot.allowedContent",
-          "overridePolicyPaths:manual.contentModel.bottomSlot.allowedContent[]",
-          "overridePolicyPaths:manual.contentModel.bottomSlot.optional",
-          "overridePolicyPaths:manual.contentModel.holding",
-          "overridePolicyPaths:manual.contentModel.holding.allowedWhen",
-          "overridePolicyPaths:manual.contentModel.holding.componentContract",
-          "overridePolicyPaths:manual.contentModel.holding.optional",
-          "overridePolicyPaths:manual.contentModel.holding.preserveAcrossPlatforms",
-          "overridePolicyPaths:manual.contentModel.status",
-          "overridePolicyPaths:manual.contentModel.status.componentContract",
-          "overridePolicyPaths:manual.contentModel.status.count",
-          "overridePolicyPaths:manual.contentModel.status.count.max",
-          "overridePolicyPaths:manual.contentModel.status.count.minWhenVisible",
-          "overridePolicyPaths:manual.contentModel.status.count.recommended",
-          "overridePolicyPaths:manual.contentModel.status.count.warningWhen",
-          "overridePolicyPaths:manual.contentModel.status.count.warningWhen[]",
-          "overridePolicyPaths:manual.contentModel.status.optional",
-          "overridePolicyPaths:manual.contentModel.status.platformPresetCasing",
-          "overridePolicyPaths:manual.contentModel.status.platformPresetCasing.desktopUppercase",
-          "overridePolicyPaths:manual.contentModel.status.platformPresetCasing.manualAlignmentRequired",
-          "overridePolicyPaths:manual.contentModel.status.platformPresetCasing.mobileUppercase",
-          "overridePolicyPaths:manual.imagePolicy.source",
-          "overridePolicyPaths:manual.interactionPolicy.containerClickable",
-          "overridePolicyPaths:manual.interactionPolicy.interactiveRegions",
-          "overridePolicyPaths:manual.interactionPolicy.interactiveRegions[]",
-          "overridePolicyPaths:manual.layoutOwnership.componentOwned",
-          "overridePolicyPaths:manual.layoutOwnership.componentOwned[]",
-          "overridePolicyPaths:manual.layoutOwnership.order",
-          "overridePolicyPaths:manual.layoutOwnership.order[]",
-          "overridePolicyPaths:manual.lifecycle.replacement",
-          "overridePolicyPaths:manual.loadingPolicy.supported",
-          "overridePolicyPaths:manual.overlayPolicy",
-          "overridePolicyPaths:manual.overlayPolicy.internalFamilies",
-          "overridePolicyPaths:manual.overlayPolicy.internalFamilies[]",
-          "overridePolicyPaths:manual.overlayPolicy.manualPresetChangeAllowed",
-          "overridePolicyPaths:manual.overlayPolicy.manualSelectionAllowed",
-          "overridePolicyPaths:manual.overlayPolicy.selectionSource",
-          "overridePolicyPaths:manual.publicApi.roots",
-          "overridePolicyPaths:manual.publicApi.roots[]",
-          "overridePolicyPaths:manual.responsivePolicy.desktopOnly",
-          "overridePolicyPaths:manual.responsivePolicy.desktopOnly[]",
-          "overridePolicyPaths:manual.responsivePolicy.platformBackground",
-          "overridePolicyPaths:manual.responsivePolicy.platformBackground.desktopPage",
-          "overridePolicyPaths:manual.responsivePolicy.platformBackground.mobileWeb",
-          "overridePolicyPaths:manual.textLimits.Subtitle",
-          "overridePolicyPaths:manual.textLimits.Subtitle.characters",
-          "overridePolicyPaths:manual.textLimits.Subtitle.lines",
-          "overridePolicyPaths:manual.usage.maxPerPage",
-          "overridePolicyPaths:manual.usage.pagePlacement",
-          "overridePolicyPaths:manual.variantSemantics.Appearance",
-          "overridePolicyPaths:manual.variantSemantics.Appearance.Dark",
-          "overridePolicyPaths:manual.variantSemantics.Appearance.isTheme",
-          "overridePolicyPaths:manual.variantSemantics.Appearance.Light",
-          "overridePolicyPaths:manual.variantSemantics.Background.False",
-          "overridePolicyPaths:manual.variantSemantics.Background.True",
-          "overridePolicyPaths:manual.variantSemantics.BlurEffect",
-          "overridePolicyPaths:manual.variantSemantics.BlurEffect.effect",
-          "overridePolicyPaths:manual.variantSemantics.BlurEffect.optionalWhen",
-          "overridePolicyPaths:manual.variantSemantics.BlurEffect.requiredWhen",
-          "overridePolicyPaths:manual.variantSemantics.Compact.desktopOnly",
-          "overridePolicyPaths:manual.variantSemantics.Compact.requiredWhen",
-          "overridePolicyPaths:manual.variantSemantics.Compact.requiredWhen[]",
-          "overridePolicyPaths:manual.variantSemantics.View",
-          "overridePolicyPaths:manual.variantSemantics.View.mobileExposed",
-          "overridePolicyPaths:manual.variantSemantics.View.Modal",
-          "overridePolicyPaths:manual.variantSemantics.View.Page"
-        ],
-        "cumulativeFeatures": 1700,
-        "cumulativeCoverageRatio": 0.5842
+        "cumulativeFeatures": 1832,
+        "cumulativeCoverageRatio": 0.63
       },
       {
         "packageId": "web-corp.amountstyles",
-        "gain": 134,
+        "gain": 131,
         "novelFeatures": [
           "conditionFields:conditions.actualToken",
           "conditionFields:conditions.addonInteractive",
@@ -7901,10 +8049,7 @@
           "conditionFields:conditions.maxCharactersExcludingGroupSeparators",
           "conditionFields:conditions.sourceFractionDigitsGreaterThan",
           "conditionFields:conditions.value",
-          "remediationFields:remediation.kind",
-          "remediationFields:remediation.properties",
           "remediationFields:remediation.properties.Opacity",
-          "remediationFields:remediation.target",
           "overridePolicyPaths:manual.anatomyPolicy",
           "overridePolicyPaths:manual.anatomyPolicy.fixedOrder",
           "overridePolicyPaths:manual.anatomyPolicy.fixedOrder[]",
@@ -8025,148 +8170,8 @@
           "overridePolicyPaths:manual.visualPolicy.sharedColorLayers",
           "overridePolicyPaths:manual.visualPolicy.sharedColorLayers[]"
         ],
-        "cumulativeFeatures": 1834,
-        "cumulativeCoverageRatio": 0.6302
-      },
-      {
-        "packageId": "web-corp.tabsview",
-        "gain": 132,
-        "novelFeatures": [
-          "ruleFields:allowedAddonTypes",
-          "ruleFields:allowedLevels",
-          "ruleFields:allowedState",
-          "ruleFields:indicatorSemantics",
-          "ruleFields:maximumCharacters",
-          "ruleFields:maximumLevels",
-          "ruleFields:maximumValue",
-          "assertionFields:allowedAddonTypes",
-          "assertionFields:allowedLevels",
-          "assertionFields:allowedState",
-          "assertionFields:indicatorSemantics",
-          "assertionFields:maximumCharacters",
-          "assertionFields:maximumLevels",
-          "assertionFields:maximumValue",
-          "targetFields:path",
-          "overridePolicyPaths:manual.adaptiveParityPolicy",
-          "overridePolicyPaths:manual.adaptiveParityPolicy.desktopAndMobileWebMustMatch",
-          "overridePolicyPaths:manual.adaptiveParityPolicy.desktopAndMobileWebMustMatch[]",
-          "overridePolicyPaths:manual.allowedOverrides",
-          "overridePolicyPaths:manual.allowedOverrides[]",
-          "overridePolicyPaths:manual.anatomySemantics.primaryItems",
-          "overridePolicyPaths:manual.anatomySemantics.primaryItems.designerEditable",
-          "overridePolicyPaths:manual.anatomySemantics.primaryItems.notes",
-          "overridePolicyPaths:manual.anatomySemantics.primaryItems.path",
-          "overridePolicyPaths:manual.anatomySemantics.primaryItems.scope",
-          "overridePolicyPaths:manual.anatomySemantics.primaryLabel",
-          "overridePolicyPaths:manual.anatomySemantics.primaryLabel.designerEditable",
-          "overridePolicyPaths:manual.anatomySemantics.primaryLabel.path",
-          "overridePolicyPaths:manual.anatomySemantics.primaryLabel.scope",
-          "overridePolicyPaths:manual.anatomySemantics.tabPrimary",
-          "overridePolicyPaths:manual.anatomySemantics.tabPrimary.designerEditable",
-          "overridePolicyPaths:manual.anatomySemantics.tabPrimary.path",
-          "overridePolicyPaths:manual.anatomySemantics.tabPrimary.scope",
-          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary",
-          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary.designerEditable",
-          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary.notes",
-          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary.path",
-          "overridePolicyPaths:manual.anatomySemantics.tabsPrimary.scope",
-          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary",
-          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary.designerEditable",
-          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary.notes",
-          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary.path",
-          "overridePolicyPaths:manual.anatomySemantics.tabsSecondary.scope",
-          "overridePolicyPaths:manual.availabilityPolicy",
-          "overridePolicyPaths:manual.availabilityPolicy.hideUnavailableTabs",
-          "overridePolicyPaths:manual.availabilityPolicy.unavailableTabBehavior",
-          "overridePolicyPaths:manual.contentBindingPolicy",
-          "overridePolicyPaths:manual.contentBindingPolicy.directPrimaryContentWhenSecondaryExists",
-          "overridePolicyPaths:manual.contentBindingPolicy.levels",
-          "overridePolicyPaths:manual.contentBindingPolicy.levels[]",
-          "overridePolicyPaths:manual.contentBindingPolicy.maximumTabLevels",
-          "overridePolicyPaths:manual.contentBindingPolicy.thirdLevelAllowed",
-          "overridePolicyPaths:manual.contentBindingPolicy.whenSecondaryExists",
-          "overridePolicyPaths:manual.contentPolicy.duplicateLabelsWithinLevelAllowed",
-          "overridePolicyPaths:manual.contentPolicy.labelEditable",
-          "overridePolicyPaths:manual.contentPolicy.labelLines",
-          "overridePolicyPaths:manual.contentPolicy.labelMaximumCharacters",
-          "overridePolicyPaths:manual.contentPolicy.labelOverflowBehavior",
-          "overridePolicyPaths:manual.contentPolicy.primaryAddonAllowed",
-          "overridePolicyPaths:manual.contentPolicy.primaryAddonAllowedTypes",
-          "overridePolicyPaths:manual.contentPolicy.primaryAddonAllowedTypes[]",
-          "overridePolicyPaths:manual.contentPolicy.primaryAddonSwapAllowed",
-          "overridePolicyPaths:manual.contentPolicy.primaryAddonVisibility",
-          "overridePolicyPaths:manual.forbiddenOverrides",
-          "overridePolicyPaths:manual.forbiddenOverrides[]",
-          "overridePolicyPaths:manual.interactionPolicy.activeTabRepeatedClick",
-          "overridePolicyPaths:manual.interactionPolicy.navigationModes",
-          "overridePolicyPaths:manual.interactionPolicy.navigationModes[]",
-          "overridePolicyPaths:manual.interactionPolicy.onActiveTabBecomesUnavailable",
-          "overridePolicyPaths:manual.loadingPolicy.activeTabRemainsActiveWhileReloading",
-          "overridePolicyPaths:manual.loadingPolicy.individualReloadAllowedFor",
-          "overridePolicyPaths:manual.loadingPolicy.individualTabReloadAllowed",
-          "overridePolicyPaths:manual.loadingPolicy.navigationAvailableWhileTabReloading",
-          "overridePolicyPaths:manual.loadingPolicy.rootSkeletonPresentation",
-          "overridePolicyPaths:manual.loadingPolicy.rootSkeletonScope",
-          "overridePolicyPaths:manual.overflowPolicy",
-          "overridePolicyPaths:manual.overflowPolicy.desktop",
-          "overridePolicyPaths:manual.overflowPolicy.mobileWeb",
-          "overridePolicyPaths:manual.publicApi.variantProperties",
-          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton",
-          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton.description",
-          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton.kind",
-          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton.values",
-          "overridePolicyPaths:manual.publicApi.variantProperties.Skeleton.values[]",
-          "overridePolicyPaths:manual.resetModel.wrapperOwnedLayerProperties",
-          "overridePolicyPaths:manual.resetModel.wrapperOwnedLayerProperties[]",
-          "overridePolicyPaths:manual.secondaryContextPolicy",
-          "overridePolicyPaths:manual.secondaryContextPolicy.dependsOnSelectedPrimary",
-          "overridePolicyPaths:manual.secondaryContextPolicy.eachPrimaryMayHaveOwnSecondarySet",
-          "overridePolicyPaths:manual.secondaryContextPolicy.onPrimarySelection",
-          "overridePolicyPaths:manual.secondaryContextPolicy.restorePreviousSecondarySelection",
-          "overridePolicyPaths:manual.secondaryContextPolicy.secondaryMayBeAbsentForSelectedPrimary",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.designerEditable",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.designerEditable[]",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed.Shape",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed.SingleIcon",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed.Size",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.fixed.View",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorPurpose",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorPurpose.Collapsed",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorPurpose.Digit",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorPurpose.Hidden",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorValues",
-          "overridePolicyPaths:manual.secondaryPropertyPolicy.indicatorValues[]",
-          "overridePolicyPaths:manual.spacingPolicy",
-          "overridePolicyPaths:manual.spacingPolicy.designerEditable",
-          "overridePolicyPaths:manual.spacingPolicy.lastVisibleTabLevelToContent",
-          "overridePolicyPaths:manual.spacingPolicy.primaryToSecondary",
-          "overridePolicyPaths:manual.spacingPolicy.unit",
-          "overridePolicyPaths:manual.statePolicy.activePrimaryCount",
-          "overridePolicyPaths:manual.statePolicy.activeSecondaryCountWhenVisible",
-          "overridePolicyPaths:manual.statePolicy.activeTabCanBeDisabled",
-          "overridePolicyPaths:manual.statePolicy.disabledTabsCountTowardMinimumVisible",
-          "overridePolicyPaths:manual.statePolicy.individualDisabledStateAllowed",
-          "overridePolicyPaths:manual.statePolicy.minimumEnabledActiveTabsPerVisibleLevel",
-          "overridePolicyPaths:manual.structurePolicy",
-          "overridePolicyPaths:manual.structurePolicy.maximumVisibleTabs",
-          "overridePolicyPaths:manual.structurePolicy.minimumVisibleTabs",
-          "overridePolicyPaths:manual.structurePolicy.minimumVisibleTabs.primary",
-          "overridePolicyPaths:manual.structurePolicy.minimumVisibleTabs.secondaryWhenVisible",
-          "overridePolicyPaths:manual.structurePolicy.primaryRequired",
-          "overridePolicyPaths:manual.structurePolicy.secondaryRequired",
-          "overridePolicyPaths:manual.tabCollectionPolicy",
-          "overridePolicyPaths:manual.tabCollectionPolicy.designerCanAddTabs",
-          "overridePolicyPaths:manual.tabCollectionPolicy.designerCanHideTabs",
-          "overridePolicyPaths:manual.tabCollectionPolicy.designerCanReorderTabs",
-          "overridePolicyPaths:manual.tabCollectionPolicy.minimumVisibleTabsPerLevel",
-          "overridePolicyPaths:manual.visualBaselinePolicy.forbiddenProperties",
-          "overridePolicyPaths:manual.visualBaselinePolicy.forbiddenProperties[]",
-          "overridePolicyPaths:manual.visualBaselinePolicy.manualVisualOverridesAllowed"
-        ],
-        "cumulativeFeatures": 1966,
-        "cumulativeCoverageRatio": 0.6756
+        "cumulativeFeatures": 1963,
+        "cumulativeCoverageRatio": 0.675
       },
       {
         "packageId": "web-corp.corporatetopbar",
@@ -8303,8 +8308,8 @@
           "overridePolicyPaths:manual.textPolicy.fixed",
           "overridePolicyPaths:manual.textPolicy.fixed[]"
         ],
-        "cumulativeFeatures": 2096,
-        "cumulativeCoverageRatio": 0.7203
+        "cumulativeFeatures": 2093,
+        "cumulativeCoverageRatio": 0.7197
       },
       {
         "packageId": "web-corp.fileupload",
@@ -8427,8 +8432,8 @@
           "overridePolicyPaths:manual.viewPolicy.Secondary",
           "overridePolicyPaths:manual.visualBaselinePolicy.manualChangesAllowed"
         ],
-        "cumulativeFeatures": 2212,
-        "cumulativeCoverageRatio": 0.7601
+        "cumulativeFeatures": 2209,
+        "cumulativeCoverageRatio": 0.7596
       },
       {
         "packageId": "web-corp.table-wide",
@@ -8551,8 +8556,8 @@
           "overridePolicyPaths:manual.usagePolicy.maxGroupingLevels",
           "overridePolicyPaths:manual.usagePolicy.supportsGrouping"
         ],
-        "cumulativeFeatures": 2328,
-        "cumulativeCoverageRatio": 0.8
+        "cumulativeFeatures": 2325,
+        "cumulativeCoverageRatio": 0.7995
       },
       {
         "packageId": "web-corp.corporatecontent",
@@ -8668,12 +8673,12 @@
           "overridePolicyPaths:manual.corporateContent.sectionPolicy.tabletIsle.trueInModes[]",
           "overridePolicyPaths:manual.corporateContent.standaloneFigmaUsageAllowed"
         ],
-        "cumulativeFeatures": 2437,
-        "cumulativeCoverageRatio": 0.8375
+        "cumulativeFeatures": 2434,
+        "cumulativeCoverageRatio": 0.837
       },
       {
         "packageId": "web-corp.cardswipermobile",
-        "gain": 104,
+        "gain": 105,
         "novelFeatures": [
           "conditionFields:conditions.320-360",
           "conditionFields:conditions.320-360.maxViewport",
@@ -8690,6 +8695,7 @@
           "conditionFields:conditions.currentCard.Size",
           "conditionFields:conditions.currentCard.Stack",
           "conditionFields:conditions.fallback",
+          "conditionFields:conditions.manualResizeAllowed",
           "conditionFields:conditions.maximumCardCount",
           "conditionFields:conditions.minimumCardCount",
           "conditionFields:conditions.neighborCards",
@@ -8780,8 +8786,8 @@
           "overridePolicyPaths:manual.variantSemantics.Screen Size.manualChoiceAllowed",
           "overridePolicyPaths:manual.variantSemantics.Screen Size.ownerOverride"
         ],
-        "cumulativeFeatures": 2541,
-        "cumulativeCoverageRatio": 0.8732
+        "cumulativeFeatures": 2539,
+        "cumulativeCoverageRatio": 0.8731
       },
       {
         "packageId": "web-corp.buttonstack",
@@ -8872,8 +8878,8 @@
           "overridePolicyPaths:manual.variantSemantics.Presets.Primary + Icon",
           "overridePolicyPaths:manual.variantSemantics.Presets.Secondary"
         ],
-        "cumulativeFeatures": 2625,
-        "cumulativeCoverageRatio": 0.9021
+        "cumulativeFeatures": 2623,
+        "cumulativeCoverageRatio": 0.902
       },
       {
         "packageId": "web-corp.tableview",
@@ -8964,7 +8970,7 @@
           "overridePolicyPaths:manual.textPolicy.editableContent[]",
           "overridePolicyPaths:manual.textPolicy.headerStructureMustMatchDataColumns"
         ],
-        "cumulativeFeatures": 2709,
+        "cumulativeFeatures": 2707,
         "cumulativeCoverageRatio": 0.9309
       },
       {
@@ -9041,7 +9047,7 @@
           "overridePolicyPaths:manual.sizing.equalCardHeightAcrossPreset",
           "overridePolicyPaths:manual.variantSemantics.Capacity"
         ],
-        "cumulativeFeatures": 2778,
+        "cumulativeFeatures": 2776,
         "cumulativeCoverageRatio": 0.9546
       },
       {
@@ -9108,7 +9114,7 @@
           "overridePolicyPaths:manual.variantSemantics.SingleIcon.optionalFromButtonCount",
           "overridePolicyPaths:manual.variantSemantics.SingleIcon.position"
         ],
-        "cumulativeFeatures": 2837,
+        "cumulativeFeatures": 2835,
         "cumulativeCoverageRatio": 0.9749
       },
       {
@@ -9165,8 +9171,8 @@
           "overridePolicyPaths:manual.allowedOverrides.text[]",
           "overridePolicyPaths:manual.semanticComponents[].shape"
         ],
-        "cumulativeFeatures": 2886,
-        "cumulativeCoverageRatio": 0.9918
+        "cumulativeFeatures": 2884,
+        "cumulativeCoverageRatio": 0.9917
       },
       {
         "packageId": "web-corp.corporateappheadernew",
@@ -9189,8 +9195,8 @@
           "overridePolicyPaths:manual.usageModel.width768",
           "overridePolicyPaths:manual.usageModel.width768[]"
         ],
-        "cumulativeFeatures": 2902,
-        "cumulativeCoverageRatio": 0.9973
+        "cumulativeFeatures": 2900,
+        "cumulativeCoverageRatio": 0.9972
       },
       {
         "packageId": "web-corp-promo.promocard",
@@ -9202,7 +9208,7 @@
           "overridePolicyPaths:manual.internalOnly",
           "overridePolicyPaths:manual.internalOnly[]"
         ],
-        "cumulativeFeatures": 2907,
+        "cumulativeFeatures": 2905,
         "cumulativeCoverageRatio": 0.999
       },
       {
@@ -9212,7 +9218,7 @@
           "overridePolicyPaths:manual.semanticComponents[].requiredParts",
           "overridePolicyPaths:manual.semanticComponents[].requiredParts[]"
         ],
-        "cumulativeFeatures": 2909,
+        "cumulativeFeatures": 2907,
         "cumulativeCoverageRatio": 0.9997
       },
       {
@@ -9221,14 +9227,14 @@
         "novelFeatures": [
           "overridePolicyPaths:manual.semanticComponents[].matchingItem"
         ],
-        "cumulativeFeatures": 2910,
+        "cumulativeFeatures": 2908,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp-promo.benefitcard",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 2910,
+        "cumulativeFeatures": 2908,
         "cumulativeCoverageRatio": 1
       }
     ]
@@ -10990,10 +10996,10 @@
       "platform": "desktop / mobile-web",
       "sourcePath": "JSONS/web/components/web-corp/CardImage",
       "counts": {
-        "rules": 21,
-        "deterministicRules": 13,
-        "compositionContracts": 0,
-        "compositionConstraints": 0,
+        "rules": 22,
+        "deterministicRules": 14,
+        "compositionContracts": 3,
+        "compositionConstraints": 3,
         "subtreePropertyPolicies": 0
       },
       "deterministicRules": [
@@ -11011,15 +11017,28 @@
         },
         {
           "ruleId": "component:web-corp.card-image.fixed-size-only",
-          "assertionFields": []
+          "assertionFields": [
+            "classification",
+            "requiredValue"
+          ]
         },
         {
           "ruleId": "component:web-corp.card-image.xs-active-only",
-          "assertionFields": []
+          "assertionFields": [
+            "requiredValues"
+          ]
         },
         {
           "ruleId": "component:web-corp.card-image.stack-combination",
-          "assertionFields": []
+          "assertionFields": [
+            "requiredValues"
+          ]
+        },
+        {
+          "ruleId": "component:web-corp.card-image.stack-disabled-for-large-sizes",
+          "assertionFields": [
+            "requiredValues"
+          ]
         },
         {
           "ruleId": "component:web-corp.card-image.user-data-by-size",
@@ -11054,18 +11073,25 @@
         "ruleFields": [
           "appliesTo",
           "checkType",
+          "classification",
           "conditions",
           "matchKind",
           "patternId",
           "patternRuleId",
           "remediation",
+          "requiredValue",
+          "requiredValues",
           "ruleId",
           "ruleText",
           "severity",
           "source",
           "target"
         ],
-        "assertionFields": [],
+        "assertionFields": [
+          "classification",
+          "requiredValue",
+          "requiredValues"
+        ],
         "checkTypes": [
           "deterministic",
           "llm",
@@ -11084,35 +11110,43 @@
           "conditions.44x28",
           "conditions.68x42",
           "conditions.68x42[]",
-          "conditions.allowedSizes",
-          "conditions.allowedSizes[]",
           "conditions.customImageRequiresCover",
           "conditions.format",
-          "conditions.manualResizeAllowed",
           "conditions.maxLines",
-          "conditions.minimumCards",
           "conditions.operation",
           "conditions.overflow",
-          "conditions.required",
-          "conditions.required.State",
-          "conditions.requiredState",
           "conditions.singleCard",
           "conditions.size24x16",
           "conditions.stack44x28",
           "conditions.stack68x42",
           "conditions.targetPath",
           "conditions.uppercase",
-          "conditions.visibleDigits",
-          "conditions.when",
-          "conditions.when.Size",
-          "conditions.when.Stack"
+          "conditions.variant",
+          "conditions.variant.Size",
+          "conditions.variant.Size[]",
+          "conditions.variant.Stack",
+          "conditions.visibleDigits"
         ],
         "remediationFields": [
-          "remediation"
+          "remediation",
+          "remediation.kind",
+          "remediation.properties",
+          "remediation.properties.Stack",
+          "remediation.properties.State",
+          "remediation.target"
         ],
-        "compositionOperators": [],
-        "compositionMatchFields": [],
-        "compositionSelectFields": [],
+        "compositionOperators": [
+          "countBetween",
+          "propertyDomain"
+        ],
+        "compositionMatchFields": [
+          "hostComponentNames"
+        ],
+        "compositionSelectFields": [
+          "nestedComponentNames",
+          "order",
+          "visibility"
+        ],
         "compositionPolicyPaths": [],
         "overridePolicyPaths": [
           "manual.componentPropertySemantics",

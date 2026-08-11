@@ -32,8 +32,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/CardImage/composition-contract.json",
-        "bytes": 11919,
-        "sha256": "62e237a017a5a7f4b198a77a8a8e9afa22c0621232094430380ffbc75d3cc818"
+        "bytes": 14329,
+        "sha256": "dfa26bc2843baad936009e061975cae6fe9d94da960c28234d339ed8344893c0"
       },
       {
         "file": "JSONS/web/components/web-corp/CardImage/contract.generated.json",
@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/CardImage/rules.json",
-        "bytes": 17689,
-        "sha256": "62e4cdafc3ae5b53ff3256d015ec1ea9bdf6ed2cf512a120f7e48b926943b1ed"
+        "bytes": 18950,
+        "sha256": "ac1e0c3a2bb8fd670915254106d572ba82061a4a8cb4a085911d04d75b5ff047"
       }
     ]
   },
@@ -63,13 +63,18 @@
     "ruleIrVersion": 2,
     "selectors": [
       "component-identity",
-      "self-and-descendants"
+      "descendant",
+      "document-order",
+      "self-and-descendants",
+      "visibility"
     ],
     "facts": [
       "baseline.effective",
       "component-api.contract",
       "component.identity",
       "layout.properties",
+      "node.documentOrder",
+      "node.visibility",
       "opacity",
       "ownership.owner",
       "paint.fill",
@@ -82,11 +87,16 @@
       "variant.properties"
     ],
     "operators": [
+      "allMatch",
       "classificationPolicy",
       "componentApiValid",
-      "matchesEffectiveBaseline"
+      "countBetween",
+      "matchesEffectiveBaseline",
+      "oneOf",
+      "propertiesEqual"
     ],
     "remediations": [
+      "rule-defined-remediation",
       "set-variant-properties"
     ],
     "unknownCapabilityPolicy": "unsupported-fail-closed",
@@ -1295,6 +1305,63 @@
         },
         "occurrence": "all",
         "orderBy": "document"
+      },
+      "composition.card-image.silver-line-large": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "SilverLine",
+              "🔩 SilverLine"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.card-image.silver-line-medium-small": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "SilverLine",
+              "🔩 SilverLine"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.card-image.silver-line-xs": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "SilverLine",
+              "🔩 SilverLine"
+            ]
+          },
+          "visible": {
+            "op": "equals",
+            "value": true
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
       }
     },
     "baseline": {
@@ -1361,6 +1428,310 @@
         "remediations": [
           "set-variant-properties"
         ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-image.card-image.silver-line-large.silver-line-type",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardImage/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.card-image.silver-line-follows-size"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "SilverLine",
+                "🔩 SilverLine"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "hostVariant": {
+            "Size": [
+              "264x164",
+              "212x132"
+            ]
+          }
+        }
+      },
+      "assert": {
+        "op": "allMatch",
+        "predicate": {
+          "op": "oneOf",
+          "fact": "target.variant.Type",
+          "values": [
+            "complex"
+          ]
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Type": "complex"
+        }
+      },
+      "presentation": {
+        "message": "CardImage 264x164 и 212x132 используют SilverLine Type=complex",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "allMatch",
+          "oneOf"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-image.card-image.silver-line-medium-small.silver-line-type",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardImage/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.card-image.silver-line-follows-size"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "SilverLine",
+                "🔩 SilverLine"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "hostVariant": {
+            "Size": [
+              "68x42",
+              "44x28"
+            ]
+          }
+        }
+      },
+      "assert": {
+        "op": "allMatch",
+        "predicate": {
+          "op": "oneOf",
+          "fact": "target.variant.Type",
+          "values": [
+            "simple"
+          ]
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Type": "simple"
+        }
+      },
+      "presentation": {
+        "message": "CardImage 68x42 и 44x28 используют SilverLine Type=simple",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "allMatch",
+          "oneOf"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-image.card-image.silver-line-xs.silver-line-hidden",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardImage/composition-contract.json",
+        "sourceRuleIds": [
+          "component:web-corp.card-image.silver-line-follows-size"
+        ]
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "SilverLine",
+                "🔩 SilverLine"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "hostVariant": {
+            "Size": "24x16"
+          }
+        }
+      },
+      "assert": {
+        "op": "countBetween",
+        "min": 0,
+        "max": 0
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "CardImage 24x16 не показывает SilverLine",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "countBetween"
+        ],
+        "remediations": []
       }
     },
     {
@@ -1437,6 +1808,78 @@
           "classificationPolicy"
         ],
         "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-image.fixed-size-only",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardImage/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.card-image.fixed-size-only"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "layout.width",
+          "layout.height"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "layout.properties"
+      ],
+      "remediation": {
+        "kind": "rule-defined-remediation",
+        "specification": "Верните экземпляр к одному из пяти штатных Size без ручного масштабирования."
+      },
+      "presentation": {
+        "message": "CardImage использует только фиксированные размеры 264x164, 212x132, 68x42, 44x28 и 24x16. Ручное растягивание, изменение пропорций и промежуточные размеры запрещены.",
+        "group": "layout.width|layout.height"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": [
+          "rule-defined-remediation"
+        ]
       }
     },
     {
@@ -1536,6 +1979,252 @@
           "matchesEffectiveBaseline"
         ],
         "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-image.stack-combination",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardImage/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.card-image.stack-combination"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Stack": "true"
+          }
+        }
+      },
+      "assert": {
+        "op": "propertiesEqual",
+        "values": {
+          "State": "Active"
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "layout.properties",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "State": "Active"
+        }
+      },
+      "presentation": {
+        "message": "Stack=True разрешён только для размеров 68x42, 44x28 и 24x16, когда нужно показать две или более карты. Стопка всегда использует State=Active.",
+        "group": "variant.Stack|variant.Size|variant.State"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties",
+          "variant.properties"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-image.stack-disabled-for-large-sizes",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardImage/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.card-image.stack-disabled-for-large-sizes"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Size": [
+              "264x164",
+              "212x132"
+            ]
+          }
+        }
+      },
+      "assert": {
+        "op": "propertiesEqual",
+        "values": {
+          "Stack": "false"
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "layout.properties",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Stack": "false"
+        }
+      },
+      "presentation": {
+        "message": "Размеры 264x164 и 212x132 не поддерживают Stack. Для стопки выберите 68x42, 44x28 или 24x16.",
+        "group": "variant.Stack|variant.Size"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties",
+          "variant.properties"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-image.xs-active-only",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardImage/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.card-image.xs-active-only"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "variant": {
+            "Size": "24x16"
+          }
+        }
+      },
+      "assert": {
+        "op": "propertiesEqual",
+        "values": {
+          "State": "Active"
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "layout.properties",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "State": "Active"
+        }
+      },
+      "presentation": {
+        "message": "Размер 24x16 поддерживает только State=Active. Наблюдаемые в raw отдельные Inactive/Locked variants не входят в публичный контракт.",
+        "group": "variant.Size|variant.State"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties",
+          "variant.properties"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
       }
     }
   ],
@@ -1650,31 +2339,6 @@
         ],
         "operators": [
           "author-structured-assertion"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.card-image.fixed-size-only",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "layout.properties",
-          "variant.properties"
-        ],
-        "operators": [
-          "matchesEffectiveBaseline"
         ],
         "remediations": [
           "rule-defined-remediation"
@@ -1822,29 +2486,6 @@
       }
     },
     {
-      "sourceRuleId": "component:web-corp.card-image.silver-line-follows-size",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "layout.properties",
-          "variant.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "sourceRuleId": "component:web-corp.card-image.stack-anatomy-is-fixed",
       "sourceCheckType": "llm",
       "status": "advisory",
@@ -1868,31 +2509,6 @@
           "matchesEffectiveBaseline"
         ],
         "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.card-image.stack-combination",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "layout.properties",
-          "variant.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
       }
     },
     {
@@ -1971,44 +2587,19 @@
         ],
         "remediations": []
       }
-    },
-    {
-      "sourceRuleId": "component:web-corp.card-image.xs-active-only",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "layout.properties",
-          "variant.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
     }
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 21,
-      "deterministicSourceRules": 13,
-      "executableDeterministicSourceRules": 2,
+      "sourceRules": 22,
+      "deterministicSourceRules": 14,
+      "executableDeterministicSourceRules": 7,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 2,
+      "executable": 7,
       "advisory": 3,
       "manual": 5,
-      "unsupported": 11,
-      "deterministicCoverageRatio": 0.1538
+      "unsupported": 7,
+      "deterministicCoverageRatio": 0.5
     },
     "report": "../coverage.json"
   }

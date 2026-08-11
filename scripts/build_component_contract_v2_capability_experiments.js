@@ -81,6 +81,20 @@ const PACKAGE_PROFILE_OVERRIDES = {
   'web-corp/AmountStyles': {
     packageId: 'web-corp.amount-styles',
   },
+  'web-corp/CardImage': {
+    packageId: 'web-corp.card-image',
+    compositionRuleSources: {
+      'card-image.silver-line-large:silver-line-type': [
+        'component:web-corp.card-image.silver-line-follows-size',
+      ],
+      'card-image.silver-line-medium-small:silver-line-type': [
+        'component:web-corp.card-image.silver-line-follows-size',
+      ],
+      'card-image.silver-line-xs:silver-line-hidden': [
+        'component:web-corp.card-image.silver-line-follows-size',
+      ],
+    },
+  },
   'web-corp/ButtonStack [M]': {
     packageId: 'web-corp.button-stack',
     compositionRuleSources: {

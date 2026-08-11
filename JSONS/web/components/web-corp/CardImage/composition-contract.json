@@ -225,6 +225,108 @@
         "UserData visibility by size"
       ]
     },
+    "contracts": [
+      {
+        "id": "card-image.silver-line-large",
+        "match": {
+          "hostComponentNames": [
+            "CardImage"
+          ]
+        },
+        "when": {
+          "variant": {
+            "Size": [
+              "264x164",
+              "212x132"
+            ]
+          }
+        },
+        "select": {
+          "nestedComponentNames": [
+            "SilverLine",
+            "🔩 SilverLine"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "silver-line-type",
+            "op": "propertyDomain",
+            "property": "Type",
+            "values": [
+              "complex"
+            ],
+            "message": "CardImage 264x164 и 212x132 используют SilverLine Type=complex"
+          }
+        ]
+      },
+      {
+        "id": "card-image.silver-line-medium-small",
+        "match": {
+          "hostComponentNames": [
+            "CardImage"
+          ]
+        },
+        "when": {
+          "variant": {
+            "Size": [
+              "68x42",
+              "44x28"
+            ]
+          }
+        },
+        "select": {
+          "nestedComponentNames": [
+            "SilverLine",
+            "🔩 SilverLine"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "silver-line-type",
+            "op": "propertyDomain",
+            "property": "Type",
+            "values": [
+              "simple"
+            ],
+            "message": "CardImage 68x42 и 44x28 используют SilverLine Type=simple"
+          }
+        ]
+      },
+      {
+        "id": "card-image.silver-line-xs",
+        "match": {
+          "hostComponentNames": [
+            "CardImage"
+          ]
+        },
+        "when": {
+          "variant": {
+            "Size": "24x16"
+          }
+        },
+        "select": {
+          "nestedComponentNames": [
+            "SilverLine",
+            "🔩 SilverLine"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "silver-line-hidden",
+            "op": "countBetween",
+            "min": 0,
+            "max": 0,
+            "message": "CardImage 24x16 не показывает SilverLine"
+          }
+        ]
+      }
+    ],
     "compositionPolicy": {
       "root": {
         "name": "CardImage",

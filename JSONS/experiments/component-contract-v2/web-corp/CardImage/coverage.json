@@ -1,15 +1,15 @@
 {
   "schemaVersion": "apollo.rule-coverage.v1",
   "summary": {
-    "sourceRules": 21,
-    "deterministicSourceRules": 13,
-    "executableDeterministicSourceRules": 2,
+    "sourceRules": 22,
+    "deterministicSourceRules": 14,
+    "executableDeterministicSourceRules": 7,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 2,
+    "executable": 7,
     "advisory": 3,
     "manual": 5,
-    "unsupported": 11,
-    "deterministicCoverageRatio": 0.1538
+    "unsupported": 7,
+    "deterministicCoverageRatio": 0.5
   },
   "rules": [
     {
@@ -160,20 +160,23 @@
     {
       "sourceRuleId": "component:web-corp.card-image.fixed-size-only",
       "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.card-image.fixed-size-only"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "classification",
+        "requiredValue"
+      ],
       "candidateCapabilities": {
         "selectors": [
-          "ancestry",
           "component-identity",
-          "semantic-role"
+          "self-and-descendants"
         ],
         "facts": [
           "component.identity",
-          "layout.properties",
-          "variant.properties"
+          "layout.properties"
         ],
         "operators": [
           "matchesEffectiveBaseline"
@@ -364,8 +367,12 @@
     {
       "sourceRuleId": "component:web-corp.card-image.silver-line-follows-size",
       "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.card-image.card-image.silver-line-large.silver-line-type",
+        "rule-ir:web-corp.card-image.card-image.silver-line-medium-small.silver-line-type",
+        "rule-ir:web-corp.card-image.card-image.silver-line-xs.silver-line-hidden"
+      ],
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [],
       "candidateCapabilities": {
@@ -415,15 +422,18 @@
     {
       "sourceRuleId": "component:web-corp.card-image.stack-combination",
       "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.card-image.stack-combination"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "requiredValues"
+      ],
       "candidateCapabilities": {
         "selectors": [
-          "ancestry",
           "component-identity",
-          "semantic-role"
+          "self-and-descendants"
         ],
         "facts": [
           "component.identity",
@@ -431,10 +441,39 @@
           "variant.properties"
         ],
         "operators": [
-          "author-structured-assertion"
+          "propertiesEqual"
         ],
         "remediations": [
-          "rule-defined-remediation"
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.card-image.stack-disabled-for-large-sizes",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.card-image.stack-disabled-for-large-sizes"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "requiredValues"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties",
+          "variant.properties"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": [
+          "set-variant-properties"
         ]
       }
     },
@@ -521,15 +560,18 @@
     {
       "sourceRuleId": "component:web-corp.card-image.xs-active-only",
       "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.card-image.xs-active-only"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "requiredValues"
+      ],
       "candidateCapabilities": {
         "selectors": [
-          "ancestry",
           "component-identity",
-          "semantic-role"
+          "self-and-descendants"
         ],
         "facts": [
           "component.identity",
@@ -537,10 +579,10 @@
           "variant.properties"
         ],
         "operators": [
-          "author-structured-assertion"
+          "propertiesEqual"
         ],
         "remediations": [
-          "rule-defined-remediation"
+          "set-variant-properties"
         ]
       }
     }

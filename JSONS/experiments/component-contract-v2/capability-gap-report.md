@@ -14,9 +14,9 @@ Candidate capabilities are discovery hints, not executable behavior.
 
 - structured-fields-unmapped: 105
 - structured-fields-missing-runtime-operator: 7
-- prose-existing-operator: 20
+- prose-existing-operator: 19
 - prose-missing-runtime-operator: 8
-- prose-unclassified: 160
+- prose-unclassified: 157
 
 The classification separates source authoring from runtime support. Structured source fields are
 reported independently from prose-only rules; candidate operators remain discovery hints.
@@ -130,15 +130,11 @@ No unsupported deterministic rules.
 | --- | --- | --- | --- |
 | `component:web-corp.card-image.custom-cover-preserves-structure` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.card-image.custom-cover-uses-none` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web-corp.card-image.fixed-size-only` | prose-existing-operator | matchesEffectiveBaseline | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.card-image.number-must-stay-masked` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.card-image.public-root-only` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.card-image.shadow-policy` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web-corp.card-image.silver-line-follows-size` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web-corp.card-image.stack-combination` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.card-image.user-data-by-size` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.card-image.visuals-follow-effective-baseline` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web-corp.card-image.xs-active-only` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 
 ## web-corp.card-swiper-mobile
 
