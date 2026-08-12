@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
-        "bytes": 22595,
-        "sha256": "33206a6d3b601b654a099ade27cebb44f0703081f514082a613685e6fc7c5bce"
+        "bytes": 23754,
+        "sha256": "2e0020d95e4c1eb61b69d8a4eaafd3e98eca8f54d67d8a9a1781b8068b7d0eba"
       }
     ]
   },
@@ -88,7 +88,9 @@
       "componentApiValid",
       "configurationPolicy",
       "matchesEffectiveBaseline",
-      "oneOf"
+      "oneOf",
+      "propertiesEqual",
+      "stringLengthBetween"
     ],
     "remediations": [
       "set-variant-properties"
@@ -758,7 +760,13 @@
               "[M] BottomContent",
               "[M] ContentWrapper",
               "[M] Graphic",
-              "BenefitCard"
+              "BenefitCard",
+              "Content",
+              "GraphicContainer",
+              "ImageView",
+              "Subtitle / value",
+              "Title",
+              "Title / value"
             ]
           }
         },
@@ -830,6 +838,274 @@
         "remediations": [
           "set-variant-properties"
         ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefit-card.benefit-card-image-view-segment-only",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefit-card-image-view-segment-only"
+        ],
+        "patternRuleId": "rule:components.benefit-card.image-view-segment-only"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "ImageView"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "propertiesEqual",
+        "values": {
+          "variant.Crop": "Center",
+          "variant.Size": "80"
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Во вложенном ImageView разрешено менять только Segment. Используй Crop=Center и Size=80.",
+        "group": "component.ImageView"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefit-card.benefit-card-subtitle-content-limit",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefit-card-subtitle-content-limit"
+        ],
+        "patternRuleId": "rule:components.benefit-card.content-limits"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Subtitle / value"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "stringLengthBetween",
+        "property": "text.characters",
+        "min": 0,
+        "max": 120
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "text.characters"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Subtitle должен содержать не более 120 символов и занимать не более трёх строк.",
+        "group": "text.Subtitle"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters"
+        ],
+        "operators": [
+          "stringLengthBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefit-card.benefit-card-title-content-limit",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefit-card-title-content-limit"
+        ],
+        "patternRuleId": "rule:components.benefit-card.content-limits"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Title / value"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "stringLengthBetween",
+        "property": "text.characters",
+        "min": 0,
+        "max": 60
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "text.characters"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Title должен содержать не более 60 символов и занимать не более двух строк.",
+        "group": "text.Title"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters"
+        ],
+        "operators": [
+          "stringLengthBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefit-card.compact-uses-secondary-title",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefit-card.compact-uses-secondary-title"
+        ],
+        "patternRuleId": "rule:components.benefit-card.compact-uses-secondary-title"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Content"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "hostVariant": {
+            "Compact": "True"
+          }
+        }
+      },
+      "assert": {
+        "op": "propertiesEqual",
+        "values": {
+          "variant.Title": "Secondary"
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "При Compact=True вложенный ContentWrapper должен использовать Title=Secondary. При Compact=False разрешены Title=Primary и Title=Secondary.",
+        "group": "variant.Title"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "variant.properties"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": []
       }
     },
     {
@@ -1130,6 +1406,127 @@
       }
     },
     {
+      "id": "rule-ir:web-corp-promo.benefit-card.title-and-graphic-required",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefit-card.title-and-graphic-required"
+        ],
+        "patternRuleId": "rule:components.benefit-card.title-and-graphic-required"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "GraphicContainer",
+                "Title"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "propertiesEqual",
+        "values": {
+          "target.visible": true
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "BenefitCard всегда должен содержать отображаемые Title и Graphic. Subtitle можно скрывать, BottomContent можно включать как Link.",
+        "group": "component"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefit-card.vertical-resizing-policy",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefit-card.vertical-resizing-policy"
+        ],
+        "patternRuleId": "rule:components.benefit-card.vertical-resizing-policy"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "selection-root",
+          "from": "$host",
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "configurationPolicy",
+        "hugWhenVerticalContentOverflows": true
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "layout.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Для одиночной BenefitCard используй Vertical resizing=Hug. В группе равных по высоте карточек разрешён Fill. Stopper сохраняй в Fill; Fixed допустим, когда контент должен оставаться визуально цельным.",
+        "group": "layout.sizing.vertical"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties"
+        ],
+        "operators": [
+          "configurationPolicy"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp-promo.benefit-card.visuals-follow-effective-baseline",
       "source": {
         "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
@@ -1383,29 +1780,6 @@
       }
     },
     {
-      "sourceRuleId": "component:web.benefit-card-image-view-segment-only",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "baseline.effective",
-          "component.identity",
-          "ownership.owner"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "sourceRuleId": "component:web.benefit-card-link-content-limit",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
@@ -1485,50 +1859,6 @@
         "facts": [
           "component.identity",
           "variant.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web.benefit-card-subtitle-content-limit",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "text.characters"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web.benefit-card-title-content-limit",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "text.characters"
         ],
         "operators": [
           "author-structured-assertion"
@@ -1673,28 +2003,6 @@
       }
     },
     {
-      "sourceRuleId": "component:web.benefit-card.compact-uses-secondary-title",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "variant.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "sourceRuleId": "component:web.benefit-card.content-alignment-follows-lines",
       "sourceCheckType": "manual",
       "status": "manual",
@@ -1779,62 +2087,19 @@
         ],
         "remediations": []
       }
-    },
-    {
-      "sourceRuleId": "component:web.benefit-card.title-and-graphic-required",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web.benefit-card.vertical-resizing-policy",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "layout.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
     }
   ],
   "coverage": {
     "summary": {
       "sourceRules": 32,
       "deterministicSourceRules": 23,
-      "executableDeterministicSourceRules": 5,
+      "executableDeterministicSourceRules": 11,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 5,
+      "executable": 11,
       "advisory": 0,
       "manual": 9,
-      "unsupported": 18,
-      "deterministicCoverageRatio": 0.2174
+      "unsupported": 12,
+      "deterministicCoverageRatio": 0.4783
     },
     "report": "../coverage.json"
   }

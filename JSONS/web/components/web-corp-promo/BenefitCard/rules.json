@@ -103,6 +103,15 @@
         "appliesTo": "component",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "layers": [
+            "Title",
+            "GraphicContainer"
+          ]
+        },
+        "requiredValues": {
+          "target.visible": true
+        },
         "ruleText": "BenefitCard всегда должен содержать отображаемые Title и Graphic. Subtitle можно скрывать, BottomContent можно включать как Link."
       },
       {
@@ -136,6 +145,19 @@
         "appliesTo": "variant.Title",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "layers": [
+            "Content"
+          ]
+        },
+        "conditions": {
+          "hostVariant": {
+            "Compact": "True"
+          }
+        },
+        "requiredValues": {
+          "variant.Title": "Secondary"
+        },
         "ruleText": "При Compact=True вложенный ContentWrapper должен использовать Title=Secondary. При Compact=False разрешены Title=Primary и Title=Secondary."
       },
       {
@@ -147,6 +169,16 @@
         "appliesTo": "text.Title",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "layers": [
+            "Title / value"
+          ]
+        },
+        "stringLength": {
+          "property": "text.characters",
+          "min": 0,
+          "max": 60
+        },
         "ruleText": "Title должен содержать не более 60 символов и занимать не более двух строк."
       },
       {
@@ -158,6 +190,16 @@
         "appliesTo": "text.Subtitle",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "layers": [
+            "Subtitle / value"
+          ]
+        },
+        "stringLength": {
+          "property": "text.characters",
+          "min": 0,
+          "max": 120
+        },
         "ruleText": "Subtitle должен содержать не более 120 символов и занимать не более трёх строк."
       },
       {
@@ -222,7 +264,16 @@
         "appliesTo": "component.ImageView",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
-        "ruleText": "Во вложенном ImageView разрешено менять только Segment. Crop, Size и остальные параметры должны соответствовать effective baseline."
+        "target": {
+          "layers": [
+            "ImageView"
+          ]
+        },
+        "requiredValues": {
+          "variant.Crop": "Center",
+          "variant.Size": "80"
+        },
+        "ruleText": "Во вложенном ImageView разрешено менять только Segment. Используй Crop=Center и Size=80."
       },
       {
         "ruleId": "component:web.benefit-card-icon-view-public-settings-allowed",
@@ -297,6 +348,12 @@
         "appliesTo": "layout.sizing.vertical",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "layer": "root"
+        },
+        "requiredConfiguration": {
+          "hugWhenVerticalContentOverflows": true
+        },
         "ruleText": "Для одиночной BenefitCard используй Vertical resizing=Hug. В группе равных по высоте карточек разрешён Fill. Stopper сохраняй в Fill; Fixed допустим, когда контент должен оставаться визуально цельным."
       },
       {

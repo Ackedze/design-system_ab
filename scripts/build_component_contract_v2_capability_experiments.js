@@ -627,6 +627,16 @@ function inferAssertion(rule) {
   if (rule.requiredValues) {
     return executable('propertiesEqual', { values: rule.requiredValues });
   }
+  if (
+    rule.stringLength &&
+    typeof rule.stringLength === 'object' &&
+    !Array.isArray(rule.stringLength) &&
+    typeof rule.stringLength.property === 'string' &&
+    Number.isFinite(rule.stringLength.min) &&
+    Number.isFinite(rule.stringLength.max)
+  ) {
+    return executable('stringLengthBetween', { ...rule.stringLength });
+  }
   if (rule.requiredFactRelation) {
     const relation = rule.requiredFactRelation;
     if (

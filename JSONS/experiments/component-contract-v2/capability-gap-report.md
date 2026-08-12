@@ -16,7 +16,7 @@ Candidate capabilities are discovery hints, not executable behavior.
 - structured-fields-missing-runtime-operator: 7
 - prose-existing-operator: 19
 - prose-missing-runtime-operator: 8
-- prose-unclassified: 153
+- prose-unclassified: 147
 
 The classification separates source authoring from runtime support. Structured source fields are
 reported independently from prose-only rules; candidate operators remain discovery hints.
@@ -379,20 +379,14 @@ No unsupported deterministic rules.
 | `component:web.benefit-card-bottom-link-text-only` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card-content-is-closed` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card-icon-visuals-follow-baseline` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.benefit-card-image-view-segment-only` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card-link-content-limit` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card-platform-version-must-match` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card-secondary-surface-not-recommended` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card-skeleton-covers-entire-card` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.benefit-card-subtitle-content-limit` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.benefit-card-title-content-limit` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.background-plate-colors-use-tokens` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.background-plate-style-overrides` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.compact-required-at-1024` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.benefit-card.compact-uses-secondary-title` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.icon-uses-glyph-26` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.benefit-card.title-and-graphic-required` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.benefit-card.vertical-resizing-policy` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 
 ## web-corp-promo.benefits
 
