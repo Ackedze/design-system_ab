@@ -442,18 +442,21 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
-        "targets": {
-          "scope": "self-and-descendants",
-          "from": "$host",
+        "host": {
+          "scope": "selection-root",
           "where": {
             "semanticRoleOrLayerName": {
               "op": "oneOf",
               "values": [
-                "root"
+                "[D] CorporateContent",
+                "[M] CorporateContent"
               ]
             }
-          },
+          }
+        },
+        "targets": {
+          "scope": "selection-root",
+          "from": "$host",
           "occurrence": "all",
           "orderBy": "document"
         }
@@ -509,18 +512,21 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
-        "targets": {
-          "scope": "self-and-descendants",
-          "from": "$host",
+        "host": {
+          "scope": "selection-root",
           "where": {
             "semanticRoleOrLayerName": {
               "op": "oneOf",
               "values": [
-                "root"
+                "[D] CorporateContent",
+                "[M] CorporateContent"
               ]
             }
-          },
+          }
+        },
+        "targets": {
+          "scope": "selection-root",
+          "from": "$host",
           "occurrence": "all",
           "orderBy": "document"
         }
@@ -575,7 +581,17 @@
       "severity": "info",
       "enforcement": "classification",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CorporateContent"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -725,7 +741,17 @@
       "severity": "warning",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CorporateContent"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -901,7 +927,18 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] CorporateContent",
+                "[M] CorporateContent"
+              ]
+            }
+          }
+        },
         "targets": "tree.package"
       },
       "when": {
@@ -960,18 +997,21 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
-        "targets": {
-          "scope": "self-and-descendants",
-          "from": "$host",
+        "host": {
+          "scope": "selection-root",
           "where": {
             "semanticRoleOrLayerName": {
               "op": "oneOf",
               "values": [
-                "root"
+                "[D] CorporateContent",
+                "[M] CorporateContent"
               ]
             }
-          },
+          }
+        },
+        "targets": {
+          "scope": "selection-root",
+          "from": "$host",
           "occurrence": "all",
           "orderBy": "document"
         }
@@ -1027,18 +1067,21 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
-        "targets": {
-          "scope": "self-and-descendants",
-          "from": "$host",
+        "host": {
+          "scope": "selection-root",
           "where": {
             "semanticRoleOrLayerName": {
               "op": "oneOf",
               "values": [
-                "root"
+                "[D] CorporateContent",
+                "[M] CorporateContent"
               ]
             }
-          },
+          }
+        },
+        "targets": {
+          "scope": "selection-root",
+          "from": "$host",
           "occurrence": "all",
           "orderBy": "document"
         }
@@ -1094,18 +1137,21 @@
       "severity": "error",
       "enforcement": "classification",
       "select": {
-        "host": "host.package",
-        "targets": {
-          "scope": "self-and-descendants",
-          "from": "$host",
+        "host": {
+          "scope": "selection-root",
           "where": {
             "semanticRoleOrLayerName": {
               "op": "oneOf",
               "values": [
-                "root"
+                "[D] CorporateContent",
+                "[M] CorporateContent"
               ]
             }
-          },
+          }
+        },
+        "targets": {
+          "scope": "selection-root",
+          "from": "$host",
           "occurrence": "all",
           "orderBy": "document"
         }
@@ -1168,8 +1214,32 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
-        "targets": "tree.package"
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] Section"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Content",
+                "Isle"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
       },
       "when": {
         "op": "evidenceComplete"
@@ -1220,7 +1290,17 @@
       "severity": "error",
       "enforcement": "classification",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] Section"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -1297,18 +1377,20 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
-        "targets": {
-          "scope": "self-and-descendants",
-          "from": "$host",
+        "host": {
+          "scope": "selection-root",
           "where": {
             "semanticRoleOrLayerName": {
               "op": "oneOf",
               "values": [
-                "root"
+                "[D] Section"
               ]
             }
-          },
+          }
+        },
+        "targets": {
+          "scope": "selection-root",
+          "from": "$host",
           "occurrence": "all",
           "orderBy": "document"
         }
@@ -1362,8 +1444,32 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
-        "targets": "tree.package"
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] Section"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Content / SwapMe",
+                "Isle / SwapMe"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
       },
       "when": {
         "op": "evidenceComplete"
@@ -1417,7 +1523,17 @@
       "severity": "error",
       "enforcement": "classification",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] Section"
+              ]
+            }
+          }
+        },
         "targets": "tree.package"
       },
       "when": {
@@ -1468,18 +1584,21 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
-        "targets": {
-          "scope": "self-and-descendants",
-          "from": "$host",
+        "host": {
+          "scope": "selection-root",
           "where": {
             "semanticRoleOrLayerName": {
               "op": "oneOf",
               "values": [
-                "root"
+                "[D] CorporateContent",
+                "[M] CorporateContent"
               ]
             }
-          },
+          }
+        },
+        "targets": {
+          "scope": "selection-root",
+          "from": "$host",
           "occurrence": "all",
           "orderBy": "document"
         }
@@ -1538,7 +1657,18 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "[D] CorporateContent",
+                "[M] CorporateContent"
+              ]
+            }
+          }
+        },
         "targets": "tree.package"
       },
       "when": {

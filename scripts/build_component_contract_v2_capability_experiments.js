@@ -445,6 +445,7 @@ function inferSourceRule(rule, profile) {
     },
     capabilities,
   };
+  validateRuleTargetSelector(rule, targetRule.select, profile.packageId);
   return discoveryEntry(
     rule,
     'executable',
@@ -452,6 +453,33 @@ function inferSourceRule(rule, profile) {
     capabilities,
     'Structured source fields map to typed RuleIR capabilities.',
   );
+}
+
+function validateRuleTargetSelector(sourceRule, select, packageId) {
+  const expectedComponents = targetComponentsForRule(sourceRule);
+  if (expectedComponents.length && typeof select.host === 'string') {
+    throw new Error(`${packageId}: ${sourceRule.ruleId} lost target component scope`);
+  }
+  const expectedTargets = uniqueSorted(
+    targetLayersForRule(sourceRule)
+      .concat(targetSlotsForRule(sourceRule), targetPlaceholdersForRule(sourceRule)),
+  );
+  if (!expectedTargets.length) return;
+  if (typeof select.targets === 'string') {
+    throw new Error(`${packageId}: ${sourceRule.ruleId} lost semantic target scope`);
+  }
+  if (expectedTargets.length === 1 && expectedTargets[0] === 'root') {
+    if (select.targets.scope !== 'selection-root') {
+      throw new Error(`${packageId}: ${sourceRule.ruleId} root target is not selection-root`);
+    }
+    return;
+  }
+  const compiledTargets = select.targets.where?.semanticRoleOrLayerName?.values || [];
+  for (const target of expectedTargets) {
+    if (!compiledTargets.includes(target)) {
+      throw new Error(`${packageId}: ${sourceRule.ruleId} lost semantic target ${target}`);
+    }
+  }
 }
 
 function normalizeAssertionForProfile(assertion, rule, profile) {
@@ -965,18 +993,36 @@ function buildSelectors(generatedContract, compositionDocument, sourceRules, com
 
 function selectorForRule(rule) {
   const targetLayers = targetLayersForRule(rule);
-  const targets = targetLayers.length
+  const targetComponents = targetComponentsForRule(rule);
+  const targetSlots = targetSlotsForRule(rule);
+  const targetPlaceholders = targetPlaceholdersForRule(rule);
+  const semanticTargets = uniqueSorted(targetLayers.concat(targetSlots, targetPlaceholders));
+  const targets = semanticTargets.length
     ? {
-        scope: 'self-and-descendants',
+        scope: semanticTargets.length === 1 && semanticTargets[0] === 'root'
+          ? 'selection-root'
+          : 'self-and-descendants',
         from: '$host',
-        where: {
-          semanticRoleOrLayerName: { op: 'oneOf', values: targetLayers },
-        },
+        ...(semanticTargets.length === 1 && semanticTargets[0] === 'root'
+          ? {}
+          : {
+              where: {
+                semanticRoleOrLayerName: { op: 'oneOf', values: semanticTargets },
+              },
+            }),
         occurrence: 'all',
         orderBy: 'document',
       }
     : 'tree.package';
-  return { host: 'host.package', targets };
+  const host = targetComponents.length
+    ? {
+        scope: 'selection-root',
+        where: {
+          semanticRoleOrLayerName: { op: 'oneOf', values: targetComponents },
+        },
+      }
+    : 'host.package';
+  return { host, targets };
 }
 
 function targetLayersForRule(rule) {
@@ -985,6 +1031,29 @@ function targetLayersForRule(rule) {
   if (rule.target && typeof rule.target.layer === 'string') values.push(rule.target.layer);
   if (Array.isArray(rule.forbiddenWidthOverride)) values.push(...rule.forbiddenWidthOverride);
   return uniqueSorted(values);
+}
+
+function targetComponentsForRule(rule) {
+  const values = [];
+  if (rule.target && typeof rule.target.component === 'string') {
+    values.push(rule.target.component);
+  }
+  if (rule.target && Array.isArray(rule.target.components)) {
+    values.push(...rule.target.components);
+  }
+  return uniqueSorted(values);
+}
+
+function targetSlotsForRule(rule) {
+  return rule.target && Array.isArray(rule.target.slots)
+    ? uniqueSorted(rule.target.slots)
+    : [];
+}
+
+function targetPlaceholdersForRule(rule) {
+  return rule.target && Array.isArray(rule.target.placeholders)
+    ? uniqueSorted(rule.target.placeholders)
+    : [];
 }
 
 function buildCoverage(sourceRules, executableRules, inferred) {

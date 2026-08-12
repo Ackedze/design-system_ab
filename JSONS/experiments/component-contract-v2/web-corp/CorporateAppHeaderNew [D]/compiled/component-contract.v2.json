@@ -1060,7 +1060,17 @@
       "severity": "info",
       "enforcement": "classification",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CorporateAppHeaderNew [D]"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -1143,7 +1153,17 @@
       "severity": "warning",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CorporateAppHeaderNew [D]"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -1249,7 +1269,17 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "CorporateAppHeaderNew [D]"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",

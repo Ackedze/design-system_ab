@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp-promo/Benefits/rules.json",
-        "bytes": 23914,
-        "sha256": "e17d2577b38fa1c735b3b4b286f8b5513777d940418376ffe52cc16c3db1c4ed"
+        "bytes": 24006,
+        "sha256": "15a6088394d2af873f10a855efcd20d87cda9d9bd10c19f0bc529fbe7cae0aa5"
       }
     ]
   },
@@ -506,7 +506,17 @@
       "severity": "info",
       "enforcement": "classification",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Benefits"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -641,8 +651,23 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
-        "targets": "tree.package"
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Benefits"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "selection-root",
+          "from": "$host",
+          "occurrence": "all",
+          "orderBy": "document"
+        }
       },
       "when": {
         "op": "evidenceComplete"
@@ -700,7 +725,17 @@
       "severity": "warning",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Benefits"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -1032,7 +1067,17 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Benefits"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -1109,7 +1154,17 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Benefits"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -1186,7 +1241,17 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Benefits"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -1263,7 +1328,17 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Benefits"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
@@ -1340,7 +1415,17 @@
       "severity": "error",
       "enforcement": "enforced",
       "select": {
-        "host": "host.package",
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Benefits"
+              ]
+            }
+          }
+        },
         "targets": {
           "scope": "self-and-descendants",
           "from": "$host",
