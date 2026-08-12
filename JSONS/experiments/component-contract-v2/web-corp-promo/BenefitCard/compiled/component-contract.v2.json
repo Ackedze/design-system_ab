@@ -32,8 +32,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp-promo/BenefitCard/composition-contract.json",
-        "bytes": 12999,
-        "sha256": "1e0205a1b49bd4cd91b2e38f1305190de54bf58e9ec872def55151f167002fa5"
+        "bytes": 13078,
+        "sha256": "54bb1141dbff1d5fcfac030276afa41889392c9a16919bd07bdffb99540f2cc5"
       },
       {
         "file": "JSONS/web/components/web-corp-promo/BenefitCard/contract.generated.json",
@@ -42,8 +42,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp-promo/BenefitCard/contract.overrides.json",
-        "bytes": 6880,
-        "sha256": "1503b3e22596ebed064e5c543977cc6c99c2e639d1dd557b10cfba0715c3ba8c"
+        "bytes": 7228,
+        "sha256": "e335fabc18c10ee9136df78d36db6a6725abb444554eee93bbe1032b8ee4fe46"
       },
       {
         "file": "JSONS/web/components/web-corp-promo/BenefitCard/examples.json",
@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
-        "bytes": 21405,
-        "sha256": "3b8ffbdc6b14a28d4b860704e134d4e84d9bb56ec64fbe81321861615beb05b3"
+        "bytes": 21556,
+        "sha256": "acb3a78f04203597a53ffd780834b60bda9754d9de832127bd9ec772ecd222d1"
       }
     ]
   },
@@ -69,6 +69,7 @@
       "baseline.effective",
       "component-api.contract",
       "component.identity",
+      "effects",
       "layout.properties",
       "opacity",
       "ownership.owner",
@@ -994,6 +995,89 @@
         ],
         "remediations": []
       }
+    },
+    {
+      "id": "rule-ir:web-corp-promo.benefit-card.visuals-follow-effective-baseline",
+      "source": {
+        "file": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
+        "sourceRuleIds": [
+          "component:web.benefit-card.visuals-follow-effective-baseline"
+        ],
+        "patternRuleId": "rule:components.benefit-card.visuals-follow-effective-baseline"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "layout.*",
+          "layoutSizing*",
+          "styles.text",
+          "fill",
+          "stroke",
+          "radius",
+          "opacity",
+          "effects.*"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "baseline.effective",
+        "component.identity",
+        "effects",
+        "layout.properties",
+        "opacity",
+        "ownership.owner",
+        "paint.fill",
+        "paint.stroke",
+        "style.text",
+        "text.characters",
+        "variable.binding"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Не меняй вручную внутренние отступы, интервалы, скругления, заливки, обводки, типографику, opacity и эффекты BenefitCard. Исключения: Type вложенного [Promo] BackgroundPlate, цвет заливки для Type=Colored и цвет обводки для Type=Border можно менять по правилам его компонентного контракта.",
+        "group": "layout.*|layoutSizing*|styles.text|fill|stroke|radius|opacity|effects.*"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "effects",
+          "layout.properties",
+          "opacity",
+          "ownership.owner",
+          "paint.fill",
+          "paint.stroke",
+          "style.text",
+          "text.characters",
+          "variable.binding"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": []
+      }
     }
   ],
   "nonExecutableRules": [
@@ -1615,50 +1699,19 @@
         ],
         "remediations": []
       }
-    },
-    {
-      "sourceRuleId": "component:web.benefit-card.visuals-follow-effective-baseline",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "baseline.effective",
-          "component.identity",
-          "effects",
-          "layout.properties",
-          "opacity",
-          "ownership.owner",
-          "paint.fill",
-          "paint.stroke",
-          "style.text",
-          "text.characters",
-          "variable.binding"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
     }
   ],
   "coverage": {
     "summary": {
       "sourceRules": 31,
       "deterministicSourceRules": 22,
-      "executableDeterministicSourceRules": 2,
+      "executableDeterministicSourceRules": 3,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 2,
+      "executable": 3,
       "advisory": 0,
       "manual": 9,
-      "unsupported": 20,
-      "deterministicCoverageRatio": 0.0909
+      "unsupported": 19,
+      "deterministicCoverageRatio": 0.1364
     },
     "report": "../coverage.json"
   }

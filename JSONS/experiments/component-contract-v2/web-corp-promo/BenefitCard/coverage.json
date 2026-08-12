@@ -3,13 +3,13 @@
   "summary": {
     "sourceRules": 31,
     "deterministicSourceRules": 22,
-    "executableDeterministicSourceRules": 2,
+    "executableDeterministicSourceRules": 3,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 2,
+    "executable": 3,
     "advisory": 0,
     "manual": 9,
-    "unsupported": 20,
-    "deterministicCoverageRatio": 0.0909
+    "unsupported": 19,
+    "deterministicCoverageRatio": 0.1364
   },
   "rules": [
     {
@@ -718,15 +718,19 @@
     {
       "sourceRuleId": "component:web.benefit-card.visuals-follow-effective-baseline",
       "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp-promo.benefit-card.visuals-follow-effective-baseline"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "baselinePolicy",
+        "scope"
+      ],
       "candidateCapabilities": {
         "selectors": [
-          "ancestry",
           "component-identity",
-          "semantic-role"
+          "self-and-descendants"
         ],
         "facts": [
           "baseline.effective",
@@ -742,7 +746,7 @@
           "variable.binding"
         ],
         "operators": [
-          "author-structured-assertion"
+          "matchesEffectiveBaseline"
         ],
         "remediations": []
       }

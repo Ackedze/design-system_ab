@@ -3250,6 +3250,19 @@
       ]
     },
     {
+      "field": "baselinePolicy",
+      "packageCount": 2,
+      "ruleCount": 2,
+      "packages": [
+        "web-corp-promo.benefitcard",
+        "web-corp.corporatesystemmessage"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.corporate-system-message.effective-baseline-protected",
+        "component:web.benefit-card.visuals-follow-effective-baseline"
+      ]
+    },
+    {
       "field": "fixedProperties",
       "packageCount": 2,
       "ruleCount": 2,
@@ -3401,6 +3414,19 @@
         "component:web-corp.onboarding-tooltip.primary-button-role-is-fixed",
         "component:web-corp.onboarding-tooltip.secondary-button-role-is-fixed",
         "component:web-corp.title-view.status-size-24"
+      ]
+    },
+    {
+      "field": "scope",
+      "packageCount": 2,
+      "ruleCount": 2,
+      "packages": [
+        "web-corp-promo.benefitcard",
+        "web-corp.corporatesystemmessage"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.corporate-system-message.effective-baseline-protected",
+        "component:web.benefit-card.visuals-follow-effective-baseline"
       ]
     },
     {
@@ -3566,17 +3592,6 @@
       ],
       "exampleRuleIds": [
         "component:web-corp.corporate-system-message.buttons-axis-large-only"
-      ]
-    },
-    {
-      "field": "baselinePolicy",
-      "packageCount": 1,
-      "ruleCount": 1,
-      "packages": [
-        "web-corp.corporatesystemmessage"
-      ],
-      "exampleRuleIds": [
-        "component:web-corp.corporate-system-message.effective-baseline-protected"
       ]
     },
     {
@@ -4026,17 +4041,6 @@
       ]
     },
     {
-      "field": "scope",
-      "packageCount": 1,
-      "ruleCount": 1,
-      "packages": [
-        "web-corp.corporatesystemmessage"
-      ],
-      "exampleRuleIds": [
-        "component:web-corp.corporate-system-message.effective-baseline-protected"
-      ]
-    },
-    {
       "field": "selection",
       "packageCount": 1,
       "ruleCount": 1,
@@ -4099,7 +4103,7 @@
     {
       "signature": "(prose-only)",
       "packageCount": 25,
-      "ruleCount": 253,
+      "ruleCount": 252,
       "packages": [
         "web-corp-promo.benefitcard",
         "web-corp-promo.benefits",
@@ -4469,6 +4473,19 @@
       "exampleRuleIds": [
         "component:web-corp.table-basic-d.manual-visual-styles-forbidden",
         "component:web-corp.table-wide-d.manual-visual-styles-forbidden"
+      ]
+    },
+    {
+      "signature": "baselinePolicy+scope",
+      "packageCount": 2,
+      "ruleCount": 2,
+      "packages": [
+        "web-corp-promo.benefitcard",
+        "web-corp.corporatesystemmessage"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.corporate-system-message.effective-baseline-protected",
+        "component:web.benefit-card.visuals-follow-effective-baseline"
       ]
     },
     {
@@ -4878,17 +4895,6 @@
       ],
       "exampleRuleIds": [
         "component:web-corp.corporate-system-message.buttons-axis-large-only"
-      ]
-    },
-    {
-      "signature": "baselinePolicy+scope",
-      "packageCount": 1,
-      "ruleCount": 1,
-      "packages": [
-        "web-corp.corporatesystemmessage"
-      ],
-      "exampleRuleIds": [
-        "component:web-corp.corporate-system-message.effective-baseline-protected"
       ]
     },
     {
@@ -15623,23 +15629,31 @@
         },
         {
           "ruleId": "component:web.benefit-card.visuals-follow-effective-baseline",
-          "assertionFields": []
+          "assertionFields": [
+            "baselinePolicy",
+            "scope"
+          ]
         }
       ],
       "features": {
         "ruleFields": [
           "appliesTo",
+          "baselinePolicy",
           "checkType",
           "matchKind",
           "patternId",
           "patternRuleId",
           "ruleId",
           "ruleText",
+          "scope",
           "severity",
           "source",
           "target"
         ],
-        "assertionFields": [],
+        "assertionFields": [
+          "baselinePolicy",
+          "scope"
+        ],
         "checkTypes": [
           "deterministic",
           "manual"
@@ -15664,6 +15678,11 @@
           "manual.allowedOverrides.layout[]",
           "manual.allowedOverrides.text",
           "manual.allowedOverrides.text[]",
+          "manual.baselineProtection",
+          "manual.baselineProtection.policy",
+          "manual.baselineProtection.protected",
+          "manual.baselineProtection.protected[]",
+          "manual.baselineProtection.scope",
           "manual.forbiddenOverrides",
           "manual.forbiddenOverrides[]",
           "manual.internalOnly",
