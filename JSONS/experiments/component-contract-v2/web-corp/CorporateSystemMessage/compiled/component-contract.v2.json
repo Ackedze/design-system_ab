@@ -69,6 +69,7 @@
       "baseline.effective",
       "component-api.contract",
       "component.identity",
+      "effects",
       "layout.properties",
       "opacity",
       "ownership.owner",
@@ -1909,6 +1910,89 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.corporate-system-message.effective-baseline-protected",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CorporateSystemMessage/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.corporate-system-message.effective-baseline-protected"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "layout.*",
+          "layoutSizing*",
+          "styles.text",
+          "fill",
+          "stroke",
+          "radius",
+          "opacity",
+          "effects.*"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "baseline.effective",
+        "component.identity",
+        "effects",
+        "layout.properties",
+        "opacity",
+        "ownership.owner",
+        "paint.fill",
+        "paint.stroke",
+        "style.text",
+        "text.characters",
+        "variable.binding"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Геометрию и визуальные стили корня и внутренних слоёв нельзя менять вручную. Используй effective baseline выбранных View, Size и BG plate.",
+        "group": "layout.*|layoutSizing*|styles.text|fill|stroke|radius|opacity|effects.*"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "effects",
+          "layout.properties",
+          "opacity",
+          "ownership.owner",
+          "paint.fill",
+          "paint.stroke",
+          "style.text",
+          "text.characters",
+          "variable.binding"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp.corporate-system-message.layer-properties-use-effective-baseline",
       "source": {
         "file": "JSONS/web/components/web-corp/CorporateSystemMessage/rules.json",
@@ -2226,40 +2310,6 @@
         ],
         "operators": [
           "statePolicy"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.corporate-system-message.effective-baseline-protected",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "baselinePolicy",
-        "scope"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "baseline.effective",
-          "component.identity",
-          "effects",
-          "layout.properties",
-          "opacity",
-          "ownership.owner",
-          "paint.fill",
-          "paint.stroke",
-          "style.text",
-          "text.characters",
-          "variable.binding"
-        ],
-        "operators": [
-          "author-structured-assertion"
         ],
         "remediations": []
       }
@@ -2817,13 +2867,13 @@
     "summary": {
       "sourceRules": 34,
       "deterministicSourceRules": 24,
-      "executableDeterministicSourceRules": 2,
+      "executableDeterministicSourceRules": 3,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 2,
+      "executable": 3,
       "advisory": 9,
       "manual": 1,
-      "unsupported": 22,
-      "deterministicCoverageRatio": 0.0833
+      "unsupported": 21,
+      "deterministicCoverageRatio": 0.125
     },
     "report": "../coverage.json"
   }

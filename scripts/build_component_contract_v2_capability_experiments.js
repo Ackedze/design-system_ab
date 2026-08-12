@@ -512,6 +512,16 @@ function normalizeAssertionForProfile(assertion, rule, profile) {
 
 function inferAssertion(rule) {
   const suffix = ruleSuffix(rule.ruleId);
+  if (
+    rule.scope === 'root-and-all-internal-layers' &&
+    typeof rule.baselinePolicy === 'string' &&
+    rule.baselinePolicy.length > 0
+  ) {
+    return executable(
+      'matchesEffectiveBaseline',
+      baselineAssertionParameters(rule, splitAppliesTo(rule.appliesTo)),
+    );
+  }
   if (Array.isArray(rule.allowedBaselineOverrides)) {
     return executable(
       'matchesEffectiveBaseline',
@@ -998,6 +1008,17 @@ function buildSelectors(generatedContract, compositionDocument, sourceRules, com
 }
 
 function selectorForRule(rule) {
+  if (rule.scope === 'root-and-all-internal-layers') {
+    return {
+      host: 'host.package',
+      targets: {
+        scope: 'self-and-descendants',
+        from: '$host',
+        occurrence: 'all',
+        orderBy: 'document',
+      },
+    };
+  }
   const targetLayers = targetLayersForRule(rule);
   const targetComponents = targetComponentsForRule(rule);
   const targetSlots = targetSlotsForRule(rule);
