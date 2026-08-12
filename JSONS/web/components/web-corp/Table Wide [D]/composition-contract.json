@@ -2603,6 +2603,20 @@
       "defaultNestedDiffPolicy": "compare-against-table-effective-baseline",
       "wrapperOwnedOverridePolicy": "Не показывай wrapper-owned nested differences как customizations, когда actual совпадает с effective baseline семейства таблиц. Если actual отличается, показывай effectiveBaseline -> actual."
     },
+    "contractOwnership": {
+      "nestedPackages": [
+        {
+          "packageId": "web-core.amount",
+          "mode": "host-contract",
+          "reason": "Table Wide Text Presets=Amount owns the materialized typography, color, opacity and layout baseline of nested Core Amount. Standalone Core Amount remains active outside Table Wide."
+        },
+        {
+          "packageId": "web-corp.payment-masked-number",
+          "mode": "host-contract",
+          "reason": "Table Wide Text Presets=Account owns the materialized typography, color, opacity and layout baseline of nested PaymentMaskedNumber. Standalone PaymentMaskedNumber remains active outside Table Wide."
+        }
+      ]
+    },
     "forbiddenOverrides": [
       "arbitrary instance swap",
       "width of ControlCell and ActionCell",
