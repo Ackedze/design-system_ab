@@ -5,9 +5,9 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-corp/CorporateSystemMessage`
 - Component API facts: 29
-- Executable RuleIR entries: 4
-- Deterministic coverage: 3/24
-- Unsupported deterministic rules: 21
+- Executable RuleIR entries: 5
+- Deterministic coverage: 4/24
+- Unsupported deterministic rules: 20
 - Manual rules: 1
 - Advisory rules: 9
 

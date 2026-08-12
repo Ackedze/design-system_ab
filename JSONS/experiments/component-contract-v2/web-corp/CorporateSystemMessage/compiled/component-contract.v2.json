@@ -83,9 +83,11 @@
       "variant.properties"
     ],
     "operators": [
+      "allMatch",
       "classificationPolicy",
       "componentApiValid",
-      "matchesEffectiveBaseline"
+      "matchesEffectiveBaseline",
+      "oneOf"
     ],
     "remediations": [
       "set-variant-properties"
@@ -1804,6 +1806,82 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.corporate-system-message.buttons-count-and-views",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CorporateSystemMessage/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.corporate-system-message.buttons-count-and-views"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Button"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "allMatch",
+        "predicate": {
+          "op": "oneOf",
+          "fact": "target.variant.View",
+          "values": [
+            "Primary",
+            "Secondary"
+          ]
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "В Large и Small допускается не более двух кнопок: одна Primary и одна Secondary.",
+        "group": "Buttons.children|Button.variant.View"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "variant.properties"
+        ],
+        "operators": [
+          "allMatch",
+          "oneOf"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp.corporate-system-message.component-properties-are-first-class",
       "source": {
         "file": "JSONS/web/components/web-corp/CorporateSystemMessage/rules.json",
@@ -2189,30 +2267,6 @@
         "facts": [
           "component.identity",
           "layout.properties",
-          "variant.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.corporate-system-message.buttons-count-and-views",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "constraints"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
           "variant.properties"
         ],
         "operators": [
@@ -2867,13 +2921,13 @@
     "summary": {
       "sourceRules": 34,
       "deterministicSourceRules": 24,
-      "executableDeterministicSourceRules": 3,
+      "executableDeterministicSourceRules": 4,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 3,
+      "executable": 4,
       "advisory": 9,
       "manual": 1,
-      "unsupported": 21,
-      "deterministicCoverageRatio": 0.125
+      "unsupported": 20,
+      "deterministicCoverageRatio": 0.1667
     },
     "report": "../coverage.json"
   }

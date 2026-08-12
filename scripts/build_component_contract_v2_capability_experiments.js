@@ -513,6 +513,22 @@ function normalizeAssertionForProfile(assertion, rule, profile) {
 function inferAssertion(rule) {
   const suffix = ruleSuffix(rule.ruleId);
   if (
+    suffix === 'buttons-count-and-views' &&
+    rule.constraints &&
+    Array.isArray(rule.constraints.allowedViews) &&
+    rule.constraints.allowedViews.length > 0
+  ) {
+    const inferred = executable('allMatch', {
+      predicate: {
+        op: 'oneOf',
+        fact: 'target.variant.View',
+        values: rule.constraints.allowedViews,
+      },
+    });
+    inferred.capabilities.operators.push('oneOf');
+    return inferred;
+  }
+  if (
     rule.scope === 'root-and-all-internal-layers' &&
     typeof rule.baselinePolicy === 'string' &&
     rule.baselinePolicy.length > 0
@@ -1008,6 +1024,21 @@ function buildSelectors(generatedContract, compositionDocument, sourceRules, com
 }
 
 function selectorForRule(rule) {
+  if (ruleSuffix(rule.ruleId) === 'buttons-count-and-views') {
+    return {
+      host: 'host.package',
+      targets: {
+        scope: 'descendants',
+        from: '$host',
+        where: {
+          semanticRoleOrLayerName: { op: 'oneOf', values: ['Button'] },
+          visible: { op: 'equals', value: true },
+        },
+        occurrence: 'all',
+        orderBy: 'document',
+      },
+    };
+  }
   if (rule.scope === 'root-and-all-internal-layers') {
     return {
       host: 'host.package',
