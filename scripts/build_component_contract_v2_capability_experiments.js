@@ -869,13 +869,19 @@ function compileConstraint(constraint) {
     };
   }
   if (constraint.op === 'valuePosition') {
-    return {
+    const assertion = {
       op: 'valuePosition',
       fact: `target.variant.${constraint.property}`,
       value: constraint.value,
-      positions: constraint.positions,
       maxCount: constraint.maxCount == null ? null : constraint.maxCount,
     };
+    if (Array.isArray(constraint.positions) && constraint.positions.length) {
+      assertion.positions = constraint.positions;
+    }
+    if (typeof constraint.subjectLabel === 'string' && constraint.subjectLabel.trim()) {
+      assertion.subjectLabel = constraint.subjectLabel.trim();
+    }
+    return assertion;
   }
   throw new Error(`Unsupported composition operator: ${constraint.op}`);
 }

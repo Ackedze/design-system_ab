@@ -32,8 +32,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/ButtonGroup [D]/composition-contract.json",
-        "bytes": 42253,
-        "sha256": "9a180f8fc6ec76689c95b7f2d53e85971dab42138a7227caeb1c28817eff7c1a"
+        "bytes": 42427,
+        "sha256": "d8a8ee2bc85b2896a894b0195e7dbdbb26c855fa0af43c8f685ba04589bf8982"
       },
       {
         "file": "JSONS/web/components/web-corp/ButtonGroup [D]/contract.generated.json",
@@ -741,9 +741,6 @@
         "op": "valuePosition",
         "fact": "target.variant.View",
         "value": "Primary",
-        "positions": [
-          "first"
-        ],
         "maxCount": 1
       },
       "verdict": {
@@ -765,7 +762,7 @@
         }
       },
       "presentation": {
-        "message": "Primary-кнопка необязательна, но может быть только первой",
+        "message": "Primary-кнопка необязательна; в группе допускается не более одной Primary",
         "group": "component.composition"
       },
       "capabilities": {
@@ -839,10 +836,11 @@
         "op": "valuePosition",
         "fact": "target.variant.SingleIcon",
         "value": "True",
+        "maxCount": 1,
         "positions": [
           "last"
         ],
-        "maxCount": 1
+        "subjectLabel": "PickerButton"
       },
       "verdict": {
         "pass": "expected",
@@ -863,7 +861,7 @@
         }
       },
       "presentation": {
-        "message": "SingleIcon допускается только у последней кнопки и только один раз",
+        "message": "При Overflow=true последняя кнопка должна оставаться штатным PickerButton (SingleIcon=true с системной иконкой); SingleIcon допускается только у последней кнопки и только один раз",
         "group": "component.composition"
       },
       "capabilities": {
