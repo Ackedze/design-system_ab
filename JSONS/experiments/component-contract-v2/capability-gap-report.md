@@ -12,7 +12,7 @@ Candidate capabilities are discovery hints, not executable behavior.
 
 ## Unsupported classification
 
-- structured-fields-unmapped: 103
+- structured-fields-unmapped: 102
 - structured-fields-missing-runtime-operator: 7
 - prose-existing-operator: 19
 - prose-missing-runtime-operator: 8
@@ -181,7 +181,6 @@ No unsupported deterministic rules.
 | `component:web-corp.corporate-system-message.buttons-axis-large-only` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.corporate-system-message.buttons-optional-combinations` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.corporate-system-message.caption-optional-all-views` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web-corp.corporate-system-message.center-alignment-protected` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.corporate-system-message.description-override-by-state` | structured-fields-missing-runtime-operator | statePolicy | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.corporate-system-message.external-background-plate-slot-allowed` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.corporate-system-message.graphic-override-base-only` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |

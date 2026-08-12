@@ -3,13 +3,13 @@
   "summary": {
     "sourceRules": 34,
     "deterministicSourceRules": 24,
-    "executableDeterministicSourceRules": 4,
+    "executableDeterministicSourceRules": 5,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 4,
+    "executable": 5,
     "advisory": 9,
     "manual": 1,
-    "unsupported": 20,
-    "deterministicCoverageRatio": 0.1667
+    "unsupported": 19,
+    "deterministicCoverageRatio": 0.2083
   },
   "rules": [
     {
@@ -166,24 +166,25 @@
     {
       "sourceRuleId": "component:web-corp.corporate-system-message.center-alignment-protected",
       "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.corporate-system-message.center-alignment-protected"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
       "structuredFields": [
         "expected"
       ],
       "candidateCapabilities": {
         "selectors": [
-          "ancestry",
           "component-identity",
-          "semantic-role"
+          "self-and-descendants"
         ],
         "facts": [
           "component.identity",
           "layout.properties"
         ],
         "operators": [
-          "author-structured-assertion"
+          "propertiesEqual"
         ],
         "remediations": []
       }

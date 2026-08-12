@@ -513,6 +513,16 @@ function normalizeAssertionForProfile(assertion, rule, profile) {
 function inferAssertion(rule) {
   const suffix = ruleSuffix(rule.ruleId);
   if (
+    suffix === 'center-alignment-protected' &&
+    rule.expected === 'CENTER'
+  ) {
+    return executable('propertiesEqual', {
+      values: {
+        'text.align.horizontal': rule.expected,
+      },
+    });
+  }
+  if (
     suffix === 'buttons-count-and-views' &&
     rule.constraints &&
     Array.isArray(rule.constraints.allowedViews) &&
