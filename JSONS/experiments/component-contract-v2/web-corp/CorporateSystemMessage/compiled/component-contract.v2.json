@@ -88,8 +88,7 @@
       "componentApiValid",
       "configurationPolicy",
       "matchesEffectiveBaseline",
-      "oneOf",
-      "propertiesEqual"
+      "oneOf"
     ],
     "remediations": [
       "set-variant-properties"
@@ -1902,10 +1901,9 @@
         "op": "evidenceComplete"
       },
       "assert": {
-        "op": "propertiesEqual",
-        "values": {
-          "text.align.horizontal": "CENTER"
-        }
+        "op": "configurationPolicy",
+        "manualTextAlignAllowed": false,
+        "expectedTextAlign": "CENTER"
       },
       "verdict": {
         "pass": "expected",
@@ -1931,7 +1929,7 @@
           "layout.properties"
         ],
         "operators": [
-          "propertiesEqual"
+          "configurationPolicy"
         ],
         "remediations": []
       }

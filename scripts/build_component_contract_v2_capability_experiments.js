@@ -526,10 +526,9 @@ function inferAssertion(rule) {
     suffix === 'center-alignment-protected' &&
     rule.expected === 'CENTER'
   ) {
-    return executable('propertiesEqual', {
-      values: {
-        'text.align.horizontal': rule.expected,
-      },
+    return executable('configurationPolicy', {
+      manualTextAlignAllowed: false,
+      expectedTextAlign: rule.expected,
     });
   }
   if (
