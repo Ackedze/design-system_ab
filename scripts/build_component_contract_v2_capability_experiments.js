@@ -432,7 +432,7 @@ function inferSourceRule(rule, profile) {
     severity: normalizeSeverity(rule.severity),
     enforcement: inference.enforcement,
     select: selectorForRule(rule),
-    when: normalizeConditions(rule.conditions),
+    when: normalizeConditions(rule.conditions, rule),
     assert: assertion,
     verdict: inference.enforcement === 'classification'
       ? { pass: 'allowed', fail: 'unknown', unknown: 'unknown' }
@@ -512,6 +512,16 @@ function normalizeAssertionForProfile(assertion, rule, profile) {
 
 function inferAssertion(rule) {
   const suffix = ruleSuffix(rule.ruleId);
+  if (
+    suffix === 'graphic-override-base-only' &&
+    rule.allowedWhen &&
+    rule.allowedWhen['variant.View'] === 'Base'
+  ) {
+    return executable('configurationPolicy', {
+      manualComponentPropertiesAllowed: false,
+      includeDescendants: true,
+    });
+  }
   if (
     suffix === 'center-alignment-protected' &&
     rule.expected === 'CENTER'
@@ -1034,6 +1044,21 @@ function buildSelectors(generatedContract, compositionDocument, sourceRules, com
 }
 
 function selectorForRule(rule) {
+  if (ruleSuffix(rule.ruleId) === 'graphic-override-base-only') {
+    return {
+      host: 'host.package',
+      targets: {
+        scope: 'descendants',
+        from: '$host',
+        where: {
+          semanticRoleOrLayerName: { op: 'oneOf', values: ['Graphic'] },
+          visible: { op: 'equals', value: true },
+        },
+        occurrence: 'all',
+        orderBy: 'document',
+      },
+    };
+  }
   if (ruleSuffix(rule.ruleId) === 'buttons-count-and-views') {
     return {
       host: 'host.package',
@@ -1460,7 +1485,21 @@ function selectorForTarget(target) {
   return target && target.layers ? 'semantic-role' : 'component-identity';
 }
 
-function normalizeConditions(conditions) {
+function normalizeConditions(conditions, rule) {
+  if (
+    ruleSuffix(rule.ruleId) === 'graphic-override-base-only' &&
+    rule.allowedWhen &&
+    rule.allowedWhen['variant.View'] === 'Base'
+  ) {
+    return {
+      op: 'all',
+      clauses: {
+        except: {
+          variant: { View: 'Base' },
+        },
+      },
+    };
+  }
   return conditions ? { op: 'all', clauses: conditions } : { op: 'evidenceComplete' };
 }
 

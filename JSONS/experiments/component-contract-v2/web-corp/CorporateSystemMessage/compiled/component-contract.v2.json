@@ -86,6 +86,7 @@
       "allMatch",
       "classificationPolicy",
       "componentApiValid",
+      "configurationPolicy",
       "matchesEffectiveBaseline",
       "oneOf",
       "propertiesEqual"
@@ -2125,6 +2126,82 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.corporate-system-message.graphic-override-base-only",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CorporateSystemMessage/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.corporate-system-message.graphic-override-base-only"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Graphic"
+              ]
+            },
+            "visible": {
+              "op": "equals",
+              "value": true
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "except": {
+            "variant": {
+              "View": "Base"
+            }
+          }
+        }
+      },
+      "assert": {
+        "op": "configurationPolicy",
+        "manualComponentPropertiesAllowed": false,
+        "includeDescendants": true
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Менять Graphic можно только в View=Base. В Error, Empty, Progress и No adaptive графика определяется состоянием.",
+        "group": "variant.View|Graphic.instanceSwap|Graphic.variant.*"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "variant.properties"
+        ],
+        "operators": [
+          "configurationPolicy"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp.corporate-system-message.layer-properties-use-effective-baseline",
       "source": {
         "file": "JSONS/web/components/web-corp/CorporateSystemMessage/rules.json",
@@ -2451,30 +2528,6 @@
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "allowedComposition"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "variant.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.corporate-system-message.graphic-override-base-only",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "allowedWhen"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -2951,13 +3004,13 @@
     "summary": {
       "sourceRules": 34,
       "deterministicSourceRules": 24,
-      "executableDeterministicSourceRules": 5,
+      "executableDeterministicSourceRules": 6,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 5,
+      "executable": 6,
       "advisory": 9,
       "manual": 1,
-      "unsupported": 19,
-      "deterministicCoverageRatio": 0.2083
+      "unsupported": 18,
+      "deterministicCoverageRatio": 0.25
     },
     "report": "../coverage.json"
   }
