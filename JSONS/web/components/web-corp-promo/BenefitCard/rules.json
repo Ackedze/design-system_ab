@@ -85,6 +85,13 @@
         "appliesTo": "component",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "target": {
+          "layer": "root"
+        },
+        "allowedComponents": [
+          "[D] BenefitCard",
+          "[M] BenefitCard"
+        ],
         "ruleText": "Используй только публичные корни [D] BenefitCard и [M] BenefitCard. BottomContent, ContentWrapper и Graphic являются служебными частями и не используются отдельно."
       },
       {
@@ -375,6 +382,23 @@
         "ruleText": "Если кликабельны и вся BenefitCard, и BottomContent.Link, они должны вести в один сценарий и выполнять одно действие."
       },
       {
+        "ruleId": "component:web.benefit-card.text-alignment-protected",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "text.align.horizontal",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "scope": "root-and-all-internal-layers",
+        "expected": "LEFT",
+        "target": {
+          "components": [
+            "[D] BenefitCard",
+            "[M] BenefitCard"
+          ]
+        },
+        "ruleText": "Не меняй вручную горизонтальное выравнивание текста внутри BenefitCard. Текстовые слои должны использовать штатное выравнивание LEFT."
+      },
+      {
         "ruleId": "component:web.benefit-card.visuals-follow-effective-baseline",
         "severity": "error",
         "source": "pattern-link",
@@ -385,6 +409,12 @@
         "matchKind": "exact_component_rule",
         "scope": "root-and-all-internal-layers",
         "baselinePolicy": "effective-baseline-by-BenefitCard-variant-and-nested-owner",
+        "target": {
+          "components": [
+            "[D] BenefitCard",
+            "[M] BenefitCard"
+          ]
+        },
         "ruleText": "Не меняй вручную внутренние отступы, интервалы, скругления, заливки, обводки, типографику, opacity и эффекты BenefitCard. Исключения: Type вложенного [Promo] BackgroundPlate, цвет заливки для Type=Colored и цвет обводки для Type=Border можно менять по правилам его компонентного контракта."
       }
     ]

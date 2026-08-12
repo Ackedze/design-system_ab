@@ -523,13 +523,29 @@ function inferAssertion(rule) {
     });
   }
   if (
-    suffix === 'center-alignment-protected' &&
-    rule.expected === 'CENTER'
+    suffix.endsWith('alignment-protected') &&
+    typeof rule.expected === 'string' &&
+    rule.expected.trim()
   ) {
     return executable('configurationPolicy', {
       manualTextAlignAllowed: false,
       expectedTextAlign: rule.expected,
     });
+  }
+  if (
+    suffix === 'public-roots-only' &&
+    Array.isArray(rule.allowedComponents) &&
+    rule.allowedComponents.length > 0
+  ) {
+    const inferred = executable('allMatch', {
+      predicate: {
+        op: 'oneOf',
+        fact: 'target.componentName',
+        values: rule.allowedComponents,
+      },
+    });
+    inferred.capabilities.operators.push('oneOf');
+    return inferred;
   }
   if (
     suffix === 'buttons-count-and-views' &&
@@ -1074,8 +1090,16 @@ function selectorForRule(rule) {
     };
   }
   if (rule.scope === 'root-and-all-internal-layers') {
+    const targetComponents = targetComponentsForRule(rule);
     return {
-      host: 'host.package',
+      host: targetComponents.length
+        ? {
+            scope: 'selection-root',
+            where: {
+              semanticRoleOrLayerName: { op: 'oneOf', values: targetComponents },
+            },
+          }
+        : 'host.package',
       targets: {
         scope: 'self-and-descendants',
         from: '$host',

@@ -16,7 +16,7 @@ Candidate capabilities are discovery hints, not executable behavior.
 - structured-fields-missing-runtime-operator: 7
 - prose-existing-operator: 19
 - prose-missing-runtime-operator: 8
-- prose-unclassified: 154
+- prose-unclassified: 153
 
 The classification separates source authoring from runtime support. Structured source fields are
 reported independently from prose-only rules; candidate operators remain discovery hints.
@@ -391,7 +391,6 @@ No unsupported deterministic rules.
 | `component:web.benefit-card.compact-required-at-1024` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.compact-uses-secondary-title` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.icon-uses-glyph-26` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.benefit-card.public-roots-only` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.title-and-graphic-required` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.vertical-resizing-policy` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 
