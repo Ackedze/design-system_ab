@@ -97,6 +97,32 @@
         "ruleText": "CardSwiperMobile предназначен только для mobile-web. Использование компонента на desktop запрещено."
       },
       {
+        "ruleId": "component:web-corp.card-swiper-mobile.internal-composition-follows-effective-baseline",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.identity|layout.*|fill|stroke|radius|opacity|effects.*",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "layers": [
+            "CardsCollection",
+            "LeftCardWrapper",
+            "RightCardWrapper",
+            "↕ SpacingVertical"
+          ]
+        },
+        "requiredValue": "effective-baseline",
+        "classification": {
+          "reportAsCustomization": true,
+          "treatAsViolation": true,
+          "designSeverity": "error",
+          "resetSurface": "layer",
+          "useEffectiveBaseline": true
+        },
+        "remediation": "Восстановите штатную геометрию, порядок, оформление и эффекты служебных контейнеров CardSwiperMobile.",
+        "ruleText": "CardsCollection, LeftCardWrapper, RightCardWrapper и оба SpacingVertical принадлежат host-композиции. Их identity, layout, paint, radius, opacity и effects должны совпадать с effective baseline выбранного Screen Size."
+      },
+      {
         "ruleId": "component:web-corp.card-swiper-mobile.requires-at-least-one-card",
         "severity": "error",
         "source": "owner-confirmed",

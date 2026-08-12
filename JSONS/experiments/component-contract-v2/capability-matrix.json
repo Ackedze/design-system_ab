@@ -587,15 +587,15 @@
     {
       "packageId": "web-corp.card-swiper-mobile",
       "coverage": {
-        "sourceRules": 20,
-        "deterministicSourceRules": 8,
-        "executableDeterministicSourceRules": 2,
+        "sourceRules": 21,
+        "deterministicSourceRules": 9,
+        "executableDeterministicSourceRules": 3,
         "promotedManualOrAdvisorySourceRules": 0,
-        "executable": 2,
+        "executable": 3,
         "advisory": 8,
         "manual": 4,
         "unsupported": 6,
-        "deterministicCoverageRatio": 0.25
+        "deterministicCoverageRatio": 0.3333
       },
       "required": {
         "selectorVersion": 2,
@@ -603,13 +603,19 @@
         "ruleIrVersion": 2,
         "selectors": [
           "component-identity",
-          "self-and-descendants"
+          "descendant",
+          "document-order",
+          "self-and-descendants",
+          "visibility"
         ],
         "facts": [
           "baseline.effective",
           "component-api.contract",
           "component.identity",
+          "effects",
           "layout.properties",
+          "node.documentOrder",
+          "node.visibility",
           "opacity",
           "ownership.owner",
           "paint.fill",
@@ -624,9 +630,12 @@
         "operators": [
           "classificationPolicy",
           "componentApiValid",
-          "matchesEffectiveBaseline"
+          "countBetween",
+          "matchesEffectiveBaseline",
+          "sequenceEquals"
         ],
         "remediations": [
+          "rule-defined-remediation",
           "set-variant-properties"
         ],
         "unknownCapabilityPolicy": "unsupported-fail-closed",
@@ -2182,6 +2191,7 @@
           "web-corp.buttons-group",
           "web-corp.button-stack",
           "web-corp.card-image",
+          "web-corp.card-swiper-mobile",
           "web-corp.table-basic"
         ]
       },
@@ -2193,6 +2203,7 @@
           "web-corp.buttons-group",
           "web-corp.button-stack",
           "web-corp.card-image",
+          "web-corp.card-swiper-mobile",
           "web-corp.table-basic"
         ]
       },
@@ -2275,6 +2286,7 @@
           "web-corp.buttons-group",
           "web-corp.button-stack",
           "web-corp.card-image",
+          "web-corp.card-swiper-mobile",
           "web-corp.table-basic"
         ]
       }
@@ -2453,6 +2465,7 @@
           "web-corp.background-plate",
           "web-corp.buttons-group",
           "web-corp.card-image",
+          "web-corp.card-swiper-mobile",
           "web-corp.corporate-app-header-new",
           "web-corp.corporate-content",
           "web-corp.corporate-system-message",
@@ -2586,6 +2599,7 @@
           "web-corp.buttons-group",
           "web-corp.button-stack",
           "web-corp.card-image",
+          "web-corp.card-swiper-mobile",
           "web-corp.table-basic"
         ]
       },
@@ -3204,6 +3218,7 @@
           "web-corp.buttons-group",
           "web-corp.button-stack",
           "web-corp.card-image",
+          "web-corp.card-swiper-mobile",
           "web-corp.table-basic"
         ]
       },
@@ -3358,7 +3373,8 @@
       {
         "id": "sequenceEquals",
         "packages": [
-          "web-corp.button-stack"
+          "web-corp.button-stack",
+          "web-corp.card-swiper-mobile"
         ]
       },
       {
@@ -3795,9 +3811,9 @@
   },
   "coverage": {
     "packageCount": 28,
-    "sourceRules": 840,
-    "deterministicSourceRules": 497,
-    "executableDeterministicSourceRules": 202,
+    "sourceRules": 841,
+    "deterministicSourceRules": 498,
+    "executableDeterministicSourceRules": 203,
     "unsupported": 295,
     "fullCoveragePackages": [
       "web-corp.title-view",
@@ -3816,6 +3832,6 @@
       "prose-missing-runtime-operator": 8,
       "prose-unclassified": 156
     },
-    "deterministicCoverageRatio": 0.4064
+    "deterministicCoverageRatio": 0.4076
   }
 }

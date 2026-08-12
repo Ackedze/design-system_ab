@@ -6,6 +6,8 @@ Component package для mobile-web карусели банковских кар
 
 **Ready**. Продуктовая семантика и комплект документов подтверждены владельцем 2026-08-03. Package validator и targeted Athena checks проходят; точный runtime API остаётся отдельным долгом и не блокирует готовность Figma-контракта.
 
+Contract v2 находится в тестировании. Runtime исполняет девять правил: Component API, effective baseline root и служебных контейнеров, три штатные позиции `CardImage`, последовательности `Size`/`Stack` и вертикальные spacing `24/32`. Правила, которым нужны данные приложения, viewport или interaction evidence (`selectedIndex`, количество карт, swipe и accessibility), остаются advisory и не становятся hard errors по одному Figma snapshot.
+
 ## Источники
 
 - Figma: `Web _ Corp Components`, page `CardSwiperMobile [M]`, node `20005:58597`.

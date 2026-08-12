@@ -5,8 +5,8 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-corp/CardSwiperMobile [M]`
 - Component API facts: 1
-- Executable RuleIR entries: 3
-- Deterministic coverage: 2/8
+- Executable RuleIR entries: 9
+- Deterministic coverage: 3/9
 - Unsupported deterministic rules: 6
 - Manual rules: 4
 - Advisory rules: 8

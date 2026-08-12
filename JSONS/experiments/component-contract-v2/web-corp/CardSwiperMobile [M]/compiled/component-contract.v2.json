@@ -17,8 +17,8 @@
     "sourceFiles": [
       {
         "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/README.md",
-        "bytes": 7172,
-        "sha256": "6728ce2dd008e1e90bb7f2278ff60e9cec9e3a017b504a13cea6d95ca4f519bb"
+        "bytes": 7808,
+        "sha256": "b0aa727fd8fab49b9c5a57592979daa119ba3ba566233a5dbfd9c9223e087050"
       },
       {
         "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/agent-context.json",
@@ -32,8 +32,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/composition-contract.json",
-        "bytes": 18249,
-        "sha256": "0482166eb5eaff9889cd3793126e9474f787a79edca8ca5f09e52abde4aa8232"
+        "bytes": 20809,
+        "sha256": "6f7e291bb097c496aa2fc26175f0a8d172a317967804326d865cb6f53300aa5f"
       },
       {
         "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/contract.generated.json",
@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/rules.json",
-        "bytes": 16771,
-        "sha256": "81ef8328a3e42b5ba160bedb474a0eb616621aa97f04d38344ab208f7441c98d"
+        "bytes": 18095,
+        "sha256": "ec69a8d03d17a5617fe8b7b88c6573f2d40d8b3e5246c9d419a05e543f8d1be6"
       }
     ]
   },
@@ -63,13 +63,19 @@
     "ruleIrVersion": 2,
     "selectors": [
       "component-identity",
-      "self-and-descendants"
+      "descendant",
+      "document-order",
+      "self-and-descendants",
+      "visibility"
     ],
     "facts": [
       "baseline.effective",
       "component-api.contract",
       "component.identity",
+      "effects",
       "layout.properties",
+      "node.documentOrder",
+      "node.visibility",
       "opacity",
       "ownership.owner",
       "paint.fill",
@@ -84,9 +90,12 @@
     "operators": [
       "classificationPolicy",
       "componentApiValid",
-      "matchesEffectiveBaseline"
+      "countBetween",
+      "matchesEffectiveBaseline",
+      "sequenceEquals"
     ],
     "remediations": [
+      "rule-defined-remediation",
       "set-variant-properties"
     ],
     "unknownCapabilityPolicy": "unsupported-fail-closed",
@@ -171,12 +180,41 @@
           "semanticRoleOrLayerName": {
             "op": "oneOf",
             "values": [
+              "↕ SpacingVertical",
               "CardImage",
               "CardsCollection",
               "CardSwiperMobile",
               "CardSwiperMobile [M]",
               "LeftCardWrapper",
               "RightCardWrapper"
+            ]
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.card-swiper-mobile.card-window": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "CardImage"
+            ]
+          }
+        },
+        "occurrence": "all",
+        "orderBy": "document"
+      },
+      "composition.card-swiper-mobile.vertical-spacing": {
+        "scope": "descendants",
+        "from": "$host",
+        "where": {
+          "componentName": {
+            "op": "oneOf",
+            "values": [
+              "↕ SpacingVertical"
             ]
           }
         },
@@ -251,6 +289,441 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.card-swiper-mobile.card-swiper-mobile.card-window.card-count",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/composition-contract.json",
+        "sourceRuleIds": []
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentKey": {
+              "op": "oneOf",
+              "values": [
+                "0ccaf9d784aa8b603d6229a898f46433ee74b925",
+                "71276eaed89138c3a234084b2f7339019a558aec",
+                "d115bb68174c21fe7475748dc31f651221db4558"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "countBetween",
+        "min": 3,
+        "max": 3
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "CardSwiperMobile сохраняет три штатные позиции CardImage: previous, current и next; крайние позиции скрываются root properties, но не удаляются из композиции",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "countBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-swiper-mobile.card-swiper-mobile.card-window.card-size-order",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/composition-contract.json",
+        "sourceRuleIds": []
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentKey": {
+              "op": "oneOf",
+              "values": [
+                "0ccaf9d784aa8b603d6229a898f46433ee74b925",
+                "71276eaed89138c3a234084b2f7339019a558aec",
+                "d115bb68174c21fe7475748dc31f651221db4558"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "sequenceEquals",
+        "fact": "target.variant.Size",
+        "values": [
+          "212x132",
+          "264x164",
+          "212x132"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Size": "$expectedValue"
+        }
+      },
+      "presentation": {
+        "message": "CardSwiperMobile использует CardImage Size=212x132 для previous/next и Size=264x164 для current",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "sequenceEquals"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-swiper-mobile.card-swiper-mobile.card-window.card-stack-order",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/composition-contract.json",
+        "sourceRuleIds": []
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentKey": {
+              "op": "oneOf",
+              "values": [
+                "0ccaf9d784aa8b603d6229a898f46433ee74b925",
+                "71276eaed89138c3a234084b2f7339019a558aec",
+                "d115bb68174c21fe7475748dc31f651221db4558"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "CardImage"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "sequenceEquals",
+        "fact": "target.variant.Stack",
+        "values": [
+          "false",
+          "false",
+          "false"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Stack": "$expectedValue"
+        }
+      },
+      "presentation": {
+        "message": "Все CardImage внутри CardSwiperMobile используют Stack=false",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "sequenceEquals"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-swiper-mobile.card-swiper-mobile.vertical-spacing.spacing-count",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/composition-contract.json",
+        "sourceRuleIds": []
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentKey": {
+              "op": "oneOf",
+              "values": [
+                "0ccaf9d784aa8b603d6229a898f46433ee74b925",
+                "71276eaed89138c3a234084b2f7339019a558aec",
+                "d115bb68174c21fe7475748dc31f651221db4558"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "↕ SpacingVertical"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "countBetween",
+        "min": 2,
+        "max": 2
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "CardSwiperMobile содержит верхний и нижний SpacingVertical",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "countBetween"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-swiper-mobile.card-swiper-mobile.vertical-spacing.spacing-size-order",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/composition-contract.json",
+        "sourceRuleIds": []
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": {
+          "scope": "selection-root",
+          "where": {
+            "componentKey": {
+              "op": "oneOf",
+              "values": [
+                "0ccaf9d784aa8b603d6229a898f46433ee74b925",
+                "71276eaed89138c3a234084b2f7339019a558aec",
+                "d115bb68174c21fe7475748dc31f651221db4558"
+              ]
+            }
+          }
+        },
+        "targets": {
+          "scope": "descendants",
+          "from": "$host",
+          "where": {
+            "componentName": {
+              "op": "oneOf",
+              "values": [
+                "↕ SpacingVertical"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "sequenceEquals",
+        "fact": "target.variant.Size",
+        "values": [
+          "24",
+          "32"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "node.documentOrder",
+        "node.visibility",
+        "variant.properties"
+      ],
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget",
+        "properties": {
+          "Size": "$expectedValue"
+        }
+      },
+      "presentation": {
+        "message": "CardSwiperMobile использует верхний spacing 24 px и нижний spacing 32 px для обоих Screen Size",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "descendant",
+          "document-order",
+          "visibility"
+        ],
+        "facts": [
+          "component.identity",
+          "node.documentOrder",
+          "node.visibility",
+          "variant.properties"
+        ],
+        "operators": [
+          "sequenceEquals"
+        ],
+        "remediations": [
+          "set-variant-properties"
+        ]
+      }
+    },
+    {
       "id": "rule-ir:web-corp.card-swiper-mobile.component-properties-are-first-class",
       "source": {
         "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/rules.json",
@@ -313,6 +786,100 @@
           "classificationPolicy"
         ],
         "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.card-swiper-mobile.internal-composition-follows-effective-baseline",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardSwiperMobile [M]/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.card-swiper-mobile.internal-composition-follows-effective-baseline"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "↕ SpacingVertical",
+                "CardsCollection",
+                "LeftCardWrapper",
+                "RightCardWrapper"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "component.identity",
+          "layout.*",
+          "fill",
+          "stroke",
+          "radius",
+          "opacity",
+          "effects.*"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "baseline.effective",
+        "component.identity",
+        "effects",
+        "layout.properties",
+        "opacity",
+        "ownership.owner",
+        "paint.fill",
+        "paint.stroke",
+        "variable.binding"
+      ],
+      "remediation": {
+        "kind": "rule-defined-remediation",
+        "specification": "Восстановите штатную геометрию, порядок, оформление и эффекты служебных контейнеров CardSwiperMobile."
+      },
+      "presentation": {
+        "message": "CardsCollection, LeftCardWrapper, RightCardWrapper и оба SpacingVertical принадлежат host-композиции. Их identity, layout, paint, radius, opacity и effects должны совпадать с effective baseline выбранного Screen Size.",
+        "group": "component.identity|layout.*|fill|stroke|radius|opacity|effects.*"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "effects",
+          "layout.properties",
+          "opacity",
+          "ownership.owner",
+          "paint.fill",
+          "paint.stroke",
+          "variable.binding"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": [
+          "rule-defined-remediation"
+        ]
       }
     },
     {
@@ -848,15 +1415,15 @@
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 20,
-      "deterministicSourceRules": 8,
-      "executableDeterministicSourceRules": 2,
+      "sourceRules": 21,
+      "deterministicSourceRules": 9,
+      "executableDeterministicSourceRules": 3,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 2,
+      "executable": 3,
       "advisory": 8,
       "manual": 4,
       "unsupported": 6,
-      "deterministicCoverageRatio": 0.25
+      "deterministicCoverageRatio": 0.3333
     },
     "report": "../coverage.json"
   }

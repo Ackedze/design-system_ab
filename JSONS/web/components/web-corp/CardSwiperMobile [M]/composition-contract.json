@@ -406,6 +406,88 @@
     ]
   },
   "manual": {
+    "contracts": [
+      {
+        "id": "card-swiper-mobile.card-window",
+        "match": {
+          "hostComponentKeys": [
+            "71276eaed89138c3a234084b2f7339019a558aec"
+          ]
+        },
+        "select": {
+          "nestedComponentNames": [
+            "CardImage"
+          ],
+          "visibility": "all",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "card-count",
+            "op": "countBetween",
+            "min": 3,
+            "max": 3,
+            "message": "CardSwiperMobile сохраняет три штатные позиции CardImage: previous, current и next; крайние позиции скрываются root properties, но не удаляются из композиции"
+          },
+          {
+            "id": "card-size-order",
+            "op": "propertySequence",
+            "property": "Size",
+            "values": [
+              "212x132",
+              "264x164",
+              "212x132"
+            ],
+            "message": "CardSwiperMobile использует CardImage Size=212x132 для previous/next и Size=264x164 для current"
+          },
+          {
+            "id": "card-stack-order",
+            "op": "propertySequence",
+            "property": "Stack",
+            "values": [
+              "false",
+              "false",
+              "false"
+            ],
+            "message": "Все CardImage внутри CardSwiperMobile используют Stack=false"
+          }
+        ]
+      },
+      {
+        "id": "card-swiper-mobile.vertical-spacing",
+        "match": {
+          "hostComponentKeys": [
+            "71276eaed89138c3a234084b2f7339019a558aec"
+          ]
+        },
+        "select": {
+          "nestedComponentNames": [
+            "↕ SpacingVertical"
+          ],
+          "visibility": "all",
+          "order": "document"
+        },
+        "constraints": [
+          {
+            "id": "spacing-count",
+            "op": "countBetween",
+            "min": 2,
+            "max": 2,
+            "message": "CardSwiperMobile содержит верхний и нижний SpacingVertical"
+          },
+          {
+            "id": "spacing-size-order",
+            "op": "propertySequence",
+            "property": "Size",
+            "values": [
+              "24",
+              "32"
+            ],
+            "message": "CardSwiperMobile использует верхний spacing 24 px и нижний spacing 32 px для обоих Screen Size"
+          }
+        ]
+      }
+    ],
     "ownershipModel": {
       "publicRoots": [
         "CardSwiperMobile"

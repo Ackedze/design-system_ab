@@ -1,15 +1,15 @@
 {
   "schemaVersion": "apollo.rule-coverage.v1",
   "summary": {
-    "sourceRules": 20,
-    "deterministicSourceRules": 8,
-    "executableDeterministicSourceRules": 2,
+    "sourceRules": 21,
+    "deterministicSourceRules": 9,
+    "executableDeterministicSourceRules": 3,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 2,
+    "executable": 3,
     "advisory": 8,
     "manual": 4,
     "unsupported": 6,
-    "deterministicCoverageRatio": 0.25
+    "deterministicCoverageRatio": 0.3333
   },
   "rules": [
     {
@@ -208,6 +208,42 @@
           "author-structured-assertion"
         ],
         "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.card-swiper-mobile.internal-composition-follows-effective-baseline",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.card-swiper-mobile.internal-composition-follows-effective-baseline"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "classification",
+        "requiredValue"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "effects",
+          "layout.properties",
+          "opacity",
+          "ownership.owner",
+          "paint.fill",
+          "paint.stroke",
+          "variable.binding"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": [
+          "rule-defined-remediation"
+        ]
       }
     },
     {
