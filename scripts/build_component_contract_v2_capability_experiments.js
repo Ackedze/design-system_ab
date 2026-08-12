@@ -1035,7 +1035,19 @@ function targetLayersForRule(rule) {
 
 function targetComponentsForRule(rule) {
   const values = [];
-  if (rule.target && typeof rule.target.component === 'string') {
+  const hasExplicitStructuralTarget = rule.target && (
+    rule.target.layer === 'root' ||
+    (Array.isArray(rule.target.slots) && rule.target.slots.length > 0) ||
+    (Array.isArray(rule.target.placeholders) && rule.target.placeholders.length > 0)
+  );
+  // Generated package rules use singular `target.component` as a family label,
+  // while their actual hosts are any Component API members routed to the package.
+  // Only structural rules make that singular component an exact host constraint.
+  if (
+    hasExplicitStructuralTarget &&
+    rule.target &&
+    typeof rule.target.component === 'string'
+  ) {
     values.push(rule.target.component);
   }
   if (rule.target && Array.isArray(rule.target.components)) {
