@@ -5,9 +5,9 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-corp/CardImage`
 - Component API facts: 7
-- Executable RuleIR entries: 10
-- Deterministic coverage: 7/14
-- Unsupported deterministic rules: 7
+- Executable RuleIR entries: 11
+- Deterministic coverage: 8/14
+- Unsupported deterministic rules: 6
 - Manual rules: 5
 - Advisory rules: 3
 

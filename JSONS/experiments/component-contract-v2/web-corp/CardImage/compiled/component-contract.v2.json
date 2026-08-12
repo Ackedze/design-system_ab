@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/CardImage/rules.json",
-        "bytes": 18950,
-        "sha256": "ac1e0c3a2bb8fd670915254106d572ba82061a4a8cb4a085911d04d75b5ff047"
+        "bytes": 19489,
+        "sha256": "97772120c0f9c1983af079a79a82df44c65b869c2e1cd05ef7a45506e50c8c18"
       }
     ]
   },
@@ -72,6 +72,7 @@
       "baseline.effective",
       "component-api.contract",
       "component.identity",
+      "effects",
       "layout.properties",
       "node.documentOrder",
       "node.visibility",
@@ -2147,6 +2148,105 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.card-image.visuals-follow-effective-baseline",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CardImage/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.card-image.visuals-follow-effective-baseline"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": "tree.package"
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "matchesEffectiveBaseline",
+        "properties": [
+          "component.identity",
+          "layout.*",
+          "styles.text",
+          "fill",
+          "stroke",
+          "radius",
+          "opacity",
+          "effects.*"
+        ],
+        "allowedBaselineOverrides": [
+          {
+            "hostVariant": {
+              "Cover": "None"
+            },
+            "properties": [
+              "fill"
+            ],
+            "targetNames": [
+              "Cover",
+              "Image Container"
+            ],
+            "pathSuffixes": [
+              " / CardItem / Cover",
+              " / Details/CardCover / Image Container"
+            ],
+            "actualResourceTypes": [
+              "image"
+            ]
+          }
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "baseline.effective",
+        "component.identity",
+        "effects",
+        "layout.properties",
+        "opacity",
+        "ownership.owner",
+        "paint.fill",
+        "paint.stroke",
+        "style.text",
+        "text.characters",
+        "variable.binding"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Не меняйте вручную структуру, размеры, пропорции, отступы, типографику, цвета, радиусы, opacity и эффекты CardImage. Разрешены только контент имени/последних четырёх цифр, Show Shadow, рубашка при Cover=None и условное скрытие SilverLine по их точным правилам.",
+        "group": "component.identity|layout.*|styles.text|fill|stroke|radius|opacity|effects.*"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "effects",
+          "layout.properties",
+          "opacity",
+          "ownership.owner",
+          "paint.fill",
+          "paint.stroke",
+          "style.text",
+          "text.characters",
+          "variable.binding"
+        ],
+        "operators": [
+          "matchesEffectiveBaseline"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp.card-image.xs-active-only",
       "source": {
         "file": "JSONS/web/components/web-corp/CardImage/rules.json",
@@ -2556,50 +2656,19 @@
         ],
         "remediations": []
       }
-    },
-    {
-      "sourceRuleId": "component:web-corp.card-image.visuals-follow-effective-baseline",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "baseline.effective",
-          "component.identity",
-          "effects",
-          "layout.properties",
-          "opacity",
-          "ownership.owner",
-          "paint.fill",
-          "paint.stroke",
-          "style.text",
-          "text.characters",
-          "variable.binding"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
     }
   ],
   "coverage": {
     "summary": {
       "sourceRules": 22,
       "deterministicSourceRules": 14,
-      "executableDeterministicSourceRules": 7,
+      "executableDeterministicSourceRules": 8,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 7,
+      "executable": 8,
       "advisory": 3,
       "manual": 5,
-      "unsupported": 7,
-      "deterministicCoverageRatio": 0.5
+      "unsupported": 6,
+      "deterministicCoverageRatio": 0.5714
     },
     "report": "../coverage.json"
   }

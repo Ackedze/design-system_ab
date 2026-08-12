@@ -357,9 +357,30 @@
         "ruleId": "component:web-corp.card-image.visuals-follow-effective-baseline",
         "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity|effects.*",
+        "appliesTo": "component.identity|layout.*|styles.text|fill|stroke|radius|opacity|effects.*",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
+        "allowedBaselineOverrides": [
+          {
+            "hostVariant": {
+              "Cover": "None"
+            },
+            "properties": [
+              "fill"
+            ],
+            "targetNames": [
+              "Cover",
+              "Image Container"
+            ],
+            "pathSuffixes": [
+              " / CardItem / Cover",
+              " / Details/CardCover / Image Container"
+            ],
+            "actualResourceTypes": [
+              "image"
+            ]
+          }
+        ],
         "ruleText": "Не меняйте вручную структуру, размеры, пропорции, отступы, типографику, цвета, радиусы, opacity и эффекты CardImage. Разрешены только контент имени/последних четырёх цифр, Show Shadow, рубашка при Cover=None и условное скрытие SilverLine по их точным правилам."
       },
       {

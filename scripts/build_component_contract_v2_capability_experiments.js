@@ -484,6 +484,12 @@ function normalizeAssertionForProfile(assertion, rule, profile) {
 
 function inferAssertion(rule) {
   const suffix = ruleSuffix(rule.ruleId);
+  if (Array.isArray(rule.allowedBaselineOverrides)) {
+    return executable(
+      'matchesEffectiveBaseline',
+      baselineAssertionParameters(rule, splitAppliesTo(rule.appliesTo)),
+    );
+  }
   if (
     rule.conditions &&
     Array.isArray(rule.conditions.uniformProperties) &&
@@ -677,6 +683,9 @@ function baselineAssertionParameters(rule, properties) {
   const parameters = { properties };
   if (rule.classification?.baselineSource === 'host-variant') {
     parameters.baselineSource = 'host-variant';
+  }
+  if (Array.isArray(rule.allowedBaselineOverrides) && rule.allowedBaselineOverrides.length) {
+    parameters.allowedBaselineOverrides = rule.allowedBaselineOverrides;
   }
   return parameters;
 }

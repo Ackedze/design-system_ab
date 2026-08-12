@@ -16,7 +16,7 @@ Candidate capabilities are discovery hints, not executable behavior.
 - structured-fields-missing-runtime-operator: 7
 - prose-existing-operator: 19
 - prose-missing-runtime-operator: 8
-- prose-unclassified: 157
+- prose-unclassified: 156
 
 The classification separates source authoring from runtime support. Structured source fields are
 reported independently from prose-only rules; candidate operators remain discovery hints.
@@ -134,7 +134,6 @@ No unsupported deterministic rules.
 | `component:web-corp.card-image.public-root-only` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.card-image.shadow-policy` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.card-image.user-data-by-size` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web-corp.card-image.visuals-follow-effective-baseline` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 
 ## web-corp.card-swiper-mobile
 
