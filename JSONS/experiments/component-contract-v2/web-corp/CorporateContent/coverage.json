@@ -3,13 +3,13 @@
   "summary": {
     "sourceRules": 32,
     "deterministicSourceRules": 24,
-    "executableDeterministicSourceRules": 16,
+    "executableDeterministicSourceRules": 17,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 16,
+    "executable": 17,
     "advisory": 7,
     "manual": 1,
-    "unsupported": 8,
-    "deterministicCoverageRatio": 0.6667
+    "unsupported": 7,
+    "deterministicCoverageRatio": 0.7083
   },
   "rules": [
     {
@@ -279,6 +279,7 @@
         "facts": [
           "baseline.effective",
           "component.identity",
+          "effects",
           "layout.properties",
           "opacity",
           "ownership.owner",
@@ -319,15 +320,18 @@
     {
       "sourceRuleId": "component:web-corp.corporate-content.nesting-prohibited",
       "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.corporate-content.nesting-prohibited"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "requiredComposition"
+      ],
       "candidateCapabilities": {
         "selectors": [
-          "ancestry",
           "component-identity",
-          "semantic-role"
+          "self-and-descendants"
         ],
         "facts": [
           "ancestry",
@@ -336,7 +340,7 @@
           "semanticRole"
         ],
         "operators": [
-          "author-structured-assertion"
+          "compositionPolicy"
         ],
         "remediations": []
       }

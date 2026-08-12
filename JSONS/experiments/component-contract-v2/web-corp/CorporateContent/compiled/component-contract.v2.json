@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/CorporateContent/rules.json",
-        "bytes": 32218,
-        "sha256": "1201bd7f517533f1236608a4868be5ccf03a9caa408021da45de62d1a902acaa"
+        "bytes": 32479,
+        "sha256": "e8b7596b74840661a06a90f64beb6be9afa95c1b16977ec4323fe6d098818632"
       }
     ]
   },
@@ -530,10 +530,9 @@
       },
       "assert": {
         "op": "propertiesEqual",
-        "properties": [
-          "clipsContent"
-        ],
-        "value": false
+        "values": {
+          "clipsContent": false
+        }
       },
       "verdict": {
         "pass": "expected",
@@ -779,7 +778,8 @@
           "fill",
           "stroke",
           "radius",
-          "opacity"
+          "opacity",
+          "effects.*"
         ]
       },
       "verdict": {
@@ -790,6 +790,7 @@
       "evidence": [
         "baseline.effective",
         "component.identity",
+        "effects",
         "layout.properties",
         "opacity",
         "ownership.owner",
@@ -802,7 +803,7 @@
       "remediation": null,
       "presentation": {
         "message": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context.",
-        "group": "layout.*|styles.text|fill|stroke|radius|opacity"
+        "group": "layout.*|styles.text|fill|stroke|radius|opacity|effects.*"
       },
       "capabilities": {
         "selectors": [
@@ -812,6 +813,7 @@
         "facts": [
           "baseline.effective",
           "component.identity",
+          "effects",
           "layout.properties",
           "opacity",
           "ownership.owner",
@@ -823,6 +825,66 @@
         ],
         "operators": [
           "matchesEffectiveBaseline"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "id": "rule-ir:web-corp.corporate-content.nesting-prohibited",
+      "source": {
+        "file": "JSONS/web/components/web-corp/CorporateContent/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.corporate-content.nesting-prohibited"
+        ],
+        "patternRuleId": "rule:components.corporate-page.corporate-content-nesting-prohibited"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": "tree.package"
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "compositionPolicy",
+        "prohibitedDescendants": [
+          "[D] CorporateContent",
+          "[M] CorporateContent",
+          "[T] CorporateContent",
+          "🔄 [T] CorporateContent"
+        ]
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "ancestry",
+        "component.identity",
+        "node.documentOrder",
+        "semanticRole"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "CorporateContent нельзя вкладывать внутрь другого CorporateContent. На продуктовой странице используется одна корневая контентная область.",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "ancestry",
+          "component.identity",
+          "node.documentOrder",
+          "semanticRole"
+        ],
+        "operators": [
+          "compositionPolicy"
         ],
         "remediations": []
       }
@@ -854,6 +916,9 @@
         "prohibitedModes": [
           "modal-bg-alt (grey)",
           "modal-bg (white)"
+        ],
+        "variableCollections": [
+          "BackgroundPlate Color"
         ]
       },
       "verdict": {
@@ -1679,30 +1744,6 @@
       }
     },
     {
-      "sourceRuleId": "component:web-corp.corporate-content.nesting-prohibited",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "ancestry",
-          "component.identity",
-          "node.documentOrder",
-          "semanticRole"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "sourceRuleId": "component:web-corp.corporate-content.platform-breakpoint-selection",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
@@ -1905,13 +1946,13 @@
     "summary": {
       "sourceRules": 32,
       "deterministicSourceRules": 24,
-      "executableDeterministicSourceRules": 16,
+      "executableDeterministicSourceRules": 17,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 16,
+      "executable": 17,
       "advisory": 7,
       "manual": 1,
-      "unsupported": 8,
-      "deterministicCoverageRatio": 0.6667
+      "unsupported": 7,
+      "deterministicCoverageRatio": 0.7083
     },
     "report": "../coverage.json"
   }

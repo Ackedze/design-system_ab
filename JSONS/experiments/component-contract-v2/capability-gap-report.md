@@ -16,7 +16,7 @@ Candidate capabilities are discovery hints, not executable behavior.
 - structured-fields-missing-runtime-operator: 7
 - prose-existing-operator: 19
 - prose-missing-runtime-operator: 8
-- prose-unclassified: 156
+- prose-unclassified: 155
 
 The classification separates source authoring from runtime support. Structured source fields are
 reported independently from prose-only rules; candidate operators remain discovery hints.
@@ -167,7 +167,6 @@ No unsupported deterministic rules.
 | --- | --- | --- | --- |
 | `component:web-corp.corporate-content.detach-prohibited` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.corporate-content.grid-style-protected` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web-corp.corporate-content.nesting-prohibited` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.corporate-content.platform-breakpoint-selection` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.corporate-content.root-clickability-prohibited` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.corporate-content.section-position-tablet-order` | structured-fields-unmapped | relativeOrder | The source declares a deterministic rule but contains no structured assertion parameters. |

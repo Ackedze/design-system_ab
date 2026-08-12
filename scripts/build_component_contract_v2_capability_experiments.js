@@ -563,8 +563,12 @@ function inferAssertion(rule) {
           baselineAssertionParameters(rule, splitAppliesTo(rule.appliesTo)),
         )
       : executable('propertiesEqual', {
-          properties: splitAppliesTo(rule.appliesTo),
-          value: rule.requiredValue,
+          values: Object.fromEntries(
+            splitAppliesTo(rule.appliesTo).map((property) => [
+              property,
+              rule.requiredValue,
+            ]),
+          ),
         });
   }
   if (rule.disallowedVariant) {
@@ -583,7 +587,12 @@ function inferAssertion(rule) {
     });
   }
   if (rule.requiredConfiguration) {
-    return executable('configurationPolicy', rule.requiredConfiguration);
+    const assertion = { ...rule.requiredConfiguration };
+    const variableCollections = splitAppliesTo(rule.appliesTo)
+      .filter((property) => property.startsWith('variables.') && property.endsWith('.mode'))
+      .map((property) => property.slice('variables.'.length, -'.mode'.length));
+    if (variableCollections.length) assertion.variableCollections = variableCollections;
+    return executable('configurationPolicy', assertion);
   }
   if (rule.requiredComposition) {
     if (rule.requiredComposition.sameBackgroundColorAcrossScope) {
