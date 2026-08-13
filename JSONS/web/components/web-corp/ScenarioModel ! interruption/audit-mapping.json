@@ -3,7 +3,7 @@
   "documentType": "component-audit-mapping",
   "metadata": {
     "componentKey": "web-corp.scenario-model-interruption",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -266,5 +266,42 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentIdentity": {
+      "publicRoot": "🔒 ScenarioModel ! interruption",
+      "internalOnly": [
+        "🔒 ModalDesktopHeader ! interruption",
+        "🔒 ModalDesktopBody ! interruption",
+        "🔒 ModalDesktopFooter ! interruption"
+      ],
+      "deprecated": [
+        "❌ ScenarioModel ! interruption"
+      ]
+    },
+    "supportedChecks": {
+      "deterministic": [
+        "component identity and lifecycle",
+        "nested Type mismatch when all nested instances are present in audit data",
+        "required part visibility",
+        "button component properties and order when composition context is available",
+        "layer and sizing diffs against effective baseline"
+      ],
+      "llm": [
+        "recipe:web-corp.scenario-model-interruption.texts construction and grammatical agreement"
+      ],
+      "manual": [
+        "real risk of data loss",
+        "product support for outside click and Escape",
+        "reversibility of remembered choice"
+      ]
+    },
+    "runtimeLimitations": [
+      "audit-mapping.json is indexed but is not yet the sole runtime source of Apollo grouping",
+      "do not claim deterministic validation of product behavior or grammatical meaning"
+    ],
+    "resetModel": {
+      "variant.*": "reset-component-properties",
+      "fill|stroke|styles.text|layout.*|radius|opacity|effects.*": "reset-layer-properties"
+    }
+  }
 }

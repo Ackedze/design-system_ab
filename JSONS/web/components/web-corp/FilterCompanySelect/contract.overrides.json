@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -122,5 +122,234 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicBoundary": {
+      "publicRoots": [
+        "[D] FilterCompanySelect_Multi",
+        "[D] FilterCompanySelect_Single"
+      ],
+      "internalOrDeprecatedRoots": [
+        "[D] CompactTag",
+        "[D] DropdownList_MultiSelect",
+        "[D] DropdownList_SingleSelect",
+        "🔄 [D] DropdownList_MultiSelect",
+        "🔄 [D] DropdownList_SingleSelect"
+      ],
+      "internalStandaloneAllowed": false,
+      "desktopOnly": true
+    },
+    "relatedPackages": [
+      {
+        "name": "[D] FilterCompanySelect_UniversalModal",
+        "package": "web/components/web-corp/[D] FilterCompanySelect_UniversalModal",
+        "relationship": "Элемент режима холдинга для использования внутри UniversalModal; не входит в public roots текущего пакета."
+      }
+    ],
+    "usage": {
+      "purpose": "Выбор одной или нескольких компаний в режиме холдинга.",
+      "holdingPatternStatus": "ready"
+    },
+    "rootSemantics": {
+      "[D] FilterCompanySelect_Multi": "Выбор одной или нескольких компаний.",
+      "[D] FilterCompanySelect_Single": "Выбор одной компании."
+    },
+    "singleViewSemantics": {
+      "Select": "Используется в форме.",
+      "FilterTag": "Используется в фильтрах.",
+      "Compact": "Используется в TitleView или для переключения отдельного объекта, например виджета."
+    },
+    "legacyProperties": {
+      "ShowFirstCompany": {
+        "status": "legacy",
+        "allowedForNewDesigns": false,
+        "requiredValue": "False"
+      }
+    },
+    "stateOwnership": {
+      "Open": {
+        "owner": "runtime",
+        "meaning": "True только пока список открыт.",
+        "designerEditable": false,
+        "generatorEditable": false
+      },
+      "Selected": {
+        "owner": "runtime",
+        "meaning": "True только при наличии выбранной компании или компаний.",
+        "designerEditable": false,
+        "generatorEditable": false
+      }
+    },
+    "interaction": {
+      "Multi": {
+        "selectionModel": "staged",
+        "applyAction": "Кнопка «Применить» фиксирует временный выбор.",
+        "closeWithoutApply": "Отменяет временные изменения.",
+        "resetAction": "«Сбросить» сразу применяет пустое значение."
+      },
+      "Single": {
+        "selectionModel": "immediate",
+        "selectAction": "Выбор строки сразу применяет компанию и закрывает список."
+      }
+    },
+    "search": {
+      "fields": [
+        "companyName",
+        "inn",
+        "address"
+      ],
+      "placeholders": {
+        "Multi": "Название, ИНН или адрес",
+        "Single": "Поиск"
+      },
+      "placeholderEditable": false
+    },
+    "selectionContent": {
+      "Multi": {
+        "label": "Компания",
+        "singleSelection": "Показывай название выбранной компании.",
+        "multipleSelection": "Показывай количество выбранных компаний.",
+        "multipleSelectionTextTemplate": "выбрано N"
+      },
+      "Single": {
+        "emptyText": "Выберите компанию",
+        "selectedText": "Название выбранной компании",
+        "textEditable": false
+      }
+    },
+    "selectAll": {
+      "scope": "current-result-set",
+      "withoutSearch": "Все компании полного списка.",
+      "withSearch": "Только компании, оставшиеся в результатах применённого поиска.",
+      "stateOwner": "CheckboxLabel_24",
+      "states": {
+        "noneSelected": "empty",
+        "partSelected": "indeterminate",
+        "allCurrentResultsSelected": "selected"
+      }
+    },
+    "fixedLabels": [
+      "Компания",
+      "Выбрать все",
+      "Применить",
+      "Сбросить"
+    ],
+    "searchVisibility": {
+      "showWhenCompanyCountGreaterThan": 10,
+      "companyCountAtOrBelowThreshold": "hidden"
+    },
+    "clearSelection": {
+      "Single": {
+        "allowedViews": [
+          "FilterTag"
+        ],
+        "result": "Сразу возвращает состояние без выбранной компании."
+      }
+    },
+    "stateDelegation": {
+      "trigger": {
+        "Select": "Наследует состояния соответствующего Select.",
+        "FilterTag": "Наследует состояния соответствующего FilterTag.",
+        "Compact": "Отдельные дополнительные состояния владельцем не подтверждены."
+      },
+      "list": [
+        "[D] OptionListCell",
+        "[D] OptionList",
+        "[D] OptionListHeader",
+        "[D] OptionListFooter"
+      ],
+      "policy": "FilterCompanySelect не переопределяет состояния вложенных компонентов списка."
+    },
+    "emptyAndNoResults": {
+      "noSearchResults": "OptionList-owned",
+      "noAvailableCompanies": "product-or-OptionList-owned",
+      "customFilterCompanySelectVariant": false
+    },
+    "interactionDelegation": {
+      "hover": "nested-component-owned",
+      "focus": "nested-component-owned",
+      "keyboardNavigation": "nested-component-owned",
+      "disabled": "nested-component-owned",
+      "owners": [
+        "Select",
+        "FilterTag",
+        "CheckboxLabel_24",
+        "OptionList"
+      ]
+    },
+    "sizing": {
+      "internalGeometry": "Наследуется от вложенных Select, FilterTag, CompactTag и OptionList-компонентов.",
+      "rootWidthManuallyEditable": true,
+      "dropdownWidthManuallyEditable": true,
+      "manualHeightOrInternalSpacingOverride": false
+    },
+    "compositionPolicy": {
+      "detachAllowed": false,
+      "internalInstanceSwapAllowed": false,
+      "replaceDropdownOrOptionListAllowed": false,
+      "mustPreserveLibraryInstance": true
+    },
+    "contentOwnership": {
+      "runtimeData": [
+        "companyName",
+        "inn",
+        "address"
+      ],
+      "realExamplesInDesignAllowed": true,
+      "examplesBecomeFixedComponentContent": false
+    },
+    "visualPolicy": {
+      "effectiveBaselineOwners": [
+        "Select",
+        "FilterTag",
+        "CompactTag",
+        "OptionList",
+        "OptionListCell",
+        "OptionListHeader",
+        "OptionListFooter"
+      ],
+      "allowedManualOverrides": [
+        "root.width",
+        "dropdown.width"
+      ],
+      "forbiddenManualOverrides": [
+        "fill",
+        "stroke",
+        "typography",
+        "radius",
+        "shadow",
+        "padding",
+        "gap",
+        "height"
+      ]
+    },
+    "emptySelection": {
+      "Multi": "allowed",
+      "Single.FilterTag": "allowed",
+      "Single.Select": "form-field-requiredness",
+      "Single.Compact": "forbidden-selection-required"
+    },
+    "selectionCardinality": {
+      "Multi": {
+        "minimum": 0,
+        "maximum": "all-available-companies"
+      },
+      "Single": {
+        "maximum": 1,
+        "minimum": "depends-on-View-and-form-requiredness"
+      }
+    },
+    "codeConnect": {
+      "rootStatus": "not-configured",
+      "nestedMappingsDoNotVerifyRoot": true
+    },
+    "patternReferences": [
+      {
+        "name": "holding-mode",
+        "patternId": "ptrn:flow.holding-company-selection",
+        "file": "patterns/p_holding-company-selection.md",
+        "status": "ready",
+        "integration": "В rules.json перенесены ссылки только на применимые к FilterCompanySelect exact pattern rules."
+      }
+    ]
+  }
 }

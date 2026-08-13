@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web-corp.scenario-model-interruption",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -578,6 +578,100 @@
     ]
   },
   "manual": {
+    "ownershipModel": {
+      "publicRoots": [
+        "🔒 ScenarioModel ! interruption"
+      ],
+      "internalComponents": [
+        "🔒 ModalDesktopHeader ! interruption",
+        "🔒 ModalDesktopBody ! interruption",
+        "🔒 ModalDesktopFooter ! interruption"
+      ],
+      "deprecatedRoots": [
+        "❌ ScenarioModel ! interruption"
+      ],
+      "internalStandaloneAllowed": false,
+      "defaultNestedDiffPolicy": "compare-against-scenario-model-effective-baseline"
+    },
+    "compositionPolicy": {
+      "platform": "desktop",
+      "requiredParts": [
+        "🔒 ModalDesktopHeader ! interruption",
+        "🔒 ModalDesktopBody ! interruption",
+        "🔒 ModalDesktopFooter ! interruption"
+      ],
+      "requiredPartsMayBeHidden": false,
+      "typeValues": [
+        "Default",
+        "SaveAs"
+      ],
+      "initialType": "Default",
+      "typeOwnedByPublicRoot": false,
+      "generatorSetsNestedType": true,
+      "typeMustMatchAcrossParts": true,
+      "closeControl": {
+        "required": true,
+        "action": "stay-in-scenario",
+        "equivalentActionLabel": "Остаться"
+      },
+      "dismissActions": {
+        "outsideClickWhenSupported": "stay-in-scenario",
+        "escapeWhenSupported": "stay-in-scenario"
+      },
+      "footer": {
+        "buttonsRequired": 2,
+        "Default": [
+          {
+            "order": 1,
+            "label": "Выйти",
+            "view": "Primary"
+          },
+          {
+            "order": 2,
+            "label": "Остаться",
+            "view": "Secondary"
+          }
+        ],
+        "SaveAs": [
+          {
+            "order": 1,
+            "label": "Сохранить и выйти",
+            "view": "Primary"
+          },
+          {
+            "order": 2,
+            "label": "Выйти без сохранения",
+            "view": "Secondary"
+          }
+        ]
+      },
+      "rememberChoice": {
+        "availableForType": "SaveAs",
+        "visibleByDefault": false,
+        "selectedByDefaultWhenVisible": false,
+        "label": "Запомнить выбор",
+        "labelEditable": false,
+        "interactive": true,
+        "savedChoiceMustBeReversible": true
+      },
+      "states": {
+        "loading": false,
+        "error": false
+      },
+      "instanceSwapAllowed": false,
+      "sizing": {
+        "externalWidth": "preset-owned",
+        "externalWidthEditable": false,
+        "height": "content-driven",
+        "manualSizingChangesAllowed": false
+      },
+      "mobileWebComposition": "Используй PopUpSheet по ptrn:flow.interruption-scenario вместо ScenarioModel ! interruption."
+    },
+    "hostIntegration": {
+      "publicRootIsCompleteModalSurface": true,
+      "additionalModalContainerRequired": false,
+      "additionalWrapperRequired": false
+    },
     "wraps": [
       {
         "hostComponentName": "🔒 ModalDesktopFooter ! interruption",
