@@ -54,6 +54,12 @@
       "selectionCardinality": 1,
       "holdingPatternId": "ptrn:flow.holding-company-selection"
     },
+    "hostMultiplicity": {
+      "UniversalModal": {
+        "maximumInstances": 1,
+        "exactSlot": "unresolved"
+      }
+    },
     "stateOwnership": {
       "Open": {
         "default": "False",
@@ -78,7 +84,19 @@
       "companyNameRequired": true,
       "compactTagVisibleContent": "selected company name",
       "compactTagLabelVisible": false,
-      "compactTagSeparatorVisible": false
+      "compactTagSeparatorVisible": false,
+      "optionListCellVisibleFields": [
+        "companyName"
+      ]
+    },
+    "search": {
+      "fields": [
+        "companyName",
+        "inn",
+        "address"
+      ],
+      "placeholder": "Название, ИНН или адрес",
+      "placeholderEditable": false
     },
     "searchVisibility": {
       "inheritsFrom": "web-corp.filter-company-select",
@@ -89,6 +107,30 @@
       "mustPreserveLibraryInstance": true,
       "detachAllowed": false,
       "internalInstanceSwapAllowed": false
+    },
+    "sizing": {
+      "rootWidthManuallyEditable": true,
+      "dropdownWidthManuallyEditable": true,
+      "manualHeightOrInternalSpacingOverride": false
+    },
+    "stateDelegation": {
+      "customStates": false,
+      "delegatedStates": [
+        "loading",
+        "error",
+        "disabled",
+        "empty",
+        "no-results",
+        "hover",
+        "focus",
+        "keyboard"
+      ],
+      "owners": [
+        "CompactTag",
+        "Input",
+        "DropdownList",
+        "OptionList"
+      ]
     },
     "relatedPackages": [
       {

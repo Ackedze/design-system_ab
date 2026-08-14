@@ -106,6 +106,11 @@
       "Open=False — стартовое состояние; Open=true допустим для демонстрации открытого списка.",
       "Показывай поиск только при количестве доступных компаний больше 10.",
       "При 10 компаниях или меньше скрывай весь [D] OptionListHeader.",
+      "Поиск работает по названию, ИНН и адресу; сохраняй placeholder «Название, ИНН или адрес».",
+      "В строке результата показывай только название компании.",
+      "В одном UniversalModal допускается только один экземпляр preset.",
+      "Разрешено менять ширину trigger и dropdown; остальная внутренняя геометрия следует effective baseline.",
+      "Собственные loading, error, disabled, empty/no-results, hover, focus и keyboard-состояния не добавляются: они принадлежат вложенным компонентам.",
       "Одна компания всегда выбрана по умолчанию бизнес-логикой; её логотип и название отображаются в trigger, а строка отмечена checkmark.",
       "В CompactTag показывай только название компании: подпись «Компания» и разделитель скрыты.",
       "Сохраняй целый библиотечный instance без detach и instance swap внутренних частей.",
@@ -116,9 +121,14 @@
       "component:web-corp.filter-company-select-universal-modal.desktop-only",
       "component:web-corp.filter-company-select-universal-modal.single-selection-immediate",
       "component:web-corp.filter-company-select-universal-modal.search-visible-over-ten",
+      "component:web-corp.filter-company-select-universal-modal.search-contract",
+      "component:web-corp.filter-company-select-universal-modal.option-cell-company-name-only",
       "component:web-corp.filter-company-select-universal-modal.preserve-library-composition",
       "component:web-corp.filter-company-select-universal-modal.selection-required",
       "component:web-corp.filter-company-select-universal-modal.compact-tag-content",
+      "component:web-corp.filter-company-select-universal-modal.one-per-modal",
+      "component:web-corp.filter-company-select-universal-modal.sizing-policy",
+      "component:web-corp.filter-company-select-universal-modal.states-delegated",
       "component:web-corp.filter-company-select-universal-modal.open-state-demo-allowed"
     ],
     "agentInstructions": [
@@ -128,10 +138,15 @@
       "Не показывай поиск при 10 компаниях или меньше и не скрывай его при количестве больше 10.",
       "Не предлагай пустое начальное состояние: текущая компания определяется бизнес-логикой.",
       "Не включай подпись «Компания» или разделитель внутри CompactTag.",
+      "Не добавляй ИНН или адрес в видимый контент строки списка.",
+      "Не считай ручную ширину trigger или dropdown нарушением сама по себе.",
+      "Не придумывай отдельные состояния preset поверх контрактов вложенных компонентов.",
       "Не предлагай detach или swap внутренних частей preset.",
       "Не придумывай mobile-web версию компонента."
     ],
-    "unresolvedQuestions": [],
+    "unresolvedQuestions": [
+      "Точная зона или slot размещения preset внутри UniversalModal."
+    ],
     "auditInterpretation": {
       "componentProperties": [
         "variant.Open"

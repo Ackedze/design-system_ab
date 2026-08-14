@@ -145,6 +145,49 @@
           "severity": "error",
           "ruleId": "component:web-corp.filter-company-select-universal-modal.preserve-library-composition"
         }
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.two-per-modal",
+        "title": "В UniversalModal размещены два экземпляра preset",
+        "inputState": {
+          "host": "UniversalModal",
+          "instanceCount": 2
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.one-per-modal"
+        }
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.option-with-inn",
+        "title": "В строку списка добавлен ИНН",
+        "inputState": {
+          "optionListCellVisibleFields": [
+            "companyName",
+            "inn"
+          ]
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.option-cell-company-name-only"
+        }
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.width-customized",
+        "title": "Ширина trigger и dropdown адаптирована к модалке",
+        "inputState": {
+          "rootWidthChanged": true,
+          "dropdownWidthChanged": true,
+          "internalPaddingChanged": false
+        },
+        "expectedAudit": {
+          "category": "none"
+        },
+        "mustNotSay": [
+          "Любое изменение ширины preset запрещено."
+        ]
       }
     ]
   }

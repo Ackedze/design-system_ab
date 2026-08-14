@@ -12,7 +12,7 @@
         "desktop"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-27"
+      "updatedAt": "2026-08-14"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -285,6 +285,17 @@
       "selection closes list",
       "selection updates CompactTag"
     ],
+    "contentChecks": {
+      "searchPlaceholder": "Название, ИНН или адрес",
+      "searchFields": [
+        "companyName",
+        "inn",
+        "address"
+      ],
+      "optionListCellVisibleFields": [
+        "companyName"
+      ]
+    },
     "searchVisibilityPolicy": {
       "inheritedFrom": "component:web-corp.filter-company-select.search-visible-over-ten",
       "visibleWhenCompanyCountGreaterThan": 10,
@@ -304,8 +315,38 @@
     },
     "compositionPolicy": {
       "detach": "error",
-      "internalInstanceSwap": "error"
+      "internalInstanceSwap": "error",
+      "maximumInstancesPerUniversalModal": 1,
+      "exactSlot": "unresolved"
     },
+    "sizingPolicy": {
+      "allowedManualOverrides": [
+        "root.width",
+        "dropdown.width"
+      ],
+      "delegatedToEffectiveBaseline": [
+        "height",
+        "padding",
+        "gap",
+        "internalGeometry"
+      ]
+    },
+    "delegatedStateOwners": [
+      "CompactTag",
+      "Input",
+      "DropdownList",
+      "OptionList"
+    ],
+    "delegatedStates": [
+      "loading",
+      "error",
+      "disabled",
+      "empty",
+      "no-results",
+      "hover",
+      "focus",
+      "keyboard"
+    ],
     "runtimeLimitations": [
       "Immediate selection, close behavior and CompactTag update require interaction evidence; do not claim they are enforced from a static diff alone.",
       "UniversalModal host placement requires composition context."
