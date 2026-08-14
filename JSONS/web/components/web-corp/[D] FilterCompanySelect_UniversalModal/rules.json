@@ -9,11 +9,10 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-14"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -63,12 +62,77 @@
   "manual": {
     "rules": [
       {
-        "ruleId": "component:web-corp.filter-company-select-universal-modal.lifecycle-context-is-informational",
-        "severity": "info",
-        "source": "component-contract",
-        "appliesTo": "component.status",
+        "ruleId": "component:web-corp.filter-company-select-universal-modal.universal-modal-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.host|component.usage",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Используй [D] FilterCompanySelect_UniversalModal только внутри UniversalModal в сценарии выбора одной компании в режиме холдинга. Не используй preset самостоятельно на странице или в другом host."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select-universal-modal.desktop-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.platform",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "[D] FilterCompanySelect_UniversalModal поддерживается только на desktop. Не используй его на mobile-web."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select-universal-modal.single-selection-immediate",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.selectionCardinality|interaction.selection",
         "checkType": "manual",
-        "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        "matchKind": "exact_component_rule",
+        "ruleText": "Preset выбирает ровно одну компанию. Выбор строки сразу применяет компанию, закрывает список и обновляет CompactTag."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select-universal-modal.search-visible-over-ten",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.searchVisibility|data.companyCount",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "inheritedRuleId": "component:web-corp.filter-company-select.search-visible-over-ten",
+        "ruleText": "Показывай [D] OptionListHeader с поиском только при количестве доступных компаний больше 10. При 10 компаниях или меньше скрывай весь [D] OptionListHeader."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select-universal-modal.preserve-library-composition",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.composition|component.detach|component.instanceSwap",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Используй целый библиотечный instance preset. Detach и instance swap внутренних CompanyLogo, CompactTag, DropdownList и OptionList-частей запрещены."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select-universal-modal.selection-required",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.selection|component.content",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Одна текущая компания должна быть выбрана по умолчанию бизнес-логикой. Показывай её логотип и название в CompactTag, а выбранную строку отмечай checkmark. Пустое состояние не предусмотрено."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select-universal-modal.compact-tag-content",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "text.compactTag|component.anatomy",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "В CompactTag отображай только runtime-название выбранной компании. Подпись «Компания» и разделитель должны оставаться скрытыми; CompanyLogo обязателен и следует выбранной компании."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select-universal-modal.open-state-demo-allowed",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.Open",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Open=False является стартовым состоянием. Open=true разрешён в макете для демонстрации открытого списка и сам по себе не является нарушением."
       }
     ]
   }

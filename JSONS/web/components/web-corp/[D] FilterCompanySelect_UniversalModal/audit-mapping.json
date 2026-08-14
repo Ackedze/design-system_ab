@@ -9,8 +9,7 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
       "updatedAt": "2026-07-27"
@@ -266,5 +265,55 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentIdentity": {
+      "publicRoots": [
+        "🔒 [D] FilterCompanySelect_UniversalModal"
+      ],
+      "requiredHost": "UniversalModal",
+      "desktopOnly": true
+    },
+    "displayNames": {
+      "variant.Open": "Открыт"
+    },
+    "stateOwnership": {
+      "variant.Open": "runtime-derived; Open=true is allowed for interaction demos"
+    },
+    "interactionChecks": [
+      "single selection",
+      "selection immediately commits",
+      "selection closes list",
+      "selection updates CompactTag"
+    ],
+    "searchVisibilityPolicy": {
+      "inheritedFrom": "component:web-corp.filter-company-select.search-visible-over-ten",
+      "visibleWhenCompanyCountGreaterThan": 10,
+      "hiddenAtOrBelow": 10,
+      "hiddenNode": "entire [D] OptionListHeader"
+    },
+    "contentOwnership": {
+      "CompanyLogo": "runtime-selected-company",
+      "CompactTag.Value": "runtime-selected-company-name",
+      "CompactTag.Label": "preset-hidden",
+      "CompactTag.Separator": "preset-hidden"
+    },
+    "selectionPolicy": {
+      "initialSelection": "required-from-product-business-logic",
+      "emptySelection": "forbidden",
+      "selectedRow": "checkmark"
+    },
+    "compositionPolicy": {
+      "detach": "error",
+      "internalInstanceSwap": "error"
+    },
+    "runtimeLimitations": [
+      "Immediate selection, close behavior and CompactTag update require interaction evidence; do not claim they are enforced from a static diff alone.",
+      "UniversalModal host placement requires composition context."
+    ],
+    "evidencePolicy": {
+      "openTrueIsViolation": false,
+      "mobileWebIsViolation": true,
+      "outsideUniversalModalIsViolation": true
+    }
+  }
 }
