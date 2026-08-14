@@ -30,6 +30,21 @@ Desktop-only figma preset для выбора одной компании в р�
 - собственных loading, error, disabled, empty/no-results, hover, focus и keyboard-состояний нет;
 - preset нельзя detach или пересобирать через instance swap внутренних частей.
 
+## Сборка в UniversalModal
+
+1. Используй `[D] UniversalModalHeader` с `Content=True`, `Custom=True`; `FilledBg` остаётся настройкой самой модалки.
+2. В `🔩 [D] RightAddon` установи `Custom=False`, `Cross=True`.
+3. В `🔩 [D] LeftAddon` установи `Custom=True`, `Back=False` и через swap component замени содержимое на `🔒 [D] FilterCompanySelect_UniversalModal`.
+4. В `🔩 [D] MiddleSlot` установи `Custom=False`, `Empty=True`, `Title=False`, `BigTitle=False`.
+
+В одном `UniversalModal` допускается только один такой preset. Весь trigger `CompanyLogo + CompactTag` открывает список как единая кликабельная зона; отдельного действия у логотипа нет. `CompactTag.SelectedState=True` сохраняется, а стрелка автоматически следует `Open`. Выбор компании закрывает только dropdown; `Cross` закрывает весь `UniversalModal`.
+
+Длинное название выбранной компании занимает одну строку и сокращается через ellipsis без tooltip. Поведение строк списка наследуется от `OptionListCell`.
+
+## Код
+
+Preset figma-only и не имеет собственного аналога в коде или Code Connect. Маппинги вложенных Core-компонентов не подтверждают реализацию preset целиком.
+
 ## Источники
 
 - raw: `../Web _ Corp Components -- [D] FilterCompanySelect_UniversalModal.json`;
@@ -39,4 +54,4 @@ Desktop-only figma preset для выбора одной компании в р�
 
 ## Статус
 
-**Draft**. Назначение, lifecycle, single-selection, Open, anatomy, search, sizing и делегирование состояний подтверждены владельцем AB-слоя 2026-08-14. Точная зона размещения внутри `UniversalModal`, visual policy, audit severity и runtime evidence ещё уточняются.
+**Ready.** Назначение, lifecycle, composition-рецепт, single-selection, Open, anatomy, content, search, sizing, interaction, visual policy, severity и Code Connect status подтверждены владельцем AB-слоя 2026-08-14. Package validator и targeted Athena checks пройдены; компонент принят владельцем для включения в общий коммит.

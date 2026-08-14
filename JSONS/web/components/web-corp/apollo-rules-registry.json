@@ -72,6 +72,15 @@
           "ruleText": "Размещай не более одного [D] FilterCompanySelect_UniversalModal внутри одного UniversalModal."
         },
         {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.header-composition",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.composition|component.hostSlots",
+          "checkType": "deterministic",
+          "matchKind": "composition_rule",
+          "ruleText": "Собирай preset через [D] UniversalModalHeader с Content=True и Custom=True: 🔩 [D] LeftAddon — Custom=True, Back=False и swap на 🔒 [D] FilterCompanySelect_UniversalModal; 🔩 [D] MiddleSlot — Custom=False, Empty=True, Title=False, BigTitle=False; 🔩 [D] RightAddon — Custom=False, Cross=True. FilledBg остаётся настройкой самой модалки."
+        },
+        {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.single-selection-immediate",
           "severity": "error",
           "source": "owner-confirmed",
@@ -136,6 +145,24 @@
           "ruleText": "В CompactTag отображай только runtime-название выбранной компании. Подпись «Компания» и разделитель должны оставаться скрытыми; CompanyLogo обязателен и следует выбранной компании."
         },
         {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.trigger-and-open-state",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.interaction|component.nestedState",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Весь trigger CompanyLogo + CompactTag является единой зоной открытия списка; у CompanyLogo нет отдельного действия. Сохраняй CompactTag.SelectedState=true, а Arrow.Open должен автоматически соответствовать корневому Open. Выбор компании закрывает только dropdown; Cross закрывает UniversalModal."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.company-name-overflow",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "text.selectedCompany|interaction.tooltip",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Показывай название выбранной компании в CompactTag в одну строку с ellipsis. Tooltip не добавляй. Переполнение строк списка наследуется от OptionListCell."
+        },
+        {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.sizing-policy",
           "severity": "error",
           "source": "owner-confirmed",
@@ -145,6 +172,15 @@
           "ruleText": "Разрешено вручную менять ширину trigger и dropdown. Высота, padding, gap и остальная внутренняя геометрия должны следовать effective baseline вложенных компонентов."
         },
         {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.visual-baseline",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "fill|stroke|styles.text|radius|effects.*|opacity|layout.height|layout.padding|layout.gap",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Кроме разрешённой ширины trigger и dropdown, сохраняй effective visual baseline preset и вложенных компонентов. Ручные fill, stroke, typography, radius, effects, opacity, height, padding и gap запрещены."
+        },
+        {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.states-delegated",
           "severity": "info",
           "source": "owner-confirmed",
@@ -152,6 +188,15 @@
           "checkType": "manual",
           "matchKind": "exact_component_rule",
           "ruleText": "Preset не создаёт собственные loading, error, disabled, empty/no-results, hover, focus и keyboard-состояния. Используй состояния вложенных CompactTag, Input, DropdownList и OptionList."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.code-connect-unavailable",
+          "severity": "info",
+          "source": "owner-confirmed",
+          "appliesTo": "component.codeConnect|component.codeExport",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Preset является figma-only и не имеет собственного аналога в коде или Code Connect. Маппинги вложенных Core-компонентов не подтверждают реализацию preset целиком."
         },
         {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.open-state-demo-allowed",

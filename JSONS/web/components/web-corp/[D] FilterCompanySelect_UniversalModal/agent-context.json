@@ -3,16 +3,17 @@
   "documentType": "component-agent-context",
   "metadata": {
     "componentKey": "web-corp.filter-company-select-universal-modal",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
       ],
       "platforms": [
-        "desktop"
+        "desktop",
+        "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-08-14"
+      "updatedAt": "2026-07-27"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -109,11 +110,18 @@
       "Поиск работает по названию, ИНН и адресу; сохраняй placeholder «Название, ИНН или адрес».",
       "В строке результата показывай только название компании.",
       "В одном UniversalModal допускается только один экземпляр preset.",
+      "Собирай preset через [D] UniversalModalHeader с Content=True, Custom=True; FilledBg остаётся host-owned. LeftAddon: Custom=True, Back=False, swap на preset. MiddleSlot: Custom=False, Empty=True, Title=False, BigTitle=False. RightAddon: Custom=False, Cross=True.",
+      "Весь trigger CompanyLogo + CompactTag открывает список; отдельного действия у логотипа нет.",
+      "Сохраняй CompactTag.SelectedState=true; направление стрелки автоматически следует корневому Open.",
+      "Выбор компании закрывает только dropdown; Cross закрывает весь UniversalModal.",
+      "Длинное название компании показывай в одну строку с ellipsis без tooltip; поведение строк списка делегировано OptionListCell.",
       "Разрешено менять ширину trigger и dropdown; остальная внутренняя геометрия следует effective baseline.",
       "Собственные loading, error, disabled, empty/no-results, hover, focus и keyboard-состояния не добавляются: они принадлежат вложенным компонентам.",
       "Одна компания всегда выбрана по умолчанию бизнес-логикой; её логотип и название отображаются в trigger, а строка отмечена checkmark.",
       "В CompactTag показывай только название компании: подпись «Компания» и разделитель скрыты.",
       "Сохраняй целый библиотечный instance без detach и instance swap внутренних частей.",
+      "У CompanyLogo меняется runtime-содержимое выбранной компании; служебные Addon, Indicator и Border сохраняют baseline.",
+      "Preset figma-only и не имеет собственного code export или Code Connect; nested mappings не подтверждают root.",
       "Не включай preset в public roots обычного FilterCompanySelect."
     ],
     "ruleHighlights": [
@@ -127,8 +135,13 @@
       "component:web-corp.filter-company-select-universal-modal.selection-required",
       "component:web-corp.filter-company-select-universal-modal.compact-tag-content",
       "component:web-corp.filter-company-select-universal-modal.one-per-modal",
+      "component:web-corp.filter-company-select-universal-modal.header-composition",
+      "component:web-corp.filter-company-select-universal-modal.trigger-and-open-state",
+      "component:web-corp.filter-company-select-universal-modal.company-name-overflow",
       "component:web-corp.filter-company-select-universal-modal.sizing-policy",
+      "component:web-corp.filter-company-select-universal-modal.visual-baseline",
       "component:web-corp.filter-company-select-universal-modal.states-delegated",
+      "component:web-corp.filter-company-select-universal-modal.code-connect-unavailable",
       "component:web-corp.filter-company-select-universal-modal.open-state-demo-allowed"
     ],
     "agentInstructions": [
@@ -142,11 +155,15 @@
       "Не считай ручную ширину trigger или dropdown нарушением сама по себе.",
       "Не придумывай отдельные состояния preset поверх контрактов вложенных компонентов.",
       "Не предлагай detach или swap внутренних частей preset.",
+      "Не ставь preset в BodyContent или MiddleSlot: он заменяет содержимое LeftAddon кастомного UniversalModalHeader.",
+      "Не добавляй логотипу отдельное действие и не редактируй стрелку вручную независимо от Open.",
+      "Не закрывай UniversalModal после выбора компании и не подменяй действие Cross закрытием только dropdown.",
+      "Не добавляй tooltip к сокращённому названию компании.",
+      "Не разрешай визуальные overrides под видом настройки runtime-логотипа или названия.",
+      "Не заявляй наличие code implementation или Code Connect по факту mappings вложенных компонентов.",
       "Не придумывай mobile-web версию компонента."
     ],
-    "unresolvedQuestions": [
-      "Точная зона или slot размещения preset внутри UniversalModal."
-    ],
+    "unresolvedQuestions": [],
     "auditInterpretation": {
       "componentProperties": [
         "variant.Open"

@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.filter-company-select-universal-modal",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -57,7 +57,41 @@
     "hostMultiplicity": {
       "UniversalModal": {
         "maximumInstances": 1,
-        "exactSlot": "unresolved"
+        "exactSlot": "[D] UniversalModalHeader / 🔩 [D] LeftAddon"
+      }
+    },
+    "hostAssembly": {
+      "header": {
+        "component": "[D] UniversalModalHeader",
+        "properties": {
+          "Content": "True",
+          "Custom": "True"
+        },
+        "FilledBg": "host-owned"
+      },
+      "leftAddon": {
+        "component": "🔩 [D] LeftAddon",
+        "properties": {
+          "Custom": "True",
+          "Back": "False"
+        },
+        "swapComponent": "🔒 [D] FilterCompanySelect_UniversalModal"
+      },
+      "middleSlot": {
+        "component": "🔩 [D] MiddleSlot",
+        "properties": {
+          "Custom": "False",
+          "Empty": "True",
+          "Title": "False",
+          "BigTitle": "False"
+        }
+      },
+      "rightAddon": {
+        "component": "🔩 [D] RightAddon",
+        "properties": {
+          "Custom": "False",
+          "Cross": "True"
+        }
       }
     },
     "stateOwnership": {
@@ -69,7 +103,11 @@
     },
     "interaction": {
       "selectionModel": "immediate",
-      "selectAction": "Выбор строки сразу применяет компанию, закрывает список и обновляет CompactTag."
+      "selectAction": "Выбор строки сразу применяет компанию, закрывает список и обновляет CompactTag.",
+      "trigger": "entire CompanyLogo + CompactTag surface",
+      "companyLogoSeparateAction": false,
+      "selectionCloses": "dropdown-only",
+      "crossCloses": "UniversalModal"
     },
     "selectionState": {
       "initialSelectionRequired": true,
@@ -87,7 +125,13 @@
       "compactTagSeparatorVisible": false,
       "optionListCellVisibleFields": [
         "companyName"
-      ]
+      ],
+      "selectedCompanyOverflow": {
+        "lineCount": 1,
+        "overflow": "ellipsis",
+        "tooltip": false
+      },
+      "optionListCellOverflow": "delegated-to-OptionListCell"
     },
     "search": {
       "fields": [
@@ -108,10 +152,37 @@
       "detachAllowed": false,
       "internalInstanceSwapAllowed": false
     },
+    "nestedBaseline": {
+      "CompanyLogo": {
+        "runtimeContentEditable": true,
+        "serviceAddonsEditable": false
+      },
+      "CompactTag": {
+        "SelectedState": "true",
+        "Arrow.Open": "follows root Open"
+      }
+    },
     "sizing": {
       "rootWidthManuallyEditable": true,
       "dropdownWidthManuallyEditable": true,
       "manualHeightOrInternalSpacingOverride": false
+    },
+    "visualPolicy": {
+      "allowedManualOverrides": [
+        "root.width",
+        "dropdown.width"
+      ],
+      "forbiddenManualOverrides": [
+        "fill",
+        "stroke",
+        "typography",
+        "radius",
+        "effects",
+        "opacity",
+        "height",
+        "padding",
+        "gap"
+      ]
     },
     "stateDelegation": {
       "customStates": false,
@@ -131,6 +202,11 @@
         "DropdownList",
         "OptionList"
       ]
+    },
+    "codeConnect": {
+      "rootStatus": "not-applicable-figma-only-preset",
+      "codeEquivalent": false,
+      "nestedMappingsDoNotVerifyRoot": true
     },
     "relatedPackages": [
       {

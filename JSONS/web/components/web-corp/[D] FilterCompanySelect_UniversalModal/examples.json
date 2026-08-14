@@ -3,7 +3,7 @@
   "documentType": "component-examples",
   "metadata": {
     "componentKey": "web-corp.filter-company-select-universal-modal",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -188,6 +188,108 @@
         "mustNotSay": [
           "Любое изменение ширины preset запрещено."
         ]
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.correct-header-composition",
+        "title": "Preset корректно собран в UniversalModalHeader",
+        "inputState": {
+          "host": "[D] UniversalModalHeader",
+          "Content": "True",
+          "Custom": "True",
+          "FilledBg": "host-owned",
+          "LeftAddon.Custom": "True",
+          "LeftAddon.Back": "False",
+          "LeftAddon.swapComponent": "🔒 [D] FilterCompanySelect_UniversalModal",
+          "MiddleSlot.Custom": "False",
+          "MiddleSlot.Empty": "True",
+          "MiddleSlot.Title": "False",
+          "MiddleSlot.BigTitle": "False",
+          "RightAddon.Custom": "False",
+          "RightAddon.Cross": "True"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.wrong-header-slot",
+        "title": "Preset помещён в MiddleSlot вместо LeftAddon",
+        "inputState": {
+          "host": "[D] UniversalModalHeader",
+          "Custom": "True",
+          "MiddleSlot.swapComponent": "🔒 [D] FilterCompanySelect_UniversalModal"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.header-composition"
+        }
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.logo-separate-action",
+        "title": "Логотипу назначено отдельное действие",
+        "inputState": {
+          "triggerAction": "open company list",
+          "companyLogoAction": "open company profile"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.trigger-and-open-state"
+        }
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.visual-override",
+        "title": "Вручную изменён цвет trigger",
+        "inputState": {
+          "property": "fill",
+          "actual": "raw-color"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.visual-baseline"
+        }
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.long-name",
+        "title": "Длинное название компании сокращено без tooltip",
+        "inputState": {
+          "lineCount": 1,
+          "overflow": "ellipsis",
+          "tooltip": false
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.tooltip-added",
+        "title": "К сокращённому названию компании добавлен tooltip",
+        "inputState": {
+          "lineCount": 1,
+          "overflow": "ellipsis",
+          "tooltip": true
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.company-name-overflow"
+        }
+      },
+      {
+        "exampleId": "filter-company-select-universal-modal.selection-closes-modal",
+        "title": "Выбор компании закрывает всю модалку",
+        "inputState": {
+          "action": "select-company",
+          "dropdownOpenAfter": false,
+          "universalModalOpenAfter": false
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.trigger-and-open-state"
+        }
       }
     ]
   }

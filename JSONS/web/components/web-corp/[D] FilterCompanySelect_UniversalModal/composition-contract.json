@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web-corp.filter-company-select-universal-modal",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -557,7 +557,41 @@
       "requiredHost": "UniversalModal",
       "standaloneAllowed": false,
       "maximumInstancesPerHost": 1,
-      "exactSlot": "unresolved"
+      "exactSlot": "[D] UniversalModalHeader / 🔩 [D] LeftAddon"
+    },
+    "hostAssembly": {
+      "hostComponent": "[D] UniversalModalHeader",
+      "hostVariantProperties": {
+        "Content": "True",
+        "Custom": "True"
+      },
+      "hostOwnedProperties": [
+        "FilledBg"
+      ],
+      "slots": {
+        "🔩 [D] LeftAddon": {
+          "operation": "swap-component",
+          "component": "🔒 [D] FilterCompanySelect_UniversalModal",
+          "variantProperties": {
+            "Custom": "True",
+            "Back": "False"
+          }
+        },
+        "🔩 [D] MiddleSlot": {
+          "variantProperties": {
+            "Custom": "False",
+            "Empty": "True",
+            "Title": "False",
+            "BigTitle": "False"
+          }
+        },
+        "🔩 [D] RightAddon": {
+          "variantProperties": {
+            "Custom": "False",
+            "Cross": "True"
+          }
+        }
+      }
     },
     "selectionComposition": {
       "model": "single",
@@ -586,6 +620,14 @@
       "CompactTag.Label": "hidden",
       "CompactTag.Separator": "hidden",
       "OptionListHeader": "visible only when company count is greater than 10"
+    },
+    "interactionOwnership": {
+      "trigger": "entire CompanyLogo + CompactTag surface",
+      "companyLogoSeparateAction": false,
+      "CompactTag.SelectedState": "true",
+      "CompactTag.Arrow.Open": "follows host Open",
+      "selectionCloses": "dropdown-only",
+      "crossCloses": "UniversalModal"
     },
     "compositionPolicy": {
       "detachAllowed": false,
