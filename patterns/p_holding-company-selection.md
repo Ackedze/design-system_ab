@@ -8,7 +8,7 @@
 - platforms: desktop, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: ready
+- status: active
 - updatedAt: 2026-08-14
 - sourceType: design-guideline
 - tags: holding, company-selection, filter-company-select, title-view, filterblock, landing, forms, alfa-business

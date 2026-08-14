@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-10
 - sourceType: component-guideline
 - tags: backgroundplate, background, plate, container, level, overlay, adaptive, skeleton, web-corp

@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-20
 - sourceType: component-guideline
 - tags: faq, accordion, questions, answers, promo, adaptive, web-corp

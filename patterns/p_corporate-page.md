@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Design System / Product Design
-- status: ready
+- status: active
 - updatedAt: 2026-07-11
 - sourceType: component-guideline
 - tags: corporate-page, corporateappheadernew, content, page-template, wide-grid, grid-and-cols, body-slot, page-layout, adaptive

@@ -21,6 +21,8 @@ EXPECTED_COMPONENT_ROUTES = {
     "IconView": "p_images_format.md",
     "Input": "p_input-fields.md",
     "IsleBlock": "p_islands.md",
+    "HoldingPlate": "p_holding-company-selection.md",
+    "ProgressBar": "p_progress-bar.md",
     "Status": "p_status-model.md",
     "StatusScreen": "p_status-screen.md",
     "TableView": "p_table-view.md",
@@ -50,8 +52,8 @@ def main() -> int:
         raise SystemExit("Every accepted document must retain its title and URL")
 
     routes = registry.get("routes", [])
-    if len(routes) != 32:
-        raise SystemExit(f"Expected 32 routes, got {len(routes)}")
+    if len(routes) != 34:
+        raise SystemExit(f"Expected 34 routes, got {len(routes)}")
 
     component_routes: dict[str, list[str]] = {}
     rule_routes: dict[str, str] = {}

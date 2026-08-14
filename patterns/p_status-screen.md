@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-13
 - sourceType: component-guideline
 - tags: status-screen, corporate-system-message, result-screen, success, warning, error, technical-error, empty-state, processing, no-adaptive

@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-11
 - sourceType: component-guideline
 - tags: titleview, editable-title, page-header, edit, date, number, subtitle, adaptive, web-corp

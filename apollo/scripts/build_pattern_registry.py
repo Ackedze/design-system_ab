@@ -112,6 +112,17 @@ ROUTING = {
         "categories": ["forms", "form-layout", "construction"],
         "aliases": ["построение формы", "структура формы", "компоновка формы", "форма"],
     },
+    "p_holding-company-selection.md": {
+        "components": ["FilterCompanySelect", "HoldingPlate", "FilterBlock"],
+        "categories": ["holding", "company-selection", "flow"],
+        "aliases": [
+            "режим холдинга",
+            "выбор компании",
+            "группа компаний",
+            "контекст компании",
+            "holding company selection",
+        ],
+    },
     "p_images_format.md": {
         "components": ["IconView", "CardImage"],
         "categories": ["images", "illustrations", "media"],
@@ -146,6 +157,17 @@ ROUTING = {
         "components": ["PromoCard", "BentoGrid"],
         "categories": ["promo-card", "promo", "offer"],
         "aliases": ["промокарточка", "промо карточка", "карточка предложения", "promo card"],
+    },
+    "p_progress-bar.md": {
+        "components": ["ProgressBar"],
+        "categories": ["progress", "goal", "limit", "financial-data"],
+        "aliases": [
+            "прогресс",
+            "прогресс-бар",
+            "денежная цель",
+            "лимит",
+            "progress bar",
+        ],
     },
     "p_status-model.md": {
         "components": ["Status", "StatusPreset", "StatusBadge", "Status & Property"],

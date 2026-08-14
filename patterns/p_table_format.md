@@ -8,7 +8,7 @@
 - platforms: desktop
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: draft
+- status: active
 - updatedAt: 2026-06-25
 - sourceType: editorial-guideline
 - tags: tables, data-formatting, alignment, columns, cells, headers, numeric-data, text-data

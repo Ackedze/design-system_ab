@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-11
 - sourceType: component-guideline
 - tags: titleview, page-header, heading, subtitle, status, actions, title-addon, right-addon, skeleton, web-corp

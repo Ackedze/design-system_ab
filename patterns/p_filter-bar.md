@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb
 - locale: ru-RU
 - owner: Design System / owner interview
-- status: draft
+- status: active
 - updatedAt: 2026-07-23
 - sourceType: figma-guideline+owner-interview
 - tags: filterbar, filters, search, filtering, presets, tables, lists

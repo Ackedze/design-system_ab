@@ -8,7 +8,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: draft
+- status: active
 - updatedAt: 2026-07-20
 - sourceType: design-guideline
 - tags: landing, promo, alfa-business, promo-main-block, benefits, content, footer, modal, mobileweb, editorial

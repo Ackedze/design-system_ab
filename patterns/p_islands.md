@@ -8,7 +8,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Design System / Editorial / Product Design
-- status: draft
+- status: active
 - updatedAt: 2026-06-25
 - sourceType: design-guideline
 - tags: islands, right-column, secondary-content, layout, forms, view-pages, adaptive, background-plate

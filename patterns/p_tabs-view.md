@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-15
 - sourceType: component-guideline
 - tags: tabs-view, tabs-primary, tabs-secondary, navigation, adaptive, mobile-web

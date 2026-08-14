@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-16
 - sourceType: component-guideline
 - tags: account-select, accounts, option-list, single-select, multi-select, grouped

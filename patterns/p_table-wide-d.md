@@ -9,7 +9,7 @@
 - platforms: desktop
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: draft
+- status: active
 - updatedAt: 2026-07-13
 - sourceType: component-guideline
 - tags: table-wide, table, wide-table, columns, sorting, pinning, pagination, bulk-actions, web-corp

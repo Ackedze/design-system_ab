@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-16
 - sourceType: component-guideline
 - tags: file-upload, upload, attach, dropzone, documents, files, errors, adaptive, web-corp

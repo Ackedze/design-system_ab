@@ -9,7 +9,7 @@
 - platforms: desktop
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: draft
+- status: active
 - updatedAt: 2026-07-13
 - sourceType: component-guideline
 - tags: table-basic, table, basic-table, columns, sorting, pagination, bulk-actions, groupbar, web-corp

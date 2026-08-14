@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, mobile
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-22
 - sourceType: component-guideline
 - tags: amount, currency, numeric-data, tables, table-lists, side-panel, input, typography, color, formatting

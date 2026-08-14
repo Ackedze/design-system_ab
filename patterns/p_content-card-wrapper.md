@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: draft
+- status: active
 - updatedAt: 2026-07-07
 - sourceType: component-guideline
 - tags: contentcardwrapper, content-card, card, form, choice, slot, action, web-corp

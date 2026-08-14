@@ -9,7 +9,7 @@
 - platforms: desktop, mobileweb
 - locale: ru-RU
 - owner: Design System
-- status: ready
+- status: active
 - updatedAt: 2026-07-29
 - sourceType: component-contract
 - tags: progress-bar, progress, goal, limit, amount, status, web-corp-presets
