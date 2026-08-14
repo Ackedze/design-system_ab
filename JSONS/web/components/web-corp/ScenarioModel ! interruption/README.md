@@ -4,7 +4,7 @@ Component package семейства **Web _ Corp Components / ScenarioModel ! i
 
 ## Статус
 
-**Ready**. Публичная граница, lifecycle, платформенная применимость, anatomy, content, visual, interaction и runtime intent подтверждены владельцем AB-слоя 2026-08-13. Package validator проходит без ошибок и предупреждений; Figma-контракт готов к использованию.
+**In progress**. Публичная граница, lifecycle, платформенная применимость, anatomy, content, visual, interaction и runtime intent подтверждены владельцем AB-слоя 2026-08-13. Package validator проходит без ошибок и предупреждений. До общего статуса `Ready` остаётся ручная проверка корректного, нарушающего и допустимого customization-кейсов в Figma/Apollo; её выполнит владелец AB-слоя.
 
 ## Назначение
 

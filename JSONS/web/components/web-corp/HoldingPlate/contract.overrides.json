@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-14"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -39,5 +39,86 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicApi": {
+      "figmaRoots": ["🔒 HoldingPlate"],
+      "codeExports": [],
+      "figmaOnly": true,
+      "lifecycle": "active",
+      "plannedReplacement": false,
+      "detachAllowed": false,
+      "manualRebuildAllowed": false
+    },
+    "usage": {
+      "purpose": "Информационная плашка режима холдинга, которая показывает, от лица какой компании сейчас работает пользователь.",
+      "placement": "Сразу под TitleView и перед основным контентом страницы.",
+      "platform": "desktop",
+      "interactive": false,
+      "showWhen": [
+        "Пользователь находится в режиме холдинга.",
+        "Текущая страница или действие относятся к одной выбранной компании.",
+        "Нужна дополнительная идентификация компании, от которой отображаются данные."
+      ],
+      "doNotShowWhen": [
+        "Пользователь не находится в режиме холдинга.",
+        "Страница остаётся в общем multi-company контексте.",
+        "TitleView уже использует Holding для выбора или отображения компании."
+      ]
+    },
+    "variantSemantics": {
+      "width": {
+        "12 col": "Используется в родительском контейнере шириной 12 колонок.",
+        "8 col": "Используется в родительском контейнере шириной 8 колонок.",
+        "selectionPolicy": "Значение выбирается по ширине родительского контейнера, а не по breakpoint.",
+        "arbitraryWidthAllowed": false
+      }
+    },
+    "content": {
+      "requiredTextTemplate": "Вы работаете от лица [Название компании]",
+      "editablePlaceholder": "Название компании",
+      "otherTextChangesAllowed": false,
+      "lineCount": 1,
+      "overflow": "ellipsis",
+      "wrapAllowed": false,
+      "overflowTooltip": false
+    },
+    "anatomy": {
+      "requiredVisible": ["Title"],
+      "requiredHidden": ["Caption", "StatusBadge", "Controls"],
+      "instanceSwapAllowed": false
+    },
+    "visualBaseline": {
+      "nestedPlate": {
+        "Border": "True",
+        "BorderRadius": "16",
+        "padding": 12
+      },
+      "tokenBoundProperties": [
+        "fill",
+        "stroke",
+        "typography",
+        "text color"
+      ],
+      "manualOverridesAllowed": false
+    },
+    "states": {
+      "supported": [],
+      "notSupported": [
+        "loading",
+        "skeleton",
+        "disabled",
+        "error",
+        "hover",
+        "focus"
+      ]
+    },
+    "knownIssues": {
+      "outdatedNestedPlate": {
+        "status": "blocks-ready",
+        "owner": "AB component owner",
+        "description": "Текущий Figma-компонент HoldingPlate использует устаревшую версию [D] Plate.",
+        "requiredAction": "Обновить вложенный Plate в исходном Figma-компоненте, затем заново выгрузить raw-каталог и пересобрать generated contracts через Athena."
+      }
+    }
+  }
 }

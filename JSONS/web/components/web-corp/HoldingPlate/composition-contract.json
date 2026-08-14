@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-14"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -149,5 +149,59 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "ownershipModel": {
+      "presetRoot": "🔒 HoldingPlate",
+      "figmaOnly": true,
+      "detachAllowed": false,
+      "manualRebuildAllowed": false,
+      "nestedInstanceSwapAllowed": false,
+      "defaultNestedDiffPolicy": "compare-against-holding-plate-effective-baseline"
+    },
+    "compositionPolicy": {
+      "screenPlacement": {
+        "requiredAncestorContext": "page",
+        "previousSibling": "TitleView",
+        "nextRegion": "page content",
+        "order": "TitleView -> HoldingPlate -> page content",
+        "mutuallyExclusiveWith": "TitleView.Holding"
+      },
+      "visibility": {
+        "holdingModeRequired": true,
+        "singleCompanyContextRequired": true,
+        "additionalCompanyIdentificationRequired": true,
+        "multiCompanyContextAllowed": false
+      },
+      "platform": {
+        "desktop": true,
+        "mobileWeb": false
+      },
+      "width": {
+        "allowedVariants": ["12 col", "8 col"],
+        "selectionSource": "parent grid container",
+        "breakpointDriven": false,
+        "manualArbitraryResizeAllowed": false
+      },
+      "anatomy": {
+        "visible": ["Title"],
+        "hidden": ["Caption", "StatusBadge", "Controls"]
+      },
+      "interaction": {
+        "containerAction": false,
+        "nestedActions": false
+      },
+      "states": {
+        "supported": []
+      },
+      "visualBaseline": {
+        "nestedPlate": {
+          "Border": "True",
+          "BorderRadius": "16",
+          "padding": 12
+        },
+        "manualOverridesAllowed": false,
+        "sourceRefreshRequired": true
+      }
+    }
+  }
 }
