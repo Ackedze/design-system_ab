@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -3225,116 +3225,62 @@
     ]
   },
   "manual": {
-    "wraps": [
+    "publicRoots": [
+      "[D] FilterCompanySelect_Multi",
+      "[D] FilterCompanySelect_Single"
+    ],
+    "internalOnly": [
+      "[D] CompactTag",
+      "[D] DropdownList_MultiSelect",
+      "[D] DropdownList_SingleSelect",
+      "🔄 [D] DropdownList_MultiSelect",
+      "🔄 [D] DropdownList_SingleSelect"
+    ],
+    "ownership": {
+      "hostOwns": [
+        "root selection mode",
+        "View for Single",
+        "runtime-derived Open and Selected",
+        "root and dropdown width"
+      ],
+      "nestedComponentsOwn": [
+        "visual tokens",
+        "internal geometry",
+        "system states",
+        "OptionList composition",
+        "CheckboxLabel_24 state rendering"
+      ]
+    },
+    "compositionPolicy": {
+      "detachAllowed": false,
+      "internalStandaloneAllowed": false,
+      "internalInstanceSwapAllowed": false,
+      "replaceDropdownOrOptionListAllowed": false
+    },
+    "effectiveBaseline": {
+      "policy": "Resolve root, View, Open, Selected and nested component state before comparing layer properties.",
+      "allowedManualLayerOverrides": [
+        "root.width",
+        "dropdown.width"
+      ],
+      "allOtherLayerOverrides": "error"
+    },
+    "contentOwnership": {
+      "companyName": "runtime",
+      "inn": "runtime",
+      "address": "runtime"
+    },
+    "relatedButSeparate": [
       {
-        "hostComponentName": "[D] FilterCompanySelect_Multi",
-        "path": "Open=True, Selected=True, ShowFirstCompany=False / [D] DropdownList_MultiSelect / Header / [D] OptionListHeader / 🔩 [D] OptionListHeaderContent",
-        "componentName": "🔩 [D] OptionListHeaderContent",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "Preset": "Search"
-        }
-      },
-      {
-        "hostComponentName": "[D] FilterCompanySelect_Multi",
-        "path": "Open=True, Selected=True, ShowFirstCompany=False / [D] DropdownList_MultiSelect / CompaniesList / [D] OptionListCell / Control",
-        "componentName": "Control",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "DisabledState": "False",
-          "IndeterminateState": "False",
-          "SelectedState": "True"
-        }
-      },
-      {
-        "hostComponentName": "[D] FilterCompanySelect_Multi",
-        "path": "Open=True, Selected=True, ShowFirstCompany=False / [D] DropdownList_MultiSelect / CompaniesList / [D] OptionListCell / Control",
-        "componentName": "Control",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "DisabledState": "False",
-          "IndeterminateState": "False",
-          "SelectedState": "True"
-        }
-      },
-      {
-        "hostComponentName": "[D] FilterCompanySelect_Multi",
-        "path": "Open=True, Selected=True, ShowFirstCompany=False / [D] DropdownList_MultiSelect / [D] OptionListFooter / 🔩 [D] OptionListFooterContent / [D] Button",
-        "componentName": "[D] Button",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "DisabledState": "False",
-          "Shape": "Rectangular",
-          "SingleIcon": "False",
-          "Size": "32",
-          "View": "Primary"
-        }
-      },
-      {
-        "hostComponentName": "[D] DropdownList_MultiSelect",
-        "path": "[D] DropdownList_MultiSelect / Header / [D] OptionListHeader / 🔩 [D] OptionListHeaderContent",
-        "componentName": "🔩 [D] OptionListHeaderContent",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "Preset": "Search"
-        }
-      },
-      {
-        "hostComponentName": "[D] DropdownList_MultiSelect",
-        "path": "[D] DropdownList_MultiSelect / [D] OptionListFooter / 🔩 [D] OptionListFooterContent / [D] Button",
-        "componentName": "[D] Button",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "DisabledState": "False",
-          "Shape": "Rectangular",
-          "SingleIcon": "False",
-          "Size": "32",
-          "View": "Primary"
-        }
-      },
-      {
-        "hostComponentName": "[D] DropdownList_MultiSelect",
-        "path": "[D] DropdownList_MultiSelect / Header / [D] OptionListHeader / 🔩 [D] OptionListHeaderContent",
-        "componentName": "🔩 [D] OptionListHeaderContent",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "Preset": "Search"
-        }
-      },
-      {
-        "hostComponentName": "[D] DropdownList_MultiSelect",
-        "path": "[D] DropdownList_MultiSelect / CompaniesList / [D] OptionListCell / 🔩 OptionListCellContent",
-        "componentName": "🔩 OptionListCellContent",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "BottomCaption": "True",
-          "Custom": "False",
-          "Icon": "False",
-          "TopCaption": "False"
-        }
-      },
-      {
-        "hostComponentName": "[D] DropdownList_MultiSelect",
-        "path": "[D] DropdownList_MultiSelect / [D] OptionListFooter / 🔩 [D] OptionListFooterContent / [D] Button",
-        "componentName": "[D] Button",
-        "role": "internal-instance",
-        "visible": true,
-        "variantProperties": {
-          "DisabledState": "False",
-          "Shape": "Rectangular",
-          "SingleIcon": "False",
-          "Size": "32",
-          "View": "Primary"
-        }
+        "component": "[D] FilterCompanySelect_UniversalModal",
+        "host": "UniversalModal",
+        "sameHoldingPattern": true,
+        "partOfCurrentPublicBoundary": false
       }
-    ]
+    ],
+    "delegatedBehavior": {
+      "emptyAndNoResults": "OptionList or product",
+      "hoverFocusKeyboardDisabled": "nested Select, FilterTag, CheckboxLabel_24 and OptionList components"
+    }
   }
 }

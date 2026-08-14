@@ -3,7 +3,7 @@
   "documentType": "component-agent-context",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -214,11 +214,73 @@
     }
   },
   "manual": {
+    "patternReferences": [
+      {
+        "patternId": "ptrn:flow.holding-company-selection",
+        "patternKey": "flow.holding-company-selection",
+        "file": "shared/design-system_ab/patterns/p_holding-company-selection.md",
+        "sourceType": "design-guideline",
+        "updatedAt": "2026-08-13"
+      }
+    ],
     "summary": {
       "componentFamily": "FilterCompanySelect",
       "library": "Web _ Corp Components",
-      "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
+      "purpose": "FilterCompanySelect выбирает одну или несколько компаний в режиме холдинга. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из сгенерированного контекста."
     },
+    "usageGuidance": [
+      "Если FilterCompanySelect используется для фильтрации внутри FilterBlock, размещай его как первый фильтр «Компания» в FilterBlock.tagLine независимо от типа страницы.",
+      "Для таблиц, которые могут показывать несколько компаний, используй [D] FilterCompanySelect_Multi как FilterTag :: Multi-Select.",
+      "Для таблиц, которые фильтруются одной компанией, используй [D] FilterCompanySelect_Single с View=FilterTag.",
+      "В форме используй [D] FilterCompanySelect_Single с View=Select для выбора компании, от которой заполняется форма.",
+      "В TitleView.Holding используй [D] FilterCompanySelect_Single с View=Compact.",
+      "В Multi «Выбрать все» выбирает текущий набор: результаты применённого поиска либо полный список.",
+      "В Multi одна выбранная компания показывается названием, несколько — счётчиком «выбрано N»; в Single пустое значение отображается как «Выберите компанию».",
+      "Подписи «Компания», «Выбрать все», «Применить» и «Сбросить» фиксированы.",
+      "Поиск показывается только при количестве компаний больше 10.",
+      "Очистка Single разрешена только в View=FilterTag и сразу возвращает Selected=False.",
+      "Состояния триггеров и списка наследуются от Select, FilterTag и OptionList-компонентов.",
+      "Ширину корня и dropdown можно менять вручную, но внутренняя геометрия наследуется от вложенных компонентов.",
+      "Пустой выбор допустим в Multi и Single/FilterTag; в Single/Select зависит от формы; в Single/Compact запрещён.",
+      "Оба public root остаются библиотечными instance; detach и swap внутренних частей запрещены.",
+      "Названия компаний, ИНН и адреса принадлежат runtime; реальные примеры в макете разрешены.",
+      "«Выбрать все» следует tri-state модели CheckboxLabel_24 для текущего набора.",
+      "Кроме ширины, визуальные и внутренние layout-параметры сохраняют effective baseline вложенных компонентов.",
+      "FilterCompanySelect_UniversalModal — связанный с режимом холдинга, но отдельный package для использования внутри UniversalModal.",
+      "Empty/no-results, hover, focus, keyboard и disabled делегированы продукту или вложенным компонентам.",
+      "Multi допускает 0…все доступные компании; Single — максимум одну.",
+      "Не выводи нарушение по backlog-сценариям холдинга без отдельного exact rule."
+    ],
+    "ruleHighlights": [
+      "component:web-corp.filter-company-select.public-roots-only",
+      "component:web-corp.filter-company-select.desktop-only",
+      "component:web-corp.filter-company-select.show-first-company-forbidden",
+      "component:web-corp.filter-company-select.filterblock-company-first",
+      "component:web-corp.filter-company-select.table-multi-uses-multi-filtertag",
+      "component:web-corp.filter-company-select.table-single-uses-single-filtertag",
+      "component:web-corp.filter-company-select.form-uses-select-view",
+      "component:web-corp.filter-company-select.titleview-uses-compact-view",
+      "component:web-corp.filter-company-select.select-all-current-results",
+      "component:web-corp.filter-company-select.single-clear-filter-tag-only",
+      "component:web-corp.filter-company-select.preserve-library-composition",
+      "component:web-corp.filter-company-select.select-all-checkbox-state",
+      "component:web-corp.filter-company-select.visuals-follow-effective-baseline",
+      "component:web-corp.filter-company-select.selection-cardinality"
+    ],
+    "agentInstructions": [
+      "Не заставляй «Выбрать все» игнорировать применённый поиск.",
+      "Не добавляй очистку Single в Select или Compact.",
+      "Не придумывай отдельные loading, disabled, error или empty states поверх контрактов вложенных Select, FilterTag и OptionList-компонентов.",
+      "Не меняй канонический порядок слов счётчика «выбрано N».",
+      "Не показывай поиск при 10 компаниях или меньше и не скрывай его при количестве больше 10.",
+      "Не считай ручное изменение ширины нарушением само по себе; проверяй отдельно внутреннюю геометрию.",
+      "Не предлагай detach, замену DropdownList/OptionList или instance swap служебных частей.",
+      "Не трактуй реальные названия компаний в макете как изменение фиксированного компонентного текста.",
+      "Не разрешай ручные визуальные overrides под видом настройки runtime-контента.",
+      "Не включай FilterCompanySelect_UniversalModal в public roots текущего package.",
+      "Не придумывай собственные empty/no-results или keyboard rules, если их нет в контракте владельца вложенного компонента."
+    ],
+    "unresolvedQuestions": [],
     "auditInterpretation": {
       "componentProperties": [
         "variant.*"

@@ -3,17 +3,16 @@
   "documentType": "component-rules",
   "metadata": {
     "componentKey": "web-corp.holding-plate",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-14"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -69,6 +68,140 @@
         "appliesTo": "component.status",
         "checkType": "manual",
         "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+      },
+      {
+        "ruleId": "component:web-corp.holding-plate.figma-only-preset",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.identity|component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "HoldingPlate является Figma-only пресетом. Используй библиотечный instance 🔒 HoldingPlate целиком; detach, ручная пересборка и instance swap вложенных частей запрещены."
+      },
+      {
+        "ruleId": "component:web-corp.holding-plate.desktop-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.platform",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "HoldingPlate поддерживается только на desktop. Не используй его на mobile-web."
+      },
+      {
+        "ruleId": "component:web-corp.holding-plate.placement-after-titleview",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "screen.composition|component.usage",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "requiredComposition": {
+          "order": [
+            "TitleView",
+            "HoldingPlate",
+            "page content"
+          ]
+        },
+        "ruleText": "На странице HoldingPlate располагается сразу под TitleView и перед основным контентом."
+      },
+      {
+        "ruleId": "component:web-corp.holding-plate.width-follows-parent-grid",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.width|layout.width",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "requiredMapping": {
+            "parent=12 col": "12 col",
+            "parent=8 col": "8 col"
+          },
+          "breakpointDriven": false,
+          "arbitraryWidthAllowed": false
+        },
+        "ruleText": "Выбирай width=12 col или width=8 col по ширине родительского grid-контейнера, а не по breakpoint. Произвольное изменение ширины запрещено."
+      },
+      {
+        "ruleId": "component:web-corp.holding-plate.fixed-content-and-anatomy",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "content|component.anatomy|interaction",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "requiredTextTemplate": "Вы работаете от лица [Название компании]",
+          "editablePlaceholder": "Название компании",
+          "requiredVisible": [
+            "Title"
+          ],
+          "requiredHidden": [
+            "Caption",
+            "StatusBadge",
+            "Controls"
+          ],
+          "interactive": false,
+          "lineCount": 1,
+          "overflow": "ellipsis",
+          "overflowTooltip": false
+        },
+        "ruleText": "Сохраняй формулировку «Вы работаете от лица [Название компании]», изменяя только название компании. Текст остаётся в одну строку и при переполнении сокращается через ellipsis без tooltip. Caption, StatusBadge и Controls должны быть скрыты; HoldingPlate не кликабелен."
+      },
+      {
+        "ruleId": "component:web-corp.holding-plate.single-company-holding-context",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:flow.holding-company-selection.use-holding-plate-for-single-company-identification",
+        "appliesTo": "component.usage|screen.context",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "holdingMode": true,
+          "companyScope": "single",
+          "additionalCompanyIdentificationRequired": true
+        },
+        "ruleText": "Показывай HoldingPlate только в режиме холдинга, когда текущая страница или действие относятся к одной выбранной компании и пользователю нужна дополнительная идентификация компании, от которой отображаются данные."
+      },
+      {
+        "ruleId": "component:web-corp.holding-plate.titleview-holding-mutually-exclusive",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:flow.holding-company-selection.holding-plate-titleview-holding-exclusive",
+        "appliesTo": "screen.composition|component.usage",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "forbiddenCoexistence": [
+            "HoldingPlate",
+            "TitleView.Holding"
+          ]
+        },
+        "ruleText": "Не используй HoldingPlate одновременно с TitleView, у которого включён слот Holding. Это взаимоисключающие способы отображения контекста компании."
+      },
+      {
+        "ruleId": "component:web-corp.holding-plate.visual-baseline-is-fixed",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "nested.Plate.variant.*|fill|stroke|styles.text|layout.padding|radius",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "nestedPlate": {
+            "Border": "True",
+            "BorderRadius": "16",
+            "padding": 12
+          },
+          "tokenBindingRequired": true,
+          "manualOverridesAllowed": false
+        },
+        "ruleText": "Сохраняй visual baseline HoldingPlate: вложенный Plate использует Border=True, BorderRadius=16 и padding 12 px; fill, stroke, typography и цвета остаются token-bound. Ручные visual overrides запрещены."
+      },
+      {
+        "ruleId": "component:web-corp.holding-plate.has-no-component-states",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.state",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "HoldingPlate не имеет собственных loading, skeleton, disabled, error, hover и focus-состояний. Добавление таких состояний является нарушением; не выводи их из состояний вложенных компонентов."
       }
     ]
   }

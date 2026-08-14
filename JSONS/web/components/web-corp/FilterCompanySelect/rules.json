@@ -3,7 +3,7 @@
   "documentType": "component-rules",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-13"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -81,6 +81,328 @@
         "appliesTo": "component.status",
         "checkType": "manual",
         "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.public-roots-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.identity|component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Для новых макетов используй только [D] FilterCompanySelect_Multi или [D] FilterCompanySelect_Single. CompactTag, DropdownList и их 🔄-версии являются внутренними либо устаревшими частями и не используются отдельно."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.desktop-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.platform",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "FilterCompanySelect поддерживается только на desktop. Не используй его на mobile-web."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.show-first-company-forbidden",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.ShowFirstCompany",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "requiredValue": "False",
+        "ruleText": "ShowFirstCompany является legacy-параметром. В новых макетах и при генерации сохраняй ShowFirstCompany=False."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.single-view-purpose",
+        "severity": "warning",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.View|component.usage",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Для Single используй View=Select в форме, View=FilterTag в фильтрах, View=Compact в TitleView или при переключении отдельного объекта, например виджета."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.holding-context",
+        "severity": "info",
+        "source": "pattern-link",
+        "patternRuleId": "rule:flow.holding-company-selection.place-selector-by-page-type",
+        "appliesTo": "component.usage",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "FilterCompanySelect применяется в режиме холдинга. Для выбора места и варианта компонента используй паттерн ptrn:flow.holding-company-selection."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.filterblock-company-first",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:flow.holding-company-selection.company-filter-first-in-filterblock",
+        "appliesTo": "screen.composition|component.usage",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "holdingMode": true,
+          "componentView": "FilterTag",
+          "container": "FilterBlock.tagLine"
+        },
+        "requiredComposition": {
+          "label": "Компания",
+          "order": "first"
+        },
+        "ruleText": "Если в режиме холдинга FilterCompanySelect используется для фильтрации внутри FilterBlock, размести его с View=FilterTag первым в FilterBlock.tagLine и назови «Компания» независимо от типа страницы."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.table-multi-uses-multi-filtertag",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:flow.holding-company-selection.table-multi-company-filter",
+        "appliesTo": "variant.View|component.usage",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "pageType": "table",
+          "holdingMode": true,
+          "supportsMultipleCompanies": true,
+          "companyFiltering": true
+        },
+        "requiredComponent": "[D] FilterCompanySelect_Multi",
+        "requiredView": "FilterTag",
+        "ruleText": "Если таблица может отображать данные по нескольким компаниям и поддерживает фильтрацию по компаниям, используй [D] FilterCompanySelect_Multi как FilterTag :: Multi-Select."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.table-single-uses-single-filtertag",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:flow.holding-company-selection.table-single-company-filter",
+        "appliesTo": "variant.View|component.usage",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "pageType": "table",
+          "holdingMode": true,
+          "supportsMultipleCompanies": false,
+          "companyFiltering": true
+        },
+        "requiredComponent": "[D] FilterCompanySelect_Single",
+        "requiredView": "FilterTag",
+        "ruleText": "Если таблица в режиме холдинга фильтруется только одной компанией, используй [D] FilterCompanySelect_Single с View=FilterTag."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.form-uses-select-view",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:flow.holding-company-selection.form-company-select",
+        "appliesTo": "variant.View|component.usage",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "pageType": "form",
+          "holdingMode": true,
+          "requiresSingleCompany": true
+        },
+        "requiredComponent": "[D] FilterCompanySelect_Single",
+        "requiredView": "Select",
+        "ruleText": "На странице формы в режиме холдинга используй [D] FilterCompanySelect_Single с View=Select для выбора компании, от которой заполняется форма."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.titleview-uses-compact-view",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:flow.holding-company-selection.view-page-titleview-holding",
+        "appliesTo": "variant.View|component.usage",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "container": "TitleView.Holding",
+          "holdingMode": true
+        },
+        "requiredComponent": "[D] FilterCompanySelect_Single",
+        "requiredView": "Compact",
+        "ruleText": "Когда выбор компании размещён в TitleView через Holding, используй [D] FilterCompanySelect_Single с View=Compact."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.multi-apply-model",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "interaction.selection|interaction.close",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "В Multi изменения выбора остаются временными до нажатия «Применить». Закрытие списка без применения отменяет временные изменения."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.multi-reset-immediate",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "interaction.reset",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Действие «Сбросить» в Multi сразу применяет пустое значение; оно не является очисткой только временного выбора."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.single-select-immediate",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "interaction.selection|interaction.close",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "В Single клик по строке сразу применяет выбранную компанию и закрывает список."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.runtime-owned-open-selected",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.Open|variant.Selected",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Open и Selected являются производными runtime-состояниями: Open=True только для открытого списка, Selected=True только при наличии выбора. Не задавай их произвольно при генерации."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.search-contract",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "interaction.search|text.searchPlaceholder",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Поиск в Multi и Single поддерживает название, ИНН и адрес. Сохраняй placeholder «Название, ИНН или адрес» в Multi и «Поиск» в Single без изменений."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.select-all-current-results",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "interaction.selectAll|interaction.search",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "В Multi действие «Выбрать все» выбирает текущий набор: все компании при полном списке или только результаты применённого поиска, если список отфильтрован."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.selected-value-content",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "text.selectedValue",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Сохраняй предметную метку «Компания». В Multi для одной выбранной компании показывай её название, для нескольких — счётчик «выбрано N». В Single без выбора показывай «Выберите компанию», после выбора — название компании."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.fixed-control-labels",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "text.controlLabel",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Не изменяй служебные подписи «Компания», «Выбрать все», «Применить» и «Сбросить»."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.search-visible-over-ten",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.searchVisibility|data.companyCount",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Показывай поиск только при количестве доступных компаний больше 10. При 10 компаниях или меньше поиск скрыт."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.single-clear-filter-tag-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "interaction.clear|variant.View",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "root": "[D] FilterCompanySelect_Single",
+          "clearActionAvailable": true
+        },
+        "requiredValues": {
+          "View": "FilterTag"
+        },
+        "ruleText": "Очистка Single разрешена только в View=FilterTag. Она сразу удаляет выбранную компанию и возвращает состояние Selected=False."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.states-delegate-to-nested-components",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "component.state|component.composition",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Состояния Select- и FilterTag-триггеров наследуются от соответствующих компонентов. Элементы и контейнер списка наследуют состояния [D] OptionListCell, [D] OptionList, [D] OptionListHeader и [D] OptionListFooter; FilterCompanySelect не вводит для них отдельные значения."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.sizing-delegation",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "layout.width|layout.height|layout.spacing",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Сохраняй внутреннюю геометрию вложенных Select, FilterTag, CompactTag и OptionList-компонентов. Ширину корня и dropdown разрешено менять вручную; ручное изменение высоты, padding, gap и внутренней геометрии не разрешено."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.empty-selection-by-view",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.value|variant.View|variant.Selected",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Пустой выбор допустим в Multi и Single/FilterTag. Для Single/Select обязательность определяется формой. В Single/Compact компания всегда должна быть выбрана."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.preserve-library-composition",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.composition|component.detach|component.instanceSwap",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Сохраняй библиотечный instance FilterCompanySelect. Detach, замена внутренних DropdownList/OptionList и instance swap служебных частей запрещены."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.company-data-runtime-owned",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "content.companyName|content.inn|content.address",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Название компании, ИНН и адрес являются runtime-данными. В рабочем макете разрешены реальные примеры, но они не становятся фиксированными текстами компонента."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.select-all-checkbox-state",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.selectAllState|data.currentResultSelection",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Состояние «Выбрать все» следует CheckboxLabel_24: empty, если ничего из текущего набора не выбрано; indeterminate, если выбрана часть; selected, если выбран весь текущий набор."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.visuals-follow-effective-baseline",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "fill|stroke|styles.text|radius|effects.*|layout.height|layout.padding|layout.gap",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Сравнивай визуальные и внутренние layout-параметры с effective baseline выбранного root, View и nested state. Ручные цвета, типографика, радиусы, тени, высота, padding и gap запрещены; подтверждённая ручная ширина остаётся разрешённым исключением."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.universal-modal-is-separate-package",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "component.identity|component.usage",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "[D] FilterCompanySelect_UniversalModal относится к элементам режима холдинга, но применяется внутри UniversalModal и ведётся отдельным package. Не включай его в public roots FilterCompanySelect."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.empty-and-interaction-states-delegated",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "component.state|component.interaction",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "No-results, отсутствие доступных компаний, hover, focus, keyboard navigation и disabled принадлежат продукту либо вложенным Select, FilterTag, CheckboxLabel_24 и OptionList-компонентам. FilterCompanySelect не создаёт для них отдельные variants или тексты."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.selection-cardinality",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.selectedCount|variant.View",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Multi допускает от 0 до всех доступных компаний без дополнительного максимума. Single допускает не более одной компании; возможность нулевого выбора определяется View и обязательностью поля формы."
       }
     ]
   }

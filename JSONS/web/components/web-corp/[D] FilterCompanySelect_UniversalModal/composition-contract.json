@@ -9,11 +9,10 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-14"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -550,5 +549,61 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicRoots": [
+      "🔒 [D] FilterCompanySelect_UniversalModal"
+    ],
+    "hostConstraint": {
+      "requiredHost": "UniversalModal",
+      "standaloneAllowed": false,
+      "maximumInstancesPerHost": 1,
+      "exactSlot": "unresolved"
+    },
+    "selectionComposition": {
+      "model": "single",
+      "trigger": "CompanyLogo + [D] CompactTag",
+      "list": "🔄 [D] DropdownList_SingleSelect",
+      "selectionEffect": "Немедленно применяет одну компанию, закрывает список и обновляет CompactTag.",
+      "initialSelectionRequired": true,
+      "initialSelectionOwner": "product-business-logic",
+      "selectedRowHasCheckmark": true
+    },
+    "stateBaseline": {
+      "defaultVariant": "Open=False",
+      "openVariant": "Open=true",
+      "openVariantInDesignAllowed": true
+    },
+    "internalOnly": [
+      "CompanyLogo",
+      "[D] CompactTag",
+      "🔄 [D] DropdownList_SingleSelect",
+      "[D] OptionListHeader",
+      "[D] OptionListCell"
+    ],
+    "requiredAnatomy": {
+      "CompanyLogo": "runtime content of selected company",
+      "CompactTag.Value": "runtime name of selected company",
+      "CompactTag.Label": "hidden",
+      "CompactTag.Separator": "hidden",
+      "OptionListHeader": "visible only when company count is greater than 10"
+    },
+    "compositionPolicy": {
+      "detachAllowed": false,
+      "internalInstanceSwapAllowed": false,
+      "mustPreserveLibraryInstance": true
+    },
+    "effectiveBaseline": {
+      "allowedManualLayerOverrides": [
+        "root.width",
+        "dropdown.width"
+      ],
+      "allOtherInternalGeometryOverrides": "error",
+      "nestedStateOwners": [
+        "CompactTag",
+        "Input",
+        "DropdownList",
+        "OptionList"
+      ]
+    }
+  }
 }

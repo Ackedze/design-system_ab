@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-component-rules-registry",
-  "generatedAt": "2026-07-27T12:58:40.628Z",
+  "generatedAt": "2026-08-14T07:48:42.099Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -45,12 +45,77 @@
           "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
         },
         {
-          "ruleId": "component:web-corp.filter-company-select-universal-modal.lifecycle-context-is-informational",
-          "severity": "info",
-          "source": "component-contract",
-          "appliesTo": "component.status",
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.universal-modal-only",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.host|component.usage",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Используй [D] FilterCompanySelect_UniversalModal только внутри UniversalModal в сценарии выбора одной компании в режиме холдинга. Не используй preset самостоятельно на странице или в другом host."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.desktop-only",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.platform",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "[D] FilterCompanySelect_UniversalModal поддерживается только на desktop. Не используй его на mobile-web."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.single-selection-immediate",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.selectionCardinality|interaction.selection",
           "checkType": "manual",
-          "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+          "matchKind": "exact_component_rule",
+          "ruleText": "Preset выбирает ровно одну компанию. Выбор строки сразу применяет компанию, закрывает список и обновляет CompactTag."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.search-visible-over-ten",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.searchVisibility|data.companyCount",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "inheritedRuleId": "component:web-corp.filter-company-select.search-visible-over-ten",
+          "ruleText": "Показывай [D] OptionListHeader с поиском только при количестве доступных компаний больше 10. При 10 компаниях или меньше скрывай весь [D] OptionListHeader."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.preserve-library-composition",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.composition|component.detach|component.instanceSwap",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Используй целый библиотечный instance preset. Detach и instance swap внутренних CompanyLogo, CompactTag, DropdownList и OptionList-частей запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.selection-required",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.selection|component.content",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Одна текущая компания должна быть выбрана по умолчанию бизнес-логикой. Показывай её логотип и название в CompactTag, а выбранную строку отмечай checkmark. Пустое состояние не предусмотрено."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.compact-tag-content",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "text.compactTag|component.anatomy",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "В CompactTag отображай только runtime-название выбранной компании. Подпись «Компания» и разделитель должны оставаться скрытыми; CompanyLogo обязателен и следует выбранной компании."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.open-state-demo-allowed",
+          "severity": "info",
+          "source": "owner-confirmed",
+          "appliesTo": "variant.Open",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Open=False является стартовым состоянием. Open=true разрешён в макете для демонстрации открытого списка и сам по себе не является нарушением."
         }
       ]
     },
@@ -1070,7 +1135,7 @@
           "source": "pattern-link",
           "patternRuleId": "rule:components.amount.no-opacity",
           "ruleKind": "design-rule",
-          "appliesTo": "opacity|variant.Opacity",
+          "appliesTo": "opacity",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "target": {
@@ -1080,7 +1145,32 @@
               "Currency"
             ]
           },
-          "ruleText": "Изменение opacity у Minor и Currency запрещено во всех вариантах AmountHeadline и AmountParagraph."
+          "ruleText": "Прямое изменение opacity слоя у Minor и Currency запрещено во всех вариантах AmountHeadline и AmountParagraph."
+        },
+        {
+          "ruleId": "component:web-corp.amount-styles.opacity-property-is-forbidden",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.no-opacity",
+          "ruleKind": "design-rule",
+          "appliesTo": "variant.Opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "AmountStyles",
+            "layers": [
+              "Minor",
+              "Currency"
+            ]
+          },
+          "remediation": {
+            "kind": "set-variant-properties",
+            "target": "$failingTarget",
+            "properties": {
+              "Opacity": "False"
+            }
+          },
+          "ruleText": "Включать component property Opacity у Minor и Currency запрещено во всех вариантах AmountHeadline и AmountParagraph. Штатное значение — Opacity=False."
         },
         {
           "ruleId": "component:web-corp.amount-styles.style-is-context-controlled",
@@ -1672,14 +1762,12 @@
             "component": "web-corp.background-plate",
             "layers": [
               "[D] BackgroundPlate",
-              "[D] BackgroundPlateSlot",
               "[D] Style Level 1",
               "[D] Style Level 2",
               "[D][Promo] BackgroundPlate",
               "[D][Promo] Style Level 1",
               "[D][Promo] Style Level 2",
               "[M] BackgroundPlate",
-              "[M] BackgroundPlateSlot",
               "[M] Style Level 1",
               "[M] Style Level 2",
               "[M][Promo] BackgroundPlate",
@@ -1687,7 +1775,7 @@
               "[M][Promo] Style Level 2"
             ]
           },
-          "ruleText": "Изменения layer/style внутри компонентов семейства BackgroundPlate нужно сравнивать с effective baseline текущего component variant и nested owner context. Изменения layout.padding.* у BackgroundPlateSlot являются допустимыми дизайнерскими кастомизациями, если они нужны композиции и заданы через токены Spacing. Это правило не разрешает изменение radius: скругления BackgroundPlate и Style Level фиксируются компонентным baseline и не должны изменяться вручную."
+          "ruleText": "Изменения layer/style внутри компонентов семейства BackgroundPlate нужно сравнивать с effective baseline текущего component variant и nested owner context. BackgroundPlateSlot проверяется отдельными правилами композиционного layout и Spacing tokens. Это правило не разрешает изменение radius: скругления BackgroundPlate и Style Level фиксируются компонентным baseline и не должны изменяться вручную."
         },
         {
           "ruleId": "component:web-corp.background-plate.background-plate-view-is-alias",
@@ -3294,32 +3382,41 @@
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "requiredValues": {
-            "layout.sizing.horizontal": "FILL",
+            "layout.sizing.horizontal": "FIXED",
             "layout.sizing.vertical": "HUG",
             "padding.top": 16,
             "padding.right": 20,
             "padding.bottom": 16,
             "padding.left": 20
           },
+          "target": {
+            "layers": [
+              "[M] ButtonStack",
+              "🔒 [M] ButtonStack",
+              "ButtonStack [M]"
+            ]
+          },
           "classification": {
             "treatAsViolation": true,
             "designSeverity": "error",
             "resetSurface": "layer"
           },
-          "remediation": "Верните Fill/Hug и padding 16 px по вертикали, 20 px по горизонтали.",
-          "ruleText": "Корень ButtonStack занимает всю ширину mobile-контейнера, использует Hug по высоте и padding 16 px по вертикали и 20 px по горизонтали. Эти значения принадлежат пресету."
+          "remediation": "Верните Fixed/Hug и padding 16 px по вертикали, 20 px по горизонтали.",
+          "ruleText": "Корень ButtonStack использует Fixed по горизонтали, Hug по высоте и padding 16 px по вертикали и 20 px по горизонтали. Эти значения принадлежат пресету."
         },
         {
           "ruleId": "component:web-corp.button-stack.preset-sizing-is-fixed",
           "severity": "error",
           "source": "owner-confirmed",
-          "appliesTo": "variant.Presets|nested.Button.layout.width",
+          "appliesTo": "layout.sizing.*|layout.itemSpacing|layout.direction",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
-          "requiredSizing": {
-            "Group Horizontal": "equal button widths",
-            "Group Vertical": "both buttons Fill",
-            "Primary + Icon": "Primary fills remaining width; icon-only button keeps component fixed size"
+          "requiredValue": "effective-baseline",
+          "target": {
+            "layers": [
+              "MainButtonStack",
+              "[M] Button"
+            ]
           },
           "classification": {
             "treatAsViolation": true,
@@ -3352,9 +3449,14 @@
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "requiredValues": {
-            "DisabledLabel": false,
-            "ErrorMessage": false,
-            "Hint": false
+            "DisabledLabel": "False",
+            "ErrorMessage": "False",
+            "Hint": "False"
+          },
+          "target": {
+            "layers": [
+              "CheckboxLabel_24"
+            ]
           },
           "classification": {
             "treatAsViolation": true,
@@ -3598,18 +3700,21 @@
           "ruleId": "component:web-corp.card-image.fixed-size-only",
           "severity": "error",
           "source": "owner-confirmed",
-          "appliesTo": "variant.Size|layout.width|layout.height",
+          "appliesTo": "layout.width|layout.height",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
-          "conditions": {
-            "allowedSizes": [
-              "264x164",
-              "212x132",
-              "68x42",
-              "44x28",
-              "24x16"
-            ],
-            "manualResizeAllowed": false
+          "target": {
+            "layers": [
+              "CardImage"
+            ]
+          },
+          "requiredValue": "effective-baseline",
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true
           },
           "remediation": "Верните экземпляр к одному из пяти штатных Size без ручного масштабирования.",
           "ruleText": "CardImage использует только фиксированные размеры 264x164, 212x132, 68x42, 44x28 и 24x16. Ручное растягивание, изменение пропорций и промежуточные размеры запрещены."
@@ -3621,15 +3726,26 @@
           "appliesTo": "variant.Size|variant.State",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
+          "target": {
+            "layers": [
+              "CardImage"
+            ]
+          },
           "conditions": {
-            "when": {
+            "variant": {
               "Size": "24x16"
-            },
-            "required": {
+            }
+          },
+          "requiredValues": {
+            "State": "Active"
+          },
+          "remediation": {
+            "kind": "set-variant-properties",
+            "target": "$failingTarget",
+            "properties": {
               "State": "Active"
             }
           },
-          "remediation": "Установите State=Active либо выберите размер S и больше для Inactive/Locked.",
           "ruleText": "Размер 24x16 поддерживает только State=Active. Наблюдаемые в raw отдельные Inactive/Locked variants не входят в публичный контракт."
         },
         {
@@ -3639,20 +3755,59 @@
           "appliesTo": "variant.Stack|variant.Size|variant.State",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
-          "conditions": {
-            "when": {
-              "Stack": true
-            },
-            "allowedSizes": [
-              "68x42",
-              "44x28",
-              "24x16"
-            ],
-            "requiredState": "Active",
-            "minimumCards": 2
+          "target": {
+            "layers": [
+              "CardImage"
+            ]
           },
-          "remediation": "Используйте Stack только для M/S/XS, двух и более карт и State=Active.",
+          "conditions": {
+            "variant": {
+              "Stack": "true"
+            }
+          },
+          "requiredValues": {
+            "State": "Active"
+          },
+          "remediation": {
+            "kind": "set-variant-properties",
+            "target": "$failingTarget",
+            "properties": {
+              "State": "Active"
+            }
+          },
           "ruleText": "Stack=True разрешён только для размеров 68x42, 44x28 и 24x16, когда нужно показать две или более карты. Стопка всегда использует State=Active."
+        },
+        {
+          "ruleId": "component:web-corp.card-image.stack-disabled-for-large-sizes",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "variant.Stack|variant.Size",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "layers": [
+              "CardImage"
+            ]
+          },
+          "conditions": {
+            "variant": {
+              "Size": [
+                "264x164",
+                "212x132"
+              ]
+            }
+          },
+          "requiredValues": {
+            "Stack": "false"
+          },
+          "remediation": {
+            "kind": "set-variant-properties",
+            "target": "$failingTarget",
+            "properties": {
+              "Stack": "false"
+            }
+          },
+          "ruleText": "Размеры 264x164 и 212x132 не поддерживают Stack. Для стопки выберите 68x42, 44x28 или 24x16."
         },
         {
           "ruleId": "component:web-corp.card-image.stack-anatomy-is-fixed",
@@ -3783,9 +3938,30 @@
           "ruleId": "component:web-corp.card-image.visuals-follow-effective-baseline",
           "severity": "error",
           "source": "owner-confirmed",
-          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity|effects.*",
+          "appliesTo": "component.identity|layout.*|styles.text|fill|stroke|radius|opacity|effects.*",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
+          "allowedBaselineOverrides": [
+            {
+              "hostVariant": {
+                "Cover": "None"
+              },
+              "properties": [
+                "fill"
+              ],
+              "targetNames": [
+                "Cover",
+                "Image Container"
+              ],
+              "pathSuffixes": [
+                " / CardItem / Cover",
+                " / Details/CardCover / Image Container"
+              ],
+              "actualResourceTypes": [
+                "image"
+              ]
+            }
+          ],
           "ruleText": "Не меняйте вручную структуру, размеры, пропорции, отступы, типографику, цвета, радиусы, opacity и эффекты CardImage. Разрешены только контент имени/последних четырёх цифр, Show Shadow, рубашка при Cover=None и условное скрытие SilverLine по их точным правилам."
         },
         {
@@ -3903,6 +4079,32 @@
           },
           "remediation": "Используйте CardSwiperMobile только в mobile-web макете; для desktop выберите отдельное решение.",
           "ruleText": "CardSwiperMobile предназначен только для mobile-web. Использование компонента на desktop запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.card-swiper-mobile.internal-composition-follows-effective-baseline",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.identity|layout.*|fill|stroke|radius|opacity|effects.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "layers": [
+              "CardsCollection",
+              "LeftCardWrapper",
+              "RightCardWrapper",
+              "↕ SpacingVertical"
+            ]
+          },
+          "requiredValue": "effective-baseline",
+          "classification": {
+            "reportAsCustomization": true,
+            "treatAsViolation": true,
+            "designSeverity": "error",
+            "resetSurface": "layer",
+            "useEffectiveBaseline": true
+          },
+          "remediation": "Восстановите штатную геометрию, порядок, оформление и эффекты служебных контейнеров CardSwiperMobile.",
+          "ruleText": "CardsCollection, LeftCardWrapper, RightCardWrapper и оба SpacingVertical принадлежат host-композиции. Их identity, layout, paint, radius, opacity и effects должны совпадать с effective baseline выбранного Screen Size."
         },
         {
           "ruleId": "component:web-corp.card-swiper-mobile.requires-at-least-one-card",
@@ -5694,7 +5896,7 @@
           "ruleId": "component:web-corp.corporate-content.layer-properties-use-effective-baseline",
           "severity": "warning",
           "source": "composition-contract",
-          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity|effects.*",
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "target": {
@@ -6059,6 +6261,14 @@
               "[D] CorporateContent",
               "[M] CorporateContent"
             ],
+            "prohibitedDescendants": [
+              "[D] CorporateContent",
+              "[M] CorporateContent",
+              "[T] CorporateContent",
+              "🔄 [T] CorporateContent"
+            ]
+          },
+          "requiredComposition": {
             "prohibitedDescendants": [
               "[D] CorporateContent",
               "[M] CorporateContent",
@@ -9300,6 +9510,328 @@
           "appliesTo": "component.status",
           "checkType": "manual",
           "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.public-roots-only",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.identity|component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Для новых макетов используй только [D] FilterCompanySelect_Multi или [D] FilterCompanySelect_Single. CompactTag, DropdownList и их 🔄-версии являются внутренними либо устаревшими частями и не используются отдельно."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.desktop-only",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.platform",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "FilterCompanySelect поддерживается только на desktop. Не используй его на mobile-web."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.show-first-company-forbidden",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "variant.ShowFirstCompany",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "requiredValue": "False",
+          "ruleText": "ShowFirstCompany является legacy-параметром. В новых макетах и при генерации сохраняй ShowFirstCompany=False."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.single-view-purpose",
+          "severity": "warning",
+          "source": "owner-confirmed",
+          "appliesTo": "variant.View|component.usage",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Для Single используй View=Select в форме, View=FilterTag в фильтрах, View=Compact в TitleView или при переключении отдельного объекта, например виджета."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.holding-context",
+          "severity": "info",
+          "source": "pattern-link",
+          "patternRuleId": "rule:flow.holding-company-selection.place-selector-by-page-type",
+          "appliesTo": "component.usage",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "FilterCompanySelect применяется в режиме холдинга. Для выбора места и варианта компонента используй паттерн ptrn:flow.holding-company-selection."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.filterblock-company-first",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:flow.holding-company-selection.company-filter-first-in-filterblock",
+          "appliesTo": "screen.composition|component.usage",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "holdingMode": true,
+            "componentView": "FilterTag",
+            "container": "FilterBlock.tagLine"
+          },
+          "requiredComposition": {
+            "label": "Компания",
+            "order": "first"
+          },
+          "ruleText": "Если в режиме холдинга FilterCompanySelect используется для фильтрации внутри FilterBlock, размести его с View=FilterTag первым в FilterBlock.tagLine и назови «Компания» независимо от типа страницы."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.table-multi-uses-multi-filtertag",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:flow.holding-company-selection.table-multi-company-filter",
+          "appliesTo": "variant.View|component.usage",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "pageType": "table",
+            "holdingMode": true,
+            "supportsMultipleCompanies": true,
+            "companyFiltering": true
+          },
+          "requiredComponent": "[D] FilterCompanySelect_Multi",
+          "requiredView": "FilterTag",
+          "ruleText": "Если таблица может отображать данные по нескольким компаниям и поддерживает фильтрацию по компаниям, используй [D] FilterCompanySelect_Multi как FilterTag :: Multi-Select."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.table-single-uses-single-filtertag",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:flow.holding-company-selection.table-single-company-filter",
+          "appliesTo": "variant.View|component.usage",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "pageType": "table",
+            "holdingMode": true,
+            "supportsMultipleCompanies": false,
+            "companyFiltering": true
+          },
+          "requiredComponent": "[D] FilterCompanySelect_Single",
+          "requiredView": "FilterTag",
+          "ruleText": "Если таблица в режиме холдинга фильтруется только одной компанией, используй [D] FilterCompanySelect_Single с View=FilterTag."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.form-uses-select-view",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:flow.holding-company-selection.form-company-select",
+          "appliesTo": "variant.View|component.usage",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "pageType": "form",
+            "holdingMode": true,
+            "requiresSingleCompany": true
+          },
+          "requiredComponent": "[D] FilterCompanySelect_Single",
+          "requiredView": "Select",
+          "ruleText": "На странице формы в режиме холдинга используй [D] FilterCompanySelect_Single с View=Select для выбора компании, от которой заполняется форма."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.titleview-uses-compact-view",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:flow.holding-company-selection.view-page-titleview-holding",
+          "appliesTo": "variant.View|component.usage",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "container": "TitleView.Holding",
+            "holdingMode": true
+          },
+          "requiredComponent": "[D] FilterCompanySelect_Single",
+          "requiredView": "Compact",
+          "ruleText": "Когда выбор компании размещён в TitleView через Holding, используй [D] FilterCompanySelect_Single с View=Compact."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.multi-apply-model",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "interaction.selection|interaction.close",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "В Multi изменения выбора остаются временными до нажатия «Применить». Закрытие списка без применения отменяет временные изменения."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.multi-reset-immediate",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "interaction.reset",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Действие «Сбросить» в Multi сразу применяет пустое значение; оно не является очисткой только временного выбора."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.single-select-immediate",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "interaction.selection|interaction.close",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "В Single клик по строке сразу применяет выбранную компанию и закрывает список."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.runtime-owned-open-selected",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "variant.Open|variant.Selected",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Open и Selected являются производными runtime-состояниями: Open=True только для открытого списка, Selected=True только при наличии выбора. Не задавай их произвольно при генерации."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.search-contract",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "interaction.search|text.searchPlaceholder",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Поиск в Multi и Single поддерживает название, ИНН и адрес. Сохраняй placeholder «Название, ИНН или адрес» в Multi и «Поиск» в Single без изменений."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.select-all-current-results",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "interaction.selectAll|interaction.search",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "В Multi действие «Выбрать все» выбирает текущий набор: все компании при полном списке или только результаты применённого поиска, если список отфильтрован."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.selected-value-content",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "text.selectedValue",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Сохраняй предметную метку «Компания». В Multi для одной выбранной компании показывай её название, для нескольких — счётчик «выбрано N». В Single без выбора показывай «Выберите компанию», после выбора — название компании."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.fixed-control-labels",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "text.controlLabel",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Не изменяй служебные подписи «Компания», «Выбрать все», «Применить» и «Сбросить»."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.search-visible-over-ten",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.searchVisibility|data.companyCount",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Показывай поиск только при количестве доступных компаний больше 10. При 10 компаниях или меньше поиск скрыт."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.single-clear-filter-tag-only",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "interaction.clear|variant.View",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "root": "[D] FilterCompanySelect_Single",
+            "clearActionAvailable": true
+          },
+          "requiredValues": {
+            "View": "FilterTag"
+          },
+          "ruleText": "Очистка Single разрешена только в View=FilterTag. Она сразу удаляет выбранную компанию и возвращает состояние Selected=False."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.states-delegate-to-nested-components",
+          "severity": "info",
+          "source": "owner-confirmed",
+          "appliesTo": "component.state|component.composition",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Состояния Select- и FilterTag-триггеров наследуются от соответствующих компонентов. Элементы и контейнер списка наследуют состояния [D] OptionListCell, [D] OptionList, [D] OptionListHeader и [D] OptionListFooter; FilterCompanySelect не вводит для них отдельные значения."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.sizing-delegation",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "layout.width|layout.height|layout.spacing",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Сохраняй внутреннюю геометрию вложенных Select, FilterTag, CompactTag и OptionList-компонентов. Ширину корня и dropdown разрешено менять вручную; ручное изменение высоты, padding, gap и внутренней геометрии не разрешено."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.empty-selection-by-view",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.value|variant.View|variant.Selected",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Пустой выбор допустим в Multi и Single/FilterTag. Для Single/Select обязательность определяется формой. В Single/Compact компания всегда должна быть выбрана."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.preserve-library-composition",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.composition|component.detach|component.instanceSwap",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Сохраняй библиотечный instance FilterCompanySelect. Detach, замена внутренних DropdownList/OptionList и instance swap служебных частей запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.company-data-runtime-owned",
+          "severity": "info",
+          "source": "owner-confirmed",
+          "appliesTo": "content.companyName|content.inn|content.address",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Название компании, ИНН и адрес являются runtime-данными. В рабочем макете разрешены реальные примеры, но они не становятся фиксированными текстами компонента."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.select-all-checkbox-state",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.selectAllState|data.currentResultSelection",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Состояние «Выбрать все» следует CheckboxLabel_24: empty, если ничего из текущего набора не выбрано; indeterminate, если выбрана часть; selected, если выбран весь текущий набор."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.visuals-follow-effective-baseline",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "fill|stroke|styles.text|radius|effects.*|layout.height|layout.padding|layout.gap",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Сравнивай визуальные и внутренние layout-параметры с effective baseline выбранного root, View и nested state. Ручные цвета, типографика, радиусы, тени, высота, padding и gap запрещены; подтверждённая ручная ширина остаётся разрешённым исключением."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.universal-modal-is-separate-package",
+          "severity": "info",
+          "source": "owner-confirmed",
+          "appliesTo": "component.identity|component.usage",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "[D] FilterCompanySelect_UniversalModal относится к элементам режима холдинга, но применяется внутри UniversalModal и ведётся отдельным package. Не включай его в public roots FilterCompanySelect."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.empty-and-interaction-states-delegated",
+          "severity": "info",
+          "source": "owner-confirmed",
+          "appliesTo": "component.state|component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "No-results, отсутствие доступных компаний, hover, focus, keyboard navigation и disabled принадлежат продукту либо вложенным Select, FilterTag, CheckboxLabel_24 и OptionList-компонентам. FilterCompanySelect не создаёт для них отдельные variants или тексты."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select.selection-cardinality",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.selectedCount|variant.View",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Multi допускает от 0 до всех доступных компаний без дополнительного максимума. Single допускает не более одной компании; возможность нулевого выбора определяется View и обязательностью поля формы."
         }
       ]
     },
@@ -9483,6 +10015,140 @@
           "appliesTo": "component.status",
           "checkType": "manual",
           "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.holding-plate.figma-only-preset",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.identity|component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "HoldingPlate является Figma-only пресетом. Используй библиотечный instance 🔒 HoldingPlate целиком; detach, ручная пересборка и instance swap вложенных частей запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.holding-plate.desktop-only",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.platform",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "HoldingPlate поддерживается только на desktop. Не используй его на mobile-web."
+        },
+        {
+          "ruleId": "component:web-corp.holding-plate.placement-after-titleview",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "screen.composition|component.usage",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "requiredComposition": {
+            "order": [
+              "TitleView",
+              "HoldingPlate",
+              "page content"
+            ]
+          },
+          "ruleText": "На странице HoldingPlate располагается сразу под TitleView и перед основным контентом."
+        },
+        {
+          "ruleId": "component:web-corp.holding-plate.width-follows-parent-grid",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "variant.width|layout.width",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "requiredMapping": {
+              "parent=12 col": "12 col",
+              "parent=8 col": "8 col"
+            },
+            "breakpointDriven": false,
+            "arbitraryWidthAllowed": false
+          },
+          "ruleText": "Выбирай width=12 col или width=8 col по ширине родительского grid-контейнера, а не по breakpoint. Произвольное изменение ширины запрещено."
+        },
+        {
+          "ruleId": "component:web-corp.holding-plate.fixed-content-and-anatomy",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "content|component.anatomy|interaction",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "requiredTextTemplate": "Вы работаете от лица [Название компании]",
+            "editablePlaceholder": "Название компании",
+            "requiredVisible": [
+              "Title"
+            ],
+            "requiredHidden": [
+              "Caption",
+              "StatusBadge",
+              "Controls"
+            ],
+            "interactive": false,
+            "lineCount": 1,
+            "overflow": "ellipsis",
+            "overflowTooltip": false
+          },
+          "ruleText": "Сохраняй формулировку «Вы работаете от лица [Название компании]», изменяя только название компании. Текст остаётся в одну строку и при переполнении сокращается через ellipsis без tooltip. Caption, StatusBadge и Controls должны быть скрыты; HoldingPlate не кликабелен."
+        },
+        {
+          "ruleId": "component:web-corp.holding-plate.single-company-holding-context",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:flow.holding-company-selection.use-holding-plate-for-single-company-identification",
+          "appliesTo": "component.usage|screen.context",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "holdingMode": true,
+            "companyScope": "single",
+            "additionalCompanyIdentificationRequired": true
+          },
+          "ruleText": "Показывай HoldingPlate только в режиме холдинга, когда текущая страница или действие относятся к одной выбранной компании и пользователю нужна дополнительная идентификация компании, от которой отображаются данные."
+        },
+        {
+          "ruleId": "component:web-corp.holding-plate.titleview-holding-mutually-exclusive",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:flow.holding-company-selection.holding-plate-titleview-holding-exclusive",
+          "appliesTo": "screen.composition|component.usage",
+          "checkType": "llm",
+          "matchKind": "composition_rule",
+          "conditions": {
+            "forbiddenCoexistence": [
+              "HoldingPlate",
+              "TitleView.Holding"
+            ]
+          },
+          "ruleText": "Не используй HoldingPlate одновременно с TitleView, у которого включён слот Holding. Это взаимоисключающие способы отображения контекста компании."
+        },
+        {
+          "ruleId": "component:web-corp.holding-plate.visual-baseline-is-fixed",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "nested.Plate.variant.*|fill|stroke|styles.text|layout.padding|radius",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "nestedPlate": {
+              "Border": "True",
+              "BorderRadius": "16",
+              "padding": 12
+            },
+            "tokenBindingRequired": true,
+            "manualOverridesAllowed": false
+          },
+          "ruleText": "Сохраняй visual baseline HoldingPlate: вложенный Plate использует Border=True, BorderRadius=16 и padding 12 px; fill, stroke, typography и цвета остаются token-bound. Ручные visual overrides запрещены."
+        },
+        {
+          "ruleId": "component:web-corp.holding-plate.has-no-component-states",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.state",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "HoldingPlate не имеет собственных loading, skeleton, disabled, error, hover и focus-состояний. Добавление таких состояний является нарушением; не выводи их из состояний вложенных компонентов."
         }
       ]
     },
@@ -11026,6 +11692,258 @@
           "appliesTo": "component.status",
           "checkType": "manual",
           "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.public-root-only",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Для генерации используй только public root 🔒 ScenarioModel ! interruption. ModalDesktopHeader, ModalDesktopBody и ModalDesktopFooter этого семейства являются служебными частями и не используются отдельно."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.deprecated-root-forbidden",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Не используй ❌ ScenarioModel ! interruption в новых макетах; замени его на активный public root 🔒 ScenarioModel ! interruption."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.desktop-only",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternId": "ptrn:flow.interruption-scenario",
+          "patternRuleId": "rule:flow.interruption-scenario.mobile-popup-sheet",
+          "appliesTo": "component",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "ScenarioModel ! interruption предназначен только для desktop. На mobile-web используй PopUpSheet по паттерну прерывания сценария."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.type-must-match",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Внутри ScenarioModel значения Type у ModalDesktopHeader, ModalDesktopBody и ModalDesktopFooter должны совпадать: все Default или все SaveAs."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.default-initial-type",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "variant.Type",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Исходное состояние public root использует Type=Default у Header, Body и Footer. Для SaveAs генератор синхронно переключает Type всех трёх вложенных секций."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.required-parts",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Header, Body и Footer обязательны внутри ScenarioModel ! interruption; не скрывай и не удаляй ни одну из трёх секций."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.text-recipe-must-match",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "text",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Тексты должны соответствовать recipe:web-corp.scenario-model-interruption.texts. Редактируй только placeholder-фрагменты в [], адаптируй их к контексту модального окна и сохраняй конструкцию и грамматическое согласование. Несоответствие конструкции — error."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.default-title-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "text.title",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "type": "Default"
+          },
+          "ruleText": "Для Type=Default сохраняй заголовок «Выйти без сохранения?» без изменений."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.remember-choice-visible-by-default",
+          "severity": "warning",
+          "source": "component-contract",
+          "appliesTo": "component.state",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "type": "SaveAs",
+            "rememberChoiceVisibleByDefault": true
+          },
+          "ruleText": "Чекбокс «Запомнить выбор» по умолчанию скрыт. Если он сразу показан, предупреди дизайнера и проверь, что продукт позволяет пользователю позднее изменить сохранённый выбор."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.remember-choice-selected-by-default",
+          "severity": "warning",
+          "source": "component-contract",
+          "appliesTo": "component.state",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "type": "SaveAs",
+            "rememberChoiceSelectedByDefault": true
+          },
+          "ruleText": "Если чекбокс «Запомнить выбор» показан, по умолчанию он должен быть не выбран. Предвыбранное состояние является warning."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.close-control-required",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Крестик в Header обязателен. Он отменяет прерывание и возвращает пользователя в текущий сценарий, аналогично действию «Остаться»."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.footer-actions-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.actions",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Footer содержит ровно две кнопки в фиксированном порядке и View. Default: Primary «Выйти», затем Secondary «Остаться». SaveAs: Primary «Сохранить и выйти», затем Secondary «Выйти без сохранения»."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.dismiss-returns-to-scenario",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Если продукт поддерживает закрытие кликом вне модального окна или клавишей Escape, эти действия должны отменять прерывание и возвращать пользователя в текущий сценарий, как крестик и «Остаться»."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.sizing-is-fixed",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "layout.sizing",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Не меняй внешнюю ширину и sizing ScenarioModel ! interruption вручную. Сохраняй preset-owned ширину; высота растёт только вслед за контентом."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.no-additional-modal-wrapper",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.composition",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "ScenarioModel ! interruption уже является готовой модальной поверхностью. Не помещай его в дополнительный Modal-контейнер или аналогичную обёртку."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.structural-and-visual-overrides-forbidden",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component|layout.*|styles.text|fill|stroke|radius|effects.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Не меняй instance swap, состав секций, типы и стили кнопок, layout, отступы, цвета и типографику ScenarioModel ! interruption; сохраняй effective baseline компонента."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.show-on-real-risk",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternId": "ptrn:flow.interruption-scenario",
+          "patternRuleId": "rule:flow.interruption-scenario.show-on-real-risk",
+          "appliesTo": "flow",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Показывай ScenarioModel ! interruption только при реальном риске потери данных или незавершённых изменений."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.autosave-when-possible",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:flow.interruption-scenario",
+          "patternRuleId": "rule:flow.interruption-scenario.autosave-when-possible",
+          "appliesTo": "flow",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Если продукт может автоматически сохранить прогресс, не показывай ScenarioModel ! interruption: сохрани данные и сообщи результат."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.default-semantics",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternId": "ptrn:flow.interruption-scenario",
+          "patternRuleId": "rule:flow.interruption-scenario.warn-about-loss",
+          "appliesTo": "text|actions",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "type": "Default"
+          },
+          "ruleText": "Type=Default используется для выхода без сохранения: текст прямо описывает потерю данных, действия — «Выйти» и «Остаться»."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.save-as-semantics",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternId": "ptrn:flow.interruption-scenario",
+          "patternRuleId": "rule:flow.interruption-scenario.save-and-exit-choice",
+          "appliesTo": "text|actions",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "type": "SaveAs"
+          },
+          "ruleText": "Type=SaveAs используется, когда сохранение возможно только по действию пользователя: действия — «Сохранить и выйти» и «Выйти без сохранения»; чекбокс «Запомнить выбор» опционален."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.decision-heading",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:flow.interruption-scenario",
+          "patternRuleId": "rule:flow.interruption-scenario.decision-heading",
+          "appliesTo": "text",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Формулируй заголовок как понятный вопрос о решении пользователя, например «Выйти без сохранения?» или «Сохранить [сущность]?»."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.short-consequence-body",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:flow.interruption-scenario",
+          "patternRuleId": "rule:flow.interruption-scenario.short-consequence-body",
+          "appliesTo": "text",
+          "checkType": "llm",
+          "matchKind": "exact_component_rule",
+          "ruleText": "В теле коротко и конкретно объясняй последствие прерывания: что придётся сделать заново или к чему можно будет вернуться."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.remember-choice-reversible",
+          "severity": "warning",
+          "source": "pattern-link",
+          "patternId": "ptrn:flow.interruption-scenario",
+          "patternRuleId": "rule:flow.interruption-scenario.remember-choice-reversible",
+          "appliesTo": "flow",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "conditions": {
+            "rememberChoiceVisible": true
+          },
+          "ruleText": "Если показан чекбокс «Запомнить выбор», пользователь должен иметь возможность позднее изменить сохранённое решение."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.no-loading-or-error-states",
+          "severity": "info",
+          "source": "component-contract",
+          "appliesTo": "component.state",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "ScenarioModel ! interruption не содержит отдельных loading или error состояний. Не выводи их наличие из состояний вложенных компонентов."
         }
       ]
     },
@@ -11205,7 +12123,9 @@
             "layers": [
               "Status",
               "[D] Status",
-              "[M] Status"
+              "[M] Status",
+              "Label",
+              "🔩 Label"
             ]
           },
           "conditions": {
@@ -12576,6 +13496,60 @@
           "ruleText": "В строках и ячейках Table Basic запрещено вручную менять typography, fill, stroke, opacity, padding, spacing и radius. Разрешены alignment, ширина обычных колонок, текст и предусмотренные компонентом presets."
         },
         {
+          "ruleId": "component:web-corp.table-basic-d.amount-preset-parts-share-color",
+          "severity": "error",
+          "source": "component-contract",
+          "inheritedRuleId": "component:web-corp.amount-styles.parts-share-color",
+          "appliesTo": "fill|fills",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.table-basic-d",
+            "layers": [
+              "Operation",
+              "Minus",
+              "Major",
+              "Minor",
+              "Currency"
+            ]
+          },
+          "sharedValueConstraint": {
+            "strategy": "all-visible-targets-equal",
+            "groupByPathBranches": [
+              "Operation",
+              "Amount"
+            ]
+          },
+          "ruleText": "Text с Presets=Amount внутри BodyCell наследует цветовой контракт AmountStyles: Operation, Major, Minor и Currency должны использовать один цветовой токен. Ручная перекраска одной части запрещена."
+        },
+        {
+          "ruleId": "component:web-corp.table-basic-d.amount-preset-aligns-top-right",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.table-align-right",
+          "inheritedRuleId": "component:web-corp.amount-styles.table-align-right",
+          "appliesTo": "layout.primaryAxisAlignItems|layout.counterAxisAlignItems",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.table-basic-d",
+            "layers": [
+              "Text 1",
+              "Text 2"
+            ]
+          },
+          "conditions": {
+            "variant": {
+              "Presets": "Amount"
+            }
+          },
+          "requiredLayout": {
+            "primaryAxisAlignItems": "MAX",
+            "counterAxisAlignItems": "MIN"
+          },
+          "ruleText": "Text с Presets=Amount внутри BodyCell должен быть выровнен по верхнему правому краю: primaryAxisAlignItems=MAX и counterAxisAlignItems=MIN."
+        },
+        {
           "ruleId": "component:web-corp.table-basic-d.supported-presets-allowed",
           "severity": "info",
           "source": "component-contract",
@@ -12696,6 +13670,11 @@
               "HeadDivider",
               "HeaderAddon",
               "LeftAddon",
+              "Amount",
+              "Currency",
+              "Major",
+              "Minor",
+              "PaymentMaskedNumber",
               "RightAddon",
               "Sorting",
               "Table Wide [D]",
@@ -12779,6 +13758,11 @@
               "HeadDivider",
               "HeaderAddon",
               "LeftAddon",
+              "Amount",
+              "Currency",
+              "Major",
+              "Minor",
+              "PaymentMaskedNumber",
               "RightAddon",
               "Sorting",
               "Text"
@@ -13355,6 +14339,36 @@
           "ruleText": "BodyActionCell Table Wide содержит одну кнопку, PickerButton для нескольких действий или Presets=None. Другие композиции ActionCell запрещены."
         },
         {
+          "ruleId": "component:web-corp.table-wide-d.action-cell-control-uses-effective-baseline",
+          "severity": "error",
+          "source": "component-contract",
+          "appliesTo": "component.identity|variant.*",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.table-wide-d",
+            "layers": [
+              "ActionButton",
+              "[D] IconButton",
+              "[D] IconButton_Inverted"
+            ]
+          },
+          "classification": {
+            "useEffectiveBaseline": true
+          },
+          "remediation": {
+            "kind": "set-variant-properties",
+            "target": "$failingTarget",
+            "properties": {
+              "Presets": "$targets[0].variant.Presets",
+              "Size": "$targets[0].variant.Size",
+              "TransparentBg": "$targets[0].variant.TransparentBg",
+              "View": "$targets[0].variant.View"
+            }
+          },
+          "ruleText": "Вложенный control-компонент BodyActionCell должен сохранять предусмотренные компонентом identity и variant properties. Произвольный variant switch или instance swap запрещён."
+        },
+        {
           "ruleId": "component:web-corp.table-wide-d.no-arbitrary-cell-instance-swap",
           "severity": "error",
           "source": "component-contract",
@@ -13482,6 +14496,59 @@
             "component-supported presets"
           ],
           "ruleText": "В строках и ячейках Table Wide запрещено вручную менять typography, fill, stroke, opacity, padding, spacing и radius. Разрешены alignment, ширина обычных колонок, текст и предусмотренные компонентом presets."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.amount-preset-parts-share-color",
+          "severity": "error",
+          "source": "component-contract",
+          "inheritedRuleId": "component:web-corp.amount-styles.parts-share-color",
+          "appliesTo": "fill|fills",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.table-wide-d",
+            "layers": [
+              "Operation",
+              "Minus",
+              "Major",
+              "Minor",
+              "Currency"
+            ]
+          },
+          "sharedValueConstraint": {
+            "strategy": "all-visible-targets-equal",
+            "groupByPathBranches": [
+              "Operation",
+              "Amount"
+            ]
+          },
+          "ruleText": "Text с Presets=Amount внутри BodyCell :: Wide наследует цветовой контракт AmountStyles: Operation, Major, Minor и Currency должны использовать один цветовой токен. Ручная перекраска одной части запрещена."
+        },
+        {
+          "ruleId": "component:web-corp.table-wide-d.amount-preset-aligns-top-right",
+          "severity": "error",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.amount.table-align-right",
+          "inheritedRuleId": "component:web-corp.amount-styles.table-align-right",
+          "appliesTo": "layout.primaryAxisAlignItems|layout.counterAxisAlignItems",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "web-corp.table-wide-d",
+            "layers": [
+              "Text"
+            ]
+          },
+          "conditions": {
+            "variant": {
+              "Presets": "Amount"
+            }
+          },
+          "requiredLayout": {
+            "primaryAxisAlignItems": "MIN",
+            "counterAxisAlignItems": "MAX"
+          },
+          "ruleText": "Text с Presets=Amount внутри BodyCell :: Wide использует вертикальный auto-layout и должен быть выровнен по верхнему правому краю: primaryAxisAlignItems=MIN и counterAxisAlignItems=MAX."
         },
         {
           "ruleId": "component:web-corp.table-wide-d.supported-presets-allowed",

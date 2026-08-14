@@ -3,7 +3,7 @@
   "documentType": "component-audit-mapping",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -266,5 +266,123 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentIdentity": {
+      "publicRoots": [
+        "[D] FilterCompanySelect_Multi",
+        "[D] FilterCompanySelect_Single"
+      ],
+      "internalOrDeprecatedRoots": [
+        "[D] CompactTag",
+        "[D] DropdownList_MultiSelect",
+        "[D] DropdownList_SingleSelect",
+        "🔄 [D] DropdownList_MultiSelect",
+        "🔄 [D] DropdownList_SingleSelect"
+      ]
+    },
+    "displayNames": {
+      "variant.Open": "Открыт",
+      "variant.Selected": "Есть выбранное значение",
+      "variant.View": "Представление",
+      "variant.ShowFirstCompany": "Legacy: показывать первую компанию"
+    },
+    "stateOwnership": {
+      "variant.Open": "runtime-derived",
+      "variant.Selected": "runtime-derived"
+    },
+    "interactionChecks": {
+      "Multi": [
+        "staged selection",
+        "apply commits",
+        "close cancels",
+        "reset immediately applies empty value"
+      ],
+      "Single": [
+        "selection immediately commits",
+        "selection closes list"
+      ]
+    },
+    "contentChecks": {
+      "Multi.searchPlaceholder": "Название, ИНН или адрес",
+      "Single.searchPlaceholder": "Поиск",
+      "Multi.label": "Компания",
+      "Multi.multipleSelectionText": "выбрано N",
+      "Single.emptyText": "Выберите компанию",
+      "control.selectAll": "Выбрать все",
+      "control.apply": "Применить",
+      "control.reset": "Сбросить"
+    },
+    "sizingPolicy": {
+      "allowedManualOverrides": [
+        "root.width",
+        "dropdown.width"
+      ],
+      "delegatedToEffectiveBaseline": [
+        "height",
+        "padding",
+        "gap",
+        "internalGeometry"
+      ]
+    },
+    "compositionPolicy": {
+      "detach": "error",
+      "internalInstanceSwap": "error",
+      "replaceDropdownOrOptionList": "error"
+    },
+    "contentOwnership": {
+      "companyName": "runtime-content",
+      "inn": "runtime-content",
+      "address": "runtime-content"
+    },
+    "selectAllStatePolicy": {
+      "owner": "CheckboxLabel_24",
+      "none": "empty",
+      "partial": "indeterminate",
+      "allCurrentResults": "selected"
+    },
+    "visualPolicy": {
+      "allowedManualLayerOverrides": [
+        "root.width",
+        "dropdown.width"
+      ],
+      "allOtherVisualOrInternalLayoutOverrides": "error",
+      "useEffectiveBaseline": true
+    },
+    "emptySelectionPolicy": {
+      "Multi": "allowed",
+      "Single.FilterTag": "allowed",
+      "Single.Select": "requires form context",
+      "Single.Compact": "forbidden"
+    },
+    "delegatedStateOwners": [
+      "Select",
+      "FilterTag",
+      "[D] OptionListCell",
+      "[D] OptionList",
+      "[D] OptionListHeader",
+      "[D] OptionListFooter"
+    ],
+    "delegatedBehavior": {
+      "noSearchResults": "OptionList",
+      "noAvailableCompanies": "product-or-OptionList",
+      "hover": "nested-component",
+      "focus": "nested-component",
+      "keyboardNavigation": "nested-component",
+      "disabled": "nested-component"
+    },
+    "selectionCardinality": {
+      "Multi": "0..all-available",
+      "Single": "0..1 depending on View and form requiredness"
+    },
+    "runtimeLimitations": [
+      "Select-all scope, apply/cancel semantics and delegated nested states require interaction or composition evidence; do not claim they are enforced from a static diff alone.",
+      "Page-type routing rules require pattern-aware LLM evaluation."
+    ],
+    "evidencePolicy": {
+      "showFirstCompanyTrueIsViolation": true,
+      "rootCodeConnectStatus": "not-configured",
+      "nestedCodeConnectDoesNotVerifyRoot": true,
+      "holdingPatternPending": false
+    }
+  }
 }
