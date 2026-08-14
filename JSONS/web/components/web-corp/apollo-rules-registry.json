@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-component-rules-registry",
-  "generatedAt": "2026-08-14T07:48:42.099Z",
+  "generatedAt": "2026-08-14T11:29:36.768Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -63,6 +63,15 @@
           "ruleText": "[D] FilterCompanySelect_UniversalModal поддерживается только на desktop. Не используй его на mobile-web."
         },
         {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.one-per-modal",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.multiplicity|component.host",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Размещай не более одного [D] FilterCompanySelect_UniversalModal внутри одного UniversalModal."
+        },
+        {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.single-selection-immediate",
           "severity": "error",
           "source": "owner-confirmed",
@@ -80,6 +89,24 @@
           "matchKind": "exact_component_rule",
           "inheritedRuleId": "component:web-corp.filter-company-select.search-visible-over-ten",
           "ruleText": "Показывай [D] OptionListHeader с поиском только при количестве доступных компаний больше 10. При 10 компаниях или меньше скрывай весь [D] OptionListHeader."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.search-contract",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "interaction.search|text.searchPlaceholder",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Поиск поддерживает название, ИНН и адрес. Сохраняй placeholder «Название, ИНН или адрес» без изменений."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.option-cell-company-name-only",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "component.optionCell|text.optionCell",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "В строке списка отображай только название компании. Не добавляй ИНН или адрес в видимый контент OptionListCell."
         },
         {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.preserve-library-composition",
@@ -107,6 +134,24 @@
           "checkType": "deterministic",
           "matchKind": "exact_component_rule",
           "ruleText": "В CompactTag отображай только runtime-название выбранной компании. Подпись «Компания» и разделитель должны оставаться скрытыми; CompanyLogo обязателен и следует выбранной компании."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.sizing-policy",
+          "severity": "error",
+          "source": "owner-confirmed",
+          "appliesTo": "layout.width|layout.height|layout.padding|layout.gap",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Разрешено вручную менять ширину trigger и dropdown. Высота, padding, gap и остальная внутренняя геометрия должны следовать effective baseline вложенных компонентов."
+        },
+        {
+          "ruleId": "component:web-corp.filter-company-select-universal-modal.states-delegated",
+          "severity": "info",
+          "source": "owner-confirmed",
+          "appliesTo": "component.state|component.interaction",
+          "checkType": "manual",
+          "matchKind": "exact_component_rule",
+          "ruleText": "Preset не создаёт собственные loading, error, disabled, empty/no-results, hover, focus и keyboard-состояния. Используй состояния вложенных CompactTag, Input, DropdownList и OptionList."
         },
         {
           "ruleId": "component:web-corp.filter-company-select-universal-modal.open-state-demo-allowed",
