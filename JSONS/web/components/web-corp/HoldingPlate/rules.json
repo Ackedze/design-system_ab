@@ -3,14 +3,13 @@
   "documentType": "component-rules",
   "metadata": {
     "componentKey": "web-corp.holding-plate",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
       "updatedAt": "2026-08-14"
@@ -96,7 +95,11 @@
         "checkType": "llm",
         "matchKind": "composition_rule",
         "requiredComposition": {
-          "order": ["TitleView", "HoldingPlate", "page content"]
+          "order": [
+            "TitleView",
+            "HoldingPlate",
+            "page content"
+          ]
         },
         "ruleText": "На странице HoldingPlate располагается сразу под TitleView и перед основным контентом."
       },
@@ -127,8 +130,14 @@
         "conditions": {
           "requiredTextTemplate": "Вы работаете от лица [Название компании]",
           "editablePlaceholder": "Название компании",
-          "requiredVisible": ["Title"],
-          "requiredHidden": ["Caption", "StatusBadge", "Controls"],
+          "requiredVisible": [
+            "Title"
+          ],
+          "requiredHidden": [
+            "Caption",
+            "StatusBadge",
+            "Controls"
+          ],
           "interactive": false,
           "lineCount": 1,
           "overflow": "ellipsis",
@@ -183,7 +192,7 @@
           "tokenBindingRequired": true,
           "manualOverridesAllowed": false
         },
-        "ruleText": "Сохраняй visual baseline HoldingPlate: вложенный Plate использует Border=True, BorderRadius=16 и padding 12 px; fill, stroke, typography и цвета остаются token-bound. Ручные visual overrides запрещены. До обновления исходного Figma-компонента сравнивай только с опубликованным effective baseline и учитывай известный долг по устаревшей версии Plate."
+        "ruleText": "Сохраняй visual baseline HoldingPlate: вложенный Plate использует Border=True, BorderRadius=16 и padding 12 px; fill, stroke, typography и цвета остаются token-bound. Ручные visual overrides запрещены."
       },
       {
         "ruleId": "component:web-corp.holding-plate.has-no-component-states",

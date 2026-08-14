@@ -4,7 +4,7 @@
 
 ## Статус
 
-**In progress.** Семантика, платформа, размещение, варианты ширины, anatomy, visual baseline, lifecycle, overflow и отсутствие interaction/states подтверждены владельцем AB-слоя 2026-08-14. Все нарушения подтверждённого контракта имеют severity `error`. Переход в Ready заблокирован до обновления устаревшей версии Plate внутри исходного Figma-компонента и повторного targeted export через Athena.
+**Ready.** Семантика, платформа, размещение, варианты ширины, anatomy, visual baseline, lifecycle, overflow и отсутствие interaction/states подтверждены владельцем AB-слоя 2026-08-14. Вложенный `[D] Plate` обновлён до актуального component key `71b20ddb5ef2e8477eaf8afb046c6d9f3d96f372`; повторный targeted export и проверки Athena выполнены. Все нарушения подтверждённого контракта имеют severity `error`.
 
 ## Назначение
 
@@ -19,10 +19,6 @@
 Обязательная текстовая конструкция: `Вы работаете от лица [Название компании]`. Меняется только название компании. Текст остаётся в одну строку и при переполнении сокращается через ellipsis; tooltip для полного названия не предусмотрен. `Caption`, `StatusBadge` и `Controls` остаются скрытыми. Плашка не является селектором компании и не имеет действия.
 
 Visual baseline неизменяем: вложенный Plate использует `Border=True`, `BorderRadius=16` и padding 12 px; fill, stroke, typography и цвета остаются token-bound. Собственных loading, skeleton, disabled, error, hover и focus-состояний нет.
-
-## Известный блокер
-
-Текущий Figma-компонент HoldingPlate использует устаревшую версию `[D] Plate`. Владелец AB-компонента обновит вложенный компонент в Figma. После этого нужно через Athena выполнить targeted export raw-каталога HoldingPlate и пересобрать generated contracts и indexes. До этого пакет остаётся `In progress`.
 
 The raw Figma catalog remains the source of truth:
 
@@ -41,5 +37,5 @@ The raw Figma catalog remains the source of truth:
 ## Источник
 
 - Библиотека: `Web _ Corp Components`
-- Raw обновлён: `2026-07-27T12:58:40.628Z`
+- Raw обновлён: `2026-08-14T07:48:42.099Z`
 - Компонентов: `1`

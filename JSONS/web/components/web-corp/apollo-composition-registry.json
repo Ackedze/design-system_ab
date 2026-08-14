@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-composition-contract-registry",
-  "generatedAt": "2026-07-27T12:58:40.628Z",
+  "generatedAt": "2026-08-14T07:48:42.099Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -15154,6 +15154,15 @@
           "source": "path-policy",
           "updatedAt": "2026-07-22"
         },
+        "contractOwnership": {
+          "nestedPackages": [
+            {
+              "packageId": "web-core.amount",
+              "mode": "host-contract",
+              "reason": "AmountHeadline and AmountParagraph own the effective typography, color, opacity and layout baseline of their nested Core Amount. The nested package remains active when Core Amount is checked outside AmountStyles."
+            }
+          ]
+        },
         "componentRoles": [
           {
             "componentName": "🔒 [D] AmountHeadline",
@@ -16819,19 +16828,20 @@
                 ],
                 "maxCount": 1,
                 "replacement": "Secondary",
-                "message": "Primary-кнопка необязательна, но может быть только первой"
+                "message": "Primary-кнопка необязательна; если она есть, то может быть только первой и только одной"
               },
               {
                 "id": "single-icon-position",
                 "op": "valuePosition",
                 "property": "SingleIcon",
                 "value": "True",
+                "subjectLabel": "PickerButton",
                 "positions": [
                   "last"
                 ],
                 "maxCount": 1,
                 "replacement": "False",
-                "message": "SingleIcon допускается только у последней кнопки и только один раз"
+                "message": "При Overflow=true последняя кнопка должна оставаться штатным PickerButton (SingleIcon=true с системной иконкой); SingleIcon допускается только у последней кнопки и только один раз"
               }
             ]
           }
@@ -17586,6 +17596,246 @@
           "nestedInstanceSwapAllowed": false,
           "defaultNestedDiffPolicy": "resolve the ButtonStack preset and nested component variants before comparing layer changes"
         },
+        "contracts": [
+          {
+            "id": "button-stack.primary",
+            "match": {
+              "hostComponentNames": [
+                "🔒 [M] ButtonStack"
+              ]
+            },
+            "when": {
+              "variant": {
+                "Presets": "Primary"
+              }
+            },
+            "select": {
+              "nestedComponentNames": [
+                "[M] Button"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "button-count",
+                "op": "countBetween",
+                "min": 1,
+                "max": 1,
+                "message": "Presets=Primary должен содержать ровно одну кнопку"
+              },
+              {
+                "id": "button-view-order",
+                "op": "propertySequence",
+                "property": "View",
+                "values": [
+                  "Primary"
+                ],
+                "message": "Presets=Primary должен содержать одну Primary-кнопку"
+              }
+            ]
+          },
+          {
+            "id": "button-stack.secondary",
+            "match": {
+              "hostComponentNames": [
+                "🔒 [M] ButtonStack"
+              ]
+            },
+            "when": {
+              "variant": {
+                "Presets": "Secondary"
+              }
+            },
+            "select": {
+              "nestedComponentNames": [
+                "[M] Button"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "button-count",
+                "op": "countBetween",
+                "min": 1,
+                "max": 1,
+                "message": "Presets=Secondary должен содержать ровно одну кнопку"
+              },
+              {
+                "id": "button-view-order",
+                "op": "propertySequence",
+                "property": "View",
+                "values": [
+                  "Secondary"
+                ],
+                "message": "Presets=Secondary должен содержать одну Secondary-кнопку"
+              }
+            ]
+          },
+          {
+            "id": "button-stack.group-horizontal",
+            "match": {
+              "hostComponentNames": [
+                "🔒 [M] ButtonStack"
+              ]
+            },
+            "when": {
+              "variant": {
+                "Presets": "Group Horizontal"
+              }
+            },
+            "select": {
+              "nestedComponentNames": [
+                "[M] Button"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "button-count",
+                "op": "countBetween",
+                "min": 2,
+                "max": 2,
+                "message": "Presets=Group Horizontal должен содержать ровно две кнопки"
+              },
+              {
+                "id": "button-view-order",
+                "op": "propertySequence",
+                "property": "View",
+                "values": [
+                  "Secondary",
+                  "Primary"
+                ],
+                "message": "В Group Horizontal Secondary должна быть слева, Primary — справа"
+              }
+            ]
+          },
+          {
+            "id": "button-stack.group-vertical",
+            "match": {
+              "hostComponentNames": [
+                "🔒 [M] ButtonStack"
+              ]
+            },
+            "when": {
+              "variant": {
+                "Presets": "Group Vertical"
+              }
+            },
+            "select": {
+              "nestedComponentNames": [
+                "[M] Button"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "button-count",
+                "op": "countBetween",
+                "min": 2,
+                "max": 2,
+                "message": "Presets=Group Vertical должен содержать ровно две кнопки"
+              },
+              {
+                "id": "button-view-order",
+                "op": "propertySequence",
+                "property": "View",
+                "values": [
+                  "Primary",
+                  "Secondary"
+                ],
+                "message": "В Group Vertical Primary должна быть сверху, Secondary — снизу"
+              }
+            ]
+          },
+          {
+            "id": "button-stack.primary-icon",
+            "match": {
+              "hostComponentNames": [
+                "🔒 [M] ButtonStack"
+              ]
+            },
+            "when": {
+              "variant": {
+                "Presets": "Primary + Icon"
+              }
+            },
+            "select": {
+              "nestedComponentNames": [
+                "[M] Button"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "button-count",
+                "op": "countBetween",
+                "min": 2,
+                "max": 2,
+                "message": "Presets=Primary + Icon должен содержать ровно две кнопки"
+              },
+              {
+                "id": "button-view-order",
+                "op": "propertySequence",
+                "property": "View",
+                "values": [
+                  "Primary",
+                  "Secondary"
+                ],
+                "message": "В Primary + Icon основной Primary action должен быть первым"
+              },
+              {
+                "id": "single-icon-order",
+                "op": "propertySequence",
+                "property": "SingleIcon",
+                "values": [
+                  "False",
+                  "True"
+                ],
+                "message": "В Primary + Icon icon-only кнопка должна быть второй"
+              }
+            ]
+          },
+          {
+            "id": "button-stack.information-addon",
+            "match": {
+              "hostComponentNames": [
+                "🔒 [M] ButtonStack"
+              ]
+            },
+            "select": {
+              "nestedComponentNames": [
+                "StatusBadge"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "status-size",
+                "op": "propertyDomain",
+                "property": "Size",
+                "values": [
+                  "16"
+                ],
+                "message": "Information addon должен использовать StatusBadge Size=16"
+              },
+              {
+                "id": "status-view",
+                "op": "propertyDomain",
+                "property": "View",
+                "values": [
+                  "NeutralInformation"
+                ],
+                "message": "Information addon должен использовать StatusBadge View=NeutralInformation"
+              }
+            ]
+          }
+        ],
         "compositionPolicy": {
           "usage": {
             "platform": "mobile-web",
@@ -17937,6 +18187,108 @@
             "UserData visibility by size"
           ]
         },
+        "contracts": [
+          {
+            "id": "card-image.silver-line-large",
+            "match": {
+              "hostComponentNames": [
+                "CardImage"
+              ]
+            },
+            "when": {
+              "variant": {
+                "Size": [
+                  "264x164",
+                  "212x132"
+                ]
+              }
+            },
+            "select": {
+              "nestedComponentNames": [
+                "SilverLine",
+                "🔩 SilverLine"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "silver-line-type",
+                "op": "propertyDomain",
+                "property": "Type",
+                "values": [
+                  "complex"
+                ],
+                "message": "CardImage 264x164 и 212x132 используют SilverLine Type=complex"
+              }
+            ]
+          },
+          {
+            "id": "card-image.silver-line-medium-small",
+            "match": {
+              "hostComponentNames": [
+                "CardImage"
+              ]
+            },
+            "when": {
+              "variant": {
+                "Size": [
+                  "68x42",
+                  "44x28"
+                ]
+              }
+            },
+            "select": {
+              "nestedComponentNames": [
+                "SilverLine",
+                "🔩 SilverLine"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "silver-line-type",
+                "op": "propertyDomain",
+                "property": "Type",
+                "values": [
+                  "simple"
+                ],
+                "message": "CardImage 68x42 и 44x28 используют SilverLine Type=simple"
+              }
+            ]
+          },
+          {
+            "id": "card-image.silver-line-xs",
+            "match": {
+              "hostComponentNames": [
+                "CardImage"
+              ]
+            },
+            "when": {
+              "variant": {
+                "Size": "24x16"
+              }
+            },
+            "select": {
+              "nestedComponentNames": [
+                "SilverLine",
+                "🔩 SilverLine"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "silver-line-hidden",
+                "op": "countBetween",
+                "min": 0,
+                "max": 0,
+                "message": "CardImage 24x16 не показывает SilverLine"
+              }
+            ]
+          }
+        ],
         "compositionPolicy": {
           "root": {
             "name": "CardImage",
@@ -18317,6 +18669,88 @@
           "source": "owner-confirmed",
           "updatedAt": "2026-08-03"
         },
+        "contracts": [
+          {
+            "id": "card-swiper-mobile.card-window",
+            "match": {
+              "hostComponentKeys": [
+                "71276eaed89138c3a234084b2f7339019a558aec"
+              ]
+            },
+            "select": {
+              "nestedComponentNames": [
+                "CardImage"
+              ],
+              "visibility": "all",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "card-count",
+                "op": "countBetween",
+                "min": 3,
+                "max": 3,
+                "message": "CardSwiperMobile сохраняет три штатные позиции CardImage: previous, current и next; крайние позиции скрываются root properties, но не удаляются из композиции"
+              },
+              {
+                "id": "card-size-order",
+                "op": "propertySequence",
+                "property": "Size",
+                "values": [
+                  "212x132",
+                  "264x164",
+                  "212x132"
+                ],
+                "message": "CardSwiperMobile использует CardImage Size=212x132 для previous/next и Size=264x164 для current"
+              },
+              {
+                "id": "card-stack-order",
+                "op": "propertySequence",
+                "property": "Stack",
+                "values": [
+                  "false",
+                  "false",
+                  "false"
+                ],
+                "message": "Все CardImage внутри CardSwiperMobile используют Stack=false"
+              }
+            ]
+          },
+          {
+            "id": "card-swiper-mobile.vertical-spacing",
+            "match": {
+              "hostComponentKeys": [
+                "71276eaed89138c3a234084b2f7339019a558aec"
+              ]
+            },
+            "select": {
+              "nestedComponentNames": [
+                "↕ SpacingVertical"
+              ],
+              "visibility": "all",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "spacing-count",
+                "op": "countBetween",
+                "min": 2,
+                "max": 2,
+                "message": "CardSwiperMobile содержит верхний и нижний SpacingVertical"
+              },
+              {
+                "id": "spacing-size-order",
+                "op": "propertySequence",
+                "property": "Size",
+                "values": [
+                  "24",
+                  "32"
+                ],
+                "message": "CardSwiperMobile использует верхний spacing 24 px и нижний spacing 32 px для обоих Screen Size"
+              }
+            ]
+          }
+        ],
         "ownershipModel": {
           "publicRoots": [
             "CardSwiperMobile"
@@ -54636,7 +55070,7 @@
         "schemaVersion": 1,
         "documentType": "composition-contract",
         "componentKey": "web-corp.filter-company-select",
-        "status": "generated-draft",
+        "status": "ready",
         "applicability": {
           "channels": [
             "b2b"
@@ -54647,6 +55081,63 @@
           ],
           "source": "path-policy",
           "updatedAt": "2026-07-04"
+        },
+        "publicRoots": [
+          "[D] FilterCompanySelect_Multi",
+          "[D] FilterCompanySelect_Single"
+        ],
+        "internalOnly": [
+          "[D] CompactTag",
+          "[D] DropdownList_MultiSelect",
+          "[D] DropdownList_SingleSelect",
+          "🔄 [D] DropdownList_MultiSelect",
+          "🔄 [D] DropdownList_SingleSelect"
+        ],
+        "ownership": {
+          "hostOwns": [
+            "root selection mode",
+            "View for Single",
+            "runtime-derived Open and Selected",
+            "root and dropdown width"
+          ],
+          "nestedComponentsOwn": [
+            "visual tokens",
+            "internal geometry",
+            "system states",
+            "OptionList composition",
+            "CheckboxLabel_24 state rendering"
+          ]
+        },
+        "compositionPolicy": {
+          "detachAllowed": false,
+          "internalStandaloneAllowed": false,
+          "internalInstanceSwapAllowed": false,
+          "replaceDropdownOrOptionListAllowed": false
+        },
+        "effectiveBaseline": {
+          "policy": "Resolve root, View, Open, Selected and nested component state before comparing layer properties.",
+          "allowedManualLayerOverrides": [
+            "root.width",
+            "dropdown.width"
+          ],
+          "allOtherLayerOverrides": "error"
+        },
+        "contentOwnership": {
+          "companyName": "runtime",
+          "inn": "runtime",
+          "address": "runtime"
+        },
+        "relatedButSeparate": [
+          {
+            "component": "[D] FilterCompanySelect_UniversalModal",
+            "host": "UniversalModal",
+            "sameHoldingPattern": true,
+            "partOfCurrentPublicBoundary": false
+          }
+        ],
+        "delegatedBehavior": {
+          "emptyAndNoResults": "OptionList or product",
+          "hoverFocusKeyboardDisabled": "nested Select, FilterTag, CheckboxLabel_24 and OptionList components"
         },
         "component": {
           "name": "FilterCompanySelect",
@@ -57843,42 +58334,6 @@
             "visible": true,
             "variantProperties": {
               "SelectedState": "False"
-            }
-          },
-          {
-            "hostComponentName": "[D] FilterCompanySelect_Multi",
-            "path": "Open=True, Selected=True, ShowFirstCompany=False / [D] DropdownList_MultiSelect / Header / [D] OptionListHeader / 🔩 [D] OptionListHeaderContent",
-            "componentName": "🔩 [D] OptionListHeaderContent",
-            "role": "internal-instance",
-            "visible": true,
-            "variantProperties": {
-              "Preset": "Search"
-            }
-          },
-          {
-            "hostComponentName": "[D] FilterCompanySelect_Multi",
-            "path": "Open=True, Selected=True, ShowFirstCompany=False / [D] DropdownList_MultiSelect / CompaniesList / [D] OptionListCell / Control",
-            "componentName": "Control",
-            "role": "internal-instance",
-            "visible": true,
-            "variantProperties": {
-              "DisabledState": "False",
-              "IndeterminateState": "False",
-              "SelectedState": "True"
-            }
-          },
-          {
-            "hostComponentName": "[D] FilterCompanySelect_Multi",
-            "path": "Open=True, Selected=True, ShowFirstCompany=False / [D] DropdownList_MultiSelect / [D] OptionListFooter / 🔩 [D] OptionListFooterContent / [D] Button",
-            "componentName": "[D] Button",
-            "role": "internal-instance",
-            "visible": true,
-            "variantProperties": {
-              "DisabledState": "False",
-              "Shape": "Rectangular",
-              "SingleIcon": "False",
-              "Size": "32",
-              "View": "Primary"
             }
           }
         ],
@@ -65508,17 +65963,78 @@
         "schemaVersion": 1,
         "documentType": "composition-contract",
         "componentKey": "web-corp.holding-plate",
-        "status": "generated-draft",
+        "status": "ready",
         "applicability": {
           "channels": [
             "b2b"
           ],
           "platforms": [
-            "desktop",
-            "mobile-web"
+            "desktop"
           ],
           "source": "path-policy",
-          "updatedAt": "2026-07-04"
+          "updatedAt": "2026-08-14"
+        },
+        "ownershipModel": {
+          "presetRoot": "🔒 HoldingPlate",
+          "figmaOnly": true,
+          "detachAllowed": false,
+          "manualRebuildAllowed": false,
+          "nestedInstanceSwapAllowed": false,
+          "defaultNestedDiffPolicy": "compare-against-holding-plate-effective-baseline"
+        },
+        "compositionPolicy": {
+          "screenPlacement": {
+            "requiredAncestorContext": "page",
+            "previousSibling": "TitleView",
+            "nextRegion": "page content",
+            "order": "TitleView -> HoldingPlate -> page content",
+            "mutuallyExclusiveWith": "TitleView.Holding"
+          },
+          "visibility": {
+            "holdingModeRequired": true,
+            "singleCompanyContextRequired": true,
+            "additionalCompanyIdentificationRequired": true,
+            "multiCompanyContextAllowed": false
+          },
+          "platform": {
+            "desktop": true,
+            "mobileWeb": false
+          },
+          "width": {
+            "allowedVariants": [
+              "12 col",
+              "8 col"
+            ],
+            "selectionSource": "parent grid container",
+            "breakpointDriven": false,
+            "manualArbitraryResizeAllowed": false
+          },
+          "anatomy": {
+            "visible": [
+              "Title"
+            ],
+            "hidden": [
+              "Caption",
+              "StatusBadge",
+              "Controls"
+            ]
+          },
+          "interaction": {
+            "containerAction": false,
+            "nestedActions": false
+          },
+          "states": {
+            "supported": []
+          },
+          "visualBaseline": {
+            "nestedPlate": {
+              "Border": "True",
+              "BorderRadius": "16",
+              "padding": 12
+            },
+            "manualOverridesAllowed": false,
+            "sourceRefreshRequired": true
+          }
         },
         "component": {
           "name": "HoldingPlate",
@@ -77662,7 +78178,7 @@
         "schemaVersion": 1,
         "documentType": "composition-contract",
         "componentKey": "web-corp.scenario-model-interruption",
-        "status": "generated-draft",
+        "status": "ready",
         "applicability": {
           "channels": [
             "b2b"
@@ -77673,6 +78189,100 @@
           ],
           "source": "path-policy",
           "updatedAt": "2026-07-04"
+        },
+        "ownershipModel": {
+          "publicRoots": [
+            "🔒 ScenarioModel ! interruption"
+          ],
+          "internalComponents": [
+            "🔒 ModalDesktopHeader ! interruption",
+            "🔒 ModalDesktopBody ! interruption",
+            "🔒 ModalDesktopFooter ! interruption"
+          ],
+          "deprecatedRoots": [
+            "❌ ScenarioModel ! interruption"
+          ],
+          "internalStandaloneAllowed": false,
+          "defaultNestedDiffPolicy": "compare-against-scenario-model-effective-baseline"
+        },
+        "compositionPolicy": {
+          "platform": "desktop",
+          "requiredParts": [
+            "🔒 ModalDesktopHeader ! interruption",
+            "🔒 ModalDesktopBody ! interruption",
+            "🔒 ModalDesktopFooter ! interruption"
+          ],
+          "requiredPartsMayBeHidden": false,
+          "typeValues": [
+            "Default",
+            "SaveAs"
+          ],
+          "initialType": "Default",
+          "typeOwnedByPublicRoot": false,
+          "generatorSetsNestedType": true,
+          "typeMustMatchAcrossParts": true,
+          "closeControl": {
+            "required": true,
+            "action": "stay-in-scenario",
+            "equivalentActionLabel": "Остаться"
+          },
+          "dismissActions": {
+            "outsideClickWhenSupported": "stay-in-scenario",
+            "escapeWhenSupported": "stay-in-scenario"
+          },
+          "footer": {
+            "buttonsRequired": 2,
+            "Default": [
+              {
+                "order": 1,
+                "label": "Выйти",
+                "view": "Primary"
+              },
+              {
+                "order": 2,
+                "label": "Остаться",
+                "view": "Secondary"
+              }
+            ],
+            "SaveAs": [
+              {
+                "order": 1,
+                "label": "Сохранить и выйти",
+                "view": "Primary"
+              },
+              {
+                "order": 2,
+                "label": "Выйти без сохранения",
+                "view": "Secondary"
+              }
+            ]
+          },
+          "rememberChoice": {
+            "availableForType": "SaveAs",
+            "visibleByDefault": false,
+            "selectedByDefaultWhenVisible": false,
+            "label": "Запомнить выбор",
+            "labelEditable": false,
+            "interactive": true,
+            "savedChoiceMustBeReversible": true
+          },
+          "states": {
+            "loading": false,
+            "error": false
+          },
+          "instanceSwapAllowed": false,
+          "sizing": {
+            "externalWidth": "preset-owned",
+            "externalWidthEditable": false,
+            "height": "content-driven",
+            "manualSizingChangesAllowed": false
+          },
+          "mobileWebComposition": "Используй PopUpSheet по ptrn:flow.interruption-scenario вместо ScenarioModel ! interruption."
+        },
+        "hostIntegration": {
+          "publicRootIsCompleteModalSurface": true,
+          "additionalModalContainerRequired": false,
+          "additionalWrapperRequired": false
         },
         "component": {
           "name": "ScenarioModel ! interruption",
@@ -78543,6 +79153,32 @@
           "defaultNestedDiffPolicy": "compare-against-table-effective-baseline",
           "wrapperOwnedOverridePolicy": "Не показывай wrapper-owned nested differences как customizations, когда actual совпадает с effective baseline семейства таблиц. Если actual отличается, показывай effectiveBaseline -> actual."
         },
+        "contracts": [
+          {
+            "id": "table-basic.body-row.cells",
+            "match": {
+              "hostComponentKeys": [
+                "aca58bac6a6137109081a0f7289424b5a240d0fd"
+              ]
+            },
+            "select": {
+              "nestedComponentKeys": [
+                "04acf0fa2142daa01998e1a39d18167a64a64a9a"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "visible-data-cell-count",
+                "op": "countBetween",
+                "min": 2,
+                "max": 5,
+                "message": "В BodyRow :: Basic должно быть от двух до пяти видимых информационных ячеек"
+              }
+            ]
+          }
+        ],
         "forbiddenOverrides": [
           "arbitrary instance swap",
           "width of ControlCell and ActionCell",
@@ -83137,6 +83773,20 @@
         "ownershipModel": {
           "defaultNestedDiffPolicy": "compare-against-table-effective-baseline",
           "wrapperOwnedOverridePolicy": "Не показывай wrapper-owned nested differences как customizations, когда actual совпадает с effective baseline семейства таблиц. Если actual отличается, показывай effectiveBaseline -> actual."
+        },
+        "contractOwnership": {
+          "nestedPackages": [
+            {
+              "packageId": "web-core.amount",
+              "mode": "host-contract",
+              "reason": "Table Wide Text Presets=Amount owns the materialized typography, color, opacity and layout baseline of nested Core Amount. Standalone Core Amount remains active outside Table Wide."
+            },
+            {
+              "packageId": "web-corp.payment-masked-number",
+              "mode": "host-contract",
+              "reason": "Table Wide Text Presets=Account owns the materialized typography, color, opacity and layout baseline of nested PaymentMaskedNumber. Standalone PaymentMaskedNumber remains active outside Table Wide."
+            }
+          ]
         },
         "forbiddenOverrides": [
           "arbitrary instance swap",
