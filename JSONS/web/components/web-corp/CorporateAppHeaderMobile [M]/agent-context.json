@@ -9,10 +9,11 @@
         "b2b"
       ],
       "platforms": [
+        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-08-16"
+      "updatedAt": "2026-07-27"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -232,31 +233,105 @@
     "usageGuidance": [
       "Используй семейство только на mobile-web ширине 320–767 px, в том числе как мобильное состояние адаптивной страницы.",
       "Публичными roots являются [M] AppHeader :: Top и [M] AppHeader :: Bottom.",
+      "Всегда сохраняй [M] AppHeader :: Top; NativeStatusBar видим и в отдельной mobile-web, и в адаптивной версии.",
+      "Выбирай BackgroundColor верхней части по фону страницы: white над base-bg, gray над base-bg-alt.",
       "Не используй NavigationBar, TabBar и служебные slots отдельно от public roots.",
       "Используй NavigationBar.Presets=Home на главном экране и Presets=Page на внутренних страницах продукта.",
       "Нижняя часть опциональна; TabBar показывается на основных экранах Home, History, Payments, Marketplace и Chat.",
-      "Active Tab должен соответствовать текущему основному навигационному экрану."
+      "Active Tab должен соответствовать текущему основному навигационному экрану.",
+      "Если используется AppHeader Bottom, всегда сохраняй NativeSafariBottom=True; TabBar может быть True или False.",
+      "Допустимы только комбинации Bottom: оба True либо только NativeSafariBottom=True.",
+      "Defaults NativeSafariBottom: URL=True, Tabs=False, DarkMode=False; Tabs=True и DarkMode=True разрешены.",
+      "Сохраняй фиксированные пункты и порядок TabBar: Главный, История, Платежи, Сервисы, Связь.",
+      "Индикаторы и счётчики TabBar разрешены, если подтверждены продуктовым контекстом.",
+      "Растягивай Top и Bottom по ширине viewport; высота следует содержимому. Не меняй width, height, padding или gap вручную.",
+      "Закрепляй Top у верхнего края, Bottom — у нижнего края viewport.",
+      "Back возвращает на предыдущий экран; FloatingCross закрывает текущую страницу или модальную сущность.",
+      "Действия Action и IconButton определяются продуктовым сценарием.",
+      "Выбор TabBar открывает соответствующий основной раздел и обновляет Active Tab.",
+      "Не добавляй семье собственные loading, disabled, error или skeleton-состояния; используй состояния вложенных компонентов.",
+      "Не меняй вручную fill, stroke, radius, typography, opacity или effects; внешний вид следует properties и token baseline.",
+      "В Page используй LeftAddon, CenteredMainSlot и RightAddon; BottomAddon подключай при необходимости.",
+      "На странице NavigationBar=True обязателен; скрывать его можно только для полноэкранных Modal и PopupSheet.",
+      "Считай NativeStatusBar=True рекомендуемым baseline, а не абсолютным запретом False.",
+      "Overlap переключается runtime: False до прокрутки, True при скролле и показывает разделитель.",
+      "CenteredMainSlot поддерживает Title + Subtitle, Title и None; переполненный текст сокращается через ellipsis.",
+      "LeftAddon=Back используй при навигации назад; LeftAddon=None оставляет слот пустым.",
+      "RightAddon=Icons содержит одну или две [D] IconButton; FloatingCross закрывает страницу; Action содержит одно текстовое действие; None оставляет слот пустым.",
+      "В Home используй LeftMainSlot и HomeAddon.",
+      "В Home всегда используй base-bg-alt (gray) и только вместе с TabBar.",
+      "В Home включай Profile=True только после перехода из раздела TabBar в NavigationBar.",
+      "Выбирай BottomAddon.Content по содержимому: Custom, SegmentedContol, FilterBlock или Segmented + Filter."
     ],
     "ruleHighlights": [
       "component:web-corp.corporate-app-header-mobile.mobile-navigation-wrapper",
       "component:web-corp.corporate-app-header-mobile.public-roots",
       "component:web-corp.corporate-app-header-mobile.navigation-bar-presets",
-      "component:web-corp.corporate-app-header-mobile.tab-bar-navigation-screens"
+      "component:web-corp.corporate-app-header-mobile.tab-bar-navigation-screens",
+      "component:web-corp.corporate-app-header-mobile.top-required-and-status-bar",
+      "component:web-corp.corporate-app-header-mobile.background-matches-page",
+      "component:web-corp.corporate-app-header-mobile.preset-composition",
+      "component:web-corp.corporate-app-header-mobile.bottom-addon-content",
+      "component:web-corp.corporate-app-header-mobile.navigation-bar-visibility",
+      "component:web-corp.corporate-app-header-mobile.native-status-bar-recommended",
+      "component:web-corp.corporate-app-header-mobile.overlap-scroll-state",
+      "component:web-corp.corporate-app-header-mobile.page-slot-content",
+      "component:web-corp.corporate-app-header-mobile.home-exact-composition",
+      "component:web-corp.corporate-app-header-mobile.bottom-required-native-safari",
+      "component:web-corp.corporate-app-header-mobile.native-safari-defaults",
+      "component:web-corp.corporate-app-header-mobile.tab-bar-fixed-content",
+      "component:web-corp.corporate-app-header-mobile.layout-and-position",
+      "component:web-corp.corporate-app-header-mobile.navigation-interaction",
+      "component:web-corp.corporate-app-header-mobile.states-delegated",
+      "component:web-corp.corporate-app-header-mobile.visual-baseline",
+      "component:web-corp.corporate-app-header-mobile.right-addon-icon-count",
+      "component:web-corp.corporate-app-header-mobile.preserve-library-composition",
+      "component:web-corp.corporate-app-header-mobile.code-connect-unavailable",
+      "component:web-corp.corporate-app-header-mobile.lifecycle-active"
     ],
     "agentInstructions": [
       "Не предлагай desktop-использование CorporateAppHeaderMobile.",
       "Не выдавай NavigationBar, TabBar или service slots за самостоятельные public-компоненты.",
       "Не считай [M] AppHeader :: Bottom обязательным на каждом экране.",
+      "Не скрывай NativeStatusBar только потому, что показана адаптивная версия.",
+      "Не объявляй NativeStatusBar=False ошибкой: владелец подтвердил True как рекомендацию.",
+      "Не выбирай BackgroundColor независимо от фона страницы.",
+      "Не оставляй NavigationBar=False на обычной странице.",
+      "Не трактуй Overlap как ручную настройку экрана: состояние меняется при прокрутке.",
+      "Не придумывай числовые ограничения длины Title или Subtitle; подтверждён только ellipsis при переполнении.",
+      "Не добавляй третью IconButton в RightAddon=Icons.",
+      "Не используй Home без TabBar или на белом фоне.",
+      "Не включай Profile=True до перехода из TabBar-раздела в NavigationBar.",
+      "Не оставляй AppHeader Bottom без NativeSafariBottom.",
+      "Не считай Tabs=True или DarkMode=True нарушением: это разрешённые non-default значения.",
+      "Не переименовывай и не переставляй пункты TabBar.",
+      "Не объявляй индикатор TabBar ошибкой без точного продуктового контекста.",
+      "Не предлагай свободное изменение ширины, высоты, padding или gap.",
+      "Не размещай Top в потоке страницы и не отрывай Bottom от нижнего края viewport.",
+      "Не придумывай продуктовые действия для Action или IconButton.",
+      "Не добавляй host-level loading, error, disabled или skeleton поверх вложенных компонентов.",
+      "Не разрешай visual override под видом настройки variant или runtime content.",
+      "Не предлагай detach Top, Bottom или внутренних компонентов.",
+      "Разрешай instance swap только в BottomAddon=Custom и для glyph внутри RightAddon=Icons с сохранением [D] IconButton.",
+      "Не придумывай code package или export: подтверждено только наличие реализации и отсутствие Code Connect.",
+      "Не предлагай replacement или миграцию с активного семейства.",
       "Не добавляй TabBar на экран вне подтверждённого списка основных разделов без нового owner evidence.",
       "Не назначай severity semantic deviation до подтверждения владельцем.",
       "Не выводи новые ограничения anatomy, content, visual или interaction только из screenshot либо raw-каталога."
     ],
-    "unresolvedQuestions": [
-      "Какие parts и slots обязательны или опциональны внутри Top и Bottom?",
-      "Какие combinations свойств и content swaps разрешены?",
-      "Какие visual overrides, states и interaction contracts поддерживаются?",
-      "Какая severity применяется к каждому exact violation?"
+    "criticalBaselines": [
+      "Error: использование внутренних частей отдельно, вне mobile-web или без обязательного Top.",
+      "Error: NavigationBar=False на странице, фон не соответствует странице, Home без TabBar или gray surface.",
+      "Error: недопустимый Bottom, изменённые пункты TabBar, третья IconButton, неверное позиционирование, geometry/visual override, Active Tab mismatch или detach.",
+      "Warning: NativeStatusBar=False отклоняется от рекомендуемого baseline True."
     ],
+    "codeExports": {
+      "implementationStatus": "exists-unverified",
+      "package": null,
+      "exports": [],
+      "codeConnect": "not-configured"
+    },
+    "unresolvedQuestions": [],
     "auditInterpretation": {
       "componentProperties": [
         "variant.*"

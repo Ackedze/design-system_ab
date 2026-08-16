@@ -1291,12 +1291,22 @@
       "top": {
         "component": "[M] AppHeader :: Top",
         "required": true,
-        "role": "top navigation"
+        "role": "top navigation",
+        "requiredInternal": [
+          "NativeStatusBar",
+          "[M] NavigationBar"
+        ]
       },
       "bottom": {
         "component": "[M] AppHeader :: Bottom",
         "required": false,
-        "role": "bottom navigation"
+        "role": "bottom navigation",
+        "requiredInternalWhenUsed": [
+          "NativeSafariBottom"
+        ],
+        "optionalInternal": [
+          "[M] TabBar"
+        ]
       }
     },
     "internalOnly": [
@@ -1323,6 +1333,179 @@
         "Marketplace",
         "Chat"
       ]
+    },
+    "presetComposition": {
+      "Page": {
+        "required": [
+          "LeftAddon",
+          "CenteredMainSlot",
+          "RightAddon"
+        ],
+        "optional": [
+          "BottomAddon"
+        ]
+      },
+      "Home": {
+        "required": [
+          "LeftMainSlot",
+          "HomeAddon"
+        ]
+      }
+    },
+    "topVisibility": {
+      "NativeStatusBar": {
+        "recommendedVisible": true,
+        "appliesTo": [
+          "standalone-mobile-web",
+          "adaptive-mobile-state"
+        ]
+      },
+      "NavigationBar": {
+        "requiredFor": [
+          "page"
+        ],
+        "mayBeHiddenFor": [
+          "full-screen Modal",
+          "full-screen PopupSheet"
+        ]
+      }
+    },
+    "pageSlots": {
+      "CenteredMainSlot": {
+        "allowedContent": [
+          "Title + Subtitle",
+          "Title",
+          "None"
+        ],
+        "textOverflow": "ellipsis"
+      },
+      "LeftAddon": {
+        "Back": "back navigation",
+        "None": "empty"
+      },
+      "RightAddon": {
+        "Icons": {
+          "component": "[D] IconButton",
+          "minimum": 1,
+          "maximum": 2
+        },
+        "FloatingCross": "close page",
+        "Action": "one text action",
+        "None": "empty"
+      }
+    },
+    "homeComposition": {
+      "requiredSibling": "[M] AppHeader :: Bottom with [M] TabBar",
+      "backgroundColor": "base-bg-alt (gray)",
+      "Profile": {
+        "default": "False",
+        "TrueAllowedAfter": "transition from a TabBar section into NavigationBar"
+      }
+    },
+    "bottomComposition": {
+      "allowedCombinations": [
+        "TabBar=True + NativeSafariBottom=True",
+        "TabBar=False + NativeSafariBottom=True"
+      ],
+      "NativeSafariBottom": {
+        "requiredWhenBottomUsed": true,
+        "visibleIn": [
+          "standalone-mobile-web",
+          "adaptive-mobile-state"
+        ],
+        "defaults": {
+          "URL": "True",
+          "Tabs": "False",
+          "DarkMode": "False"
+        },
+        "allowedNonDefault": {
+          "Tabs": "True",
+          "DarkMode": "True"
+        }
+      }
+    },
+    "tabBarContent": {
+      "fixedItems": [
+        "Home / Главный",
+        "History / История",
+        "Payments / Платежи",
+        "Marketplace / Сервисы",
+        "Chat / Связь"
+      ],
+      "orderEditable": false,
+      "labelsEditable": false,
+      "indicators": "allowed and product-context-owned"
+    },
+    "runtimeOwnedStates": {
+      "Overlap": {
+        "initial": "False",
+        "scrolled": "True",
+        "effect": "divider visible"
+      }
+    },
+    "layoutContract": {
+      "[M] AppHeader :: Top": {
+        "width": "fill viewport",
+        "height": "hug content",
+        "position": "fixed top"
+      },
+      "[M] AppHeader :: Bottom": {
+        "width": "fill viewport",
+        "height": "hug content",
+        "position": "fixed bottom"
+      },
+      "manualGeometryOverridesAllowed": false
+    },
+    "interactionOwnership": {
+      "Back": "navigation history",
+      "FloatingCross": "current page or modal entity",
+      "Action": "product scenario",
+      "IconButton": "product scenario",
+      "TabBar": "main section navigation and Active Tab update"
+    },
+    "delegatedStates": {
+      "states": [
+        "loading",
+        "disabled",
+        "error",
+        "skeleton"
+      ],
+      "owner": "nested components"
+    },
+    "visualBaseline": {
+      "manualOverridesAllowed": false,
+      "forbiddenProperties": [
+        "fill",
+        "stroke",
+        "radius",
+        "typography",
+        "opacity",
+        "effects",
+        "layout.width",
+        "layout.height",
+        "layout.padding",
+        "layout.gap"
+      ],
+      "allowedChanges": "declared component properties and token baseline"
+    },
+    "compositionPolicy": {
+      "detachAllowed": false,
+      "defaultInternalInstanceSwapAllowed": false,
+      "allowedSwaps": {
+        "BottomAddon.Content=Custom": "custom allowed component",
+        "RightAddon.Content=Icons": "icon glyph while preserving [D] IconButton"
+      }
+    },
+    "bottomAddonContent": {
+      "Custom": "custom allowed component",
+      "SegmentedContol": "segmented control only",
+      "FilterBlock": "mobile filters only",
+      "Segmented + Filter": "segmented control and mobile filters"
+    },
+    "effectiveBaseline": {
+      "topBackground": "matches page background",
+      "nativeStatusBarVisible": true,
+      "bottomNativeSafariUrlDefault": "True"
     },
     "wraps": [
       {

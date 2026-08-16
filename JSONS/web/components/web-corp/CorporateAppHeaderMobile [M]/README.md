@@ -15,9 +15,39 @@
 
 - `[M] NavigationBar.Presets=Page` используется на внутренних страницах продукта;
 - `[M] NavigationBar.Presets=Home` используется на главном экране;
+- `[M] AppHeader :: Top` обязателен во всех сценариях семейства;
+- `NativeStatusBar=True` рекомендуется сохранять; status bar показывается и в отдельной mobile-web версии, и в мобильном состоянии адаптивной страницы;
+- на страницах `NavigationBar=True` обязателен; `False` допустим для полноэкранных `Modal` и `PopupSheet`;
+- `BackgroundColor` верхней части соответствует фону страницы: `base-bg (white)` или `base-bg-alt (gray)`;
+- `Overlap=False` используется до прокрутки, а при скролле автоматически переключается в `True` и показывает разделитель;
 - `[M] AppHeader :: Bottom` опционален;
+- внутри используемой `[M] AppHeader :: Bottom` `NativeSafariBottom=True` обязателен и в отдельной mobile-web, и в адаптивной версии;
+- допустимы только `TabBar=True + NativeSafariBottom=True` и `TabBar=False + NativeSafariBottom=True`;
+- defaults вложенного `NativeSafariBottom`: `URL=True`, `Tabs=False`, `DarkMode=False`; `Tabs=True` и `DarkMode=True` разрешены;
 - вложенный `[M] TabBar` показывается на основных навигационных экранах, перечисленных в нём: `Home`, `History`, `Payments`, `Marketplace`, `Chat`;
 - `Active Tab` соответствует текущему основному навигационному экрану.
+- состав `TabBar` фиксирован: Главный, История, Платежи, Сервисы и Связь в заданном порядке;
+- индикаторы и счётчики на пунктах `TabBar` разрешены и зависят от продуктового контекста;
+- `Top` и `Bottom` растягиваются по ширине viewport, а их высота определяется содержимым;
+- ручные изменения width, height, padding и gap запрещены;
+- `Top` закреплён у верхнего края, `Bottom` — у нижнего края viewport;
+- `Back` возвращает на предыдущий экран, `FloatingCross` закрывает текущую страницу или модальную сущность;
+- `Action` и `[D] IconButton` получают действия из продуктового сценария;
+- выбор пункта `TabBar` открывает соответствующий основной раздел и обновляет `Active Tab`;
+- семейство не создаёт собственные loading, disabled, error или skeleton-состояния и отображает состояния вложенных компонентов;
+- ручные fill, stroke, radius, typography, opacity и effects запрещены; внешний вид меняется только через предусмотренные properties и token baseline;
+- detach `Top`, `Bottom` и внутренних компонентов запрещён;
+- instance swap разрешён в `BottomAddon=Custom`; в `RightAddon=Icons` разрешено менять иконки штатным swap с сохранением `[D] IconButton`;
+- реализация в коде существует, но Code Connect не настроен; package/export пока не верифицирован;
+- семейство активно, replacement и план снятия с поддержки отсутствуют.
+- в `Page` используются `LeftAddon`, `CenteredMainSlot`, `RightAddon` и при необходимости `BottomAddon`;
+- `CenteredMainSlot.Content` поддерживает `Title + Subtitle`, `Title` и `None`; переполняющийся текст сокращается через ellipsis;
+- `LeftAddon=Back` показывает навигацию назад, `None` оставляет слот пустым;
+- `RightAddon=Icons` содержит одну или две `[D] IconButton`, `FloatingCross` закрывает страницу, `Action` показывает одно текстовое действие, `None` оставляет слот пустым;
+- в `Home` используются `LeftMainSlot` и `HomeAddon`;
+- `Home` всегда использует `base-bg-alt (gray)` и применяется только вместе с `TabBar`;
+- `Profile=True` в `Home` включается только после перехода из раздела `TabBar` в `NavigationBar`;
+- `BottomAddon` поддерживает `Custom`, `SegmentedContol`, `FilterBlock` и `Segmented + Filter` согласно их прямому назначению.
 
 ## Источники
 
@@ -27,4 +57,4 @@
 
 ## Статус
 
-**Draft.** Назначение, platform, public boundary, семантика `Page`/`Home` и область применения `TabBar` подтверждены владельцем. Anatomy, свойства, контент, visual policy, states, interaction и severity ещё уточняются.
+**Draft, готов к owner review.** Назначение, platform, public boundary, anatomy, properties, composition, content, layout, visual policy, states, interaction, severity, lifecycle и Code Connect status подтверждены владельцем. До `Ready` остаются targeted Athena checks и runtime smoke Apollo.
