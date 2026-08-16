@@ -57,4 +57,4 @@
 
 ## Статус
 
-**Draft, готов к owner review.** Назначение, platform, public boundary, anatomy, properties, composition, content, layout, visual policy, states, interaction, severity, lifecycle и Code Connect status подтверждены владельцем. До `Ready` остаются targeted Athena checks и runtime smoke Apollo.
+**Ready.** Назначение, platform, public boundary, anatomy, properties, composition, content, layout, visual policy, states, interaction, severity, lifecycle и Code Connect status подтверждены владельцем. Package validator и targeted Athena checks пройдены; владелец принял комплект 2026-08-16.
