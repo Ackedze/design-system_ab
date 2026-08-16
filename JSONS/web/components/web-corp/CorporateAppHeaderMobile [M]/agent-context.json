@@ -9,11 +9,10 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-27"
+      "updatedAt": "2026-08-16"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -220,8 +219,44 @@
     "summary": {
       "componentFamily": "CorporateAppHeaderMobile [M]",
       "library": "Web _ Corp Components",
-      "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
+      "purpose": "Навигационная обвязка Alfa Business для mobile-web и мобильного состояния адаптивных страниц."
     },
+    "patternReferences": [
+      {
+        "patternId": "ptrn:components.corporate-app-navigation",
+        "patternKey": "components.corporate-app-navigation",
+        "file": "patterns/p_corporate-app-navigation.md",
+        "sourceType": "component-guideline"
+      }
+    ],
+    "usageGuidance": [
+      "Используй семейство только на mobile-web ширине 320–767 px, в том числе как мобильное состояние адаптивной страницы.",
+      "Публичными roots являются [M] AppHeader :: Top и [M] AppHeader :: Bottom.",
+      "Не используй NavigationBar, TabBar и служебные slots отдельно от public roots.",
+      "Используй NavigationBar.Presets=Home на главном экране и Presets=Page на внутренних страницах продукта.",
+      "Нижняя часть опциональна; TabBar показывается на основных экранах Home, History, Payments, Marketplace и Chat.",
+      "Active Tab должен соответствовать текущему основному навигационному экрану."
+    ],
+    "ruleHighlights": [
+      "component:web-corp.corporate-app-header-mobile.mobile-navigation-wrapper",
+      "component:web-corp.corporate-app-header-mobile.public-roots",
+      "component:web-corp.corporate-app-header-mobile.navigation-bar-presets",
+      "component:web-corp.corporate-app-header-mobile.tab-bar-navigation-screens"
+    ],
+    "agentInstructions": [
+      "Не предлагай desktop-использование CorporateAppHeaderMobile.",
+      "Не выдавай NavigationBar, TabBar или service slots за самостоятельные public-компоненты.",
+      "Не считай [M] AppHeader :: Bottom обязательным на каждом экране.",
+      "Не добавляй TabBar на экран вне подтверждённого списка основных разделов без нового owner evidence.",
+      "Не назначай severity semantic deviation до подтверждения владельцем.",
+      "Не выводи новые ограничения anatomy, content, visual или interaction только из screenshot либо raw-каталога."
+    ],
+    "unresolvedQuestions": [
+      "Какие parts и slots обязательны или опциональны внутри Top и Bottom?",
+      "Какие combinations свойств и content swaps разрешены?",
+      "Какие visual overrides, states и interaction contracts поддерживаются?",
+      "Какая severity применяется к каждому exact violation?"
+    ],
     "auditInterpretation": {
       "componentProperties": [
         "variant.*"
@@ -234,7 +269,7 @@
         "radius",
         "opacity"
       ],
-      "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
+      "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента и nested owner context. Контекст экрана и необходимость TabBar требуют composition evidence."
     }
   }
 }

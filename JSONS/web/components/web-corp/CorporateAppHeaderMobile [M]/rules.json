@@ -9,11 +9,10 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-16"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -87,6 +86,42 @@
         "appliesTo": "component.status",
         "checkType": "manual",
         "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+      },
+      {
+        "ruleId": "component:web-corp.corporate-app-header-mobile.mobile-navigation-wrapper",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "component.purpose|component.platform",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "CorporateAppHeaderMobile образует навигационную обвязку mobile-web и мобильного состояния адаптивных страниц на ширине 320–767 px."
+      },
+      {
+        "ruleId": "component:web-corp.corporate-app-header-mobile.public-roots",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "component.composition|component.usage",
+        "checkType": "manual",
+        "matchKind": "composition_rule",
+        "ruleText": "Используй как public roots только [M] AppHeader :: Top и [M] AppHeader :: Bottom. NavigationBar, TabBar и служебные slots принадлежат этой обвязке и не используются самостоятельно."
+      },
+      {
+        "ruleId": "component:web-corp.corporate-app-header-mobile.navigation-bar-presets",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.Presets|component.context",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Используй [M] NavigationBar.Presets=Home на главном экране, а Presets=Page — на внутренних страницах продукта."
+      },
+      {
+        "ruleId": "component:web-corp.corporate-app-header-mobile.tab-bar-navigation-screens",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "component.visibility|variant.Active Tab|component.context",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Показывай [M] TabBar в нижней части только на основных навигационных экранах, перечисленных в нём: Home, History, Payments, Marketplace и Chat. Active Tab соответствует текущему экрану."
       }
     ]
   }

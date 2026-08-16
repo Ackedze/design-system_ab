@@ -9,11 +9,10 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-27"
+      "updatedAt": "2026-08-16"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -266,5 +265,33 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentIdentity": {
+      "publicRoots": [
+        "[M] AppHeader :: Top",
+        "[M] AppHeader :: Bottom"
+      ],
+      "platform": "mobile-web",
+      "viewport": "320–767 px"
+    },
+    "displayNames": {
+      "variant.BackgroundColor": "Цвет фона",
+      "variant.Presets": "Сценарий навигации",
+      "variant.Active Tab": "Активный раздел"
+    },
+    "semanticInterpretation": {
+      "NavigationBar.Presets.Page": "Внутренняя страница продукта",
+      "NavigationBar.Presets.Home": "Главный экран",
+      "TabBar.Active Tab": "Текущий основной навигационный экран"
+    },
+    "compositionChecks": [
+      "NavigationBar, TabBar and service slots are internal to AppHeader public roots",
+      "TabBar is hosted by [M] AppHeader :: Bottom",
+      "Active Tab matches the current main navigation screen"
+    ],
+    "runtimeLimitations": [
+      "Контекст текущего экрана и необходимость нижней навигации не определяются статическим layer diff без composition or screen evidence.",
+      "Severity для подтверждённых semantic deviations ещё не согласована владельцем."
+    ]
+  }
 }

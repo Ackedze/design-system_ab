@@ -9,11 +9,10 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-16"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -27,5 +26,62 @@
   "generated": {
     "examples": []
   },
-  "manual": {}
+  "manual": {
+    "examples": [
+      {
+        "exampleId": "corporate-app-header-mobile.internal-page",
+        "title": "Внутренняя mobile-web страница продукта",
+        "inputState": {
+          "platform": "mobile-web",
+          "publicRoot": "[M] AppHeader :: Top",
+          "NavigationBar.Presets": "Page"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "corporate-app-header-mobile.home",
+        "title": "Главный mobile-web экран",
+        "inputState": {
+          "platform": "mobile-web",
+          "publicRoot": "[M] AppHeader :: Top",
+          "NavigationBar.Presets": "Home"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "corporate-app-header-mobile.main-navigation-tab",
+        "title": "Основной экран История с нижней навигацией",
+        "inputState": {
+          "platform": "mobile-web",
+          "topVisible": true,
+          "bottomVisible": true,
+          "screen": "History",
+          "TabBar.Active Tab": "History"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "corporate-app-header-mobile.supporting-part-standalone",
+        "title": "NavigationBar размещён отдельно от AppHeader",
+        "inputState": {
+          "platform": "mobile-web",
+          "component": "[M] NavigationBar",
+          "host": "page-content"
+        },
+        "expectedAudit": {
+          "category": "manual-review",
+          "ruleId": "component:web-corp.corporate-app-header-mobile.public-roots"
+        },
+        "mustNotSay": [
+          "Severity подтверждена владельцем."
+        ]
+      }
+    ]
+  }
 }

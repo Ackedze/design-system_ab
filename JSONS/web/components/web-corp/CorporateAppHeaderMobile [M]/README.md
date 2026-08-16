@@ -1,28 +1,30 @@
-# CorporateAppHeaderMobile [M] — MVP component contract
+# CorporateAppHeaderMobile [M]
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / CorporateAppHeaderMobile [M]**.
+## Назначение
 
-The raw Figma catalog remains the source of truth:
+Семейство компонентов образует навигационную обвязку Alfa Business для `mobile-web` и мобильного состояния адаптивных страниц. Сборка состоит из верхней части `[M] AppHeader :: Top` и опциональной нижней части `[M] AppHeader :: Bottom`.
 
-`../Web _ Corp Components -- CorporateAppHeaderMobile [M].json`
+## Публичная граница
 
-## Файлы
+- public roots: `[M] AppHeader :: Top` и `[M] AppHeader :: Bottom`;
+- `[M] NavigationBar`, `[M] TabBar`, `BottomAddon`, `CenteredMainSlot`, `LeftAddon`, `RightAddon`, `HomeAddon` и `LeftMainSlot` — внутренние части семейства;
+- внутренние части не используются самостоятельно вне публичных roots;
+- поддерживается только `mobile-web` (`320–767 px`), в том числе как мобильное состояние адаптивной страницы.
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+## Подтверждённая семантика
 
-## Источник
+- `[M] NavigationBar.Presets=Page` используется на внутренних страницах продукта;
+- `[M] NavigationBar.Presets=Home` используется на главном экране;
+- `[M] AppHeader :: Bottom` опционален;
+- вложенный `[M] TabBar` показывается на основных навигационных экранах, перечисленных в нём: `Home`, `History`, `Payments`, `Marketplace`, `Chat`;
+- `Active Tab` соответствует текущему основному навигационному экрану.
 
-- Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
-- Компонентов: `11`
+## Источники
 
-## Current Scope
+- raw: `../Web _ Corp Components -- CorporateAppHeaderMobile [M].json`;
+- Figma: `https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=515-80766`;
+- pattern: `patterns/p_corporate-app-navigation.md`.
 
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+## Статус
+
+**Draft.** Назначение, platform, public boundary, семантика `Page`/`Home` и область применения `TabBar` подтверждены владельцем. Anatomy, свойства, контент, visual policy, states, interaction и severity ещё уточняются.

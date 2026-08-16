@@ -32,7 +32,7 @@
       },
       {
         "ruleId": "component:web-core.text.layer-properties-use-effective-baseline",
-        "severity": "warning",
+        "severity": "error",
         "source": "composition-contract",
         "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
         "checkType": "deterministic",
@@ -43,7 +43,12 @@
             "Text"
           ]
         },
-        "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        "ruleText": "Layer/style свойства Core-компонента должны совпадать с effective baseline текущего component variant и nested owner context. Любое фактическое отклонение является нарушением, если отдельное approved правило явно не разрешает эту кастомизацию.",
+        "ruleKind": "design-rule",
+        "classification": {
+          "treatAsViolation": true,
+          "resetSurface": "layer"
+        }
       }
     ]
   },

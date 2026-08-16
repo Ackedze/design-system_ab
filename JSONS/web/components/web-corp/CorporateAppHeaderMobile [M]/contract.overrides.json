@@ -9,11 +9,10 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-16"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -123,5 +122,57 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicBoundary": {
+      "publicRoots": [
+        "[M] AppHeader :: Top",
+        "[M] AppHeader :: Bottom"
+      ],
+      "internalOnly": [
+        "[M] NavigationBar",
+        "[M] TabBar",
+        "BottomAddon",
+        "CenteredMainSlot",
+        "LeftAddon",
+        "RightAddon",
+        "HomeAddon",
+        "LeftMainSlot"
+      ],
+      "internalStandaloneAllowed": false,
+      "platforms": [
+        "mobile-web"
+      ],
+      "viewport": "320–767 px",
+      "adaptiveRole": "mobile state of adaptive pages"
+    },
+    "usage": {
+      "purpose": "Навигационная обвязка Alfa Business для mobile-web и мобильного состояния адаптивных страниц.",
+      "top": "required navigation header",
+      "bottom": "optional navigation footer"
+    },
+    "variantSemantics": {
+      "[M] NavigationBar.Presets": {
+        "Page": "Внутренняя страница продукта.",
+        "Home": "Главный экран."
+      },
+      "[M] TabBar.Active Tab": {
+        "Home": "Главный экран",
+        "History": "История",
+        "Payments": "Платежи",
+        "Marketplace": "Маркетплейс",
+        "Chat": "Чат"
+      }
+    },
+    "tabBarVisibility": {
+      "host": "[M] AppHeader :: Bottom",
+      "visibleOnMainNavigationScreens": [
+        "Home",
+        "History",
+        "Payments",
+        "Marketplace",
+        "Chat"
+      ],
+      "activeTabMatchesCurrentScreen": true
+    }
+  }
 }

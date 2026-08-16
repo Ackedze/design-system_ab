@@ -40,7 +40,7 @@
       },
       {
         "ruleId": "component:web-core.tag-group.layer-properties-use-effective-baseline",
-        "severity": "warning",
+        "severity": "error",
         "source": "composition-contract",
         "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
         "checkType": "deterministic",
@@ -59,7 +59,12 @@
             "TagGroup"
           ]
         },
-        "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        "ruleText": "Layer/style свойства Core-компонента должны совпадать с effective baseline текущего component variant и nested owner context. Любое фактическое отклонение является нарушением, если отдельное approved правило явно не разрешает эту кастомизацию.",
+        "ruleKind": "design-rule",
+        "classification": {
+          "treatAsViolation": true,
+          "resetSurface": "layer"
+        }
       }
     ]
   },
@@ -91,6 +96,25 @@
           "resetSurface": "component-property"
         },
         "ruleText": "Size каждого вложенного Tag должен совпадать с Size родительского TagGroup. Изменение размера отдельного элемента группы запрещено."
+      },
+      {
+        "ruleId": "component:web-core.tag-group.right-addon-allows-icon-replacement",
+        "severity": "info",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "component.identity",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "TagGroup"
+        },
+        "conditions": {
+          "slot": "RightAddon"
+        },
+        "classification": {
+          "treatAsViolation": false
+        },
+        "ruleText": "В иконочном слоте RightAddon разрешено заменять исходный компонент иконки на другую иконку дизайн-системы. Такая замена является допустимой кастомизацией и не требует сброса."
       }
     ]
   }
