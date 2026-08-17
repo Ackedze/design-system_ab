@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "rules": [
+    {
+      "id": "rule:forms.construction-rules.title-medium-one-per-plate",
+      "ruleKind": "design-rule",
+      "authority": {
+        "status": "active",
+        "provenance": "design-system-author",
+        "revision": 1
+      },
+      "severity": "error",
+      "applicability": {
+        "pageTypes": ["form"],
+        "channels": ["Desktop", "MobileWeb"]
+      },
+      "scope": {
+        "kind": "component-subtree",
+        "containerComponentNames": [
+          "[D] BackgroundPlateSlot",
+          "[M] BackgroundPlateSlot"
+        ]
+      },
+      "target": {
+        "componentNames": ["[D] TitleView", "[M] TitleView"],
+        "variantProperties": {
+          "View": ["Medium"]
+        }
+      },
+      "assertion": {
+        "kind": "max-descendant-count-per-container",
+        "maximum": 1
+      },
+      "requiredEvidence": [
+        "scan.pageType",
+        "scan.channel",
+        "facts.occurrences[].component.name",
+        "facts.occurrences[].variant.properties",
+        "facts.occurrences[].ancestors"
+      ],
+      "messages": {
+        "title": "На одной подложке используется несколько TitleView Medium",
+        "observed": "В одной подложке найдено {actualCount} заголовка TitleView с View=Medium.",
+        "expected": "На одной подложке формы допускается только один TitleView с View=Medium.",
+        "remediation": "Оставьте один TitleView Medium как главный заголовок логической части; дополнительные заголовки переведите на следующий уровень иерархии."
+      },
+      "source": {
+        "path": "patterns/p_form-construction-rules.md",
+        "ruleId": "rule:forms.construction-rules.title-medium-one-per-plate",
+        "section": "Rule 9: Используйте один TitleView Medium на одной подложке",
+        "quote": "TitleView :: Medium используется только в левой части и является главным заголовком логической части. На одной подложке может быть только один заголовок Medium."
+      }
+    }
+  ]
+}
