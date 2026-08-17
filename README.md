@@ -2,7 +2,7 @@
 
 Репозиторий общих данных дизайн-системы.
 
-Репозиторий является bootstrap-источником Apollo и хранит Web, token, style, icon, logotype и component-contract artifacts. Runtime читает `main/JSONS` напрямую через `raw.githubusercontent.com`; GitHub Pages остаётся необязательным зеркалом. Android/iOS ABM-каталоги вынесены в `Ackedze/desing-system_abm`; `JSONS/referenceSourcesMVP.json` подключает их raw manifest через `catalogManifests`. Новые ABM-файлы нельзя добавлять обратно в `JSONS/abm` или `JSONS/indexes/abm`.
+Репозиторий является bootstrap-источником Apollo и хранит Web, token, style, icon, logotype и component-contract artifacts. Runtime читает `main/JSONS` через GitHub Pages: `https://ackedze.github.io/design-system_ab/JSONS/`. Это основной публичный delivery endpoint; `raw.githubusercontent.com` не используется из-за rate limits при массовой загрузке каталогов. Android/iOS ABM-каталоги вынесены в `Ackedze/desing-system_abm`; `JSONS/referenceSourcesMVP.json` подключает их raw manifest через `catalogManifests`. Новые ABM-файлы нельзя добавлять обратно в `JSONS/abm` или `JSONS/indexes/abm`.
 
 - `JSONS` — опубликованные каталоги компонентов, токенов, стилей, indexes и runtime-конфиги Apollo.
 - `redpol` — материалы редакционной политики.
