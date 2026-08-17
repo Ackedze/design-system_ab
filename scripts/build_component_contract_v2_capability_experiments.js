@@ -1408,7 +1408,7 @@ function buildExperimentalRuntimeIndex(packageResults) {
       unknownEvaluation: 'never-violation',
     },
     baseUrl:
-      'https://raw.githubusercontent.com/Ackedze/design-system_ab/main/JSONS/experiments/component-contract-v2/',
+      'https://ackedze.github.io/design-system_ab/JSONS/experiments/component-contract-v2/',
     generatedAt: packages
       .map((entry) => packageResults.find((result) => result.packageId === entry.id)
         ?.contract.package.sourceGeneratedAt)
