@@ -21,7 +21,8 @@
       "runtime": "apollo-runtime"
     },
     "migratedFrom": 1,
-    "ownershipMigrationRevision": 2
+    "ownershipMigrationRevision": 2,
+    "ruleAuthorityMigrationRevision": 1
   },
   "generated": {
     "rules": [
@@ -79,7 +80,13 @@
           ]
         },
         "remediation": "Используйте публичный root CardSwiperMobile и верните служебные слои и CardImage внутрь штатной композиции.",
-        "ruleText": "Только CardSwiperMobile является публичным root. CardsCollection, LeftCardWrapper, RightCardWrapper, spacing-слои и вложенные CardImage не используются отдельно."
+        "ruleText": "Только CardSwiperMobile является публичным root. CardsCollection, LeftCardWrapper, RightCardWrapper, spacing-слои и вложенные CardImage не используются отдельно.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.card-swiper-mobile.mobile-web-only",
@@ -94,7 +101,13 @@
           ]
         },
         "remediation": "Используйте CardSwiperMobile только в mobile-web макете; для desktop выберите отдельное решение.",
-        "ruleText": "CardSwiperMobile предназначен только для mobile-web. Использование компонента на desktop запрещено."
+        "ruleText": "CardSwiperMobile предназначен только для mobile-web. Использование компонента на desktop запрещено.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.card-swiper-mobile.internal-composition-follows-effective-baseline",
@@ -120,7 +133,13 @@
           "useEffectiveBaseline": true
         },
         "remediation": "Восстановите штатную геометрию, порядок, оформление и эффекты служебных контейнеров CardSwiperMobile.",
-        "ruleText": "CardsCollection, LeftCardWrapper, RightCardWrapper и оба SpacingVertical принадлежат host-композиции. Их identity, layout, paint, radius, opacity и effects должны совпадать с effective baseline выбранного Screen Size."
+        "ruleText": "CardsCollection, LeftCardWrapper, RightCardWrapper и оба SpacingVertical принадлежат host-композиции. Их identity, layout, paint, radius, opacity и effects должны совпадать с effective baseline выбранного Screen Size.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.card-swiper-mobile.requires-at-least-one-card",
@@ -134,7 +153,13 @@
           "maximumCardCount": null
         },
         "remediation": "Передайте минимум одну карту либо не создавайте CardSwiperMobile для пустого набора.",
-        "ruleText": "CardSwiperMobile принимает одну или более карт. При нуле карт компонент не создаётся; собственного Empty state нет."
+        "ruleText": "CardSwiperMobile принимает одну или более карт. При нуле карт компонент не создаётся; собственного Empty state нет.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.card-swiper-mobile.preserves-source-order",
@@ -166,7 +191,13 @@
           "manualResizeAllowed": false
         },
         "remediation": "Верните текущей карте размер 264x164 и центрирование, соседним — 212x132, без ручного resize и Stack.",
-        "ruleText": "Текущая карта всегда центрирована и использует CardImage Size=264x164. Видимые соседи используют Size=212x132. Размеры, Stack=false, смещения и геометрия принадлежат host-компоненту и вручную не меняются."
+        "ruleText": "Текущая карта всегда центрирована и использует CardImage Size=264x164. Видимые соседи используют Size=212x132. Размеры, Stack=false, смещения и геометрия принадлежат host-компоненту и вручную не меняются.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.card-swiper-mobile.edge-window-behavior",
@@ -189,7 +220,13 @@
           "Show End#17127:3": "selectedIndex < cardCount - 1"
         },
         "remediation": "Показывайте previous только когда selectedIndex > 0, а next — только когда selectedIndex меньше последнего индекса.",
-        "ruleText": "Управляйте соседями только root properties: Show Start#17127:0 показывает previous, Show End#17127:3 показывает next. Для одной карты оба false; на первом элементе false/true, внутри списка true/true, на последнем true/false."
+        "ruleText": "Управляйте соседями только root properties: Show Start#17127:0 показывает previous, Show End#17127:3 показывает next. Для одной карты оба false; на первом элементе false/true, внутри списка true/true, на последнем true/false.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.card-swiper-mobile.screen-size-follows-viewport",
@@ -208,7 +245,13 @@
           }
         },
         "remediation": "Выберите Screen Size по фактической ширине viewport: 320-360 до 359 px, 360+ от 360 px.",
-        "ruleText": "Screen Size переключается по viewport, а не по визуальному предпочтению: 320-360 применяется при ширине 320–359 px, 360+ — от 360 px включительно."
+        "ruleText": "Screen Size переключается по viewport, а не по визуальному предпочтению: 320-360 применяется при ширине 320–359 px, 360+ — от 360 px включительно.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.card-swiper-mobile.fixed-vertical-spacing",
@@ -224,7 +267,13 @@
           }
         },
         "remediation": "Верните верхний отступ 24 px и нижний 32 px для обоих Screen Size.",
-        "ruleText": "В обоих Screen Size верхний вертикальный отступ равен 24 px, нижний — 32 px. Generated delta с нижним 24 px для 320-360 не является целевым правилом."
+        "ruleText": "В обоих Screen Size верхний вертикальный отступ равен 24 px, нижний — 32 px. Generated delta с нижним 24 px для 320-360 не является целевым правилом.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.card-swiper-mobile.non-cyclic-navigation",

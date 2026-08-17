@@ -22,7 +22,8 @@
       "runtime": "apollo-runtime"
     },
     "migratedFrom": 1,
-    "ownershipMigrationRevision": 2
+    "ownershipMigrationRevision": 2,
+    "ruleAuthorityMigrationRevision": 1
   },
   "generated": {
     "rules": [
@@ -87,6 +88,11 @@
         "classification": {
           "treatAsViolation": true,
           "resetSurface": "layer"
+        },
+        "authority": {
+          "status": "active",
+          "provenance": "generated-policy",
+          "revision": 1
         }
       }
     ]
@@ -126,7 +132,12 @@
           ]
         },
         "ruleText": "Не меняй вручную text styles на Button Label или Hint. Text style определяется состоянием Button component и должен совпадать с effective component baseline.",
-        "remediation": "Сбрось layer text style к effective Button baseline."
+        "remediation": "Сбрось layer text style к effective Button baseline.",
+        "authority": {
+          "status": "draft",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-core.button.desktop-safe-variants",

@@ -11,7 +11,8 @@
       "runtime": "apollo-runtime"
     },
     "migratedFrom": 1,
-    "ownershipMigrationRevision": 2
+    "ownershipMigrationRevision": 2,
+    "ruleAuthorityMigrationRevision": 1
   },
   "generated": {
     "rules": [
@@ -104,7 +105,13 @@
           "resetSurface": "parameters"
         },
         "remediation": "Выберите Capacity, равный числу карточек. Для группы меньше трёх или больше четырёх соберите BenefitCard вручную без Benefits.",
-        "ruleText": "Benefits содержит строго три или четыре BenefitCard: Capacity=3 соответствует трём карточкам, Capacity=4 — четырём. Удалять карточки из пресета, добавлять пятую или использовать Benefits для другого количества нельзя. Ручная группа отдельных BenefitCard разрешена только при количестве меньше трёх или больше четырёх."
+        "ruleText": "Benefits содержит строго три или четыре BenefitCard: Capacity=3 соответствует трём карточкам, Capacity=4 — четырём. Удалять карточки из пресета, добавлять пятую или использовать Benefits для другого количества нельзя. Ручная группа отдельных BenefitCard разрешена только при количестве меньше трёх или больше четырёх.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.desktop-compact-required-at-1024",
@@ -126,7 +133,13 @@
           "resetSurface": "parameters"
         },
         "remediation": "Установите Compact=True при viewport 1024 px и меньше, Compact=False — при viewport больше 1024 px.",
-        "ruleText": "Desktop Benefits использует Compact=True при viewport 1024 px и меньше и Compact=False при viewport больше 1024 px. Compact=False размещает карточки в одну строку с интервалом 24 px; Compact=True использует интервал 16 px, а Capacity=4 перестраивается в сетку 2 × 2. Capacity=3 при Compact=True остаётся в одной строке."
+        "ruleText": "Desktop Benefits использует Compact=True при viewport 1024 px и меньше и Compact=False при viewport больше 1024 px. Compact=False размещает карточки в одну строку с интервалом 24 px; Compact=True использует интервал 16 px, а Capacity=4 перестраивается в сетку 2 × 2. Capacity=3 при Compact=True остаётся в одной строке.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.view-selects-surface-baseline",
@@ -207,7 +220,13 @@
           "useEffectiveBaseline": true
         },
         "remediation": "Выровняйте Background, CardAxis, Compact и GraphicPosition у всех BenefitCard группы. Не выравнивайте разные разрешённые fill/stroke у Border или Colored автоматически.",
-        "ruleText": "Все BenefitCard внутри одного Benefits должны иметь одинаковые значения Background, CardAxis, Compact и GraphicPosition. Единственное подтверждённое исключение — разные цвета заливки и обводки отдельных карточек при поверхностях Colored и Border."
+        "ruleText": "Все BenefitCard внутри одного Benefits должны иметь одинаковые значения Background, CardAxis, Compact и GraphicPosition. Единственное подтверждённое исключение — разные цвета заливки и обводки отдельных карточек при поверхностях Colored и Border.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.nested-card-title-style-is-uniform",
@@ -229,7 +248,13 @@
           "resetSurface": "component-property"
         },
         "remediation": "Установите одинаковое значение Title у контента всех BenefitCard группы.",
-        "ruleText": "Стиль Title должен быть одинаковым у всех BenefitCard внутри одного Benefits. Смешивать Primary и Secondary в одной группе запрещено."
+        "ruleText": "Стиль Title должен быть одинаковым у всех BenefitCard внутри одного Benefits. Смешивать Primary и Secondary в одной группе запрещено.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.mobile-surface-inherits-host",
@@ -309,7 +334,13 @@
           "resetSurface": "parameters"
         },
         "remediation": "Выберите один тип поверхности для всех BenefitCard группы. Различайте только разрешённые цвета внутри общего типа Border или Colored.",
-        "ruleText": "Все BenefitCard внутри Benefits должны использовать один тип поверхности. Смешивать Primary, Border и Colored в одной группе нельзя. Разные цвета разрешены только между карточками общего типа Border либо общего типа Colored."
+        "ruleText": "Все BenefitCard внутри Benefits должны использовать один тип поверхности. Смешивать Primary, Border и Colored в одной группе нельзя. Разные цвета разрешены только между карточками общего типа Border либо общего типа Colored.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.fill-width-hug-height",
@@ -332,7 +363,13 @@
           "resetSurface": "layer"
         },
         "remediation": "Установите Benefits ширину Fill и высоту Hug.",
-        "ruleText": "Корень Benefits должен использовать Fill по ширине и Hug по высоте. Fixed или Hug по ширине и Fixed или Fill по высоте нарушают sizing-контракт пресета."
+        "ruleText": "Корень Benefits должен использовать Fill по ширине и Hug по высоте. Fixed или Hug по ширине и Fixed или Fill по высоте нарушают sizing-контракт пресета.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.cards-have-equal-height",
@@ -350,7 +387,13 @@
           "resetSurface": "layer"
         },
         "remediation": "Выровняйте высоту всех BenefitCard внутри одного пресета.",
-        "ruleText": "Все BenefitCard внутри одного Benefits должны иметь одинаковую высоту. Для Capacity=4, Compact=True это требование действует сразу на все четыре карточки, а не отдельно по строкам."
+        "ruleText": "Все BenefitCard внутри одного Benefits должны иметь одинаковую высоту. Для Capacity=4, Compact=True это требование действует сразу на все четыре карточки, а не отдельно по строкам.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.layout-is-preset-owned",
@@ -366,7 +409,13 @@
           "useEffectiveBaseline": true
         },
         "remediation": "Сбросьте gap, padding, axis и wrap к effective baseline выбранного Capacity/Compact варианта Benefits.",
-        "ruleText": "Gap, padding, направление и схема переноса принадлежат пресету Benefits и не изменяются вручную. Сравнивай их с effective baseline выбранной комбинации Capacity и Compact."
+        "ruleText": "Gap, padding, направление и схема переноса принадлежат пресету Benefits и не изменяются вручную. Сравнивай их с effective baseline выбранной комбинации Capacity и Compact.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.manual-reorder-preserves-responsive-parity",
@@ -400,7 +449,13 @@
           "resetSurface": "parameters"
         },
         "remediation": "Включите или выключите loading/Skeleton одновременно у всех BenefitCard группы, сохранив правила BenefitCard для каждой карточки.",
-        "ruleText": "Loading/Skeleton является общим состоянием Benefits: все вложенные BenefitCard должны одновременно находиться либо в loading, либо в обычном состоянии. Смешанное состояние внутри одной группы запрещено."
+        "ruleText": "Loading/Skeleton является общим состоянием Benefits: все вложенные BenefitCard должны одновременно находиться либо в loading, либо в обычном состоянии. Смешанное состояние внутри одной группы запрещено.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.surface-colors-use-background-plate-tokens",
@@ -424,7 +479,13 @@
           "resetSurface": "layer"
         },
         "remediation": "Замените raw fill/stroke на разрешённый токен или переменную BackgroundPlate.",
-        "ruleText": "Различающиеся fill и stroke карточек Border или Colored должны оставаться привязанными к разрешённым токенам/переменным BackgroundPlate. Raw-цвета запрещены; дополнительных ограничений по сегментной палитре у Benefits нет."
+        "ruleText": "Различающиеся fill и stroke карточек Border или Colored должны оставаться привязанными к разрешённым токенам/переменным BackgroundPlate. Raw-цвета запрещены; дополнительных ограничений по сегментной палитре у Benefits нет.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.nested-benefit-card-instance-swap-forbidden",
@@ -445,7 +506,13 @@
           "resetSurface": "parameters"
         },
         "remediation": "Верните штатную платформенную BenefitCard в слот пресета и настройте её через разрешённые свойства.",
-        "ruleText": "Вложенные BenefitCard нельзя заменять через instance swap на другой компонент или на BenefitCard другой платформы. Настраивай только штатные [D]/[M] BenefitCard внутри соответствующего Benefits."
+        "ruleText": "Вложенные BenefitCard нельзя заменять через instance swap на другой компонент или на BenefitCard другой платформы. Настраивай только штатные [D]/[M] BenefitCard внутри соответствующего Benefits.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web.benefits.clickability-is-uniform",

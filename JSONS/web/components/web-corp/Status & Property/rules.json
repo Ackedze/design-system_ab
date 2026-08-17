@@ -22,7 +22,8 @@
       "runtime": "apollo-runtime"
     },
     "migratedFrom": 1,
-    "ownershipMigrationRevision": 2
+    "ownershipMigrationRevision": 2,
+    "ruleAuthorityMigrationRevision": 1
   },
   "generated": {
     "rules": [
@@ -122,7 +123,13 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "Style определяется цветом поверхности: на сером фоне используй Style=Contrast, на белом фоне — Style=Muted. Обратное сочетание нарушает компонентный контракт."
+        "ruleText": "Style определяется цветом поверхности: на сером фоне используй Style=Contrast, на белом фоне — Style=Muted. Обратное сочетание нарушает компонентный контракт.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.status-type-has-fixed-semantics",
@@ -152,7 +159,13 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "Type у StatusPreset выбирается по смыслу состояния. Не используй тип только из-за желаемого цвета: текст статуса и семантика Type должны совпадать."
+        "ruleText": "Type у StatusPreset выбирается по смыслу состояния. Не используй тип только из-за желаемого цвета: текст статуса и семантика Type должны совпадать.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.shape-is-fixed-by-preset",
@@ -174,7 +187,12 @@
           "resetSurface": "layer",
           "useEffectiveBaseline": true
         },
-        "ruleText": "StatusPreset всегда использует Rounded, PropertyPreset — Rectangular. Форму, radius, layout, типографику, stroke, opacity и эффекты вложенного Status нельзя менять вручную; они должны соответствовать effective baseline выбранных Type/Color, Style и Size."
+        "ruleText": "StatusPreset всегда использует Rounded, PropertyPreset — Rectangular. Форму, radius, layout, типографику, stroke, opacity и эффекты вложенного Status нельзя менять вручную; они должны соответствовать effective baseline выбранных Type/Color, Style и Size.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.fill-follows-effective-baseline",
@@ -211,7 +229,12 @@
           "useEffectiveBaseline": true,
           "baselineSource": "host-variant"
         },
-        "ruleText": "Ручное изменение заливки текста или поверхности запрещено для StatusPreset и штатных Color у PropertyPreset. Цвет должен соответствовать effective baseline. Исключение — PropertyPreset с Color=Custom."
+        "ruleText": "Ручное изменение заливки текста или поверхности запрещено для StatusPreset и штатных Color у PropertyPreset. Цвет должен соответствовать effective baseline. Исключение — PropertyPreset с Color=Custom.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.custom-color-uses-contrasting-tokens",
@@ -239,7 +262,12 @@
           "treatAsViolationWhenRequirementsFail": true,
           "designSeverity": "error"
         },
-        "ruleText": "Color=Custom у PropertyPreset разрешает менять цвет текста и заливки. Пока допустимы любые цветовые токены без ограничения коллекции. Оба цвета должны быть назначены через токены, быть комплементарными и обеспечивать достаточный взаимный контраст. Raw color без token binding или неконтрастная пара являются нарушением."
+        "ruleText": "Color=Custom у PropertyPreset разрешает менять цвет текста и заливки. Пока допустимы любые цветовые токены без ограничения коллекции. Оба цвета должны быть назначены через токены, быть комплементарными и обеспечивать достаточный взаимный контраст. Raw color без token binding или неконтрастная пара являются нарушением.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.size-is-context-controlled",
@@ -289,7 +317,12 @@
           "designSeverity": "error",
           "resetSurface": "component-property"
         },
-        "ruleText": "Размер вложенного Status должен совпадать с Size родительского StatusPreset или PropertyPreset. Менять Size вложенного Status независимо от preset-компонента запрещено."
+        "ruleText": "Размер вложенного Status должен совпадать с Size родительского StatusPreset или PropertyPreset. Менять Size вложенного Status независимо от preset-компонента запрещено.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.case-is-fixed-by-platform",
@@ -323,7 +356,12 @@
           "resetSurface": "layer",
           "useEffectiveBaseline": true
         },
-        "ruleText": "Регистр текста фиксирован платформенной версией: desktop использует Uppercase=True, mobile-web — Uppercase=False. Менять регистр или типографику вручную нельзя."
+        "ruleText": "Регистр текста фиксирован платформенной версией: desktop использует Uppercase=True, mobile-web — Uppercase=False. Менять регистр или типографику вручную нельзя.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.property-text-limit",
@@ -345,7 +383,12 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "PropertyPreset показывает до 20 символов в одной строке. Более длинное значение должно обрезаться многоточием; полное значение можно вынести в Tooltip. Перенос текста запрещён."
+        "ruleText": "PropertyPreset показывает до 20 символов в одной строке. Более длинное значение должно обрезаться многоточием; полное значение можно вынести в Tooltip. Перенос текста запрещён.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.status-text-limit",
@@ -369,7 +412,12 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "Текст StatusPreset должен состоять максимум из двух слов и занимать одну строку. Показывай до 20 символов; переполнение обрезай многоточием, полное значение можно вынести в Tooltip. Ограничение по двум словам и запрет переноса обязательны."
+        "ruleText": "Текст StatusPreset должен состоять максимум из двух слов и занимать одну строку. Показывай до 20 символов; переполнение обрезай многоточием, полное значение можно вынести в Tooltip. Ограничение по двум словам и запрет переноса обязательны.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.label-is-required",
@@ -388,7 +436,12 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "Label обязателен в StatusPreset и PropertyPreset. Нельзя скрывать Label или оставлять только LeftAddon без текста."
+        "ruleText": "Label обязателен в StatusPreset и PropertyPreset. Нельзя скрывать Label или оставлять только LeftAddon без текста.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.hug-sizing-is-fixed",
@@ -410,7 +463,12 @@
           "resetSurface": "layer",
           "useEffectiveBaseline": true
         },
-        "ruleText": "StatusPreset и PropertyPreset должны сохранять Hug по ширине и высоте. Растягивать preset вручную или задавать ему произвольные width/height нельзя; размер определяется штатным параметром Size и текстом."
+        "ruleText": "StatusPreset и PropertyPreset должны сохранять Hug по ширине и высоте. Растягивать preset вручную или задавать ему произвольные width/height нельзя; размер определяется штатным параметром Size и текстом.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.maximum-two-properties",
@@ -429,7 +487,12 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "В одной композиции можно размещать несколько PropertyPreset, но одновременно должно быть видно не больше двух. Третий и последующие PropertyPreset являются нарушением."
+        "ruleText": "В одной композиции можно размещать несколько PropertyPreset, но одновременно должно быть видно не больше двух. Третий и последующие PropertyPreset являются нарушением.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.maximum-one-status-per-object",
@@ -449,7 +512,12 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "У одного объекта может быть только один StatusPreset. Несколько одновременных статусов для одного объекта являются нарушением."
+        "ruleText": "У одного объекта может быть только один StatusPreset. Несколько одновременных статусов для одного объекта являются нарушением.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.status-and-property-are-mutually-exclusive",
@@ -468,7 +536,12 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "Не размещай StatusPreset и PropertyPreset вместе для одного объекта или в одной группе. Используй либо один StatusPreset, либо до двух PropertyPreset."
+        "ruleText": "Не размещай StatusPreset и PropertyPreset вместе для одного объекта или в одной группе. Используй либо один StatusPreset, либо до двух PropertyPreset.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.property-spacing-is-not-specified",
@@ -536,7 +609,12 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "StatusPreset и PropertyPreset являются информационными элементами и пока не могут выполнять действие по клику. Hover и поясняющий Tooltip разрешены, клик — запрещён."
+        "ruleText": "StatusPreset и PropertyPreset являются информационными элементами и пока не могут выполнять действие по клику. Hover и поясняющий Tooltip разрешены, клик — запрещён.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.platform-version-must-match",
@@ -555,7 +633,12 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "Используй [D] StatusPreset/PropertyPreset при ширине 768 px и больше, [M] — ниже 768 px в mobile-web. Смешивать платформенные версии нельзя."
+        "ruleText": "Используй [D] StatusPreset/PropertyPreset при ширине 768 px и больше, [M] — ниже 768 px в mobile-web. Смешивать платформенные версии нельзя.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.use-preset-instead-of-core-status",
@@ -575,7 +658,12 @@
           "treatAsViolation": true,
           "designSeverity": "error"
         },
-        "ruleText": "Для отображения статуса или свойства всегда используй готовый StatusPreset или PropertyPreset. Не собирай такую сущность прямым самостоятельным использованием вложенного core-компонента Status."
+        "ruleText": "Для отображения статуса или свойства всегда используй готовый StatusPreset или PropertyPreset. Не собирай такую сущность прямым самостоятельным использованием вложенного core-компонента Status.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.status-property.left-addon-is-configurable",
