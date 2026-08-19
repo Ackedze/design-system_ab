@@ -216,6 +216,12 @@
       },
       {
         "ruleId": "component:web-corp.title-view.external-spacing",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
         "severity": "error",
         "source": "pattern-link",
         "patternRuleId": "rule:components.title-view.external-spacing",
@@ -766,6 +772,39 @@
           "nonEmpty": true
         },
         "ruleText": "Title обязателен во всех вариантах TitleView. Его нельзя оставлять пустым или скрывать.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.title-view.main-title-names-page",
+        "severity": "error",
+        "source": "pattern-link",
+        "patternRuleId": "rule:components.title-view.main-title-names-page",
+        "appliesTo": "text.content",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-corp.title-view",
+          "layers": [
+            "Title"
+          ],
+          "variantProperties": {
+            "View": [
+              "xLarge"
+            ]
+          }
+        },
+        "requiredContent": {
+          "semanticRole": "page-title",
+          "namesPageObjectOrTask": true,
+          "forbidPlaceholderTestJokeOrMeaninglessCopy": true,
+          "insufficientContext": "clarification_then_human_review"
+        },
+        "ruleText": "Title в TitleView View=xLarge должен кратко и осмысленно называть страницу, её основной объект или пользовательскую задачу. Технические заглушки, тестовые, шуточные и бессодержательные формулировки являются ошибкой при однозначном контексте. Если назначение экрана нельзя установить, сначала запроси пояснение, затем передай случай на проверку человеку.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",

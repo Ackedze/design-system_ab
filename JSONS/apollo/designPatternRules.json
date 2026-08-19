@@ -2,6 +2,70 @@
   "schemaVersion": 1,
   "rules": [
     {
+      "id": "rule:components.title-view.external-spacing",
+      "ruleKind": "design-rule",
+      "authority": {
+        "status": "active",
+        "provenance": "design-system-author",
+        "revision": 1
+      },
+      "severity": "error",
+      "applicability": {
+        "pageTypes": [],
+        "channels": ["Desktop", "MobileWeb"]
+      },
+      "scope": {
+        "kind": "layout-relations",
+        "titleViewVariants": ["xLarge"]
+      },
+      "assertion": {
+        "kind": "vertical-spacing-relations",
+        "expectations": [
+          {
+            "relationKind": "page-top-margin",
+            "fromRole": "header",
+            "toRole": "title-view",
+            "spacing": 40,
+            "unit": "px",
+            "token": "TopMargin"
+          },
+          {
+            "relationKind": "next-content-gap",
+            "fromRole": "title-view",
+            "toRoles": ["content", "tabs-view", "filters-block", "plate"],
+            "spacing": 32,
+            "unit": "px"
+          },
+          {
+            "relationKind": "next-content-gap",
+            "fromRole": "title-view",
+            "toRoles": ["top-bar"],
+            "spacing": 12,
+            "unit": "px"
+          }
+        ]
+      },
+      "requiredEvidence": [
+        "scan.channel",
+        "facts.layoutRelations[].relationKind",
+        "facts.layoutRelations[].semantic",
+        "facts.layoutRelations[].measurement.actualPx"
+      ],
+      "messages": {
+        "title": "Нарушен внешний отступ TitleView",
+        "observed": "Фактический вертикальный отступ равен {actualPx} px.",
+        "expected": "Вертикальный отступ для связи {fromRole} -> {toRole} должен быть {expectedPx} px.",
+        "remediation": "Установите нормативный внешний отступ для этой связи."
+      },
+      "source": {
+        "path": "patterns/p_title-view.md",
+        "dsAiHubPath": "products/ab/patterns/title-view.md",
+        "ruleId": "rule:components.title-view.external-spacing",
+        "section": "Rule 11: Соблюдай внешние отступы TitleView",
+        "quote": "Между [D] Header и [D] TitleView используется 40 px через TopMargin. Между [D] TitleView и основным контентом используется 32 px. Для TopBar используется 12 px."
+      }
+    },
+    {
       "id": "rule:forms.construction-rules.title-medium-one-per-plate",
       "ruleKind": "design-rule",
       "authority": {
