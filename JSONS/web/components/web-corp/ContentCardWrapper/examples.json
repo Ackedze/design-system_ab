@@ -3,7 +3,7 @@
   "documentType": "component-examples",
   "metadata": {
     "componentKey": "web-corp.content-card-wrapper",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-20"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -27,5 +27,527 @@
   "generated": {
     "examples": []
   },
-  "manual": {}
+  "manual": {
+    "examples": [
+      {
+        "exampleId": "content-card-wrapper.form-homogeneous-entities",
+        "title": "Однотипные сущности внутри формы",
+        "inputState": {
+          "pageContext": "form",
+          "ancestor": "BackgroundPlate",
+          "entityType": "beneficiary",
+          "allCardsUseSameParameterSet": true,
+          "root": "[D] ContentCardWrapper"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.view-page-homogeneous-items",
+        "title": "Однородные карточки на странице просмотра",
+        "inputState": {
+          "pageContext": "view-page",
+          "ancestor": "BackgroundPlate",
+          "entityType": "company",
+          "allCardsUseSameParameterSet": true,
+          "root": "[D] ContentCardWrapper"
+        },
+        "expectedAudit": {
+          "category": "none"
+        },
+        "mustNotSay": [
+          "ContentCardWrapper разрешён только внутри формы."
+        ]
+      },
+      {
+        "exampleId": "content-card-wrapper.modal-subflow",
+        "title": "Повторяющиеся поля вынесены в модальный подсценарий",
+        "inputState": {
+          "pageContext": "form",
+          "repeatedFieldsMovedToModal": true,
+          "pageKeepsCompactCard": true,
+          "root": "[M] ContentCardWrapper"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-hidden-background",
+        "title": "У карточки скрыт обязательный BackgroundPlate",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "BackgroundPlate.visible": false,
+          "visibleMiddleContentSlots": 1
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.required-anatomy"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-no-middle-content",
+        "title": "Скрыты все MiddleContentSlot",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "BackgroundPlate.visible": true,
+          "visibleMiddleContentSlots": 0
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.required-anatomy"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.connected-four-items",
+        "title": "Четыре визуально связанных элемента",
+        "inputState": {
+          "component": "🔩 MiddleContentSlot",
+          "Capacity": "4",
+          "Connected": "True",
+          "contentPresetCount": 4,
+          "visualDotConnection": true
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-fifth-middle-item",
+        "title": "В MiddleContentSlot вручную добавлен пятый элемент",
+        "inputState": {
+          "component": "🔩 MiddleContentSlot",
+          "Capacity": "4",
+          "contentPresetCount": 5,
+          "manualExtension": true
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.middle-content-capacity-and-connection"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.extra-title-main-heading",
+        "title": "ExtraTitle как главный заголовок карточки",
+        "inputState": {
+          "component": "🔩 [D] ContentPresets",
+          "Presets": "ExtraTitle",
+          "textRole": "main-card-title"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.disabled-view-only",
+        "title": "Disabled-карточка без взаимодействий",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "State": "Disabled",
+          "Skeleton": "False",
+          "actions": [],
+          "selectable": false
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-disabled-action",
+        "title": "Действие внутри Disabled-карточки",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "State": "Disabled",
+          "actions": [
+            "edit"
+          ]
+        },
+        "expectedAudit": {
+          "category": "interactions",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.disabled-is-view-only"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.required-empty-error",
+        "title": "Ошибка обязательного набора карточек",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "State": "Error",
+          "atLeastOneCardRequired": true,
+          "currentCardCount": 0,
+          "composition": "separate-error",
+          "content": "Нет добавленных компаний",
+          "buttonBelowCard": "Добавить компанию",
+          "additionAllowed": true,
+          "validationTriggered": true,
+          "validationTrigger": "key-page-action"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-error-as-style",
+        "title": "Error использован без ошибки обязательности",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "State": "Error",
+          "atLeastOneCardRequired": false,
+          "currentCardCount": 2
+        },
+        "expectedAudit": {
+          "category": "interactions",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.error-required-card-validation"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-error-before-trigger",
+        "title": "Error показан до запуска валидации",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "State": "Error",
+          "atLeastOneCardRequired": true,
+          "currentCardCount": 0,
+          "additionAllowed": true,
+          "validationTriggered": false
+        },
+        "expectedAudit": {
+          "category": "interactions",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.error-required-card-validation"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-error-when-addition-forbidden",
+        "title": "Error при запрещённом добавлении",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "State": "Error",
+          "currentCardCount": 0,
+          "additionAllowed": false
+        },
+        "expectedAudit": {
+          "category": "interactions",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.error-required-card-validation"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.disabled-loading",
+        "title": "Skeleton поверх Disabled-состояния",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "State": "Disabled",
+          "Skeleton": "True",
+          "interactionBlocked": true
+        },
+        "expectedAudit": {
+          "category": "none"
+        },
+        "mustNotSay": [
+          "Skeleton=True допустим только с State=Active.",
+          "Комбинация отсутствует в raw и поэтому запрещена."
+        ]
+      },
+      {
+        "exampleId": "content-card-wrapper.left-slot-click-priority",
+        "title": "Клик карточки переключает LeftSlot",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "State": "Active",
+          "LeftSlot": "Checkbox",
+          "cardClick": "toggle-checkbox"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.right-action-isolated",
+        "title": "Действие RightSlot не запускает клик карточки",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "State": "Active",
+          "RightSlot.action": "delete",
+          "rightActionTriggersCardClick": false
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.empty-with-add-button",
+        "title": "Empty с разрешённым добавлением",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "State": "Empty",
+          "currentCardCount": 0,
+          "additionAllowed": true,
+          "buttonBelowCard": "Добавить товар",
+          "cardInteractive": false,
+          "addActionTrigger": "button-only",
+          "text": "Нет добавленных товаров"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.empty-readonly-placeholder",
+        "title": "Empty без возможности добавления",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "State": "Empty",
+          "currentCardCount": 0,
+          "additionAllowed": false,
+          "buttonBelowCard": null,
+          "interactive": false,
+          "text": "Нет добавленных компаний"
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.mobile-right-slot",
+        "title": "RightSlot разрешён на MobileWeb",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "RightSlot.actions": [
+            "delete"
+          ],
+          "BottomSheet": false
+        },
+        "expectedAudit": {
+          "category": "none"
+        },
+        "mustNotSay": [
+          "RightSlot запрещён на MobileWeb.",
+          "BottomSheet обязателен."
+        ]
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-left-slot-swap",
+        "title": "В LeftSlot установлен произвольный компонент",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "LeftSlot": "CustomComponent"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.left-slot-selection"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-baseline-color",
+        "title": "Цвет карточки отклонён от baseline",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "fill": "manual-color",
+          "matchesEffectiveBaseline": false
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.layer-properties-use-effective-baseline"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-heterogeneous-group",
+        "title": "В одной группе смешаны разные сущности",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "entityTypes": [
+            "company",
+            "person"
+          ],
+          "allCardsUseSameParameterSet": false
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.homogeneous-items"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-outside-background-plate",
+        "title": "Набор карточек размещён вне BackgroundPlate",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "ancestor": null
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.inside-background-plate"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-three-right-actions",
+        "title": "В RightSlot размещено три действия",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "RightSlot.actions": [
+            "edit",
+            "copy",
+            "delete"
+          ]
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.right-slot-actions"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.status-property-preset",
+        "title": "StatusSlot с PropertyPreset",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "StatusSlot.visible": true,
+          "StatusSlot.content": "PropertyPreset",
+          "StatusSlot.value": "Лучший",
+          "StatusSlot.itemCount": 1
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-status-slot-swap",
+        "title": "Произвольный компонент в StatusSlot",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "StatusSlot.visible": true,
+          "StatusSlot.content": "CustomComponent"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.status-slot-content"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.tokenized-item-gap",
+        "title": "Интервал между элементами задан токеном",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "layout.direction": "vertical",
+          "layout.horizontalItemSpacing": "space-8-token",
+          "layout.verticalItemSpacing": "space-16-token",
+          "axesIndependent": true
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-raw-item-gap",
+        "title": "Интервал между элементами задан вручную",
+        "inputState": {
+          "root": "[M] ContentCardWrapper",
+          "layout.direction": "vertical",
+          "layout.itemSpacing": "13px",
+          "tokenBound": false
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.inter-item-gap-tokenized"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.single-sufficient-identifier",
+        "title": "Один параметр достаточен в конкретном контексте",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "parameterCount": 1,
+          "entityUniquelyIdentified": true
+        },
+        "expectedAudit": {
+          "category": "none"
+        },
+        "mustNotSay": [
+          "ContentCardWrapper всегда требует минимум три параметра."
+        ]
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-two-status-presets",
+        "title": "В StatusSlot размещено два preset",
+        "inputState": {
+          "root": "[D] ContentCardWrapper",
+          "StatusSlot.visible": true,
+          "StatusSlot.content": [
+            "StatusPreset",
+            "PropertyPreset"
+          ],
+          "StatusSlot.itemCount": 2
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.status-slot-content"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.status-values-differ-between-cards",
+        "title": "Значения PropertyPreset различаются у карточек",
+        "inputState": {
+          "cards": [
+            {
+              "StatusSlot.content": "PropertyPreset",
+              "StatusSlot.text": "Лучший"
+            },
+            {
+              "StatusSlot.content": "PropertyPreset",
+              "StatusSlot.text": "Рекомендуемый"
+            }
+          ]
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.desktop-mobile-parity",
+        "title": "D/M сохраняют смысловое содержимое",
+        "inputState": {
+          "desktop": {
+            "State": "Active",
+            "StatusSlot.content": "StatusPreset",
+            "StatusSlot.text": "Активен"
+          },
+          "mobile": {
+            "State": "Active",
+            "StatusSlot.content": "StatusPreset",
+            "StatusSlot.text": "Активен"
+          }
+        },
+        "expectedAudit": {
+          "category": "none"
+        }
+      },
+      {
+        "exampleId": "content-card-wrapper.invalid-desktop-mobile-state",
+        "title": "D/M используют разные State для одной сущности",
+        "inputState": {
+          "desktop.State": "Active",
+          "mobile.State": "Disabled",
+          "sameEntity": true
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.content-card-wrapper.desktop-mobile-content-parity"
+        }
+      }
+    ]
+  }
 }

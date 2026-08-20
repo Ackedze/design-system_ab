@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web-corp.content-card-wrapper",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-20"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -440,6 +440,178 @@
           "Connected": "True"
         }
       }
-    ]
+    ],
+    "publicRoots": [
+      "[D] ContentCardWrapper",
+      "[M] ContentCardWrapper"
+    ],
+    "internalOnly": [
+      "🔩 [D] ContentPresets",
+      "🔩 [M] ContentPresets",
+      "🔩 [D] LeftSlot",
+      "🔩 [M] LeftSlot",
+      "🔩 MiddleContentSlot",
+      "🔩 [M] MiddleContentSlot",
+      "🔩 [D] RightSlot",
+      "🔩 [M] RightSlot",
+      "SwapMe"
+    ],
+    "pageComposition": {
+      "requiredAncestor": "BackgroundPlate",
+      "coLocatedContent": [
+        "page or section title",
+        "form fields",
+        "view-page content"
+      ]
+    },
+    "requiredAnatomy": {
+      "alwaysVisible": [
+        "BackgroundPlate"
+      ],
+      "minimumVisible": {
+        "MiddleContentSlot": 1
+      },
+      "independentlyOptional": [
+        "LeftSlot",
+        "Status",
+        "additional MiddleContentSlot",
+        "RightSlot"
+      ]
+    },
+    "slotSemantics": {
+      "LeftSlot": {
+        "allowedPresets": [
+          "Radio",
+          "Checkbox",
+          "Switch"
+        ],
+        "SwapMe": "service-placeholder",
+        "arbitraryComponentSwapAllowed": false,
+        "cardClickTogglesControl": true
+      },
+      "MiddleContentSlot": {
+        "Capacity": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "moreThanFourAllowed": false,
+        "Connected": "Controls the visual dot connection between content items."
+      },
+      "ContentPresets": {
+        "ExtraTitle": "large bold title, usually the main card title",
+        "Title": "small title",
+        "SubTitle": "title caption or object parameters",
+        "SwapMe": "service-placeholder"
+      },
+      "RightSlot": {
+        "role": "actions",
+        "maxActions": 2,
+        "allowedPreset": "IconButton",
+        "SwapMe": "service-placeholder",
+        "arbitraryComponentSwapAllowed": false
+      },
+      "StatusSlot": {
+        "optional": true,
+        "maxItems": 1,
+        "allowedComponents": [
+          "StatusPreset",
+          "PropertyPreset"
+        ],
+        "semantics": {
+          "StatusPreset": "card-status",
+          "PropertyPreset": "highlight-one-property"
+        },
+        "valuesMayDifferBetweenCards": true,
+        "arbitraryComponentSwapAllowed": false
+      }
+    },
+    "stateSemantics": {
+      "Active": "Interactive card.",
+      "Disabled": "View-only card; add, edit, delete and selection are blocked.",
+      "Empty": {
+        "textTemplate": "Нет добавленных [сущностей]",
+        "buttonLabelTemplate": "Добавить [сущность]",
+        "additionAllowed": "Zero cards; render a non-interactive placeholder. Only the separate button below starts the add flow.",
+        "additionForbidden": "Zero cards; render a non-interactive placeholder without an add button."
+      },
+      "Error": {
+        "meaning": "Validation state used when at least one card is required but none exists.",
+        "separateComposition": true,
+        "content": "error-text",
+        "textTemplate": "Нет добавленных [сущностей]",
+        "buttonLabelTemplate": "Добавить [сущность]",
+        "buttonBelowCardRequired": true,
+        "additionAllowedRequired": true,
+        "displayTiming": "after-validation-trigger",
+        "typicalTrigger": "key-page-action",
+        "otherProductTriggerAllowed": true
+      },
+      "Skeleton": {
+        "independentOfState": true,
+        "allowedStates": [
+          "Active",
+          "Disabled",
+          "Empty",
+          "Error"
+        ],
+        "blocksInteraction": true,
+        "currentRawGap": [
+          "Disabled + True",
+          "Empty + True",
+          "Error + True"
+        ]
+      }
+    },
+    "interactionPriority": [
+      "When LeftSlot is visible, clicking the card toggles its Radio, Checkbox or Switch.",
+      "Without LeftSlot, clicking the card opens view or edit according to page context.",
+      "Clicking a RightSlot action invokes only that action and must not trigger the card click.",
+      "Skeleton=True blocks every interaction."
+    ],
+    "responsiveComposition": {
+      "desktop": "horizontal-segments",
+      "mobileWebAndAdaptive": "vertical-segments-with-contextual-exceptions",
+      "mobileRightSlotAllowed": true,
+      "bottomSheetRequired": false,
+      "interItemSpacing": {
+        "horizontal": "any-design-system-spacing-token",
+        "vertical": "any-design-system-spacing-token",
+        "axesIndependent": true
+      },
+      "contentParity": {
+        "required": [
+          "State",
+          "Empty/Error text",
+          "StatusSlot preset type",
+          "StatusSlot text"
+        ],
+        "valuesMayDifferBetweenDifferentCards": true
+      }
+    },
+    "baselinePolicy": {
+      "deviationSeverity": "error",
+      "immutable": [
+        "edge-padding",
+        "colors",
+        "tokens",
+        "typography",
+        "fill",
+        "stroke",
+        "radius",
+        "opacity"
+      ],
+      "configurable": {
+        "horizontal-inter-item-gap": "any-design-system-spacing-token",
+        "vertical-inter-item-gap": "any-design-system-spacing-token",
+        "axesIndependent": true
+      }
+    },
+    "compositionPolicy": {
+      "internalStandaloneAllowed": false,
+      "internalComponentsArePublicApi": false,
+      "manualExtensionBeyondCapacityAllowed": false
+    }
   }
 }

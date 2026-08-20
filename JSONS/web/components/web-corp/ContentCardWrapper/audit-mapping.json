@@ -3,7 +3,7 @@
   "documentType": "component-audit-mapping",
   "metadata": {
     "componentKey": "web-corp.content-card-wrapper",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-27"
+      "updatedAt": "2026-08-20"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -266,5 +266,155 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "componentIdentity": {
+      "publicRoots": [
+        "[D] ContentCardWrapper",
+        "[M] ContentCardWrapper"
+      ],
+      "internalOnly": [
+        "🔩 [D] ContentPresets",
+        "🔩 [M] ContentPresets",
+        "🔩 [D] LeftSlot",
+        "🔩 [M] LeftSlot",
+        "🔩 MiddleContentSlot",
+        "🔩 [M] MiddleContentSlot",
+        "🔩 [D] RightSlot",
+        "🔩 [M] RightSlot",
+        "SwapMe"
+      ],
+      "invalidAlias": "NavigationCardWrapper"
+    },
+    "displayNames": {
+      "variant.Capacity": "Количество элементов",
+      "variant.Connected": "Визуальная связь точками",
+      "variant.Presets": "Содержимое slot",
+      "variant.State": "Состояние карточки",
+      "variant.Skeleton": "Загрузка"
+    },
+    "visibilityPolicy": {
+      "BackgroundPlate": "required",
+      "minimumVisibleMiddleContentSlots": 1,
+      "otherSlots": "independently-optional",
+      "StatusSlot": "optional"
+    },
+    "slotPolicy": {
+      "LeftSlot.allowed": [
+        "Radio",
+        "Checkbox",
+        "Switch"
+      ],
+      "RightSlot.allowed": [
+        "IconButton"
+      ],
+      "RightSlot.maxActions": 2,
+      "RightSlot.mobileWebAllowed": true,
+      "RightSlot.bottomSheetRequired": false,
+      "StatusSlot.allowed": [
+        "StatusPreset",
+        "PropertyPreset"
+      ],
+      "StatusSlot.maxItems": 1,
+      "StatusSlot.StatusPreset": "card-status",
+      "StatusSlot.PropertyPreset": "highlight-one-property",
+      "StatusSlot.valuesMayDifferBetweenCards": true,
+      "SwapMe": "service-placeholder",
+      "arbitraryComponentSwap": "error"
+    },
+    "middleContentPolicy": {
+      "allowedCapacity": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "capacityMatchesContentCount": true,
+      "moreThanFour": "error",
+      "Connected": "visual-dot-connection"
+    },
+    "statePolicy": {
+      "Active": "interactive",
+      "Disabled": "view-only-no-actions",
+      "Error": "at-least-one-card-required-and-none-exists",
+      "Error.composition": "separate",
+      "Error.content": "error-text",
+      "Error.textTemplate": "Нет добавленных [сущностей]",
+      "Error.buttonLabelTemplate": "Добавить [сущность]",
+      "Error.buttonBelowCard": "required",
+      "Error.displayTiming": "after-validation-trigger",
+      "Error.additionAllowedRequired": true,
+      "Empty.cardClick": "disabled",
+      "Empty.textTemplate": "Нет добавленных [сущностей]",
+      "Empty.buttonLabelTemplate": "Добавить [сущность]",
+      "Empty.additionAllowed": "zero-cards-non-interactive-placeholder-with-button-only-action-below",
+      "Empty.additionForbidden": "zero-cards-non-interactive-placeholder-without-button"
+    },
+    "skeletonPolicy": {
+      "independentOfState": true,
+      "allowedStates": [
+        "Active",
+        "Disabled",
+        "Empty",
+        "Error"
+      ],
+      "blocksInteraction": true,
+      "rawGap": "Current raw exports Skeleton=True only for Active; do not report other combinations as forbidden."
+    },
+    "interactionPriority": {
+      "cardWithLeftSlot": "toggle-left-control",
+      "cardWithoutLeftSlot": "open-view-or-edit-by-context",
+      "rightSlotAction": "own-action-only-no-card-click",
+      "skeleton": "block-all-interaction"
+    },
+    "responsivePolicy": {
+      "desktop": "horizontal-segments",
+      "mobileWebAndAdaptive": "vertical-segments-with-contextual-exceptions",
+      "mobileRightSlotAllowed": true,
+      "interItemHorizontalGap": "any-design-system-spacing-token",
+      "interItemVerticalGap": "any-design-system-spacing-token",
+      "interItemGapAxesIndependent": true,
+      "desktopMobileParity": [
+        "State",
+        "Empty/Error text",
+        "StatusSlot preset type",
+        "StatusSlot text"
+      ]
+    },
+    "violationSeverity": {
+      "heterogeneousItemsOrParameterSets": "error",
+      "outsideBackgroundPlate": "error",
+      "leftOrRightSlotArbitrarySwap": "error",
+      "rightSlotMoreThanTwoActions": "error",
+      "baselineOwnedPropertyDeviation": "error",
+      "rawInterItemGapWithoutToken": "error",
+      "desktopMobileContentMismatch": "error",
+      "errorBeforeValidationTrigger": "error",
+      "errorWhenAdditionForbidden": "error"
+    },
+    "effectiveBaselinePolicy": {
+      "severity": "error",
+      "properties": [
+        "layout",
+        "edge-padding",
+        "styles",
+        "fill",
+        "stroke",
+        "radius",
+        "opacity",
+        "tokens",
+        "variables"
+      ],
+      "allowedException": {
+        "interItemHorizontalGap": "any-design-system-spacing-token",
+        "interItemVerticalGap": "any-design-system-spacing-token",
+        "axesIndependent": true
+      }
+    },
+    "runtimeLimitations": [
+      "Проверка числа видимых MiddleContentSlot и фактического числа ContentPresets требует composition evidence.",
+      "Смысловая корректность выбранного ContentPreset требует текстового или LLM-контекста.",
+      "Проверка фактического click propagation между карточкой и RightSlot требует flow или prototype evidence.",
+      "Текущий raw не доказывает наличие комбинаций Disabled/Empty/Error + Skeleton=True; в этом вопросе owner-confirmed semantic overlay имеет приоритет до обновления каталога."
+    ]
+  }
 }

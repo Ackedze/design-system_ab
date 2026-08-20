@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.content-card-wrapper",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-08-20"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -141,5 +141,202 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicApi": {
+      "figmaRoots": [
+        "[D] ContentCardWrapper",
+        "[M] ContentCardWrapper"
+      ],
+      "internalOnly": [
+        "🔩 [D] ContentPresets",
+        "🔩 [M] ContentPresets",
+        "🔩 [D] LeftSlot",
+        "🔩 [M] LeftSlot",
+        "🔩 MiddleContentSlot",
+        "🔩 [M] MiddleContentSlot",
+        "🔩 [D] RightSlot",
+        "🔩 [M] RightSlot",
+        "SwapMe"
+      ],
+      "codeExports": [],
+      "codeConnect": "not-configured",
+      "lifecycle": "active",
+      "internalStandaloneAllowed": false
+    },
+    "identity": {
+      "canonicalName": "ContentCardWrapper",
+      "invalidDocumentationName": "NavigationCardWrapper",
+      "invalidNamePolicy": "Documentation typo only; do not use as an alias, predecessor or replacement."
+    },
+    "usage": {
+      "purpose": "Отображение однородного набора карточек одного типа с одинаковым набором параметров и сокращение повторяющихся блоков данных на форме или странице просмотра.",
+      "supportedPageContexts": [
+        "form",
+        "view-page"
+      ],
+      "primaryUseCases": [
+        "Показать однотипные сущности в виде карточек с общим набором параметров.",
+        "Вынести повторяющиеся поля или элементы заполнения, редактирования или просмотра в модальную сущность, оставив на странице компактную карточку."
+      ],
+      "requiredParentContext": "BackgroundPlate вместе с заголовками, полями ввода или другим связанным содержимым страницы.",
+      "entityDifferentiation": {
+        "fixedMinimumParameterCount": null,
+        "rule": "Используй любой достаточный набор параметров, который однозначно идентифицирует сущность в текущем контексте."
+      }
+    },
+    "anatomy": {
+      "alwaysVisible": [
+        "BackgroundPlate"
+      ],
+      "minimumVisible": {
+        "MiddleContentSlot": 1
+      },
+      "independentlyOptional": [
+        "LeftSlot",
+        "StatusSlot",
+        "additional MiddleContentSlot",
+        "RightSlot"
+      ]
+    },
+    "variantSemantics": {
+      "LeftSlot.Presets": {
+        "Radio": "Единичный выбор.",
+        "Checkbox": "Множественный выбор.",
+        "Switch": "Включение функции или состояния.",
+        "SwapMe": "Служебная заглушка; должна быть заменена одним из трёх публичных вариантов."
+      },
+      "MiddleContentSlot.Capacity": {
+        "values": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "meaning": "Точное количество ContentPresets.",
+        "manualExtensionAllowed": false
+      },
+      "MiddleContentSlot.Connected": {
+        "True": "Показывает визуальную связь элементов точками.",
+        "False": "Не показывает визуальную связь точками."
+      },
+      "ContentPresets.Presets": {
+        "ExtraTitle": "Крупный жирный заголовок, обычно главный заголовок карточки.",
+        "Title": "Небольшой заголовок.",
+        "SubTitle": "Подпись к заголовку или параметры объекта.",
+        "SwapMe": "Служебная заглушка."
+      },
+      "RightSlot": {
+        "maxActions": 2,
+        "allowedPreset": "IconButton",
+        "arbitraryComponentSwapAllowed": false,
+        "SwapMe": "Служебная заглушка."
+      },
+      "StatusSlot": {
+        "optional": true,
+        "maxItems": 1,
+        "allowedComponents": [
+          "StatusPreset",
+          "PropertyPreset"
+        ],
+        "semantics": {
+          "StatusPreset": "Показать статус карточки.",
+          "PropertyPreset": "Акцентировать один параметр или свойство, например «Лучший»."
+        },
+        "valuesMayDifferBetweenCards": true,
+        "arbitraryComponentSwapAllowed": false
+      },
+      "State": {
+        "Active": "Карточка доступна для взаимодействия.",
+        "Disabled": "Карточка доступна только для просмотра; добавление, редактирование, удаление и выбор недоступны.",
+        "Empty": {
+          "textTemplate": "Нет добавленных [сущностей]",
+          "buttonLabelTemplate": "Добавить [сущность]",
+          "placeholderSemantics": "[сущностей] заменяется подходящим по смыслу объектом, например товарами или компаниями.",
+          "whenAdditionAllowed": "Карточек нет; сама карточка неинтерактивна, добавление запускается только отдельной кнопкой под ней.",
+          "whenAdditionForbidden": "Карточек нет; карточка является неинтерактивным placeholder без кнопки."
+        },
+        "Error": {
+          "meaning": "Валидация обязательного набора: требуется хотя бы одна карточка, но карточек нет.",
+          "composition": "Отдельная композиция с текстом ошибки и кнопкой добавления под карточкой, не Empty с визуальной модификацией.",
+          "textTemplate": "Нет добавленных [сущностей]",
+          "buttonLabelTemplate": "Добавить [сущность]",
+          "buttonBelowCardRequired": true,
+          "additionAllowedRequired": true,
+          "displayTiming": "После триггерного действия, запускающего валидацию; обычно после ключевого действия страницы, но триггер может определяться продуктом."
+        }
+      },
+      "Skeleton": {
+        "independentOfState": true,
+        "allowedWithStates": [
+          "Active",
+          "Disabled",
+          "Empty",
+          "Error"
+        ],
+        "blocksInteraction": true,
+        "coversFullCard": true,
+        "rawCatalogGap": "Raw содержит Skeleton=True только для State=Active; комбинации Disabled/Empty/Error + True подтверждены владельцем и требуют обновления Figma-каталога."
+      }
+    },
+    "interaction": {
+      "cardClickWithLeftSlot": "Переключает вложенный Radio, Checkbox или Switch.",
+      "cardClickWithoutLeftSlot": "Открывает просмотр или редактирование в зависимости от контекста страницы.",
+      "rightSlotAction": "Выполняет только собственное действие и не запускает клик карточки.",
+      "skeleton": "Блокирует любое взаимодействие."
+    },
+    "platformComposition": {
+      "desktop": "Горизонтальная раскладка сегментов.",
+      "mobile-web": "Преимущественно вертикальная раскладка сегментов с допустимыми контекстными исключениями; RightSlot разрешён по общему контракту.",
+      "interItemSpacing": {
+        "horizontal": "any-design-system-spacing-token",
+        "vertical": "any-design-system-spacing-token",
+        "axesIndependent": true,
+        "rawValueAllowed": false
+      },
+      "mobileRightSlot": {
+        "allowed": true,
+        "maxActions": 2,
+        "arbitraryComponentSwapAllowed": false,
+        "bottomSheetRequired": false
+      },
+      "desktopMobileParity": {
+        "required": [
+          "State",
+          "Empty/Error text",
+          "StatusSlot preset type",
+          "StatusSlot text"
+        ],
+        "mayDiffer": [
+          "layout",
+          "horizontal spacing token",
+          "vertical spacing token"
+        ]
+      }
+    },
+    "validationPolicy": {
+      "severity": "error",
+      "violations": [
+        "Карточки разных типов или с разными наборами параметров в одной группе.",
+        "Размещение ContentCardWrapper вне BackgroundPlate.",
+        "Произвольный swap в LeftSlot или RightSlot.",
+        "Больше двух действий в RightSlot.",
+        "Отклонение от component baseline: внешние отступы, цвета, типографика и другие component-owned свойства; интервалы между элементами являются исключением только при использовании spacing-токенов."
+      ]
+    },
+    "knownIssues": [
+      {
+        "issueId": "figma-raw-missing-skeleton-state-combinations",
+        "status": "open",
+        "evidence": "owner-confirmed",
+        "description": "В raw отсутствуют Disabled/Empty/Error + Skeleton=True, хотя Skeleton семантически допустим с любым State.",
+        "requiredAction": "Обновить Figma component set и получить новую версию raw-каталога."
+      }
+    ],
+    "responsivePolicy": {
+      "desktopRoot": "[D] ContentCardWrapper",
+      "mobileWebAndAdaptiveRoot": "[M] ContentCardWrapper",
+      "breakpointRule": "rule:layout.adaptive-alfa-business.breakpoints",
+      "exceptions": []
+    }
+  }
 }

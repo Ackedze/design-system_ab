@@ -3,7 +3,7 @@
   "documentType": "component-rules",
   "metadata": {
     "componentKey": "web-corp.content-card-wrapper",
-    "status": "draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-07"
+      "updatedAt": "2026-08-20"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -134,9 +134,9 @@
       },
       {
         "ruleId": "component:web-corp.content-card-wrapper.layer-properties-use-effective-baseline",
-        "severity": "warning",
-        "source": "composition-contract",
-        "appliesTo": "layout.*|styles.text|styles.fill|styles.stroke|fill|stroke|radius|opacity",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "layout.*|styles.*|fill|stroke|radius|opacity|token.*|variables.*",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "target": {
@@ -164,7 +164,11 @@
             "SwapMe"
           ]
         },
-        "ruleText": "Изменения layer/style внутри семейства ContentCardWrapper нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        "allowedCustomization": {
+          "interItemHorizontalGap": "token-only",
+          "interItemVerticalGap": "token-only"
+        },
+        "ruleText": "Отклонения от effective baseline ContentCardWrapper запрещены для component-owned свойств. Внешние padding, цвета, типографика, заливки, обводки, радиусы и opacity должны совпадать с baseline. Исключение: вертикальные и горизонтальные интервалы между внутренними элементами можно менять только через разрешённые spacing-токены."
       },
       {
         "ruleId": "component:web-corp.content-card-wrapper.lifecycle-context-is-informational",
@@ -179,10 +183,10 @@
         "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
       },
       {
-        "ruleId": "component:web-corp.content-card-wrapper.form-choice-only",
-        "severity": "warning",
-        "source": "pattern-link",
-        "patternRuleId": "rule:components.content-card-wrapper.form-choice-only",
+        "ruleId": "component:web-corp.content-card-wrapper.form-or-view-page",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.form-or-view-page",
         "appliesTo": "screen.composition",
         "checkType": "llm",
         "matchKind": "composition_rule",
@@ -195,17 +199,16 @@
         "requiredContext": {
           "allowedContexts": [
             "form",
-            "entity-choice",
-            "form-subscenario"
+            "view-page"
           ]
         },
-        "ruleText": "ContentCardWrapper используется на страницах форм и в сценариях выбора одной или нескольких сущностей. Не считай его универсальной навигационной карточкой."
+        "ruleText": "ContentCardWrapper чаще всего используется в формах, но также может применяться на страницах просмотра. Не ограничивай компонент только сценариями выбора сущностей."
       },
       {
-        "ruleId": "component:web-corp.content-card-wrapper.three-fields-minimum",
-        "severity": "warning",
-        "source": "pattern-link",
-        "patternRuleId": "rule:components.content-card-wrapper.three-fields-minimum",
+        "ruleId": "component:web-corp.content-card-wrapper.homogeneous-items",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.homogeneous-items",
         "appliesTo": "flow.composition",
         "checkType": "llm",
         "matchKind": "composition_rule",
@@ -216,10 +219,54 @@
           ]
         },
         "requiredContext": {
-          "recommendedMinimumFieldsPerEntity": 3,
-          "entityBlocksShouldBeHomogeneous": true
+          "itemsHaveOneType": true,
+          "itemsUseSameParameterSet": true
         },
-        "ruleText": "Карточка уместна для однотипных логических блоков формы, когда в каждом блоке 3 или больше полей. Если данных меньше, отдельная карточка может быть избыточной."
+        "ruleText": "Используй набор ContentCardWrapper для отображения элементов одного типа с одинаковым набором параметров. Не смешивай в одной группе карточки разных сущностей или с разной информационной структурой."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.modal-subflow-optimization",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.modal-subflow-optimization",
+        "appliesTo": "flow.composition",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "components": [
+            "[D] ContentCardWrapper",
+            "[M] ContentCardWrapper"
+          ]
+        },
+        "requiredContext": {
+          "repeatedFieldsOrElementsMoveToModal": true,
+          "pageKeepsCompactCard": true
+        },
+        "ruleText": "ContentCardWrapper может оптимизировать заполнение, редактирование или просмотр данных: повторяющиеся поля и элементы выносятся в модальную сущность, а на основной странице остаётся компактная карточка."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.inside-background-plate",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.inside-background-plate",
+        "appliesTo": "screen.composition",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "components": [
+            "[D] ContentCardWrapper",
+            "[M] ContentCardWrapper"
+          ]
+        },
+        "requiredComposition": {
+          "ancestor": "BackgroundPlate",
+          "allowedSiblings": [
+            "page or section title",
+            "form fields",
+            "view-page content"
+          ]
+        },
+        "ruleText": "Размещай ContentCardWrapper внутри BackgroundPlate вместе с другими элементами формы или просмотровой страницы: заголовком, полями ввода и связанным контентом."
       },
       {
         "ruleId": "component:web-corp.content-card-wrapper.entity-differentiation",
@@ -239,6 +286,7 @@
         },
         "requiredContent": {
           "mustDifferentiateEntity": true,
+          "fixedMinimumParameterCount": null,
           "exampleIdentifierSets": [
             [
               "Название",
@@ -257,15 +305,15 @@
             ]
           ]
         },
-        "ruleText": "На карточке должно быть достаточно информации, чтобы отличить сущности друг от друга: название, ИНН, БИК, имя, роль, почта, доля владения или другой бизнес-идентификатор."
+        "ruleText": "Фиксированного минимума параметров нет. На карточке должно быть достаточно информации, чтобы однозначно отличить сущность: название, ИНН, БИК, имя, роль, почта, доля владения или другой уместный бизнес-идентификатор."
       },
       {
-        "ruleId": "component:web-corp.content-card-wrapper.valid-state-skeleton-combinations",
-        "severity": "error",
-        "source": "pattern-link",
+        "ruleId": "component:web-corp.content-card-wrapper.skeleton-independent-of-state",
+        "severity": "info",
+        "source": "owner-confirmed",
         "patternRuleId": "rule:components.content-card-wrapper.skeleton-variant",
         "appliesTo": "variant.State|variant.Skeleton",
-        "checkType": "deterministic",
+        "checkType": "llm",
         "matchKind": "exact_component_rule",
         "target": {
           "component": "web-corp.content-card-wrapper",
@@ -294,14 +342,35 @@
           {
             "State": "Active",
             "Skeleton": "True"
+          },
+          {
+            "State": "Disabled",
+            "Skeleton": "True"
+          },
+          {
+            "State": "Empty",
+            "Skeleton": "True"
+          },
+          {
+            "State": "Error",
+            "Skeleton": "True"
           }
         ],
-        "ruleText": "Loading-состояние ContentCardWrapper задаётся через Skeleton=True только в сочетании State=Active. Для Active, Disabled, Empty и Error без загрузки используется Skeleton=False."
+        "implementationGap": {
+          "rawCatalogContainsSkeletonTrueOnlyFor": "Active",
+          "missingGeneratedCombinations": [
+            "Disabled + True",
+            "Empty + True",
+            "Error + True"
+          ],
+          "policy": "Не считать отсутствующие в raw комбинации запрещёнными: владелец подтвердил независимость Skeleton от State; каталог Figma требует обновления."
+        },
+        "ruleText": "Skeleton является независимым признаком загрузки и может использоваться с любым State: Active, Disabled, Empty или Error. Текущий raw экспорт содержит Skeleton=True только для Active; это разрыв каталога, а не запрет остальных комбинаций."
       },
       {
         "ruleId": "component:web-corp.content-card-wrapper.skeleton-full-card",
         "severity": "error",
-        "source": "pattern-link",
+        "source": "owner-confirmed",
         "patternRuleId": "rule:components.content-card-wrapper.skeleton-variant",
         "appliesTo": "component.composition",
         "checkType": "llm",
@@ -317,14 +386,15 @@
         },
         "requiredComposition": {
           "skeletonCoversFullCard": true,
-          "disallowManualSmallSkeletonLines": true
+          "disallowManualSmallSkeletonLines": true,
+          "blocksAllInteraction": true
         },
-        "ruleText": "В loading-состоянии скелетон должен занимать всю ширину и высоту карточки. Не заменяй Skeleton=True ручными маленькими skeleton-слоями внутри карточки."
+        "ruleText": "В loading-состоянии скелетон занимает всю ширину и высоту карточки и блокирует взаимодействие независимо от выбранного State. Не заменяй Skeleton=True ручными маленькими skeleton-слоями внутри карточки."
       },
       {
         "ruleId": "component:web-corp.content-card-wrapper.empty-placeholder-add",
-        "severity": "warning",
-        "source": "pattern-link",
+        "severity": "info",
+        "source": "owner-confirmed",
         "patternRuleId": "rule:components.content-card-wrapper.empty-placeholder-add",
         "appliesTo": "flow.composition",
         "checkType": "llm",
@@ -339,18 +409,31 @@
             "Skeleton": "False"
           }
         },
-        "requiredBehavior": {
-          "reservesPlaceForFutureCard": true,
-          "addFlowCanStartFromCardOrButton": true,
-          "afterCreateShowsNotification": true
+        "allowedCases": {
+          "additionAllowed": {
+            "cardCount": 0,
+            "cardRole": "empty-placeholder",
+            "cardClickAllowed": false,
+            "buttonBelowCardRequired": true,
+            "buttonPurpose": "add-card",
+            "buttonLabelTemplate": "Добавить [сущность]",
+            "textTemplate": "Нет добавленных [сущностей]"
+          },
+          "additionForbidden": {
+            "cardCount": 0,
+            "cardRole": "non-interactive-placeholder",
+            "cardClickAllowed": false,
+            "buttonBelowCardAllowed": false,
+            "textTemplate": "Нет добавленных [сущностей]"
+          }
         },
-        "ruleText": "State=Empty используется как placeholder: он заранее резервирует место под карточку, запускает добавление по кнопке или нажатию на placeholder и после создания должен приводить к показу Notification."
+        "ruleText": "State=Empty используется, когда карточек ещё нет. Текст строится как «Нет добавленных [сущностей]», где placeholder заменяется подходящим объектом. Сама карточка неинтерактивна. Если добавление разрешено, оно запускается только отдельной кнопкой под карточкой; иначе кнопки нет."
       },
       {
-        "ruleId": "component:web-corp.content-card-wrapper.card-click-edits",
+        "ruleId": "component:web-corp.content-card-wrapper.interaction-priority",
         "severity": "warning",
-        "source": "pattern-link",
-        "patternRuleId": "rule:components.content-card-wrapper.card-click-edits",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.interaction-priority",
         "appliesTo": "flow.behavior",
         "checkType": "llm",
         "matchKind": "composition_rule",
@@ -364,16 +447,16 @@
           }
         },
         "requiredBehavior": {
-          "cardClickOpensEdit": true,
-          "editCanUseModal": true,
-          "mobileUsesFullscreenModal": true
+          "withLeftSlot": "card click toggles Radio, Checkbox or Switch",
+          "withoutLeftSlot": "card click opens view or edit according to page context",
+          "rightSlotAction": "invokes only its own action and must not trigger the card click"
         },
-        "ruleText": "В State=Active переход в редактирование происходит по клику на всю карточку. Добавление и редактирование открываются в модалке, на MobileWeb и adaptive — в полноэкранной версии."
+        "ruleText": "При наличии LeftSlot клик по карточке переключает вложенный Radio, Checkbox или Switch. Без LeftSlot клик открывает просмотр или редактирование по контексту страницы. Клик по действию в RightSlot выполняет только это действие и не должен запускать клик карточки."
       },
       {
         "ruleId": "component:web-corp.content-card-wrapper.right-slot-actions",
-        "severity": "warning",
-        "source": "pattern-link",
+        "severity": "error",
+        "source": "owner-confirmed",
         "patternRuleId": "rule:components.content-card-wrapper.right-slot-actions",
         "appliesTo": "component.composition",
         "checkType": "llm",
@@ -389,17 +472,20 @@
         "requiredComposition": {
           "role": "action-icons",
           "maxDirectActionIcons": 2,
+          "allowedPreset": "IconButton",
+          "arbitraryComponentSwapAllowed": false,
+          "swapMeIsServicePlaceholder": true,
           "useMoreIconWhenActionsGreaterThan": 2,
           "deleteIconPosition": "rightmost",
           "deleteIconPositionException": "chevron"
         },
-        "ruleText": "RightSlot предназначен для иконок действий. Если действий больше двух, используй многоточие и dropdown. Корзинка находится справа, кроме кейсов с шевроном."
+        "ruleText": "RightSlot предназначен максимум для двух IconButton-действий. Если действий больше двух, используй многоточие и dropdown. Произвольный component swap запрещён; SwapMe является только служебной заглушкой. Корзинка находится справа, кроме кейсов с шевроном."
       },
       {
-        "ruleId": "component:web-corp.content-card-wrapper.mobile-actions-bottomsheet",
-        "severity": "warning",
-        "source": "pattern-link",
-        "patternRuleId": "rule:components.content-card-wrapper.mobile-actions-bottomsheet",
+        "ruleId": "component:web-corp.content-card-wrapper.mobile-right-slot-allowed",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.mobile-right-slot-allowed",
         "appliesTo": "flow.behavior",
         "checkType": "llm",
         "matchKind": "composition_rule",
@@ -415,15 +501,38 @@
           ]
         },
         "requiredBehavior": {
-          "doNotUseRightAddonForActionSet": true,
-          "cardTapOpensBottomSheetWithActions": true
+          "rightSlotAllowed": true,
+          "sameCompositionLimitsAsDesktop": true,
+          "bottomSheetRequired": false
         },
-        "ruleText": "В standalone и adaptive правый аддон для набора действий не используется. При тапе на карточку поднимается BottomSheet со всеми доступными действиями."
+        "ruleText": "На MobileWeb и adaptive разрешено использовать RightSlot по общим правилам компонента: максимум два IconButton и без произвольного swap. BottomSheet может определяться продуктовым сценарием, но не является обязательной заменой RightSlot."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.active-is-interactive",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "flow.behavior",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "components": [
+            "[D] ContentCardWrapper",
+            "[M] ContentCardWrapper"
+          ],
+          "variant": {
+            "State": "Active"
+          }
+        },
+        "requiredBehavior": {
+          "availableForInteraction": true,
+          "interactionPriorityRule": "component:web-corp.content-card-wrapper.interaction-priority"
+        },
+        "ruleText": "State=Active означает, что карточка доступна для взаимодействия; конкретное действие определяется наличием LeftSlot и отдельными действиями RightSlot."
       },
       {
         "ruleId": "component:web-corp.content-card-wrapper.disabled-is-view-only",
         "severity": "error",
-        "source": "pattern-link",
+        "source": "owner-confirmed",
         "patternRuleId": "rule:components.content-card-wrapper.disabled-is-view-only",
         "appliesTo": "flow.behavior",
         "checkType": "llm",
@@ -434,8 +543,7 @@
             "[M] ContentCardWrapper"
           ],
           "variant": {
-            "State": "Disabled",
-            "Skeleton": "False"
+            "State": "Disabled"
           }
         },
         "disallowedBehavior": {
@@ -445,6 +553,45 @@
           "select": true
         },
         "ruleText": "State=Disabled используется на страницах просмотра, где с карточками нельзя совершать действий: добавлять, редактировать, удалять или выбирать карточку."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.error-required-card-validation",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.error-required-card-validation",
+        "appliesTo": "flow.validation",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "components": [
+            "[D] ContentCardWrapper",
+            "[M] ContentCardWrapper"
+          ],
+          "variant": {
+            "State": "Error"
+          }
+        },
+        "requiredContext": {
+          "atLeastOneCardRequired": true,
+          "currentCardCount": 0,
+          "usesSeparateErrorComposition": true,
+          "content": "error-text",
+          "textTemplate": "Нет добавленных [сущностей]",
+          "buttonBelowCardRequired": true,
+          "buttonPurpose": "add-card",
+          "buttonLabelTemplate": "Добавить [сущность]",
+          "additionAllowed": true,
+          "displayTiming": "after-validation-trigger",
+          "typicalTrigger": "key-page-action",
+          "otherProductTriggerAllowed": true
+        },
+        "disallowedUse": {
+          "genericSystemFailureStyle": true,
+          "visualEmphasisWithoutValidation": true,
+          "whenAdditionForbidden": true,
+          "beforeValidationTrigger": true
+        },
+        "ruleText": "State=Error появляется после действия, запускающего валидацию: обычно ключевого действия страницы, но допустим другой продуктовый триггер. Error возможен только когда добавление разрешено. Текст строится как «Нет добавленных [сущностей]», label кнопки — «Добавить [сущность]»."
       },
       {
         "ruleId": "component:web-corp.content-card-wrapper.disabled-not-style",
@@ -478,7 +625,7 @@
       {
         "ruleId": "component:web-corp.content-card-wrapper.desktop-horizontal-mobile-vertical",
         "severity": "warning",
-        "source": "pattern-link",
+        "source": "owner-confirmed",
         "patternRuleId": "rule:components.content-card-wrapper.desktop-horizontal-mobile-vertical",
         "appliesTo": "component.composition",
         "checkType": "llm",
@@ -494,9 +641,15 @@
         "requiredComposition": {
           "desktopPreferredLayout": "horizontal segments",
           "mobileWebPreferredLayout": "vertical segments",
-          "mobileHorizontalException": "values intentionally aligned to opposite sides"
+          "mobileHorizontalException": "values intentionally aligned to opposite sides",
+          "interItemGapCustomization": {
+            "horizontal": "any-design-system-spacing-token",
+            "vertical": "any-design-system-spacing-token",
+            "axesIndependent": true,
+            "rawPixelValueAllowed": false
+          }
         },
-        "ruleText": "В Desktop контент лучше раскладывать по горизонтальным сегментам. В MobileWeb и adaptive сегменты выстраиваются вертикально друг под другом, кроме специальных кейсов выравнивания значений по разным сторонам карточки."
+        "ruleText": "В Desktop контент обычно раскладывается горизонтально, в MobileWeb и adaptive — вертикально. Допустимы контекстные исключения. Вертикальные и горизонтальные интервалы между элементами можно настраивать только через spacing-токены."
       },
       {
         "ruleId": "component:web-corp.content-card-wrapper.title-text-style-by-platform",
@@ -623,9 +776,168 @@
         "ruleText": "Запрещено менять стиль типографики текстовых элементов внутри ContentCardWrapper. Любое изменение styles.text у заголовков, подзаголовков, дополнительных строк, статусов и пояснений нужно считать нарушением и возвращать к component baseline."
       },
       {
+        "ruleId": "component:web-corp.content-card-wrapper.required-anatomy",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.required-anatomy",
+        "appliesTo": "component.anatomy|component.visibility",
+        "checkType": "deterministic",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "components": [
+            "[D] ContentCardWrapper",
+            "[M] ContentCardWrapper"
+          ]
+        },
+        "requiredComposition": {
+          "BackgroundPlateVisible": true,
+          "minimumVisibleMiddleContentSlots": 1,
+          "independentlyOptional": [
+            "LeftSlot",
+            "StatusSlot",
+            "additional MiddleContentSlot",
+            "RightSlot"
+          ]
+        },
+        "ruleText": "В ContentCardWrapper запрещено скрывать BackgroundPlate и последний видимый MiddleContentSlot. Должен оставаться как минимум один MiddleContentSlot; остальные slots и элементы можно скрывать независимо."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.middle-content-capacity-and-connection",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.middle-content-capacity-and-connection",
+        "appliesTo": "variant.Capacity|variant.Connected|component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "components": [
+            "🔩 MiddleContentSlot",
+            "🔩 [M] MiddleContentSlot"
+          ]
+        },
+        "allowedVariantValues": {
+          "Capacity": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "Connected": [
+            "True",
+            "False"
+          ]
+        },
+        "variantSemantics": {
+          "Capacity": "Точное количество ContentPresets внутри MiddleContentSlot.",
+          "Connected=True": "Элементы визуально связаны точками.",
+          "Connected=False": "Визуальная связь точками отсутствует."
+        },
+        "disallowedComposition": {
+          "moreThanFourContentPresets": true,
+          "manualExtensionBeyondCapacity": true
+        },
+        "ruleText": "MiddleContentSlot содержит от одного до четырёх ContentPresets. Capacity задаёт их точное количество, Connected управляет визуальной связью точками. Добавлять больше четырёх элементов через swap или ручную композицию запрещено."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.status-slot-content",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.status-slot-content",
+        "appliesTo": "component.composition|component.visibility",
+        "checkType": "deterministic",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "components": [
+            "StatusSlot"
+          ]
+        },
+        "requiredComposition": {
+          "optional": true,
+          "maxItems": 1,
+          "allowedComponents": [
+            "StatusPreset",
+            "PropertyPreset"
+          ],
+          "variantSemantics": {
+            "StatusPreset": "Показывает статус карточки.",
+            "PropertyPreset": "Акцентирует один параметр или свойство, например «Лучший»."
+          },
+          "valuesMayDifferBetweenCards": true,
+          "arbitraryComponentSwapAllowed": false
+        },
+        "ruleText": "StatusSlot можно скрывать. Если он показан, внутри находится ровно один preset: StatusPreset показывает статус карточки, PropertyPreset акцентирует один параметр или свойство, например «Лучший». Произвольный swap запрещён."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.inter-item-gap-tokenized",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.inter-item-gap-tokenized",
+        "appliesTo": "layout.gap|layout.itemSpacing",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "allowedCustomization": {
+          "horizontalGap": "any-design-system-spacing-token",
+          "verticalGap": "any-design-system-spacing-token",
+          "axesIndependent": true
+        },
+        "disallowedCustomization": {
+          "rawPixelValue": true,
+          "detachedToken": true
+        },
+        "ruleText": "Вертикальные и горизонтальные интервалы между внутренними элементами ContentCardWrapper разрешено настраивать только через spacing-токены. Ручные значения без токена являются ошибкой."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.desktop-mobile-content-parity",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.desktop-mobile-content-parity",
+        "appliesTo": "responsive.pair",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "components": [
+            "[D] ContentCardWrapper",
+            "[M] ContentCardWrapper"
+          ]
+        },
+        "requiredParity": [
+          "State",
+          "Empty/Error text",
+          "StatusSlot preset type",
+          "StatusSlot text"
+        ],
+        "allowedDifference": {
+          "layout": true,
+          "interItemSpacingTokens": true
+        },
+        "ruleText": "Для одной сущности между D/M сохраняй State, текст Empty/Error, тип preset и текст StatusSlot. Раскладка и spacing-токены могут различаться по платформе. Значения StatusPreset или PropertyPreset могут отличаться между разными карточками одной группы."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.content-presets-semantics",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "patternRuleId": "rule:components.content-card-wrapper.content-presets-semantics",
+        "appliesTo": "variant.Presets|text.role",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "components": [
+            "🔩 [D] ContentPresets",
+            "🔩 [M] ContentPresets"
+          ]
+        },
+        "variantSemantics": {
+          "ExtraTitle": "Крупный жирный заголовок, обычно главный заголовок карточки.",
+          "Title": "Небольшой заголовок.",
+          "SubTitle": "Подпись к заголовку или параметры объекта.",
+          "SwapMe": "Служебная заглушка, не пользовательский вариант."
+        },
+        "ruleText": "Выбирай ContentPresets по роли текста: ExtraTitle — крупный жирный заголовок, обычно главный заголовок карточки; Title — небольшой заголовок; SubTitle — подпись или параметры объекта. SwapMe является служебной заглушкой и не остаётся в готовом макете."
+      },
+      {
         "ruleId": "component:web-corp.content-card-wrapper.left-slot-selection",
-        "severity": "warning",
-        "source": "pattern-link",
+        "severity": "error",
+        "source": "owner-confirmed",
         "patternRuleId": "rule:components.content-card-wrapper.left-slot-selection",
         "appliesTo": "component.composition",
         "checkType": "llm",
@@ -646,9 +958,12 @@
           ],
           "radioForSingleChoice": true,
           "checkboxForMultipleChoice": true,
+          "switchForFeatureOrState": true,
+          "swapMeIsServicePlaceholder": true,
+          "arbitraryComponentSwapAllowed": false,
           "cardClickSelectsLeftControl": true
         },
-        "ruleText": "Если вся карточка работает как элемент выбора, LeftSlot принимает Radio или Checkbox в зависимости от логики выбора. При наличии левого слота клик на карточку приводит к выбору этого элемента."
+        "ruleText": "LeftSlot принимает только Radio для единичного выбора, Checkbox для множественного выбора или Switch для включения функции/состояния. SwapMe является служебной заглушкой; произвольный component swap запрещён. При наличии LeftSlot клик по всей карточке переключает вложенный контрол."
       }
     ]
   }

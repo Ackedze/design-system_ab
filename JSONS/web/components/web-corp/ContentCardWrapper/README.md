@@ -1,6 +1,51 @@
-# ContentCardWrapper — MVP component contract
+# ContentCardWrapper — component contract
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / ContentCardWrapper**.
+Папка содержит generated- и manual-слои component contract для **Web _ Corp Components / ContentCardWrapper**.
+
+## Статус
+
+**Ready.** Назначение, публичная граница, anatomy, properties, states, interactions, responsive parity, тексты Empty/Error, slot restrictions, spacing rules и severity подтверждены владельцем AB-слоя 2026-08-20. Известный разрыв Skeleton-вариантов и отсутствие подтверждённого runtime API описаны явно и не блокируют готовность knowledge-пакета.
+
+## Назначение
+
+`ContentCardWrapper` чаще всего используется в формах, но также применяется на страницах просмотра. Компонент отображает элементы одного типа с одинаковым набором параметров.
+
+Основные сценарии:
+
+- показать однотипные сущности в виде однородных карточек;
+- оптимизировать заполнение, редактирование или просмотр данных: повторяющиеся поля и элементы переносятся в модальную сущность, а на основной странице остаётся компактная карточка.
+
+Карточки располагаются внутри `BackgroundPlate` вместе с другими элементами формы или просмотровой страницы: заголовками, полями ввода и связанным контентом.
+
+Публичны только `[D] ContentCardWrapper` и `[M] ContentCardWrapper`. Компоненты `🔩 LeftSlot`, `🔩 MiddleContentSlot`, `🔩 RightSlot`, `🔩 ContentPresets` и `SwapMe` являются внутренними частями и не используются отдельно.
+
+В корневой карточке всегда остаются видимыми `BackgroundPlate` и минимум один `MiddleContentSlot`; остальные slots и элементы можно скрывать независимо. `MiddleContentSlot` содержит от одного до четырёх `ContentPresets`: `Capacity` задаёт точное количество, а `Connected=True` добавляет визуальную связь точками. Ручное добавление пятого элемента запрещено.
+
+`LeftSlot` принимает только `Radio`, `Checkbox` или `Switch`; клик по карточке переключает вложенный контрол. `RightSlot` содержит максимум два `IconButton`-действия. Произвольный component swap в этих slots запрещён. `SwapMe` — служебная заглушка и не должен оставаться в готовом макете.
+
+В `ContentPresets` вариант `ExtraTitle` обозначает крупный жирный заголовок и обычно используется как главный заголовок карточки. `Title` — небольшой заголовок, `SubTitle` — подпись к заголовку или параметры объекта.
+
+`State=Active` означает доступность карточки для взаимодействия. `State=Disabled` оставляет карточку только для просмотра и запрещает добавление, редактирование, удаление и выбор. `State=Error` — состояние валидации, когда по бизнес-правилу обязательна хотя бы одна карточка, но карточек нет.
+
+Текст `Empty` и `Error` строится по шаблону «Нет добавленных [сущностей]», где placeholder заменяется подходящим объектом: например, «Нет добавленных товаров» или «Нет добавленных компаний». Label кнопки строится как «Добавить [сущность]»: например, «Добавить товар» или «Добавить документ». `State=Empty` применяется при нулевом количестве карточек. Сама карточка всегда неинтерактивна: если добавить карточку можно, сценарий запускается только отдельной кнопкой под placeholder; если нельзя, кнопки нет.
+
+`State=Error` использует отдельную композицию с текстом ошибки и кнопкой добавления под карточкой. Он появляется после триггерного действия, запускающего валидацию — обычно ключевого действия страницы, хотя продукт может задавать другой триггер. `Error` невозможен, если добавление карточки запрещено.
+
+`Skeleton=True` допустим с любым `State`, занимает всю карточку и блокирует взаимодействие. При наличии `LeftSlot` клик по карточке переключает вложенный контрол; без `LeftSlot` открывает просмотр или редактирование по контексту. Действие из `RightSlot` выполняется изолированно и не должно запускать основной клик карточки.
+
+Desktop обычно использует горизонтальную раскладку сегментов, MobileWeb и adaptive — вертикальную; контекстные исключения допустимы. Для вертикальных и горизонтальных интервалов между внутренними элементами можно независимо выбрать любой spacing-токен дизайн-системы. Внешние padding карточки остаются неизменяемыми. `RightSlot` разрешён и на MobileWeb; `BottomSheet` может определяться отдельным продуктовым сценарием, но не является обязательной заменой слота.
+
+`StatusSlot` опционален и содержит не больше одного preset. `StatusPreset` используется для статуса карточки, `PropertyPreset` — чтобы акцентировать один параметр или свойство, например «Лучший». Значения могут различаться у разных карточек одной группы.
+
+Для одной сущности между D/M сохраняются `State`, текст `Empty`/`Error`, тип и текст `StatusSlot`. Раскладка и выбранные spacing-токены могут различаться.
+
+Фиксированного минимума параметров нет: карточка должна содержать любой достаточный набор данных, который однозначно идентифицирует сущность в текущем контексте.
+
+Ошибками считаются смешение разных типов сущностей или наборов параметров в одной группе, размещение вне `BackgroundPlate`, произвольный swap в `LeftSlot`, `RightSlot` или `StatusSlot`, больше двух действий в `RightSlot`, отклонения component-owned свойств от baseline и ручные inter-item gaps без spacing-токена.
+
+> Известный разрыв каталога: текущий raw экспорт содержит `Skeleton=True` только для `State=Active`. Комбинации `Disabled`, `Empty` и `Error` с `Skeleton=True` подтверждены владельцем, поэтому их нельзя считать запрещёнными; Figma component set и raw-каталог требуют обновления.
+
+Правильное имя семейства — `ContentCardWrapper`. Упоминание `NavigationCardWrapper` в части Figma-документации является ошибкой и не задаёт alias или replacement.
 
 The raw Figma catalog remains the source of truth:
 
@@ -8,21 +53,16 @@ The raw Figma catalog remains the source of truth:
 
 ## Файлы
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+- `contract.generated.json` — generated compact contract из raw Figma catalog.
+- `contract.overrides.json` — manual semantic layer поверх generated baseline.
+- `composition-contract.json` — ownership вложенных instances и composition rules.
+- `rules.json` — component-level classification и подтверждённые design rules.
+- `audit-mapping.json` — модель группировки Apollo.
+- `examples.json` — regression-примеры трактовки.
+- `agent-context.json` — compact context для агента.
 
 ## Источник
 
 - Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
+- Raw обновлён: `2026-07-27T12:58:40.628Z`
 - Компонентов: `11`
-
-## Current Scope
-
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.

@@ -3,7 +3,7 @@
   "documentType": "component-agent-context",
   "metadata": {
     "componentKey": "web-corp.content-card-wrapper",
-    "status": "generated-draft",
+    "status": "ready",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-27"
+      "updatedAt": "2026-08-20"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -47,8 +47,120 @@
     "summary": {
       "componentFamily": "ContentCardWrapper",
       "library": "Web _ Corp Components",
-      "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
+      "purpose": "Компонент для однородных карточек одного типа с одинаковым набором параметров на формах и страницах просмотра, а также для переноса повторяющихся полей и элементов в модальный подсценарий."
     },
+    "usageGuidance": [
+      "Используй только публичные roots [D] ContentCardWrapper и [M] ContentCardWrapper; компоненты с префиксом 🔩 и SwapMe являются внутренними.",
+      "Не ограничивай ContentCardWrapper формами: компонент допустим и на страницах просмотра.",
+      "Все карточки одной группы должны отображать сущности одного типа с одинаковым набором параметров.",
+      "Для оптимизации flow повторяющиеся поля или элементы можно перенести в модальную сущность, оставив на странице компактную карточку.",
+      "Размещай набор ContentCardWrapper внутри BackgroundPlate вместе с заголовком, полями ввода или другим связанным содержимым страницы.",
+      "Не скрывай BackgroundPlate и последний видимый MiddleContentSlot; остальные slots можно скрывать независимо.",
+      "LeftSlot допускает только Radio, Checkbox или Switch. SwapMe — служебная заглушка; клик по карточке переключает вложенный контрол.",
+      "Capacity задаёт от одного до четырёх ContentPresets; Connected=True связывает их точками. Не добавляй пятый элемент вручную.",
+      "RightSlot содержит максимум два IconButton-действия и не допускает произвольный component swap.",
+      "ExtraTitle — крупный заголовок, обычно главный заголовок карточки.",
+      "State=Active доступен для взаимодействия; State=Disabled оставляет карточку только для просмотра; State=Error используется, когда обязательна хотя бы одна карточка, но карточек нет.",
+      "Текст Empty и Error строится по шаблону «Нет добавленных [сущностей]», где placeholder заменяется подходящим объектом, например товарами или компаниями.",
+      "Label кнопки добавления строится как «Добавить [сущность]», например «Добавить товар» или «Добавить документ».",
+      "State=Empty используется только при нулевом количестве карточек и всегда неинтерактивен: если добавление возможно, оно запускается только отдельной кнопкой под placeholder; если невозможно, кнопки нет.",
+      "State=Error использует отдельную композицию с текстом ошибки и кнопкой добавления под карточкой, появляется после триггера валидации и невозможен, если добавление запрещено.",
+      "Skeleton=True допустим с любым State, закрывает всю карточку и блокирует взаимодействие. Отсутствующие в текущем raw комбинации Disabled/Empty/Error + True не считай запрещёнными.",
+      "С LeftSlot клик по карточке переключает контрол; без LeftSlot открывает просмотр или редактирование; RightSlot-действие не должно запускать клик карточки.",
+      "На Desktop обычно используй горизонтальные сегменты, на MobileWeb и adaptive — вертикальные, но контекстные исключения допустимы; мобильный RightSlot разрешён и не требует обязательного BottomSheet.",
+      "StatusSlot можно скрывать; если он показан, используй ровно один preset: StatusPreset для статуса карточки или PropertyPreset для акцента на одном параметре, например «Лучший». Значения могут отличаться у разных карточек.",
+      "Фиксированного минимума параметров нет: набор должен однозначно идентифицировать сущность в текущем контексте.",
+      "Считай ошибкой смешение разных сущностей или структуры параметров, размещение вне BackgroundPlate, произвольный swap в LeftSlot/RightSlot/StatusSlot, больше двух RightSlot-действий и отклонение component-owned свойств от baseline. Для вертикальных и горизонтальных интервалов можно независимо выбрать любой spacing-токен дизайн-системы.",
+      "Для одной сущности сохраняй между D/M State, текст Empty/Error, тип и текст StatusSlot; layout и spacing-токены могут различаться.",
+      "Используй [D] root на desktop и [M] root на mobile-web и adaptive.",
+      "NavigationCardWrapper в Figma-документации является ошибочным названием, а не alias или replacement.",
+      "Повышай severity только по exact component rule или применимому pattern rule; пример сам по себе не является evidence."
+    ],
+    "criticalBaselines": [
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.homogeneous-items",
+        "baseline": "Карточки одной группы относятся к одному типу сущности и используют одинаковый набор параметров."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.inside-background-plate",
+        "baseline": "ContentCardWrapper располагается внутри BackgroundPlate в контексте формы или страницы просмотра."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.required-anatomy",
+        "baseline": "BackgroundPlate и минимум один MiddleContentSlot всегда остаются видимыми."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.middle-content-capacity-and-connection",
+        "baseline": "MiddleContentSlot содержит 1–4 элемента; Connected управляет только визуальной связью точками."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.skeleton-independent-of-state",
+        "baseline": "Skeleton=True допустим с Active, Disabled, Empty и Error и блокирует любое взаимодействие."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.disabled-is-view-only",
+        "baseline": "Disabled разрешает только просмотр и исключает добавление, редактирование, удаление и выбор."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.error-required-card-validation",
+        "baseline": "Error означает ошибку обязательности: требуется хотя бы одна карточка, но карточек нет."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.interaction-priority",
+        "baseline": "LeftSlot получает приоритет клика карточки, RightSlot обрабатывает только своё действие, иначе карточка открывает просмотр или редактирование."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.empty-placeholder-add",
+        "baseline": "Empty при разрешённом добавлении требует отдельную кнопку под карточкой; при запрещённом добавлении остаётся неинтерактивным placeholder без кнопки."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.mobile-right-slot-allowed",
+        "baseline": "RightSlot разрешён на MobileWeb/adaptive; BottomSheet не обязателен."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.layer-properties-use-effective-baseline",
+        "baseline": "Отклонения component-owned свойств от baseline являются ошибкой; inter-item gap допускает настройку только spacing-токеном."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.status-slot-content",
+        "baseline": "StatusSlot опционален и содержит ровно один preset: StatusPreset для статуса или PropertyPreset для акцента на одном параметре."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.inter-item-gap-tokenized",
+        "baseline": "Для вертикального и горизонтального интервала независимо выбирается любой spacing-токен дизайн-системы."
+      },
+      {
+        "ruleId": "component:web-corp.content-card-wrapper.desktop-mobile-content-parity",
+        "baseline": "Между D/M одной сущности совпадают State, Empty/Error text и тип/текст StatusSlot."
+      }
+    ],
+    "agentInstructions": [
+      "Не называй ContentCardWrapper универсальной навигационной карточкой.",
+      "Не утверждай, что компонент допустим только в форме или только в сценарии выбора.",
+      "Не используй NavigationCardWrapper как синоним ContentCardWrapper.",
+      "Не предлагай вставлять внутренние 🔩-компоненты отдельно.",
+      "Не считай SwapMe разрешённым пользовательским вариантом.",
+      "Не предлагай скрывать BackgroundPlate, последний MiddleContentSlot или добавлять больше четырёх ContentPresets.",
+      "Не предлагай произвольный component swap в LeftSlot или RightSlot.",
+      "Не называй Disabled интерактивным состоянием и не используй Error как произвольный визуальный стиль.",
+      "Не ограничивай Skeleton=True состоянием Active только потому, что остальные комбинации отсутствуют в текущем raw.",
+      "Не запрещай RightSlot на MobileWeb и не требуй BottomSheet без отдельного продуктового правила.",
+      "Не разрешай менять edge padding, цвета или другие component-owned baseline-свойства ContentCardWrapper; inter-item gap разрешай только через spacing-токены.",
+      "Не делай Empty кликабельным и не запускай добавление по нажатию на карточку.",
+      "Не подставляй произвольный компонент в StatusSlot вместо StatusPreset или PropertyPreset и не размещай больше одного preset.",
+      "Не изменяй конструкцию текста Empty/Error «Нет добавленных [сущностей]» или label «Добавить [сущность]»; заменяй только сущность по смыслу.",
+      "Не показывай Error до validation-trigger и не используй его, когда добавление запрещено.",
+      "Не допускай расхождения State, Empty/Error text или StatusSlot type/text между D/M одной сущности."
+    ],
+    "unresolvedQuestions": [],
+    "knownImplementationGaps": [
+      {
+        "gap": "raw-skeleton-state-combinations",
+        "currentRaw": "Skeleton=True существует только с State=Active.",
+        "ownerConfirmedTarget": "Skeleton=True допустим с Active, Disabled, Empty и Error.",
+        "action": "Обновить Figma component set и получить новый raw-каталог."
+      }
+    ],
     "components": [
       {
         "name": "[D] ContentCardWrapper",
