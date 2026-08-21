@@ -488,6 +488,11 @@ MobileWeb повторяет desktop-строку из нескольких уз
 ### Rule 12: Используй платформенный стиль заголовка
 
 - ruleId: rule:components.content-card-wrapper.title-text-style-by-platform
+- componentRuleId: component:web-corp.content-card-wrapper.title-text-style-by-platform
+- ruleKind: design-rule
+- authorityStatus: active
+- authorityProvenance: design-system-author
+- authorityRevision: 1
 - severity: error
 - appliesTo: text
 - checkType: deterministic
@@ -543,6 +548,11 @@ LeftSlot оставлен в SwapMe или заменён произвольны
 ### Rule 14: Не меняй отступы до краёв карточки
 
 - ruleId: rule:components.content-card-wrapper.edge-padding-immutable
+- componentRuleId: component:web-corp.content-card-wrapper.edge-padding-immutable
+- ruleKind: design-rule
+- authorityStatus: active
+- authorityProvenance: design-system-author
+- authorityRevision: 1
 - severity: error
 - appliesTo: component
 - checkType: deterministic
@@ -571,6 +581,11 @@ LeftSlot оставлен в SwapMe или заменён произвольны
 ### Rule 15: Не меняй уровень BackgroundPlate
 
 - ruleId: rule:components.content-card-wrapper.background-plate-level-by-platform
+- componentRuleId: component:web-corp.content-card-wrapper.background-plate-level-by-platform
+- ruleKind: design-rule
+- authorityStatus: active
+- authorityProvenance: design-system-author
+- authorityRevision: 1
 - severity: error
 - appliesTo: component
 - checkType: deterministic
@@ -599,6 +614,11 @@ MobileWeb: BackgroundPlate Position=Level 2 (inner)
 ### Rule 16: Не меняй стили типографики текстовых элементов
 
 - ruleId: rule:components.content-card-wrapper.text-style-immutable
+- componentRuleId: component:web-corp.content-card-wrapper.text-style-immutable
+- ruleKind: design-rule
+- authorityStatus: active
+- authorityProvenance: design-system-author
+- authorityRevision: 1
 - severity: error
 - appliesTo: text
 - checkType: deterministic
@@ -713,6 +733,11 @@ MiddleContentSlot count: 0
 ### Rule 20: Не превышай Capacity MiddleContentSlot
 
 - ruleId: rule:components.content-card-wrapper.middle-content-capacity-and-connection
+- componentRuleId: component:web-corp.content-card-wrapper.middle-content-capacity-and-connection
+- ruleKind: design-rule
+- authorityStatus: active
+- authorityProvenance: design-system-author
+- authorityRevision: 1
 - severity: error
 - appliesTo: component
 - checkType: deterministic
@@ -751,6 +776,11 @@ Capacity и Connected являются частью компонентной к�
 ### Rule 22: Используй Error только для ошибки обязательного набора
 
 - ruleId: rule:components.content-card-wrapper.error-required-card-validation
+- componentRuleId: component:web-corp.content-card-wrapper.error-required-card-validation
+- ruleKind: design-rule
+- authorityStatus: active
+- authorityProvenance: design-system-author
+- authorityRevision: 1
 - severity: error
 - appliesTo: flow
 - checkType: llm
@@ -778,6 +808,11 @@ State=Error используется для красной обводки
 ### Rule 23: Не отклоняйся от component baseline
 
 - ruleId: rule:components.content-card-wrapper.layer-properties-use-effective-baseline
+- componentRuleId: component:web-corp.content-card-wrapper.layer-properties-use-effective-baseline
+- ruleKind: design-rule
+- authorityStatus: active
+- authorityProvenance: design-system-author
+- authorityRevision: 1
 - severity: error
 - appliesTo: component
 - checkType: deterministic
@@ -805,6 +840,11 @@ BackgroundPlate fill заменён на ручной hex.
 ### Rule 25: Настраивай интервалы только токенами
 
 - ruleId: rule:components.content-card-wrapper.inter-item-gap-tokenized
+- componentRuleId: component:web-corp.content-card-wrapper.inter-item-gap-tokenized
+- ruleKind: design-rule
+- authorityStatus: active
+- authorityProvenance: design-system-author
+- authorityRevision: 1
 - severity: error
 - appliesTo: component
 - checkType: deterministic
