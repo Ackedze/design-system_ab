@@ -192,28 +192,29 @@ BackgroundPlate Position=Level 1 (outer)
 - ruleId: rule:components.background-plate.level-2-over-level-1
 - severity: error
 - appliesTo: component
-- checkType: llm
+- checkType: deterministic
 - autofix: no
 
-`Level 2` — внутренний слой наложения. Он всегда располагается только поверх `Level 1`.
+`Level 2` — внутренний слой наложения. Он всегда располагается только поверх `Level 1`. В Figma оба экземпляра размещаются sibling-слоями в общем Auto Layout: `Level 1` переводится в `Absolute`, а `Level 2` остаётся обычным Auto Layout child поверх него.
 
 #### Правильно
 
 ```text
-BackgroundPlate Level 1
-  BackgroundPlate Level 2
+Auto Layout container
+├── BackgroundPlate Level 1 [positioning=ABSOLUTE, первый слой]
+└── BackgroundPlate Level 2 [positioning=AUTO, поверх Level 1]
 ```
 
 #### Неправильно
 
 ```text
-BackgroundPlate Level 2
-без родительского BackgroundPlate Level 1
+BackgroundPlate Level 2 без общего Auto Layout
+и без ABSOLUTE-подложки BackgroundPlate Level 1
 ```
 
 #### Почему
 
-`Level 2` нужен только для вложения внутрь `Level 1` и никогда не используется как самостоятельный блок. Исключений для отдельных компонентов нет.
+`Level 2` никогда не используется как самостоятельный блок. Для корректного наложения границы `Level 1` должны содержать `Level 2`, `Level 1` должен находиться перед ним в порядке слоёв и иметь `positioning=ABSOLUTE`. Исключений для отдельных компонентов нет.
 
 ### Rule 4: Не требуй Level 2 для обычного контента слота
 
@@ -234,10 +235,10 @@ BackgroundPlate Level 1
 ```
 
 ```text
-BackgroundPlate Level 1
-  Slot
-    BackgroundPlate Level 2
-      Вложенный контент
+Auto Layout container
+├── BackgroundPlate Level 1 [ABSOLUTE]
+└── BackgroundPlate Level 2 [AUTO]
+    └── Вложенный контент
 ```
 
 #### Неправильно
@@ -869,7 +870,7 @@ padding-left: 16 px вручную без Spacing token
 ### Детерминированные проверки
 
 - Проверять, что компонент относится к `[D] BackgroundPlate`, `[M] BackgroundPlate`, `[D] BackgroundPlateSlot`, `[M] BackgroundPlateSlot` или их `[Promo]` вариантам.
-- Проверять, что `Position=Level 2 (inner)` не используется как самостоятельная подложка без `Level 1`.
+- Проверять, что `Position=Level 2 (inner)` находится с `Level 1 (outer)` в общем Auto Layout, где `Level 1` имеет `positioning=ABSOLUTE`, расположен перед `Level 2` и геометрически содержит его.
 - Проверять соответствие `BackgroundColor` фону страницы: `base-bg-alt (gray)` для серого фона, `base-bg (white)` для белого фона.
 - Проверять, что все `BackgroundPlate` на странице используют один `BackgroundColor`, если не найден отдельный фоновой контекст.
 - Проверять запрет `Type=Secondary` для `Position=Level 2 (inner)`.
@@ -889,7 +890,6 @@ padding-left: 16 px вручную без Spacing token
 ### LLM-проверки
 
 - Проверять, что `Level 1` используется как внешний слой смыслового блока.
-- Проверять, что `Level 2` используется как внутренний слой поверх `Level 1`.
 - Проверять, что в адаптиве `Level 2` не остаётся без внешнего `Level 1`.
 - Проверять, что в адаптиве лишние внутренние `32 px` в подобных вложенных конструкциях убраны.
 - Проверять, что ручные прямоугольники не заменяют доступный компонент `BackgroundPlate`.

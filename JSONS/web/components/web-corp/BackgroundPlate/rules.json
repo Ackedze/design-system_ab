@@ -341,12 +341,14 @@
         "source": "pattern-link",
         "patternRuleId": "rule:components.background-plate.level-2-over-level-1",
         "appliesTo": "component.composition",
-        "checkType": "llm",
+        "checkType": "deterministic",
         "matchKind": "composition_rule",
         "conditions": {
           "components": [
             "[D] BackgroundPlate",
             "[M] BackgroundPlate",
+            "[D] BackgroundPlateSlot",
+            "[M] BackgroundPlateSlot",
             "[D][Promo] BackgroundPlate",
             "[M][Promo] BackgroundPlate"
           ],
@@ -355,22 +357,26 @@
           }
         },
         "requiredComposition": {
-          "requiredParent": {
+          "sharedAutoLayoutContainer": true,
+          "requiredUnderlay": {
             "component": "BackgroundPlate",
             "variant": {
               "Position": "Level 1 (outer)"
-            }
+            },
+            "layoutPositioning": "ABSOLUTE"
           },
-          "directParentRequired": true,
+          "subjectLayoutPositioning": "AUTO",
+          "stackingOrder": "underlay-before-subject",
+          "geometry": "underlay-contains-subject",
           "allowStandalone": false,
           "allowContractExceptions": false
         },
-        "remediation": "Переместите Level-2 непосредственно внутрь BackgroundPlate Level-1 либо измените самостоятельную поверхность на Level-1.",
-        "ruleText": "BackgroundPlate с Position=Level 2 (inner) всегда должен располагаться поверх BackgroundPlate Level 1. Самостоятельный Level 2 запрещён без исключений.",
+        "remediation": "Соберите Level-1 и Level-2 в общем Auto Layout: переведите Level-1 в Absolute, расположите его первым как подложку, а Level-2 оставьте обычным Auto Layout child поверх него.",
+        "ruleText": "BackgroundPlate с Position=Level 2 (inner) всегда должен располагаться поверх BackgroundPlate Level 1. Корректная Figma-композиция использует общий Auto Layout: Level-1 и Level-2 являются sibling-слоями, Level-1 имеет absolute positioning, расположен перед Level-2 и геометрически содержит его. Самостоятельный Level-2 запрещён без исключений.",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
         }
       },
       {
