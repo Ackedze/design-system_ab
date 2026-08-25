@@ -140,7 +140,7 @@
         },
         "expectedAudit": {
           "violation": false,
-          "ruleId": "component:web-corp.payment-control.hint-content-and-icon"
+          "ruleId": "component:web-corp.payment-control.hint-and-error-one-line"
         },
         "expectedAgent": {
           "summary": "Допустимое скрытие опциональной информационной иконки."
@@ -229,6 +229,91 @@
         },
         "mustNotSay": [
           "Ручное изменение отступов является штатной настройкой PaymentControl."
+        ]
+      },
+      {
+        "exampleId": "payment-control-error-corrected",
+        "kind": "positive",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "previousState": "ErrorFilled",
+          "value": "valid",
+          "focus": true,
+          "numericKeyboardOpen": true,
+          "State": "ActiveFilled"
+        },
+        "expectedAudit": {
+          "violation": false,
+          "ruleId": "component:web-corp.payment-control.state-follows-runtime-context"
+        },
+        "expectedAgent": {
+          "summary": "После исправления ошибки сфокусированный контрол возвращается в ActiveFilled."
+        },
+        "mustNotSay": [
+          "После исправления суммы нужно закрыть клавиатуру или оставить ErrorFilled."
+        ]
+      },
+      {
+        "exampleId": "payment-control-disabled-info-icon",
+        "kind": "context-dependent",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "State": "DisabledFilled",
+          "amountInteractive": false,
+          "continueActionVisible": false,
+          "hintInformationIconInteractive": true
+        },
+        "expectedAudit": {
+          "violation": false,
+          "ruleId": "component:web-corp.payment-control.disabled-interaction"
+        },
+        "expectedAgent": {
+          "summary": "Допустимый доступ к пояснению при заблокированном вводе."
+        },
+        "mustNotSay": [
+          "Disabled обязательно блокирует информационную иконку."
+        ]
+      },
+      {
+        "exampleId": "payment-control-multiline-hint",
+        "kind": "negative",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "hintLines": 2,
+          "overflow": "wrap"
+        },
+        "expectedAudit": {
+          "violation": true,
+          "severity": "error",
+          "ruleId": "component:web-corp.payment-control.hint-content-and-icon"
+        },
+        "expectedAgent": {
+          "recommendation": "Сократить Hint до одной строки и использовать ellipsis при переполнении."
+        },
+        "mustNotSay": [
+          "Многострочный Hint является штатным поведением PaymentControl."
+        ]
+      },
+      {
+        "exampleId": "payment-control-next-iconview-override",
+        "kind": "negative",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "State": "Filled",
+          "target": "continueAction.IconView",
+          "property": "variant.Size",
+          "actual": "custom"
+        },
+        "expectedAudit": {
+          "violation": true,
+          "severity": "error",
+          "ruleId": "component:web-corp.payment-control.continue-action-by-state"
+        },
+        "expectedAgent": {
+          "recommendation": "Сбросить все параметры кнопки продолжения и её IconView к baseline Filled."
+        },
+        "mustNotSay": [
+          "Параметры IconView кнопки разрешено менять."
         ]
       }
     ]

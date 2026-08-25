@@ -227,11 +227,11 @@
             "ErrorFilled"
           ],
           "action": "next-step",
-          "iconEditable": false,
-          "appearanceEditable": false
+          "buttonPropertiesEditable": false,
+          "iconViewPropertiesEditable": false
         },
-        "remediation": "Восстановите штатную видимость и внешний вид кнопки продолжения для выбранного State.",
-        "ruleText": "Кнопка продолжения обязательна только в ActiveFilled и Filled и переводит на следующий шаг. В Empty, Active, DisabledEmpty, DisabledFilled и ErrorFilled она скрыта. Иконку и внешний вид кнопки менять нельзя.",
+        "remediation": "Восстановите штатную видимость и все параметры кнопки продолжения и её IconView для выбранного State.",
+        "ruleText": "Кнопка продолжения обязательна только в ActiveFilled и Filled и переводит на следующий шаг. В Empty, Active, DisabledEmpty, DisabledFilled и ErrorFilled она скрыта. Изменение любых параметров кнопки или её IconView запрещено.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
@@ -268,9 +268,30 @@
           "hintTextEditable": true,
           "informationIconOptional": true,
           "informationIconDefaultInErrorFilled": false,
-          "informationIconAction": "open-description-sheet"
+          "informationIconAction": "open-description-sheet",
+          "informationIconInteractiveInDisabled": true
         },
-        "ruleText": "Hint обязателен, но его текст свободно редактируется для лимитов, комиссии и другой поясняющей информации. Информационная иконка опциональна; в ErrorFilled она скрыта по умолчанию, а по нажатию открывает штору с дополнительным описанием."
+        "ruleText": "Hint обязателен, но его текст свободно редактируется для лимитов, комиссии и другой поясняющей информации. Информационная иконка опциональна, может оставаться кликабельной в Disabled; в ErrorFilled она скрыта по умолчанию, а по нажатию открывает штору с дополнительным описанием."
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.hint-and-error-one-line",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "content.hint|content.errorText|layout.text",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "maxLines": 1,
+          "overflow": "ellipsis"
+        },
+        "remediation": "Сократите Hint или error text до одной строки и примените ellipsis при переполнении.",
+        "ruleText": "Hint и error text занимают максимум одну строку; переполнение должно обрезаться ellipsis. Перенос на вторую строку запрещён.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
         "ruleId": "component:web-corp.payment-control.fixed-bottom-layout",
@@ -308,8 +329,11 @@
             "blur+filled": "Filled",
             "disabled+empty": "DisabledEmpty",
             "disabled+filled": "DisabledFilled",
-            "invalid+filled": "ErrorFilled"
-          }
+            "invalid+filled": "ErrorFilled",
+            "corrected+focused": "ActiveFilled"
+          },
+          "ErrorFilledKeepsFocus": true,
+          "ErrorFilledKeepsNumericKeyboardOpen": true
         },
         "remediation": "Выберите State, соответствующий фактическим focus, value, disabled и validation-состояниям.",
         "ruleText": "State переключается автоматически по runtime-контексту. Несоответствие State фактическому фокусу, наличию суммы, disabled или validation-состоянию запрещено.",
@@ -355,6 +379,55 @@
         },
         "remediation": "Переключите контрол в ErrorFilled сразу после ввода недопустимого значения.",
         "ruleText": "После ввода недопустимого значения сразу показывай ErrorFilled; не откладывай ошибку до нажатия кнопки продолжения.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.disabled-interaction",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.State|component.focus|component.interaction",
+        "checkType": "manual",
+        "matchKind": "interaction_rule",
+        "conditions": {
+          "states": [
+            "DisabledEmpty",
+            "DisabledFilled"
+          ],
+          "amountFocusAllowed": false,
+          "numericKeyboardOpens": false,
+          "continueActionAvailable": false,
+          "informationIconMayRemainInteractive": true
+        },
+        "remediation": "Отключите фокус, вызов клавиатуры и продолжение в Disabled; не блокируйте отдельно инфоиконку, если продукт сохраняет доступ к пояснению.",
+        "ruleText": "В DisabledEmpty и DisabledFilled область суммы не получает фокус, клавиатура не открывается и продолжение недоступно. Опциональная информационная иконка может оставаться кликабельной.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.no-additional-async-states",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.state|component.composition",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "unsupported": [
+            "Loading",
+            "Skeleton",
+            "Success"
+          ]
+        },
+        "remediation": "Не моделируйте Loading, Skeleton или Success внутри PaymentControl; используйте сценарное решение вне компонента.",
+        "ruleText": "PaymentControl не имеет отдельных Loading, Skeleton и Success состояний; добавлять или имитировать их внутри компонента запрещено.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",

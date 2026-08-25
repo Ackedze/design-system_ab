@@ -251,6 +251,40 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "breakpoint-map",
+          "identity": "web-corp.card-swiper-mobile",
+          "widthFact": "page.context.viewportWidth",
+          "targetFact": "component.properties.Screen Size",
+          "ranges": [
+            {
+              "lower": 320,
+              "upper": 359,
+              "bounds": "inclusive",
+              "expected": "320-360"
+            },
+            {
+              "lower": 360,
+              "expected": "360+"
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Screen Size не соответствует ширине страницы",
+            "observed": "При ширине {{context}} px выбран Screen Size={{actual}}.",
+            "expectation": "При ширине 320–359 px используется Screen Size=320-360; при ширине от 360 px — Screen Size=360+.",
+            "action": "Выбрать Screen Size, соответствующий ширине страницы.",
+            "contextFact": "page.context.viewportWidth",
+            "targetFact": "component.properties.Screen Size"
+          },
+          "scope": {
+            "platform": [
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {

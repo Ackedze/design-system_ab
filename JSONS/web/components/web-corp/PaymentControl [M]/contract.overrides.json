@@ -124,9 +124,14 @@
         "blur+filled": "Filled",
         "disabled+empty": "DisabledEmpty",
         "disabled+filled": "DisabledFilled",
-        "invalid+filled": "ErrorFilled"
+        "invalid+filled": "ErrorFilled",
+        "corrected+focused": "ActiveFilled"
       },
-      "manualMismatchAllowed": false
+      "manualMismatchAllowed": false,
+      "ErrorFilled": {
+        "keepsFocus": true,
+        "keepsNumericKeyboardOpen": true
+      }
     },
     "anatomy": {
       "requiredParts": [
@@ -176,8 +181,11 @@
       ],
       "informationIcon": {
         "optional": true,
-        "interaction": "По нажатию открывает штору с дополнительным описанием."
-      }
+        "interaction": "По нажатию открывает штору с дополнительным описанием.",
+        "interactiveInDisabledState": true
+      },
+      "lineLimit": 1,
+      "overflow": "ellipsis"
     },
     "validation": {
       "timing": "immediate-after-invalid-input",
@@ -196,6 +204,22 @@
       "informationIcon": "Отдельная кликабельная зона; открывает штору с дополнительным описанием.",
       "hintText": "Не кликабелен.",
       "continueAction": "Переход к следующему шагу."
+    },
+    "disabledBehavior": {
+      "amountFocusAllowed": false,
+      "numericKeyboardOpens": false,
+      "continueActionAvailable": false,
+      "informationIconMayRemainInteractive": true
+    },
+    "additionalStates": {
+      "Loading": "not-supported",
+      "Skeleton": "not-supported",
+      "Success": "not-supported"
+    },
+    "continueActionProtection": {
+      "allButtonPropertiesEditable": false,
+      "allIconViewPropertiesEditable": false,
+      "deviationSeverity": "error"
     },
     "customizationBoundary": {
       "allowed": [

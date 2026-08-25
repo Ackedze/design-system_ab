@@ -165,7 +165,9 @@
         "summary": "State автоматически следует фактическим focus, value, disabled и validation-состояниям; недопустимое значение немедленно включает ErrorFilled.",
         "ruleIds": [
           "component:web-corp.payment-control.state-follows-runtime-context",
-          "component:web-corp.payment-control.invalid-value-shows-error-immediately"
+          "component:web-corp.payment-control.invalid-value-shows-error-immediately",
+          "component:web-corp.payment-control.disabled-interaction",
+          "component:web-corp.payment-control.no-additional-async-states"
         ]
       },
       {
@@ -188,6 +190,11 @@
       "Интерпретируй Empty, Active, ActiveFilled, Filled, DisabledEmpty, DisabledFilled и ErrorFilled по exact rule state-semantics.",
       "Не считай смену валюты, показ дробной части или Addon нарушением без контекста: вложенный Amount наследует контракт Core Amount.",
       "Информационная иконка Hint опциональна; её скрытие в штатных состояниях не является нарушением.",
+      "В ErrorFilled сохраняй фокус и открытую цифровую клавиатуру; после исправления значения ожидай ActiveFilled.",
+      "В Disabled блокируй ввод и продолжение, но не объявляй кликабельную инфоиконку нарушением.",
+      "Для Hint и error text используй одну строку с ellipsis.",
+      "Не придумывай Loading, Skeleton или Success state: у PaymentControl их нет.",
+      "Любое изменение параметров кнопки продолжения или её IconView является error.",
       "Для ErrorFilled проверяй текст по ptrn:controls.input-fields и его exact editorial rules; не придумывай локальный шаблон ошибки.",
       "Не одобряй ручные visual или geometry overrides: сравнивай их с effective baseline выбранного State.",
       "Не объявляй неподтверждённые content, sizing или interaction-ограничения до появления exact rule."
