@@ -210,7 +210,33 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline",
+          "identity": "web-corp.background-plate",
+          "pairs": [
+            {
+              "actualFact": "appearance.radius",
+              "baselineFact": "baseline.effective.appearance.radius"
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменено скругление BackgroundPlate",
+            "observed": "Скругление изменено с {{expected}} на {{actual}}.",
+            "expectation": "Скругление BackgroundPlate должно совпадать с effective baseline выбранного варианта.",
+            "action": "Сбросить скругление BackgroundPlate к effective baseline.",
+            "targetFact": "appearance.radius"
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
