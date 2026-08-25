@@ -180,6 +180,58 @@
           "StatusPreset": "Rounded",
           "PropertyPreset": "Rectangular"
         },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "context-map",
+          "identity": "web-core.status",
+          "where": [
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "ownership.owner.component.identity"
+              },
+              "expected": {
+                "literal": "web-corp.status-property"
+              }
+            },
+            {
+              "predicate": "one-of",
+              "actual": {
+                "fact": "ownership.owner.component.family"
+              },
+              "expected": {
+                "literal": [
+                  "status-preset",
+                  "property-preset"
+                ]
+              }
+            }
+          ],
+          "contextFact": "ownership.owner.component.family",
+          "targetFact": "component.properties.Shape",
+          "mapping": {
+            "status-preset": "Rounded",
+            "property-preset": "Rectangular"
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Форма Status не соответствует preset",
+            "observed": "Внутри {{contextLabel}} у Status выбран Shape={{actual}}.",
+            "expectation": "Форма вложенного Status должна соответствовать preset: Shape={{expected}}.",
+            "action": "Вернуть Shape={{expected}}.",
+            "contextLabels": {
+              "status-preset": "StatusPreset",
+              "property-preset": "PropertyPreset"
+            }
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        },
         "classification": {
           "reportAsCustomization": true,
           "treatAsViolation": true,

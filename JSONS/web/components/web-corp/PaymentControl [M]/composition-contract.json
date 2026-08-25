@@ -9,7 +9,6 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
@@ -200,5 +199,96 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicRoots": [
+      {
+        "name": "[M] PaymentControl",
+        "key": "bd58cd9ec1fa8169e6c334c1ee9e4a974eefa86d",
+        "platform": "mobile-web",
+        "generationStatus": "allowed"
+      }
+    ],
+    "internalComponents": [
+      {
+        "name": "[M] Amount",
+        "key": "d04a931ce171beecabb1be7b18cd34506bc2981d",
+        "role": "internal-supporting",
+        "standaloneAllowed": false,
+        "owner": "[M] PaymentControl"
+      },
+      {
+        "name": "[M] Hint",
+        "key": "d27233755497bc8580b3a12812a83700c33a4e37",
+        "role": "internal-supporting",
+        "standaloneAllowed": false,
+        "owner": "[M] PaymentControl"
+      }
+    ],
+    "ownershipModel": {
+      "host": "[M] PaymentControl",
+      "hostOwns": [
+        "[M] Amount",
+        "[M] Hint"
+      ],
+      "effectiveBaseline": "Сравнивай вложенные Amount и Hint с baseline выбранного State у [M] PaymentControl, а не как standalone-компоненты.",
+      "suppressOwnedDiffs": true
+    },
+    "requiredParts": [
+      "[M] Amount",
+      "[M] Hint"
+    ],
+    "conditionalParts": {
+      "hintInformationIcon": {
+        "optional": true,
+        "defaultVisibility": {
+          "ErrorFilled": false
+        }
+      },
+      "continueAction": {
+        "visibleIn": [
+          "ActiveFilled",
+          "Filled"
+        ],
+        "hiddenIn": [
+          "Empty",
+          "Active",
+          "DisabledEmpty",
+          "DisabledFilled",
+          "ErrorFilled"
+        ]
+      }
+    },
+    "allowedOverrides": {
+      "[M] Amount": [
+        "currency",
+        "minor-part-visibility",
+        "addon"
+      ],
+      "[M] Hint": [
+        "text",
+        "information-icon-visibility"
+      ]
+    },
+    "forbiddenOverrides": [
+      "background",
+      "typography",
+      "colors",
+      "spacing",
+      "padding",
+      "height",
+      "width",
+      "position",
+      "internal geometry"
+    ],
+    "nestedContractInheritance": {
+      "[M] Amount": "Наследует разрешённые настройки обычного Core Amount."
+    },
+    "placement": {
+      "surface": "Нижняя часть mobile-web страницы",
+      "width": "fill-viewport",
+      "position": "fixed-bottom",
+      "scrollsWithPageContent": false,
+      "focusedRelation": "Непосредственно над цифровой клавиатурой"
+    }
+  }
 }

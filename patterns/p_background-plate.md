@@ -195,14 +195,15 @@ BackgroundPlate Position=Level 1 (outer)
 - checkType: deterministic
 - autofix: no
 
-`Level 2` — внутренний слой наложения. Он всегда располагается только поверх `Level 1`. В Figma оба экземпляра размещаются sibling-слоями в общем Auto Layout: `Level 1` переводится в `Absolute`, а `Level 2` остаётся обычным Auto Layout child поверх него.
+`Level 2` — внутренний слой наложения. Он всегда располагается только поверх `Level 1`. В Figma `Level 1` и верхняя content-ветка размещаются sibling-слоями в общем Auto Layout: `Level 1` переводится в `Absolute`, а content-ветка остаётся обычным Auto Layout child поверх него. `Level 2` может быть самой content-веткой или находиться внутри опубликованного компонента-владельца.
 
 #### Правильно
 
 ```text
 Auto Layout container
 ├── BackgroundPlate Level 1 [positioning=ABSOLUTE, первый слой]
-└── BackgroundPlate Level 2 [positioning=AUTO, поверх Level 1]
+└── Content branch [positioning=AUTO, поверх Level 1]
+    └── BackgroundPlate Level 2 [прямой или вложенный]
 ```
 
 #### Неправильно
@@ -214,7 +215,7 @@ BackgroundPlate Level 2 без общего Auto Layout
 
 #### Почему
 
-`Level 2` никогда не используется как самостоятельный блок. Для корректного наложения границы `Level 1` должны содержать `Level 2`, `Level 1` должен находиться перед ним в порядке слоёв и иметь `positioning=ABSOLUTE`. Исключений для отдельных компонентов нет.
+`Level 2` никогда не используется как самостоятельный блок. Для корректного наложения границы `Level 1` должны содержать `Level 2`, `Level 1` должен находиться перед верхней content-веткой в порядке слоёв и иметь `positioning=ABSOLUTE`. Content-ветка должна участвовать в потоке общего Auto Layout. Нахождение Level 2 внутри опубликованного компонента-владельца не считается самостоятельным использованием.
 
 ### Rule 4: Не требуй Level 2 для обычного контента слота
 
@@ -237,7 +238,8 @@ BackgroundPlate Level 1
 ```text
 Auto Layout container
 ├── BackgroundPlate Level 1 [ABSOLUTE]
-└── BackgroundPlate Level 2 [AUTO]
+└── Content branch [AUTO]
+    └── BackgroundPlate Level 2
     └── Вложенный контент
 ```
 
@@ -470,7 +472,7 @@ BackgroundPlate скрыт, вместо него добавлены ручны�
 
 Встроенный skeleton сохраняет структуру, скругления, фон и размеры компонента.
 
-### Rule 13: Задавай padding через токены Spacing
+### Rule 13: Задавай padding BackgroundPlateSlot через токены Spacing
 
 - ruleId: rule:components.background-plate.padding-uses-spacing-tokens
 - severity: error
@@ -478,7 +480,9 @@ BackgroundPlate скрыт, вместо него добавлены ручны�
 - checkType: deterministic
 - autofix: partial
 
-Для `Level 1` рекомендуемое стартовое значение — `Spacing/32`, для `Level 2` — `Spacing/24`. Эти отступы можно менять под контекст или применимый паттерн, но все значения должны задаваться через токены из `Spacing.json`.
+Правило применяется только к корневому слою `[D] BackgroundPlateSlot` и `[M] BackgroundPlateSlot`. Для `Level 1` рекомендуемое стартовое значение — `Spacing/32`, для `Level 2` — `Spacing/24`. Эти отступы можно менять под контекст или применимый паттерн, но все значения должны задаваться через токены из `Spacing.json`.
+
+Padding у `BackgroundPlate`, вложенных `Style Level` и Promo BackgroundPlate этим правилом не проверяется.
 
 #### Правильно
 
@@ -870,7 +874,7 @@ padding-left: 16 px вручную без Spacing token
 ### Детерминированные проверки
 
 - Проверять, что компонент относится к `[D] BackgroundPlate`, `[M] BackgroundPlate`, `[D] BackgroundPlateSlot`, `[M] BackgroundPlateSlot` или их `[Promo]` вариантам.
-- Проверять, что `Position=Level 2 (inner)` находится с `Level 1 (outer)` в общем Auto Layout, где `Level 1` имеет `positioning=ABSOLUTE`, расположен перед `Level 2` и геометрически содержит его.
+- Проверять, что `Position=Level 2 (inner)` находится над `Level 1 (outer)` в общем Auto Layout, где `Level 1` имеет `positioning=ABSOLUTE`, расположен перед верхней content-веткой и геометрически содержит `Level 2`; content-ветка должна иметь `positioning=AUTO`.
 - Проверять соответствие `BackgroundColor` фону страницы: `base-bg-alt (gray)` для серого фона, `base-bg (white)` для белого фона.
 - Проверять, что все `BackgroundPlate` на странице используют один `BackgroundColor`, если не найден отдельный фоновой контекст.
 - Проверять запрет `Type=Secondary` для `Position=Level 2 (inner)`.

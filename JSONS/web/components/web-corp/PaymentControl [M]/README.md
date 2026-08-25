@@ -1,28 +1,101 @@
-# PaymentControl [M] — MVP component contract
+# PaymentControl [M] — component contract
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / PaymentControl [M]**.
+Папка содержит generated- и manual-слои component contract для мобильного
+контрола ввода суммы **[M] PaymentControl** из библиотеки
+**Web _ Corp Components**.
 
-The raw Figma catalog remains the source of truth:
+Компонент используется в платёжных и переводных сценариях внизу mobile-web
+страницы. При вводе суммы контрол располагается непосредственно над цифровой
+клавиатурой.
+
+Raw-каталог остаётся источником наблюдаемой структуры Figma:
 
 `../Web _ Corp Components -- PaymentControl [M].json`
 
 ## Файлы
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+- `contract.generated.json` — generated compact contract из raw-каталога;
+- `contract.overrides.json` — ручная семантика public boundary, lifecycle и состояний;
+- `composition-contract.json` — ownership внутренних частей и effective baseline;
+- `rules.json` — component rules для Apollo и агента;
+- `audit-mapping.json` — классификация и reset semantics;
+- `examples.json` — regression-сценарии;
+- `agent-context.json` — компактный контекст для agentic-интерпретации.
 
 ## Источник
 
 - Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
+- Актуальный raw export: `2026-07-27T12:58:40.628Z`
 - Компонентов: `3`
 
-## Current Scope
+## Public boundary и lifecycle
 
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+- Единственный публичный корень — `[M] PaymentControl`.
+- `[M] Amount` и `[M] Hint` — внутренние части host-компонента; отдельно их не
+  вызывают и не рекомендуют для генерации.
+- Компонент поддерживает только `mobile-web`.
+- Актуальный `[M] PaymentControl` заменяет отдельное deprecated-семейство
+  `❌ PaymentControl` из библиотеки `Web :: DEPRECATED CORP (не подключать)`.
+  Deprecated-компонент запрещён для новых макетов и не входит в этот package.
+
+## State
+
+| Значение | Семантика |
+| --- | --- |
+| `Empty` | Пустое значение без фокуса. |
+| `Active` | Пустое значение в фокусе. |
+| `ActiveFilled` | Сумма введена, контрол в фокусе, доступно продолжение. |
+| `Filled` | Сумма введена без фокуса, доступно продолжение. |
+| `DisabledEmpty` | Пустой заблокированный контрол. |
+| `DisabledFilled` | Заполненный заблокированный контрол. |
+| `ErrorFilled` | Ошибка введённой суммы: отображается текст ошибки, кнопка продолжения скрыта, информационная иконка скрыта по умолчанию. |
+
+## Anatomy и поведение
+
+- `[M] Amount` и `[M] Hint` обязательны во всех состояниях.
+- Информационная иконка Hint опциональна и может быть скрыта; в
+  `ErrorFilled` она скрыта в baseline. По нажатию иконка открывает штору с
+  дополнительным описанием.
+- Кнопка продолжения обязательна в `ActiveFilled` и `Filled`, переводит на
+  следующий шаг и скрыта в остальных состояниях. Её иконку и внешний вид не
+  меняют.
+- Hint используют для лимитов, комиссии и другой поясняющей информации; его
+  текст свободно редактируется.
+- Вложенный Amount наследует контракт обычного Core Amount. По требованиям
+  продуктового сценария разрешено менять валюту, показывать дробную часть и
+  использовать Addon.
+
+## Layout
+
+Компонент заполняет ширину viewport, фиксируется у нижнего края и не
+прокручивается вместе с содержимым страницы. При фокусе он располагается
+непосредственно над системной цифровой клавиатурой.
+
+## Ввод и валидация
+
+- `State` автоматически соответствует фокусу, наличию суммы, disabled и
+  validation-состоянию; ручное рассогласование запрещено.
+- Тап по области суммы устанавливает фокус и открывает системную цифровую
+  клавиатуру.
+- Информационная иконка имеет отдельную кликабельную зону и открывает штору с
+  дополнительным описанием; текст Hint не кликабелен.
+- После ввода недопустимого значения `ErrorFilled` показывается сразу, без
+  ожидания нажатия кнопки продолжения.
+- Текст ошибки регулируется `ptrn:controls.input-fields`, в частности
+  `rule:controls.input-fields.human-error-message` и
+  `rule:controls.input-fields.concrete-format-constraints`.
+- Форматирование суммы и продуктовые ограничения полностью наследуются от
+  Core Amount и продуктовой логики; дополнительных ограничений PaymentControl
+  не добавляет.
+
+## Граница кастомизации
+
+Разрешены только содержимое и штатные Core Amount options, текст Hint и
+видимость информационной иконки. Ручное изменение фона, типографики, цветов,
+отступов, высоты, ширины, позиции и внутренней геометрии запрещено.
+
+## Статус
+
+Комплект находится в работе: назначение, platform, lifecycle, public boundary и
+семантика `State` подтверждены владельцем. Остальные anatomy, content,
+interaction, sizing и audit-правила уточняются до перевода документов в `Ready`.

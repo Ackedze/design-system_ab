@@ -9,7 +9,6 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
@@ -266,5 +265,62 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "publicBoundary": {
+      "publicRoots": [
+        "[M] PaymentControl"
+      ],
+      "internalOnly": [
+        "[M] Amount",
+        "[M] Hint"
+      ],
+      "generatedFallbackCorrection": true
+    },
+    "componentAliases": {
+      "[M] PaymentControl": "PaymentControl [M]"
+    },
+    "identityExceptions": [
+      {
+        "name": "❌ PaymentControl",
+        "componentKey": "a4bbfdbd9c6c5f39225532008bea45c75b02c84e",
+        "classification": "deprecated-component",
+        "replacement": "[M] PaymentControl",
+        "mergeWithCurrentPackage": false
+      }
+    ],
+    "platformPolicy": {
+      "allowed": [
+        "mobile-web"
+      ],
+      "desktop": "forbidden"
+    },
+    "customizationPolicy": {
+      "allowed": [
+        "content.amount",
+        "nested.Amount.core-options",
+        "content.hint",
+        "visibility.hint-information-icon"
+      ],
+      "forbiddenLayerProperties": [
+        "fill",
+        "stroke",
+        "styles.text",
+        "layout.*",
+        "radius",
+        "opacity",
+        "effects.*"
+      ],
+      "forbiddenResetSurface": "layer",
+      "effectiveBaseline": "resolved State + host composition"
+    },
+    "interactionEvidence": {
+      "stateMachine": "agentic/manual-context",
+      "validationTiming": "agentic/manual-context",
+      "hitAreas": "manual-runtime-check"
+    },
+    "runtimeLimitations": [
+      "Проверка фактического platform-context и lifecycle deprecated-компонента может требовать agentic или manual evidence; audit-mapping пока не является полным runtime-источником Apollo.",
+      "Apollo не подтверждает runtime state machine, timing валидации и реальные hit areas только по статическому Figma diff; эти правила требуют composition context, agentic evidence или ручной проверки."
+    ]
+  }
 }

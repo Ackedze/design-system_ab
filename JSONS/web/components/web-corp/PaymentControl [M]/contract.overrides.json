@@ -9,7 +9,6 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
@@ -55,5 +54,172 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "semanticComponents": [
+      {
+        "name": "[M] PaymentControl",
+        "key": "bd58cd9ec1fa8169e6c334c1ee9e4a974eefa86d",
+        "role": "public-root",
+        "platform": "mobile-web",
+        "generationStatus": "allowed"
+      },
+      {
+        "name": "[M] Amount",
+        "key": "d04a931ce171beecabb1be7b18cd34506bc2981d",
+        "role": "internal-supporting",
+        "platform": "mobile-web",
+        "generationStatus": "internal-only"
+      },
+      {
+        "name": "[M] Hint",
+        "key": "d27233755497bc8580b3a12812a83700c33a4e37",
+        "role": "internal-supporting",
+        "platform": "mobile-web",
+        "generationStatus": "internal-only"
+      }
+    ],
+    "publicBoundary": {
+      "publicRoots": [
+        "[M] PaymentControl"
+      ],
+      "internalOnly": [
+        "[M] Amount",
+        "[M] Hint"
+      ],
+      "internalStandaloneAllowed": false,
+      "platforms": [
+        "mobile-web"
+      ],
+      "desktopAlternative": "unresolved"
+    },
+    "lifecycle": {
+      "status": "active",
+      "replaces": {
+        "name": "❌ PaymentControl",
+        "key": "a4bbfdbd9c6c5f39225532008bea45c75b02c84e",
+        "sourceLibrary": "Web :: DEPRECATED CORP (не подключать)",
+        "sourceCatalog": "JSONS/web/components/web-deprecated-corp-не-подключать/Web _ DEPRECATED CORP (не подключать) -- PaymentControl.json",
+        "generationStatus": "forbidden"
+      },
+      "doNotMergePackages": true
+    },
+    "purpose": {
+      "summary": "Мобильный контрол ввода суммы в платёжных и переводных сценариях.",
+      "placement": "Внизу mobile-web страницы; при фокусе непосредственно над цифровой клавиатурой."
+    },
+    "variantSemantics": {
+      "State=Empty": "Пустое значение без фокуса.",
+      "State=Active": "Пустое значение в фокусе.",
+      "State=ActiveFilled": "Сумма введена, контрол в фокусе, доступна кнопка продолжения.",
+      "State=Filled": "Сумма введена без фокуса, доступна кнопка продолжения.",
+      "State=DisabledEmpty": "Пустой заблокированный контрол.",
+      "State=DisabledFilled": "Заполненный заблокированный контрол.",
+      "State=ErrorFilled": "Ошибка введённой суммы: показывается текст ошибки, кнопка продолжения скрыта, информационная иконка скрыта по умолчанию."
+    },
+    "stateMachine": {
+      "automatic": true,
+      "transitions": {
+        "focus+empty": "Active",
+        "focus+filled": "ActiveFilled",
+        "blur+filled": "Filled",
+        "disabled+empty": "DisabledEmpty",
+        "disabled+filled": "DisabledFilled",
+        "invalid+filled": "ErrorFilled"
+      },
+      "manualMismatchAllowed": false
+    },
+    "anatomy": {
+      "requiredParts": [
+        "[M] Amount",
+        "[M] Hint"
+      ],
+      "partsMayBeHidden": false,
+      "hintInformationIcon": {
+        "optional": true,
+        "defaultInErrorFilled": "hidden"
+      },
+      "continueAction": {
+        "visibleIn": [
+          "ActiveFilled",
+          "Filled"
+        ],
+        "hiddenIn": [
+          "Empty",
+          "Active",
+          "DisabledEmpty",
+          "DisabledFilled",
+          "ErrorFilled"
+        ],
+        "action": "Переход к следующему шагу",
+        "iconEditable": false,
+        "appearanceEditable": false
+      }
+    },
+    "amount": {
+      "sourceComponent": "Core Amount",
+      "inheritsCoreContract": true,
+      "formatting": "Полностью наследуется от Core Amount и продуктовой логики; дополнительных правил PaymentControl нет.",
+      "allowedCustomizations": [
+        "currency",
+        "minor-part-visibility",
+        "addon"
+      ],
+      "customizationCondition": "Допустимо, если этого требует продуктовый сценарий."
+    },
+    "hint": {
+      "required": true,
+      "textEditable": true,
+      "contentPurpose": [
+        "лимит",
+        "комиссия",
+        "другая поясняющая информация"
+      ],
+      "informationIcon": {
+        "optional": true,
+        "interaction": "По нажатию открывает штору с дополнительным описанием."
+      }
+    },
+    "validation": {
+      "timing": "immediate-after-invalid-input",
+      "errorState": "ErrorFilled",
+      "errorText": {
+        "editable": true,
+        "policy": "ptrn:controls.input-fields",
+        "ruleIds": [
+          "rule:controls.input-fields.human-error-message",
+          "rule:controls.input-fields.concrete-format-constraints"
+        ]
+      }
+    },
+    "interaction": {
+      "amountArea": "Устанавливает фокус и открывает системную цифровую клавиатуру.",
+      "informationIcon": "Отдельная кликабельная зона; открывает штору с дополнительным описанием.",
+      "hintText": "Не кликабелен.",
+      "continueAction": "Переход к следующему шагу."
+    },
+    "customizationBoundary": {
+      "allowed": [
+        "Amount content and Core Amount options",
+        "Hint text",
+        "Hint information icon visibility"
+      ],
+      "forbidden": [
+        "background",
+        "typography",
+        "colors",
+        "spacing",
+        "padding",
+        "height",
+        "width",
+        "position",
+        "internal geometry"
+      ]
+    },
+    "layout": {
+      "width": "fill-viewport",
+      "position": "fixed-bottom",
+      "scrollsWithPageContent": false,
+      "focusedPosition": "Непосредственно над системной цифровой клавиатурой."
+    }
+  }
 }

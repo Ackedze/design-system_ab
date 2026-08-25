@@ -9,7 +9,6 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
@@ -47,7 +46,7 @@
     "summary": {
       "componentFamily": "PaymentControl [M]",
       "library": "Web _ Corp Components",
-      "purpose": "Сгенерированный контекст компонента. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из этого сгенерированного контекста."
+      "purpose": "Мобильный контрол ввода суммы в платёжных и переводных сценариях. Располагается внизу mobile-web страницы, а при фокусе — непосредственно над цифровой клавиатурой."
     },
     "components": [
       {
@@ -131,6 +130,67 @@
         "opacity"
       ],
       "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
-    }
+    },
+    "criticalBaselines": [
+      {
+        "baselineId": "payment-control-public-boundary",
+        "summary": "Публичным является только [M] PaymentControl; [M] Amount и [M] Hint принадлежат host-композиции и не используются отдельно.",
+        "ruleIds": [
+          "component:web-corp.payment-control.public-root-only"
+        ]
+      },
+      {
+        "baselineId": "payment-control-mobile-web-only",
+        "summary": "Компонент поддерживает только mobile-web.",
+        "ruleIds": [
+          "component:web-corp.payment-control.mobile-web-only"
+        ]
+      },
+      {
+        "baselineId": "payment-control-error-filled",
+        "summary": "В ErrorFilled отображается текст ошибки, кнопка продолжения скрыта, а информационная иконка скрыта по умолчанию.",
+        "ruleIds": [
+          "component:web-corp.payment-control.error-filled-composition"
+        ]
+      },
+      {
+        "baselineId": "payment-control-fixed-bottom-layout",
+        "summary": "Компонент заполняет ширину viewport, фиксируется снизу и при фокусе располагается над системной цифровой клавиатурой.",
+        "ruleIds": [
+          "component:web-corp.payment-control.fixed-bottom-layout"
+        ]
+      },
+      {
+        "baselineId": "payment-control-state-and-validation",
+        "summary": "State автоматически следует фактическим focus, value, disabled и validation-состояниям; недопустимое значение немедленно включает ErrorFilled.",
+        "ruleIds": [
+          "component:web-corp.payment-control.state-follows-runtime-context",
+          "component:web-corp.payment-control.invalid-value-shows-error-immediately"
+        ]
+      },
+      {
+        "baselineId": "payment-control-customization-boundary",
+        "summary": "Разрешены Amount content/Core options, Hint text и видимость инфоиконки; visual и geometry overrides запрещены.",
+        "ruleIds": [
+          "component:web-corp.payment-control.visual-and-geometry-overrides-forbidden"
+        ]
+      }
+    ],
+    "lifecycle": {
+      "status": "active",
+      "replaces": "❌ PaymentControl из Web :: DEPRECATED CORP (не подключать)",
+      "deprecatedComponentKey": "a4bbfdbd9c6c5f39225532008bea45c75b02c84e",
+      "doNotMergePackages": true
+    },
+    "agentInstructions": [
+      "Используй только [M] PaymentControl как публичный root; не предлагай отдельно [M] Amount или [M] Hint.",
+      "Не предлагай ❌ PaymentControl из deprecated-библиотеки и не смешивай его keys с актуальным компонентом.",
+      "Интерпретируй Empty, Active, ActiveFilled, Filled, DisabledEmpty, DisabledFilled и ErrorFilled по exact rule state-semantics.",
+      "Не считай смену валюты, показ дробной части или Addon нарушением без контекста: вложенный Amount наследует контракт Core Amount.",
+      "Информационная иконка Hint опциональна; её скрытие в штатных состояниях не является нарушением.",
+      "Для ErrorFilled проверяй текст по ptrn:controls.input-fields и его exact editorial rules; не придумывай локальный шаблон ошибки.",
+      "Не одобряй ручные visual или geometry overrides: сравнивай их с effective baseline выбранного State.",
+      "Не объявляй неподтверждённые content, sizing или interaction-ограничения до появления exact rule."
+    ]
   }
 }

@@ -9,7 +9,6 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
@@ -73,6 +72,352 @@
         "appliesTo": "component.status",
         "checkType": "manual",
         "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.public-root-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.identity|component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "[M] PaymentControl",
+          "internalLayers": [
+            "[M] Amount",
+            "[M] Hint"
+          ]
+        },
+        "remediation": "Используйте публичный root [M] PaymentControl; верните [M] Amount и [M] Hint внутрь его штатной композиции.",
+        "ruleText": "Только [M] PaymentControl является публичным root. [M] Amount и [M] Hint — внутренние части host-компонента и не используются отдельно.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.mobile-web-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.platform",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "allowedPlatforms": [
+            "mobile-web"
+          ]
+        },
+        "remediation": "Используйте [M] PaymentControl только в mobile-web макете; для desktop выберите отдельное решение.",
+        "ruleText": "[M] PaymentControl предназначен только для mobile-web. Использование компонента на desktop запрещено.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.deprecated-predecessor-forbidden",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.identity|component.lifecycle",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "❌ PaymentControl",
+          "componentKey": "a4bbfdbd9c6c5f39225532008bea45c75b02c84e"
+        },
+        "remediation": "Замените deprecated-компонент на актуальный [M] PaymentControl из Web _ Corp Components.",
+        "ruleText": "❌ PaymentControl из Web :: DEPRECATED CORP (не подключать) запрещён в новых макетах; используйте актуальный [M] PaymentControl. Не объединяйте их package или Figma keys.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.state-semantics",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.State",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "semantics": {
+            "Empty": "Пустое значение без фокуса",
+            "Active": "Пустое значение в фокусе",
+            "ActiveFilled": "Сумма введена, контрол в фокусе, доступно продолжение",
+            "Filled": "Сумма введена без фокуса, доступно продолжение",
+            "DisabledEmpty": "Пустой заблокированный контрол",
+            "DisabledFilled": "Заполненный заблокированный контрол",
+            "ErrorFilled": "Ошибка введённой суммы"
+          }
+        },
+        "ruleText": "Интерпретируй State по подтверждённой lifecycle-семантике; не выводи значение состояния только из цвета или примера текста."
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.error-filled-composition",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.State|component.visibility|content.error",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "when": {
+            "State": "ErrorFilled"
+          },
+          "required": {
+            "errorTextVisible": true,
+            "continueActionVisible": false
+          },
+          "baseline": {
+            "hintInformationIconVisible": false
+          }
+        },
+        "remediation": "Для ErrorFilled покажите текст ошибки и скройте кнопку продолжения.",
+        "ruleText": "В State=ErrorFilled обязателен текст ошибки, а кнопка продолжения скрыта. Информационная иконка скрыта в baseline этого состояния; её видимость не повышай до нарушения без отдельного exact rule.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.required-anatomy",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.composition|component.visibility",
+        "checkType": "deterministic",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "requiredParts": [
+            "[M] Amount",
+            "[M] Hint"
+          ]
+        },
+        "remediation": "Верните [M] Amount и [M] Hint в штатную композицию [M] PaymentControl.",
+        "ruleText": "[M] Amount и [M] Hint обязательны во всех состояниях [M] PaymentControl; скрывать или удалять эти части нельзя.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.continue-action-by-state",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.State|component.visibility|component.interaction",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "visibleIn": [
+            "ActiveFilled",
+            "Filled"
+          ],
+          "hiddenIn": [
+            "Empty",
+            "Active",
+            "DisabledEmpty",
+            "DisabledFilled",
+            "ErrorFilled"
+          ],
+          "action": "next-step",
+          "iconEditable": false,
+          "appearanceEditable": false
+        },
+        "remediation": "Восстановите штатную видимость и внешний вид кнопки продолжения для выбранного State.",
+        "ruleText": "Кнопка продолжения обязательна только в ActiveFilled и Filled и переводит на следующий шаг. В Empty, Active, DisabledEmpty, DisabledFilled и ErrorFilled она скрыта. Иконку и внешний вид кнопки менять нельзя.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.amount-inherits-core-contract",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "nested.Amount|content.amount",
+        "checkType": "llm",
+        "matchKind": "context_rule",
+        "conditions": {
+          "allowedWhenRequiredByProductScenario": [
+            "currency",
+            "minor-part-visibility",
+            "addon"
+          ],
+          "sourceContract": "Core Amount"
+        },
+        "ruleText": "Вложенный Amount наследует контракт обычного Core Amount. Если этого требует продуктовый сценарий, разрешено менять валюту, показывать дробную часть и использовать Addon; не классифицируй эти настройки как нарушение сами по себе."
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.hint-content-and-icon",
+        "severity": "info",
+        "source": "owner-confirmed",
+        "appliesTo": "content.hint|component.visibility|component.interaction",
+        "checkType": "llm",
+        "matchKind": "context_rule",
+        "conditions": {
+          "hintRequired": true,
+          "hintTextEditable": true,
+          "informationIconOptional": true,
+          "informationIconDefaultInErrorFilled": false,
+          "informationIconAction": "open-description-sheet"
+        },
+        "ruleText": "Hint обязателен, но его текст свободно редактируется для лимитов, комиссии и другой поясняющей информации. Информационная иконка опциональна; в ErrorFilled она скрыта по умолчанию, а по нажатию открывает штору с дополнительным описанием."
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.fixed-bottom-layout",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "layout.width|layout.position|component.interaction",
+        "checkType": "manual",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "width": "fill-viewport",
+          "position": "fixed-bottom",
+          "scrollsWithPageContent": false,
+          "focusedRelation": "above-system-numeric-keyboard"
+        },
+        "remediation": "Закрепите [M] PaymentControl у нижнего края viewport, растяните по ширине и при фокусе расположите непосредственно над системной цифровой клавиатурой.",
+        "ruleText": "[M] PaymentControl заполняет ширину viewport и фиксируется у нижнего края; он не прокручивается с контентом страницы. При фокусе контрол располагается непосредственно над системной цифровой клавиатурой.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.state-follows-runtime-context",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.State|content.amount|component.focus|component.disabled|content.validation",
+        "checkType": "llm",
+        "matchKind": "context_rule",
+        "conditions": {
+          "mapping": {
+            "focus+empty": "Active",
+            "focus+filled": "ActiveFilled",
+            "blur+filled": "Filled",
+            "disabled+empty": "DisabledEmpty",
+            "disabled+filled": "DisabledFilled",
+            "invalid+filled": "ErrorFilled"
+          }
+        },
+        "remediation": "Выберите State, соответствующий фактическим focus, value, disabled и validation-состояниям.",
+        "ruleText": "State переключается автоматически по runtime-контексту. Несоответствие State фактическому фокусу, наличию суммы, disabled или validation-состоянию запрещено.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.input-hit-areas",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.interaction|content.hint",
+        "checkType": "manual",
+        "matchKind": "interaction_rule",
+        "conditions": {
+          "amountArea": "focus-and-open-system-numeric-keyboard",
+          "informationIcon": "separate-hit-area-open-description-sheet",
+          "hintText": "non-interactive"
+        },
+        "remediation": "Верните фокус и вызов клавиатуры области суммы, отдельное действие инфоиконке и уберите действие с текста Hint.",
+        "ruleText": "Тап по области суммы устанавливает фокус и открывает системную цифровую клавиатуру. Информационная иконка — отдельная кликабельная зона, открывающая штору; остальная область Hint не кликабельна.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.invalid-value-shows-error-immediately",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "content.amount|content.validation|variant.State",
+        "checkType": "llm",
+        "matchKind": "context_rule",
+        "conditions": {
+          "trigger": "invalid-value-entered",
+          "timing": "immediate",
+          "requiredState": "ErrorFilled"
+        },
+        "remediation": "Переключите контрол в ErrorFilled сразу после ввода недопустимого значения.",
+        "ruleText": "После ввода недопустимого значения сразу показывай ErrorFilled; не откладывай ошибку до нажатия кнопки продолжения.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.error-text-follows-editorial-policy",
+        "severity": "error",
+        "source": "owner-confirmed+pattern",
+        "appliesTo": "content.errorText",
+        "checkType": "llm",
+        "matchKind": "pattern_rule",
+        "conditions": {
+          "patternId": "ptrn:controls.input-fields",
+          "ruleIds": [
+            "rule:controls.input-fields.human-error-message",
+            "rule:controls.input-fields.concrete-format-constraints"
+          ]
+        },
+        "remediation": "Сформулируйте ошибку человеческим языком и укажите конкретное ограничение суммы, если оно известно.",
+        "ruleText": "Текст ErrorFilled регулируется редполитикой полей ввода: объясняет проблему человеческим языком и для сумм указывает конкретное ограничение вместо общей формулировки.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.payment-control.visual-and-geometry-overrides-forbidden",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "fill|stroke|styles.text|layout.*|radius|opacity|effects.*|component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "allowed": [
+            "Amount content and Core Amount options",
+            "Hint text",
+            "Hint information icon visibility"
+          ],
+          "forbidden": [
+            "background",
+            "typography",
+            "colors",
+            "spacing",
+            "padding",
+            "height",
+            "width",
+            "position",
+            "internal geometry"
+          ]
+        },
+        "remediation": "Сбросьте визуальные и геометрические overrides к effective baseline выбранного State; сохраняйте только разрешённый контент и Core Amount options.",
+        "ruleText": "За пределами содержимого Amount, разрешённых Core Amount options, текста Hint и видимости инфоиконки ручные visual/layout overrides запрещены. Фон, типографика, цвета, отступы, размеры, позиция и внутренняя геометрия должны совпадать с effective baseline State.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       }
     ]
   }

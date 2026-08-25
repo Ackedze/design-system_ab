@@ -99,20 +99,8 @@
         "target": {
           "component": "web-corp.background-plate",
           "layers": [
-            "[D] BackgroundPlate",
             "[D] BackgroundPlateSlot",
-            "[D] Style Level 1",
-            "[D] Style Level 2",
-            "[D][Promo] BackgroundPlate",
-            "[D][Promo] Style Level 1",
-            "[D][Promo] Style Level 2",
-            "[M] BackgroundPlate",
-            "[M] BackgroundPlateSlot",
-            "[M] Style Level 1",
-            "[M] Style Level 2",
-            "[M][Promo] BackgroundPlate",
-            "[M][Promo] Style Level 1",
-            "[M][Promo] Style Level 2"
+            "[M] BackgroundPlateSlot"
           ]
         },
         "ruleText": "Изменения variant/property в компонентах семейства BackgroundPlate являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
@@ -365,18 +353,18 @@
             },
             "layoutPositioning": "ABSOLUTE"
           },
-          "subjectLayoutPositioning": "AUTO",
+          "contentBranchLayoutPositioning": "AUTO",
           "stackingOrder": "underlay-before-subject",
           "geometry": "underlay-contains-subject",
           "allowStandalone": false,
           "allowContractExceptions": false
         },
-        "remediation": "Соберите Level-1 и Level-2 в общем Auto Layout: переведите Level-1 в Absolute, расположите его первым как подложку, а Level-2 оставьте обычным Auto Layout child поверх него.",
-        "ruleText": "BackgroundPlate с Position=Level 2 (inner) всегда должен располагаться поверх BackgroundPlate Level 1. Корректная Figma-композиция использует общий Auto Layout: Level-1 и Level-2 являются sibling-слоями, Level-1 имеет absolute positioning, расположен перед Level-2 и геометрически содержит его. Самостоятельный Level-2 запрещён без исключений.",
+        "remediation": "Соберите Level-1 и content-ветку с Level-2 в общем Auto Layout: переведите Level-1 в Absolute, расположите его первым как подложку, а content-ветку оставьте обычным Auto Layout child поверх него.",
+        "ruleText": "BackgroundPlate с Position=Level 2 (inner) всегда должен располагаться поверх BackgroundPlate Level 1. Корректная Figma-композиция использует общий Auto Layout: Level-1 имеет absolute positioning, расположен перед content-веткой с Level-2 и геометрически содержит Level-2. Level-2 может быть прямым ребёнком общего Auto Layout или находиться внутри опубликованного компонента-владельца; в потоке Auto Layout должна оставаться верхняя content-ветка. Самостоятельный Level-2 запрещён без исключений.",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 2
+          "revision": 3
         }
       },
       {
@@ -1019,7 +1007,7 @@
           ]
         },
         "remediation": "Привяжите каждое значение padding к соответствующему токену коллекции Spacing; не оставляйте raw px.",
-        "ruleText": "Базовые padding у BackgroundPlate могут быть любыми по значению, но каждое layout.padding.* должно быть задано через токен из коллекции Spacing. Ручные px-значения без token binding являются нарушением, даже если число совпадает со spacing-шкалой.",
+        "ruleText": "Padding корневого слоя BackgroundPlateSlot может быть любым по значению, но каждое layout.padding.* должно быть задано через токен из коллекции Spacing. Правило не применяется к BackgroundPlate, Style Level и Promo BackgroundPlate. Ручные px-значения в BackgroundPlateSlot без token binding являются нарушением, даже если число совпадает со spacing-шкалой.",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",

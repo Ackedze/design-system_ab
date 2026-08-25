@@ -9,7 +9,6 @@
         "b2b"
       ],
       "platforms": [
-        "desktop",
         "mobile-web"
       ],
       "source": "path-policy",
@@ -27,5 +26,211 @@
   "generated": {
     "examples": []
   },
-  "manual": {}
+  "manual": {
+    "examples": [
+      {
+        "exampleId": "payment-control-mobile-public-root",
+        "kind": "positive",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "platform": "mobile-web",
+          "placement": "bottom-above-numeric-keyboard-when-focused"
+        },
+        "expectedAudit": {
+          "violation": false
+        },
+        "expectedAgent": {
+          "summary": "Штатное использование публичного mobile-web root."
+        },
+        "mustNotSay": [
+          "Компонент имеет desktop-версию.",
+          "[M] Amount или [M] Hint нужно создавать отдельно."
+        ]
+      },
+      {
+        "exampleId": "payment-control-internal-part-standalone",
+        "kind": "negative",
+        "inputChange": {
+          "component": "[M] Amount",
+          "usage": "standalone"
+        },
+        "expectedAudit": {
+          "violation": true,
+          "severity": "error",
+          "ruleId": "component:web-corp.payment-control.public-root-only"
+        },
+        "expectedAgent": {
+          "recommendation": "Использовать [M] PaymentControl и вернуть Amount внутрь host-композиции."
+        },
+        "mustNotSay": [
+          "[M] Amount является самостоятельным публичным компонентом."
+        ]
+      },
+      {
+        "exampleId": "payment-control-deprecated-predecessor",
+        "kind": "negative",
+        "inputChange": {
+          "component": "❌ PaymentControl",
+          "componentKey": "a4bbfdbd9c6c5f39225532008bea45c75b02c84e"
+        },
+        "expectedAudit": {
+          "violation": true,
+          "severity": "error",
+          "ruleId": "component:web-corp.payment-control.deprecated-predecessor-forbidden"
+        },
+        "expectedAgent": {
+          "recommendation": "Заменить deprecated-компонент на актуальный [M] PaymentControl."
+        },
+        "mustNotSay": [
+          "Deprecated и актуальный PaymentControl имеют общий Figma key.",
+          "Можно продолжать использовать deprecated-компонент в новых макетах."
+        ]
+      },
+      {
+        "exampleId": "payment-control-error-filled-baseline",
+        "kind": "context-dependent",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "State": "ErrorFilled",
+          "errorTextVisible": true,
+          "hintInformationIconVisible": false,
+          "continueActionVisible": false
+        },
+        "expectedAudit": {
+          "violation": false,
+          "ruleId": "component:web-corp.payment-control.error-filled-composition"
+        },
+        "expectedAgent": {
+          "summary": "Штатная композиция ErrorFilled."
+        },
+        "mustNotSay": [
+          "В ErrorFilled нужно показывать информационную иконку или кнопку продолжения."
+        ]
+      },
+      {
+        "exampleId": "payment-control-core-amount-customization",
+        "kind": "context-dependent",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "nestedComponent": "[M] Amount",
+          "currency": "product-scenario-currency",
+          "minorVisible": true,
+          "addonVisible": true,
+          "productScenarioRequiresCustomization": true
+        },
+        "expectedAudit": {
+          "violation": false,
+          "ruleId": "component:web-corp.payment-control.amount-inherits-core-contract"
+        },
+        "expectedAgent": {
+          "summary": "Допустимая настройка вложенного Core Amount по продуктовому сценарию."
+        },
+        "mustNotSay": [
+          "PaymentControl поддерживает только целую сумму в рублях.",
+          "Minor и Addon всегда запрещены."
+        ]
+      },
+      {
+        "exampleId": "payment-control-hidden-information-icon",
+        "kind": "positive",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "State": "Filled",
+          "hintInformationIconVisible": false
+        },
+        "expectedAudit": {
+          "violation": false,
+          "ruleId": "component:web-corp.payment-control.hint-content-and-icon"
+        },
+        "expectedAgent": {
+          "summary": "Допустимое скрытие опциональной информационной иконки."
+        },
+        "mustNotSay": [
+          "Информационная иконка обязательна во всех состояниях."
+        ]
+      },
+      {
+        "exampleId": "payment-control-continue-action-in-empty",
+        "kind": "negative",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "State": "Empty",
+          "continueActionVisible": true
+        },
+        "expectedAudit": {
+          "violation": true,
+          "severity": "error",
+          "ruleId": "component:web-corp.payment-control.continue-action-by-state"
+        },
+        "expectedAgent": {
+          "recommendation": "Скрыть кнопку продолжения до заполнения суммы."
+        },
+        "mustNotSay": [
+          "Кнопка продолжения штатно доступна в Empty."
+        ]
+      },
+      {
+        "exampleId": "payment-control-invalid-value-immediate-error",
+        "kind": "positive",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "value": "invalid-by-product-logic",
+          "State": "ErrorFilled",
+          "validationTiming": "immediate"
+        },
+        "expectedAudit": {
+          "violation": false,
+          "ruleId": "component:web-corp.payment-control.invalid-value-shows-error-immediately"
+        },
+        "expectedAgent": {
+          "summary": "Штатная немедленная реакция на недопустимое значение."
+        },
+        "mustNotSay": [
+          "Ошибку нужно отложить до нажатия кнопки продолжения."
+        ]
+      },
+      {
+        "exampleId": "payment-control-state-content-mismatch",
+        "kind": "negative",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "value": "filled",
+          "focus": true,
+          "State": "Empty"
+        },
+        "expectedAudit": {
+          "violation": true,
+          "severity": "error",
+          "ruleId": "component:web-corp.payment-control.state-follows-runtime-context"
+        },
+        "expectedAgent": {
+          "recommendation": "Использовать ActiveFilled для заполненного контрола в фокусе."
+        },
+        "mustNotSay": [
+          "State можно выбирать независимо от значения и фокуса."
+        ]
+      },
+      {
+        "exampleId": "payment-control-manual-padding-override",
+        "kind": "negative",
+        "inputChange": {
+          "component": "[M] PaymentControl",
+          "property": "layout.padding",
+          "actual": "manual-value"
+        },
+        "expectedAudit": {
+          "violation": true,
+          "severity": "error",
+          "ruleId": "component:web-corp.payment-control.visual-and-geometry-overrides-forbidden",
+          "resetSurface": "layer"
+        },
+        "expectedAgent": {
+          "recommendation": "Сбросить padding к effective baseline выбранного State."
+        },
+        "mustNotSay": [
+          "Ручное изменение отступов является штатной настройкой PaymentControl."
+        ]
+      }
+    ]
+  }
 }
