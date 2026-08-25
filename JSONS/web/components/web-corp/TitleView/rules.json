@@ -1163,6 +1163,43 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline",
+          "identity": "web-corp.title-view",
+          "where": [
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "component.family"
+              },
+              "expected": {
+                "literal": "title-view"
+              }
+            }
+          ],
+          "pairs": [
+            {
+              "actualFact": "appearance.opacity",
+              "baselineFact": "baseline.effective.appearance.opacity"
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменена прозрачность корня TitleView",
+            "observed": "Прозрачность изменена с {{expected}} на {{actual}}.",
+            "expectation": "Прозрачность корня TitleView должна совпадать с effective baseline выбранного варианта.",
+            "action": "Сбросить прозрачность корня TitleView к effective baseline.",
+            "targetFact": "appearance.opacity"
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       }
     ]
