@@ -79,6 +79,87 @@
 - checkType: deterministic
 - autofix: partial
 
+```json apollo-predicate-contour
+{
+  "ruleId": "rule:forms.construction-rules.layout-8-4",
+  "severity": "error",
+  "ruleKind": "design-rule",
+  "authority": {
+    "status": "active",
+    "provenance": "design-system-author",
+    "revision": 1
+  },
+  "predicateContour": {
+    "schemaVersion": "apollo.contour-definition.v1",
+    "kind": "derived-geometry",
+    "scope": {
+      "platform": ["desktop"],
+      "pageType": ["form"]
+    },
+    "select": {
+      "from": "selection-root",
+      "traverse": "self-and-descendants",
+      "where": [
+        {
+          "predicate": "exists",
+          "actual": { "fact": "composition.formEightFourLayout" }
+        }
+      ]
+    },
+    "checks": [
+      {
+        "actual": {
+          "derive": {
+            "operator": "add",
+            "args": [
+              { "fact": "composition.formEightFourLayout.mainWidth" },
+              { "fact": "composition.formEightFourLayout.islandWidth" },
+              { "fact": "composition.formEightFourLayout.gutter" }
+            ]
+          }
+        },
+        "expected": { "fact": "composition.formEightFourLayout.contentWidth" },
+        "tolerance": 1
+      },
+      {
+        "actual": {
+          "derive": {
+            "operator": "add",
+            "args": [
+              {
+                "derive": {
+                  "operator": "multiply",
+                  "args": [
+                    { "fact": "composition.formEightFourLayout.islandWidth" },
+                    { "literal": 2 }
+                  ]
+                }
+              },
+              { "fact": "composition.formEightFourLayout.gutter" }
+            ]
+          }
+        },
+        "expected": { "fact": "composition.formEightFourLayout.mainWidth" },
+        "tolerance": 1
+      },
+      {
+        "actual": { "fact": "composition.formEightFourLayout.gutter" },
+        "expected": { "literal": 24 },
+        "tolerance": 1
+      }
+    ],
+    "unknownPolicy": "not-evaluable",
+    "presentation": {
+      "schemaVersion": "apollo.predicate-presentation.v1",
+      "title": "Нарушена сетка формы 8+4",
+      "observed": "Ширины основной и правой зон или отступ между ними не соответствуют формуле 8+4.",
+      "expectation": "Основная зона должна занимать 8 колонок, правая — 4, а отступ между ними — 24 px.",
+      "action": "Вернуть ширины зон к сетке 8+4 и установить отступ 24 px."
+    }
+  }
+}
+```
+
 Контентная область формы делится на левую основную часть в 8 колонок и правую часть с островками в 4 колонки. Отступ между зонами — `24 px`.
 
 #### Правильно
