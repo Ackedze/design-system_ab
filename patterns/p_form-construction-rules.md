@@ -316,6 +316,111 @@ TitleView :: Small
 - checkType: deterministic
 - autofix: partial
 
+```json apollo-predicate-contour
+{
+  "ruleId": "rule:forms.construction-rules.inner-padding-standard.title-to-content",
+  "severity": "error",
+  "ruleKind": "design-rule",
+  "authority": {
+    "status": "active",
+    "provenance": "design-system-author",
+    "revision": 1
+  },
+  "predicateContour": {
+    "schemaVersion": "apollo.contour-definition.v1",
+    "kind": "distance",
+    "scope": {
+      "platform": ["desktop", "mobile-web"],
+      "pageType": ["form"]
+    },
+    "select": {
+      "from": "selection-root",
+      "traverse": "descendants",
+      "where": [
+        {
+          "predicate": "exists",
+          "actual": { "fact": "composition.previousFormMediumTitle.bounds" }
+        }
+      ]
+    },
+    "actual": { "fact": "bounds" },
+    "target": { "fact": "composition.previousFormMediumTitle.bounds" },
+    "expected": { "literal": 24 },
+    "axis": "vertical",
+    "tolerance": 0,
+    "unknownPolicy": "not-evaluable",
+    "presentation": {
+      "schemaVersion": "apollo.predicate-presentation.v1",
+      "title": "Неверный отступ от TitleView Medium до контента",
+      "observed": "Вертикальный отступ от заголовка до первого контентного блока: {{measured}} px.",
+      "expectation": "От TitleView Medium до первого контентного блока должно быть 24 px.",
+      "action": "Установить вертикальный отступ между TitleView Medium и контентом 24 px."
+    }
+  }
+}
+```
+
+```json apollo-predicate-contour
+{
+  "ruleId": "rule:forms.construction-rules.inner-padding-standard.content-insets",
+  "severity": "error",
+  "ruleKind": "design-rule",
+  "authority": {
+    "status": "active",
+    "provenance": "design-system-author",
+    "revision": 1
+  },
+  "predicateContour": {
+    "schemaVersion": "apollo.contour-definition.v1",
+    "kind": "derived-geometry",
+    "scope": {
+      "platform": ["desktop", "mobile-web"],
+      "pageType": ["form"]
+    },
+    "select": {
+      "from": "selection-root",
+      "traverse": "self-and-descendants",
+      "where": [
+        {
+          "predicate": "exists",
+          "actual": { "fact": "composition.formFirstLevelSurface.contentInsets" }
+        }
+      ]
+    },
+    "checks": [
+      {
+        "actual": { "fact": "composition.formFirstLevelSurface.contentInsets.top" },
+        "expected": { "literal": 32 },
+        "tolerance": 0
+      },
+      {
+        "actual": { "fact": "composition.formFirstLevelSurface.contentInsets.right" },
+        "expected": { "literal": 32 },
+        "tolerance": 0
+      },
+      {
+        "actual": { "fact": "composition.formFirstLevelSurface.contentInsets.bottom" },
+        "expected": { "literal": 32 },
+        "tolerance": 0
+      },
+      {
+        "actual": { "fact": "composition.formFirstLevelSurface.contentInsets.left" },
+        "expected": { "literal": 32 },
+        "tolerance": 0
+      }
+    ],
+    "unknownPolicy": "not-evaluable",
+    "presentation": {
+      "schemaVersion": "apollo.predicate-presentation.v1",
+      "title": "Неверные внутренние отступы блока формы",
+      "observed": "Внутренние отступы стандартного блока формы не соответствуют 32 px.",
+      "expectation": "В стандартном блоке формы внутренние отступы сверху, справа, снизу и слева должны быть 32 px.",
+      "action": "Установить внутренние отступы блока 32 px."
+    }
+  }
+}
+```
+
 В стандартном блоке верхний отступ до компонента заголовка — `32 px`. Отступы слева, справа и снизу до контента — `32 px`. Отступ от заголовка `TitleView :: Medium` до контента — `24 px`.
 
 #### Правильно
