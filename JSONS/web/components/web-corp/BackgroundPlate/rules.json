@@ -330,7 +330,52 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "sizing",
+          "identity": "web-corp.background-plate",
+          "where": [
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "component.family"
+              },
+              "expected": {
+                "literal": "background-plate-slot"
+              }
+            },
+            {
+              "predicate": "not",
+              "args": [
+                {
+                  "predicate": "exists",
+                  "actual": {
+                    "fact": "ownership.ownerNodeId"
+                  }
+                }
+              ]
+            }
+          ],
+          "expectations": {
+            "layout.sizingHorizontal": "FILL",
+            "layout.sizingVertical": "HUG"
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Sizing BackgroundPlateSlot изменён",
+            "observed": "Размер корня BackgroundPlateSlot не соответствует контракту Fill по ширине и Hug по высоте.",
+            "expectation": "Корень BackgroundPlateSlot должен использовать Fill container по ширине и Hug contents по высоте.",
+            "action": "Установить для BackgroundPlateSlot ширину Fill и высоту Hug."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
