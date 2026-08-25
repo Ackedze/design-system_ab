@@ -143,6 +143,11 @@ Button group
           "where": [
             {
               "predicate": "equals",
+              "actual": { "fact": "ownership.contour.isResolvedRoot" },
+              "expected": { "literal": true }
+            },
+            {
+              "predicate": "equals",
               "actual": { "fact": "type" },
               "expected": { "literal": "INSTANCE" }
             },
@@ -166,6 +171,11 @@ Button group
       "from": "subject",
       "traverse": "self-and-descendants",
       "where": [
+        {
+          "predicate": "equals",
+          "actual": { "fact": "ownership.contour.isResolvedRoot" },
+          "expected": { "literal": true }
+        },
         {
           "predicate": "equals",
           "actual": { "fact": "type" },
