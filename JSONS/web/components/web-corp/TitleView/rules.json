@@ -383,6 +383,8 @@
       {
         "ruleId": "component:web-corp.title-view.status-and-title-status-color-match",
         "severity": "error",
+        "ruleKind": "design-rule",
+        "severityScope": "design",
         "source": "pattern-link",
         "patternRuleId": "rule:components.title-view.status-color-consistency",
         "appliesTo": "component.composition|variant.Type|fill",
@@ -403,7 +405,60 @@
           "from": "Status.variant.Type",
           "to": "TitleStatus.variant.Type"
         },
-        "ruleText": "Если одновременно используются Status и TitleStatus, их значения Type должны совпадать. Type определяет статусный цвет, поэтому разные значения Type создают несогласованное состояние."
+        "ruleText": "Если одновременно используются Status и TitleStatus, их значения Type должны совпадать. Type определяет статусный цвет, поэтому разные значения Type создают несогласованное состояние.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "owned-peer-property-equality",
+          "ownerIdentity": "web-corp.title-view",
+          "target": {
+            "identity": "web-corp.title-view",
+            "names": [
+              "[D] TitleStatus",
+              "[M] TitleStatus"
+            ]
+          },
+          "members": [
+            {
+              "role": "Status",
+              "names": [
+                "StatusPreset"
+              ],
+              "propertyFact": "component.properties.Type"
+            },
+            {
+              "role": "TitleStatus",
+              "names": [
+                "[D] TitleStatus",
+                "[M] TitleStatus"
+              ],
+              "propertyFact": "component.properties.Type"
+            }
+          ],
+          "requiredRoles": [
+            "Status",
+            "TitleStatus"
+          ],
+          "collectionKey": "statusTypeConsistency",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Типы Status и TitleStatus не совпадают",
+            "observed": "Обнаружены разные значения Type: {{actual}}.",
+            "expectation": "При совместном использовании Status и TitleStatus их значения Type должны совпадать.",
+            "action": "Установить для TitleStatus тот же Type, что используется у Status."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
       },
       {
         "ruleId": "component:web-corp.title-view.status-size-24",
