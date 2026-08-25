@@ -75172,6 +75172,68 @@
           "source": "path-policy",
           "updatedAt": "2026-07-04"
         },
+        "publicRoot": "[M] PaymentControl",
+        "requiredChildren": [
+          {
+            "componentName": "[M] Amount",
+            "role": "required-internal",
+            "visibleInAllStates": true,
+            "standaloneUse": "forbidden",
+            "inherits": "Core Amount",
+            "allowedCustomizations": [
+              "currency",
+              "minor-part-visibility",
+              "addon"
+            ]
+          },
+          {
+            "componentName": "[M] Hint",
+            "role": "required-internal",
+            "visibleInAllStates": true,
+            "standaloneUse": "forbidden",
+            "text": {
+              "maxLines": 1,
+              "overflow": "ellipsis",
+              "clickable": false
+            },
+            "infoIcon": {
+              "optional": true,
+              "separateHitArea": true,
+              "interactiveInDisabled": true,
+              "hiddenByDefaultInErrorFilled": true,
+              "mayBeVisibleInErrorFilled": true,
+              "errorFilledVisibilityCondition": "error requires fuller explanation",
+              "interactionModel": "mobile Tooltip",
+              "opens": "[M] BottomSheet"
+            }
+          }
+        ],
+        "continueAction": {
+          "visibleInStates": [
+            "ActiveFilled",
+            "Filled"
+          ],
+          "hiddenInStates": [
+            "Empty",
+            "Active",
+            "DisabledEmpty",
+            "DisabledFilled",
+            "ErrorFilled"
+          ],
+          "buttonAndIconViewPropertiesImmutable": true
+        },
+        "layout": {
+          "position": "fixed-bottom",
+          "width": "fill-viewport",
+          "scrollsWithContent": false,
+          "whenFocused": "directly-above-system-numeric-keyboard"
+        },
+        "deprecatedExclusion": {
+          "componentName": "❌ PaymentControl",
+          "componentKey": "a4bbfdbd9c6c5f39225532008bea45c75b02c84e",
+          "mustNotAppear": true,
+          "mustNotMerge": true
+        },
         "component": {
           "name": "PaymentControl [M]",
           "library": "Web _ Corp Components"

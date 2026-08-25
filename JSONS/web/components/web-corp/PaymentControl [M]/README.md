@@ -1,28 +1,92 @@
-# PaymentControl [M] — MVP component contract
+# PaymentControl [M]
 
-Папка содержит сгенерированный слой component-contract для **Web _ Corp Components / PaymentControl [M]**.
+`[M] PaymentControl` — мобильный контрол ввода суммы для платёжных и переводных сценариев. Он закрепляется у нижнего края viewport, занимает всю ширину и не скроллится вместе с контентом. При фокусе контрол располагается непосредственно над системной цифровой клавиатурой.
 
-The raw Figma catalog remains the source of truth:
+## Источники
 
-`../Web _ Corp Components -- PaymentControl [M].json`
+- raw-каталог: `../Web _ Corp Components -- PaymentControl [M].json`;
+- Figma: `Web — Corp Components`, node `14405:5995`;
+- текущий public root: `[M] PaymentControl`, key `bd58cd9ec1fa8169e6c334c1ee9e4a974eefa86d`;
+- внутренний `[M] Amount`, key `d04a931ce171beecabb1be7b18cd34506bc2981d`;
+- внутренний `[M] Hint`, key `d27233755497bc8580b3a12812a83700c33a4e37`;
+- подтверждённые владельцем ответы анкеты.
 
-## Файлы
+Пакет предназначен только для `mobile-web`.
 
-- `catalog.raw.json` - preserved source catalog copy for this package.
-- `contract.generated.json` - generated compact contract extracted from the raw Figma catalog.
-- `contract.overrides.json` — сгенерированный placeholder для semantic overrides, которые заполняются вручную.
-- `composition-contract.json` - generated internal instance ownership context.
-- `rules.json` - generated component-level classification rules.
-- `audit-mapping.json` - generated default Apollo grouping model.
-- `examples.json` - generated placeholder for examples.
-- `agent-context.json` - compact generated context for agent-side interpretation.
+## Статус
 
-## Источник
+`generated-draft` — анкета и ручные секции заполнены; до перевода в Ready требуется подтверждение владельца после проверки документов и runtime-сценариев.
 
-- Библиотека: `Web _ Corp Components`
-- Сгенерировано: `2026-06-05T16:07:39.725Z`
-- Компонентов: `3`
+## Состав
 
-## Current Scope
+Единственный публичный root — `[M] PaymentControl`. Вложенные `[M] Amount` и `[M] Hint` обязательны во всех состояниях: их нельзя скрывать, удалять или использовать отдельно.
 
-Пакет сгенерирован. Добавляй ручные rules только когда есть явное поведение компонента или design rule, которые нужно закодировать.
+`❌ PaymentControl` с key `a4bbfdbd9c6c5f39225532008bea45c75b02c84e` — отдельный deprecated-компонент. Его использование запрещено; его ключи и контракт нельзя смешивать с актуальным пакетом.
+
+## Состояния
+
+Поддерживаются семь состояний:
+
+- `Empty`;
+- `Active`;
+- `ActiveFilled`;
+- `Filled`;
+- `DisabledEmpty`;
+- `DisabledFilled`;
+- `ErrorFilled`.
+
+Переходы автоматические:
+
+- фокус без значения → `Active`;
+- фокус с заполненным значением → `ActiveFilled`;
+- потеря фокуса с заполненным значением → `Filled`;
+- disabled без значения → `DisabledEmpty`;
+- disabled с заполненным значением → `DisabledFilled`;
+- недопустимое заполненное значение → `ErrorFilled`;
+- исправление значения при сохранённом фокусе → `ActiveFilled`.
+
+`ErrorFilled` показывается сразу после ввода недопустимого значения, сохраняет фокус и открытую клавиатуру. Loading, Skeleton и Success не предусмотрены.
+
+## Amount, Hint и инфоиконка
+
+Встроенный Amount наследует Core Amount. По продуктовому сценарию можно менять валюту, показывать дробную часть и использовать addon. Форматирование и ограничения суммы задаются контрактом Core Amount и бизнес-логикой продукта.
+
+Hint обязателен. Его текст можно адаптировать под лимит, комиссию, другое пояснение или ошибку. Hint и error-текст занимают не больше одной строки и при переполнении используют ellipsis. Сам текст не кликабелен.
+
+Инфоиконка опциональна и имеет отдельную зону нажатия. По нажатию она ведёт себя как мобильный Tooltip и открывает `[M] BottomSheet`; это взаимодействие остаётся доступным в Disabled. В `ErrorFilled` иконка скрыта по умолчанию, но может отображаться, если ошибке нужна более полная расшифровка.
+
+## Действие продолжения
+
+Действие показывается только в `ActiveFilled` и `Filled` и переводит пользователя на следующий шаг. В остальных состояниях оно скрыто. Параметры Button и action IconView, их swap, стили и состав изменять нельзя.
+
+## Тексты ошибок
+
+Текст ошибки следует `ptrn:controls.input-fields`:
+
+- `rule:controls.input-fields.human-error-message`;
+- `rule:controls.input-fields.concrete-format-constraints`.
+
+Сообщение должно по-человечески объяснять проблему и называть конкретное ограничение.
+
+## Запрещённые изменения
+
+Кроме подтверждённых настроек Core Amount и опциональной инфоиконки, запрещены ручные изменения фона, типографики, цветов, отступов, размеров, позиции и внутренней геометрии компонента.
+
+## Ошибка в Figma-документации
+
+В блоках `Anatomy` и `Properties` на странице Figma остались экземпляры `❌ PaymentControl`. Владелец подтвердил, что это ошибка документации. Эти блоки не являются нормативным источником; live-примеры используют актуальный `[M] PaymentControl`.
+
+## Код
+
+Runtime-реализация компонента существует, но Code Connect не настроен. Точные package, import и API пока имеют статус `[VERIFY]`; отсутствие проверенного импорта не означает отсутствия реализации.
+
+## Файлы пакета
+
+- `catalog.raw.json` — сохранённая копия raw-каталога;
+- `contract.generated.json` — компактный сгенерированный контракт;
+- `contract.overrides.json` — ручная семантика и ограничения;
+- `composition-contract.json` — состав и ownership вложенных частей;
+- `rules.json` — исполняемые и LLM-правила;
+- `audit-mapping.json` — audit-классификация и evidence;
+- `examples.json` — положительные и негативные кейсы;
+- `agent-context.json` — компактный контекст для агента.
