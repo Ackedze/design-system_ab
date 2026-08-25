@@ -245,6 +245,50 @@ TitleView :: Small
 - checkType: deterministic
 - autofix: partial
 
+```json apollo-predicate-contour
+{
+  "ruleId": "rule:forms.construction-rules.block-spacing.first-level",
+  "severity": "error",
+  "ruleKind": "design-rule",
+  "authority": {
+    "status": "active",
+    "provenance": "design-system-author",
+    "revision": 4
+  },
+  "predicateContour": {
+    "schemaVersion": "apollo.contour-definition.v1",
+    "kind": "distance",
+    "scope": {
+      "platform": ["desktop", "mobile-web"],
+      "pageType": ["form"]
+    },
+    "select": {
+      "from": "selection-root",
+      "traverse": "self-and-descendants",
+      "where": [
+        {
+          "predicate": "exists",
+          "actual": { "fact": "composition.previousFormFirstLevelBlock.bounds" }
+        }
+      ]
+    },
+    "actual": { "fact": "bounds" },
+    "target": { "fact": "composition.previousFormFirstLevelBlock.bounds" },
+    "expected": { "literal": 24 },
+    "axis": "vertical",
+    "tolerance": 0,
+    "unknownPolicy": "not-evaluable",
+    "presentation": {
+      "schemaVersion": "apollo.predicate-presentation.v1",
+      "title": "Неверный отступ между блоками первого уровня формы",
+      "observed": "Вертикальный отступ между соседними подложками: {{measured}} px.",
+      "expectation": "Между соседними блоками первого уровня формы должно быть 24 px.",
+      "action": "Установить вертикальный отступ между подложками 24 px."
+    }
+  }
+}
+```
+
 Между блоками первого уровня используйте `24 px`. Между блоками второго уровня используйте `32 px`.
 
 #### Правильно
