@@ -113,8 +113,92 @@ Button group
 - ruleId: rule:components.title-view.single-xlarge
 - severity: error
 - appliesTo: screen
-- checkType: llm
+- checkType: deterministic
 - autofix: no
+
+```json apollo-predicate-contour
+{
+  "ruleId": "rule:components.title-view.single-xlarge",
+  "severity": "error",
+  "ruleKind": "design-rule",
+  "authority": {
+    "status": "active",
+    "provenance": "design-system-author",
+    "revision": 1
+  },
+  "predicateContour": {
+    "schemaVersion": "apollo.contour-definition.v1",
+    "kind": "query-count",
+    "select": {
+      "from": "selection-root",
+      "traverse": "self",
+      "where": []
+    },
+    "when": {
+      "predicate": "count-between",
+      "actual": {
+        "query": {
+          "from": "subject",
+          "traverse": "self-and-descendants",
+          "where": [
+            {
+              "predicate": "equals",
+              "actual": { "fact": "type" },
+              "expected": { "literal": "INSTANCE" }
+            },
+            {
+              "predicate": "equals",
+              "actual": { "fact": "component.identity" },
+              "expected": { "literal": "web-corp.title-view" }
+            },
+            {
+              "predicate": "equals",
+              "actual": { "fact": "component.properties.View" },
+              "expected": { "literal": "xLarge" }
+            }
+          ]
+        }
+      },
+      "lower": { "literal": 1 },
+      "upper": { "literal": 1000000 }
+    },
+    "query": {
+      "from": "subject",
+      "traverse": "self-and-descendants",
+      "where": [
+        {
+          "predicate": "equals",
+          "actual": { "fact": "type" },
+          "expected": { "literal": "INSTANCE" }
+        },
+        {
+          "predicate": "equals",
+          "actual": { "fact": "component.identity" },
+          "expected": { "literal": "web-corp.title-view" }
+        },
+        {
+          "predicate": "equals",
+          "actual": { "fact": "component.properties.View" },
+          "expected": { "literal": "xLarge" }
+        }
+      ]
+    },
+    "lower": 0,
+    "upper": 1,
+    "presentation": {
+      "schemaVersion": "apollo.predicate-presentation.v1",
+      "title": "На странице несколько главных заголовков",
+      "observed": "В выбранной области найдено {{actual}} TitleView с View=xLarge.",
+      "expectation": "На одной странице допускается только один TitleView с View=xLarge.",
+      "action": "Оставить один TitleView xLarge; остальные перевести на следующий уровень иерархии."
+    },
+    "scope": {
+      "platform": ["desktop", "mobile-web"]
+    },
+    "unknownPolicy": "not-evaluable"
+  }
+}
+```
 
 На одной странице может быть только один `TitleView` с `View=xLarge`. Он задаёт главный заголовок страницы.
 
