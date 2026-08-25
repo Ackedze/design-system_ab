@@ -105012,6 +105012,26 @@
           "requirement": "recommendation"
         },
         "slotOrderPolicy": {
+          "schemaVersion": "apollo.slot-order-policy.v1",
+          "ruleId": "component:web-corp.title-view.visible-slots-follow-required-order",
+          "ruleKind": "design-rule",
+          "authority": {
+            "status": "active",
+            "provenance": "design-system-author",
+            "revision": 1
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "ownerComponentIdentities": [
+            "web-corp.title-view"
+          ],
+          "containerNames": [
+            "MainContent"
+          ],
           "required": true,
           "order": [
             "Status",
@@ -105020,7 +105040,14 @@
             "Subtitle",
             "TitleStatus",
             "Button group"
-          ]
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Нарушен порядок элементов TitleView",
+            "observed": "Элемент {{actual}} расположен раньше обязательного предыдущего элемента {{expected}}.",
+            "expectation": "Видимые элементы TitleView должны сохранять порядок, заданный контрактом компонента.",
+            "action": "Восстановить порядок элементов через свойства опубликованного TitleView."
+          }
         },
         "slotContentPolicy": {
           "instanceSwapAllowed": true,
