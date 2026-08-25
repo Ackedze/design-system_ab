@@ -365,13 +365,32 @@
     "contracts": [
       {
         "id": "buttons-group.composition",
+        "schemaVersion": "apollo.composition-predicate-contract.v1",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "scope": {
+          "platform": [
+            "desktop",
+            "mobile-web"
+          ]
+        },
         "match": {
+          "hostComponentIdentities": [
+            "web-corp.buttons-group"
+          ],
           "hostComponentNames": [
             "[D] ButtonsGroup",
             "[M] ButtonsGroup"
           ]
         },
         "select": {
+          "nestedComponentIdentities": [
+            "web-core.button"
+          ],
           "nestedComponentNames": [
             "[D] Button",
             "[M] Button"
@@ -379,9 +398,14 @@
           "visibility": "visible",
           "order": "document"
         },
+        "facts": {
+          "visibleMemberNodeIds": "composition.visibleButtonNodeIds",
+          "siblingPropertyValuesPrefix": "composition.siblingPropertyValues"
+        },
         "constraints": [
           {
             "id": "button-count",
+            "ruleId": "component:web-corp.buttons-group.button-count",
             "op": "countBetween",
             "min": 2,
             "max": 4,
@@ -389,6 +413,7 @@
           },
           {
             "id": "allowed-views",
+            "ruleId": "component:web-corp.buttons-group.allowed-views",
             "op": "propertyDomain",
             "property": "View",
             "values": [
@@ -399,12 +424,14 @@
           },
           {
             "id": "uniform-size",
+            "ruleId": "component:web-corp.buttons-group.uniform-size",
             "op": "propertyEqualsHost",
             "property": "Size",
             "message": "Размер каждой кнопки должен совпадать с Size группы"
           },
           {
             "id": "primary-position",
+            "ruleId": "component:web-corp.buttons-group.primary-position",
             "op": "valuePosition",
             "property": "View",
             "value": "Primary",
@@ -413,10 +440,18 @@
             ],
             "maxCount": 1,
             "replacement": "Secondary",
-            "message": "Primary-кнопка необязательна; если она есть, то может быть только первой и только одной"
+            "message": "Primary-кнопка необязательна; если она есть, то может быть только первой и только одной",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Primary-кнопка находится не на первом месте",
+              "observed": "В группе Primary-кнопка расположена не первой или используется несколько раз.",
+              "expectation": "Primary-кнопка необязательна, но может быть только одной и только первой.",
+              "action": "Переместить Primary-кнопку на первое место или изменить лишние Primary-кнопки на Secondary."
+            }
           },
           {
             "id": "single-icon-position",
+            "ruleId": "component:web-corp.buttons-group.single-icon-position",
             "op": "valuePosition",
             "property": "SingleIcon",
             "value": "True",
@@ -425,6 +460,10 @@
               "last"
             ],
             "maxCount": 1,
+            "whenHostProperty": {
+              "property": "Overflow",
+              "equals": "true"
+            },
             "replacement": "False",
             "message": "При Overflow=true последняя кнопка должна оставаться штатным PickerButton (SingleIcon=true с системной иконкой); SingleIcon допускается только у последней кнопки и только один раз"
           }
