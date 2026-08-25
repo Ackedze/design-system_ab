@@ -1018,6 +1018,67 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "binding-set",
+          "identity": "web-corp.background-plate",
+          "where": [
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "component.family"
+              },
+              "expected": {
+                "literal": "background-plate-slot"
+              }
+            }
+          ],
+          "publicRootOnly": true,
+          "paths": [
+            {
+              "suffix": "top",
+              "label": "Верхний padding",
+              "valueFact": "layout.padding.top",
+              "bindingFact": "bindings.padding.top"
+            },
+            {
+              "suffix": "right",
+              "label": "Правый padding",
+              "valueFact": "layout.padding.right",
+              "bindingFact": "bindings.padding.right"
+            },
+            {
+              "suffix": "bottom",
+              "label": "Нижний padding",
+              "valueFact": "layout.padding.bottom",
+              "bindingFact": "bindings.padding.bottom"
+            },
+            {
+              "suffix": "left",
+              "label": "Левый padding",
+              "valueFact": "layout.padding.left",
+              "bindingFact": "bindings.padding.left"
+            }
+          ],
+          "expectedBinding": {
+            "bound": true,
+            "collection": "Spacing"
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "{{property}} задан без токена Spacing",
+            "observed": "{{property}} имеет значение {{actual}} без привязки к токену Spacing.",
+            "expectation": "Каждый layout.padding.* BackgroundPlateSlot должен быть привязан к токену коллекции Spacing.",
+            "action": "Привязать текущее значение к соответствующему токену Spacing."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
