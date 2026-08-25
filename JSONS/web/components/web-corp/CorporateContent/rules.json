@@ -789,7 +789,48 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "binding-set",
+          "identity": "web-corp.corporate-content",
+          "where": [
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "component.name"
+              },
+              "expected": {
+                "literal": "[D] Section"
+              }
+            }
+          ],
+          "paths": [
+            {
+              "suffix": "gutter",
+              "label": "Gutter между Content и Isle",
+              "valueFact": "layout.itemSpacing",
+              "bindingFact": "bindings.itemSpacing"
+            }
+          ],
+          "expectedBinding": {
+            "bound": true,
+            "token": "Gutter"
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "{{property}} задан без переменной Gutter",
+            "observed": "{{property}} имеет значение {{actual}} px без привязки к переменной Gutter.",
+            "expectation": "Отступ между Content и Isle в [D] Section должен быть привязан к переменной Gutter.",
+            "action": "Привязать текущее значение itemSpacing к переменной Gutter."
+          },
+          "scope": {
+            "platform": [
+              "desktop"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
