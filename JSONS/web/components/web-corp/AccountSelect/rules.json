@@ -116,6 +116,33 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "public-root",
+          "identity": "web-corp.account-select",
+          "familyFact": "component.family",
+          "allowedFamilies": [
+            "account-option-list-content"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Служебный компонент AccountSelect используется отдельно",
+            "observed": "{{actual}} размещён как самостоятельный компонент.",
+            "expectation": "Самостоятельно допускается использовать только {{expected}}.",
+            "action": "Заменить {{actual}} на {{expected}}.",
+            "valueLabels": {
+              "account-item": "AccountItem",
+              "account-option-list-content": "AccountOptionListContent"
+            }
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -597,6 +624,60 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "uniform-allowed-collection",
+          "identity": "web-corp.account-select",
+          "where": [
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "component.family"
+              },
+              "expected": {
+                "literal": "account-option-list-content"
+              }
+            }
+          ],
+          "allowedValues": [
+            "Sum",
+            "Number"
+          ],
+          "minimumCount": 1,
+          "query": {
+            "from": "subject",
+            "traverse": "descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": "account-item"
+                }
+              }
+            ],
+            "project": {
+              "fact": "component.properties.Type"
+            }
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Строки AccountSelect используют разные или недопустимые типы",
+            "observed": "В AccountSelect обнаружены значения AccountItem.Type: {{actual}}.",
+            "expectation": "В списке должна быть хотя бы одна строка; все строки используют одинаковый Type=Sum или Type=Number.",
+            "action": "Выбрать для всех строк один допустимый Type: Sum или Number.",
+            "targetFact": "component.properties.Type"
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
