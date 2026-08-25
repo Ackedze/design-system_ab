@@ -341,7 +341,7 @@
         "source": "pattern-link",
         "patternRuleId": "rule:components.background-plate.level-2-over-level-1",
         "appliesTo": "component.composition",
-        "checkType": "llm",
+        "checkType": "deterministic",
         "matchKind": "composition_rule",
         "conditions": {
           "components": [
@@ -355,22 +355,74 @@
           }
         },
         "requiredComposition": {
-          "requiredParent": {
+          "requiredUnderlay": {
             "component": "BackgroundPlate",
             "variant": {
               "Position": "Level 1 (outer)"
-            }
+            },
+            "positioning": "ABSOLUTE"
           },
-          "directParentRequired": true,
+          "sharedAutoLayoutHostRequired": true,
+          "contentPositioning": "AUTO",
+          "underlayBeforeContent": true,
+          "underlayContainsLevel2": true,
+          "directParentRequired": false,
           "allowStandalone": false,
           "allowContractExceptions": false
         },
-        "remediation": "Переместите Level-2 непосредственно внутрь BackgroundPlate Level-1 либо измените самостоятельную поверхность на Level-1.",
-        "ruleText": "BackgroundPlate с Position=Level 2 (inner) всегда должен располагаться поверх BackgroundPlate Level 1. Самостоятельный Level 2 запрещён без исключений.",
+        "remediation": "Добавьте в общий Auto Layout абсолютную подложку BackgroundPlate Level 1 и расположите после неё Auto-ветку контента с Level 2 либо измените самостоятельную поверхность на Level 1.",
+        "ruleText": "BackgroundPlate с Position=Level 2 (inner) должен находиться в Auto-ветке контента поверх абсолютной подложки BackgroundPlate Level 1 внутри общего Auto Layout. Подложка располагается перед веткой контента и покрывает область Level 2. Самостоятельный Level 2 запрещён без исключений.",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "co-located-underlay",
+          "subject": {
+            "identity": "web-corp.background-plate",
+            "properties": {
+              "Position": "Level 2 (inner)"
+            },
+            "publicRootOnly": true
+          },
+          "underlay": {
+            "identity": "web-corp.background-plate",
+            "properties": {
+              "Position": "Level 1 (outer)"
+            },
+            "positioning": "ABSOLUTE"
+          },
+          "host": {
+            "layoutModes": [
+              "HORIZONTAL",
+              "VERTICAL"
+            ]
+          },
+          "content": {
+            "positioning": "AUTO",
+            "afterUnderlay": true
+          },
+          "geometry": {
+            "underlayContainsSubject": true
+          },
+          "relationKey": "level1Underlay",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "BackgroundPlate Level 2 находится без корректной подложки Level 1",
+            "observed": "Для Level 2 не найдена композиция с абсолютной подложкой Level 1.",
+            "expectation": "Level 1 должен быть абсолютной подложкой общего Auto Layout, а Auto-ветка контента с Level 2 — располагаться поверх неё.",
+            "action": "Добавить корректную подложку Level 1 либо изменить самостоятельную поверхность на Level 1.",
+            "targetFact": "component.properties.Position"
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
