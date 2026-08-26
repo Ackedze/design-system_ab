@@ -256,7 +256,34 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "uniform-collection-properties",
+          "identity": "web.benefits",
+          "memberIdentity": "web.benefit-card",
+          "propertyFacts": [
+            "component.properties.Background",
+            "component.properties.CardAxis",
+            "component.properties.Compact",
+            "component.properties.GraphicPosition"
+          ],
+          "minimumCount": 1,
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Настройки BenefitCard внутри Benefits различаются",
+            "observed": "У вложенных BenefitCard различаются Background, CardAxis, Compact или GraphicPosition.",
+            "expectation": "Все BenefitCard одного Benefits должны иметь одинаковые Background, CardAxis, Compact и GraphicPosition.",
+            "action": "Выровнять четыре настройки у всех BenefitCard группы, сохранив разрешённые различия fill и stroke."
+          }
         }
       },
       {
