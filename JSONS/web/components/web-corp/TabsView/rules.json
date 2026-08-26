@@ -511,7 +511,79 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "query-unique",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.key"
+                },
+                "expected": {
+                  "literal": [
+                    "0b6cbeb2069d15adf5be7b9a4ba17acc6a397017",
+                    "d44e07075d37245006c02b03ca28fa9a8681fa1e"
+                  ]
+                }
+              }
+            ]
+          },
+          "query": {
+            "from": "subject",
+            "traverse": "descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "TEXT"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "name"
+                },
+                "expected": {
+                  "literal": "Label"
+                }
+              }
+            ],
+            "project": {
+              "fact": "text.characters"
+            }
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Названия табов повторяются",
+            "observed": "На одном уровне используются повторяющиеся названия табов: {{actual}}.",
+            "expectation": "Названия соседних табов одного уровня должны быть уникальными.",
+            "action": "Переименовать повторяющиеся табы так, чтобы их названия различались."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
