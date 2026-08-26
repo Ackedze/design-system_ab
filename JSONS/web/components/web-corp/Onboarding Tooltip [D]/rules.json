@@ -458,6 +458,140 @@
         }
       },
       {
+        "ruleId": "component:web-corp.onboarding-tooltip.typography-follows-effective-baseline",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "styles.text|typography",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Текстовые стили внутренних текстовых слоёв Onboarding Tooltip должны соответствовать effective baseline выбранного варианта и не изменяются вручную.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline",
+          "select": {
+            "from": "selection-root",
+            "traverse": "descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "TEXT"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.onboarding-tooltip"
+                }
+              }
+            ]
+          },
+          "pairs": [
+            {
+              "actualFact": "appearance.styles.textStyle",
+              "baselineFact": "baseline.effective.appearance.styles.textStyle",
+              "required": true
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменён текстовый стиль Onboarding Tooltip",
+            "observed": "Текстовый стиль изменён с {{expected}} на {{actual}}.",
+            "expectation": "Текстовый стиль должен совпадать с effective baseline выбранного варианта Onboarding Tooltip.",
+            "action": "Сбросить текстовый стиль к effective baseline Onboarding Tooltip.",
+            "targetFact": "appearance.styles.textStyle"
+          },
+          "scope": {
+            "platform": [
+              "desktop"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
+      },
+      {
+        "ruleId": "component:web-corp.onboarding-tooltip.text-style-binding-required",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "styles.text|typography",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Каждый внутренний текстовый слой Onboarding Tooltip должен быть связан с опубликованным Figma Text Style. Raw typography без Text Style запрещена.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "binding-set",
+          "select": {
+            "from": "selection-root",
+            "traverse": "descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "TEXT"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.onboarding-tooltip"
+                }
+              }
+            ]
+          },
+          "paths": [
+            {
+              "suffix": "text-style",
+              "label": "Текстовый стиль",
+              "valueFact": "appearance.styles.textStyle",
+              "bindingFact": "bindings.styles.text",
+              "requireValue": false
+            }
+          ],
+          "expectedBinding": {
+            "bound": true,
+            "kind": "text-style"
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "{{property}} не связан с Figma Text Style",
+            "observed": "Для текстового слоя используется raw typography без привязки к Figma Text Style.",
+            "expectation": "Внутренние текстовые слои Onboarding Tooltip должны использовать опубликованные Figma Text Styles.",
+            "action": "Назначить канонический Text Style из effective baseline Onboarding Tooltip.",
+            "targetFact": "appearance.styles.textStyle"
+          },
+          "scope": {
+            "platform": [
+              "desktop"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
+      },
+      {
         "ruleId": "component:web-corp.onboarding-tooltip.plain-text-content-only",
         "severity": "error",
         "source": "component-contract",
