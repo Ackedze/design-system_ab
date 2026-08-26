@@ -347,7 +347,54 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline",
+          "select": {
+            "from": "selection-root",
+            "traverse": "descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.onboarding-tooltip"
+                }
+              },
+              {
+                "predicate": "exists",
+                "actual": {
+                  "fact": "appearance.fill.value"
+                }
+              }
+            ]
+          },
+          "pairs": [
+            {
+              "actualFact": "appearance.fill.value",
+              "baselineFact": "baseline.effective.appearance.fill.value",
+              "required": true
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменена заливка Onboarding Tooltip",
+            "observed": "Заливка изменена с {{expected}} на {{actual}}.",
+            "expectation": "Заливка внутренних слоёв Onboarding Tooltip должна совпадать с effective baseline выбранного варианта.",
+            "action": "Сбросить заливку к effective baseline Onboarding Tooltip.",
+            "targetFact": "appearance.fill.value"
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
