@@ -397,6 +397,67 @@
         }
       },
       {
+        "ruleId": "component:web-corp.onboarding-tooltip.radius-follows-effective-baseline",
+        "severity": "error",
+        "source": "component-contract",
+        "ruleKind": "design-rule",
+        "appliesTo": "radius|cornerRadius|cornerRadius.*",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Скругления Onboarding Tooltip и его внутренних слоёв должны соответствовать effective baseline выбранного варианта и не изменяются вручную.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline",
+          "select": {
+            "from": "selection-root",
+            "traverse": "descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.onboarding-tooltip"
+                }
+              },
+              {
+                "predicate": "exists",
+                "actual": {
+                  "fact": "appearance.radius"
+                }
+              }
+            ]
+          },
+          "pairs": [
+            {
+              "actualFact": "appearance.radius",
+              "baselineFact": "baseline.effective.appearance.radius",
+              "required": true
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменено скругление Onboarding Tooltip",
+            "observed": "Скругление изменено с {{expected}} на {{actual}}.",
+            "expectation": "Скругление должно совпадать с effective baseline выбранного варианта Onboarding Tooltip.",
+            "action": "Сбросить скругление к effective baseline Onboarding Tooltip.",
+            "targetFact": "appearance.radius"
+          },
+          "scope": {
+            "platform": [
+              "desktop"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
+      },
+      {
         "ruleId": "component:web-corp.onboarding-tooltip.plain-text-content-only",
         "severity": "error",
         "source": "component-contract",
