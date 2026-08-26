@@ -730,7 +730,61 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "binding-set",
+          "identity": "web-corp.background-plate",
+          "where": [
+            {
+              "predicate": "one-of",
+              "actual": {
+                "fact": "component.family"
+              },
+              "expected": {
+                "literal": [
+                  "style-level-1",
+                  "style-level-2"
+                ]
+              }
+            },
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "component.properties.Type"
+              },
+              "expected": {
+                "literal": "Border"
+              }
+            }
+          ],
+          "paths": [
+            {
+              "suffix": "stroke",
+              "label": "Обводка",
+              "valueFact": "appearance.stroke.value",
+              "bindingFact": "bindings.strokes"
+            }
+          ],
+          "expectedBinding": {
+            "bound": true
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "{{property}} задана без цветового токена",
+            "observed": "{{property}} имеет значение {{actual}} без привязки к цветовому токену.",
+            "expectation": "Обводка BackgroundPlate Type=Border должна быть привязана к цветовому токену дизайн-системы.",
+            "action": "Привязать текущий цвет обводки к подходящему цветовому токену.",
+            "targetFact": "appearance.stroke.value"
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
