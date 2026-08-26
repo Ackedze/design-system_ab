@@ -713,7 +713,73 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.table-view"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": "table-view-horizontal"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.properties.Compact"
+                },
+                "expected": {
+                  "literal": "False"
+                }
+              }
+            ]
+          },
+          "actual": {
+            "fact": "composition.visibleHeaderRowCount"
+          },
+          "allowedValues": [
+            1
+          ],
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "В Horizontal TableView отсутствует обязательный Header Row",
+            "observed": "При Compact=False найдено строк Header: {{actual}}.",
+            "expectation": "Horizontal TableView с Compact=False должен содержать ровно один Row с Presets=Header.",
+            "action": "Добавить или восстановить один Header Row в составе TableView."
+          }
         }
       },
       {
