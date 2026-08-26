@@ -110,7 +110,38 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "context-map",
+          "identity": "web.benefits",
+          "contextFact": "composition.capacity",
+          "targetFact": "composition.visibleBenefitCardCount",
+          "mappingEntries": [
+            {
+              "context": 3,
+              "target": 3
+            },
+            {
+              "context": 4,
+              "target": 4
+            }
+          ],
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Capacity не соответствует числу BenefitCard",
+            "observed": "Выбрано Capacity={{context}}, видимых BenefitCard: {{actual}}.",
+            "expectation": "Capacity=3 должен содержать три BenefitCard, Capacity=4 — четыре.",
+            "action": "Выбрать Capacity, равный числу карточек, или восстановить состав пресета."
+          }
         }
       },
       {
