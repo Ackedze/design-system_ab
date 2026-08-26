@@ -117,7 +117,91 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.table-view"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": "row"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.properties.Presets"
+                },
+                "expected": {
+                  "literal": "Body"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "composition.tableViewOwner.component.family"
+                },
+                "expected": {
+                  "literal": "table-view-horizontal"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "composition.tableViewOwner.component.properties.Compact"
+                },
+                "expected": {
+                  "literal": "True"
+                }
+              }
+            ]
+          },
+          "actual": {
+            "fact": "composition.visibleDataColumnCount"
+          },
+          "allowedValues": [
+            1
+          ],
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "В Compact TableView обнаружено несколько колонок данных",
+            "observed": "В строке Compact TableView найдено колонок данных: {{actual}}.",
+            "expectation": "Каждая Body Row в Horizontal TableView с Compact=true должна содержать ровно одну колонку данных.",
+            "action": "Оставить в строке одну колонку данных или отключить Compact."
+          }
         }
       },
       {
