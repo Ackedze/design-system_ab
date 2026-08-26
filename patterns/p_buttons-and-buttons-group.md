@@ -169,6 +169,93 @@
 - checkType: deterministic
 - autofix: no
 
+```json apollo-predicate-contour
+{
+  "ruleId": "rule:controls.buttons-and-button-groups.desktop-safe-variants",
+  "ruleKind": "design-rule",
+  "severity": "error",
+  "authority": {
+    "status": "active",
+    "provenance": "design-system-author",
+    "revision": 2
+  },
+  "predicateContour": {
+    "schemaVersion": "apollo.contour-definition.v1",
+    "kind": "fact-assertion",
+    "select": {
+      "from": "selection-root",
+      "traverse": "self-and-descendants",
+      "where": [
+        {
+          "predicate": "equals",
+          "actual": { "fact": "type" },
+          "expected": { "literal": "INSTANCE" }
+        },
+        {
+          "predicate": "equals",
+          "actual": { "fact": "component.identity" },
+          "expected": { "literal": "web-core.button" }
+        },
+        {
+          "predicate": "not",
+          "args": [
+            {
+              "predicate": "equals",
+              "actual": { "fact": "ownership.owner.component.identity" },
+              "expected": { "literal": "web-corp.buttons-group" }
+            }
+          ]
+        }
+      ]
+    },
+    "assert": {
+      "predicate": "all",
+      "args": [
+        {
+          "predicate": "not",
+          "args": [
+            {
+              "predicate": "one-of",
+              "actual": { "fact": "component.properties.View" },
+              "expected": { "literal": ["Accent", "Outlined"] }
+            }
+          ]
+        },
+        {
+          "predicate": "not",
+          "args": [
+            {
+              "predicate": "one-of",
+              "actual": { "fact": "component.properties.Size" },
+              "expected": { "literal": ["64", "72"] }
+            }
+          ]
+        },
+        {
+          "predicate": "not",
+          "args": [
+            {
+              "predicate": "equals",
+              "actual": { "fact": "component.properties.Shape" },
+              "expected": { "literal": "Rounded" }
+            }
+          ]
+        }
+      ]
+    },
+    "presentation": {
+      "schemaVersion": "apollo.predicate-presentation.v1",
+      "title": "В desktop используется запрещённый вариант Button",
+      "observed": "У Button выбран запрещённый для desktop View, Size или Shape.",
+      "expectation": "В desktop нельзя использовать View=Accent/Outlined, Size=64/72 и Shape=Rounded.",
+      "action": "Выбрать разрешённые для desktop значения View, Size и Shape."
+    },
+    "scope": { "platform": ["desktop"] },
+    "unknownPolicy": "not-evaluable"
+  }
+}
+```
+
 В desktop не используй варианты кнопок и параметров, которые запрещены паттерном.
 
 #### Правильно
