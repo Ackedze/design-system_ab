@@ -183,7 +183,73 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.card-image"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.properties.Size"
+                },
+                "expected": {
+                  "literal": "24x16"
+                }
+              }
+            ]
+          },
+          "actual": {
+            "fact": "component.properties.State"
+          },
+          "allowedValues": [
+            "Active"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Для CardImage 24x16 выбран недопустимый State",
+            "observed": "У CardImage размера 24x16 выбран State={{actual}}.",
+            "expectation": "CardImage размера 24x16 поддерживает только State=Active.",
+            "action": "Установить State=Active или выбрать размер, поддерживающий нужное состояние."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
