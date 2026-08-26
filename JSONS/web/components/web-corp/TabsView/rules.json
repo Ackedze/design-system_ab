@@ -485,6 +485,68 @@
         }
       },
       {
+        "ruleId": "component:web-corp.tabs-view.secondary-single-icon-is-uniform",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "variant.SingleIcon|component.composition",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Все соседние TabsSecondary одного уровня должны использовать одинаковое значение SingleIcon. Отдельное правило компонента требует SingleIcon=False.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "uniform-collection-properties",
+          "identity": "web-core-navigation.tabs",
+          "where": [
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "component.key"
+              },
+              "expected": {
+                "literal": "d44e07075d37245006c02b03ca28fa9a8681fa1e"
+              }
+            }
+          ],
+          "memberIdentity": "web-core.tag",
+          "memberWhere": [
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "component.family"
+              },
+              "expected": {
+                "literal": "tag-filled"
+              }
+            }
+          ],
+          "traverse": "descendants",
+          "propertyFacts": [
+            "component.properties.SingleIcon"
+          ],
+          "minimumCount": 2,
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "SingleIcon у соседних TabsSecondary различается",
+            "observed": "У соседних TabsSecondary одного уровня используются разные значения SingleIcon.",
+            "expectation": "Все TabsSecondary одного уровня должны использовать одинаковое значение SingleIcon; нормативное значение — False.",
+            "action": "Выключить SingleIcon у отличающегося TabsSecondary."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
+      },
+      {
         "ruleId": "component:web-corp.tabs-view.active-tab-cannot-be-disabled",
         "severity": "error",
         "source": "component-contract",
