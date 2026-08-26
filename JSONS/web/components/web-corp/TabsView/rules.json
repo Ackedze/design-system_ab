@@ -407,6 +407,72 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.tabs-view"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": "tabs-secondary"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.tabs-view"
+                }
+              }
+            ]
+          },
+          "actual": {
+            "fact": "component.properties.SingleIcon"
+          },
+          "allowedValues": [
+            false
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "В TabsSecondary включён SingleIcon",
+            "observed": "У TabsSecondary свойство SingleIcon имеет значение {{actual}}.",
+            "expectation": "В TabsSecondary свойство SingleIcon должно оставаться выключенным, чтобы Label был видим.",
+            "action": "Выключить SingleIcon у TabsSecondary."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
