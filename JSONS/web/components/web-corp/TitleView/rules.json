@@ -378,7 +378,7 @@
             "StatusBadge"
           ]
         },
-        "ruleText": "Status используется для состояния страницы, заголовком которой является TitleView с View=xLarge. TitleStatus является опциональным статусным блоком и может использоваться вместе со Status или самостоятельно. TitleAddon и TitleAddonXL используются как опциональные функциональные элементы рядом с заголовком. Не считай отсутствие опционального слота нарушением."
+        "ruleText": "Status используется для состояния страницы, заголовком которой является TitleView с View=xLarge. TitleStatus является опциональным статусным блоком, доступным только при включённом свойстве Status у того же TitleView. TitleAddon и TitleAddonXL используются как опциональные функциональные элементы рядом с заголовком. Не считай отсутствие опционального слота нарушением."
       },
       {
         "ruleId": "component:web-corp.title-view.status-and-title-status-color-match",
@@ -541,10 +541,10 @@
         }
       },
       {
-        "ruleId": "component:web-corp.title-view.title-status-may-be-standalone",
-        "severity": "info",
+        "ruleId": "component:web-corp.title-view.title-status-requires-status",
+        "severity": "error",
         "source": "component-contract",
-        "appliesTo": "component.composition",
+        "appliesTo": "component.properties.TitleStatus|component.properties.Status",
         "checkType": "deterministic",
         "matchKind": "composition_rule",
         "conditions": {
@@ -552,14 +552,86 @@
             "[D] TitleView",
             "[M] TitleView"
           ],
-          "visibleSlot": "TitleStatus",
-          "hiddenSlot": "Status"
+          "componentProperties": {
+            "TitleStatus": true
+          }
         },
-        "classification": {
-          "allowed": true,
-          "doNotRequireStatusSlot": true
+        "requiredVariant": {
+          "Status": true
         },
-        "ruleText": "TitleStatus может использоваться самостоятельно без верхнего Status. Не считай отсутствие Status нарушением, если TitleStatus видим."
+        "ruleText": "TitleStatus может использоваться только при включённом свойстве Status у того же TitleView. Если TitleStatus=true, установи Status=true.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.title-view"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.properties.TitleStatus"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          "actual": {
+            "fact": "component.properties.Status"
+          },
+          "allowedValues": [
+            true
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "TitleStatus включён без Status",
+            "observed": "У TitleView включён TitleStatus, но свойство Status имеет значение {{actual}}.",
+            "expectation": "TitleStatus может использоваться только при Status=true у того же TitleView.",
+            "action": "Включить свойство Status у TitleView или отключить TitleStatus."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
       },
       {
         "ruleId": "component:web-corp.title-view.status-label-is-content-override",

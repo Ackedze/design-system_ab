@@ -49,7 +49,7 @@ TitleView описывает сценарий header with title, status and acti
 - `Title` обязателен и не может быть пустым или скрытым.
 - Label встроенного `Status`, а также `Title` и `Subtitle` внутри `TitleStatus` разрешено менять через content overrides; `Type` продолжает определять статусный цвет.
 - Верхний `Status` использует только `Size=24`: `Style=Contrast` на сером фоне и `Style=Muted` на белом; `Type` может быть любым из public API.
-- `TitleStatus` может использоваться без верхнего `Status`.
+- `TitleStatus` может использоваться только при включённом boolean-свойстве `Status` у того же `TitleView`.
 - Кнопки в `Button group` используют `Size=56` для `[D] TitleView` и `Size=48` для `[M] TitleView`; остальные параметры определяются public API `Button` и паттерном `Кнопки и группы кнопок`.
 - Параметры `FilterCompanySelect_Single` внутри `Holding` определяются собственным API и будущим компонентным контрактом селекта.
 - Editable-сценарии и правила `p_title-view-editable.md` являются частью комплекта `TitleView`.
