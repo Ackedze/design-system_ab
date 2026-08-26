@@ -364,18 +364,17 @@
     },
     "contracts": [
       {
-        "id": "buttons-group.composition",
+        "id": "buttons-group.desktop-composition",
         "schemaVersion": "apollo.composition-predicate-contract.v1",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
         },
         "scope": {
           "platform": [
-            "desktop",
-            "mobile-web"
+            "desktop"
           ]
         },
         "match": {
@@ -383,8 +382,7 @@
             "web-corp.buttons-group"
           ],
           "hostComponentNames": [
-            "[D] ButtonsGroup",
-            "[M] ButtonsGroup"
+            "[D] ButtonsGroup"
           ]
         },
         "select": {
@@ -392,8 +390,7 @@
             "web-core.button"
           ],
           "nestedComponentNames": [
-            "[D] Button",
-            "[M] Button"
+            "[D] Button"
           ],
           "visibility": "visible",
           "order": "document"
@@ -409,7 +406,14 @@
             "op": "countBetween",
             "min": 2,
             "max": 4,
-            "message": "В ButtonsGroup должно быть от двух до четырёх кнопок"
+            "message": "В desktop ButtonsGroup должно быть от двух до четырёх видимых кнопок",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Неверное количество кнопок в desktop ButtonsGroup",
+              "observed": "В группе найдено {{actual}} видимых кнопок.",
+              "expectation": "В desktop ButtonsGroup должно быть от двух до четырёх видимых кнопок.",
+              "action": "Оставить в группе от двух до четырёх видимых кнопок; лишние действия перенести в overflow."
+            }
           },
           {
             "id": "allowed-views",
@@ -420,14 +424,28 @@
               "Primary",
               "Secondary"
             ],
-            "message": "В ButtonsGroup допускаются только View=Primary и View=Secondary"
+            "message": "В ButtonsGroup допускаются только View=Primary и View=Secondary",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "В ButtonsGroup используется запрещённый View",
+              "observed": "У вложенной кнопки выбран View={{actual}}.",
+              "expectation": "Внутри ButtonsGroup допускаются только View=Primary и View=Secondary.",
+              "action": "Изменить View вложенной кнопки на Primary или Secondary."
+            }
           },
           {
             "id": "uniform-size",
             "ruleId": "component:web-corp.buttons-group.uniform-size",
             "op": "propertyEqualsHost",
             "property": "Size",
-            "message": "Размер каждой кнопки должен совпадать с Size группы"
+            "message": "Размер каждой кнопки должен совпадать с Size группы",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Размер кнопки не совпадает с размером ButtonsGroup",
+              "observed": "У вложенной кнопки выбран Size={{actual}}.",
+              "expectation": "Size каждой кнопки должен совпадать с Size группы: {{expected}}.",
+              "action": "Установить вложенной кнопке Size группы."
+            }
           },
           {
             "id": "primary-position",
@@ -465,7 +483,145 @@
               "equals": "true"
             },
             "replacement": "False",
-            "message": "При Overflow=true последняя кнопка должна оставаться штатным PickerButton (SingleIcon=true с системной иконкой); SingleIcon допускается только у последней кнопки и только один раз"
+            "message": "При Overflow=true SingleIcon допускается только у последней кнопки и только один раз",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "SingleIcon находится не в конце ButtonsGroup",
+              "observed": "Кнопка с SingleIcon=true расположена не последней или используется несколько раз.",
+              "expectation": "При Overflow=true только последняя кнопка может иметь SingleIcon=true.",
+              "action": "Оставить SingleIcon=true только у последней кнопки группы."
+            }
+          }
+        ]
+      },
+      {
+        "id": "buttons-group.mobile-composition",
+        "schemaVersion": "apollo.composition-predicate-contract.v1",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 2
+        },
+        "scope": {
+          "platform": [
+            "mobile-web"
+          ]
+        },
+        "match": {
+          "hostComponentIdentities": [
+            "web-corp.buttons-group"
+          ],
+          "hostComponentNames": [
+            "[M] ButtonsGroup"
+          ]
+        },
+        "select": {
+          "nestedComponentIdentities": [
+            "web-core.button"
+          ],
+          "nestedComponentNames": [
+            "[M] Button"
+          ],
+          "visibility": "visible",
+          "order": "document"
+        },
+        "facts": {
+          "visibleMemberNodeIds": "composition.visibleButtonNodeIds",
+          "siblingPropertyValuesPrefix": "composition.siblingPropertyValues"
+        },
+        "constraints": [
+          {
+            "id": "button-count",
+            "ruleId": "component:web-corp.buttons-group.button-count.mobile",
+            "op": "countBetween",
+            "min": 2,
+            "max": 2,
+            "message": "В mobile-web ButtonsGroup должно быть ровно две видимые кнопки",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Неверное количество кнопок в mobile ButtonsGroup",
+              "observed": "В группе найдено {{actual}} видимых кнопок.",
+              "expectation": "В mobile-web ButtonsGroup должно быть ровно две видимые кнопки.",
+              "action": "Оставить в группе две видимые кнопки; остальные действия перенести в overflow."
+            }
+          },
+          {
+            "id": "allowed-views",
+            "ruleId": "component:web-corp.buttons-group.allowed-views.mobile",
+            "op": "propertyDomain",
+            "property": "View",
+            "values": [
+              "Primary",
+              "Secondary"
+            ],
+            "message": "В ButtonsGroup допускаются только View=Primary и View=Secondary",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "В ButtonsGroup используется запрещённый View",
+              "observed": "У вложенной кнопки выбран View={{actual}}.",
+              "expectation": "Внутри ButtonsGroup допускаются только View=Primary и View=Secondary.",
+              "action": "Изменить View вложенной кнопки на Primary или Secondary."
+            }
+          },
+          {
+            "id": "uniform-size",
+            "ruleId": "component:web-corp.buttons-group.uniform-size.mobile",
+            "op": "propertyEqualsHost",
+            "property": "Size",
+            "message": "Размер каждой кнопки должен совпадать с Size группы",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Размер кнопки не совпадает с размером ButtonsGroup",
+              "observed": "У вложенной кнопки выбран Size={{actual}}.",
+              "expectation": "Size каждой кнопки должен совпадать с Size группы: {{expected}}.",
+              "action": "Установить вложенной кнопке Size группы."
+            }
+          },
+          {
+            "id": "primary-position",
+            "ruleId": "component:web-corp.buttons-group.primary-position.mobile",
+            "op": "valuePosition",
+            "property": "View",
+            "value": "Primary",
+            "positions": [
+              "first"
+            ],
+            "maxCount": 1,
+            "replacement": "Secondary",
+            "message": "Primary-кнопка необязательна; если она есть, то может быть только первой и только одной",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Primary-кнопка находится не на первом месте",
+              "observed": "В группе Primary-кнопка расположена не первой или используется несколько раз.",
+              "expectation": "Primary-кнопка необязательна, но может быть только одной и только первой.",
+              "action": "Переместить Primary-кнопку на первое место или изменить лишние Primary-кнопки на Secondary."
+            }
+          },
+          {
+            "id": "single-icon-position",
+            "ruleId": "component:web-corp.buttons-group.single-icon-position.mobile",
+            "op": "valuePosition",
+            "property": "SingleIcon",
+            "value": "True",
+            "subjectLabel": "PickerButton",
+            "positions": [
+              "last"
+            ],
+            "maxCount": 1,
+            "whenHostProperty": {
+              "property": "Overflow",
+              "equals": "true"
+            },
+            "replacement": "False",
+            "message": "При Overflow=true SingleIcon допускается только у последней кнопки и только один раз",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "SingleIcon находится не в конце ButtonsGroup",
+              "observed": "Кнопка с SingleIcon=true расположена не последней или используется несколько раз.",
+              "expectation": "При Overflow=true только последняя кнопка может иметь SingleIcon=true.",
+              "action": "Оставить SingleIcon=true только у последней кнопки группы."
+            }
           }
         ]
       }
