@@ -532,6 +532,64 @@ TitleView :: xLarge используется внутри каждой подл�
 - checkType: deterministic
 - autofix: no
 
+```json apollo-predicate-contour
+{
+  "ruleId": "rule:forms.construction-rules.title-medium-one-per-plate",
+  "severity": "error",
+  "ruleKind": "design-rule",
+  "authority": {
+    "status": "active",
+    "provenance": "design-system-author",
+    "revision": 2
+  },
+  "predicateContour": {
+    "schemaVersion": "apollo.contour-definition.v1",
+    "kind": "fact-domain",
+    "scope": {
+      "platform": ["desktop", "mobile-web"],
+      "pageType": ["form"]
+    },
+    "select": {
+      "from": "selection-root",
+      "traverse": "descendants",
+      "where": [
+        {
+          "predicate": "equals",
+          "actual": { "fact": "type" },
+          "expected": { "literal": "INSTANCE" }
+        },
+        {
+          "predicate": "equals",
+          "actual": { "fact": "component.identity" },
+          "expected": { "literal": "web-corp.title-view" }
+        },
+        {
+          "predicate": "equals",
+          "actual": { "fact": "component.properties.View" },
+          "expected": { "literal": "Medium" }
+        },
+        {
+          "predicate": "exists",
+          "actual": { "fact": "composition.formFirstLevelSurface.mediumTitlePosition" }
+        }
+      ]
+    },
+    "actual": {
+      "fact": "composition.formFirstLevelSurface.mediumTitlePosition"
+    },
+    "allowedValues": ["single", "first"],
+    "unknownPolicy": "not-evaluable",
+    "presentation": {
+      "schemaVersion": "apollo.predicate-presentation.v1",
+      "title": "На одной подложке несколько TitleView Medium",
+      "observed": "Этот TitleView Medium не является единственным или первым заголовком Medium на подложке.",
+      "expectation": "На одной подложке формы допускается только один TitleView с View=Medium.",
+      "action": "Оставить один TitleView Medium как главный заголовок логической части; остальные перевести на следующий уровень иерархии."
+    }
+  }
+}
+```
+
 `TitleView :: Medium` используется только в левой части и является главным заголовком логической части. На одной подложке может быть только один заголовок `Medium`.
 
 #### Правильно
