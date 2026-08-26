@@ -289,6 +289,55 @@ TitleView :: Small
 }
 ```
 
+```json apollo-predicate-contour
+{
+  "ruleId": "rule:forms.construction-rules.block-spacing.second-level-actions",
+  "severity": "error",
+  "ruleKind": "design-rule",
+  "authority": {
+    "status": "active",
+    "provenance": "design-system-author",
+    "revision": 3
+  },
+  "predicateContour": {
+    "schemaVersion": "apollo.contour-definition.v1",
+    "kind": "distance",
+    "scope": {
+      "platform": ["desktop", "mobile-web"],
+      "pageType": ["form"]
+    },
+    "select": {
+      "from": "selection-root",
+      "traverse": "self-and-descendants",
+      "where": [
+        {
+          "predicate": "exists",
+          "actual": { "fact": "composition.previousFormContent.bounds" }
+        },
+        {
+          "predicate": "equals",
+          "actual": { "fact": "composition.previousFormContent.hierarchyLevel" },
+          "expected": { "literal": "second-level" }
+        }
+      ]
+    },
+    "actual": { "fact": "bounds" },
+    "target": { "fact": "composition.previousFormContent.bounds" },
+    "expected": { "literal": 32 },
+    "axis": "vertical",
+    "tolerance": 0,
+    "unknownPolicy": "not-evaluable",
+    "presentation": {
+      "schemaVersion": "apollo.predicate-presentation.v1",
+      "title": "Неверный отступ перед основными действиями формы",
+      "observed": "Вертикальный отступ от последнего блока второго уровня до основных действий: {{measured}} px.",
+      "expectation": "Перед основными действиями формы должно быть 32 px.",
+      "action": "Установить вертикальный отступ перед основными действиями 32 px."
+    }
+  }
+}
+```
+
 Между блоками первого уровня используйте `24 px`. Между блоками второго уровня используйте `32 px`.
 
 #### Правильно
