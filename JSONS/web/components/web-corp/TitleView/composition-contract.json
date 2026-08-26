@@ -1350,13 +1350,25 @@
     "contracts": [
       {
         "id": "title-view.status.composition",
+        "schemaVersion": "apollo.composition-predicate-contract.v1",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 2
+        },
+        "scope": {
+          "platform": ["desktop", "mobile-web"]
+        },
         "match": {
-          "hostComponentNames": [
-            "[D] TitleView",
-            "[M] TitleView"
-          ]
+          "hostComponentIdentities": [
+            "web-corp.title-view",
+            "web-corp.title-view-mobile"
+          ],
+          "hostComponentNames": ["[D] TitleView", "[M] TitleView"]
         },
         "select": {
+          "nestedComponentIdentities": ["web-corp.status-property"],
           "nestedComponentNames": [
             "StatusPreset",
             "🔒 [D] StatusPreset",
@@ -1365,148 +1377,212 @@
           "visibility": "visible",
           "order": "document"
         },
+        "facts": {
+          "visibleMemberNodeIds": "composition.visibleTitleViewStatusNodeIds",
+          "siblingPropertyValuesPrefix": "composition.titleViewStatusSiblingPropertyValues"
+        },
         "constraints": [
           {
             "id": "status-size",
+            "ruleId": "component:web-corp.title-view.status-size-24",
             "op": "propertyDomain",
             "property": "Size",
-            "values": [
-              "24"
-            ],
-            "message": "StatusPreset внутри TitleView должен использовать Size=24"
-          }
-        ]
-      },
-      {
-        "id": "title-view.status-type-relation.composition",
-        "match": {
-          "hostComponentNames": [
-            "[D] TitleView",
-            "[M] TitleView"
-          ]
-        },
-        "select": {
-          "nestedComponentNames": [
-            "StatusPreset",
-            "🔒 [D] StatusPreset",
-            "🔒 [M] StatusPreset",
-            "[D] TitleStatus",
-            "[M] TitleStatus"
-          ],
-          "visibility": "visible",
-          "order": "document"
-        },
-        "constraints": [
-          {
-            "id": "matching-status-type",
-            "op": "propertyEqualsFirst",
-            "property": "Type",
-            "message": "TitleStatus.Type должен совпадать с Type видимого StatusPreset"
+            "values": ["24"],
+            "message": "StatusPreset внутри TitleView должен использовать Size=24",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Неверный размер Status в TitleView",
+              "observed": "У StatusPreset внутри TitleView используется Size={{actual}}.",
+              "expectation": "Верхний Status внутри TitleView должен использовать Size=24.",
+              "action": "Установить StatusPreset значение Size=24."
+            }
           }
         ]
       },
       {
         "id": "title-view.button-group.composition",
+        "schemaVersion": "apollo.composition-predicate-contract.v1",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 2
+        },
+        "scope": {
+          "platform": ["desktop", "mobile-web"]
+        },
         "match": {
-          "hostComponentNames": [
-            "[D] TitleView",
-            "[M] TitleView"
-          ]
+          "hostComponentIdentities": [
+            "web-corp.title-view",
+            "web-corp.title-view-mobile"
+          ],
+          "hostComponentNames": ["[D] TitleView", "[M] TitleView"]
         },
         "select": {
-          "nestedComponentNames": [
-            "[D] Button",
-            "[M] Button"
-          ],
+          "nestedComponentIdentities": ["web-core.button"],
+          "nestedComponentNames": ["[D] Button", "[M] Button"],
           "visibility": "visible",
           "order": "document"
         },
+        "facts": {
+          "visibleMemberNodeIds": "composition.visibleTitleViewButtonNodeIds",
+          "siblingPropertyValuesPrefix": "composition.titleViewButtonSiblingPropertyValues"
+        },
         "constraints": [
           {
+            "id": "button-count",
+            "ruleId": "component:web-corp.title-view.button-group-max-four-actions",
+            "op": "countBetween",
+            "min": 0,
+            "max": 4,
+            "severity": "warning",
+            "message": "В Button group внутри TitleView рекомендуется не больше четырёх действий",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "В TitleView слишком много действий",
+              "observed": "В Button group найдено {{actual}} видимых действий.",
+              "expectation": "В TitleView рекомендуется показывать не больше четырёх действий.",
+              "action": "Оставить до четырёх действий, остальные перенести в PickerButton."
+            }
+          },
+          {
             "id": "allowed-views",
+            "ruleId": "component:web-corp.title-view.button-group-allowed-views",
             "op": "propertyDomain",
             "property": "View",
-            "values": [
-              "Primary",
-              "Secondary"
-            ],
-            "message": "В Button group внутри TitleView допускаются только View=Primary и View=Secondary"
+            "values": ["Primary", "Secondary"],
+            "message": "В Button group внутри TitleView допускаются только View=Primary и View=Secondary",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Недопустимый вид кнопки в TitleView",
+              "observed": "В Button group используется кнопка View={{actual}}.",
+              "expectation": "В TitleView допускаются только кнопки View=Primary и View=Secondary.",
+              "action": "Изменить View кнопки на Primary или Secondary."
+            }
           },
           {
             "id": "primary-position",
+            "ruleId": "component:web-corp.title-view.button-group-single-primary-action",
             "op": "valuePosition",
             "property": "View",
             "value": "Primary",
-            "positions": [
-              "first"
-            ],
+            "positions": ["first"],
             "maxCount": 1,
             "replacement": "Secondary",
-            "message": "Primary-кнопка внутри TitleView необязательна, но может быть только первой"
+            "message": "Primary-кнопка внутри TitleView необязательна, но может быть только первой",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Нарушен приоритет действий TitleView",
+              "observed": "Primary-кнопка расположена не первой или используется несколько раз.",
+              "expectation": "В TitleView может быть только одна Primary-кнопка и только на первом месте.",
+              "action": "Оставить первую целевую кнопку Primary, остальные изменить на Secondary."
+            }
           },
           {
             "id": "single-icon-position",
+            "ruleId": "component:web-corp.title-view.button-group-single-icon-position",
             "op": "valuePosition",
             "property": "SingleIcon",
             "value": "True",
-            "positions": [
-              "last"
-            ],
+            "positions": ["last"],
             "maxCount": 1,
             "replacement": "False",
-            "message": "SingleIcon внутри TitleView допускается только у последней кнопки и только один раз"
+            "message": "SingleIcon внутри TitleView допускается только у последней кнопки и только один раз",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Неверное положение иконки-действия TitleView",
+              "observed": "SingleIcon используется не у последней кнопки или больше одного раза.",
+              "expectation": "SingleIcon допускается только у одной последней кнопки группы.",
+              "action": "Оставить SingleIcon=True только у последней кнопки."
+            }
           }
         ]
       },
       {
         "id": "title-view.desktop-button-size.composition",
+        "schemaVersion": "apollo.composition-predicate-contract.v1",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 2
+        },
+        "scope": {
+          "platform": ["desktop"]
+        },
         "match": {
-          "hostComponentNames": [
-            "[D] TitleView"
-          ]
+          "hostComponentIdentities": ["web-corp.title-view"],
+          "hostComponentNames": ["[D] TitleView"]
         },
         "select": {
-          "nestedComponentNames": [
-            "[D] Button"
-          ],
+          "nestedComponentIdentities": ["web-core.button"],
+          "nestedComponentNames": ["[D] Button"],
           "visibility": "visible",
           "order": "document"
+        },
+        "facts": {
+          "visibleMemberNodeIds": "composition.visibleTitleViewDesktopButtonNodeIds",
+          "siblingPropertyValuesPrefix": "composition.titleViewDesktopButtonSiblingPropertyValues"
         },
         "constraints": [
           {
             "id": "button-size",
+            "ruleId": "component:web-corp.title-view.button-size-desktop",
             "op": "propertyDomain",
             "property": "Size",
-            "values": [
-              "56"
-            ],
-            "message": "Button внутри [D] TitleView должен использовать Size=56"
+            "values": ["56"],
+            "message": "Button внутри [D] TitleView должен использовать Size=56",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Неверный размер кнопки в desktop TitleView",
+              "observed": "У кнопки используется Size={{actual}}.",
+              "expectation": "Кнопки внутри [D] TitleView должны использовать Size=56.",
+              "action": "Установить кнопке Size=56."
+            }
           }
         ]
       },
       {
         "id": "title-view.mobile-button-size.composition",
+        "schemaVersion": "apollo.composition-predicate-contract.v1",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 2
+        },
+        "scope": {
+          "platform": ["mobile-web"]
+        },
         "match": {
-          "hostComponentNames": [
-            "[M] TitleView"
-          ]
+          "hostComponentIdentities": ["web-corp.title-view-mobile"],
+          "hostComponentNames": ["[M] TitleView"]
         },
         "select": {
-          "nestedComponentNames": [
-            "[M] Button"
-          ],
+          "nestedComponentIdentities": ["web-core.button"],
+          "nestedComponentNames": ["[M] Button"],
           "visibility": "visible",
           "order": "document"
+        },
+        "facts": {
+          "visibleMemberNodeIds": "composition.visibleTitleViewMobileButtonNodeIds",
+          "siblingPropertyValuesPrefix": "composition.titleViewMobileButtonSiblingPropertyValues"
         },
         "constraints": [
           {
             "id": "button-size",
+            "ruleId": "component:web-corp.title-view.button-size-mobile",
             "op": "propertyDomain",
             "property": "Size",
-            "values": [
-              "48"
-            ],
-            "message": "Button внутри [M] TitleView должен использовать Size=48"
+            "values": ["48"],
+            "message": "Button внутри [M] TitleView должен использовать Size=48",
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "Неверный размер кнопки в mobile TitleView",
+              "observed": "У кнопки используется Size={{actual}}.",
+              "expectation": "Кнопки внутри [M] TitleView должны использовать Size=48.",
+              "action": "Установить кнопке Size=48."
+            }
           }
         ]
       }
@@ -1538,7 +1614,8 @@
         ]
       },
       "ownerComponentIdentities": [
-        "web-corp.title-view"
+        "web-corp.title-view",
+        "web-corp.title-view-mobile"
       ],
       "containerNames": [
         "MainContent"
