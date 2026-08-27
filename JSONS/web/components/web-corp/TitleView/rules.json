@@ -671,18 +671,19 @@
             "[M] TitleView"
           ],
           "componentProperties": {
+            "View": "xLarge",
             "TitleStatus": true
           }
         },
         "requiredVariant": {
           "Status": true
         },
-        "ruleText": "TitleStatus может использоваться только при включённом свойстве Status у того же TitleView. Если TitleStatus=true, установи Status=true.",
+        "ruleText": "В View=xLarge TitleStatus может использоваться только при включённом свойстве Status у того же TitleView. Для Large, Medium и Small слот TitleStatus недоступен и сохранённое скрытое значение свойства не оценивается.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
         },
         "predicateContour": {
           "schemaVersion": "apollo.contour-definition.v1",
@@ -729,6 +730,15 @@
                 "expected": {
                   "literal": true
                 }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.properties.View"
+                },
+                "expected": {
+                  "literal": "xLarge"
+                }
               }
             ]
           },
@@ -742,7 +752,7 @@
             "schemaVersion": "apollo.predicate-presentation.v1",
             "title": "TitleStatus включён без Status",
             "observed": "У TitleView включён TitleStatus, но свойство Status имеет значение {{actual}}.",
-            "expectation": "TitleStatus может использоваться только при Status=true у того же TitleView.",
+            "expectation": "В View=xLarge TitleStatus может использоваться только при Status=true у того же TitleView.",
             "action": "Включить свойство Status у TitleView или отключить TitleStatus."
           },
           "scope": {
