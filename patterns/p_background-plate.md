@@ -118,17 +118,15 @@ Opacity всех типов BackgroundPlate определяется effective b
 
 Blend mode BackgroundPlate и внутренних surface-слоёв всегда сохраняется из effective baseline компонента.
 
-`BackgroundPlateSlot` содержит слот для контента. Внутренние отступы слота берутся из компонента и не заменяются ручной геометрией, кроме адаптивных случаев, где по гайду нужно вручную убрать внутренние `32 px`.
+`BackgroundPlateSlot` содержит слот для контента. Внутренние отступы слота можно менять под контекст композиции или применимый паттерн; само значение, способ задания и отличие от standalone-компонента не являются нарушением.
 
 В слот можно помещать любой обычный контент напрямую. `Level 2` добавляется только тогда, когда нужна отдельная вложенная поверхность. Не помещайте внутрь слота `BackgroundPlate` с `Level 0` или `Level 1`.
 
 Направление auto-layout, расстояние между элементами и alignment внутри `Slot` выбираются по структуре вложенного контента. Standalone-значения этих свойств не являются обязательным baseline для готовой композиции.
 
-Sizing слота фиксирован контрактом: ширина — `Fill`, высота — `Hug`.
-
 `Clip content` можно включать или выключать в зависимости от поведения вложенного контента. Ни одно из состояний не является обязательным baseline.
 
-Для нового `Level 1` начинайте с `Spacing/32` по всем сторонам. Для нового `Level 2` начинайте с `Spacing/24`. Эти значения являются рекомендацией, а не жёстким ограничением: `padding` можно менять под контекст или применимый паттерн. Каждое значение должно быть задано через токен `Spacing`: `0`, `1`, `2`, `4`, `6`, `8`, `12`, `16`, `20`, `24`, `32`, `40`, `48`, `56`, `64`, `72`, `80`, `96`, `128`, `256`.
+Для нового `Level 1` начинайте с `32 px` по всем сторонам. Для нового `Level 2` начинайте с `24 px`. Эти значения являются рекомендацией, а не жёстким ограничением.
 
 ## Section 6: Правила
 
@@ -469,38 +467,7 @@ BackgroundPlate скрыт, вместо него добавлены ручны�
 
 Встроенный skeleton сохраняет структуру, скругления, фон и размеры компонента.
 
-### Rule 13: Задавай padding через токены Spacing
-
-- ruleId: rule:components.background-plate.padding-uses-spacing-tokens
-- severity: error
-- appliesTo: component
-- checkType: deterministic
-- autofix: partial
-
-Для `Level 1` рекомендуемое стартовое значение — `Spacing/32`, для `Level 2` — `Spacing/24`. Эти отступы можно менять под контекст или применимый паттерн, но все значения должны задаваться через токены из `Spacing.json`.
-
-#### Правильно
-
-```text
-padding-left: Spacing/16
-padding-right: Spacing/24
-padding-top: Spacing/32
-padding-bottom: Spacing/32
-```
-
-#### Неправильно
-
-```text
-padding-left: 16 px вручную
-padding-right: 24 px вручную
-padding-top: 30 px без токена
-```
-
-#### Почему
-
-Значения `32` и `24` дают генератору предсказуемую отправную точку. Padding может адаптироваться под сценарий, но токены сохраняют единую spacing-шкалу и позволяют агенту отличать допустимую настройку компонента от ручной геометрии.
-
-### Rule 14: Не меняй скругления вручную
+### Rule 13: Не меняй скругления вручную
 
 - ruleId: rule:components.background-plate.radius-fixed-by-component
 - severity: error
@@ -528,7 +495,7 @@ padding-top: 30 px без токена
 
 Скругления задают уровень поверхности и визуальную иерархию подложек. Ручное изменение radius ломает соответствие component baseline и должно фиксироваться как нарушение, а не как допустимая композиционная настройка.
 
-### Rule 15: Настраивай auto-layout Slot по контексту
+### Rule 14: Настраивай auto-layout Slot по контексту
 
 - ruleId: rule:components.background-plate.slot-auto-layout-by-context
 - severity: info
@@ -538,33 +505,7 @@ padding-top: 30 px без токена
 
 Axis, gap и alignment внутри `Slot` определяются контекстом композиции и вложенным контентом. Их отличие от standalone-компонента не является ошибкой и не требует сброса.
 
-Ограничение по токенизации `padding` применяется отдельно и продолжает действовать.
-
-### Rule 16: Используй Fill по ширине и Hug по высоте Slot
-
-- ruleId: rule:components.background-plate.slot-sizing
-- severity: error
-- appliesTo: component
-- checkType: deterministic
-- autofix: yes
-
-`Slot` должен использовать `Fill` по ширине и `Hug` по высоте. Это обеспечивает растяжение поверхности по доступной ширине и расчёт высоты по вложенному контенту.
-
-#### Правильно
-
-```text
-Slot width: Fill
-Slot height: Hug
-```
-
-#### Неправильно
-
-```text
-Slot width: Fixed
-Slot height: Fill
-```
-
-### Rule 17: Настраивай Clip content по контексту
+### Rule 15: Настраивай Clip content по контексту
 
 - ruleId: rule:components.background-plate.slot-clipping-by-context
 - severity: info
@@ -576,7 +517,7 @@ Slot height: Fill
 
 Не рекомендуйте сброс только из-за отличия `clipsContent` от standalone-компонента.
 
-### Rule 18: Настраивай толщину Border по контексту
+### Rule 16: Настраивай толщину Border по контексту
 
 - ruleId: rule:components.background-plate.border-stroke-weight-by-context
 - severity: info
@@ -588,7 +529,7 @@ Slot height: Fill
 
 Цвет обводки может меняться, но должен оставаться привязанным к цветовому токену дизайн-системы.
 
-### Rule 19: Оставляй обводку Border внутри компонента
+### Rule 17: Оставляй обводку Border внутри компонента
 
 - ruleId: rule:components.background-plate.border-stroke-align-inside
 - severity: error
@@ -612,7 +553,7 @@ Type=Border
 strokeAlign=CENTER | OUTSIDE
 ```
 
-### Rule 20: Не добавляй заливку в Border
+### Rule 18: Не добавляй заливку в Border
 
 - ruleId: rule:components.background-plate.border-no-fill
 - severity: error
@@ -637,7 +578,7 @@ Type=Border
 fill=<raw color | color token>
 ```
 
-### Rule 21: Используй Colored только с заливкой
+### Rule 19: Используй Colored только с заливкой
 
 - ruleId: rule:components.background-plate.colored-fill-only
 - severity: error
@@ -663,7 +604,7 @@ fill=<raw color | none>
 stroke=<raw color | color token>
 ```
 
-### Rule 22: Не меняй paint у Primary и Secondary вручную
+### Rule 20: Не меняй paint у Primary и Secondary вручную
 
 - ruleId: rule:components.background-plate.primary-secondary-paint-fixed
 - severity: error
@@ -687,7 +628,7 @@ Type=Secondary
 stroke=<добавленная вручную обводка>
 ```
 
-### Rule 23: Не меняй opacity вручную
+### Rule 21: Не меняй opacity вручную
 
 - ruleId: rule:components.background-plate.opacity-fixed
 - severity: error
@@ -697,7 +638,7 @@ stroke=<добавленная вручную обводка>
 
 Opacity BackgroundPlate должен совпадать с effective baseline текущего варианта. Ручное изменение запрещено даже через opacity token.
 
-### Rule 24: Не добавляй тени
+### Rule 22: Не добавляй тени
 
 - ruleId: rule:components.background-plate.no-manual-shadows
 - severity: error
@@ -707,7 +648,7 @@ Opacity BackgroundPlate должен совпадать с effective baseline т
 
 Не добавляйте к BackgroundPlate или его внутренним surface-слоям `Drop shadow` и `Inner shadow`. Запрет действует для raw effects и effect styles.
 
-### Rule 25: Используй blur по контексту
+### Rule 23: Используй blur по контексту
 
 - ruleId: rule:components.background-plate.blur-by-context
 - severity: info
@@ -719,7 +660,7 @@ Opacity BackgroundPlate должен совпадать с effective baseline т
 
 Не применяйте к blur правило, запрещающее `Drop shadow` и `Inner shadow`.
 
-### Rule 26: Не меняй blend mode вручную
+### Rule 24: Не меняй blend mode вручную
 
 - ruleId: rule:components.background-plate.blend-mode-fixed
 - severity: error

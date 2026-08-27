@@ -372,33 +372,6 @@
         }
       },
       {
-        "exampleId": "background-plate-slot-required-sizing",
-        "title": "Slot использует Fill по ширине и Hug по высоте",
-        "inputChange": {
-          "hostComponent": "[D] BackgroundPlateSlot",
-          "layer": "Slot",
-          "referenceValues": {
-            "layoutSizingHorizontal": "FILL",
-            "layoutSizingVertical": "HUG"
-          },
-          "actualValues": {
-            "layoutSizingHorizontal": "FIXED",
-            "layoutSizingVertical": "FILL"
-          }
-        },
-        "expectedAudit": {
-          "category": "customizations",
-          "group": "Параметры слоя",
-          "violation": true,
-          "severity": "high",
-          "matchedRuleId": "component:web-corp.background-plate.slot-sizing-fill-width-hug-height"
-        },
-        "expectedAgent": {
-          "severity": "high",
-          "recommendation": "Вернуть Slot в Fill по ширине и Hug по высоте."
-        }
-      },
-      {
         "exampleId": "background-plate-slot-context-controlled-clipping",
         "title": "Clip content Slot определяется контекстом",
         "inputChange": {
@@ -653,29 +626,6 @@
         "expectedAgent": {
           "severity": "high",
           "recommendation": "Сбросить blend mode к effective baseline текущего слоя компонента."
-        }
-      },
-      {
-        "exampleId": "background-plate-slot-padding-raw-value",
-        "title": "Raw padding без Spacing token является нарушением токенизации",
-        "inputChange": {
-          "hostComponent": "[D] BackgroundPlateSlot",
-          "layer": "Slot",
-          "property": "layout.padding.left",
-          "referenceValue": 24,
-          "actualValue": 30,
-          "actualTokenBinding": false
-        },
-        "expectedAudit": {
-          "category": "customizations",
-          "group": "Параметры слоя",
-          "resetSurface": "layer",
-          "showAs": "Паддинг left: 24 → 30"
-        },
-        "expectedAgent": {
-          "severity": "high",
-          "matchedRuleId": "component:web-corp.background-plate.padding-uses-spacing-tokens",
-          "recommendation": "Заменить raw padding на значение из коллекции Spacing."
         }
       },
       {
