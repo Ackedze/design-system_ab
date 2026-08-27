@@ -83,6 +83,35 @@
         }
       },
       {
+        "exampleId": "status-property.invalid-nested-status-size",
+        "title": "Размер вложенного Status не совпадает с StatusPreset",
+        "inputState": {
+          "component": "StatusPreset",
+          "Size": "20",
+          "nestedStatus.Size": "40"
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.status-property.nested-status-size-matches-preset"
+        }
+      },
+      {
+        "exampleId": "status-property.invalid-root-opacity",
+        "title": "Вручную изменена прозрачность корня StatusPreset",
+        "inputState": {
+          "component": "StatusPreset",
+          "property": "opacity",
+          "actual": 0.5,
+          "changedFromEffectiveBaseline": true
+        },
+        "expectedAudit": {
+          "category": "customizations",
+          "severity": "error",
+          "ruleId": "component:web-corp.status-property.preset-root-visuals-follow-effective-baseline"
+        }
+      },
+      {
         "exampleId": "status-property.invalid-custom-raw-color",
         "title": "Color=Custom использует raw colors",
         "inputState": {
