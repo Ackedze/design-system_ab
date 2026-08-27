@@ -78,6 +78,51 @@
           "classification": "not-evaluable",
           "focus": "IconView"
         }
+      },
+      {
+        "exampleId": "icon-view.border-color-allowed",
+        "title": "IconView border color is changed through a token override",
+        "inputChange": {
+          "node": "Border",
+          "property": "appearance.stroke.value",
+          "referenceValue": "neutral-translucent/200",
+          "actualValue": "status/info"
+        },
+        "expectedAudit": {
+          "ruleId": "component:web-core.icon-view.paint-colors-are-public-settings",
+          "classification": "allowed",
+          "focus": "Border"
+        }
+      },
+      {
+        "exampleId": "icon-view.background-color-allowed",
+        "title": "IconView background fill color is changed",
+        "inputChange": {
+          "node": "BgColor",
+          "property": "appearance.fill.value",
+          "referenceValue": "neutral/100",
+          "actualValue": "neutral/500"
+        },
+        "expectedAudit": {
+          "ruleId": "component:web-core.icon-view.paint-colors-are-public-settings",
+          "classification": "allowed",
+          "focus": "BgColor"
+        }
+      },
+      {
+        "exampleId": "icon-view.icon-color-allowed",
+        "title": "IconView icon fill color is changed",
+        "inputChange": {
+          "node": "Content/PaintMe",
+          "property": "appearance.fill.value",
+          "referenceValue": "neutral-translucent/700",
+          "actualValue": "text/positive"
+        },
+        "expectedAudit": {
+          "ruleId": "component:web-core.icon-view.paint-colors-are-public-settings",
+          "classification": "allowed",
+          "focus": "PaintMe"
+        }
       }
     ]
   }

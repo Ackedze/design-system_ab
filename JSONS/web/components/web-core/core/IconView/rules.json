@@ -104,6 +104,37 @@
         "ruleText": "Публичные настройки IconView изменяются только через component properties. Изменение Size является настройкой компонента, а не ручным изменением его внутренних слоёв."
       },
       {
+        "ruleId": "component:web-core.icon-view.paint-colors-are-public-settings",
+        "severity": "info",
+        "source": "component-contract",
+        "appliesTo": "fill|stroke",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-core.icon-view",
+          "layers": [
+            "IconView",
+            "Border",
+            "Shape",
+            "BgColor",
+            "Content",
+            "PaintMe"
+          ]
+        },
+        "classification": {
+          "reportAsCustomization": true,
+          "scope": "layer-property",
+          "treatAsViolation": false
+        },
+        "ruleText": "В IconView разрешено менять токен или цвет обводки Border, заливки Shape/BgColor и самой иконки Content/PaintMe. Эти paint overrides являются публичными настройками IconView и сами по себе не нарушают effective baseline. Компонент-хост может ограничить их только отдельным active contextual rule.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
         "ruleId": "component:web-core.icon-view.public-root-only",
         "severity": "error",
         "source": "component-contract",
@@ -153,7 +184,7 @@
         "ruleId": "component:web-core.icon-view.layer-properties-use-effective-baseline",
         "severity": "error",
         "source": "component-contract",
-        "appliesTo": "layout.*|fill|stroke|radius|opacity",
+        "appliesTo": "layout.*|radius|opacity",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "target": {
@@ -171,12 +202,12 @@
           "useEffectiveBaseline": true,
           "resetSurface": "layer"
         },
-        "ruleText": "Layout, fill, stroke, radius и opacity корня и внутренних слоёв IconView должны совпадать с effective baseline текущего состояния. Разрешение компонента-хоста имеет приоритет и должно быть выражено отдельным contextual rule.",
+        "ruleText": "Layout, radius и opacity корня и внутренних слоёв IconView должны совпадать с effective baseline текущего состояния. Paint-цвета не входят в это правило: IconView разрешает менять цвет обводки, заливки и иконки. Ограничение компонента-хоста имеет приоритет и должно быть выражено отдельным contextual rule.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
         },
         "predicateContour": {
           "schemaVersion": "apollo.contour-definition.v1",
@@ -254,18 +285,6 @@
               "baselineFact": "baseline.effective.layout.sizingVertical"
             },
             {
-              "suffix": "fill",
-              "label": "Заливка",
-              "actualFact": "appearance.fill.value",
-              "baselineFact": "baseline.effective.appearance.fill.value"
-            },
-            {
-              "suffix": "stroke",
-              "label": "Обводка",
-              "actualFact": "appearance.stroke.value",
-              "baselineFact": "baseline.effective.appearance.stroke.value"
-            },
-            {
               "suffix": "radius",
               "label": "Скругление",
               "actualFact": "appearance.radius",
@@ -325,6 +344,10 @@
         {
           "sourceRuleId": "component:web-core.icon-view.public-properties-are-component-settings",
           "effect": "classification"
+        },
+        {
+          "sourceRuleId": "component:web-core.icon-view.paint-colors-are-public-settings",
+          "effect": "allow-customization"
         }
       ],
       "contextOnlyRules": [
