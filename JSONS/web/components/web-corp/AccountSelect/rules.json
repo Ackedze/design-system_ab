@@ -146,6 +146,60 @@
         }
       },
       {
+        "ruleId": "component:web-corp.account-select.platform-match",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.platform|page.context.platform",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Публичный вариант AccountSelect должен соответствовать выбранной платформе: desktop-компонент используется на desktop, mobile-web-компонент — на mobile-web.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "platform-match",
+          "identity": "web-corp.account-select",
+          "publicRootOnly": true,
+          "where": [
+            {
+              "predicate": "equals",
+              "actual": {
+                "fact": "component.family"
+              },
+              "expected": {
+                "literal": "account-option-list-content"
+              }
+            }
+          ],
+          "supportedPlatforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Используется AccountSelect другого канала",
+            "observed": "Для страницы выбран канал {{actual}}, а компонент относится к {{expected}}.",
+            "expectation": "Платформенный вариант AccountSelect должен совпадать с выбранным каналом страницы.",
+            "action": "Заменить AccountOptionListContent на вариант для канала {{actual}}.",
+            "valueLabels": {
+              "desktop": "Desktop",
+              "mobile-web": "Mobile Web"
+            }
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
+      },
+      {
         "ruleId": "component:web-corp.account-select.selection-type-semantics",
         "severity": "info",
         "source": "component-contract",
@@ -994,6 +1048,7 @@
       ],
       "predicateRules": [
         "component:web-corp.account-select.public-roots-only",
+        "component:web-corp.account-select.platform-match",
         "component:web-corp.account-select.row-visuals-follow-effective-baseline",
         "component:web-corp.account-select.list-content-is-uniform"
       ],
