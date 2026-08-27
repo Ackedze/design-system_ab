@@ -16,5 +16,69 @@
   "generated": {
     "examples": []
   },
-  "manual": {}
+  "manual": {
+    "examples": [
+      {
+        "exampleId": "icon-view.public-root-pass",
+        "title": "Published IconView is used as a public root",
+        "inputChange": {
+          "node": "IconView",
+          "property": "component.identity",
+          "referenceValue": "web-core.icon-view/icon-view",
+          "actualValue": "web-core.icon-view/icon-view"
+        },
+        "expectedAudit": {
+          "ruleId": "component:web-core.icon-view.public-root-only",
+          "classification": "compliant",
+          "focus": "IconView"
+        }
+      },
+      {
+        "exampleId": "icon-view.internal-content-root-fail",
+        "title": "Internal Content is placed as a standalone component",
+        "inputChange": {
+          "node": "Content",
+          "property": "component.family",
+          "referenceValue": "icon-view",
+          "actualValue": "content"
+        },
+        "expectedAudit": {
+          "ruleId": "component:web-core.icon-view.public-root-only",
+          "classification": "violation",
+          "focus": "Content"
+        }
+      },
+      {
+        "exampleId": "icon-view.radius-baseline-fail",
+        "title": "IconView radius is changed manually",
+        "inputChange": {
+          "node": "IconView",
+          "property": "appearance.radius",
+          "referenceValue": 4,
+          "actualValue": 8
+        },
+        "expectedAudit": {
+          "ruleId": "component:web-core.icon-view.layer-properties-use-effective-baseline.radius",
+          "classification": "violation",
+          "focus": "IconView",
+          "action": "reset-to-effective-baseline"
+        }
+      },
+      {
+        "exampleId": "icon-view.radius-baseline-unknown",
+        "title": "Direct radius override has no exact effective baseline",
+        "inputChange": {
+          "node": "IconView",
+          "property": "appearance.radius",
+          "referenceValue": null,
+          "actualValue": 8
+        },
+        "expectedAudit": {
+          "ruleId": "component:web-core.icon-view.layer-properties-use-effective-baseline.radius",
+          "classification": "not-evaluable",
+          "focus": "IconView"
+        }
+      }
+    ]
+  }
 }
