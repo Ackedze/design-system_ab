@@ -23,7 +23,9 @@
     },
     "migratedFrom": 1,
     "ownershipMigrationRevision": 2,
-    "ruleAuthorityMigrationRevision": 1
+    "ruleAuthorityMigrationRevision": 1,
+    "executablePackageRevision": 1,
+    "executablePackageUpdatedAt": "2026-08-28"
   },
   "generated": {
     "rules": [
@@ -107,7 +109,66 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.amount-styles"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          "actual": {
+            "fact": "component.name"
+          },
+          "allowedValues": [
+            "🔒 [D] AmountHeadline",
+            "🔒 [M] AmountHeadline",
+            "🔒 AmountParagraph"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Служебный компонент AmountStyles используется отдельно",
+            "observed": "Компонент {{actual}} размещён как самостоятельный корень.",
+            "expectation": "Самостоятельно допускаются только публичные корни AmountStyles.",
+            "action": "Заменить служебный компонент на публичный библиотечный корень."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -335,7 +396,74 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline-set",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "any",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "component.identity"
+                    },
+                    "expected": {
+                      "literal": "web-corp.amount-styles"
+                    }
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "ownership.owner.component.identity"
+                    },
+                    "expected": {
+                      "literal": "web-corp.amount-styles"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "name"
+                },
+                "expected": {
+                  "literal": [
+                    "Minor",
+                    "Currency"
+                  ]
+                }
+              }
+            ]
+          },
+          "paths": [
+            {
+              "suffix": "opacity",
+              "label": "Прозрачность",
+              "actualFact": "appearance.opacity",
+              "baselineFact": "baseline.effective.appearance.opacity"
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменено свойство AmountStyles: {{property}}",
+            "observed": "Свойство «{{property}}» изменено с {{expected}} на {{actual}}.",
+            "expectation": "Свойство «{{property}}» должно совпадать с effective baseline AmountStyles.",
+            "action": "Сбросить свойство «{{property}}» к effective baseline."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -426,7 +554,80 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline-set",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "any",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "component.identity"
+                    },
+                    "expected": {
+                      "literal": "web-corp.amount-styles"
+                    }
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "ownership.owner.component.identity"
+                    },
+                    "expected": {
+                      "literal": "web-corp.amount-styles"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "paths": [
+            {
+              "suffix": "item-spacing",
+              "label": "Расстояние между элементами",
+              "actualFact": "layout.itemSpacing",
+              "baselineFact": "baseline.effective.layout.itemSpacing"
+            },
+            {
+              "suffix": "sizing-horizontal",
+              "label": "Горизонтальный sizing",
+              "actualFact": "layout.sizingHorizontal",
+              "baselineFact": "baseline.effective.layout.sizingHorizontal"
+            },
+            {
+              "suffix": "sizing-vertical",
+              "label": "Вертикальный sizing",
+              "actualFact": "layout.sizingVertical",
+              "baselineFact": "baseline.effective.layout.sizingVertical"
+            },
+            {
+              "suffix": "height",
+              "label": "Высота",
+              "actualFact": "height",
+              "baselineFact": "baseline.effective.height"
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменено свойство AmountStyles: {{property}}",
+            "observed": "Свойство «{{property}}» изменено с {{expected}} на {{actual}}.",
+            "expectation": "Свойство «{{property}}» должно совпадать с effective baseline AmountStyles.",
+            "action": "Сбросить свойство «{{property}}» к effective baseline."
+          },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -1013,6 +1214,322 @@
           "revision": 1
         }
       }
-    ]
+    ],
+    "executionPolicy": {
+      "schemaVersion": "apollo.component-rule-execution.v1",
+      "componentIdentities": [
+        "web-corp.amount-styles"
+      ],
+      "predicateRules": [
+        "component:web-corp.amount-styles.operation-is-internal",
+        "component:web-corp.amount-styles.opacity-is-forbidden",
+        "component:web-corp.amount-styles.geometry-follows-effective-baseline"
+      ],
+      "compositionRules": [],
+      "delegatedRules": [],
+      "policyRules": [],
+      "contextOnlyRules": [
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.locked-components-are-figma-only-presets",
+          "missingFacts": [
+            "component.identity"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.parts-default-visibility",
+          "missingFacts": [
+            "component.visibility"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.major-is-required",
+          "missingFacts": [
+            "component.structure"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.math-space-is-required",
+          "missingFacts": [
+            "text.content"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.math-minus-is-required",
+          "missingFacts": [
+            "text.content"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.addon-uses-supported-components",
+          "missingFacts": [
+            "component.slot.Addon"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.addon-does-not-exceed-text-line-height",
+          "missingFacts": [
+            "layout.size"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.parts-share-color",
+          "missingFacts": [
+            "fill",
+            "fills"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.addon-keeps-own-contextual-colors",
+          "missingFacts": [
+            "fill",
+            "fills"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.positive-color-context",
+          "missingFacts": [
+            "fill",
+            "fills"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.contextual-color-token-is-allowed",
+          "missingFacts": [
+            "fill",
+            "fills"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.opacity-property-is-forbidden",
+          "missingFacts": [
+            "variant.Opacity"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.style-is-context-controlled",
+          "missingFacts": [
+            "variant.Style"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.style-is-component-property",
+          "missingFacts": [
+            "variant.Style"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.currency-type-is-component-property",
+          "missingFacts": [
+            "variant.Type",
+            "text.content"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.negative-uses-primary",
+          "missingFacts": [
+            "fill",
+            "fills"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.table-align-right",
+          "missingFacts": [
+            "layout.alignment"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.table-weight-follows-role",
+          "missingFacts": [
+            "variant.Style"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.table-currency-not-duplicated",
+          "missingFacts": [
+            "component.visibility.Currency"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.table-bulk-actions-neutral",
+          "missingFacts": [
+            "component.visibility.Operation",
+            "fill",
+            "fills"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.steps-use-regular",
+          "missingFacts": [
+            "variant.Style"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.side-panel-matches-source",
+          "missingFacts": [
+            "component.format"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.platform-preset-matches-breakpoint",
+          "missingFacts": [
+            "component.platform"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.amount-stays-on-one-line",
+          "missingFacts": [
+            "text.wrapping",
+            "layout.wrap"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.has-no-own-system-states",
+          "missingFacts": [
+            "component.state"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.clickability-is-context-controlled",
+          "missingFacts": [
+            "interaction.click"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.manual-interactive-decoration-is-forbidden",
+          "missingFacts": [
+            "styles.textDecoration",
+            "layer.background",
+            "effects"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.amount-input-uses-core-amount",
+          "missingFacts": [
+            "component.usage"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.optional-parts-can-coexist",
+          "missingFacts": [
+            "component.composition"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.container-provides-single-line-width",
+          "missingFacts": [
+            "component.composition"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.addon-action-matches-amount",
+          "missingFacts": [
+            "interaction.action"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.minor-has-one-or-two-digits",
+          "missingFacts": [
+            "text.content.Minor"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.zero-format",
+          "missingFacts": [
+            "text.content"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.unknown-value-uses-separate-placeholder",
+          "missingFacts": [
+            "component.usage"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.ru-format",
+          "missingFacts": [
+            "text.content"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.round-to-two-minor-digits",
+          "missingFacts": [
+            "text.content.Minor"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.fixed-part-order",
+          "missingFacts": [
+            "component.composition.order"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.monetary-values-only",
+          "missingFacts": [
+            "component.usage"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.major-max-13-digits",
+          "missingFacts": [
+            "text.content.Major"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.operation-negative-is-part-property",
+          "missingFacts": [
+            "variant.Negative"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.parts-share-text-style",
+          "missingFacts": [
+            "styles.text"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
+          "missingFacts": [
+            "fill",
+            "fills"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
+          "missingFacts": [
+            "fill",
+            "fills"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.manual-text-style-is-layer-property",
+          "missingFacts": [
+            "styles.text"
+          ]
+        }
+      ],
+      "coverageGaps": [
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.operation-is-internal",
+          "missingFacts": [
+            "appearance.effects",
+            "interaction.prototype"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.opacity-is-forbidden",
+          "missingFacts": [
+            "appearance.effects",
+            "interaction.prototype"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.amount-styles.geometry-follows-effective-baseline",
+          "missingFacts": [
+            "appearance.effects",
+            "interaction.prototype"
+          ]
+        }
+      ]
+    }
   }
 }
