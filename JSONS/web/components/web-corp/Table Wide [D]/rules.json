@@ -959,51 +959,9 @@
         "predicateContour": {
           "schemaVersion": "apollo.contour-definition.v1",
           "kind": "platform-match",
-          "select": {
-            "from": "selection-root",
-            "traverse": "self-and-descendants",
-            "where": [
-              {
-                "predicate": "equals",
-                "actual": {
-                  "fact": "type"
-                },
-                "expected": {
-                  "literal": "INSTANCE"
-                }
-              },
-              {
-                "predicate": "equals",
-                "actual": {
-                  "fact": "component.identity"
-                },
-                "expected": {
-                  "literal": "web-corp.table-wide-d"
-                }
-              },
-              {
-                "predicate": "equals",
-                "actual": {
-                  "fact": "ownership.contour.isRoot"
-                },
-                "expected": {
-                  "literal": true
-                }
-              },
-              {
-                "predicate": "one-of",
-                "actual": {
-                  "fact": "component.name"
-                },
-                "expected": {
-                  "literal": [
-                    "[D] BodyRow :: Wide",
-                    "[D] HeadRow :: Universal"
-                  ]
-                }
-              }
-            ]
-          },
+          "identity": "web-corp.table-wide-d",
+          "publicRootOnly": true,
+          "standaloneOnly": true,
           "supportedPlatforms": [
             "desktop"
           ],
@@ -1013,11 +971,6 @@
             "observed": "Для страницы выбран канал {{actual}}, а компонент относится к {{expected}}.",
             "expectation": "Платформа Table Wide должна совпадать с выбранным каналом страницы.",
             "action": "Заменить компонент на платформенный аналог или выбрать корректный канал страницы."
-          },
-          "scope": {
-            "platform": [
-              "desktop"
-            ]
           },
           "unknownPolicy": "not-evaluable"
         }
