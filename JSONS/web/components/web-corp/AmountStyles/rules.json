@@ -24,7 +24,7 @@
     "migratedFrom": 1,
     "ownershipMigrationRevision": 2,
     "ruleAuthorityMigrationRevision": 1,
-    "executablePackageRevision": 1,
+    "executablePackageRevision": 2,
     "executablePackageUpdatedAt": "2026-08-28"
   },
   "generated": {
@@ -808,6 +808,40 @@
         }
       },
       {
+        "ruleId": "component:web-corp.amount-styles.platform-preset-matches-channel",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.platform",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "🔒 [D] AmountHeadline используется только на desktop, 🔒 [M] AmountHeadline — только на mobile-web. 🔒 AmountParagraph допускается на desktop и mobile-web.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "platform-match",
+          "identity": "web-corp.amount-styles",
+          "publicRootOnly": true,
+          "standaloneOnly": true,
+          "supportedPlatforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "AmountStyles используется не на своей платформе",
+            "observed": "Для страницы выбран канал {{actual}}, а preset AmountStyles относится к {{expected}}.",
+            "expectation": "Платформа preset AmountStyles должна совпадать с выбранным каналом страницы.",
+            "action": "Заменить preset на платформенный аналог AmountStyles или выбрать корректный канал страницы."
+          },
+          "unknownPolicy": "not-evaluable"
+        }
+      },
+      {
         "ruleId": "component:web-corp.amount-styles.amount-stays-on-one-line",
         "severity": "error",
         "source": "component-contract",
@@ -1222,7 +1256,8 @@
       "predicateRules": [
         "component:web-corp.amount-styles.operation-is-internal",
         "component:web-corp.amount-styles.opacity-is-forbidden",
-        "component:web-corp.amount-styles.geometry-follows-effective-baseline"
+        "component:web-corp.amount-styles.geometry-follows-effective-baseline",
+        "component:web-corp.amount-styles.platform-preset-matches-channel"
       ],
       "compositionRules": [],
       "delegatedRules": [],

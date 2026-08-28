@@ -23,7 +23,7 @@
     "migratedFrom": 1,
     "ownershipMigrationRevision": 2,
     "ruleAuthorityMigrationRevision": 1,
-    "executablePackageRevision": 1,
+    "executablePackageRevision": 2,
     "executablePackageUpdatedAt": "2026-08-28"
   },
   "generated": {
@@ -236,6 +236,39 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.corporate-app-header-new.desktop-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.platform",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "CorporateAppHeaderNew [D] поддерживается только на desktop. Для mobile-web используй CorporateAppHeaderMobile.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "platform-match",
+          "identity": "web-corp.corporate-app-header-new",
+          "publicRootOnly": true,
+          "standaloneOnly": true,
+          "supportedPlatforms": [
+            "desktop"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "CorporateAppHeaderNew используется не на своей платформе",
+            "observed": "Для страницы выбран канал {{actual}}, а CorporateAppHeaderNew относится к {{expected}}.",
+            "expectation": "CorporateAppHeaderNew должен использоваться только на desktop.",
+            "action": "На mobile-web заменить компонент на CorporateAppHeaderMobile."
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -1238,7 +1271,8 @@
       ],
       "predicateRules": [
         "component:web-corp.corporate-app-header-new.only-three-public-components",
-        "component:web-corp.corporate-app-header-new.visual-and-layout-baseline-is-fixed"
+        "component:web-corp.corporate-app-header-new.visual-and-layout-baseline-is-fixed",
+        "component:web-corp.corporate-app-header-new.desktop-only"
       ],
       "compositionRules": [],
       "delegatedRules": [],
