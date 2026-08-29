@@ -150,65 +150,7 @@
           "provenance": "design-system-author",
           "revision": 1
         },
-        "predicateContour": {
-          "schemaVersion": "apollo.contour-definition.v1",
-          "kind": "query-count",
-          "select": {
-            "from": "selection-root",
-            "traverse": "self-and-descendants",
-            "where": [
-              {
-                "predicate": "equals",
-                "actual": { "fact": "type" },
-                "expected": { "literal": "INSTANCE" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "component.identity" },
-                "expected": { "literal": "web.benefit-card" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "component.family" },
-                "expected": { "literal": "benefit-card" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "ownership.contour.isRoot" },
-                "expected": { "literal": true }
-              }
-            ]
-          },
-          "query": {
-            "from": "subject",
-            "traverse": "descendants",
-            "where": [
-              {
-                "predicate": "equals",
-                "actual": { "fact": "visible" },
-                "expected": { "literal": true }
-              },
-              {
-                "predicate": "one-of",
-                "actual": { "fact": "name" },
-                "expected": { "literal": ["Title", "GraphicContainer"] }
-              }
-            ]
-          },
-          "lower": 2,
-          "upper": 2,
-          "scope": {
-            "platform": ["desktop", "mobile-web"]
-          },
-          "unknownPolicy": "not-evaluable",
-          "presentation": {
-            "schemaVersion": "apollo.predicate-presentation.v1",
-            "title": "В BenefitCard отсутствует обязательный контент",
-            "observed": "В карточке найдено обязательных элементов Title и Graphic: {{actual}}.",
-            "expectation": "BenefitCard должен содержать один видимый Title и один видимый Graphic.",
-            "action": "Восстановить видимость Title и Graphic в BenefitCard."
-          }
-        }
+        "executionNote": "Title и Graphic являются обязательной закрытой анатомией опубликованного BenefitCard. Правило обеспечивается публичным API компонента и не должно зависеть от переименовываемых внутренних слоёв."
       },
       {
         "ruleId": "component:web.benefit-card.compact-required-at-1024",
@@ -542,55 +484,7 @@
           "provenance": "design-system-author",
           "revision": 1
         },
-        "predicateContour": {
-          "schemaVersion": "apollo.contour-definition.v1",
-          "kind": "fact-assertion",
-          "select": {
-            "from": "selection-root",
-            "traverse": "self-and-descendants",
-            "where": [
-              {
-                "predicate": "equals",
-                "actual": { "fact": "type" },
-                "expected": { "literal": "INSTANCE" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "name" },
-                "expected": { "literal": "ImageView" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "ownership.contour.host.component.identity" },
-                "expected": { "literal": "web.benefit-card" }
-              }
-            ]
-          },
-          "assert": {
-            "predicate": "all",
-            "args": [
-              {
-                "predicate": "equals",
-                "actual": { "fact": "component.properties.Crop" },
-                "expected": { "literal": "Center" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "component.properties.Size" },
-                "expected": { "literal": "80" }
-              }
-            ]
-          },
-          "scope": { "platform": ["desktop", "mobile-web"] },
-          "unknownPolicy": "not-evaluable",
-          "presentation": {
-            "schemaVersion": "apollo.predicate-presentation.v1",
-            "title": "Изменены фиксированные параметры ImageView в BenefitCard",
-            "observed": "У ImageView изменены Crop или Size.",
-            "expectation": "В BenefitCard у ImageView разрешено менять только Segment; Crop=Center и Size=80 фиксированы.",
-            "action": "Вернуть Crop=Center и Size=80, сохранив нужный Segment."
-          }
-        }
+        "executionNote": "DS AI Hub разрешает менять только Segment, но точные Crop и Size должны вычисляться из effective baseline выбранного варианта. До появления baseline facts правило не исполняется как фиксированный список значений."
       },
       {
         "ruleId": "component:web.benefit-card-icon-view-public-settings-allowed",
@@ -1082,11 +976,9 @@
       ],
       "predicateRules": [
         "component:web.benefit-card.public-roots-only",
-        "component:web.benefit-card.title-and-graphic-required",
         "component:web.benefit-card.compact-required-at-1024",
         "component:web.benefit-card-platform-version-must-match",
         "component:web.benefit-card.compact-uses-secondary-title",
-        "component:web.benefit-card-image-view-segment-only",
         "component:web.benefit-card-bottom-content-link-only",
         "component:web.benefit-card-skeleton-covers-entire-card",
         "component:web.benefit-card-secondary-surface-not-recommended",
@@ -1107,6 +999,10 @@
         }
       ],
       "policyRules": [
+        {
+          "sourceRuleId": "component:web.benefit-card.title-and-graphic-required",
+          "effect": "invariant-by-public-component-api"
+        },
         {
           "sourceRuleId": "component:web.benefit-card.graphic-preset-is-contextual",
           "effect": "context"
@@ -1129,6 +1025,13 @@
         }
       ],
       "contextOnlyRules": [
+        {
+          "sourceRuleId": "component:web.benefit-card-image-view-segment-only",
+          "missingFacts": [
+            "baseline.effective.component.properties",
+            "component.propertyOverrides"
+          ]
+        },
         {
           "sourceRuleId": "component:web.benefit-card-title-content-limit",
           "missingFacts": ["text.length", "text.lineCount"]
