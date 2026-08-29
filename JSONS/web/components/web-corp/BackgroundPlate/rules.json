@@ -420,7 +420,7 @@
         "source": "pattern-link",
         "patternRuleId": "rule:components.background-plate.slot-content-levels",
         "appliesTo": "component.composition|slot.children",
-        "checkType": "llm",
+        "checkType": "deterministic",
         "matchKind": "composition_rule",
         "conditions": {
           "components": [
@@ -1435,6 +1435,140 @@
         }
       },
       {
+        "ruleId": "component:web-corp.background-plate.public-roots-only",
+        "severity": "error",
+        "ruleKind": "design-rule",
+        "severityScope": "design",
+        "source": "pattern-link",
+        "patternRuleId": "rule:components.background-plate.public-roots-only",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "allowedComponents": [
+          "[D] BackgroundPlate",
+          "[M] BackgroundPlate",
+          "[D] BackgroundPlateSlot",
+          "[M] BackgroundPlateSlot",
+          "[D][Promo] BackgroundPlate",
+          "[M][Promo] BackgroundPlate"
+        ],
+        "ruleText": "Самостоятельно размещай только публичные корни BackgroundPlate и BackgroundPlateSlot соответствующей платформы. Style Level 1 и Style Level 2 являются служебными частями и не используются отдельно.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "public-root",
+          "identity": "web-corp.background-plate",
+          "standaloneOnly": true,
+          "familyFact": "component.family",
+          "allowedFamilies": [
+            "background-plate",
+            "background-plate-slot"
+          ],
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Служебный Style Level используется отдельно",
+            "observed": "{{actual}} размещён как самостоятельный компонент.",
+            "expectation": "Самостоятельно допускаются только публичные корни BackgroundPlate и BackgroundPlateSlot.",
+            "action": "Заменить Style Level на публичный BackgroundPlate или BackgroundPlateSlot."
+          }
+        }
+      },
+      {
+        "ruleId": "component:web-corp.background-plate.platform-version-must-match",
+        "severity": "error",
+        "ruleKind": "design-rule",
+        "severityScope": "design",
+        "source": "pattern-link",
+        "patternRuleId": "rule:components.background-plate.platform-version-must-match",
+        "appliesTo": "component",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Используй [D] BackgroundPlate и [D] BackgroundPlateSlot на desktop, а [M] BackgroundPlate и [M] BackgroundPlateSlot — на mobile-web.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "platform-match",
+          "identity": "web-corp.background-plate",
+          "publicRootOnly": true,
+          "publicFamilies": [
+            "background-plate",
+            "background-plate-slot"
+          ],
+          "where": [
+            {
+              "predicate": "one-of",
+              "actual": {
+                "fact": "component.family"
+              },
+              "expected": {
+                "literal": [
+                  "background-plate",
+                  "background-plate-slot"
+                ]
+              }
+            }
+          ],
+          "supportedPlatforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Используется BackgroundPlate другого канала",
+            "observed": "Для страницы выбран канал {{actual}}, а BackgroundPlate относится к {{expected}}.",
+            "expectation": "Версия BackgroundPlate должна совпадать с выбранным каналом страницы.",
+            "action": "Заменить компонент на опубликованный BackgroundPlate соответствующего канала."
+          }
+        }
+      },
+      {
+        "ruleId": "component:web-corp.background-plate.promo-slot-radius-collection",
+        "severity": "error",
+        "ruleKind": "design-rule",
+        "severityScope": "design",
+        "source": "pattern-link",
+        "patternRuleId": "rule:components.background-plate.promo-slot-radius-collection",
+        "appliesTo": "radius|cornerRadius|bindings.radius",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "pageContext": "promo",
+          "components": [
+            "[D] BackgroundPlateSlot",
+            "[M] BackgroundPlateSlot"
+          ]
+        },
+        "requiredRadiusCollection": "[Promo] BackgroundPlate Radius",
+        "ruleText": "На promo-странице BackgroundPlateSlot должен использовать collection [Promo] BackgroundPlate Radius. Обычная BackgroundPlate Radius и ручной corner radius для этого сценария запрещены.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
         "ruleId": "component:web-corp.background-plate.adaptive-level-2-becomes-level-1-without-outer",
         "severity": "error",
         "ruleKind": "design-rule",
@@ -1496,7 +1630,9 @@
         "component:web-corp.background-plate.border-has-no-visible-fill",
         "component:web-corp.background-plate.colored-uses-fill-without-stroke",
         "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
-        "component:web-corp.background-plate.opacity-is-fixed"
+        "component:web-corp.background-plate.opacity-is-fixed",
+        "component:web-corp.background-plate.public-roots-only",
+        "component:web-corp.background-plate.platform-version-must-match"
       ],
       "compositionRules": [],
       "delegatedRules": [
@@ -1593,6 +1729,13 @@
           ]
         },
         {
+          "sourceRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
+          "missingFacts": [
+            "page.semantic-kind",
+            "bindings.radius.collection"
+          ]
+        },
+        {
           "sourceRuleId": "component:web-corp.background-plate.adaptive-level-2-becomes-level-1-without-outer",
           "missingFacts": [
             "responsive.source-composition",
@@ -1632,6 +1775,13 @@
           "sourceRuleId": "component:web-corp.background-plate.border-is-not-clickable",
           "missingFacts": [
             "interaction.reactions"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
+          "missingFacts": [
+            "page.semantic-kind",
+            "bindings.radius.collection"
           ]
         },
         {

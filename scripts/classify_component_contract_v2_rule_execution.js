@@ -55,9 +55,9 @@ function main() {
   );
   const readyPackages = packages.filter((entry) => entry.inventoryStatus === 'ready-corp');
   const supportingPackages = packages.filter((entry) => entry.inventoryStatus === 'supporting');
-  const firstWave = readyPackages.filter((entry) => entry.migrationEligibility === 'ready-no-new-operators');
+  const firstWave = readyPackages.filter((entry) => entry.migrationEligibility.startsWith('ready-'));
   const firstWaveSupporting = supportingPackages.filter(
-    (entry) => entry.migrationEligibility === 'supporting-no-new-operators',
+    (entry) => entry.migrationEligibility.startsWith('supporting-'),
   );
   const report = {
     schemaVersion: 'apollo.contract-v2-rule-execution-classification.v1',
@@ -102,6 +102,11 @@ function main() {
 function classifyPackage(indexEntry, readySourcePaths) {
   const contractPath = path.join(EXPERIMENT_ROOT, indexEntry.contractPath);
   const contract = readJson(contractPath);
+  const contractRulesSourceFiles = (contract.package?.sourceFiles || [])
+    .filter((source) => path.posix.basename(source.file) === 'rules.json');
+  if (contractRulesSourceFiles.length !== 1) {
+    throw new Error(`${contract.package.id}: expected exactly one pinned rules.json source`);
+  }
   const packageDir = path.dirname(path.dirname(contractPath));
   const coverage = readJson(path.join(packageDir, 'coverage.json'));
   const sourcePath = normalizePath(contract.package.sourcePath);
@@ -116,20 +121,39 @@ function classifyPackage(indexEntry, readySourcePaths) {
   ));
   const summary = summarizeRules(rules);
   const inventoryStatus = readySourcePaths.has(sourcePath) ? 'ready-corp' : 'supporting';
-  const noNewOperators = coverage.summary.unsupported === 0;
+  const unsupportedRules = rules.filter((rule) => rule.compilerStatus === 'unsupported');
+  const productionPredicateBridgeRules = unsupportedRules.filter((rule) => (
+    rule.policyRoute === 'predicate'
+    && rule.structuredFields.includes('predicateContour')
+  ));
+  const bridgedRuleIds = new Set(
+    productionPredicateBridgeRules.map((rule) => rule.sourceRuleId),
+  );
+  const blockingUnsupportedRules = unsupportedRules.filter(
+    (rule) => !bridgedRuleIds.has(rule.sourceRuleId),
+  );
+  const migrationEligible = blockingUnsupportedRules.length === 0;
+  const eligibilitySuffix = productionPredicateBridgeRules.length
+    ? 'production-predicate-bridge'
+    : 'no-new-operators';
   return {
     packageId: contract.package.id,
     family: contract.package.family,
     library: contract.package.library,
     sourcePath,
     contractPath: normalizePath(path.relative(EXPERIMENT_ROOT, contractPath)),
+    contractRulesSourceFile: contractRulesSourceFiles[0].file,
     inventoryStatus,
-    migrationEligibility: noNewOperators
-      ? `${inventoryStatus === 'ready-corp' ? 'ready' : 'supporting'}-no-new-operators`
+    migrationEligibility: migrationEligible
+      ? `${inventoryStatus === 'ready-corp' ? 'ready' : 'supporting'}-${eligibilitySuffix}`
       : 'blocked-by-authoring-or-capabilities',
-    closureStatus: summary.decisions.unresolved === 0 && coverage.summary.unsupported === 0
+    closureStatus: summary.decisions.unresolved === 0 && migrationEligible
       ? 'closed-for-migration'
       : 'classified-with-gaps',
+    productionPredicateBridgeRuleIds: Array.from(bridgedRuleIds).sort(),
+    blockingUnsupportedRuleIds: blockingUnsupportedRules
+      .map((rule) => rule.sourceRuleId)
+      .sort(),
     compilerCoverage: coverage.summary,
     summary,
     rules,
@@ -276,7 +300,7 @@ function buildWaveManifest(firstWave, supportingPackages) {
     waveId: 'wave-1-no-new-operators',
     status: 'ready-for-shadow-parity',
     policy: {
-      selection: 'Ready Corp packages with zero unsupported deterministic rules.',
+      selection: 'Ready Corp packages with zero blocking unsupported deterministic rules; an unsupported legacy RuleIR entry is allowed only when the source rule has predicateContour and an explicit production predicate route.',
       runtime: 'Experimental, default-off and non-production-enforcing.',
       proseInference: 'forbidden',
       unknownEvidence: 'never-violation',
@@ -291,12 +315,15 @@ function waveEntry(entry) {
     packageId: entry.packageId,
     sourcePath: entry.sourcePath,
     contractPath: entry.contractPath,
+    contractRulesSourceFile: entry.contractRulesSourceFile,
     executionPolicyPath: normalizePath(path.join(path.dirname(entry.contractPath), '..', 'execution-policy.json')),
     deterministicRules: entry.summary.decisions.deterministic,
     agentRules: entry.summary.decisions['agent-required'],
     humanReviewRules: entry.summary.decisions['human-review'],
     policyOnlyRules: entry.summary.decisions['policy-only'],
     unresolvedRules: entry.summary.decisions.unresolved,
+    productionPredicateBridgeRuleIds: entry.productionPredicateBridgeRuleIds,
+    blockingUnsupportedRuleIds: entry.blockingUnsupportedRuleIds,
   };
 }
 

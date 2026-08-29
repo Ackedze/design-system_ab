@@ -8,11 +8,11 @@
     "packageCount": 25
   },
   "totals": {
-    "ruleFields": 149,
-    "assertionFields": 134,
+    "ruleFields": 151,
+    "assertionFields": 136,
     "checkTypes": 5,
     "targetFields": 18,
-    "conditionFields": 320,
+    "conditionFields": 321,
     "remediationFields": 11,
     "compositionOperators": 5,
     "compositionMatchFields": 3,
@@ -70,6 +70,7 @@
       "disallowedEffectTypes",
       "disallowedNestedBackgroundPlateLevels",
       "disallowedVariant",
+      "executionNote",
       "expected",
       "fixedProperties",
       "forbidden",
@@ -139,6 +140,7 @@
       "requiredOrder",
       "requiredPaintState",
       "requiredParity",
+      "requiredRadiusCollection",
       "requiredShape",
       "requiredSpacing",
       "requiredState",
@@ -217,6 +219,7 @@
       "disallowedEffectTypes",
       "disallowedNestedBackgroundPlateLevels",
       "disallowedVariant",
+      "executionNote",
       "expected",
       "fixedProperties",
       "forbidden",
@@ -282,6 +285,7 @@
       "requiredOrder",
       "requiredPaintState",
       "requiredParity",
+      "requiredRadiusCollection",
       "requiredShape",
       "requiredSpacing",
       "requiredState",
@@ -520,6 +524,7 @@
       "conditions.ownBackgroundPlate",
       "conditions.Page",
       "conditions.pageCompanyMode",
+      "conditions.pageContext",
       "conditions.patternStatus",
       "conditions.perCardActionMayDiffer",
       "conditions.placement",
@@ -2969,7 +2974,7 @@
     {
       "field": "authority",
       "packageCount": 24,
-      "ruleCount": 343,
+      "ruleCount": 346,
       "packages": [
         "web-corp-promo.benefitcard",
         "web-corp-promo.benefits",
@@ -3009,9 +3014,10 @@
     },
     {
       "field": "predicateContour",
-      "packageCount": 19,
-      "ruleCount": 70,
+      "packageCount": 20,
+      "ruleCount": 79,
       "packages": [
+        "web-corp-promo.benefitcard",
         "web-corp-promo.benefits",
         "web-corp.accountselect",
         "web-corp.amountstyles",
@@ -3237,6 +3243,21 @@
       ]
     },
     {
+      "field": "allowedComposition",
+      "packageCount": 3,
+      "ruleCount": 3,
+      "packages": [
+        "web-corp.backgroundplate",
+        "web-corp.corporatesystemmessage",
+        "web-corp.table-basic"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.background-plate.slot-content-levels",
+        "component:web-corp.corporate-system-message.external-background-plate-slot-allowed",
+        "component:web-corp.table-basic-d.supports-two-text-slots"
+      ]
+    },
+    {
       "field": "requiredBehavior",
       "packageCount": 3,
       "ruleCount": 10,
@@ -3292,16 +3313,16 @@
       ]
     },
     {
-      "field": "allowedComposition",
+      "field": "allowedComponents",
       "packageCount": 2,
       "ruleCount": 2,
       "packages": [
-        "web-corp.corporatesystemmessage",
-        "web-corp.table-basic"
+        "web-corp-promo.benefitcard",
+        "web-corp.backgroundplate"
       ],
       "exampleRuleIds": [
-        "component:web-corp.corporate-system-message.external-background-plate-slot-allowed",
-        "component:web-corp.table-basic-d.supports-two-text-slots"
+        "component:web-corp.background-plate.public-roots-only",
+        "component:web.benefit-card.public-roots-only"
       ]
     },
     {
@@ -3580,17 +3601,6 @@
       ]
     },
     {
-      "field": "allowedComponents",
-      "packageCount": 1,
-      "ruleCount": 1,
-      "packages": [
-        "web-corp-promo.benefitcard"
-      ],
-      "exampleRuleIds": [
-        "component:web.benefit-card.public-roots-only"
-      ]
-    },
-    {
       "field": "allowedEffectTypes",
       "packageCount": 1,
       "ruleCount": 1,
@@ -3747,6 +3757,17 @@
       ]
     },
     {
+      "field": "disallowedNestedBackgroundPlateLevels",
+      "packageCount": 1,
+      "ruleCount": 1,
+      "packages": [
+        "web-corp.backgroundplate"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.background-plate.slot-content-levels"
+      ]
+    },
+    {
       "field": "disallowedVariant",
       "packageCount": 1,
       "ruleCount": 1,
@@ -3755,6 +3776,19 @@
       ],
       "exampleRuleIds": [
         "component:web-corp.background-plate.no-secondary-for-level-2"
+      ]
+    },
+    {
+      "field": "executionNote",
+      "packageCount": 1,
+      "ruleCount": 3,
+      "packages": [
+        "web-corp-promo.benefitcard"
+      ],
+      "exampleRuleIds": [
+        "component:web.benefit-card-image-view-segment-only",
+        "component:web.benefit-card-skeleton-covers-entire-card",
+        "component:web.benefit-card.title-and-graphic-required"
       ]
     },
     {
@@ -4209,7 +4243,7 @@
     {
       "signature": "authority",
       "packageCount": 17,
-      "ruleCount": 124,
+      "ruleCount": 120,
       "packages": [
         "web-corp-promo.benefitcard",
         "web-corp-promo.benefitsblock",
@@ -4247,7 +4281,7 @@
     {
       "signature": "(prose-only)",
       "packageCount": 25,
-      "ruleCount": 102,
+      "ruleCount": 101,
       "packages": [
         "web-corp-promo.benefitcard",
         "web-corp-promo.benefits",
@@ -4292,11 +4326,13 @@
     },
     {
       "signature": "authority+predicateContour",
-      "packageCount": 10,
-      "ruleCount": 28,
+      "packageCount": 12,
+      "ruleCount": 32,
       "packages": [
+        "web-corp-promo.benefitcard",
         "web-corp.accountselect",
         "web-corp.amountstyles",
+        "web-corp.backgroundplate",
         "web-corp.buttongroup",
         "web-corp.cardswipermobile",
         "web-corp.corporateappheadernew",
@@ -4313,12 +4349,12 @@
         "component:web-corp.amount-styles.opacity-is-forbidden",
         "component:web-corp.amount-styles.operation-is-internal",
         "component:web-corp.amount-styles.platform-preset-matches-channel",
+        "component:web-corp.background-plate.platform-version-must-match",
         "component:web-corp.buttons-group.horizontal-layout-is-fixed",
         "component:web-corp.buttons-group.root-sizing-is-hug-hug",
         "component:web-corp.buttons-group.visual-and-layout-baseline-is-fixed",
         "component:web-corp.card-swiper-mobile.screen-size-follows-viewport",
-        "component:web-corp.corporate-app-header-new.desktop-only",
-        "component:web-corp.corporate-app-header-new.only-three-public-components"
+        "component:web-corp.corporate-app-header-new.desktop-only"
       ]
     },
     {
@@ -4483,24 +4519,6 @@
         "component:web-corp.table-wide-d.bulk-actions-use-pagination-preset",
         "component:web-corp.table-wide-d.head-cell-column-control-visible",
         "component:web-corp.table-wide-d.keep-one-visible-column"
-      ]
-    },
-    {
-      "signature": "authority+requiredValues",
-      "packageCount": 3,
-      "ruleCount": 6,
-      "packages": [
-        "web-corp-promo.benefitcard",
-        "web-corp-promo.benefitsblock",
-        "web-corp.cardimage"
-      ],
-      "exampleRuleIds": [
-        "component:web-corp.card-image.stack-combination",
-        "component:web-corp.card-image.stack-disabled-for-large-sizes",
-        "component:web.benefit-card-image-view-segment-only",
-        "component:web.benefit-card.compact-uses-secondary-title",
-        "component:web.benefit-card.title-and-graphic-required",
-        "component:web.benefits-block.root-sizing-and-height-scope"
       ]
     },
     {
@@ -4670,6 +4688,20 @@
       ]
     },
     {
+      "signature": "authority+requiredValues",
+      "packageCount": 2,
+      "ruleCount": 3,
+      "packages": [
+        "web-corp-promo.benefitsblock",
+        "web-corp.cardimage"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.card-image.stack-combination",
+        "component:web-corp.card-image.stack-disabled-for-large-sizes",
+        "component:web.benefits-block.root-sizing-and-height-scope"
+      ]
+    },
+    {
       "signature": "forbidden+requiredState",
       "packageCount": 2,
       "ruleCount": 3,
@@ -4681,6 +4713,19 @@
         "component:web-corp.file-upload.disable-file-upload-at-max-files",
         "component:web-corp.file-upload.single-file-disables-file-upload",
         "component:web-corp.table-view.no-single-hidden-row"
+      ]
+    },
+    {
+      "signature": "allowedComponents+authority+predicateContour",
+      "packageCount": 2,
+      "ruleCount": 2,
+      "packages": [
+        "web-corp-promo.benefitcard",
+        "web-corp.backgroundplate"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.background-plate.public-roots-only",
+        "component:web.benefit-card.public-roots-only"
       ]
     },
     {
@@ -4736,6 +4781,19 @@
       ]
     },
     {
+      "signature": "authority+baselinePolicy+predicateContour+scope",
+      "packageCount": 2,
+      "ruleCount": 2,
+      "packages": [
+        "web-corp-promo.benefitcard",
+        "web-corp.corporatesystemmessage"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.corporate-system-message.effective-baseline-protected",
+        "component:web.benefit-card.visuals-follow-effective-baseline"
+      ]
+    },
+    {
       "signature": "authority+classification+predicateContour+requiredValues",
       "packageCount": 2,
       "ruleCount": 2,
@@ -4770,6 +4828,18 @@
       "exampleRuleIds": [
         "component:web-corp.button-stack.option-states-are-limited",
         "component:web-corp.button-stack.root-sizing-and-padding-are-fixed"
+      ]
+    },
+    {
+      "signature": "authority+executionNote+requiredValues",
+      "packageCount": 1,
+      "ruleCount": 2,
+      "packages": [
+        "web-corp-promo.benefitcard"
+      ],
+      "exampleRuleIds": [
+        "component:web.benefit-card-image-view-segment-only",
+        "component:web.benefit-card.title-and-graphic-required"
       ]
     },
     {
@@ -4872,6 +4942,19 @@
       "exampleRuleIds": [
         "component:web-corp.buttons-group.spacing-uses-effective-baseline",
         "component:web-corp.corporate-content.section-gutter-required"
+      ]
+    },
+    {
+      "signature": "authority+predicateContour+requiredValues",
+      "packageCount": 2,
+      "ruleCount": 2,
+      "packages": [
+        "web-corp-promo.benefitcard",
+        "web-corp.cardimage"
+      ],
+      "exampleRuleIds": [
+        "component:web-corp.card-image.xs-active-only",
+        "component:web.benefit-card.compact-uses-secondary-title"
       ]
     },
     {
@@ -5006,14 +5089,14 @@
       ]
     },
     {
-      "signature": "allowedComponents+authority",
+      "signature": "allowedComposition+authority+disallowedNestedBackgroundPlateLevels+predicateContour",
       "packageCount": 1,
       "ruleCount": 1,
       "packages": [
-        "web-corp-promo.benefitcard"
+        "web-corp.backgroundplate"
       ],
       "exampleRuleIds": [
-        "component:web.benefit-card.public-roots-only"
+        "component:web-corp.background-plate.slot-content-levels"
       ]
     },
     {
@@ -5204,28 +5287,6 @@
       ]
     },
     {
-      "signature": "authority+baselinePolicy+predicateContour+scope",
-      "packageCount": 1,
-      "ruleCount": 1,
-      "packages": [
-        "web-corp.corporatesystemmessage"
-      ],
-      "exampleRuleIds": [
-        "component:web-corp.corporate-system-message.effective-baseline-protected"
-      ]
-    },
-    {
-      "signature": "authority+baselinePolicy+scope",
-      "packageCount": 1,
-      "ruleCount": 1,
-      "packages": [
-        "web-corp-promo.benefitcard"
-      ],
-      "exampleRuleIds": [
-        "component:web.benefit-card.visuals-follow-effective-baseline"
-      ]
-    },
-    {
       "signature": "authority+classification+disallowedEffectTypes",
       "packageCount": 1,
       "ruleCount": 1,
@@ -5369,6 +5430,17 @@
       ]
     },
     {
+      "signature": "authority+executionNote",
+      "packageCount": 1,
+      "ruleCount": 1,
+      "packages": [
+        "web-corp-promo.benefitcard"
+      ],
+      "exampleRuleIds": [
+        "component:web.benefit-card-skeleton-covers-entire-card"
+      ]
+    },
+    {
       "signature": "authority+expected+scope",
       "packageCount": 1,
       "ruleCount": 1,
@@ -5476,17 +5548,6 @@
       ],
       "exampleRuleIds": [
         "component:web-corp.title-view.title-required-non-empty"
-      ]
-    },
-    {
-      "signature": "authority+predicateContour+requiredValues",
-      "packageCount": 1,
-      "ruleCount": 1,
-      "packages": [
-        "web-corp.cardimage"
-      ],
-      "exampleRuleIds": [
-        "component:web-corp.card-image.xs-active-only"
       ]
     },
     {
@@ -5855,7 +5916,7 @@
           "remediationFields:remediation.target"
         ],
         "cumulativeFeatures": 104,
-        "cumulativeCoverageRatio": 0.1569
+        "cumulativeCoverageRatio": 0.1557
       },
       {
         "packageId": "web-corp-promo.benefitsblock",
@@ -5938,13 +5999,14 @@
           "remediationFields:remediation"
         ],
         "cumulativeFeatures": 179,
-        "cumulativeCoverageRatio": 0.27
+        "cumulativeCoverageRatio": 0.268
       },
       {
         "packageId": "web-corp.backgroundplate",
-        "gain": 62,
+        "gain": 67,
         "novelFeatures": [
           "ruleFields:allowedClickableTypes",
+          "ruleFields:allowedComponents",
           "ruleFields:allowedComposition",
           "ruleFields:allowedEffectTypes",
           "ruleFields:disallowedBehavior",
@@ -5955,10 +6017,12 @@
           "ruleFields:recommendedDefaults",
           "ruleFields:requiredMapping",
           "ruleFields:requiredPaintState",
+          "ruleFields:requiredRadiusCollection",
           "ruleFields:requiredTokenBinding",
           "ruleFields:requiredValue",
           "ruleFields:severityScope",
           "assertionFields:allowedClickableTypes",
+          "assertionFields:allowedComponents",
           "assertionFields:allowedComposition",
           "assertionFields:allowedEffectTypes",
           "assertionFields:disallowedBehavior",
@@ -5969,6 +6033,7 @@
           "assertionFields:recommendedDefaults",
           "assertionFields:requiredMapping",
           "assertionFields:requiredPaintState",
+          "assertionFields:requiredRadiusCollection",
           "assertionFields:requiredTokenBinding",
           "assertionFields:requiredValue",
           "targetFields:codeExports",
@@ -5979,6 +6044,7 @@
           "conditionFields:conditions.desktopComposition",
           "conditionFields:conditions.layout",
           "conditionFields:conditions.layout.innerPadding",
+          "conditionFields:conditions.pageContext",
           "conditionFields:conditions.platform",
           "conditionFields:conditions.requiredAncestorVariableMode",
           "conditionFields:conditions.requiredAncestorVariableMode.collection",
@@ -6007,8 +6073,8 @@
           "compositionPolicyPaths:subtreePropertyPolicy.variantProperty",
           "compositionPolicyPaths:subtreePropertyPolicy.violationMessage"
         ],
-        "cumulativeFeatures": 241,
-        "cumulativeCoverageRatio": 0.3635
+        "cumulativeFeatures": 246,
+        "cumulativeCoverageRatio": 0.3683
       },
       {
         "packageId": "web-corp-promo.promomainblock",
@@ -6076,8 +6142,8 @@
           "conditionFields:conditions.whenVisibleCount",
           "conditionFields:conditions.whenVisibleCount[]"
         ],
-        "cumulativeFeatures": 302,
-        "cumulativeCoverageRatio": 0.4555
+        "cumulativeFeatures": 307,
+        "cumulativeCoverageRatio": 0.4596
       },
       {
         "packageId": "web-corp.accountselect",
@@ -6130,8 +6196,8 @@
           "assertionFields:semantics",
           "assertionFields:states"
         ],
-        "cumulativeFeatures": 348,
-        "cumulativeCoverageRatio": 0.5249
+        "cumulativeFeatures": 353,
+        "cumulativeCoverageRatio": 0.5284
       },
       {
         "packageId": "web-corp-promo.benefits",
@@ -6176,8 +6242,8 @@
           "conditionFields:conditions.variantPropertiesNotExposed",
           "conditionFields:conditions.variantPropertiesNotExposed[]"
         ],
-        "cumulativeFeatures": 386,
-        "cumulativeCoverageRatio": 0.5822
+        "cumulativeFeatures": 391,
+        "cumulativeCoverageRatio": 0.5853
       },
       {
         "packageId": "web-corp.status-property",
@@ -6222,8 +6288,8 @@
           "conditionFields:conditions.variant.Color",
           "conditionFields:conditions.variantProperty"
         ],
-        "cumulativeFeatures": 424,
-        "cumulativeCoverageRatio": 0.6395
+        "cumulativeFeatures": 429,
+        "cumulativeCoverageRatio": 0.6422
       },
       {
         "packageId": "web-corp.corporatesystemmessage",
@@ -6263,8 +6329,8 @@
           "targetFields:nameMarkers",
           "targetFields:statuses"
         ],
-        "cumulativeFeatures": 457,
-        "cumulativeCoverageRatio": 0.6893
+        "cumulativeFeatures": 462,
+        "cumulativeCoverageRatio": 0.6916
       },
       {
         "packageId": "web-corp.titleview",
@@ -6304,8 +6370,8 @@
           "compositionSelectFields:nestedComponentIdentities",
           "compositionSelectFields:nestedComponentNames"
         ],
-        "cumulativeFeatures": 490,
-        "cumulativeCoverageRatio": 0.7391
+        "cumulativeFeatures": 495,
+        "cumulativeCoverageRatio": 0.741
       },
       {
         "packageId": "web-corp.tableview",
@@ -6340,8 +6406,8 @@
           "conditionFields:conditions.rowsCanBeCollapsed",
           "conditionFields:conditions.totalRows"
         ],
-        "cumulativeFeatures": 518,
-        "cumulativeCoverageRatio": 0.7813
+        "cumulativeFeatures": 523,
+        "cumulativeCoverageRatio": 0.7829
       },
       {
         "packageId": "web-corp.cardimage",
@@ -6375,8 +6441,8 @@
           "remediationFields:remediation.properties.Stack",
           "remediationFields:remediation.properties.State"
         ],
-        "cumulativeFeatures": 545,
-        "cumulativeCoverageRatio": 0.822
+        "cumulativeFeatures": 550,
+        "cumulativeCoverageRatio": 0.8234
       },
       {
         "packageId": "web-corp.cardswipermobile",
@@ -6408,8 +6474,8 @@
           "conditionFields:conditions.when.minimumCardCount",
           "compositionOperators:propertySequence"
         ],
-        "cumulativeFeatures": 570,
-        "cumulativeCoverageRatio": 0.8597
+        "cumulativeFeatures": 575,
+        "cumulativeCoverageRatio": 0.8608
       },
       {
         "packageId": "web-corp.fileupload",
@@ -6437,8 +6503,8 @@
           "conditionFields:conditions.maxFiles",
           "conditionFields:conditions.validationTriggered"
         ],
-        "cumulativeFeatures": 591,
-        "cumulativeCoverageRatio": 0.8914
+        "cumulativeFeatures": 596,
+        "cumulativeCoverageRatio": 0.8922
       },
       {
         "packageId": "web-corp.corporatecontent",
@@ -6462,8 +6528,8 @@
           "targetFields:prohibitedDescendants",
           "targetFields:slots"
         ],
-        "cumulativeFeatures": 608,
-        "cumulativeCoverageRatio": 0.917
+        "cumulativeFeatures": 613,
+        "cumulativeCoverageRatio": 0.9177
       },
       {
         "packageId": "web-corp.buttonstack",
@@ -6484,8 +6550,8 @@
           "conditionFields:conditions.scrollsWithContent",
           "conditionFields:conditions.selectionRule"
         ],
-        "cumulativeFeatures": 622,
-        "cumulativeCoverageRatio": 0.9382
+        "cumulativeFeatures": 627,
+        "cumulativeCoverageRatio": 0.9386
       },
       {
         "packageId": "web-corp.tabsview",
@@ -6505,8 +6571,8 @@
           "assertionFields:maximumValue",
           "targetFields:path"
         ],
-        "cumulativeFeatures": 635,
-        "cumulativeCoverageRatio": 0.9578
+        "cumulativeFeatures": 640,
+        "cumulativeCoverageRatio": 0.9581
       },
       {
         "packageId": "web-corp.amountstyles",
@@ -6525,8 +6591,8 @@
           "conditionFields:conditions.value",
           "remediationFields:remediation.properties.Opacity"
         ],
-        "cumulativeFeatures": 647,
-        "cumulativeCoverageRatio": 0.9759
+        "cumulativeFeatures": 652,
+        "cumulativeCoverageRatio": 0.976
       },
       {
         "packageId": "web-corp.table-basic",
@@ -6540,21 +6606,21 @@
           "conditionFields:conditions.rows",
           "conditionFields:conditions.rows[]"
         ],
-        "cumulativeFeatures": 654,
-        "cumulativeCoverageRatio": 0.9864
+        "cumulativeFeatures": 659,
+        "cumulativeCoverageRatio": 0.9865
       },
       {
         "packageId": "web-corp-promo.benefitcard",
         "gain": 6,
         "novelFeatures": [
-          "ruleFields:allowedComponents",
+          "ruleFields:executionNote",
           "ruleFields:stringLength",
-          "assertionFields:allowedComponents",
+          "assertionFields:executionNote",
           "assertionFields:stringLength",
           "conditionFields:conditions.hostVariant",
           "conditionFields:conditions.hostVariant.Compact"
         ],
-        "cumulativeFeatures": 660,
+        "cumulativeFeatures": 665,
         "cumulativeCoverageRatio": 0.9955
       },
       {
@@ -6564,7 +6630,7 @@
           "ruleFields:designSeverity",
           "checkTypes:contextual"
         ],
-        "cumulativeFeatures": 662,
+        "cumulativeFeatures": 667,
         "cumulativeCoverageRatio": 0.9985
       },
       {
@@ -6573,44 +6639,45 @@
         "novelFeatures": [
           "compositionOperators:propertyEqualsHost"
         ],
-        "cumulativeFeatures": 663,
+        "cumulativeFeatures": 668,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp.corporateappheadernew",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 663,
+        "cumulativeFeatures": 668,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp.corporatetopbar",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 663,
+        "cumulativeFeatures": 668,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp.faq",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 663,
+        "cumulativeFeatures": 668,
         "cumulativeCoverageRatio": 1
       },
       {
         "packageId": "web-corp.onboarding-tooltip",
         "gain": 0,
         "novelFeatures": [],
-        "cumulativeFeatures": 663,
+        "cumulativeFeatures": 668,
         "cumulativeCoverageRatio": 1
       }
     ],
     "authoring": [
       {
         "packageId": "web-corp.backgroundplate",
-        "gain": 403,
+        "gain": 408,
         "novelFeatures": [
           "ruleFields:allowedClickableTypes",
+          "ruleFields:allowedComponents",
           "ruleFields:allowedComposition",
           "ruleFields:allowedEffectTypes",
           "ruleFields:appliesTo",
@@ -6631,6 +6698,7 @@
           "ruleFields:requiredComposition",
           "ruleFields:requiredMapping",
           "ruleFields:requiredPaintState",
+          "ruleFields:requiredRadiusCollection",
           "ruleFields:requiredTokenBinding",
           "ruleFields:requiredValue",
           "ruleFields:ruleId",
@@ -6641,6 +6709,7 @@
           "ruleFields:source",
           "ruleFields:target",
           "assertionFields:allowedClickableTypes",
+          "assertionFields:allowedComponents",
           "assertionFields:allowedComposition",
           "assertionFields:allowedEffectTypes",
           "assertionFields:authority",
@@ -6655,6 +6724,7 @@
           "assertionFields:requiredComposition",
           "assertionFields:requiredMapping",
           "assertionFields:requiredPaintState",
+          "assertionFields:requiredRadiusCollection",
           "assertionFields:requiredTokenBinding",
           "assertionFields:requiredValue",
           "checkTypes:deterministic",
@@ -6670,6 +6740,7 @@
           "conditionFields:conditions.desktopComposition",
           "conditionFields:conditions.layout",
           "conditionFields:conditions.layout.innerPadding",
+          "conditionFields:conditions.pageContext",
           "conditionFields:conditions.platform",
           "conditionFields:conditions.requiredAncestorVariableMode",
           "conditionFields:conditions.requiredAncestorVariableMode.collection",
@@ -7014,8 +7085,8 @@
           "overridePolicyPaths:manual.tableWidePolicy.slotPadding.top",
           "overridePolicyPaths:manual.tableWidePolicy.topBarPlacement"
         ],
-        "cumulativeFeatures": 403,
-        "cumulativeCoverageRatio": 0.138
+        "cumulativeFeatures": 408,
+        "cumulativeCoverageRatio": 0.1394
       },
       {
         "packageId": "web-corp.table-basic",
@@ -7324,8 +7395,8 @@
           "overridePolicyPaths:manual.visualStatePolicy.hover",
           "overridePolicyPaths:manual.visualStatePolicy.selected"
         ],
-        "cumulativeFeatures": 705,
-        "cumulativeCoverageRatio": 0.2414
+        "cumulativeFeatures": 710,
+        "cumulativeCoverageRatio": 0.2427
       },
       {
         "packageId": "web-corp.accountselect",
@@ -7571,8 +7642,8 @@
           "overridePolicyPaths:manual.visualBaselinePolicy.properties",
           "overridePolicyPaths:manual.visualBaselinePolicy.properties[]"
         ],
-        "cumulativeFeatures": 944,
-        "cumulativeCoverageRatio": 0.3232
+        "cumulativeFeatures": 949,
+        "cumulativeCoverageRatio": 0.3243
       },
       {
         "packageId": "web-corp-promo.benefitsblock",
@@ -7773,8 +7844,8 @@
           "overridePolicyPaths:manual.variantSemantics.HeightCustom",
           "overridePolicyPaths:manual.variantSemantics.Image"
         ],
-        "cumulativeFeatures": 1138,
-        "cumulativeCoverageRatio": 0.3896
+        "cumulativeFeatures": 1143,
+        "cumulativeCoverageRatio": 0.3906
       },
       {
         "packageId": "web-corp.corporatesystemmessage",
@@ -7934,8 +8005,8 @@
           "overridePolicyPaths:manual.viewSemantics.No adaptive",
           "overridePolicyPaths:manual.viewSemantics.Progress"
         ],
-        "cumulativeFeatures": 1291,
-        "cumulativeCoverageRatio": 0.442
+        "cumulativeFeatures": 1296,
+        "cumulativeCoverageRatio": 0.4429
       },
       {
         "packageId": "web-corp.cardimage",
@@ -8086,8 +8157,8 @@
           "overridePolicyPaths:manual.visualPolicy.silverLineBySize.44x28",
           "overridePolicyPaths:manual.visualPolicy.silverLineBySize.68x42"
         ],
-        "cumulativeFeatures": 1435,
-        "cumulativeCoverageRatio": 0.4913
+        "cumulativeFeatures": 1440,
+        "cumulativeCoverageRatio": 0.4921
       },
       {
         "packageId": "web-corp.titleview",
@@ -8231,8 +8302,8 @@
           "overridePolicyPaths:manual.statusRelation.whenVisible",
           "overridePolicyPaths:manual.statusRelation.whenVisible[]"
         ],
-        "cumulativeFeatures": 1572,
-        "cumulativeCoverageRatio": 0.5382
+        "cumulativeFeatures": 1577,
+        "cumulativeCoverageRatio": 0.539
       },
       {
         "packageId": "web-corp-promo.promomainblock",
@@ -8374,8 +8445,8 @@
           "overridePolicyPaths:manual.variantSemantics.View.Modal",
           "overridePolicyPaths:manual.variantSemantics.View.Page"
         ],
-        "cumulativeFeatures": 1707,
-        "cumulativeCoverageRatio": 0.5844
+        "cumulativeFeatures": 1712,
+        "cumulativeCoverageRatio": 0.5851
       },
       {
         "packageId": "web-corp.tabsview",
@@ -8514,8 +8585,8 @@
           "overridePolicyPaths:manual.visualBaselinePolicy.forbiddenProperties[]",
           "overridePolicyPaths:manual.visualBaselinePolicy.manualVisualOverridesAllowed"
         ],
-        "cumulativeFeatures": 1839,
-        "cumulativeCoverageRatio": 0.6296
+        "cumulativeFeatures": 1844,
+        "cumulativeCoverageRatio": 0.6302
       },
       {
         "packageId": "web-corp.amountstyles",
@@ -8653,8 +8724,8 @@
           "overridePolicyPaths:manual.visualPolicy.sharedColorLayers",
           "overridePolicyPaths:manual.visualPolicy.sharedColorLayers[]"
         ],
-        "cumulativeFeatures": 1970,
-        "cumulativeCoverageRatio": 0.6744
+        "cumulativeFeatures": 1975,
+        "cumulativeCoverageRatio": 0.675
       },
       {
         "packageId": "web-corp.corporatetopbar",
@@ -8791,8 +8862,8 @@
           "overridePolicyPaths:manual.textPolicy.fixed",
           "overridePolicyPaths:manual.textPolicy.fixed[]"
         ],
-        "cumulativeFeatures": 2100,
-        "cumulativeCoverageRatio": 0.7189
+        "cumulativeFeatures": 2105,
+        "cumulativeCoverageRatio": 0.7194
       },
       {
         "packageId": "web-corp.fileupload",
@@ -8915,8 +8986,8 @@
           "overridePolicyPaths:manual.viewPolicy.Secondary",
           "overridePolicyPaths:manual.visualBaselinePolicy.manualChangesAllowed"
         ],
-        "cumulativeFeatures": 2216,
-        "cumulativeCoverageRatio": 0.7586
+        "cumulativeFeatures": 2221,
+        "cumulativeCoverageRatio": 0.7591
       },
       {
         "packageId": "web-corp.table-wide",
@@ -9039,8 +9110,8 @@
           "overridePolicyPaths:manual.usagePolicy.maxGroupingLevels",
           "overridePolicyPaths:manual.usagePolicy.supportsGrouping"
         ],
-        "cumulativeFeatures": 2332,
-        "cumulativeCoverageRatio": 0.7984
+        "cumulativeFeatures": 2337,
+        "cumulativeCoverageRatio": 0.7987
       },
       {
         "packageId": "web-corp.corporatecontent",
@@ -9156,8 +9227,8 @@
           "overridePolicyPaths:manual.corporateContent.sectionPolicy.tabletIsle.trueInModes[]",
           "overridePolicyPaths:manual.corporateContent.standaloneFigmaUsageAllowed"
         ],
-        "cumulativeFeatures": 2441,
-        "cumulativeCoverageRatio": 0.8357
+        "cumulativeFeatures": 2446,
+        "cumulativeCoverageRatio": 0.836
       },
       {
         "packageId": "web-corp.cardswipermobile",
@@ -9270,8 +9341,8 @@
           "overridePolicyPaths:manual.variantSemantics.Screen Size.manualChoiceAllowed",
           "overridePolicyPaths:manual.variantSemantics.Screen Size.ownerOverride"
         ],
-        "cumulativeFeatures": 2547,
-        "cumulativeCoverageRatio": 0.872
+        "cumulativeFeatures": 2552,
+        "cumulativeCoverageRatio": 0.8722
       },
       {
         "packageId": "web-corp.tableview",
@@ -9362,8 +9433,8 @@
           "overridePolicyPaths:manual.textPolicy.editableContent[]",
           "overridePolicyPaths:manual.textPolicy.headerStructureMustMatchDataColumns"
         ],
-        "cumulativeFeatures": 2631,
-        "cumulativeCoverageRatio": 0.9007
+        "cumulativeFeatures": 2636,
+        "cumulativeCoverageRatio": 0.9009
       },
       {
         "packageId": "web-corp.buttonstack",
@@ -9453,8 +9524,8 @@
           "overridePolicyPaths:manual.variantSemantics.Presets.Primary + Icon",
           "overridePolicyPaths:manual.variantSemantics.Presets.Secondary"
         ],
-        "cumulativeFeatures": 2714,
-        "cumulativeCoverageRatio": 0.9291
+        "cumulativeFeatures": 2719,
+        "cumulativeCoverageRatio": 0.9293
       },
       {
         "packageId": "web-corp-promo.benefits",
@@ -9530,7 +9601,7 @@
           "overridePolicyPaths:manual.sizing.equalCardHeightAcrossPreset",
           "overridePolicyPaths:manual.variantSemantics.Capacity"
         ],
-        "cumulativeFeatures": 2783,
+        "cumulativeFeatures": 2788,
         "cumulativeCoverageRatio": 0.9528
       },
       {
@@ -9597,7 +9668,7 @@
           "overridePolicyPaths:manual.variantSemantics.SingleIcon.optionalFromButtonCount",
           "overridePolicyPaths:manual.variantSemantics.SingleIcon.position"
         ],
-        "cumulativeFeatures": 2842,
+        "cumulativeFeatures": 2847,
         "cumulativeCoverageRatio": 0.973
       },
       {
@@ -9654,7 +9725,7 @@
           "overridePolicyPaths:manual.allowedOverrides.text[]",
           "overridePolicyPaths:manual.semanticComponents[].shape"
         ],
-        "cumulativeFeatures": 2891,
+        "cumulativeFeatures": 2896,
         "cumulativeCoverageRatio": 0.9897
       },
       {
@@ -9678,16 +9749,16 @@
           "overridePolicyPaths:manual.usageModel.width768",
           "overridePolicyPaths:manual.usageModel.width768[]"
         ],
-        "cumulativeFeatures": 2907,
+        "cumulativeFeatures": 2912,
         "cumulativeCoverageRatio": 0.9952
       },
       {
         "packageId": "web-corp-promo.benefitcard",
         "gain": 10,
         "novelFeatures": [
-          "ruleFields:allowedComponents",
+          "ruleFields:executionNote",
           "ruleFields:stringLength",
-          "assertionFields:allowedComponents",
+          "assertionFields:executionNote",
           "assertionFields:stringLength",
           "conditionFields:conditions.hostVariant",
           "conditionFields:conditions.hostVariant.Compact",
@@ -9696,7 +9767,7 @@
           "overridePolicyPaths:manual.internalOnly",
           "overridePolicyPaths:manual.internalOnly[]"
         ],
-        "cumulativeFeatures": 2917,
+        "cumulativeFeatures": 2922,
         "cumulativeCoverageRatio": 0.9986
       },
       {
@@ -9706,7 +9777,7 @@
           "overridePolicyPaths:manual.semanticComponents[].requiredParts",
           "overridePolicyPaths:manual.semanticComponents[].requiredParts[]"
         ],
-        "cumulativeFeatures": 2919,
+        "cumulativeFeatures": 2924,
         "cumulativeCoverageRatio": 0.9993
       },
       {
@@ -9715,7 +9786,7 @@
         "novelFeatures": [
           "checkTypes:contextual"
         ],
-        "cumulativeFeatures": 2920,
+        "cumulativeFeatures": 2925,
         "cumulativeCoverageRatio": 0.9997
       },
       {
@@ -9724,7 +9795,7 @@
         "novelFeatures": [
           "overridePolicyPaths:manual.semanticComponents[].matchingItem"
         ],
-        "cumulativeFeatures": 2921,
+        "cumulativeFeatures": 2926,
         "cumulativeCoverageRatio": 1
       }
     ]
@@ -10555,8 +10626,8 @@
       "platform": "desktop / mobile-web",
       "sourcePath": "JSONS/web/components/web-corp/BackgroundPlate",
       "counts": {
-        "rules": 27,
-        "deterministicRules": 21,
+        "rules": 30,
+        "deterministicRules": 24,
         "compositionContracts": 1,
         "compositionConstraints": 1,
         "subtreePropertyPolicies": 1
@@ -10611,6 +10682,15 @@
             "authority",
             "predicateContour",
             "requiredComposition"
+          ]
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.slot-content-levels",
+          "assertionFields": [
+            "allowedComposition",
+            "authority",
+            "disallowedNestedBackgroundPlateLevels",
+            "predicateContour"
           ]
         },
         {
@@ -10716,11 +10796,27 @@
             "authority",
             "classification"
           ]
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.public-roots-only",
+          "assertionFields": [
+            "allowedComponents",
+            "authority",
+            "predicateContour"
+          ]
+        },
+        {
+          "ruleId": "component:web-corp.background-plate.platform-version-must-match",
+          "assertionFields": [
+            "authority",
+            "predicateContour"
+          ]
         }
       ],
       "features": {
         "ruleFields": [
           "allowedClickableTypes",
+          "allowedComponents",
           "allowedComposition",
           "allowedEffectTypes",
           "appliesTo",
@@ -10741,6 +10837,7 @@
           "requiredComposition",
           "requiredMapping",
           "requiredPaintState",
+          "requiredRadiusCollection",
           "requiredTokenBinding",
           "requiredValue",
           "ruleId",
@@ -10753,6 +10850,7 @@
         ],
         "assertionFields": [
           "allowedClickableTypes",
+          "allowedComponents",
           "allowedComposition",
           "allowedEffectTypes",
           "authority",
@@ -10767,6 +10865,7 @@
           "requiredComposition",
           "requiredMapping",
           "requiredPaintState",
+          "requiredRadiusCollection",
           "requiredTokenBinding",
           "requiredValue"
         ],
@@ -10788,6 +10887,7 @@
           "conditions.desktopComposition",
           "conditions.layout",
           "conditions.layout.innerPadding",
+          "conditions.pageContext",
           "conditions.platform",
           "conditions.requiredAncestorVariableMode",
           "conditions.requiredAncestorVariableMode.collection",
@@ -16568,7 +16668,7 @@
       "sourcePath": "JSONS/web/components/web-corp-promo/BenefitCard",
       "counts": {
         "rules": 32,
-        "deterministicRules": 23,
+        "deterministicRules": 22,
         "compositionContracts": 0,
         "compositionConstraints": 0,
         "subtreePropertyPolicies": 0
@@ -16586,32 +16686,37 @@
           "ruleId": "component:web.benefit-card.public-roots-only",
           "assertionFields": [
             "allowedComponents",
-            "authority"
+            "authority",
+            "predicateContour"
           ]
         },
         {
           "ruleId": "component:web.benefit-card.title-and-graphic-required",
           "assertionFields": [
             "authority",
+            "executionNote",
             "requiredValues"
           ]
         },
         {
           "ruleId": "component:web.benefit-card.compact-required-at-1024",
           "assertionFields": [
-            "authority"
+            "authority",
+            "predicateContour"
           ]
         },
         {
           "ruleId": "component:web.benefit-card-platform-version-must-match",
           "assertionFields": [
-            "authority"
+            "authority",
+            "predicateContour"
           ]
         },
         {
           "ruleId": "component:web.benefit-card.compact-uses-secondary-title",
           "assertionFields": [
             "authority",
+            "predicateContour",
             "requiredValues"
           ]
         },
@@ -16651,13 +16756,15 @@
           "ruleId": "component:web.benefit-card-image-view-segment-only",
           "assertionFields": [
             "authority",
+            "executionNote",
             "requiredValues"
           ]
         },
         {
           "ruleId": "component:web.benefit-card-bottom-content-link-only",
           "assertionFields": [
-            "authority"
+            "authority",
+            "predicateContour"
           ]
         },
         {
@@ -16675,7 +16782,8 @@
         {
           "ruleId": "component:web.benefit-card-skeleton-covers-entire-card",
           "assertionFields": [
-            "authority"
+            "authority",
+            "executionNote"
           ]
         },
         {
@@ -16698,10 +16806,6 @@
           ]
         },
         {
-          "ruleId": "component:web.benefit-card-secondary-surface-not-recommended",
-          "assertionFields": []
-        },
-        {
           "ruleId": "component:web.benefit-card.text-alignment-protected",
           "assertionFields": [
             "authority",
@@ -16714,6 +16818,7 @@
           "assertionFields": [
             "authority",
             "baselinePolicy",
+            "predicateContour",
             "scope"
           ]
         }
@@ -16726,10 +16831,12 @@
           "baselinePolicy",
           "checkType",
           "conditions",
+          "executionNote",
           "expected",
           "matchKind",
           "patternId",
           "patternRuleId",
+          "predicateContour",
           "requiredConfiguration",
           "requiredValues",
           "ruleId",
@@ -16745,7 +16852,9 @@
           "allowedComponents",
           "authority",
           "baselinePolicy",
+          "executionNote",
           "expected",
+          "predicateContour",
           "requiredConfiguration",
           "requiredValues",
           "scope",

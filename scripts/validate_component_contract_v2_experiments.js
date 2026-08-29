@@ -147,15 +147,30 @@ function main() {
         throw new Error(`${rule.sourceRuleId}: prose-only rule was promoted to deterministic`);
       }
     }
+    const bridgedRuleIds = new Set(entry.productionPredicateBridgeRuleIds || []);
+    for (const ruleId of bridgedRuleIds) {
+      const rule = entry.rules.find((candidate) => candidate.sourceRuleId === ruleId);
+      if (
+        !rule
+        || rule.compilerStatus !== 'unsupported'
+        || rule.policyRoute !== 'predicate'
+        || !rule.structuredFields.includes('predicateContour')
+      ) {
+        throw new Error(`${entry.packageId}: invalid production Predicate bridge ${ruleId}`);
+      }
+    }
+    if ((entry.blockingUnsupportedRuleIds || []).some((ruleId) => bridgedRuleIds.has(ruleId))) {
+      throw new Error(`${entry.packageId}: a bridged rule is also marked blocking`);
+    }
     if (readySourcePaths.has(entry.sourcePath)
-      && entry.compilerCoverage.unsupported === 0) {
+      && entry.migrationEligibility.startsWith('ready-')) {
       expectedFirstWave.push(entry.packageId);
     }
   }
   const actualFirstWave = migrationWave.readyPackages.map((entry) => entry.packageId).sort();
   expectedFirstWave.sort();
   if (JSON.stringify(actualFirstWave) !== JSON.stringify(expectedFirstWave)) {
-    throw new Error('First migration wave does not match Ready packages with zero unsupported rules');
+    throw new Error('First migration wave does not match Ready packages with zero blocking unsupported rules');
   }
   console.log(JSON.stringify({
     packages: packageIds.size,

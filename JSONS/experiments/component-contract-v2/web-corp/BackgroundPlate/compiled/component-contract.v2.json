@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "bytes": 69701,
-        "sha256": "c206d7e7dab2ec7cd698e52b98b217d055ed047d6110bbd09520bc5fa2bfca80"
+        "bytes": 76075,
+        "sha256": "0e4812e3f4e0097ac2666d4d4c92cc0483e097adcace4131b2f4fa579cf4f510"
       }
     ]
   },
@@ -3514,6 +3514,67 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.background-plate.public-roots-only",
+      "source": {
+        "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.background-plate.public-roots-only"
+        ],
+        "patternRuleId": "rule:components.background-plate.public-roots-only"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": "tree.package"
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "allMatch",
+        "predicate": {
+          "op": "oneOf",
+          "fact": "target.componentName",
+          "values": [
+            "[D] BackgroundPlate",
+            "[M] BackgroundPlate",
+            "[D] BackgroundPlateSlot",
+            "[M] BackgroundPlateSlot",
+            "[D][Promo] BackgroundPlate",
+            "[M][Promo] BackgroundPlate"
+          ]
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Самостоятельно размещай только публичные корни BackgroundPlate и BackgroundPlateSlot соответствующей платформы. Style Level 1 и Style Level 2 являются служебными частями и не используются отдельно.",
+        "group": "component"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "allMatch",
+          "oneOf"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp.background-plate.radius-is-fixed-by-component-baseline",
       "source": {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
@@ -3890,6 +3951,54 @@
       }
     },
     {
+      "sourceRuleId": "component:web-corp.background-plate.platform-version-must-match",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
+      "sourceCheckType": "llm",
+      "status": "advisory",
+      "reason": "Source checkType is llm.",
+      "structuredFields": [
+        "authority",
+        "requiredRadiusCollection"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "sourceRuleId": "component:web-corp.background-plate.root-surface-requires-level-0",
       "sourceCheckType": "llm",
       "status": "advisory",
@@ -3946,9 +4055,9 @@
     },
     {
       "sourceRuleId": "component:web-corp.background-plate.slot-content-levels",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "allowedComposition",
         "authority",
@@ -3978,15 +4087,15 @@
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 27,
-      "deterministicSourceRules": 21,
-      "executableDeterministicSourceRules": 21,
+      "sourceRules": 30,
+      "deterministicSourceRules": 24,
+      "executableDeterministicSourceRules": 22,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 21,
+      "executable": 22,
       "advisory": 6,
       "manual": 0,
-      "unsupported": 0,
-      "deterministicCoverageRatio": 1
+      "unsupported": 2,
+      "deterministicCoverageRatio": 0.9167
     },
     "report": "../coverage.json"
   }

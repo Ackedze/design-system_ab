@@ -2,13 +2,13 @@
   "schemaVersion": "apollo.component-contract-v2-execution-policy.v1",
   "packageId": "web-corp.background-plate",
   "status": "closed-for-migration",
-  "migrationEligibility": "ready-no-new-operators",
+  "migrationEligibility": "ready-production-predicate-bridge",
   "sourcePath": "JSONS/web/components/web-corp/BackgroundPlate",
   "contractPath": "web-corp/BackgroundPlate/compiled/component-contract.v2.json",
   "summary": {
-    "total": 27,
+    "total": 30,
     "decisions": {
-      "deterministic": 21,
+      "deterministic": 24,
       "agent-required": 6,
       "human-review": 0,
       "policy-only": 0,
@@ -16,7 +16,8 @@
     },
     "readiness": {
       "agent-route-required": 6,
-      "executable-now": 21
+      "executable-now": 22,
+      "requires-typed-authoring": 2
     }
   },
   "rules": [
@@ -224,12 +225,41 @@
       "gapKind": null
     },
     {
+      "sourceRuleId": "component:web-corp.background-plate.platform-version-must-match",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
+      "compilerStatus": "unsupported",
+      "compilerRuleIds": [],
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
+    },
+    {
       "sourceRuleId": "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
       "decision": "deterministic",
       "readiness": "executable-now",
       "compilerStatus": "executable",
       "compilerRuleIds": [
         "rule-ir:web-corp.background-plate.primary-secondary-paint-is-fixed"
+      ],
+      "policyRoute": "predicate",
+      "gapKind": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
+      "decision": "agent-required",
+      "readiness": "agent-route-required",
+      "compilerStatus": "advisory",
+      "compilerRuleIds": [],
+      "policyRoute": "context-only",
+      "gapKind": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.background-plate.public-roots-only",
+      "decision": "deterministic",
+      "readiness": "executable-now",
+      "compilerStatus": "executable",
+      "compilerRuleIds": [
+        "rule-ir:web-corp.background-plate.public-roots-only"
       ],
       "policyRoute": "predicate",
       "gapKind": null
@@ -298,12 +328,12 @@
     },
     {
       "sourceRuleId": "component:web-corp.background-plate.slot-content-levels",
-      "decision": "agent-required",
-      "readiness": "agent-route-required",
-      "compilerStatus": "advisory",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
+      "compilerStatus": "unsupported",
       "compilerRuleIds": [],
       "policyRoute": "predicate",
-      "gapKind": null
+      "gapKind": "structured-fields-unmapped"
     }
   ]
 }

@@ -14,40 +14,40 @@
   },
   "summary": {
     "packages": 28,
-    "rules": 851,
+    "rules": 854,
     "decisions": {
-      "deterministic": 348,
+      "deterministic": 355,
       "agent-required": 138,
-      "human-review": 202,
+      "human-review": 203,
       "policy-only": 1,
-      "unresolved": 162
+      "unresolved": 157
     },
     "readiness": {
-      "executable-now": 215,
-      "requires-owner-triage": 162,
-      "human-route-required": 202,
+      "executable-now": 216,
+      "requires-typed-authoring": 132,
+      "requires-owner-triage": 157,
+      "human-route-required": 203,
       "agent-route-required": 138,
-      "requires-typed-authoring": 126,
       "requires-versioned-capability": 7,
       "non-verdict": 1
     }
   },
   "readySummary": {
     "packages": 25,
-    "rules": 839,
+    "rules": 842,
     "decisions": {
-      "deterministic": 337,
+      "deterministic": 344,
       "agent-required": 138,
-      "human-review": 201,
+      "human-review": 202,
       "policy-only": 1,
-      "unresolved": 162
+      "unresolved": 157
     },
     "readiness": {
-      "requires-owner-triage": 162,
-      "human-route-required": 201,
-      "executable-now": 204,
+      "requires-typed-authoring": 132,
+      "requires-owner-triage": 157,
+      "human-route-required": 202,
+      "executable-now": 205,
       "agent-route-required": 138,
-      "requires-typed-authoring": 126,
       "requires-versioned-capability": 7,
       "non-verdict": 1
     }
@@ -56,15 +56,17 @@
     "readyPackageIds": [
       "web-corp-promo.benefits",
       "web-corp.background-plate",
-      "web-corp.button-stack"
+      "web-corp.button-stack",
+      "web-corp.status-property",
+      "web-corp.title-view"
     ],
     "supportingPackageIds": [
       "web-core.amount",
       "web-core.tag-group",
       "web-corp.payment-masked-number"
     ],
-    "ruleCount": 65,
-    "deterministicRuleCount": 42
+    "ruleCount": 137,
+    "deterministicRuleCount": 85
   },
   "packages": [
     {
@@ -73,9 +75,12 @@
       "library": "Web _ Core",
       "sourcePath": "JSONS/web/components/web-core/core/Amount",
       "contractPath": "web-core/core/Amount/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-core/core/Amount/rules.json",
       "inventoryStatus": "supporting",
       "migrationEligibility": "supporting-no-new-operators",
       "closureStatus": "closed-for-migration",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [],
       "compilerCoverage": {
         "sourceRules": 4,
         "deterministicSourceRules": 4,
@@ -238,9 +243,12 @@
       "library": "Web _ Core",
       "sourcePath": "JSONS/web/components/web-core/core/TagGroup",
       "contractPath": "web-core/core/TagGroup/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-core/core/TagGroup/rules.json",
       "inventoryStatus": "supporting",
       "migrationEligibility": "supporting-no-new-operators",
       "closureStatus": "closed-for-migration",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [],
       "compilerCoverage": {
         "sourceRules": 4,
         "deterministicSourceRules": 4,
@@ -403,32 +411,49 @@
       "library": "Web _ Сorp Promo Components",
       "sourcePath": "JSONS/web/components/web-corp-promo/BenefitCard",
       "contractPath": "web-corp-promo/BenefitCard/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp-promo/BenefitCard/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web.benefit-card-bottom-content-link-only",
+        "component:web.benefit-card-platform-version-must-match",
+        "component:web.benefit-card.compact-required-at-1024"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web.benefit-card-bottom-link-text-only",
+        "component:web.benefit-card-content-is-closed",
+        "component:web.benefit-card-icon-visuals-follow-baseline",
+        "component:web.benefit-card-link-content-limit",
+        "component:web.benefit-card-skeleton-covers-entire-card",
+        "component:web.benefit-card.background-plate-colors-use-tokens",
+        "component:web.benefit-card.background-plate-style-overrides",
+        "component:web.benefit-card.icon-uses-glyph-26"
+      ],
       "compilerCoverage": {
         "sourceRules": 32,
-        "deterministicSourceRules": 23,
+        "deterministicSourceRules": 22,
         "executableDeterministicSourceRules": 11,
         "promotedManualOrAdvisorySourceRules": 0,
         "executable": 11,
         "advisory": 0,
-        "manual": 9,
-        "unsupported": 12,
-        "deterministicCoverageRatio": 0.4783
+        "manual": 10,
+        "unsupported": 11,
+        "deterministicCoverageRatio": 0.5
       },
       "summary": {
         "total": 32,
         "decisions": {
-          "deterministic": 11,
+          "deterministic": 15,
           "agent-required": 0,
-          "human-review": 9,
+          "human-review": 10,
           "policy-only": 0,
-          "unresolved": 12
+          "unresolved": 7
         },
         "readiness": {
-          "requires-owner-triage": 12,
-          "human-route-required": 9,
+          "requires-typed-authoring": 4,
+          "requires-owner-triage": 7,
+          "human-route-required": 10,
           "executable-now": 11
         }
       },
@@ -438,12 +463,14 @@
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -468,7 +495,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "delegated",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -496,7 +523,7 @@
           "decision": "human-review",
           "readiness": "human-route-required",
           "basis": "source-check-type:manual",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -523,7 +550,7 @@
           "decision": "human-review",
           "readiness": "human-route-required",
           "basis": "source-check-type:manual",
-          "policyRoute": null,
+          "policyRoute": "policy",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -550,7 +577,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -576,7 +603,7 @@
           "decision": "human-review",
           "readiness": "human-route-required",
           "basis": "source-check-type:manual",
-          "policyRoute": null,
+          "policyRoute": "policy",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -602,7 +629,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -635,8 +662,9 @@
           "decision": "deterministic",
           "readiness": "executable-now",
           "basis": "compiler-executable",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [
+            "executionNote",
             "requiredValues"
           ],
           "gapKind": null,
@@ -662,7 +690,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -686,12 +714,14 @@
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -709,15 +739,15 @@
         },
         {
           "sourceRuleId": "component:web.benefit-card-secondary-surface-not-recommended",
-          "sourceCheckType": "deterministic",
-          "compilerStatus": "unsupported",
+          "sourceCheckType": "manual",
+          "compilerStatus": "manual",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "decision": "human-review",
+          "readiness": "human-route-required",
+          "basis": "source-check-type:manual",
+          "policyRoute": "policy",
           "structuredFields": [],
-          "gapKind": "prose-unclassified",
+          "gapKind": null,
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -739,12 +769,14 @@
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "context-only",
+          "structuredFields": [
+            "executionNote"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -771,7 +803,7 @@
           "decision": "deterministic",
           "readiness": "executable-now",
           "basis": "compiler-executable",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [
             "stringLength"
           ],
@@ -801,7 +833,7 @@
           "decision": "deterministic",
           "readiness": "executable-now",
           "basis": "compiler-executable",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [
             "stringLength"
           ],
@@ -829,7 +861,7 @@
           "decision": "human-review",
           "readiness": "human-route-required",
           "basis": "source-check-type:manual",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -855,7 +887,7 @@
           "decision": "human-review",
           "readiness": "human-route-required",
           "basis": "source-check-type:manual",
-          "policyRoute": null,
+          "policyRoute": "policy",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -882,7 +914,7 @@
           "decision": "human-review",
           "readiness": "human-route-required",
           "basis": "source-check-type:manual",
-          "policyRoute": null,
+          "policyRoute": "policy",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -909,7 +941,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "delegated",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -938,7 +970,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "delegated",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -965,12 +997,14 @@
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -997,8 +1031,9 @@
           "decision": "deterministic",
           "readiness": "executable-now",
           "basis": "compiler-executable",
-          "policyRoute": null,
+          "policyRoute": "predicate",
           "structuredFields": [
+            "predicateContour",
             "requiredValues"
           ],
           "gapKind": null,
@@ -1053,7 +1088,7 @@
           "decision": "human-review",
           "readiness": "human-route-required",
           "basis": "source-check-type:manual",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -1080,7 +1115,7 @@
           "decision": "human-review",
           "readiness": "human-route-required",
           "basis": "source-check-type:manual",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -1106,7 +1141,7 @@
           "decision": "human-review",
           "readiness": "human-route-required",
           "basis": "source-check-type:manual",
-          "policyRoute": null,
+          "policyRoute": "policy",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -1133,7 +1168,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -1197,9 +1232,10 @@
           "decision": "deterministic",
           "readiness": "executable-now",
           "basis": "compiler-executable",
-          "policyRoute": null,
+          "policyRoute": "predicate",
           "structuredFields": [
-            "allowedComponents"
+            "allowedComponents",
+            "predicateContour"
           ],
           "gapKind": null,
           "candidateCapabilities": {
@@ -1227,7 +1263,7 @@
           "decision": "deterministic",
           "readiness": "executable-now",
           "basis": "compiler-executable",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [
             "expected",
             "scope"
@@ -1258,8 +1294,9 @@
           "decision": "deterministic",
           "readiness": "executable-now",
           "basis": "compiler-executable",
-          "policyRoute": null,
+          "policyRoute": "policy",
           "structuredFields": [
+            "executionNote",
             "requiredValues"
           ],
           "gapKind": null,
@@ -1287,7 +1324,7 @@
           "decision": "deterministic",
           "readiness": "executable-now",
           "basis": "compiler-executable",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [
             "requiredConfiguration"
           ],
@@ -1317,9 +1354,10 @@
           "decision": "deterministic",
           "readiness": "executable-now",
           "basis": "compiler-executable",
-          "policyRoute": null,
+          "policyRoute": "predicate",
           "structuredFields": [
             "baselinePolicy",
+            "predicateContour",
             "scope"
           ],
           "gapKind": null,
@@ -1355,9 +1393,12 @@
       "library": "Web _ Сorp Promo Components",
       "sourcePath": "JSONS/web/components/web-corp-promo/Benefits",
       "contractPath": "web-corp-promo/Benefits/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp-promo/Benefits/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "ready-no-new-operators",
       "closureStatus": "closed-for-migration",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [],
       "compilerCoverage": {
         "sourceRules": 21,
         "deterministicSourceRules": 14,
@@ -2075,9 +2116,28 @@
       "library": "Web _ Сorp Promo Components",
       "sourcePath": "JSONS/web/components/web-corp-promo/BenefitsBlock",
       "contractPath": "web-corp-promo/BenefitsBlock/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp-promo/BenefitsBlock/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web.benefits-block.allowed-background-types",
+        "component:web.benefits-block.background-false-uses-host-surface",
+        "component:web.benefits-block.button-group-is-optional",
+        "component:web.benefits-block.container-is-not-clickable",
+        "component:web.benefits-block.image-source-and-swap",
+        "component:web.benefits-block.image-view-settings",
+        "component:web.benefits-block.layout-is-component-owned",
+        "component:web.benefits-block.mobile-height-follows-content",
+        "component:web.benefits-block.only-platform-roots-are-public",
+        "component:web.benefits-block.raw-colors-forbidden",
+        "component:web.benefits-block.right-addon-must-be-hidden",
+        "component:web.benefits-block.steps-count-recommendation",
+        "component:web.benefits-block.surface-color-overrides",
+        "component:web.benefits-block.title-addon-status-badge-only",
+        "component:web.benefits-block.title-and-image-are-required"
+      ],
       "compilerCoverage": {
         "sourceRules": 33,
         "deterministicSourceRules": 18,
@@ -3093,9 +3153,29 @@
       "library": "Web _ Сorp Promo Components",
       "sourcePath": "JSONS/web/components/web-corp-promo/PromoCard",
       "contractPath": "web-corp-promo/PromoCard/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp-promo/PromoCard/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web.promo-card-bottom-content-follows-own-contract",
+        "component:web.promo-card-bottom-content-single-instance",
+        "component:web.promo-card-image-none-disables-image-effects",
+        "component:web.promo-card-image-view-overrides",
+        "component:web.promo-card-internal-image-alignment-baseline",
+        "component:web.promo-card-offset-top-only",
+        "component:web.promo-card-secondary-surface-not-recommended",
+        "component:web.promo-card-skeleton-covers-entire-card",
+        "component:web.promo-card-surface-follows-contract",
+        "component:web.promo-card-top-fade-matches-surface",
+        "component:web.promo-card-visuals-follow-effective-baseline",
+        "component:web.promo-card.button-composition",
+        "component:web.promo-card.content-limits",
+        "component:web.promo-card.platform-version-must-match",
+        "component:web.promo-card.public-roots-only",
+        "component:web.promo-card.title-required"
+      ],
       "compilerCoverage": {
         "sourceRules": 24,
         "deterministicSourceRules": 18,
@@ -3786,9 +3866,31 @@
       "library": "Web _ Сorp Promo Components",
       "sourcePath": "JSONS/web/components/web-corp-promo/PromoMainBlock",
       "contractPath": "web-corp-promo/PromoMainBlock/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web.promo-main-block.actions-optional",
+        "component:web.promo-main-block.container-is-not-clickable",
+        "component:web.promo-main-block.content-order-is-fixed",
+        "component:web.promo-main-block.desktop-compact-required",
+        "component:web.promo-main-block.desktop-view-context",
+        "component:web.promo-main-block.first-and-single-on-page",
+        "component:web.promo-main-block.image-source-and-settings",
+        "component:web.promo-main-block.layout-is-component-owned",
+        "component:web.promo-main-block.loading-is-not-supported",
+        "component:web.promo-main-block.mobile-background-must-be-true",
+        "component:web.promo-main-block.multiple-statuses-warning",
+        "component:web.promo-main-block.overlay-is-derived-from-appearance",
+        "component:web.promo-main-block.page-background-must-be-false",
+        "component:web.promo-main-block.page-blur-required",
+        "component:web.promo-main-block.public-roots-only",
+        "component:web.promo-main-block.required-content",
+        "component:web.promo-main-block.status-count-and-contract",
+        "component:web.promo-main-block.status-platform-casing-is-preset-owned"
+      ],
       "compilerCoverage": {
         "sourceRules": 27,
         "deterministicSourceRules": 20,
@@ -4568,9 +4670,33 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/AccountSelect",
       "contractPath": "web-corp/AccountSelect/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/AccountSelect/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.account-select.list-content-is-uniform",
+        "component:web-corp.account-select.platform-match",
+        "component:web-corp.account-select.public-roots-only",
+        "component:web-corp.account-select.row-visuals-follow-effective-baseline"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.account-select.account-info-follows-item-type",
+        "component:web-corp.account-select.account-info-preset-defines-visible-values",
+        "component:web-corp.account-select.apply-is-always-enabled",
+        "component:web-corp.account-select.disabled-account-cannot-be-selected",
+        "component:web-corp.account-select.disabled-account-visual-state",
+        "component:web-corp.account-select.empty-state-text-is-fixed",
+        "component:web-corp.account-select.group-order-is-fixed",
+        "component:web-corp.account-select.legacy-number-forbidden",
+        "component:web-corp.account-select.list-height-is-fixed",
+        "component:web-corp.account-select.media-mode-is-exclusive-and-uniform",
+        "component:web-corp.account-select.select-all-state-machine",
+        "component:web-corp.account-select.selected-state-follows-select-type",
+        "component:web-corp.account-select.selection-controls-are-fixed",
+        "component:web-corp.account-select.selection-type-semantics",
+        "component:web-corp.account-select.swap-me-must-be-replaced"
+      ],
       "compilerCoverage": {
         "sourceRules": 43,
         "deterministicSourceRules": 23,
@@ -5866,9 +5992,31 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/AmountStyles",
       "contractPath": "web-corp/AmountStyles/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/AmountStyles/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.amount-styles.operation-is-internal",
+        "component:web-corp.amount-styles.platform-preset-matches-channel"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.amount-styles.fixed-part-order",
+        "component:web-corp.amount-styles.locked-components-are-figma-only-presets",
+        "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
+        "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
+        "component:web-corp.amount-styles.manual-text-style-is-layer-property",
+        "component:web-corp.amount-styles.math-minus-is-required",
+        "component:web-corp.amount-styles.math-space-is-required",
+        "component:web-corp.amount-styles.negative-uses-primary",
+        "component:web-corp.amount-styles.operation-negative-is-part-property",
+        "component:web-corp.amount-styles.optional-parts-can-coexist",
+        "component:web-corp.amount-styles.parts-default-visibility",
+        "component:web-corp.amount-styles.round-to-two-minor-digits",
+        "component:web-corp.amount-styles.ru-format",
+        "component:web-corp.amount-styles.style-is-context-controlled",
+        "component:web-corp.amount-styles.zero-format"
+      ],
       "compilerCoverage": {
         "sourceRules": 50,
         "deterministicSourceRules": 29,
@@ -7301,24 +7449,30 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/BackgroundPlate",
       "contractPath": "web-corp/BackgroundPlate/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
       "inventoryStatus": "ready-corp",
-      "migrationEligibility": "ready-no-new-operators",
+      "migrationEligibility": "ready-production-predicate-bridge",
       "closureStatus": "closed-for-migration",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.background-plate.platform-version-must-match",
+        "component:web-corp.background-plate.slot-content-levels"
+      ],
+      "blockingUnsupportedRuleIds": [],
       "compilerCoverage": {
-        "sourceRules": 27,
-        "deterministicSourceRules": 21,
-        "executableDeterministicSourceRules": 21,
+        "sourceRules": 30,
+        "deterministicSourceRules": 24,
+        "executableDeterministicSourceRules": 22,
         "promotedManualOrAdvisorySourceRules": 0,
-        "executable": 21,
+        "executable": 22,
         "advisory": 6,
         "manual": 0,
-        "unsupported": 0,
-        "deterministicCoverageRatio": 1
+        "unsupported": 2,
+        "deterministicCoverageRatio": 0.9167
       },
       "summary": {
-        "total": 27,
+        "total": 30,
         "decisions": {
-          "deterministic": 21,
+          "deterministic": 24,
           "agent-required": 6,
           "human-review": 0,
           "policy-only": 0,
@@ -7326,7 +7480,8 @@
         },
         "readiness": {
           "agent-route-required": 6,
-          "executable-now": 21
+          "executable-now": 22,
+          "requires-typed-authoring": 2
         }
       },
       "rules": [
@@ -7952,6 +8107,34 @@
           }
         },
         {
+          "sourceRuleId": "component:web-corp.background-plate.platform-version-must-match",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "unsupported",
+          "compilerRuleIds": [],
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
+              "component.identity"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
           "sourceRuleId": "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
           "sourceCheckType": "deterministic",
           "compilerStatus": "executable",
@@ -7985,6 +8168,65 @@
             "remediations": [
               "restore-effective-baseline"
             ]
+          }
+        },
+        {
+          "sourceRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
+          "sourceCheckType": "llm",
+          "compilerStatus": "advisory",
+          "compilerRuleIds": [],
+          "decision": "agent-required",
+          "readiness": "agent-route-required",
+          "basis": "source-check-type:llm",
+          "policyRoute": "context-only",
+          "structuredFields": [
+            "requiredRadiusCollection"
+          ],
+          "gapKind": null,
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
+              "component.identity"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
+          "sourceRuleId": "component:web-corp.background-plate.public-roots-only",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "executable",
+          "compilerRuleIds": [
+            "rule-ir:web-corp.background-plate.public-roots-only"
+          ],
+          "decision": "deterministic",
+          "readiness": "executable-now",
+          "basis": "compiler-executable",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "allowedComponents",
+            "predicateContour"
+          ],
+          "gapKind": null,
+          "candidateCapabilities": {
+            "selectors": [
+              "component-identity",
+              "self-and-descendants"
+            ],
+            "facts": [
+              "component.identity"
+            ],
+            "operators": [
+              "allMatch",
+              "oneOf"
+            ],
+            "remediations": []
           }
         },
         {
@@ -8181,19 +8423,19 @@
         },
         {
           "sourceRuleId": "component:web-corp.background-plate.slot-content-levels",
-          "sourceCheckType": "llm",
-          "compilerStatus": "advisory",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "agent-required",
-          "readiness": "agent-route-required",
-          "basis": "source-check-type:llm",
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
           "policyRoute": "predicate",
           "structuredFields": [
             "allowedComposition",
             "disallowedNestedBackgroundPlateLevels",
             "predicateContour"
           ],
-          "gapKind": null,
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -8222,9 +8464,12 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/ButtonStack [M]",
       "contractPath": "web-corp/ButtonStack [M]/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/ButtonStack [M]/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "ready-no-new-operators",
       "closureStatus": "closed-for-migration",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [],
       "compilerCoverage": {
         "sourceRules": 17,
         "deterministicSourceRules": 7,
@@ -8814,9 +9059,27 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/ButtonGroup [D]",
       "contractPath": "web-corp/ButtonsGroup/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/ButtonGroup [D]/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.buttons-group.horizontal-layout-is-fixed",
+        "component:web-corp.buttons-group.root-sizing-is-hug-hug"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.buttons-group.built-in-buttons-can-be-hidden",
+        "component:web-corp.buttons-group.exists-in-code",
+        "component:web-corp.buttons-group.has-no-group-state",
+        "component:web-corp.buttons-group.nested-button-views-are-primary-or-secondary",
+        "component:web-corp.buttons-group.overflow-enables-last-single-icon",
+        "component:web-corp.buttons-group.overflow-is-optional-from-two-buttons",
+        "component:web-corp.buttons-group.primary-is-first-and-unique",
+        "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+        "component:web-corp.buttons-group.single-icon-is-last",
+        "component:web-corp.buttons-group.uniform-size",
+        "component:web-corp.buttons-group.use-only-built-in-button-slots"
+      ],
       "compilerCoverage": {
         "sourceRules": 34,
         "deterministicSourceRules": 17,
@@ -9823,9 +10086,19 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/CardImage",
       "contractPath": "web-corp/CardImage/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/CardImage/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.card-image.custom-cover-preserves-structure",
+        "component:web-corp.card-image.custom-cover-uses-none",
+        "component:web-corp.card-image.number-must-stay-masked",
+        "component:web-corp.card-image.public-root-only",
+        "component:web-corp.card-image.shadow-policy",
+        "component:web-corp.card-image.user-data-by-size"
+      ],
       "compilerCoverage": {
         "sourceRules": 22,
         "deterministicSourceRules": 14,
@@ -10528,9 +10801,19 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/CardSwiperMobile [M]",
       "contractPath": "web-corp/CardSwiperMobile [M]/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/CardSwiperMobile [M]/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.card-swiper-mobile.fixed-vertical-spacing",
+        "component:web-corp.card-swiper-mobile.neighbor-visibility-properties",
+        "component:web-corp.card-swiper-mobile.public-root-only",
+        "component:web-corp.card-swiper-mobile.requires-at-least-one-card",
+        "component:web-corp.card-swiper-mobile.screen-size-follows-viewport",
+        "component:web-corp.card-swiper-mobile.selection-geometry"
+      ],
       "compilerCoverage": {
         "sourceRules": 21,
         "deterministicSourceRules": 9,
@@ -11204,9 +11487,25 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/CorporateAppHeaderNew [D]",
       "contractPath": "web-corp/CorporateAppHeaderNew [D]/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/CorporateAppHeaderNew [D]/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.corporate-app-header-new.desktop-only",
+        "component:web-corp.corporate-app-header-new.only-three-public-components"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.corporate-app-header-new-open-controls-nested-group",
+        "component:web-corp.corporate-app-header-new.all-services-is-required",
+        "component:web-corp.corporate-app-header-new.detach-is-forbidden",
+        "component:web-corp.corporate-app-header-new.geometry-is-fixed",
+        "component:web-corp.corporate-app-header-new.header-buttons-are-fixed",
+        "component:web-corp.corporate-app-header-new.header-structure-is-required",
+        "component:web-corp.corporate-app-header-new.logo-cell-is-required-and-fixed",
+        "component:web-corp.corporate-app-header-new.single-active-menu-item",
+        "component:web-corp.corporate-app-header-new.tablet-property-is-system-owned"
+      ],
       "compilerCoverage": {
         "sourceRules": 48,
         "deterministicSourceRules": 14,
@@ -12564,9 +12863,20 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/CorporateContent",
       "contractPath": "web-corp/CorporateContent/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/CorporateContent/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.corporate-content.detach-prohibited",
+        "component:web-corp.corporate-content.grid-style-protected",
+        "component:web-corp.corporate-content.platform-breakpoint-selection",
+        "component:web-corp.corporate-content.root-clickability-prohibited",
+        "component:web-corp.corporate-content.section-position-tablet-order",
+        "component:web-corp.corporate-content.section-root-layout-protected",
+        "component:web-corp.corporate-content.transition-version-prohibited"
+      ],
       "compilerCoverage": {
         "sourceRules": 32,
         "deterministicSourceRules": 24,
@@ -13570,9 +13880,32 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/CorporateSystemMessage",
       "contractPath": "web-corp/CorporateSystemMessage/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/CorporateSystemMessage/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.corporate-system-message.platform-breakpoint",
+        "component:web-corp.corporate-system-message.public-roots-only"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.corporate-system-message.built-in-background-plate-protected",
+        "component:web-corp.corporate-system-message.buttons-axis-large-only",
+        "component:web-corp.corporate-system-message.buttons-optional-combinations",
+        "component:web-corp.corporate-system-message.caption-optional-all-views",
+        "component:web-corp.corporate-system-message.description-override-by-state",
+        "component:web-corp.corporate-system-message.external-background-plate-slot-allowed",
+        "component:web-corp.corporate-system-message.large-required-content",
+        "component:web-corp.corporate-system-message.no-adaptive-fixed-content",
+        "component:web-corp.corporate-system-message.root-fill-hug",
+        "component:web-corp.corporate-system-message.root-interaction-prohibited",
+        "component:web-corp.corporate-system-message.small-title-required",
+        "component:web-corp.corporate-system-message.structure-protected",
+        "component:web-corp.corporate-system-message.subtitle-is-description",
+        "component:web-corp.corporate-system-message.title-override-by-view",
+        "component:web-corp.corporate-system-message.transition-components-prohibited",
+        "component:web-corp.corporate-system-message.type-by-view"
+      ],
       "compilerCoverage": {
         "sourceRules": 34,
         "deterministicSourceRules": 24,
@@ -14616,9 +14949,30 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/CorporateTopbar [D]",
       "contractPath": "web-corp/CorporateTopbar [D]/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/CorporateTopbar [D]/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.corporate-topbar-is-desktop-only",
+        "component:web-corp.corporate-topbar-visuals-use-effective-baseline",
+        "component:web-corp.corporate-topbar.use-topbar-as-public-root"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.corporate-topbar-allows-one-additional-button",
+        "component:web-corp.corporate-topbar-divider-follows-control",
+        "component:web-corp.corporate-topbar-protects-structure-and-root-interaction",
+        "component:web-corp.corporate-topbar-region-order-is-fixed",
+        "component:web-corp.corporate-topbar-root-uses-fill-hug",
+        "component:web-corp.corporate-topbar-skeleton-preserves-filtered-state",
+        "component:web-corp.corporate-topbar.additional-button-uses-supported-variants",
+        "component:web-corp.corporate-topbar.counter-is-required",
+        "component:web-corp.corporate-topbar.filtered-controls-counter-label",
+        "component:web-corp.corporate-topbar.internal-components-are-not-standalone",
+        "component:web-corp.corporate-topbar.settings-dropdown-shows-option-list",
+        "component:web-corp.corporate-topbar.settings-is-optional",
+        "component:web-corp.corporate-topbar.start-addon-is-optional"
+      ],
       "compilerCoverage": {
         "sourceRules": 39,
         "deterministicSourceRules": 18,
@@ -15721,9 +16075,27 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/FAQ",
       "contractPath": "web-corp/FAQ/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/FAQ/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.faq.minimum-two-items",
+        "component:web-corp.faq.public-roots-only",
+        "component:web-corp.faq.single-open-item",
+        "component:web-corp.faq.visuals-follow-effective-baseline"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.faq.answer-length-limit",
+        "component:web-corp.faq.family-must-match-host",
+        "component:web-corp.faq.fill-hug-sizing",
+        "component:web-corp.faq.instance-swap-forbidden",
+        "component:web-corp.faq.maximum-eight-per-category",
+        "component:web-corp.faq.platform-version-must-match",
+        "component:web-corp.faq.question-and-answer-required",
+        "component:web-corp.faq.question-length-limit",
+        "component:web-corp.faq.surface-is-fixed-by-family"
+      ],
       "compilerCoverage": {
         "sourceRules": 19,
         "deterministicSourceRules": 15,
@@ -16280,9 +16652,36 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/FileUpload",
       "contractPath": "web-corp/FileUpload/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/FileUpload/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.file-upload.border-platform-matrix",
+        "component:web-corp.file-upload.constraints-visible-before-upload",
+        "component:web-corp.file-upload.counter-counts-all-list-items",
+        "component:web-corp.file-upload.disable-blocks-new-upload-only",
+        "component:web-corp.file-upload.disable-file-upload-at-max-files",
+        "component:web-corp.file-upload.disable-hides-border",
+        "component:web-corp.file-upload.empty-state-hides-file-list",
+        "component:web-corp.file-upload.file-actions-follow-state",
+        "component:web-corp.file-upload.file-list-is-always-expanded",
+        "component:web-corp.file-upload.file-order-follows-upload",
+        "component:web-corp.file-upload.fill-hug-sizing",
+        "component:web-corp.file-upload.limit-counts-all-list-items",
+        "component:web-corp.file-upload.max-three-formats-before-more",
+        "component:web-corp.file-upload.more-counts-extensions-only",
+        "component:web-corp.file-upload.public-roots-only",
+        "component:web-corp.file-upload.required-file-block-error",
+        "component:web-corp.file-upload.retry-on-upload-failure",
+        "component:web-corp.file-upload.single-file-disables-file-upload",
+        "component:web-corp.file-upload.slots-use-component-properties",
+        "component:web-corp.file-upload.text-overrides-are-limited",
+        "component:web-corp.file-upload.title-required-subtitle-optional",
+        "component:web-corp.file-upload.uploading-uses-file-item-preset",
+        "component:web-corp.file-upload.visuals-follow-effective-baseline"
+      ],
       "compilerCoverage": {
         "sourceRules": 43,
         "deterministicSourceRules": 26,
@@ -17579,9 +17978,23 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/Onboarding Tooltip [D]",
       "contractPath": "web-corp/Onboarding Tooltip [D]/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/Onboarding Tooltip [D]/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.onboarding-tooltip.close-is-required-and-fixed",
+        "component:web-corp.onboarding-tooltip.content-length-recommendations",
+        "component:web-corp.onboarding-tooltip.desktop-only",
+        "component:web-corp.onboarding-tooltip.maximum-ten-steps",
+        "component:web-corp.onboarding-tooltip.public-root-only",
+        "component:web-corp.onboarding-tooltip.radius-follows-effective-baseline",
+        "component:web-corp.onboarding-tooltip.required-anatomy",
+        "component:web-corp.onboarding-tooltip.text-style-binding-required",
+        "component:web-corp.onboarding-tooltip.typography-follows-effective-baseline",
+        "component:web-corp.onboarding-tooltip.visuals-follow-effective-baseline"
+      ],
       "compilerCoverage": {
         "sourceRules": 35,
         "deterministicSourceRules": 16,
@@ -18601,9 +19014,12 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/PaymentMaskedNumber",
       "contractPath": "web-corp/PaymentMaskedNumber/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
       "inventoryStatus": "supporting",
       "migrationEligibility": "supporting-no-new-operators",
       "closureStatus": "closed-for-migration",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [],
       "compilerCoverage": {
         "sourceRules": 4,
         "deterministicSourceRules": 3,
@@ -18762,9 +19178,14 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/Status & Property",
       "contractPath": "web-corp/Status & Property/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/Status & Property/rules.json",
       "inventoryStatus": "ready-corp",
-      "migrationEligibility": "blocked-by-authoring-or-capabilities",
-      "closureStatus": "classified-with-gaps",
+      "migrationEligibility": "ready-production-predicate-bridge",
+      "closureStatus": "closed-for-migration",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.status-property.preset-root-visuals-follow-effective-baseline"
+      ],
+      "blockingUnsupportedRuleIds": [],
       "compilerCoverage": {
         "sourceRules": 27,
         "deterministicSourceRules": 12,
@@ -19647,9 +20068,38 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/Table Basic [D]",
       "contractPath": "web-corp/Table Basic [D]/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/Table Basic [D]/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.table-basic-d.desktop-from-768",
+        "component:web-corp.table-basic-d.manual-visual-styles-forbidden"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.table-basic-d.action-cell-content",
+        "component:web-corp.table-basic-d.assembly-width-fill",
+        "component:web-corp.table-basic-d.bulk-actions-use-pagination-preset",
+        "component:web-corp.table-basic-d.cell-alignment-editable",
+        "component:web-corp.table-basic-d.column-control-visible",
+        "component:web-corp.table-basic-d.column-resize-without-horizontal-scroll",
+        "component:web-corp.table-basic-d.column-width-reset-actions",
+        "component:web-corp.table-basic-d.internal-parts-not-standalone",
+        "component:web-corp.table-basic-d.keep-control-and-action-cells",
+        "component:web-corp.table-basic-d.no-arbitrary-cell-instance-swap",
+        "component:web-corp.table-basic-d.no-column-grouping",
+        "component:web-corp.table-basic-d.no-column-pinning",
+        "component:web-corp.table-basic-d.no-horizontal-scroll",
+        "component:web-corp.table-basic-d.pagination-by-row-count",
+        "component:web-corp.table-basic-d.reset-all-restores-baseline",
+        "component:web-corp.table-basic-d.row-height-uses-effective-baseline",
+        "component:web-corp.table-basic-d.select-all-current-page",
+        "component:web-corp.table-basic-d.single-active-sorting-column",
+        "component:web-corp.table-basic-d.sorting-menu-by-column-capability",
+        "component:web-corp.table-basic-d.supported-presets-allowed",
+        "component:web-corp.table-basic-d.supports-two-text-slots",
+        "component:web-corp.table-basic-d.visual-states-use-effective-baseline"
+      ],
       "compilerCoverage": {
         "sourceRules": 45,
         "deterministicSourceRules": 34,
@@ -21050,9 +21500,23 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/TableView",
       "contractPath": "web-corp/TableView/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/TableView/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.table-view.compact-is-consistent-across-rows",
+        "component:web-corp.table-view.divider-visibility-only-last-row",
+        "component:web-corp.table-view.horizontal-compact-width",
+        "component:web-corp.table-view.internal-parts-not-standalone",
+        "component:web-corp.table-view.last-row-divider",
+        "component:web-corp.table-view.manual-column-width-changes-forbidden",
+        "component:web-corp.table-view.manual-visual-overrides-forbidden",
+        "component:web-corp.table-view.multi-column-width",
+        "component:web-corp.table-view.no-single-hidden-row",
+        "component:web-corp.table-view.title-subtitle-instance-swap-forbidden"
+      ],
       "compilerCoverage": {
         "sourceRules": 40,
         "deterministicSourceRules": 15,
@@ -22278,9 +22742,37 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/Table Wide [D]",
       "contractPath": "web-corp/Table Wide [D]/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/Table Wide [D]/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.table-wide-d.desktop-from-768",
+        "component:web-corp.table-wide-d.manual-visual-styles-forbidden"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.table-wide-d.action-cell-content",
+        "component:web-corp.table-wide-d.assembly-width-fill",
+        "component:web-corp.table-wide-d.bulk-actions-use-pagination-preset",
+        "component:web-corp.table-wide-d.cell-alignment-editable",
+        "component:web-corp.table-wide-d.column-width-reset-actions",
+        "component:web-corp.table-wide-d.column-widths-match",
+        "component:web-corp.table-wide-d.head-cell-column-control-visible",
+        "component:web-corp.table-wide-d.internal-parts-not-standalone",
+        "component:web-corp.table-wide-d.keep-control-and-action-cells",
+        "component:web-corp.table-wide-d.keep-one-visible-column",
+        "component:web-corp.table-wide-d.no-arbitrary-cell-instance-swap",
+        "component:web-corp.table-wide-d.pagination-by-row-count",
+        "component:web-corp.table-wide-d.pinning-wide-only",
+        "component:web-corp.table-wide-d.reset-all-restores-baseline",
+        "component:web-corp.table-wide-d.row-height-uses-effective-baseline",
+        "component:web-corp.table-wide-d.select-all-current-page",
+        "component:web-corp.table-wide-d.single-active-sorting-column",
+        "component:web-corp.table-wide-d.sorting-menu-by-column-capability",
+        "component:web-corp.table-wide-d.supported-presets-allowed",
+        "component:web-corp.table-wide-d.use-wide-component-for-extended-view",
+        "component:web-corp.table-wide-d.visual-states-use-effective-baseline"
+      ],
       "compilerCoverage": {
         "sourceRules": 46,
         "deterministicSourceRules": 36,
@@ -23722,9 +24214,29 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/TabsView",
       "contractPath": "web-corp/TabsView/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "JSONS/web/components/web-corp/TabsView/rules.json",
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
+      "productionPredicateBridgeRuleIds": [],
+      "blockingUnsupportedRuleIds": [
+        "component:web-corp.tabs-view.active-tab-cannot-be-disabled",
+        "component:web-corp.tabs-view.fixed-external-spacing",
+        "component:web-corp.tabs-view.indicator-digit-maximum",
+        "component:web-corp.tabs-view.label-maximum-ten-characters",
+        "component:web-corp.tabs-view.labels-are-unique-within-level",
+        "component:web-corp.tabs-view.manual-primary-tabs-layer-override",
+        "component:web-corp.tabs-view.manual-secondary-tabs-layer-override",
+        "component:web-corp.tabs-view.manual-visual-overrides-forbidden",
+        "component:web-corp.tabs-view.maximum-two-levels",
+        "component:web-corp.tabs-view.minimum-one-enabled-active-tab",
+        "component:web-corp.tabs-view.one-active-tab-per-visible-level",
+        "component:web-corp.tabs-view.primary-addon-active-only",
+        "component:web-corp.tabs-view.primary-addon-types",
+        "component:web-corp.tabs-view.root-skeleton-presentation",
+        "component:web-corp.tabs-view.secondary-single-icon-is-uniform",
+        "component:web-corp.tabs-view.wrapper-owned-primary-tabs-overrides"
+      ],
       "compilerCoverage": {
         "sourceRules": 38,
         "deterministicSourceRules": 23,
@@ -24873,9 +25385,14 @@
       "library": "Web _ Corp Components",
       "sourcePath": "JSONS/web/components/web-corp/TitleView",
       "contractPath": "web-corp/TitleView/compiled/component-contract.v2.json",
+      "contractRulesSourceFile": "source/rules.json",
       "inventoryStatus": "ready-corp",
-      "migrationEligibility": "blocked-by-authoring-or-capabilities",
-      "closureStatus": "classified-with-gaps",
+      "migrationEligibility": "ready-production-predicate-bridge",
+      "closureStatus": "closed-for-migration",
+      "productionPredicateBridgeRuleIds": [
+        "component:web-corp.title-view.status-and-title-status-color-match"
+      ],
+      "blockingUnsupportedRuleIds": [],
       "compilerCoverage": {
         "sourceRules": 42,
         "deterministicSourceRules": 28,

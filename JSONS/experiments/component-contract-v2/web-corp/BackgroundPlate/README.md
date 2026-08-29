@@ -5,9 +5,9 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-corp/BackgroundPlate`
 - Component API facts: 14
-- Executable RuleIR entries: 24
-- Deterministic coverage: 21/21
-- Unsupported deterministic rules: 0
+- Executable RuleIR entries: 25
+- Deterministic coverage: 22/24
+- Unsupported deterministic rules: 2
 - Manual rules: 0
 - Advisory rules: 6
 

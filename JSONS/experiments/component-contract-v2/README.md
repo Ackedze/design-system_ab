@@ -23,7 +23,7 @@ semantics always come from the local component-package JSON files.
 | web-corp.title-view | 27/28 | 1 |
 | web-corp.account-select | 4/23 | 19 |
 | web-corp.amount-styles | 12/29 | 17 |
-| web-corp.background-plate | 21/21 | 0 |
+| web-corp.background-plate | 22/24 | 2 |
 | web-corp.buttons-group | 4/17 | 13 |
 | web-corp.button-stack | 7/7 | 0 |
 | web-corp.card-image | 8/14 | 6 |
@@ -40,7 +40,7 @@ semantics always come from the local component-package JSON files.
 | web-corp.table-wide | 13/36 | 23 |
 | web-corp.table-view | 5/15 | 10 |
 | web-corp.tabs-view | 7/23 | 16 |
-| web-corp-promo.benefit-card | 11/23 | 12 |
+| web-corp-promo.benefit-card | 11/22 | 11 |
 | web-corp-promo.benefits | 14/14 | 0 |
 | web-corp-promo.benefits-block | 3/18 | 15 |
 | web-corp-promo.promo-card | 2/18 | 16 |
@@ -50,9 +50,9 @@ semantics always come from the local component-package JSON files.
 | web-core.amount | 4/4 | 0 |
 
 The union and per-package novelty of selectors, facts, operators and remediations is stored in
-`capability-matrix.json`. Across the sample, 214
-of 509 deterministic rules compile (0.4204);
-295 remain unsupported. A source rule is executable only when its assertion
+`capability-matrix.json`. Across the sample, 215
+of 511 deterministic rules compile (0.4207);
+296 remain unsupported. A source rule is executable only when its assertion
 parameters are structured; prose is never promoted into runtime behavior.
 
 `ready-package-rule-profile.json` separates runtime vocabulary from descriptive override-policy

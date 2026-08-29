@@ -6,9 +6,9 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 - Source package: `JSONS/web/components/web-corp-promo/BenefitCard`
 - Component API facts: 8
 - Executable RuleIR entries: 12
-- Deterministic coverage: 11/23
-- Unsupported deterministic rules: 12
-- Manual rules: 9
+- Deterministic coverage: 11/22
+- Unsupported deterministic rules: 11
+- Manual rules: 10
 - Advisory rules: 0
 
 Unsupported rules are intentional discovery results. Their candidate capabilities are recorded

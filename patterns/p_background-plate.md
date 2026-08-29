@@ -218,7 +218,7 @@ BackgroundPlate Level 2
 - ruleId: rule:components.background-plate.slot-content-levels
 - severity: error
 - appliesTo: component
-- checkType: llm
+- checkType: deterministic
 - autofix: partial
 
 Внутри слота `Level 1` обычный контент может лежать напрямую. `Level 2` является опциональной вложенной поверхностью. Вложенные `BackgroundPlate` с `Level 0` или `Level 1` запрещены.
@@ -670,6 +670,36 @@ Opacity BackgroundPlate должен совпадать с effective baseline т
 
 Blend mode BackgroundPlate и его внутренних surface-слоёв должен совпадать с effective baseline текущего варианта. Ручное изменение запрещено.
 
+### Rule 25: Проверяй Promo Radius для BackgroundPlateSlot на promo-странице
+
+- ruleId: rule:components.background-plate.promo-slot-radius-collection
+- severity: human-review
+- appliesTo: component
+- checkType: llm
+- autofix: no
+
+На promo-странице `[D|M] BackgroundPlateSlot` должен использовать collection `[Promo] BackgroundPlate Radius`. До появления полного evidence по collection, platform и variant правило проверяется агентом и не создаёт автоматическую ошибку.
+
+### Rule 26: Используй только публичные корни
+
+- ruleId: rule:components.background-plate.public-roots-only
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: partial
+
+Самостоятельно размещай только `[D|M] BackgroundPlate`, `[D|M] BackgroundPlateSlot` и опубликованные Promo roots. `Style Level 1` и `Style Level 2` являются служебными частями и не используются отдельно.
+
+### Rule 27: Выбирай версию для канала страницы
+
+- ruleId: rule:components.background-plate.platform-version-must-match
+- severity: error
+- appliesTo: component
+- checkType: deterministic
+- autofix: yes
+
+Используй `[D]` BackgroundPlate и BackgroundPlateSlot на desktop, а `[M]` — на mobile-web. Версия компонента должна совпадать с выбранным каналом страницы.
+
 ## Section 7: Шаблоны
 
 ### Внешняя подложка
@@ -810,6 +840,8 @@ padding-left: 16 px вручную без Spacing token
 ### Детерминированные проверки
 
 - Проверять, что компонент относится к `[D] BackgroundPlate`, `[M] BackgroundPlate`, `[D] BackgroundPlateSlot`, `[M] BackgroundPlateSlot` или их `[Promo]` вариантам.
+- Проверять, что служебные `Style Level 1/2` не размещены самостоятельно.
+- Проверять совпадение версии `[D]/[M]` с выбранным каналом desktop/mobile-web.
 - Проверять, что `Position=Level 2 (inner)` не используется как самостоятельная подложка без `Level 1`.
 - Проверять соответствие `BackgroundColor` фону страницы: `base-bg-alt (gray)` для серого фона, `base-bg (white)` для белого фона.
 - Проверять, что все `BackgroundPlate` на странице используют один `BackgroundColor`, если не найден отдельный фоновой контекст.
@@ -829,6 +861,7 @@ padding-left: 16 px вручную без Spacing token
 
 ### LLM-проверки
 
+- Проверять, что promo-страница использует collection `[Promo] BackgroundPlate Radius`, если evidence содержит collection, variant и platform context.
 - Проверять, что `Level 1` используется как внешний слой смыслового блока.
 - Проверять, что `Level 2` используется как внутренний слой поверх `Level 1`.
 - Проверять, что в адаптиве `Level 2` не остаётся без внешнего `Level 1`.

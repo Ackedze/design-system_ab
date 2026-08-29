@@ -12,11 +12,11 @@ Candidate capabilities are discovery hints, not executable behavior.
 
 ## Unsupported classification
 
-- structured-fields-unmapped: 238
+- structured-fields-unmapped: 240
 - structured-fields-missing-runtime-operator: 12
 - prose-existing-operator: 3
 - prose-missing-runtime-operator: 3
-- prose-unclassified: 39
+- prose-unclassified: 38
 
 The classification separates source authoring from runtime support. Structured source fields are
 reported independently from prose-only rules; candidate operators remain discovery hints.
@@ -108,7 +108,10 @@ reported independently from prose-only rules; candidate operators remain discove
 
 ## web-corp.background-plate
 
-No unsupported deterministic rules.
+| Source rule | Gap kind | Candidate operator | Blocking reason |
+| --- | --- | --- | --- |
+| `component:web-corp.background-plate.platform-version-must-match` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.background-plate.slot-content-levels` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 
 ## web-corp.buttons-group
 
@@ -396,7 +399,6 @@ No unsupported deterministic rules.
 | `component:web.benefit-card-icon-visuals-follow-baseline` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card-link-content-limit` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card-platform-version-must-match` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.benefit-card-secondary-surface-not-recommended` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card-skeleton-covers-entire-card` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.background-plate-colors-use-tokens` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.benefit-card.background-plate-style-overrides` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |

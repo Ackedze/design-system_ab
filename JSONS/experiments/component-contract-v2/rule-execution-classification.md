@@ -5,12 +5,12 @@ This report classifies source rules without normalizing them or inferring execut
 ## Ready Corp summary
 
 - packages: 25
-- rules: 839
-- deterministic: 337
+- rules: 842
+- deterministic: 344
 - agent-required: 138
-- human-review: 201
+- human-review: 202
 - policy-only: 1
-- unresolved: 162
+- unresolved: 157
 
 `deterministic` means either executable now or backed by explicit structured assertion fields.
 `agent-required` is used only for rules explicitly authored as `llm` or `contextual`.
@@ -23,19 +23,21 @@ The first wave requires no new runtime operators and is ready only for shadow pa
 - `web-corp-promo.benefits`
 - `web-corp.background-plate`
 - `web-corp.button-stack`
+- `web-corp.status-property`
+- `web-corp.title-view`
 
 ## Ready packages
 
 | Package | Executable deterministic | Deterministic decision | Agent | Human | Unresolved | Eligibility |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| `web-corp-promo.benefit-card` | 11/23 | 11 | 0 | 9 | 12 | blocked-by-authoring-or-capabilities |
+| `web-corp-promo.benefit-card` | 11/22 | 15 | 0 | 10 | 7 | blocked-by-authoring-or-capabilities |
 | `web-corp-promo.benefits` | 14/14 | 14 | 4 | 3 | 0 | ready-no-new-operators |
 | `web-corp-promo.benefits-block` | 3/18 | 4 | 10 | 5 | 14 | blocked-by-authoring-or-capabilities |
 | `web-corp-promo.promo-card` | 2/18 | 2 | 6 | 0 | 16 | blocked-by-authoring-or-capabilities |
 | `web-corp-promo.promo-main-block` | 2/20 | 2 | 6 | 1 | 18 | blocked-by-authoring-or-capabilities |
 | `web-corp.account-select` | 4/23 | 19 | 0 | 20 | 4 | blocked-by-authoring-or-capabilities |
 | `web-corp.amount-styles` | 12/29 | 14 | 21 | 0 | 15 | blocked-by-authoring-or-capabilities |
-| `web-corp.background-plate` | 21/21 | 21 | 6 | 0 | 0 | ready-no-new-operators |
+| `web-corp.background-plate` | 22/24 | 24 | 6 | 0 | 0 | ready-production-predicate-bridge |
 | `web-corp.button-stack` | 7/7 | 7 | 5 | 5 | 0 | ready-no-new-operators |
 | `web-corp.buttons-group` | 4/17 | 6 | 1 | 16 | 11 | blocked-by-authoring-or-capabilities |
 | `web-corp.card-image` | 8/14 | 8 | 3 | 5 | 6 | blocked-by-authoring-or-capabilities |
@@ -47,9 +49,9 @@ The first wave requires no new runtime operators and is ready only for shadow pa
 | `web-corp.faq` | 2/15 | 6 | 0 | 4 | 9 | blocked-by-authoring-or-capabilities |
 | `web-corp.file-upload` | 3/26 | 21 | 6 | 10 | 5 | blocked-by-authoring-or-capabilities |
 | `web-corp.onboarding-tooltip` | 6/16 | 10 | 0 | 19 | 6 | blocked-by-authoring-or-capabilities |
-| `web-corp.status-property` | 11/12 | 12 | 10 | 5 | 0 | blocked-by-authoring-or-capabilities |
+| `web-corp.status-property` | 11/12 | 12 | 10 | 5 | 0 | ready-production-predicate-bridge |
 | `web-corp.table-basic` | 10/34 | 34 | 3 | 7 | 1 | blocked-by-authoring-or-capabilities |
 | `web-corp.table-view` | 5/15 | 11 | 16 | 9 | 4 | blocked-by-authoring-or-capabilities |
 | `web-corp.table-wide` | 13/36 | 35 | 3 | 7 | 1 | blocked-by-authoring-or-capabilities |
 | `web-corp.tabs-view` | 7/23 | 18 | 0 | 15 | 5 | blocked-by-authoring-or-capabilities |
-| `web-corp.title-view` | 27/28 | 28 | 14 | 0 | 0 | blocked-by-authoring-or-capabilities |
+| `web-corp.title-view` | 27/28 | 28 | 14 | 0 | 0 | ready-production-predicate-bridge |
