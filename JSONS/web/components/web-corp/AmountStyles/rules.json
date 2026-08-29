@@ -3,7 +3,7 @@
   "documentType": "component-rules",
   "metadata": {
     "componentKey": "web-corp.amount-styles",
-    "status": "ready",
+    "status": "draft",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-22"
+      "updatedAt": "2026-08-30"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -24,8 +24,8 @@
     "migratedFrom": 1,
     "ownershipMigrationRevision": 2,
     "ruleAuthorityMigrationRevision": 1,
-    "executablePackageRevision": 3,
-    "executablePackageUpdatedAt": "2026-08-29"
+    "executablePackageRevision": 4,
+    "executablePackageUpdatedAt": "2026-08-30"
   },
   "generated": {
     "rules": [
@@ -207,7 +207,42 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "query-count",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.amount-styles" } },
+              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["amount-headline", "amount-paragraph"] } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
+            ]
+          },
+          "query": {
+            "from": "subject",
+            "traverse": "descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
+              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "Major" } },
+              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } },
+              { "predicate": "compare", "actual": { "fact": "text.length" }, "expected": { "literal": 0 }, "operator": "gt" }
+            ]
+          },
+          "lower": 1,
+          "upper": 1,
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "В AmountStyles отсутствует обязательная целая часть",
+            "observed": "Найдено видимых непустых частей Major: {{actual}}.",
+            "expectation": "AmountHeadline и AmountParagraph должны содержать одну видимую непустую часть Major.",
+            "action": "Показать Major и задать целую часть суммы."
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -251,7 +286,37 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
+              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "Minus" } },
+              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } },
+              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": "web-corp.amount-styles" } },
+              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.family" }, "expected": { "literal": "operation" } }
+            ]
+          },
+          "assert": {
+            "predicate": "equals",
+            "actual": { "fact": "text.characters" },
+            "expected": { "literal": "−" }
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "В AmountStyles используется неверный знак минуса",
+            "observed": "Вместо математического минуса U+2212 используется «{{actual}}».",
+            "expectation": "Отрицательная операция должна использовать математический минус «−» (U+2212).",
+            "action": "Вернуть текст Minus к значению «−».",
+            "targetFact": "text.characters"
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -321,7 +386,97 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.amount-styles" } },
+              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["amount-headline", "amount-paragraph"] } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
+            ]
+          },
+          "assert": {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "count-between",
+                "actual": {
+                  "query": {
+                    "from": "subject",
+                    "traverse": "descendants",
+                    "where": [
+                      { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
+                      { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
+                      { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+                    ]
+                  }
+                },
+                "lower": { "literal": 1 },
+                "upper": { "literal": 4 }
+              },
+              {
+                "predicate": "all-equal",
+                "actual": {
+                  "query": {
+                    "from": "subject",
+                    "traverse": "descendants",
+                    "where": [
+                      { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
+                      { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
+                      { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+                    ],
+                    "project": { "fact": "appearance.fill.value" }
+                  }
+                }
+              },
+              {
+                "predicate": "every",
+                "actual": {
+                  "query": {
+                    "from": "subject",
+                    "traverse": "descendants",
+                    "where": [
+                      { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
+                      { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
+                      { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+                    ],
+                    "project": { "fact": "bindings.fills.bound" }
+                  }
+                },
+                "expected": { "literal": [true] }
+              },
+              {
+                "predicate": "all-equal",
+                "actual": {
+                  "query": {
+                    "from": "subject",
+                    "traverse": "descendants",
+                    "where": [
+                      { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
+                      { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
+                      { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+                    ],
+                    "project": { "fact": "bindings.fills.token" }
+                  }
+                }
+              }
+            ]
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Части AmountStyles используют разные цвета",
+            "observed": "У видимых частей Minus, Major, Minor и Currency различаются цвет или token binding.",
+            "expectation": "Все видимые текстовые части одной суммы должны использовать один общий цветовой токен.",
+            "action": "Привязать Minus, Major, Minor и Currency к одному допустимому цветовому токену."
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -492,7 +647,36 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-core.amount" } },
+              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["minor", "currency"] } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.host.component.identity" }, "expected": { "literal": "web-corp.amount-styles" } }
+            ]
+          },
+          "assert": {
+            "predicate": "equals",
+            "actual": { "fact": "component.properties.Opacity" },
+            "expected": { "literal": "False" }
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Включена запрещённая прозрачность части AmountStyles",
+            "observed": "У компонента «{{targetName}}» свойство Opacity имеет значение {{actual}}.",
+            "expectation": "У Minor и Currency внутри AmountStyles свойство Opacity должно иметь значение False.",
+            "action": "Установить свойство Opacity=False.",
+            "targetFact": "component.properties.Opacity"
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -606,13 +790,19 @@
               "actualFact": "layout.sizingVertical",
               "baselineFact": "baseline.effective.layout.sizingVertical"
             },
-            {
-              "suffix": "height",
-              "label": "Высота",
-              "actualFact": "height",
-              "baselineFact": "baseline.effective.height"
-            }
-          ],
+          {
+            "suffix": "height",
+            "label": "Высота",
+            "actualFact": "height",
+            "baselineFact": "baseline.effective.height"
+          },
+          {
+            "suffix": "wrap",
+            "label": "Перенос строки",
+            "actualFact": "layout.wrap",
+            "baselineFact": "baseline.effective.layout.wrap"
+          }
+        ],
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
             "title": "Изменено свойство AmountStyles: {{property}}",
@@ -789,7 +979,7 @@
         "severity": "error",
         "source": "component-contract",
         "appliesTo": "component.platform",
-        "checkType": "llm",
+        "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "target": {
           "component": "AmountStyles",
@@ -804,7 +994,38 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "breakpoint-map",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.amount-styles" } },
+              { "predicate": "equals", "actual": { "fact": "component.family" }, "expected": { "literal": "amount-headline" } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
+            ]
+          },
+          "widthFact": "page.context.viewportWidth",
+          "targetFact": "component.platform",
+          "ranges": [
+            { "upper": 768, "expected": "mobile-web" },
+            { "lower": 768, "expected": "desktop" }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Preset AmountHeadline не соответствует ширине страницы",
+            "observed": "При ширине {{context}} px используется preset платформы {{actual}}.",
+            "expectation": "Ниже 768 px используется mobile-web AmountHeadline, от 768 px — desktop AmountHeadline.",
+            "action": "Заменить AmountHeadline на preset, соответствующий ширине страницы.",
+            "contextFact": "page.context.viewportWidth",
+            "targetFact": "component.platform"
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -996,7 +1217,36 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
+              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "Minor" } },
+              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } },
+              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": "web-core.amount" } }
+            ]
+          },
+          "assert": {
+            "predicate": "matches",
+            "actual": { "fact": "text.characters" },
+            "expected": { "literal": "^,[0-9]{1,2}$" }
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Некорректная дробная часть AmountStyles",
+            "observed": "Minor содержит «{{actual}}».",
+            "expectation": "Minor должен содержать запятую и один или два знака после неё.",
+            "action": "Исправить Minor, например на «,0» или «,00».",
+            "targetFact": "text.characters"
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -1147,7 +1397,36 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
+              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "Major" } },
+              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } },
+              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": "web-core.amount" } }
+            ]
+          },
+          "assert": {
+            "predicate": "matches",
+            "actual": { "fact": "text.characters" },
+            "expected": { "literal": "^(?!(?:\\D*\\d){14})[\\s\\S]*$" }
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "В Major больше 13 цифр",
+            "observed": "Целая часть содержит больше 13 цифр: «{{actual}}».",
+            "expectation": "Major должен содержать не более 13 цифр без учёта разделителей разрядов.",
+            "action": "Сократить отображаемое значение или пересмотреть сценарий представления суммы.",
+            "targetFact": "text.characters"
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -1248,7 +1527,37 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline-set",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
+              { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
+              { "predicate": "one-of", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": ["web-corp.amount-styles", "web-core.amount"] } }
+            ]
+          },
+          "paths": [
+            {
+              "suffix": "text-style",
+              "label": "Текстовый стиль",
+              "actualFact": "appearance.styles.textStyle",
+              "baselineFact": "baseline.effective.appearance.styles.textStyle"
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Вручную изменена типографика AmountStyles",
+            "observed": "Текстовый стиль слоя «{{targetName}}» изменён с {{expected}} на {{actual}}.",
+            "expectation": "Типографика всех частей суммы должна определяться component property Style и effective baseline.",
+            "action": "Сбросить текстовый стиль слоя «{{targetName}}» к effective baseline."
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       }
     ],
@@ -1259,9 +1568,17 @@
       ],
       "predicateRules": [
         "component:web-corp.amount-styles.operation-is-internal",
+        "component:web-corp.amount-styles.major-is-required",
+        "component:web-corp.amount-styles.math-minus-is-required",
+        "component:web-corp.amount-styles.parts-share-color",
         "component:web-corp.amount-styles.opacity-is-forbidden",
+        "component:web-corp.amount-styles.opacity-property-is-forbidden",
         "component:web-corp.amount-styles.geometry-follows-effective-baseline",
-        "component:web-corp.amount-styles.platform-preset-matches-channel"
+        "component:web-corp.amount-styles.platform-preset-matches-breakpoint",
+        "component:web-corp.amount-styles.platform-preset-matches-channel",
+        "component:web-corp.amount-styles.minor-has-one-or-two-digits",
+        "component:web-corp.amount-styles.major-max-13-digits",
+        "component:web-corp.amount-styles.manual-text-style-is-layer-property"
       ],
       "compositionRules": [],
       "delegatedRules": [],
@@ -1280,19 +1597,7 @@
           ]
         },
         {
-          "sourceRuleId": "component:web-corp.amount-styles.major-is-required",
-          "missingFacts": [
-            "component.structure"
-          ]
-        },
-        {
           "sourceRuleId": "component:web-corp.amount-styles.math-space-is-required",
-          "missingFacts": [
-            "text.content"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.amount-styles.math-minus-is-required",
           "missingFacts": [
             "text.content"
           ]
@@ -1307,13 +1612,6 @@
           "sourceRuleId": "component:web-corp.amount-styles.addon-does-not-exceed-text-line-height",
           "missingFacts": [
             "layout.size"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.amount-styles.parts-share-color",
-          "missingFacts": [
-            "fill",
-            "fills"
           ]
         },
         {
@@ -1335,12 +1633,6 @@
           "missingFacts": [
             "fill",
             "fills"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.amount-styles.opacity-property-is-forbidden",
-          "missingFacts": [
-            "variant.Opacity"
           ]
         },
         {
@@ -1408,12 +1700,6 @@
           ]
         },
         {
-          "sourceRuleId": "component:web-corp.amount-styles.platform-preset-matches-breakpoint",
-          "missingFacts": [
-            "component.platform"
-          ]
-        },
-        {
           "sourceRuleId": "component:web-corp.amount-styles.amount-stays-on-one-line",
           "missingFacts": [
             "text.wrapping",
@@ -1465,12 +1751,6 @@
           ]
         },
         {
-          "sourceRuleId": "component:web-corp.amount-styles.minor-has-one-or-two-digits",
-          "missingFacts": [
-            "text.content.Minor"
-          ]
-        },
-        {
           "sourceRuleId": "component:web-corp.amount-styles.zero-format",
           "missingFacts": [
             "text.content"
@@ -1507,12 +1787,6 @@
           ]
         },
         {
-          "sourceRuleId": "component:web-corp.amount-styles.major-max-13-digits",
-          "missingFacts": [
-            "text.content.Major"
-          ]
-        },
-        {
           "sourceRuleId": "component:web-corp.amount-styles.operation-negative-is-part-property",
           "missingFacts": [
             "variant.Negative"
@@ -1536,12 +1810,6 @@
           "missingFacts": [
             "fill",
             "fills"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.amount-styles.manual-text-style-is-layer-property",
-          "missingFacts": [
-            "styles.text"
           ]
         }
       ],
