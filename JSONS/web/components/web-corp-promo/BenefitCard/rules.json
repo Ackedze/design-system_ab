@@ -710,12 +710,12 @@
       },
       {
         "ruleId": "component:web.benefit-card-secondary-surface-not-recommended",
-        "severity": "warning",
+        "severity": "info",
         "source": "pattern-link",
         "patternId": "ptrn:components.benefit-card",
         "patternRuleId": "rule:components.benefit-card.secondary-surface-not-recommended",
         "appliesTo": "variant.Type",
-        "checkType": "deterministic",
+        "checkType": "manual",
         "matchKind": "exact_component_rule",
         "ruleText": "Все штатные Type вложенного [Promo] BackgroundPlate разрешены, но Type=Secondary не рекомендуется для BenefitCard.",
         "ruleKind": "design-rule",
@@ -723,46 +723,6 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
-        },
-        "predicateContour": {
-          "schemaVersion": "apollo.contour-definition.v1",
-          "kind": "fact-domain",
-          "select": {
-            "from": "selection-root",
-            "traverse": "self-and-descendants",
-            "where": [
-              {
-                "predicate": "equals",
-                "actual": { "fact": "type" },
-                "expected": { "literal": "INSTANCE" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "component.identity" },
-                "expected": { "literal": "web-corp.background-plate" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "ownership.contour.host.component.identity" },
-                "expected": { "literal": "web.benefit-card" }
-              },
-              {
-                "predicate": "exists",
-                "actual": { "fact": "component.properties.Type" }
-              }
-            ]
-          },
-          "actual": { "fact": "component.properties.Type" },
-          "allowedValues": ["Primary", "Colored", "Border"],
-          "scope": { "platform": ["desktop", "mobile-web"] },
-          "unknownPolicy": "not-evaluable",
-          "presentation": {
-            "schemaVersion": "apollo.predicate-presentation.v1",
-            "title": "Для BenefitCard используется нерекомендуемая поверхность Secondary",
-            "observed": "У вложенного BackgroundPlate выбрано Type={{actual}}.",
-            "expectation": "Для BenefitCard рекомендуются Primary, Colored или Border; Secondary допустим только как предупреждение.",
-            "action": "По возможности выбрать Primary, Colored или Border."
-          }
         }
       },
       {
@@ -944,7 +904,6 @@
         "component:web.benefit-card-platform-version-must-match",
         "component:web.benefit-card.compact-uses-secondary-title",
         "component:web.benefit-card-bottom-content-link-only",
-        "component:web.benefit-card-secondary-surface-not-recommended",
         "component:web.benefit-card.visuals-follow-effective-baseline"
       ],
       "delegatedRules": [
@@ -981,6 +940,10 @@
         {
           "sourceRuleId": "component:web.benefit-card.background-controls-surface",
           "effect": "allow"
+        },
+        {
+          "sourceRuleId": "component:web.benefit-card-secondary-surface-not-recommended",
+          "effect": "allow-with-guidance"
         },
         {
           "sourceRuleId": "component:web.benefit-card-card-and-link-may-be-clickable",
