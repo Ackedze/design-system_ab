@@ -22,10 +22,10 @@ This directory is an isolated, non-runtime duplicate of the production package a
 - Component API facts: 12
 - Selectors: 17
 - Executable RuleIR entries: 32
-- Deterministic source rules covered as executable: 27/27
-- LLM/advisory source rules promoted by stronger structural evidence: 1
-- Advisory source rules: 13
-- Unsupported deterministic source rules: 0
+- Deterministic source rules covered as executable: 27/28
+- LLM/advisory source rules promoted by stronger structural evidence: 0
+- Advisory source rules: 14
+- Unsupported deterministic source rules: 1
 
 ## Architectural invariant
 

@@ -5,8 +5,8 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-core/core/TagGroup`
 - Component API facts: 5
-- Executable RuleIR entries: 4
-- Deterministic coverage: 3/3
+- Executable RuleIR entries: 5
+- Deterministic coverage: 4/4
 - Unsupported deterministic rules: 0
 - Manual rules: 0
 - Advisory rules: 0

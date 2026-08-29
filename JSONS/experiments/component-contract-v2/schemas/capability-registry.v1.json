@@ -36,6 +36,7 @@
         "web-corp.faq",
         "web-corp.file-upload",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -97,6 +98,7 @@
         "web-corp.faq",
         "web-corp.file-upload",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -235,6 +237,7 @@
         "web-corp.faq",
         "web-corp.file-upload",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -274,6 +277,7 @@
         "web-corp-promo.benefits",
         "web-corp.account-select",
         "web-corp.amount-styles",
+        "web-corp.background-plate",
         "web-corp.corporate-content",
         "web-corp.file-upload",
         "web-corp.table-basic",
@@ -341,6 +345,7 @@
         "web-corp.faq",
         "web-corp.file-upload",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -481,6 +486,7 @@
         "web-corp.faq",
         "web-corp.file-upload",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -564,7 +570,6 @@
       "requiredBy": [
         "web-corp-promo.benefit-card",
         "web-corp.background-plate",
-        "web-corp.buttons-group",
         "web-corp.card-image",
         "web-corp.card-swiper-mobile",
         "web-corp.corporate-app-header-new",
@@ -612,6 +617,32 @@
     },
     {
       "id": "host.variant.Skeleton",
+      "status": "experimental-executable",
+      "specificationStatus": "observed-shape",
+      "requiredBy": [
+        "web-corp.title-view"
+      ],
+      "candidateFor": [],
+      "contract": {
+        "input": "immutable audit snapshot plus selected node identity",
+        "output": "typed value or unknown"
+      }
+    },
+    {
+      "id": "host.variant.Status",
+      "status": "experimental-executable",
+      "specificationStatus": "observed-shape",
+      "requiredBy": [
+        "web-corp.title-view"
+      ],
+      "candidateFor": [],
+      "contract": {
+        "input": "immutable audit snapshot plus selected node identity",
+        "output": "typed value or unknown"
+      }
+    },
+    {
+      "id": "host.variant.TitleStatus",
       "status": "experimental-executable",
       "specificationStatus": "observed-shape",
       "requiredBy": [
@@ -759,6 +790,7 @@
       ],
       "candidateFor": [
         "web-corp-promo.promo-main-block",
+        "web-corp.account-select",
         "web-corp.card-swiper-mobile",
         "web-corp.corporate-content",
         "web-corp.corporate-system-message",
@@ -863,6 +895,7 @@
       "candidateFor": [
         "web-corp.corporate-topbar",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-wide",
         "web-corp.tabs-view"
@@ -914,6 +947,7 @@
         "web-corp.faq",
         "web-corp.file-upload",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -937,6 +971,7 @@
       ],
       "candidateFor": [
         "web-corp-promo.promo-main-block",
+        "web-corp.account-select",
         "web-corp.card-swiper-mobile",
         "web-corp.corporate-content",
         "web-corp.corporate-system-message",
@@ -990,6 +1025,7 @@
         "web-corp.corporate-topbar",
         "web-corp.file-upload",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -1040,6 +1076,7 @@
         "web-corp.corporate-system-message",
         "web-corp.corporate-topbar",
         "web-corp.file-upload",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -1093,6 +1130,7 @@
         "web-corp-promo.benefits",
         "web-corp.account-select",
         "web-corp.amount-styles",
+        "web-corp.background-plate",
         "web-corp.corporate-content",
         "web-corp.file-upload",
         "web-corp.table-basic",
@@ -1452,6 +1490,7 @@
         "web-corp.corporate-topbar",
         "web-corp.file-upload",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -1524,30 +1563,6 @@
   ],
   "operators": [
     {
-      "id": "absenceAllowed",
-      "status": "experimental-executable",
-      "specificationStatus": "observed-shape",
-      "requiredBy": [
-        "web-corp.title-view"
-      ],
-      "candidateFor": [],
-      "contract": {
-        "input": "declared evidence facts plus typed assertion parameters",
-        "output": "pass, fail or unknown"
-      },
-      "observedShapes": [
-        {
-          "parameterKeys": [
-            "optionalSelector"
-          ],
-          "ruleCount": 1,
-          "exampleRuleIds": [
-            "rule-ir:title-view.title-status-standalone"
-          ]
-        }
-      ]
-    },
-    {
       "id": "allEqual",
       "status": "experimental-executable",
       "specificationStatus": "observed-shape",
@@ -1556,8 +1571,7 @@
         "web-corp.amount-styles",
         "web-corp.background-plate",
         "web-corp.table-basic",
-        "web-corp.table-wide",
-        "web-corp.title-view"
+        "web-corp.table-wide"
       ],
       "candidateFor": [],
       "contract": {
@@ -1569,9 +1583,8 @@
           "parameterKeys": [
             "fact"
           ],
-          "ruleCount": 6,
+          "ruleCount": 5,
           "exampleRuleIds": [
-            "rule-ir:title-view.status-type-relation.composition.matching-status-type",
             "rule-ir:web-corp-promo.benefits.nested-card-settings-are-uniform.background",
             "rule-ir:web-corp-promo.benefits.nested-card-settings-are-uniform.card-axis",
             "rule-ir:web-corp-promo.benefits.nested-card-settings-are-uniform.compact",
@@ -1629,7 +1642,7 @@
           "parameterKeys": [
             "predicate"
           ],
-          "ruleCount": 15,
+          "ruleCount": 17,
           "exampleRuleIds": [
             "rule-ir:title-view.button-group.composition.allowed-views",
             "rule-ir:title-view.desktop-button-size.composition.button-size",
@@ -1727,6 +1740,7 @@
         "web-corp.faq",
         "web-corp.file-upload",
         "web-corp.onboarding-tooltip",
+        "web-corp.status-property",
         "web-corp.table-basic",
         "web-corp.table-view",
         "web-corp.table-wide",
@@ -1758,32 +1772,6 @@
           "ruleCount": 1,
           "exampleRuleIds": [
             "rule-ir:web-corp.background-plate.colored-and-border-use-color-tokens"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "boundToTokenFromSource",
-      "status": "experimental-executable",
-      "specificationStatus": "observed-shape",
-      "requiredBy": [
-        "web-corp.background-plate"
-      ],
-      "candidateFor": [],
-      "contract": {
-        "input": "declared evidence facts plus typed assertion parameters",
-        "output": "pass, fail or unknown"
-      },
-      "observedShapes": [
-        {
-          "parameterKeys": [
-            "collection",
-            "path",
-            "tokenNames"
-          ],
-          "ruleCount": 1,
-          "exampleRuleIds": [
-            "rule-ir:web-corp.background-plate.padding-uses-spacing-tokens"
           ]
         }
       ]
@@ -1978,7 +1966,6 @@
           "parameterKeys": [
             "doNotRecommendResetToStandaloneLayout",
             "doNotTreatAsViolationByDefault",
-            "keepPaddingTokenCheckSeparate",
             "reportAsCustomization"
           ],
           "ruleCount": 1,
@@ -1990,8 +1977,7 @@
           "parameterKeys": [
             "doNotRecommendResetToStandalonePadding",
             "doNotTreatAsViolationByDefault",
-            "reportAsCustomization",
-            "requireSpacingTokenRuleCheck"
+            "reportAsCustomization"
           ],
           "ruleCount": 1,
           "exampleRuleIds": [
@@ -2051,6 +2037,15 @@
           "ruleCount": 1,
           "exampleRuleIds": [
             "rule-ir:web-corp.corporate-content.root-visual-overrides-prohibited"
+          ]
+        },
+        {
+          "parameterKeys": [
+            "treatAsViolation"
+          ],
+          "ruleCount": 1,
+          "exampleRuleIds": [
+            "rule-ir:web-core.tag-group.right-addon-allows-icon-replacement"
           ]
         }
       ]
@@ -2154,6 +2149,7 @@
       "specificationStatus": "observed-shape",
       "requiredBy": [
         "web-corp.account-select",
+        "web-corp.background-plate",
         "web-corp.corporate-content",
         "web-corp.file-upload",
         "web-corp.table-basic",
@@ -2186,6 +2182,22 @@
           "ruleCount": 1,
           "exampleRuleIds": [
             "rule-ir:web-corp.file-upload.file-actions-use-icons"
+          ]
+        },
+        {
+          "parameterKeys": [
+            "allowContractExceptions",
+            "allowStandalone",
+            "contentPositioning",
+            "directParentRequired",
+            "requiredUnderlay",
+            "sharedAutoLayoutHostRequired",
+            "underlayBeforeContent",
+            "underlayContainsLevel2"
+          ],
+          "ruleCount": 1,
+          "exampleRuleIds": [
+            "rule-ir:web-corp.background-plate.level-2-requires-level-1"
           ]
         },
         {
@@ -2503,16 +2515,16 @@
             "max",
             "min"
           ],
-          "ruleCount": 11,
+          "ruleCount": 13,
           "exampleRuleIds": [
             "rule-ir:title-view.button-group-max-four",
+            "rule-ir:title-view.button-group.composition.button-count",
             "rule-ir:web-corp.button-stack.button-stack.group-horizontal.button-count",
             "rule-ir:web-corp.button-stack.button-stack.group-vertical.button-count",
             "rule-ir:web-corp.button-stack.button-stack.primary-icon.button-count",
             "rule-ir:web-corp.button-stack.button-stack.primary.button-count",
             "rule-ir:web-corp.button-stack.button-stack.secondary.button-count",
-            "rule-ir:web-corp.buttons-group.buttons-group.composition.button-count",
-            "rule-ir:web-corp.card-image.card-image.silver-line-xs.silver-line-hidden"
+            "rule-ir:web-corp.buttons-group.buttons-group.desktop-composition.button-count"
           ]
         }
       ]
@@ -2607,10 +2619,11 @@
             "expectedFact",
             "fact"
           ],
-          "ruleCount": 3,
+          "ruleCount": 4,
           "exampleRuleIds": [
             "rule-ir:web-core.tag-group.nested-tag-size-matches-group",
-            "rule-ir:web-corp.buttons-group.buttons-group.composition.uniform-size",
+            "rule-ir:web-corp.buttons-group.buttons-group.desktop-composition.uniform-size",
+            "rule-ir:web-corp.buttons-group.buttons-group.mobile-composition.uniform-size",
             "rule-ir:web-corp.status-property.nested-status-size-matches-preset"
           ]
         }
@@ -2876,7 +2889,7 @@
             "fact",
             "values"
           ],
-          "ruleCount": 12,
+          "ruleCount": 13,
           "exampleRuleIds": [
             "rule-ir:title-view.button-group.composition.allowed-views",
             "rule-ir:title-view.desktop-button-size.composition.button-size",
@@ -2925,7 +2938,6 @@
         "web-corp-promo.benefits",
         "web-corp-promo.benefits-block",
         "web-corp.amount-styles",
-        "web-corp.background-plate",
         "web-corp.button-stack",
         "web-corp.card-image",
         "web-corp.corporate-content",
@@ -2949,13 +2961,13 @@
           "ruleCount": 28,
           "exampleRuleIds": [
             "rule-ir:title-view.root-sizing",
+            "rule-ir:title-view.title-status-requires-status",
             "rule-ir:web-core.amount.opacity-is-forbidden",
             "rule-ir:web-core.amount.opacity-property-is-forbidden",
             "rule-ir:web-corp-promo.benefit-card.benefit-card-image-view-segment-only",
             "rule-ir:web-corp-promo.benefit-card.compact-uses-secondary-title",
             "rule-ir:web-corp-promo.benefit-card.title-and-graphic-required",
-            "rule-ir:web-corp-promo.benefits-block.root-sizing-and-height-scope",
-            "rule-ir:web-corp-promo.benefits.fill-width-hug-height"
+            "rule-ir:web-corp-promo.benefits-block.root-sizing-and-height-scope"
           ]
         },
         {
@@ -3173,11 +3185,12 @@
             "positions",
             "value"
           ],
-          "ruleCount": 3,
+          "ruleCount": 4,
           "exampleRuleIds": [
             "rule-ir:title-view.button-group.composition.primary-position",
             "rule-ir:title-view.button-group.composition.single-icon-position",
-            "rule-ir:web-corp.buttons-group.buttons-group.composition.primary-position"
+            "rule-ir:web-corp.buttons-group.buttons-group.desktop-composition.primary-position",
+            "rule-ir:web-corp.buttons-group.buttons-group.mobile-composition.primary-position"
           ]
         },
         {
@@ -3188,9 +3201,10 @@
             "subjectLabel",
             "value"
           ],
-          "ruleCount": 1,
+          "ruleCount": 2,
           "exampleRuleIds": [
-            "rule-ir:web-corp.buttons-group.buttons-group.composition.single-icon-position"
+            "rule-ir:web-corp.buttons-group.buttons-group.desktop-composition.single-icon-position",
+            "rule-ir:web-corp.buttons-group.buttons-group.mobile-composition.single-icon-position"
           ]
         }
       ]
@@ -3249,16 +3263,16 @@
           "parameterKeys": [
             "clauses"
           ],
-          "ruleCount": 50,
+          "ruleCount": 53,
           "exampleRuleIds": [
+            "rule-ir:title-view.title-status-requires-status",
+            "rule-ir:web-core.tag-group.right-addon-allows-icon-replacement",
             "rule-ir:web-corp-promo.benefit-card.compact-uses-secondary-title",
             "rule-ir:web-corp-promo.benefits-block.root-sizing-and-height-scope",
             "rule-ir:web-corp-promo.benefits.capacity-matches-card-count",
             "rule-ir:web-corp-promo.benefits.cards-have-equal-height",
             "rule-ir:web-corp-promo.benefits.desktop-compact-required-at-1024",
-            "rule-ir:web-corp-promo.benefits.loading-state-is-uniform",
-            "rule-ir:web-corp-promo.benefits.nested-benefit-card-instance-swap-forbidden",
-            "rule-ir:web-corp-promo.benefits.surface-colors-use-background-plate-tokens"
+            "rule-ir:web-corp-promo.benefits.loading-state-is-uniform"
           ]
         }
       ]
@@ -3273,16 +3287,16 @@
       "observedShapes": [
         {
           "parameterKeys": [],
-          "ruleCount": 224,
+          "ruleCount": 226,
           "exampleRuleIds": [
             "rule-ir:title-view.button-contract-delegation",
             "rule-ir:title-view.button-group-max-four",
             "rule-ir:title-view.button-group.composition.allowed-views",
+            "rule-ir:title-view.button-group.composition.button-count",
             "rule-ir:title-view.button-group.composition.primary-position",
             "rule-ir:title-view.button-group.composition.single-icon-position",
             "rule-ir:title-view.classify-component-properties",
-            "rule-ir:title-view.component-api",
-            "rule-ir:title-view.desktop-button-size.composition.button-size"
+            "rule-ir:title-view.component-api"
           ]
         }
       ]

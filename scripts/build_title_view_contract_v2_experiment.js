@@ -477,14 +477,21 @@ function buildAuthoredRules(sourceRuleById) {
     ),
     authored(
       sourceRuleById,
-      'component:web-corp.title-view.title-status-may-be-standalone',
-      'title-status-standalone',
-      'info',
-      'classification',
-      { host: 'host.title-view', targets: 'descendant.title-status' },
-      { op: 'absenceAllowed', optionalSelector: 'descendant.status-preset' },
-      ['selector.matches'],
-      ['absenceAllowed'],
+      'component:web-corp.title-view.title-status-requires-status',
+      'title-status-requires-status',
+      'error',
+      'enforced',
+      { host: 'host.title-view', targets: 'host.title-view' },
+      { op: 'propertiesEqual', values: { Status: 'True' } },
+      ['host.variant.View', 'host.variant.TitleStatus', 'host.variant.Status'],
+      ['propertiesEqual'],
+      ['set-variant-properties'],
+      {
+        op: 'all',
+        clauses: {
+          hostVariant: { View: 'xLarge', TitleStatus: 'True' },
+        },
+      },
     ),
     authored(
       sourceRuleById,
@@ -685,6 +692,7 @@ function authored(
   facts,
   operators,
   remediations = [],
+  when = { op: 'evidenceComplete' },
 ) {
   const source = sourceRuleById.get(sourceRuleId);
   if (!source) {
@@ -700,7 +708,7 @@ function authored(
     severity,
     enforcement,
     select,
-    when: { op: 'evidenceComplete' },
+    when,
     assert: assertion,
     verdict: enforcement === 'classification'
       ? { pass: 'allowed', fail: 'unknown', unknown: 'unknown' }

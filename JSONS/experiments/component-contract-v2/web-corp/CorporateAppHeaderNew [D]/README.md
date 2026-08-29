@@ -6,8 +6,8 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 - Source package: `JSONS/web/components/web-corp/CorporateAppHeaderNew [D]`
 - Component API facts: 19
 - Executable RuleIR entries: 4
-- Deterministic coverage: 3/13
-- Unsupported deterministic rules: 10
+- Deterministic coverage: 3/14
+- Unsupported deterministic rules: 11
 - Manual rules: 34
 - Advisory rules: 0
 

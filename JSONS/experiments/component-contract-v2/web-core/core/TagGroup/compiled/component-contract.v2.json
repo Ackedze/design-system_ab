@@ -12,7 +12,7 @@
     "family": "TagGroup",
     "library": "Web _ Core",
     "sourcePath": "JSONS/web/components/web-core/core/TagGroup",
-    "sourceGeneratedAt": "2026-08-04T19:39:48.305Z",
+    "sourceGeneratedAt": "2026-08-16T11:54:14.763Z",
     "sourceExportVersion": "0.1.0-rest",
     "sourceFiles": [
       {
@@ -23,12 +23,12 @@
       {
         "file": "JSONS/web/components/web-core/core/TagGroup/agent-context.json",
         "bytes": 5213,
-        "sha256": "81ef45513872e15a8650a89d6255faae61e591e5cb95a0d0697e54c468e872ed"
+        "sha256": "ed1974764c3948647d79315e2eb128b8398a86423dcb7f9e18a3c8d6a7a37dee"
       },
       {
         "file": "JSONS/web/components/web-core/core/TagGroup/audit-mapping.json",
         "bytes": 7695,
-        "sha256": "e4da629df0eacd9e208edb98d810609b508cff244f1b851822374c6cc856a453"
+        "sha256": "8b18f7de3328946363e9fd14d1b8d74eb15ea5c5021c4f111c27258c2084f204"
       },
       {
         "file": "JSONS/web/components/web-core/core/TagGroup/composition-contract.json",
@@ -37,8 +37,8 @@
       },
       {
         "file": "JSONS/web/components/web-core/core/TagGroup/contract.generated.json",
-        "bytes": 957222,
-        "sha256": "b74e2d0a0e72528bedf57713e03c9171e0106567b40c43ab2a0fee7c5ac118ed"
+        "bytes": 2297537,
+        "sha256": "da6d36065b6217487aaade6a011722d0591e83dbe15604235efef431adc4675b"
       },
       {
         "file": "JSONS/web/components/web-core/core/TagGroup/contract.overrides.json",
@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-core/core/TagGroup/rules.json",
-        "bytes": 3486,
-        "sha256": "5bad1a4e7f7122add0c00e4a0abc02125faf37bc63c72edb93bb05350ea66a6e"
+        "bytes": 4981,
+        "sha256": "69eb4faca68d5358a2a75aa7984ad12a4781695fceaf37a361ea46069893b2c2"
       }
     ]
   },
@@ -745,7 +745,7 @@
         ],
         "patternRuleId": null
       },
-      "severity": "warning",
+      "severity": "error",
       "enforcement": "enforced",
       "select": {
         "host": "host.package",
@@ -805,7 +805,7 @@
       ],
       "remediation": null,
       "presentation": {
-        "message": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context.",
+        "message": "Layer/style свойства Core-компонента должны совпадать с effective baseline текущего component variant и nested owner context. Любое фактическое отклонение является нарушением, если отдельное approved правило явно не разрешает эту кастомизацию.",
         "group": "layout.*|styles.text|fill|stroke|radius|opacity"
       },
       "capabilities": {
@@ -903,16 +903,68 @@
         ],
         "remediations": []
       }
+    },
+    {
+      "id": "rule-ir:web-core.tag-group.right-addon-allows-icon-replacement",
+      "source": {
+        "file": "JSONS/web/components/web-core/core/TagGroup/rules.json",
+        "sourceRuleIds": [
+          "component:web-core.tag-group.right-addon-allows-icon-replacement"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "info",
+      "enforcement": "classification",
+      "select": {
+        "host": "host.package",
+        "targets": "tree.package"
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "slot": "RightAddon"
+        }
+      },
+      "assert": {
+        "op": "classificationPolicy",
+        "treatAsViolation": false
+      },
+      "verdict": {
+        "pass": "allowed",
+        "fail": "unknown",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "В иконочном слоте RightAddon разрешено заменять исходный компонент иконки на другую иконку дизайн-системы. Такая замена является допустимой кастомизацией и не требует сброса.",
+        "group": "component.identity"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "classificationPolicy"
+        ],
+        "remediations": []
+      }
     }
   ],
   "nonExecutableRules": [],
   "coverage": {
     "summary": {
-      "sourceRules": 3,
-      "deterministicSourceRules": 3,
-      "executableDeterministicSourceRules": 3,
+      "sourceRules": 4,
+      "deterministicSourceRules": 4,
+      "executableDeterministicSourceRules": 4,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 3,
+      "executable": 4,
       "advisory": 0,
       "manual": 0,
       "unsupported": 0,

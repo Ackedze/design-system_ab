@@ -47,13 +47,13 @@
       },
       {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/examples.json",
-        "bytes": 33525,
-        "sha256": "6db737d16abb7d91206b02a1e5e7218d71966c860761b939d5bb5b0df7abef7a"
+        "bytes": 31571,
+        "sha256": "3cd7e9f89810a5b5e4d176ba3d6ec4063b129714b48d88e4c1c8aa936bb6127b"
       },
       {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "bytes": 46875,
-        "sha256": "0baa6e34ae7b522a608709b112f6365fcaa675732c5e350029ddc8e9317d0402"
+        "bytes": 69701,
+        "sha256": "c206d7e7dab2ec7cd698e52b98b217d055ed047d6110bbd09520bc5fa2bfca80"
       }
     ]
   },
@@ -69,6 +69,7 @@
       "visibility"
     ],
     "facts": [
+      "ancestry",
       "baseline.effective",
       "blendMode",
       "component-api.contract",
@@ -84,6 +85,7 @@
       "page.context",
       "paint.fill",
       "paint.stroke",
+      "semanticRole",
       "style.text",
       "target.componentKey",
       "target.variant.properties",
@@ -96,15 +98,14 @@
       "allMatch",
       "allowedPropertiesByVariant",
       "boundToTokenByVariant",
-      "boundToTokenFromSource",
       "classificationPolicy",
       "componentApiValid",
+      "compositionPolicy",
       "matchesEffectiveBaseline",
       "noneMatch",
       "notMatches",
       "oneOf",
       "paintStateEquals",
-      "propertiesEqual",
       "valueByContext"
     ],
     "remediations": [
@@ -3092,6 +3093,90 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.background-plate.level-2-requires-level-1",
+      "source": {
+        "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.background-plate.level-2-requires-level-1"
+        ],
+        "patternRuleId": "rule:components.background-plate.level-2-over-level-1"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": "tree.package"
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "components": [
+            "[D] BackgroundPlate",
+            "[M] BackgroundPlate",
+            "[D][Promo] BackgroundPlate",
+            "[M][Promo] BackgroundPlate"
+          ],
+          "variant": {
+            "Position": "Level 2 (inner)"
+          }
+        }
+      },
+      "assert": {
+        "op": "compositionPolicy",
+        "requiredUnderlay": {
+          "component": "BackgroundPlate",
+          "variant": {
+            "Position": "Level 1 (outer)"
+          },
+          "positioning": "ABSOLUTE"
+        },
+        "sharedAutoLayoutHostRequired": true,
+        "contentPositioning": "AUTO",
+        "underlayBeforeContent": true,
+        "underlayContainsLevel2": true,
+        "directParentRequired": false,
+        "allowStandalone": false,
+        "allowContractExceptions": false
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "ancestry",
+        "component.identity",
+        "node.documentOrder",
+        "semanticRole"
+      ],
+      "remediation": {
+        "kind": "rule-defined-remediation",
+        "specification": "Добавьте в общий Auto Layout абсолютную подложку BackgroundPlate Level 1 и расположите после неё Auto-ветку контента с Level 2 либо измените самостоятельную поверхность на Level 1."
+      },
+      "presentation": {
+        "message": "BackgroundPlate с Position=Level 2 (inner) должен находиться в Auto-ветке контента поверх абсолютной подложки BackgroundPlate Level 1 внутри общего Auto Layout. Подложка располагается перед веткой контента и покрывает область Level 2. Самостоятельный Level 2 запрещён без исключений.",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "ancestry",
+          "component.identity",
+          "node.documentOrder",
+          "semanticRole"
+        ],
+        "operators": [
+          "compositionPolicy"
+        ],
+        "remediations": [
+          "rule-defined-remediation"
+        ]
+      }
+    },
+    {
       "id": "rule-ir:web-corp.background-plate.manual-shadows-are-prohibited",
       "source": {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
@@ -3323,8 +3408,7 @@
         "op": "classificationPolicy",
         "reportAsCustomization": true,
         "doNotTreatAsViolationByDefault": true,
-        "doNotRecommendResetToStandalonePadding": true,
-        "requireSpacingTokenRuleCheck": "component:web-corp.background-plate.padding-uses-spacing-tokens"
+        "doNotRecommendResetToStandalonePadding": true
       },
       "verdict": {
         "pass": "allowed",
@@ -3337,7 +3421,7 @@
       ],
       "remediation": null,
       "presentation": {
-        "message": "Рекомендуемый стартовый padding BackgroundPlateSlot: Spacing/32 для Level-1 (outer) и Spacing/24 для Level-2 (inner). Дизайнер может свободно изменить padding под контекст композиции или применимый паттерн. Само отличие от рекомендуемого значения не является нарушением и не требует сброса. Показывай изменение как layer customization и проверяй только обязательную привязку каждого layout.padding.* к токену Spacing.",
+        "message": "Рекомендуемый стартовый padding BackgroundPlateSlot: 32 px для Level-1 (outer) и 24 px для Level-2 (inner). Дизайнер может свободно изменить padding под контекст композиции или применимый паттерн. Само отличие от рекомендуемого значения и отсутствие token binding не являются нарушением и не требуют сброса.",
         "group": "layout.padding.*"
       },
       "capabilities": {
@@ -3353,111 +3437,6 @@
           "classificationPolicy"
         ],
         "remediations": []
-      }
-    },
-    {
-      "id": "rule-ir:web-corp.background-plate.padding-uses-spacing-tokens",
-      "source": {
-        "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "sourceRuleIds": [
-          "component:web-corp.background-plate.padding-uses-spacing-tokens"
-        ],
-        "patternRuleId": "rule:components.background-plate.padding-uses-spacing-tokens"
-      },
-      "severity": "error",
-      "enforcement": "enforced",
-      "select": {
-        "host": "host.package",
-        "targets": {
-          "scope": "self-and-descendants",
-          "from": "$host",
-          "where": {
-            "semanticRoleOrLayerName": {
-              "op": "oneOf",
-              "values": [
-                "[D] BackgroundPlate",
-                "[D] BackgroundPlateSlot",
-                "[D] Style Level 1",
-                "[D] Style Level 2",
-                "[D][Promo] BackgroundPlate",
-                "[D][Promo] Style Level 1",
-                "[D][Promo] Style Level 2",
-                "[M] BackgroundPlate",
-                "[M] BackgroundPlateSlot",
-                "[M] Style Level 1",
-                "[M] Style Level 2",
-                "[M][Promo] BackgroundPlate",
-                "[M][Promo] Style Level 1",
-                "[M][Promo] Style Level 2"
-              ]
-            }
-          },
-          "occurrence": "all",
-          "orderBy": "document"
-        }
-      },
-      "when": {
-        "op": "evidenceComplete"
-      },
-      "assert": {
-        "op": "boundToTokenFromSource",
-        "path": "shared/design-system_ab/JSONS/tokens/Spacing.json",
-        "collection": "Spacing",
-        "tokenNames": [
-          "0",
-          "1",
-          "2",
-          "4",
-          "6",
-          "8",
-          "12",
-          "16",
-          "20",
-          "24",
-          "32",
-          "40",
-          "48",
-          "56",
-          "64",
-          "72",
-          "80",
-          "96",
-          "128",
-          "256"
-        ]
-      },
-      "verdict": {
-        "pass": "expected",
-        "fail": "violation",
-        "unknown": "unknown"
-      },
-      "evidence": [
-        "component.identity",
-        "layout.properties"
-      ],
-      "remediation": {
-        "kind": "rule-defined-remediation",
-        "specification": "Привяжите каждое значение padding к соответствующему токену коллекции Spacing; не оставляйте raw px."
-      },
-      "presentation": {
-        "message": "Базовые padding у BackgroundPlate могут быть любыми по значению, но каждое layout.padding.* должно быть задано через токен из коллекции Spacing. Ручные px-значения без token binding являются нарушением, даже если число совпадает со spacing-шкалой.",
-        "group": "layout.padding.*"
-      },
-      "capabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity",
-          "layout.properties"
-        ],
-        "operators": [
-          "boundToTokenFromSource"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
       }
     },
     {
@@ -3730,8 +3709,7 @@
         "op": "classificationPolicy",
         "reportAsCustomization": true,
         "doNotTreatAsViolationByDefault": true,
-        "doNotRecommendResetToStandaloneLayout": true,
-        "keepPaddingTokenCheckSeparate": true
+        "doNotRecommendResetToStandaloneLayout": true
       },
       "verdict": {
         "pass": "allowed",
@@ -3744,7 +3722,7 @@
       ],
       "remediation": null,
       "presentation": {
-        "message": "Axis, gap/itemSpacing и alignment внутри Slot полностью определяются контекстом композиции и вложенным контентом. Отличие этих свойств от standalone baseline не является нарушением и не требует рекомендации сбросить auto-layout. Padding проверяется отдельно на соответствие Spacing tokens.",
+        "message": "Axis, gap/itemSpacing и alignment внутри Slot полностью определяются контекстом композиции и вложенным контентом. Отличие этих свойств от standalone baseline не является нарушением и не требует рекомендации сбросить auto-layout.",
         "group": "layout.axis|layout.itemSpacing|layout.primaryAxisAlignItems|layout.counterAxisAlignItems"
       },
       "capabilities": {
@@ -3830,81 +3808,6 @@
         ],
         "remediations": []
       }
-    },
-    {
-      "id": "rule-ir:web-corp.background-plate.slot-sizing-fill-width-hug-height",
-      "source": {
-        "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "sourceRuleIds": [
-          "component:web-corp.background-plate.slot-sizing-fill-width-hug-height"
-        ],
-        "patternRuleId": "rule:components.background-plate.slot-sizing"
-      },
-      "severity": "error",
-      "enforcement": "enforced",
-      "select": {
-        "host": "host.package",
-        "targets": {
-          "scope": "self-and-descendants",
-          "from": "$host",
-          "where": {
-            "semanticRoleOrLayerName": {
-              "op": "oneOf",
-              "values": [
-                "[D] BackgroundPlateSlot / Slot",
-                "[M] BackgroundPlateSlot / Slot"
-              ]
-            }
-          },
-          "occurrence": "all",
-          "orderBy": "document"
-        }
-      },
-      "when": {
-        "op": "evidenceComplete"
-      },
-      "assert": {
-        "op": "propertiesEqual",
-        "values": {
-          "layout.sizing.horizontal": "FILL",
-          "layout.sizing.vertical": "HUG",
-          "layoutSizingHorizontal": "FILL",
-          "layoutSizingVertical": "HUG"
-        }
-      },
-      "verdict": {
-        "pass": "expected",
-        "fail": "violation",
-        "unknown": "unknown"
-      },
-      "evidence": [
-        "component.identity",
-        "layout.properties"
-      ],
-      "remediation": {
-        "kind": "rule-defined-remediation",
-        "specification": "Установите для Slot ширину Fill и высоту Hug."
-      },
-      "presentation": {
-        "message": "Slot BackgroundPlateSlot должен растягиваться по ширине родителя в режиме Fill и рассчитывать высоту по вложенному контенту в режиме Hug. Fixed или Hug по ширине и Fixed или Fill по высоте являются нарушением sizing-контракта.",
-        "group": "layout.sizing.horizontal|layout.sizing.vertical|layoutSizingHorizontal|layoutSizingVertical"
-      },
-      "capabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity",
-          "layout.properties"
-        ],
-        "operators": [
-          "propertiesEqual"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
     }
   ],
   "nonExecutableRules": [
@@ -3914,6 +3817,7 @@
       "status": "advisory",
       "reason": "Source checkType is llm.",
       "structuredFields": [
+        "authority",
         "requiredComposition"
       ],
       "candidateCapabilities": {
@@ -3964,6 +3868,7 @@
       "reason": "Source checkType is llm.",
       "structuredFields": [
         "allowedClickableTypes",
+        "authority",
         "disallowedBehavior"
       ],
       "candidateCapabilities": {
@@ -3985,39 +3890,12 @@
       }
     },
     {
-      "sourceRuleId": "component:web-corp.background-plate.level-2-requires-level-1",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "requiredComposition"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "ancestry",
-          "component.identity",
-          "node.documentOrder",
-          "semanticRole"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
       "sourceRuleId": "component:web-corp.background-plate.root-surface-requires-level-0",
       "sourceCheckType": "llm",
       "status": "advisory",
       "reason": "Source checkType is llm.",
       "structuredFields": [
+        "authority",
         "classification"
       ],
       "candidateCapabilities": {
@@ -4045,6 +3923,7 @@
       "status": "advisory",
       "reason": "Source checkType is llm.",
       "structuredFields": [
+        "authority",
         "classification"
       ],
       "candidateCapabilities": {
@@ -4072,7 +3951,9 @@
       "reason": "Source checkType is llm.",
       "structuredFields": [
         "allowedComposition",
-        "disallowedNestedBackgroundPlateLevels"
+        "authority",
+        "disallowedNestedBackgroundPlateLevels",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -4097,12 +3978,12 @@
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 29,
-      "deterministicSourceRules": 22,
-      "executableDeterministicSourceRules": 22,
+      "sourceRules": 27,
+      "deterministicSourceRules": 21,
+      "executableDeterministicSourceRules": 21,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 22,
-      "advisory": 7,
+      "executable": 21,
+      "advisory": 6,
       "manual": 0,
       "unsupported": 0,
       "deterministicCoverageRatio": 1

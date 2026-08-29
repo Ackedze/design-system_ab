@@ -17,13 +17,13 @@
     "sourceFiles": [
       {
         "file": "source/README.md",
-        "bytes": 8100,
-        "sha256": "f94fbe6b9407145ac92a63b579872e6ba7e35394fb22c8ab2e071bff3b58d1d2"
+        "bytes": 8435,
+        "sha256": "3e466f13e48c97f50598b7290f361e3fb221f7da665f0a556932f352f880dbe8"
       },
       {
         "file": "source/agent-context.json",
-        "bytes": 35883,
-        "sha256": "aff0071321efe2a10672f8be3fbf1dfdeae412ae6401bc2926262916fae4c704"
+        "bytes": 36325,
+        "sha256": "bff3814c9639126063649dfa5c5e667c16097c908e5cdc60cbfd15b3c1e8cd5d"
       },
       {
         "file": "source/audit-mapping.json",
@@ -32,8 +32,8 @@
       },
       {
         "file": "source/composition-contract.json",
-        "bytes": 143761,
-        "sha256": "eebdbd3d2b01d641d46d41a147cd1583fb388ad0622c40cd15a15a8b3a9db414"
+        "bytes": 151203,
+        "sha256": "7f94a46936c5b942305b89db4c3d995bbc3d9c0c9c2c562322ea00c11ed126e7"
       },
       {
         "file": "source/contract.generated.json",
@@ -42,18 +42,18 @@
       },
       {
         "file": "source/contract.overrides.json",
-        "bytes": 50181,
-        "sha256": "db50f4bd7865c028797225ce6193797dae95853bf3a39cd2571aeb33d382d1a4"
+        "bytes": 50174,
+        "sha256": "0ca779b5d065b1d1f876ca503594684824bd16a3f780f19461af3fb206e0e225"
       },
       {
         "file": "source/examples.json",
-        "bytes": 23861,
-        "sha256": "a1f65cdf60ea9a6dc1fe80e0e203953b7c73defde35cbdba27a481ddbacea63f"
+        "bytes": 23834,
+        "sha256": "b488cbb22766694955a922613e2f5c03f3a7a1b1c45e5fe6883f8a807031e3fb"
       },
       {
         "file": "source/rules.json",
-        "bytes": 45021,
-        "sha256": "fe01508f0cb2aab29028c8aecbddacad1a2ecd16963c5d46794b4f9265827054"
+        "bytes": 84100,
+        "sha256": "6a170d86567acc9d11c06cc89db1158d9ad6e30d8151a066944e2b0acc3547e6"
       }
     ]
   },
@@ -85,6 +85,8 @@
       "host.component.contract",
       "host.surface.kind",
       "host.variant.Skeleton",
+      "host.variant.Status",
+      "host.variant.TitleStatus",
       "host.variant.View",
       "icon.identity",
       "layoutSizingHorizontal",
@@ -112,8 +114,6 @@
       "variant.properties"
     ],
     "operators": [
-      "absenceAllowed",
-      "allEqual",
       "allMatch",
       "allowedChildrenByHostProperty",
       "changePolicy",
@@ -1258,13 +1258,11 @@
       }
     },
     {
-      "id": "rule-ir:title-view.status-type-relation.composition.matching-status-type",
+      "id": "rule-ir:title-view.button-group.composition.button-count",
       "source": {
         "file": "source/composition-contract.json",
-        "pointer": "/manual/contracts/title-view.status-type-relation.composition/constraints/matching-status-type",
-        "sourceRuleIds": [
-          "component:web-corp.title-view.status-and-title-status-color-match"
-        ]
+        "pointer": "/manual/contracts/title-view.button-group.composition/constraints/button-count",
+        "sourceRuleIds": []
       },
       "severity": "error",
       "enforcement": "enforced",
@@ -1288,11 +1286,8 @@
             "componentName": {
               "op": "oneOf",
               "values": [
-                "StatusPreset",
-                "🔒 [D] StatusPreset",
-                "🔒 [M] StatusPreset",
-                "[D] TitleStatus",
-                "[M] TitleStatus"
+                "[D] Button",
+                "[M] Button"
               ]
             },
             "visible": {
@@ -1308,8 +1303,9 @@
         "op": "evidenceComplete"
       },
       "assert": {
-        "op": "allEqual",
-        "fact": "target.variant.Type"
+        "op": "countBetween",
+        "min": 0,
+        "max": 4
       },
       "verdict": {
         "pass": "expected",
@@ -1317,18 +1313,11 @@
         "unknown": "unknown"
       },
       "evidence": [
-        "selector.matches",
-        "target.variant.Type"
+        "selector.matches"
       ],
-      "remediation": {
-        "kind": "set-variant-properties",
-        "target": "$failingTarget",
-        "properties": {
-          "Type": "$targets[0].variant.Type"
-        }
-      },
+      "remediation": null,
       "presentation": {
-        "message": "TitleStatus.Type должен совпадать с Type видимого StatusPreset",
+        "message": "В Button group внутри TitleView рекомендуется не больше четырёх действий",
         "group": "component-properties"
       },
       "capabilities": {
@@ -1345,11 +1334,9 @@
           "variant.properties"
         ],
         "operators": [
-          "allEqual"
+          "countBetween"
         ],
-        "remediations": [
-          "set-variant-properties"
-        ]
+        "remediations": []
       }
     },
     {
@@ -2294,52 +2281,68 @@
       }
     },
     {
-      "id": "rule-ir:title-view.title-status-standalone",
+      "id": "rule-ir:title-view.title-status-requires-status",
       "source": {
         "file": "source/rules.json",
         "sourceRuleIds": [
-          "component:web-corp.title-view.title-status-may-be-standalone"
+          "component:web-corp.title-view.title-status-requires-status"
         ],
         "patternRuleId": null
       },
-      "severity": "info",
-      "enforcement": "classification",
+      "severity": "error",
+      "enforcement": "enforced",
       "select": {
         "host": "host.title-view",
-        "targets": "descendant.title-status"
+        "targets": "host.title-view"
       },
       "when": {
-        "op": "evidenceComplete"
+        "op": "all",
+        "clauses": {
+          "hostVariant": {
+            "View": "xLarge",
+            "TitleStatus": "True"
+          }
+        }
       },
       "assert": {
-        "op": "absenceAllowed",
-        "optionalSelector": "descendant.status-preset"
+        "op": "propertiesEqual",
+        "values": {
+          "Status": "True"
+        }
       },
       "verdict": {
-        "pass": "allowed",
-        "fail": "unknown",
+        "pass": "expected",
+        "fail": "violation",
         "unknown": "unknown"
       },
       "evidence": [
-        "selector.matches"
+        "host.variant.View",
+        "host.variant.TitleStatus",
+        "host.variant.Status"
       ],
-      "remediation": null,
+      "remediation": {
+        "kind": "set-variant-properties",
+        "target": "$failingTarget"
+      },
       "presentation": {
-        "message": "TitleStatus может использоваться самостоятельно без верхнего Status. Не считай отсутствие Status нарушением, если TitleStatus видим.",
-        "group": "component.composition"
+        "message": "В View=xLarge TitleStatus может использоваться только при включённом свойстве Status у того же TitleView. Для Large, Medium и Small слот TitleStatus недоступен и сохранённое скрытое значение свойства не оценивается.",
+        "group": "component.properties.TitleStatus|component.properties.Status"
       },
       "capabilities": {
         "selectors": [
-          "descendant",
           "selection-root"
         ],
         "facts": [
-          "selector.matches"
+          "host.variant.Status",
+          "host.variant.TitleStatus",
+          "host.variant.View"
         ],
         "operators": [
-          "absenceAllowed"
+          "propertiesEqual"
         ],
-        "remediations": []
+        "remediations": [
+          "set-variant-properties"
+        ]
       }
     },
     {
@@ -3315,6 +3318,12 @@
       "source": "source/rules.json"
     },
     {
+      "sourceRuleId": "component:web-corp.title-view.main-title-names-page",
+      "status": "advisory",
+      "reason": "Source explicitly classifies this rule as LLM/manual guidance.",
+      "source": "source/rules.json"
+    },
+    {
       "sourceRuleId": "component:web-corp.title-view.primary-actions-use-button-group",
       "status": "advisory",
       "reason": "Source explicitly classifies this rule as LLM/manual guidance.",
@@ -3333,6 +3342,12 @@
       "source": "source/rules.json"
     },
     {
+      "sourceRuleId": "component:web-corp.title-view.status-and-title-status-color-match",
+      "status": "unsupported",
+      "reason": "Deterministic source rule has not yet been expressed in RuleIR v2.",
+      "source": "source/rules.json"
+    },
+    {
       "sourceRuleId": "component:web-corp.title-view.status-content-uses-status-slots",
       "status": "advisory",
       "reason": "Source explicitly classifies this rule as LLM/manual guidance.",
@@ -3347,16 +3362,16 @@
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 41,
-      "deterministicSourceRules": 27,
+      "sourceRules": 42,
+      "deterministicSourceRules": 28,
       "executableDeterministicSourceRules": 27,
-      "promotedAdvisorySourceRules": 1,
-      "executable": 28,
-      "advisory": 13,
-      "unsupported": 0,
-      "additionalExecutableRules": 3,
-      "executableShare": 0.6829,
-      "deterministicCoverageRatio": 1
+      "promotedAdvisorySourceRules": 0,
+      "executable": 27,
+      "advisory": 14,
+      "unsupported": 1,
+      "additionalExecutableRules": 4,
+      "executableShare": 0.6429,
+      "deterministicCoverageRatio": 0.9643
     },
     "report": "../coverage.json"
   }

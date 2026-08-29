@@ -25,6 +25,10 @@ const SCHEMA_REGISTRY_BUILDER = path.join(
   __dirname,
   'build_component_contract_v2_schema_registry.js',
 );
+const RULE_EXECUTION_CLASSIFIER = path.join(
+  __dirname,
+  'classify_component_contract_v2_rule_execution.js',
+);
 const SOURCE_FILES = [
   'README.md',
   'agent-context.json',
@@ -205,6 +209,10 @@ function main() {
     stdio: 'pipe',
   });
   require('child_process').execFileSync(process.execPath, [SCHEMA_REGISTRY_BUILDER], {
+    cwd: REPO_ROOT,
+    stdio: 'pipe',
+  });
+  require('child_process').execFileSync(process.execPath, [RULE_EXECUTION_CLASSIFIER], {
     cwd: REPO_ROOT,
     stdio: 'pipe',
   });
@@ -1752,6 +1760,12 @@ parameters are structured; prose is never promoted into runtime behavior.
 
 \`ready-package-rule-profile.json\` separates runtime vocabulary from descriptive override-policy
 paths and provides greedy saturation orders for both dimensions.
+
+\`rule-execution-classification.json\` classifies every source rule without normalizing it into a
+runtime operator: deterministic, agent-required, human-review, policy-only or unresolved.
+\`migration-wave-1.json\` is derived from the Ready inventory and contains only packages with zero
+unsupported deterministic rules. Every experimental package also publishes an
+\`execution-policy.json\` that closes all source rules to an explicit route.
 `;
 }
 

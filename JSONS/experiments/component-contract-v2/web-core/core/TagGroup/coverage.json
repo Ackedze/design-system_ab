@@ -1,11 +1,11 @@
 {
   "schemaVersion": "apollo.rule-coverage.v1",
   "summary": {
-    "sourceRules": 3,
-    "deterministicSourceRules": 3,
-    "executableDeterministicSourceRules": 3,
+    "sourceRules": 4,
+    "deterministicSourceRules": 4,
+    "executableDeterministicSourceRules": 4,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 3,
+    "executable": 4,
     "advisory": 0,
     "manual": 0,
     "unsupported": 0,
@@ -44,7 +44,10 @@
         "rule-ir:web-core.tag-group.layer-properties-use-effective-baseline"
       ],
       "reason": "Structured source fields map to typed RuleIR capabilities.",
-      "structuredFields": [],
+      "structuredFields": [
+        "authority",
+        "classification"
+      ],
       "candidateCapabilities": {
         "selectors": [
           "component-identity",
@@ -93,6 +96,32 @@
         "operators": [
           "allMatch",
           "equalsFact"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.tag-group.right-addon-allows-icon-replacement",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-core.tag-group.right-addon-allows-icon-replacement"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "authority",
+        "classification"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "classificationPolicy"
         ],
         "remediations": []
       }

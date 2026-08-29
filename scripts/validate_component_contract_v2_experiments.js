@@ -72,6 +72,8 @@ function main() {
   const profile = readJson(path.join(EXPERIMENT_ROOT, 'ready-package-rule-profile.json'));
   const registry = readJson(path.join(EXPERIMENT_ROOT, 'schemas/capability-registry.v1.json'));
   const runtimeIndex = readJson(path.join(EXPERIMENT_ROOT, 'runtime-index.json'));
+  const classification = readJson(path.join(EXPERIMENT_ROOT, 'rule-execution-classification.json'));
+  const migrationWave = readJson(path.join(EXPERIMENT_ROOT, 'migration-wave-1.json'));
   if (matrix.coverage.packageCount !== profiles.length) throw new Error('Matrix package count mismatch');
   if (profile.inventory.packageCount !== inventory.packages.length) throw new Error('Profile package count mismatch');
   if (packageIds.size !== profiles.length) throw new Error('Compiled package count mismatch');
@@ -80,6 +82,9 @@ function main() {
   }
   if (runtimeIndex.packages.length !== profiles.length) {
     throw new Error('Experimental runtime index package count mismatch');
+  }
+  if (classification.packages.length !== profiles.length) {
+    throw new Error('Rule classification package count mismatch');
   }
   const indexedPackageIds = new Set();
   const indexedComponentKeys = new Set();
@@ -106,6 +111,52 @@ function main() {
       indexedComponentKeys.add(componentKey);
     }
   }
+  const readySourcePaths = new Set(inventory.packages.map((entry) =>
+    normalizePath(path.join('JSONS/web/components', entry.library, entry.name)),
+  ));
+  const expectedFirstWave = [];
+  for (const entry of classification.packages) {
+    if (!packageIds.has(entry.packageId)) {
+      throw new Error(`Unknown classified package: ${entry.packageId}`);
+    }
+    const policyPath = path.join(
+      EXPERIMENT_ROOT,
+      path.dirname(entry.contractPath),
+      '..',
+      'execution-policy.json',
+    );
+    const executionPolicy = readJson(policyPath);
+    if (executionPolicy.packageId !== entry.packageId) {
+      throw new Error(`${entry.packageId}: execution policy package mismatch`);
+    }
+    if (executionPolicy.rules.length !== entry.rules.length) {
+      throw new Error(`${entry.packageId}: execution policy is not closed`);
+    }
+    const ruleIds = entry.rules.map((rule) => rule.sourceRuleId);
+    if (new Set(ruleIds).size !== ruleIds.length) {
+      throw new Error(`${entry.packageId}: classified source rules are not unique`);
+    }
+    for (const rule of entry.rules) {
+      if (rule.decision === 'agent-required'
+        && !['llm', 'contextual'].includes(rule.sourceCheckType)) {
+        throw new Error(`${rule.sourceRuleId}: agent route was inferred without source authority`);
+      }
+      if (rule.decision === 'deterministic'
+        && rule.compilerStatus !== 'executable'
+        && !rule.structuredFields.length) {
+        throw new Error(`${rule.sourceRuleId}: prose-only rule was promoted to deterministic`);
+      }
+    }
+    if (readySourcePaths.has(entry.sourcePath)
+      && entry.compilerCoverage.unsupported === 0) {
+      expectedFirstWave.push(entry.packageId);
+    }
+  }
+  const actualFirstWave = migrationWave.readyPackages.map((entry) => entry.packageId).sort();
+  expectedFirstWave.sort();
+  if (JSON.stringify(actualFirstWave) !== JSON.stringify(expectedFirstWave)) {
+    throw new Error('First migration wave does not match Ready packages with zero unsupported rules');
+  }
   console.log(JSON.stringify({
     packages: packageIds.size,
     verifiedSourceFiles,
@@ -118,6 +169,8 @@ function main() {
       conditionOperators: registry.conditionOperators.length,
       remediations: registry.remediations.length,
     },
+    ruleExecutionClassification: classification.readySummary,
+    firstMigrationWave: actualFirstWave,
     artifactSha256: treeDigest(EXPERIMENT_ROOT),
   }, null, 2));
 }
@@ -145,6 +198,10 @@ function listFiles(root) {
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
+function normalizePath(value) {
+  return String(value).split(path.sep).join('/');
 }
 
 main();

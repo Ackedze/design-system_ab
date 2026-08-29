@@ -6,8 +6,8 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 - Source package: `JSONS/web/components/web-corp/TabsView`
 - Component API facts: 2
 - Executable RuleIR entries: 8
-- Deterministic coverage: 7/22
-- Unsupported deterministic rules: 15
+- Deterministic coverage: 7/23
+- Unsupported deterministic rules: 16
 - Manual rules: 15
 - Advisory rules: 0
 
