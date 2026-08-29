@@ -615,6 +615,108 @@
         "remediation": "Сделайте кликабельными все BenefitCard группы либо уберите действие у всех. Целевые действия карточек могут различаться.",
         "ruleText": "Сам контейнер Benefits не имеет общего действия. Вложенные BenefitCard могут вести к разным целям, но кликабельность должна быть единообразной: либо действие есть у всех карточек группы, либо ни у одной."
       }
-    ]
+    ],
+    "executionPolicy": {
+      "schemaVersion": "apollo.component-rule-execution.v1",
+      "componentIdentities": [
+        "web.benefits"
+      ],
+      "predicateRules": [
+        "component:web.benefits.capacity-matches-card-count",
+        "component:web.benefits.nested-card-settings-are-uniform",
+        "component:web.benefits.fill-width-hug-height"
+      ],
+      "compositionRules": [],
+      "delegatedRules": [
+        {
+          "sourceRuleId": "component:web.benefits.view-selects-surface-baseline",
+          "reason": "Требуется семантическая оценка выбранного View и поверхности."
+        },
+        {
+          "sourceRuleId": "component:web.benefits.responsive-content-parity",
+          "reason": "Требуется сопоставление desktop и mobile-web представлений."
+        },
+        {
+          "sourceRuleId": "component:web.benefits.manual-reorder-preserves-responsive-parity",
+          "reason": "Требуется сопоставление порядка карточек между платформами."
+        },
+        {
+          "sourceRuleId": "component:web.benefits.clickability-is-uniform",
+          "reason": "Figma snapshot не подтверждает смысл и наличие действия без контекста взаимодействия."
+        }
+      ],
+      "policyRules": [
+        {
+          "sourceRuleId": "component:web.benefits.figma-only-landing-preset",
+          "effect": "classification"
+        },
+        {
+          "sourceRuleId": "component:web.benefits.nested-card-settings-are-editable",
+          "effect": "allow"
+        },
+        {
+          "sourceRuleId": "component:web.benefits.mobile-surface-inherits-host",
+          "effect": "classification"
+        },
+        {
+          "sourceRuleId": "component:web.benefits.content-inherits-benefit-card",
+          "effect": "delegate-to-nested-package"
+        }
+      ],
+      "contextOnlyRules": [
+        {
+          "sourceRuleId": "component:web.benefits.desktop-compact-required-at-1024",
+          "missingFacts": [
+            "viewport.width",
+            "responsive.platform"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web.benefits.nested-card-title-style-is-uniform",
+          "missingFacts": [
+            "nested.BenefitCard.title.style"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web.benefits.surface-type-is-uniform",
+          "missingFacts": [
+            "nested.BenefitCard.surface.type"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web.benefits.cards-have-equal-height",
+          "missingFacts": [
+            "nested.BenefitCard.renderedHeight"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web.benefits.layout-is-preset-owned",
+          "missingFacts": [
+            "baseline.effective.layout",
+            "nested.BenefitCard.order"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web.benefits.loading-state-is-uniform",
+          "missingFacts": [
+            "nested.BenefitCard.loadingState"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web.benefits.surface-colors-use-background-plate-tokens",
+          "missingFacts": [
+            "nested.BackgroundPlate.bindings.fill",
+            "nested.BackgroundPlate.bindings.stroke"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web.benefits.nested-benefit-card-instance-swap-forbidden",
+          "missingFacts": [
+            "nested.BenefitCard.componentIdentity",
+            "nested.BenefitCard.platform"
+          ]
+        }
+      ]
+    }
   }
 }

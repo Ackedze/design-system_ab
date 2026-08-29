@@ -429,6 +429,98 @@
         },
         "ruleText": "Оба значения Background доступны. Правило выбора True или False пока не подтверждено; не объявляй ни одно значение обязательным и не блокируй Ready из-за этого открытого вопроса."
       }
-    ]
+    ],
+    "executionPolicy": {
+      "schemaVersion": "apollo.component-rule-execution.v1",
+      "componentIdentities": [
+        "web-corp.button-stack"
+      ],
+      "predicateRules": [],
+      "compositionRules": [],
+      "delegatedRules": [
+        {
+          "sourceRuleId": "component:web-corp.button-stack.must-be-bottom-anchored",
+          "reason": "Требуется контекст экрана и поведения при прокрутке."
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.page-reserves-space",
+          "reason": "Требуется семантическая оценка перекрытия контента и зарезервированной области."
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.horizontal-group-requires-single-line-labels",
+          "reason": "Требуется оценка фактического переноса подписей."
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.option-label-length",
+          "reason": "Рекомендация зависит от смысла текста и более точного контракта вложенного компонента."
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.desktop-mobile-action-parity",
+          "reason": "Требуется сопоставление действий между desktop и mobile-web."
+        }
+      ],
+      "policyRules": [
+        {
+          "sourceRuleId": "component:web-corp.button-stack.figma-only-bottom-action-preset",
+          "effect": "classification"
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.option-is-contextual",
+          "effect": "allow"
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.nested-buttons-inherit-button-contract",
+          "effect": "delegate-to-nested-package"
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.primary-icon-is-contextual",
+          "effect": "allow"
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.background-selection-is-unresolved",
+          "effect": "allow-until-owner-decision"
+        }
+      ],
+      "contextOnlyRules": [
+        {
+          "sourceRuleId": "component:web-corp.button-stack.preset-composition-is-fixed",
+          "missingFacts": [
+            "nested.Button.order",
+            "nested.Button.variant.View",
+            "nested.Button.count"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.root-sizing-and-padding-are-fixed",
+          "missingFacts": [
+            "layout.sizing.horizontal",
+            "layout.sizing.vertical",
+            "layout.padding"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.preset-sizing-is-fixed",
+          "missingFacts": [
+            "nested.Button.layout.sizing.horizontal",
+            "nested.Button.renderedWidth"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.option-states-are-limited",
+          "missingFacts": [
+            "nested.CheckboxLabel_24.variant.DisabledLabel",
+            "nested.CheckboxLabel_24.variant.ErrorMessage",
+            "nested.CheckboxLabel_24.variant.Hint"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.button-stack.option-information-addon-is-fixed",
+          "missingFacts": [
+            "nested.CheckboxLabel_24.InformationAddon.componentIdentity",
+            "nested.CheckboxLabel_24.InformationAddon.variant"
+          ]
+        }
+      ]
+    }
   }
 }
