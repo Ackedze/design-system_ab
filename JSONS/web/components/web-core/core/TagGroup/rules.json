@@ -80,6 +80,7 @@
         "ruleId": "component:web-core.tag-group.nested-tag-size-matches-group",
         "severity": "error",
         "source": "component-contract",
+        "ruleKind": "design-rule",
         "appliesTo": "nested.Tag.variant.Size",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
@@ -101,7 +102,51 @@
           "treatAsViolation": true,
           "resetSurface": "component-property"
         },
-        "ruleText": "Size каждого вложенного Tag должен совпадать с Size родительского TagGroup. Изменение размера отдельного элемента группы запрещено."
+        "ruleText": "Size каждого вложенного Tag должен совпадать с Size родительского TagGroup. Изменение размера отдельного элемента группы запрещено.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": { "fact": "type" },
+                "expected": { "literal": "INSTANCE" }
+              },
+              {
+                "predicate": "equals",
+                "actual": { "fact": "ownership.owner.component.identity" },
+                "expected": { "literal": "web-core.tag-group" }
+              },
+              {
+                "predicate": "one-of",
+                "actual": { "fact": "name" },
+                "expected": { "literal": ["[D] Tag", "[M] Tag", "Tag", "🔄 [D][Corporate] Tag"] }
+              }
+            ]
+          },
+          "assert": {
+            "predicate": "equals",
+            "actual": { "fact": "component.properties.Size" },
+            "expected": { "fact": "ownership.owner.component.properties.Size" }
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Размер вложенного Tag не совпадает с TagGroup",
+            "observed": "У вложенного Tag выбран Size={{actual}}.",
+            "expectation": "Size вложенного Tag должен совпадать с Size родительского TagGroup.",
+            "action": "Установить вложенному Tag размер родительского TagGroup."
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
+        }
       },
       {
         "ruleId": "component:web-core.tag-group.right-addon-allows-icon-replacement",
@@ -122,11 +167,27 @@
         },
         "ruleText": "В иконочном слоте RightAddon разрешено заменять исходный компонент иконки на другую иконку дизайн-системы. Такая замена является допустимой кастомизацией и не требует сброса.",
         "authority": {
-          "status": "draft",
+          "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
         }
       }
-    ]
+    ],
+    "executionPolicy": {
+      "schemaVersion": "apollo.component-rule-execution.v1",
+      "componentIdentities": ["web-core.tag-group"],
+      "predicateRules": [
+        "component:web-core.tag-group.nested-tag-size-matches-group"
+      ],
+      "compositionRules": [],
+      "delegatedRules": [],
+      "policyRules": [
+        {
+          "sourceRuleId": "component:web-core.tag-group.right-addon-allows-icon-replacement",
+          "effect": "allow"
+        }
+      ],
+      "contextOnlyRules": []
+    }
   }
 }

@@ -93,9 +93,56 @@
         },
         "ruleText": "В Альфа-Бизнес прямое изменение opacity слоя у Minor и Currency запрещено. Обе части Amount должны сохранять полную непрозрачность.",
         "authority": {
-          "status": "draft",
+          "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline-set",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "any",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": { "fact": "component.identity" },
+                    "expected": { "literal": "web-core.amount" }
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": { "fact": "ownership.owner.component.identity" },
+                    "expected": { "literal": "web-core.amount" }
+                  }
+                ]
+              },
+              {
+                "predicate": "one-of",
+                "actual": { "fact": "name" },
+                "expected": { "literal": ["Minor", "Currency", "🔩 Minor", "🔩 Currency"] }
+              }
+            ]
+          },
+          "paths": [
+            {
+              "suffix": "opacity",
+              "label": "Прозрачность",
+              "actualFact": "appearance.opacity",
+              "baselineFact": "baseline.effective.appearance.opacity"
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменена прозрачность внутри Amount",
+            "observed": "Прозрачность слоя «{{targetName}}» изменена с {{expected}} на {{actual}}.",
+            "expectation": "Minor и Currency должны сохранять opacity из effective baseline Amount.",
+            "action": "Сбросить opacity слоя к effective baseline Amount."
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -122,11 +169,57 @@
         },
         "ruleText": "В Альфа-Бизнес включать component property Opacity у Minor и Currency запрещено. Штатное значение — Opacity=False.",
         "authority": {
-          "status": "draft",
+          "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": { "fact": "component.identity" },
+                "expected": { "literal": "web-core.amount" }
+              },
+              {
+                "predicate": "one-of",
+                "actual": { "fact": "component.family" },
+                "expected": { "literal": ["minor", "currency"] }
+              }
+            ]
+          },
+          "assert": {
+            "predicate": "equals",
+            "actual": { "fact": "component.properties.Opacity" },
+            "expected": { "literal": "False" }
+          },
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Включена запрещённая прозрачность Amount",
+            "observed": "У компонента «{{targetName}}» свойство Opacity имеет значение {{actual}}.",
+            "expectation": "У Minor и Currency свойство Opacity должно иметь значение False.",
+            "action": "Установить свойство Opacity=False."
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
         }
       }
-    ]
+    ],
+    "executionPolicy": {
+      "schemaVersion": "apollo.component-rule-execution.v1",
+      "componentIdentities": ["web-core.amount"],
+      "predicateRules": [
+        "component:web-core.amount.opacity-is-forbidden",
+        "component:web-core.amount.opacity-property-is-forbidden"
+      ],
+      "compositionRules": [],
+      "delegatedRules": [],
+      "policyRules": [],
+      "contextOnlyRules": []
+    }
   }
 }

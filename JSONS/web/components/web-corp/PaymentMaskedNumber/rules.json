@@ -72,6 +72,7 @@
         "ruleId": "component:web-corp.payment-masked-number.text-color-follows-baseline",
         "severity": "error",
         "source": "component-contract",
+        "ruleKind": "design-rule",
         "appliesTo": "fill|styles.fill",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
@@ -88,7 +89,53 @@
           "useEffectiveBaseline": true,
           "resetSurface": "layer"
         },
-        "ruleText": "Цвет Major и Minor в PaymentMaskedNumber фиксируется effective baseline компонента. Менять цвет отдельной части вручную запрещено."
+        "ruleText": "Цвет Major и Minor в PaymentMaskedNumber фиксируется effective baseline компонента. Менять цвет отдельной части вручную запрещено.",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline",
+          "select": {
+            "from": "selection-root",
+            "traverse": "descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": { "fact": "type" },
+                "expected": { "literal": "TEXT" }
+              },
+              {
+                "predicate": "one-of",
+                "actual": { "fact": "name" },
+                "expected": { "literal": ["Major", "Minor"] }
+              },
+              {
+                "predicate": "equals",
+                "actual": { "fact": "ownership.owner.component.identity" },
+                "expected": { "literal": "web-corp.payment-masked-number" }
+              }
+            ]
+          },
+          "pairs": [
+            {
+              "actualFact": "appearance.fill.value",
+              "baselineFact": "baseline.effective.appearance.fill.value",
+              "required": true
+            }
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменён цвет PaymentMaskedNumber",
+            "observed": "Цвет слоя «{{targetName}}» изменён с {{expected}} на {{actual}}.",
+            "expectation": "Цвет Major и Minor должен совпадать с effective baseline PaymentMaskedNumber.",
+            "action": "Сбросить цвет слоя к effective baseline PaymentMaskedNumber."
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable"
+        }
       },
       {
         "ruleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational",
@@ -98,6 +145,22 @@
         "checkType": "manual",
         "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
       }
-    ]
+    ],
+    "executionPolicy": {
+      "schemaVersion": "apollo.component-rule-execution.v1",
+      "componentIdentities": ["web-corp.payment-masked-number"],
+      "predicateRules": [
+        "component:web-corp.payment-masked-number.text-color-follows-baseline"
+      ],
+      "compositionRules": [],
+      "delegatedRules": [],
+      "policyRules": [
+        {
+          "sourceRuleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational",
+          "effect": "classification"
+        }
+      ],
+      "contextOnlyRules": []
+    }
   }
 }
