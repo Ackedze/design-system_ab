@@ -603,47 +603,7 @@
           "provenance": "design-system-author",
           "revision": 1
         },
-        "predicateContour": {
-          "schemaVersion": "apollo.contour-definition.v1",
-          "kind": "fact-domain",
-          "select": {
-            "from": "selection-root",
-            "traverse": "self-and-descendants",
-            "where": [
-              {
-                "predicate": "equals",
-                "actual": { "fact": "type" },
-                "expected": { "literal": "INSTANCE" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "component.identity" },
-                "expected": { "literal": "web-corp.background-plate" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "component.properties.Skeleton" },
-                "expected": { "literal": "True" }
-              },
-              {
-                "predicate": "equals",
-                "actual": { "fact": "ownership.contour.host.component.identity" },
-                "expected": { "literal": "web.benefit-card" }
-              }
-            ]
-          },
-          "actual": { "fact": "ownership.contour.host.component.properties.Background" },
-          "allowedValues": ["True"],
-          "scope": { "platform": ["desktop", "mobile-web"] },
-          "unknownPolicy": "not-evaluable",
-          "presentation": {
-            "schemaVersion": "apollo.predicate-presentation.v1",
-            "title": "Skeleton включён без поверхности BenefitCard",
-            "observed": "У вложенного BackgroundPlate включён Skeleton, а BenefitCard использует Background={{actual}}.",
-            "expectation": "Skeleton BenefitCard доступен только при Background=True.",
-            "action": "Включить Background=True или отключить Skeleton."
-          }
-        }
+        "executionNote": "Комбинация Background=False и Skeleton=True недоступна через публичный API: при Background=False вложенный BackgroundPlate отсутствует. Полнота loading-состояния требует отдельных facts о видимости контента и блокировке взаимодействия."
       },
       {
         "ruleId": "component:web.benefit-card-use-benefits-preset-for-groups",
@@ -980,7 +940,6 @@
         "component:web.benefit-card-platform-version-must-match",
         "component:web.benefit-card.compact-uses-secondary-title",
         "component:web.benefit-card-bottom-content-link-only",
-        "component:web.benefit-card-skeleton-covers-entire-card",
         "component:web.benefit-card-secondary-surface-not-recommended",
         "component:web.benefit-card.visuals-follow-effective-baseline"
       ],
@@ -1025,6 +984,14 @@
         }
       ],
       "contextOnlyRules": [
+        {
+          "sourceRuleId": "component:web.benefit-card-skeleton-covers-entire-card",
+          "missingFacts": [
+            "loading.scope",
+            "content.visibility",
+            "interaction.blocked"
+          ]
+        },
         {
           "sourceRuleId": "component:web.benefit-card-image-view-segment-only",
           "missingFacts": [
