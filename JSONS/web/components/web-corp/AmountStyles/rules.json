@@ -24,7 +24,7 @@
     "migratedFrom": 1,
     "ownershipMigrationRevision": 2,
     "ruleAuthorityMigrationRevision": 1,
-    "executablePackageRevision": 4,
+    "executablePackageRevision": 5,
     "executablePackageUpdatedAt": "2026-08-30"
   },
   "generated": {
@@ -975,60 +975,6 @@
         }
       },
       {
-        "ruleId": "component:web-corp.amount-styles.platform-preset-matches-breakpoint",
-        "severity": "error",
-        "source": "component-contract",
-        "appliesTo": "component.platform",
-        "checkType": "deterministic",
-        "matchKind": "exact_component_rule",
-        "target": {
-          "component": "AmountStyles",
-          "layers": [
-            "🔒 [D] AmountHeadline",
-            "🔒 [M] AmountHeadline",
-            "🔒 AmountParagraph"
-          ]
-        },
-        "ruleText": "🔒 [D] AmountHeadline используется при ширине от 768 px, 🔒 [M] AmountHeadline — ниже 768 px. 🔒 AmountParagraph применяется на desktop и mobile-web.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 2
-        },
-        "predicateContour": {
-          "schemaVersion": "apollo.contour-definition.v1",
-          "kind": "breakpoint-map",
-          "select": {
-            "from": "selection-root",
-            "traverse": "self-and-descendants",
-            "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.amount-styles" } },
-              { "predicate": "equals", "actual": { "fact": "component.family" }, "expected": { "literal": "amount-headline" } },
-              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
-            ]
-          },
-          "widthFact": "page.context.viewportWidth",
-          "targetFact": "component.platform",
-          "ranges": [
-            { "upper": 768, "expected": "mobile-web" },
-            { "lower": 768, "expected": "desktop" }
-          ],
-          "presentation": {
-            "schemaVersion": "apollo.predicate-presentation.v1",
-            "title": "Preset AmountHeadline не соответствует ширине страницы",
-            "observed": "При ширине {{context}} px используется preset платформы {{actual}}.",
-            "expectation": "Ниже 768 px используется mobile-web AmountHeadline, от 768 px — desktop AmountHeadline.",
-            "action": "Заменить AmountHeadline на preset, соответствующий ширине страницы.",
-            "contextFact": "page.context.viewportWidth",
-            "targetFact": "component.platform"
-          },
-          "scope": { "platform": ["desktop", "mobile-web"] },
-          "unknownPolicy": "not-evaluable"
-        }
-      },
-      {
         "ruleId": "component:web-corp.amount-styles.platform-preset-matches-channel",
         "severity": "error",
         "source": "owner-confirmed",
@@ -1574,7 +1520,6 @@
         "component:web-corp.amount-styles.opacity-is-forbidden",
         "component:web-corp.amount-styles.opacity-property-is-forbidden",
         "component:web-corp.amount-styles.geometry-follows-effective-baseline",
-        "component:web-corp.amount-styles.platform-preset-matches-breakpoint",
         "component:web-corp.amount-styles.platform-preset-matches-channel",
         "component:web-corp.amount-styles.minor-has-one-or-two-digits",
         "component:web-corp.amount-styles.major-max-13-digits",
