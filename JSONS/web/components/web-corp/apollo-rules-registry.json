@@ -4564,7 +4564,7 @@
         },
         {
           "ruleId": "component:web-corp.buttons-group.overflow-enables-last-single-icon",
-          "severity": "info",
+          "severity": "error",
           "source": "component-contract",
           "appliesTo": "variant.Overflow|variant.SingleIcon",
           "checkType": "deterministic",
@@ -4576,7 +4576,83 @@
               "[M] ButtonsGroup"
             ]
           },
-          "ruleText": "Overflow=true переводит последнюю кнопку группы в SingleIcon=true; эта кнопка открывает платформенный список перенесённых действий."
+          "ruleText": "SingleIcon=true разрешён только у последней кнопки ButtonsGroup и требует Overflow=true независимо от количества кнопок. Кнопка с SingleIcon=true открывает платформенный список перенесённых действий.",
+          "ruleKind": "design-rule",
+          "authority": {
+            "status": "active",
+            "provenance": "design-system-author",
+            "revision": 1
+          },
+          "predicateContour": {
+            "schemaVersion": "apollo.contour-definition.v1",
+            "kind": "fact-assertion",
+            "select": {
+              "from": "selection-root",
+              "traverse": "self-and-descendants",
+              "where": [
+                {
+                  "predicate": "equals",
+                  "actual": {
+                    "fact": "type"
+                  },
+                  "expected": {
+                    "literal": "INSTANCE"
+                  }
+                },
+                {
+                  "predicate": "equals",
+                  "actual": {
+                    "fact": "component.identity"
+                  },
+                  "expected": {
+                    "literal": "web-core.button"
+                  }
+                },
+                {
+                  "predicate": "equals",
+                  "actual": {
+                    "fact": "ownership.owner.component.identity"
+                  },
+                  "expected": {
+                    "literal": "web-corp.buttons-group"
+                  }
+                },
+                {
+                  "predicate": "equals",
+                  "actual": {
+                    "fact": "component.properties.SingleIcon"
+                  },
+                  "expected": {
+                    "literal": "True"
+                  }
+                }
+              ]
+            },
+            "assert": {
+              "predicate": "equals",
+              "actual": {
+                "fact": "ownership.owner.component.properties.Overflow"
+              },
+              "expected": {
+                "literal": "true"
+              }
+            },
+            "presentation": {
+              "schemaVersion": "apollo.predicate-presentation.v1",
+              "title": "SingleIcon включён без Overflow",
+              "observed": "У кнопки «{{targetName}}» включён SingleIcon, но у ButtonsGroup свойство Overflow={{actual}}.",
+              "expectation": "SingleIcon=true разрешён только у последней кнопки группы и требует Overflow=true.",
+              "action": "Включить Overflow у ButtonsGroup или отключить SingleIcon у кнопки.",
+              "targetFact": "ownership.owner.component.properties.Overflow"
+            },
+            "scope": {
+              "platform": [
+                "desktop",
+                "mobile-web"
+              ]
+            },
+            "unknownPolicy": "not-evaluable"
+          }
         },
         {
           "ruleId": "component:web-corp.buttons-group.overflow-is-optional-from-two-buttons",
