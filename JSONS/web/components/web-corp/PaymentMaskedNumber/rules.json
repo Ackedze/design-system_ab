@@ -685,7 +685,7 @@
         "patternRuleId": "rule:components.payment-masked-number.addon-uses-final-component",
         "ruleKind": "design-rule",
         "appliesTo": "component.slot.Addon|component.swap",
-        "checkType": "manual",
+        "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "target": {
           "component": "PaymentMaskedNumber",
@@ -703,7 +703,39 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "slot-contract",
+          "ownerIdentity": "web-corp.payment-masked-number",
+          "slot": {
+            "family": "right-addon"
+          },
+          "checks": [
+            {
+              "id": "final-component",
+              "op": "forbid-descendant-families",
+              "forbiddenFamilies": [
+                "swap-me"
+              ],
+              "minNestedComponents": 1,
+              "presentation": {
+                "schemaVersion": "apollo.predicate-presentation.v1",
+                "title": "В Addon оставлен служебный SwapMe",
+                "observed": "В видимом Addon не выбран финальный компонент для сценария.",
+                "expectation": "Видимый Addon должен содержать финальный компонент, а не служебный SwapMe.",
+                "action": "Заменить SwapMe на компонент, подходящий сценарию. Допустимый список определяется контекстом использования."
+              }
+            }
+          ],
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -713,7 +745,7 @@
         "patternRuleId": "rule:components.payment-masked-number.addon-geometry",
         "ruleKind": "design-rule",
         "appliesTo": "layout.itemSpacing|layout.height",
-        "checkType": "manual",
+        "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "target": {
           "component": "PaymentMaskedNumber",
@@ -730,7 +762,48 @@
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "slot-contract",
+          "ownerIdentity": "web-corp.payment-masked-number",
+          "slot": {
+            "family": "right-addon"
+          },
+          "checks": [
+            {
+              "id": "gap",
+              "op": "previous-sibling-gap",
+              "axis": "horizontal",
+              "expectedPx": 4,
+              "presentation": {
+                "schemaVersion": "apollo.predicate-presentation.v1",
+                "title": "Нарушен отступ перед Addon",
+                "observed": "Расстояние между номером и Addon отличается от 4 px.",
+                "expectation": "Между номером и Addon должен быть отступ 4 px.",
+                "action": "Установить отступ 4 px в горизонтальном контейнере PaymentMaskedNumber."
+              }
+            },
+            {
+              "id": "height",
+              "op": "height-lte-previous-sibling-line-height",
+              "presentation": {
+                "schemaVersion": "apollo.predicate-presentation.v1",
+                "title": "Addon выше строки номера",
+                "observed": "Высота Addon превышает line-height соседней текстовой части номера.",
+                "expectation": "Высота Addon не должна превышать line-height номера.",
+                "action": "Выбрать или настроить Addon так, чтобы его высота не превышала line-height номера."
+              }
+            }
+          ],
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -997,7 +1070,9 @@
         "component:web-corp.payment-masked-number.minor-last-four-digits",
         "component:web-corp.payment-masked-number.parts-share-color-token",
         "component:web-corp.payment-masked-number.typography-follows-effective-pair",
-        "component:web-corp.payment-masked-number.text-style-binding-required"
+        "component:web-corp.payment-masked-number.text-style-binding-required",
+        "component:web-corp.payment-masked-number.addon-uses-final-component",
+        "component:web-corp.payment-masked-number.addon-geometry"
       ],
       "compositionRules": [],
       "delegatedRules": [],
@@ -1008,21 +1083,6 @@
         }
       ],
       "contextOnlyRules": [
-        {
-          "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
-          "missingFacts": [
-            "component.slot.Addon",
-            "component.swap"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.payment-masked-number.addon-geometry",
-          "missingFacts": [
-            "layout.relation.gap",
-            "layout.lineHeight",
-            "layout.height"
-          ]
-        },
         {
           "sourceRuleId": "component:web-corp.payment-masked-number.narrow-overflow-preserves-last-four",
           "missingFacts": [

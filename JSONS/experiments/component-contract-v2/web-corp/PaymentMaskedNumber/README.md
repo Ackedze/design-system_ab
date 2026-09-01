@@ -5,10 +5,10 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 
 - Source package: `JSONS/web/components/web-corp/PaymentMaskedNumber`
 - Component API facts: 5
-- Executable RuleIR entries: 4
-- Deterministic coverage: 3/9
-- Unsupported deterministic rules: 6
-- Manual rules: 5
+- Executable RuleIR entries: 5
+- Deterministic coverage: 4/11
+- Unsupported deterministic rules: 7
+- Manual rules: 3
 - Advisory rules: 0
 
 Unsupported rules are intentional discovery results. Their candidate capabilities are recorded

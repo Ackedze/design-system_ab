@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
-        "bytes": 37481,
-        "sha256": "3bd70b5e78c6d9a0668511611a897adc0e5484dcc1324169de8d5078449daebb"
+        "bytes": 40525,
+        "sha256": "a805fd71355ac2d19326dcf45b744e0d54207446fb11725f5b9521b6db9692e6"
       }
     ]
   },
@@ -84,7 +84,8 @@
     "operators": [
       "classificationPolicy",
       "componentApiValid",
-      "matchesEffectiveBaseline"
+      "matchesEffectiveBaseline",
+      "propertiesEqual"
     ],
     "remediations": [
       "set-variant-properties"
@@ -381,6 +382,74 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.payment-masked-number.addon-geometry",
+      "source": {
+        "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.payment-masked-number.addon-geometry"
+        ],
+        "patternRuleId": "rule:components.payment-masked-number.addon-geometry"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": {
+          "scope": "self-and-descendants",
+          "from": "$host",
+          "where": {
+            "semanticRoleOrLayerName": {
+              "op": "oneOf",
+              "values": [
+                "Addon",
+                "RightAddon"
+              ]
+            }
+          },
+          "occurrence": "all",
+          "orderBy": "document"
+        }
+      },
+      "when": {
+        "op": "evidenceComplete"
+      },
+      "assert": {
+        "op": "propertiesEqual",
+        "values": {
+          "gapPx": 4,
+          "addonMaxHeight": "number.lineHeight"
+        }
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "component.identity",
+        "layout.properties"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Между номером и Addon сохраняется отступ 4 px, а высота Addon не превышает line-height текстовой части номера.",
+        "group": "layout.itemSpacing|layout.height"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties"
+        ],
+        "operators": [
+          "propertiesEqual"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp.payment-masked-number.component-properties-are-first-class",
       "source": {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
@@ -612,37 +681,13 @@
   ],
   "nonExecutableRules": [
     {
-      "sourceRuleId": "component:web-corp.payment-masked-number.addon-geometry",
-      "sourceCheckType": "manual",
-      "status": "manual",
-      "reason": "Source checkType is manual.",
+      "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "authority",
-        "requiredLayout"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "layout.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
-      "sourceCheckType": "manual",
-      "status": "manual",
-      "reason": "Source checkType is manual.",
-      "structuredFields": [
-        "authority"
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -892,14 +937,14 @@
   "coverage": {
     "summary": {
       "sourceRules": 14,
-      "deterministicSourceRules": 9,
-      "executableDeterministicSourceRules": 3,
+      "deterministicSourceRules": 11,
+      "executableDeterministicSourceRules": 4,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 3,
+      "executable": 4,
       "advisory": 0,
-      "manual": 5,
-      "unsupported": 6,
-      "deterministicCoverageRatio": 0.3333
+      "manual": 3,
+      "unsupported": 7,
+      "deterministicCoverageRatio": 0.3636
     },
     "report": "../coverage.json"
   }

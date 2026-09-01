@@ -12,7 +12,7 @@ Candidate capabilities are discovery hints, not executable behavior.
 
 ## Unsupported classification
 
-- structured-fields-unmapped: 247
+- structured-fields-unmapped: 248
 - structured-fields-missing-runtime-operator: 15
 - prose-existing-operator: 3
 - prose-missing-runtime-operator: 3
@@ -484,6 +484,7 @@ No unsupported deterministic rules.
 
 | Source rule | Gap kind | Candidate operator | Blocking reason |
 | --- | --- | --- | --- |
+| `component:web-corp.payment-masked-number.addon-uses-final-component` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.payment-masked-number.mask-format` | structured-fields-missing-runtime-operator | numericFormat | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.payment-masked-number.minor-last-four-digits` | structured-fields-missing-runtime-operator | numericFormat | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.payment-masked-number.public-root-only` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |

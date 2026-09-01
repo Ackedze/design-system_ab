@@ -8,37 +8,39 @@
   "summary": {
     "total": 14,
     "decisions": {
-      "deterministic": 9,
+      "deterministic": 11,
       "agent-required": 0,
-      "human-review": 5,
+      "human-review": 3,
       "policy-only": 0,
       "unresolved": 0
     },
     "readiness": {
-      "human-route-required": 5,
-      "executable-now": 3,
-      "requires-versioned-capability": 3,
-      "requires-typed-authoring": 3
+      "executable-now": 4,
+      "requires-typed-authoring": 4,
+      "human-route-required": 3,
+      "requires-versioned-capability": 3
     }
   },
   "rules": [
     {
       "sourceRuleId": "component:web-corp.payment-masked-number.addon-geometry",
-      "decision": "human-review",
-      "readiness": "human-route-required",
-      "compilerStatus": "manual",
-      "compilerRuleIds": [],
-      "policyRoute": "context-only",
+      "decision": "deterministic",
+      "readiness": "executable-now",
+      "compilerStatus": "executable",
+      "compilerRuleIds": [
+        "rule-ir:web-corp.payment-masked-number.addon-geometry"
+      ],
+      "policyRoute": "predicate",
       "gapKind": null
     },
     {
       "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
-      "decision": "human-review",
-      "readiness": "human-route-required",
-      "compilerStatus": "manual",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
+      "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": "context-only",
-      "gapKind": null
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
     },
     {
       "sourceRuleId": "component:web-corp.payment-masked-number.component-properties-are-first-class",

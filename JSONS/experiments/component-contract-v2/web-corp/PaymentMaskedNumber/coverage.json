@@ -2,50 +2,53 @@
   "schemaVersion": "apollo.rule-coverage.v1",
   "summary": {
     "sourceRules": 14,
-    "deterministicSourceRules": 9,
-    "executableDeterministicSourceRules": 3,
+    "deterministicSourceRules": 11,
+    "executableDeterministicSourceRules": 4,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 3,
+    "executable": 4,
     "advisory": 0,
-    "manual": 5,
-    "unsupported": 6,
-    "deterministicCoverageRatio": 0.3333
+    "manual": 3,
+    "unsupported": 7,
+    "deterministicCoverageRatio": 0.3636
   },
   "rules": [
     {
       "sourceRuleId": "component:web-corp.payment-masked-number.addon-geometry",
-      "sourceCheckType": "manual",
-      "status": "manual",
-      "targetRuleIds": [],
-      "reason": "Source checkType is manual.",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.payment-masked-number.addon-geometry"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
       "structuredFields": [
         "authority",
+        "predicateContour",
         "requiredLayout"
       ],
       "candidateCapabilities": {
         "selectors": [
-          "ancestry",
           "component-identity",
-          "semantic-role"
+          "self-and-descendants"
         ],
         "facts": [
           "component.identity",
           "layout.properties"
         ],
         "operators": [
-          "author-structured-assertion"
+          "propertiesEqual"
         ],
         "remediations": []
       }
     },
     {
       "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
-      "sourceCheckType": "manual",
-      "status": "manual",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
       "targetRuleIds": [],
-      "reason": "Source checkType is manual.",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [

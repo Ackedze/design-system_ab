@@ -16,17 +16,17 @@
     "packages": 28,
     "rules": 866,
     "decisions": {
-      "deterministic": 371,
+      "deterministic": 373,
       "agent-required": 135,
-      "human-review": 207,
+      "human-review": 205,
       "policy-only": 1,
       "unresolved": 152
     },
     "readiness": {
-      "executable-now": 218,
-      "requires-typed-authoring": 143,
+      "executable-now": 219,
+      "requires-typed-authoring": 144,
       "requires-owner-triage": 152,
-      "human-route-required": 207,
+      "human-route-required": 205,
       "agent-route-required": 135,
       "requires-versioned-capability": 10,
       "non-verdict": 1
@@ -19008,6 +19008,7 @@
       "migrationEligibility": "supporting-production-predicate-bridge",
       "closureStatus": "closed-for-migration",
       "productionPredicateBridgeRuleIds": [
+        "component:web-corp.payment-masked-number.addon-uses-final-component",
         "component:web-corp.payment-masked-number.mask-format",
         "component:web-corp.payment-masked-number.minor-last-four-digits",
         "component:web-corp.payment-masked-number.public-root-only",
@@ -19018,72 +19019,76 @@
       "blockingUnsupportedRuleIds": [],
       "compilerCoverage": {
         "sourceRules": 14,
-        "deterministicSourceRules": 9,
-        "executableDeterministicSourceRules": 3,
+        "deterministicSourceRules": 11,
+        "executableDeterministicSourceRules": 4,
         "promotedManualOrAdvisorySourceRules": 0,
-        "executable": 3,
+        "executable": 4,
         "advisory": 0,
-        "manual": 5,
-        "unsupported": 6,
-        "deterministicCoverageRatio": 0.3333
+        "manual": 3,
+        "unsupported": 7,
+        "deterministicCoverageRatio": 0.3636
       },
       "summary": {
         "total": 14,
         "decisions": {
-          "deterministic": 9,
+          "deterministic": 11,
           "agent-required": 0,
-          "human-review": 5,
+          "human-review": 3,
           "policy-only": 0,
           "unresolved": 0
         },
         "readiness": {
-          "human-route-required": 5,
-          "executable-now": 3,
-          "requires-versioned-capability": 3,
-          "requires-typed-authoring": 3
+          "executable-now": 4,
+          "requires-typed-authoring": 4,
+          "human-route-required": 3,
+          "requires-versioned-capability": 3
         }
       },
       "rules": [
         {
           "sourceRuleId": "component:web-corp.payment-masked-number.addon-geometry",
-          "sourceCheckType": "manual",
-          "compilerStatus": "manual",
-          "compilerRuleIds": [],
-          "decision": "human-review",
-          "readiness": "human-route-required",
-          "basis": "source-check-type:manual",
-          "policyRoute": "context-only",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "executable",
+          "compilerRuleIds": [
+            "rule-ir:web-corp.payment-masked-number.addon-geometry"
+          ],
+          "decision": "deterministic",
+          "readiness": "executable-now",
+          "basis": "compiler-executable",
+          "policyRoute": "predicate",
           "structuredFields": [
+            "predicateContour",
             "requiredLayout"
           ],
           "gapKind": null,
           "candidateCapabilities": {
             "selectors": [
-              "ancestry",
               "component-identity",
-              "semantic-role"
+              "self-and-descendants"
             ],
             "facts": [
               "component.identity",
               "layout.properties"
             ],
             "operators": [
-              "author-structured-assertion"
+              "propertiesEqual"
             ],
             "remediations": []
           }
         },
         {
           "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
-          "sourceCheckType": "manual",
-          "compilerStatus": "manual",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "human-review",
-          "readiness": "human-route-required",
-          "basis": "source-check-type:manual",
-          "policyRoute": "context-only",
-          "structuredFields": [],
-          "gapKind": null,
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
