@@ -6,21 +6,21 @@
   "sourcePath": "JSONS/web/components/web-corp/TableView",
   "contractPath": "web-corp/TableView/compiled/component-contract.v2.json",
   "summary": {
-    "total": 40,
+    "total": 43,
     "decisions": {
-      "deterministic": 11,
-      "agent-required": 16,
+      "deterministic": 18,
+      "agent-required": 14,
       "human-review": 9,
       "policy-only": 0,
-      "unresolved": 4
+      "unresolved": 2
     },
     "readiness": {
-      "agent-route-required": 16,
+      "agent-route-required": 14,
       "human-route-required": 9,
-      "requires-typed-authoring": 5,
-      "executable-now": 5,
+      "requires-typed-authoring": 10,
+      "executable-now": 7,
       "requires-versioned-capability": 1,
-      "requires-owner-triage": 4
+      "requires-owner-triage": 2
     }
   },
   "rules": [
@@ -30,7 +30,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -39,7 +39,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
@@ -48,7 +48,7 @@
       "readiness": "human-route-required",
       "compilerStatus": "manual",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -57,7 +57,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
@@ -66,7 +66,7 @@
       "readiness": "requires-typed-authoring",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "predicate",
       "gapKind": "structured-fields-unmapped"
     },
     {
@@ -86,7 +86,7 @@
       "readiness": "human-route-required",
       "compilerStatus": "manual",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
@@ -95,7 +95,7 @@
       "readiness": "human-route-required",
       "compilerStatus": "manual",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -104,7 +104,7 @@
       "readiness": "requires-versioned-capability",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": "structured-fields-missing-runtime-operator"
     },
     {
@@ -113,7 +113,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -122,7 +122,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -133,16 +133,25 @@
       "compilerRuleIds": [
         "rule-ir:web-corp.table-view.header-matches-data-columns"
       ],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
       "sourceRuleId": "component:web-corp.table-view.horizontal-compact-one-column",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
+      "compilerStatus": "unsupported",
+      "compilerRuleIds": [],
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
+    },
+    {
+      "sourceRuleId": "component:web-corp.table-view.horizontal-compact-reading-direction",
       "decision": "agent-required",
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -151,7 +160,7 @@
       "readiness": "requires-typed-authoring",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": "structured-fields-unmapped"
     },
     {
@@ -160,7 +169,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -171,7 +180,18 @@
       "compilerRuleIds": [
         "rule-ir:web-corp.table-view.horizontal-multi-column-header-required"
       ],
-      "policyRoute": null,
+      "policyRoute": "predicate",
+      "gapKind": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.table-view.horizontal-multi-column-min-two-data-columns",
+      "decision": "deterministic",
+      "readiness": "executable-now",
+      "compilerStatus": "executable",
+      "compilerRuleIds": [
+        "rule-ir:web-corp.table-view.horizontal-multi-column-min-two-data-columns"
+      ],
+      "policyRoute": "predicate",
       "gapKind": null
     },
     {
@@ -180,7 +200,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -191,7 +211,7 @@
       "compilerRuleIds": [
         "rule-ir:web-corp.table-view.horizontal-sidepanel-is-single-column-compact"
       ],
-      "policyRoute": null,
+      "policyRoute": "predicate",
       "gapKind": null
     },
     {
@@ -200,17 +220,17 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
       "sourceRuleId": "component:web-corp.table-view.internal-parts-not-standalone",
-      "decision": "unresolved",
-      "readiness": "requires-owner-triage",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
-      "gapKind": "prose-unclassified"
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
     },
     {
       "sourceRuleId": "component:web-corp.table-view.last-row-divider",
@@ -218,7 +238,7 @@
       "readiness": "requires-typed-authoring",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": "structured-fields-unmapped"
     },
     {
@@ -238,7 +258,7 @@
       "readiness": "human-route-required",
       "compilerStatus": "manual",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
@@ -247,17 +267,17 @@
       "readiness": "requires-owner-triage",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": "prose-unclassified"
     },
     {
       "sourceRuleId": "component:web-corp.table-view.manual-visual-overrides-forbidden",
-      "decision": "unresolved",
-      "readiness": "requires-owner-triage",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
-      "gapKind": "prose-unclassified"
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
     },
     {
       "sourceRuleId": "component:web-corp.table-view.more-link-context",
@@ -265,7 +285,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -274,7 +294,7 @@
       "readiness": "requires-typed-authoring",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": "structured-fields-unmapped"
     },
     {
@@ -283,7 +303,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
@@ -292,7 +312,7 @@
       "readiness": "requires-typed-authoring",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": "structured-fields-unmapped"
     },
     {
@@ -301,17 +321,17 @@
       "readiness": "human-route-required",
       "compilerStatus": "manual",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
       "sourceRuleId": "component:web-corp.table-view.public-root-platforms",
-      "decision": "agent-required",
-      "readiness": "agent-route-required",
-      "compilerStatus": "advisory",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
+      "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
-      "gapKind": null
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
     },
     {
       "sourceRuleId": "component:web-corp.table-view.right-addon-type-is-contextual",
@@ -319,7 +339,7 @@
       "readiness": "human-route-required",
       "compilerStatus": "manual",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
@@ -328,8 +348,17 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.table-view.row-spacing-matches-compact",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
+      "compilerStatus": "unsupported",
+      "compilerRuleIds": [],
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
     },
     {
       "sourceRuleId": "component:web-corp.table-view.show-more-allowed-in-all-public-roots",
@@ -337,7 +366,7 @@
       "readiness": "human-route-required",
       "compilerStatus": "manual",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
@@ -346,7 +375,7 @@
       "readiness": "human-route-required",
       "compilerStatus": "manual",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
@@ -355,7 +384,7 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -364,7 +393,7 @@
       "readiness": "requires-owner-triage",
       "compilerStatus": "unsupported",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": "prose-unclassified"
     },
     {
@@ -373,7 +402,7 @@
       "readiness": "human-route-required",
       "compilerStatus": "manual",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "policy",
       "gapKind": null
     },
     {
@@ -382,16 +411,18 @@
       "readiness": "agent-route-required",
       "compilerStatus": "advisory",
       "compilerRuleIds": [],
-      "policyRoute": null,
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
       "sourceRuleId": "component:web-corp.table-view.vertical-has-one-data-column",
-      "decision": "agent-required",
-      "readiness": "agent-route-required",
-      "compilerStatus": "advisory",
-      "compilerRuleIds": [],
-      "policyRoute": null,
+      "decision": "deterministic",
+      "readiness": "executable-now",
+      "compilerStatus": "executable",
+      "compilerRuleIds": [
+        "rule-ir:web-corp.table-view.vertical-has-one-data-column"
+      ],
+      "policyRoute": "predicate",
       "gapKind": null
     }
   ]

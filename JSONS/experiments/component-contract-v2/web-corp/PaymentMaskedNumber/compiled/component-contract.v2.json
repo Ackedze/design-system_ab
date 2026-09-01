@@ -12,48 +12,48 @@
     "family": "PaymentMaskedNumber",
     "library": "Web _ Corp Components",
     "sourcePath": "JSONS/web/components/web-corp/PaymentMaskedNumber",
-    "sourceGeneratedAt": "2026-07-27T12:58:40.628Z",
+    "sourceGeneratedAt": "2026-08-31T19:46:53.652Z",
     "sourceExportVersion": "0.1.0-rest",
     "sourceFiles": [
       {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/README.md",
-        "bytes": 1392,
-        "sha256": "5ba27e0fe12655493f048716be67fe4df8976a090550b0d0064afb5ff9144bfa"
+        "bytes": 5252,
+        "sha256": "e1beb077536d6437611813596dbfcd5f9ffaf36de268f03f4908833419e1ad6e"
       },
       {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/agent-context.json",
-        "bytes": 4907,
-        "sha256": "95899b0d10358af28bf8be5bd569ad07a498deb97477a16185fa5470e9c368a3"
+        "bytes": 9030,
+        "sha256": "8ba84f835cf8b2103abc2da1c92a7a35c678a810cd28963394d92822a4bdef43"
       },
       {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/audit-mapping.json",
-        "bytes": 7757,
-        "sha256": "ea0c6853f7ef889f86f8eba7b2fe6ffc988a0c2e87820fb2a715e39835571b5c"
+        "bytes": 9647,
+        "sha256": "0dc1a7507f109156ded1308f600d96776268d1473ea212039ca60da5140237fb"
       },
       {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/composition-contract.json",
-        "bytes": 2395,
-        "sha256": "82261a0aa89ffb30cd609d7a0bc1cedd952869fe6b934d1fc3db71529641f7e8"
+        "bytes": 4049,
+        "sha256": "ca29cd2fbd8b8685db062c99f128306b278166f77164cbbc5dc7617677e63946"
       },
       {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/contract.generated.json",
-        "bytes": 56095,
-        "sha256": "77728fc0b3f732d6f80b4eac231aed4c16bf6a2a52a58ea21d1f2eae1821d196"
+        "bytes": 56931,
+        "sha256": "7dab5e75229a4c343a3148ec34dae8163bc6c17b81a2e043def98917438b8c65"
       },
       {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/contract.overrides.json",
-        "bytes": 2080,
-        "sha256": "4f65c348bf7167f9bd2bed5d398c9d7587b209dc64668b7df2d93a643fbd205f"
+        "bytes": 4593,
+        "sha256": "901a22299eb70ea7496af133aee02e3adf8a3ed8192d8305b8b300f0e2ce8d00"
       },
       {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/examples.json",
-        "bytes": 681,
-        "sha256": "aeca3bbf7e5a0a132eec55497bdfc38646327b78e063fbe760c95ccb82410d20"
+        "bytes": 8539,
+        "sha256": "b1cf2da9cd4f2c7af43af84737a4a65b2376e6ec616db8379a8f2cb1476ed39a"
       },
       {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
-        "bytes": 6150,
-        "sha256": "7065f4b564b3001a88f96b4dd9d51e76b1a7b2247b31f3ac974be3367845c7d9"
+        "bytes": 37481,
+        "sha256": "3bd70b5e78c6d9a0668511611a897adc0e5484dcc1324169de8d5078449daebb"
       }
     ]
   },
@@ -301,6 +301,7 @@
           "semanticRoleOrLayerName": {
             "op": "oneOf",
             "values": [
+              "Addon",
               "Major",
               "Minor",
               "PaymentMaskedNumber",
@@ -539,16 +540,16 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.payment-masked-number.text-color-follows-baseline",
+      "id": "rule-ir:web-corp.payment-masked-number.parts-share-color-token",
       "source": {
         "file": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
         "sourceRuleIds": [
-          "component:web-corp.payment-masked-number.text-color-follows-baseline"
+          "component:web-corp.payment-masked-number.parts-share-color-token"
         ],
-        "patternRuleId": null
+        "patternRuleId": "rule:components.payment-masked-number.parts-share-color-token"
       },
       "severity": "error",
-      "enforcement": "enforced",
+      "enforcement": "classification",
       "select": {
         "host": "host.package",
         "targets": {
@@ -571,28 +572,26 @@
         "op": "evidenceComplete"
       },
       "assert": {
-        "op": "matchesEffectiveBaseline",
-        "properties": [
-          "fill",
-          "styles.fill"
-        ]
+        "op": "classificationPolicy",
+        "reportAsCustomization": true,
+        "treatAsViolation": true,
+        "useEffectiveBaseline": false,
+        "resetSurface": "layer"
       },
       "verdict": {
-        "pass": "expected",
-        "fail": "violation",
+        "pass": "allowed",
+        "fail": "unknown",
         "unknown": "unknown"
       },
       "evidence": [
-        "baseline.effective",
         "component.identity",
-        "ownership.owner",
         "paint.fill",
         "variable.binding"
       ],
       "remediation": null,
       "presentation": {
-        "message": "Цвет Major и Minor в PaymentMaskedNumber фиксируется effective baseline компонента. Менять цвет отдельной части вручную запрещено.",
-        "group": "fill|styles.fill"
+        "message": "Major и Minor можно синхронно перекрасить в любой подходящий цветовой токен. Обе части должны использовать один и тот же token binding; raw-цвет и разные токены запрещены.",
+        "group": "fill|bindings.fills.token"
       },
       "capabilities": {
         "selectors": [
@@ -600,20 +599,90 @@
           "self-and-descendants"
         ],
         "facts": [
-          "baseline.effective",
           "component.identity",
-          "ownership.owner",
           "paint.fill",
           "variable.binding"
         ],
         "operators": [
-          "matchesEffectiveBaseline"
+          "classificationPolicy"
         ],
         "remediations": []
       }
     }
   ],
   "nonExecutableRules": [
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.addon-geometry",
+      "sourceCheckType": "manual",
+      "status": "manual",
+      "reason": "Source checkType is manual.",
+      "structuredFields": [
+        "authority",
+        "requiredLayout"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
+      "sourceCheckType": "manual",
+      "status": "manual",
+      "reason": "Source checkType is manual.",
+      "structuredFields": [
+        "authority"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.interaction-and-states-are-contextual",
+      "sourceCheckType": "manual",
+      "status": "manual",
+      "reason": "Source checkType is manual.",
+      "structuredFields": [
+        "authority"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "prototype.reactions"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
     {
       "sourceRuleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational",
       "sourceCheckType": "manual",
@@ -634,19 +703,203 @@
         ],
         "remediations": []
       }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.mask-format",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters",
+          "variant.properties"
+        ],
+        "operators": [
+          "numericFormat"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.minor-last-four-digits",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters"
+        ],
+        "operators": [
+          "numericFormat"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.narrow-overflow-preserves-last-four",
+      "sourceCheckType": "manual",
+      "status": "manual",
+      "reason": "Source checkType is manual.",
+      "structuredFields": [
+        "authority",
+        "requiredLayout"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties",
+          "text.characters"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.public-root-only",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "ancestry",
+          "component.identity",
+          "node.documentOrder",
+          "semanticRole"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.text-style-binding-required",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "style.text",
+          "text.characters"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "ownership.owner",
+          "style.text",
+          "text.characters"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.unmasked-major-format",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters",
+          "variant.properties"
+        ],
+        "operators": [
+          "numericFormat"
+        ],
+        "remediations": []
+      }
     }
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 4,
-      "deterministicSourceRules": 3,
+      "sourceRules": 14,
+      "deterministicSourceRules": 9,
       "executableDeterministicSourceRules": 3,
       "promotedManualOrAdvisorySourceRules": 0,
       "executable": 3,
       "advisory": 0,
-      "manual": 1,
-      "unsupported": 0,
-      "deterministicCoverageRatio": 1
+      "manual": 5,
+      "unsupported": 6,
+      "deterministicCoverageRatio": 0.3333
     },
     "report": "../coverage.json"
   }

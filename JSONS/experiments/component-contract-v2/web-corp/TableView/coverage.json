@@ -1,15 +1,15 @@
 {
   "schemaVersion": "apollo.rule-coverage.v1",
   "summary": {
-    "sourceRules": 40,
-    "deterministicSourceRules": 15,
-    "executableDeterministicSourceRules": 5,
+    "sourceRules": 43,
+    "deterministicSourceRules": 20,
+    "executableDeterministicSourceRules": 7,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 5,
-    "advisory": 16,
+    "executable": 7,
+    "advisory": 14,
     "manual": 9,
-    "unsupported": 10,
-    "deterministicCoverageRatio": 0.3333
+    "unsupported": 13,
+    "deterministicCoverageRatio": 0.35
   },
   "rules": [
     {
@@ -126,6 +126,7 @@
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "authority",
+        "predicateContour",
         "requiredState"
       ],
       "candidateCapabilities": {
@@ -136,7 +137,6 @@
         ],
         "facts": [
           "component.identity",
-          "layout.properties",
           "variant.properties"
         ],
         "operators": [
@@ -327,10 +327,10 @@
     },
     {
       "sourceRuleId": "component:web-corp.table-view.horizontal-compact-one-column",
-      "sourceCheckType": "llm",
-      "status": "advisory",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
       "targetRuleIds": [],
-      "reason": "Source checkType is llm.",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "authority",
         "forbidden",
@@ -346,6 +346,32 @@
         "facts": [
           "component.identity",
           "variant.properties"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.table-view.horizontal-compact-reading-direction",
+      "sourceCheckType": "llm",
+      "status": "advisory",
+      "targetRuleIds": [],
+      "reason": "Source checkType is llm.",
+      "structuredFields": [
+        "authority",
+        "requiredUsage"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters"
         ],
         "operators": [
           "author-structured-assertion"
@@ -437,6 +463,36 @@
       }
     },
     {
+      "sourceRuleId": "component:web-corp.table-view.horizontal-multi-column-min-two-data-columns",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.table-view.horizontal-multi-column-min-two-data-columns"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
+      "structuredFields": [
+        "authority",
+        "predicateContour",
+        "requiredComposition"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "ancestry",
+          "component.identity",
+          "node.documentOrder",
+          "semanticRole"
+        ],
+        "operators": [
+          "compositionPolicy"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "sourceRuleId": "component:web-corp.table-view.horizontal-multi-column-recommended-max-three-data-columns",
       "sourceCheckType": "llm",
       "status": "advisory",
@@ -473,6 +529,7 @@
       "reason": "Structured source fields map to typed RuleIR capabilities.",
       "structuredFields": [
         "authority",
+        "predicateContour",
         "requiredComposition"
       ],
       "candidateCapabilities": {
@@ -528,7 +585,8 @@
       "targetRuleIds": [],
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -658,7 +716,8 @@
       "targetRuleIds": [],
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -810,13 +869,14 @@
     },
     {
       "sourceRuleId": "component:web-corp.table-view.public-root-platforms",
-      "sourceCheckType": "llm",
-      "status": "advisory",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
       "targetRuleIds": [],
-      "reason": "Source checkType is llm.",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "allowedContexts",
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -874,6 +934,33 @@
         "facts": [
           "component.identity",
           "variant.properties"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.table-view.row-spacing-matches-compact",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour",
+        "requiredState"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties"
         ],
         "operators": [
           "author-structured-assertion"
@@ -1034,19 +1121,21 @@
     },
     {
       "sourceRuleId": "component:web-corp.table-view.vertical-has-one-data-column",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "targetRuleIds": [],
-      "reason": "Source checkType is llm.",
+      "sourceCheckType": "deterministic",
+      "status": "executable",
+      "targetRuleIds": [
+        "rule-ir:web-corp.table-view.vertical-has-one-data-column"
+      ],
+      "reason": "Structured source fields map to typed RuleIR capabilities.",
       "structuredFields": [
         "authority",
+        "predicateContour",
         "requiredComposition"
       ],
       "candidateCapabilities": {
         "selectors": [
-          "ancestry",
           "component-identity",
-          "semantic-role"
+          "self-and-descendants"
         ],
         "facts": [
           "ancestry",
@@ -1055,7 +1144,7 @@
           "semanticRole"
         ],
         "operators": [
-          "author-structured-assertion"
+          "compositionPolicy"
         ],
         "remediations": []
       }

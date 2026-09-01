@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-09-01"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -31,6 +31,14 @@
     },
     "wraps": [
       {
+        "hostComponentName": "RightAddon",
+        "path": "Presets=SwapMe / SwapMe",
+        "componentName": "SwapMe",
+        "role": "internal-instance",
+        "visible": true,
+        "variantProperties": null
+      },
+      {
         "hostComponentName": "PaymentMaskedNumber",
         "path": "PaymentMaskedNumber / Major",
         "componentName": "Major",
@@ -39,6 +47,14 @@
         "variantProperties": {
           "Mask Number": "False"
         }
+      },
+      {
+        "hostComponentName": "PaymentMaskedNumber",
+        "path": "PaymentMaskedNumber / Minor",
+        "componentName": "Minor",
+        "role": "internal-instance",
+        "visible": true,
+        "variantProperties": null
       },
       {
         "hostComponentName": "PaymentMaskedNumber",
@@ -84,5 +100,49 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicRoots": [
+      "PaymentMaskedNumber"
+    ],
+    "internalOnly": [
+      "Major",
+      "Minor",
+      "RightAddon",
+      "SwapMe"
+    ],
+    "ownership": {
+      "hostOwns": [
+        "Major",
+        "Minor",
+        "Addon visibility",
+        "Addon gap",
+        "number formatting",
+        "typography pair",
+        "single-line overflow"
+      ],
+      "internalStandaloneAllowed": false
+    },
+    "slots": {
+      "Addon": {
+        "defaultVisible": false,
+        "swapAllowed": true,
+        "allowedComponents": "context-defined",
+        "placeholder": "SwapMe",
+        "placeholderAllowedInFinalDesign": false,
+        "gapPx": 4,
+        "maxHeight": "number.lineHeight"
+      }
+    },
+    "effectiveBaseline": {
+      "colorPolicy": "Major and Minor may differ from the default baseline but must share one bound design-system color token.",
+      "rawColorAllowed": false,
+      "typographyPolicy": "Major and Minor preserve their own effective-baseline text styles as one pair.",
+      "rawTypographyAllowed": false
+    },
+    "overflow": {
+      "maxLines": 1,
+      "preserveMinorDigits": 4,
+      "mode": "ellipsis-before-minor"
+    }
+  }
 }

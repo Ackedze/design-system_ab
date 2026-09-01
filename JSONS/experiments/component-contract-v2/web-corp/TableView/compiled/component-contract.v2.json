@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/TableView/rules.json",
-        "bytes": 40114,
-        "sha256": "4ea2b749d76f5942b8ca0f700dc3d8757d6d4491e948f2a9e4d370767e984647"
+        "bytes": 66084,
+        "sha256": "c132ebbe55731694b14859e94f568cad43456e881ab919fa251fe8e6f6c8d177"
       }
     ]
   },
@@ -1107,6 +1107,66 @@
       }
     },
     {
+      "id": "rule-ir:web-corp.table-view.horizontal-multi-column-min-two-data-columns",
+      "source": {
+        "file": "JSONS/web/components/web-corp/TableView/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.table-view.horizontal-multi-column-min-two-data-columns"
+        ],
+        "patternRuleId": "rule:components.table-view.horizontal-multi-column"
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": "tree.package"
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "component": "[D] TableView :: Horizontal",
+          "compact": false,
+          "rowPreset": "Body"
+        }
+      },
+      "assert": {
+        "op": "compositionPolicy",
+        "dataColumnsMin": 2
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "ancestry",
+        "component.identity",
+        "node.documentOrder",
+        "semanticRole"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "Каждая Body Row в Horizontal TableView с Compact=false содержит не меньше двух колонок данных.",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "ancestry",
+          "component.identity",
+          "node.documentOrder",
+          "semanticRole"
+        ],
+        "operators": [
+          "compositionPolicy"
+        ],
+        "remediations": []
+      }
+    },
+    {
       "id": "rule-ir:web-corp.table-view.horizontal-sidepanel-is-single-column-compact",
       "source": {
         "file": "JSONS/web/components/web-corp/TableView/rules.json",
@@ -1265,6 +1325,64 @@
         ],
         "remediations": []
       }
+    },
+    {
+      "id": "rule-ir:web-corp.table-view.vertical-has-one-data-column",
+      "source": {
+        "file": "JSONS/web/components/web-corp/TableView/rules.json",
+        "sourceRuleIds": [
+          "component:web-corp.table-view.vertical-has-one-data-column"
+        ],
+        "patternRuleId": null
+      },
+      "severity": "error",
+      "enforcement": "enforced",
+      "select": {
+        "host": "host.package",
+        "targets": "tree.package"
+      },
+      "when": {
+        "op": "all",
+        "clauses": {
+          "component": "TableView :: Vertical"
+        }
+      },
+      "assert": {
+        "op": "compositionPolicy",
+        "dataColumns": 1
+      },
+      "verdict": {
+        "pass": "expected",
+        "fail": "violation",
+        "unknown": "unknown"
+      },
+      "evidence": [
+        "ancestry",
+        "component.identity",
+        "node.documentOrder",
+        "semanticRole"
+      ],
+      "remediation": null,
+      "presentation": {
+        "message": "TableView :: Vertical всегда содержит одну колонку данных.",
+        "group": "component.composition"
+      },
+      "capabilities": {
+        "selectors": [
+          "component-identity",
+          "self-and-descendants"
+        ],
+        "facts": [
+          "ancestry",
+          "component.identity",
+          "node.documentOrder",
+          "semanticRole"
+        ],
+        "operators": [
+          "compositionPolicy"
+        ],
+        "remediations": []
+      }
     }
   ],
   "nonExecutableRules": [
@@ -1377,6 +1495,7 @@
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "authority",
+        "predicateContour",
         "requiredState"
       ],
       "candidateCapabilities": {
@@ -1387,7 +1506,6 @@
         ],
         "facts": [
           "component.identity",
-          "layout.properties",
           "variant.properties"
         ],
         "operators": [
@@ -1520,9 +1638,9 @@
     },
     {
       "sourceRuleId": "component:web-corp.table-view.horizontal-compact-one-column",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "authority",
         "forbidden",
@@ -1538,6 +1656,31 @@
         "facts": [
           "component.identity",
           "variant.properties"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.table-view.horizontal-compact-reading-direction",
+      "sourceCheckType": "llm",
+      "status": "advisory",
+      "reason": "Source checkType is llm.",
+      "structuredFields": [
+        "authority",
+        "requiredUsage"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters"
         ],
         "operators": [
           "author-structured-assertion"
@@ -1655,7 +1798,8 @@
       "status": "unsupported",
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -1749,7 +1893,8 @@
       "status": "unsupported",
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -1896,12 +2041,13 @@
     },
     {
       "sourceRuleId": "component:web-corp.table-view.public-root-platforms",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "allowedContexts",
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -1957,6 +2103,32 @@
         "facts": [
           "component.identity",
           "variant.properties"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.table-view.row-spacing-matches-compact",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour",
+        "requiredState"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties"
         ],
         "operators": [
           "author-structured-assertion"
@@ -2108,46 +2280,19 @@
         ],
         "remediations": []
       }
-    },
-    {
-      "sourceRuleId": "component:web-corp.table-view.vertical-has-one-data-column",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "authority",
-        "requiredComposition"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "ancestry",
-          "component.identity",
-          "node.documentOrder",
-          "semanticRole"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
     }
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 40,
-      "deterministicSourceRules": 15,
-      "executableDeterministicSourceRules": 5,
+      "sourceRules": 43,
+      "deterministicSourceRules": 20,
+      "executableDeterministicSourceRules": 7,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 5,
-      "advisory": 16,
+      "executable": 7,
+      "advisory": 14,
       "manual": 9,
-      "unsupported": 10,
-      "deterministicCoverageRatio": 0.3333
+      "unsupported": 13,
+      "deterministicCoverageRatio": 0.35
     },
     "report": "../coverage.json"
   }

@@ -2,24 +2,44 @@
   "schemaVersion": "apollo.component-contract-v2-execution-policy.v1",
   "packageId": "web-corp.payment-masked-number",
   "status": "closed-for-migration",
-  "migrationEligibility": "supporting-no-new-operators",
+  "migrationEligibility": "supporting-production-predicate-bridge",
   "sourcePath": "JSONS/web/components/web-corp/PaymentMaskedNumber",
   "contractPath": "web-corp/PaymentMaskedNumber/compiled/component-contract.v2.json",
   "summary": {
-    "total": 4,
+    "total": 14,
     "decisions": {
-      "deterministic": 3,
+      "deterministic": 9,
       "agent-required": 0,
-      "human-review": 1,
+      "human-review": 5,
       "policy-only": 0,
       "unresolved": 0
     },
     "readiness": {
+      "human-route-required": 5,
       "executable-now": 3,
-      "human-route-required": 1
+      "requires-versioned-capability": 3,
+      "requires-typed-authoring": 3
     }
   },
   "rules": [
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.addon-geometry",
+      "decision": "human-review",
+      "readiness": "human-route-required",
+      "compilerStatus": "manual",
+      "compilerRuleIds": [],
+      "policyRoute": "context-only",
+      "gapKind": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
+      "decision": "human-review",
+      "readiness": "human-route-required",
+      "compilerStatus": "manual",
+      "compilerRuleIds": [],
+      "policyRoute": "context-only",
+      "gapKind": null
+    },
     {
       "sourceRuleId": "component:web-corp.payment-masked-number.component-properties-are-first-class",
       "decision": "deterministic",
@@ -29,6 +49,15 @@
         "rule-ir:web-corp.payment-masked-number.component-properties-are-first-class"
       ],
       "policyRoute": null,
+      "gapKind": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.interaction-and-states-are-contextual",
+      "decision": "human-review",
+      "readiness": "human-route-required",
+      "compilerStatus": "manual",
+      "compilerRuleIds": [],
+      "policyRoute": "context-only",
       "gapKind": null
     },
     {
@@ -52,15 +81,78 @@
       "gapKind": null
     },
     {
-      "sourceRuleId": "component:web-corp.payment-masked-number.text-color-follows-baseline",
+      "sourceRuleId": "component:web-corp.payment-masked-number.mask-format",
+      "decision": "deterministic",
+      "readiness": "requires-versioned-capability",
+      "compilerStatus": "unsupported",
+      "compilerRuleIds": [],
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-missing-runtime-operator"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.minor-last-four-digits",
+      "decision": "deterministic",
+      "readiness": "requires-versioned-capability",
+      "compilerStatus": "unsupported",
+      "compilerRuleIds": [],
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-missing-runtime-operator"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.narrow-overflow-preserves-last-four",
+      "decision": "human-review",
+      "readiness": "human-route-required",
+      "compilerStatus": "manual",
+      "compilerRuleIds": [],
+      "policyRoute": "context-only",
+      "gapKind": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.parts-share-color-token",
       "decision": "deterministic",
       "readiness": "executable-now",
       "compilerStatus": "executable",
       "compilerRuleIds": [
-        "rule-ir:web-corp.payment-masked-number.text-color-follows-baseline"
+        "rule-ir:web-corp.payment-masked-number.parts-share-color-token"
       ],
       "policyRoute": "predicate",
       "gapKind": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.public-root-only",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
+      "compilerStatus": "unsupported",
+      "compilerRuleIds": [],
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.text-style-binding-required",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
+      "compilerStatus": "unsupported",
+      "compilerRuleIds": [],
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+      "decision": "deterministic",
+      "readiness": "requires-typed-authoring",
+      "compilerStatus": "unsupported",
+      "compilerRuleIds": [],
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-unmapped"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.unmasked-major-format",
+      "decision": "deterministic",
+      "readiness": "requires-versioned-capability",
+      "compilerStatus": "unsupported",
+      "compilerRuleIds": [],
+      "policyRoute": "predicate",
+      "gapKind": "structured-fields-missing-runtime-operator"
     }
   ]
 }

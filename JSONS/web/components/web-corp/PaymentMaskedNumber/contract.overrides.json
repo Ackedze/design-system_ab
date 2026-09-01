@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-09-01"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -73,5 +73,100 @@
       }
     ]
   },
-  "manual": {}
+  "manual": {
+    "publicBoundary": {
+      "publicRoots": [
+        "PaymentMaskedNumber"
+      ],
+      "internalRoots": [
+        "Major",
+        "Minor",
+        "RightAddon",
+        "SwapMe"
+      ],
+      "internalStandaloneAllowed": false
+    },
+    "usage": {
+      "purpose": "Отображение номера банковского счёта или номера карты.",
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "platformSpecificRoots": false
+    },
+    "numberFormat": {
+      "account": {
+        "majorPattern": "5-3-1-4-3",
+        "minorDigits": 4
+      },
+      "card": {
+        "majorPattern": "4-4-4",
+        "minorDigits": 4
+      },
+      "groupSeparator": {
+        "character": " ",
+        "unicode": "U+205F",
+        "ordinarySpaceAllowed": false
+      }
+    },
+    "masking": {
+      "property": "Major.Mask Number",
+      "enabledValue": "True",
+      "majorValue": "·· ",
+      "majorCharacters": [
+        "U+00B7",
+        "U+00B7",
+        "U+2009"
+      ],
+      "preserveLastDigits": 4,
+      "sameForAccountAndCard": true
+    },
+    "visualPolicy": {
+      "majorAndMinorColor": "Any design-system color token is allowed when both parts use the same token binding.",
+      "rawColorAllowed": false,
+      "differentPartColorsAllowed": false,
+      "effectiveBaselineColorRequired": false
+    },
+    "addon": {
+      "defaultVisible": false,
+      "swapAllowed": true,
+      "allowedSwapComponents": "context-defined",
+      "placeholderComponent": "SwapMe",
+      "placeholderAllowedInFinalDesign": false,
+      "gapPx": 4,
+      "maxHeight": "number.lineHeight"
+    },
+    "typography": {
+      "policy": "preserve-effective-baseline-pair",
+      "layers": [
+        "Major",
+        "Minor"
+      ],
+      "publishedTextStyleRequired": true,
+      "rawTypographyAllowed": false,
+      "independentPartChangeAllowed": false
+    },
+    "overflow": {
+      "maxLines": 1,
+      "mode": "ellipsis-before-minor",
+      "preserveLastDigits": 4,
+      "manualShorteningAllowed": false
+    },
+    "statesAndInteraction": {
+      "ownStates": [],
+      "unsupportedStates": [
+        "loading",
+        "disabled",
+        "error"
+      ],
+      "clickability": "context-defined",
+      "rootMayBeInteractive": true,
+      "addonMayBeInteractive": true
+    },
+    "ruleSource": {
+      "repository": "core-ds/ds-ai-hub",
+      "path": "products/ab/patterns/payment-masked-number.md",
+      "status": "owner-approved-full-semantic-draft"
+    }
+  }
 }

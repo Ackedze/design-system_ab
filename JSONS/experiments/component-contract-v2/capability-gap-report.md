@@ -12,11 +12,11 @@ Candidate capabilities are discovery hints, not executable behavior.
 
 ## Unsupported classification
 
-- structured-fields-unmapped: 240
-- structured-fields-missing-runtime-operator: 12
+- structured-fields-unmapped: 247
+- structured-fields-missing-runtime-operator: 15
 - prose-existing-operator: 3
 - prose-missing-runtime-operator: 3
-- prose-unclassified: 38
+- prose-unclassified: 37
 
 The classification separates source authoring from runtime support. Structured source fields are
 reported independently from prose-only rules; candidate operators remain discovery hints.
@@ -122,7 +122,7 @@ reported independently from prose-only rules; candidate operators remain discove
 | `component:web-corp.buttons-group.has-no-group-state` | prose-missing-runtime-operator | statePolicy | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.buttons-group.horizontal-layout-is-fixed` | structured-fields-unmapped | matchesEffectiveBaseline | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.buttons-group.nested-button-views-are-primary-or-secondary` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web-corp.buttons-group.overflow-enables-last-single-icon` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.buttons-group.overflow-enables-last-single-icon` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.buttons-group.overflow-is-optional-from-two-buttons` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.buttons-group.primary-is-first-and-unique` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.buttons-group.root-sizing-is-hug-hug` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
@@ -359,6 +359,7 @@ No unsupported deterministic rules.
 | --- | --- | --- | --- |
 | `component:web-corp.table-view.compact-is-consistent-across-rows` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-view.divider-visibility-only-last-row` | structured-fields-missing-runtime-operator | visibilityPolicy | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.table-view.horizontal-compact-one-column` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-view.horizontal-compact-width` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-view.internal-parts-not-standalone` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-view.last-row-divider` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
@@ -366,6 +367,8 @@ No unsupported deterministic rules.
 | `component:web-corp.table-view.manual-visual-overrides-forbidden` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-view.multi-column-width` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-view.no-single-hidden-row` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.table-view.public-root-platforms` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.table-view.row-spacing-matches-compact` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web-corp.table-view.title-subtitle-instance-swap-forbidden` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 
 ## web-corp.tabs-view
@@ -479,7 +482,14 @@ No unsupported deterministic rules.
 
 ## web-corp.payment-masked-number
 
-No unsupported deterministic rules.
+| Source rule | Gap kind | Candidate operator | Blocking reason |
+| --- | --- | --- | --- |
+| `component:web-corp.payment-masked-number.mask-format` | structured-fields-missing-runtime-operator | numericFormat | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.payment-masked-number.minor-last-four-digits` | structured-fields-missing-runtime-operator | numericFormat | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.payment-masked-number.public-root-only` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.payment-masked-number.text-style-binding-required` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.payment-masked-number.typography-follows-effective-pair` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web-corp.payment-masked-number.unmasked-major-format` | structured-fields-missing-runtime-operator | numericFormat | The source declares a deterministic rule but contains no structured assertion parameters. |
 
 ## web-core.amount
 

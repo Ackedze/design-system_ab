@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-27"
+      "updatedAt": "2026-08-31"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -25,12 +25,12 @@
     "ownershipMigrationRevision": 2
   },
   "generated": {
-    "generatedAt": "2026-07-27T12:58:40.628Z",
+    "generatedAt": "2026-08-31T19:46:53.652Z",
     "source": {
       "rawCatalogPath": "JSONS/web/components/web-corp/Web _ Corp Components -- PaymentMaskedNumber.json",
       "library": "Web _ Corp Components",
       "file": "Web _ Corp Components",
-      "generatedAt": "2026-07-27T12:58:40.628Z",
+      "generatedAt": "2026-08-31T19:46:53.652Z",
       "exportVersion": "0.1.0-rest",
       "files": [
         "PaymentMaskedNumber"
@@ -266,5 +266,48 @@
       "suppressWrapperOwnedDiffsWhenEqualToEffectiveBaseline": true
     }
   },
-  "manual": {}
+  "manual": {
+    "classification": [
+      {
+        "match": {
+          "property": "fill",
+          "targetLayers": [
+            "Major",
+            "Minor",
+            "✎ Major",
+            "✎ Minor"
+          ]
+        },
+        "scope": "layer-property",
+        "groupTitle": "Параметры слоя",
+        "displayName": "Цвет номера",
+        "priority": 30,
+        "resetAction": "reset-layer-properties",
+        "ruleId": "component:web-corp.payment-masked-number.parts-share-color-token"
+      },
+      {
+        "match": {
+          "property": "styles.text",
+          "targetLayers": [
+            "Major",
+            "Minor",
+            "✎ Major",
+            "✎ Minor"
+          ]
+        },
+        "scope": "layer-property",
+        "groupTitle": "Параметры слоя",
+        "displayName": "Типографика номера",
+        "priority": 31,
+        "resetAction": "reset-layer-properties",
+        "ruleId": "component:web-corp.payment-masked-number.typography-follows-effective-pair"
+      }
+    ],
+    "interpretation": {
+      "color": "Отдельный fill diff является customization. Violation возникает, если Major и Minor используют разные цвета, разные token binding или raw-цвет.",
+      "text": "Для text.characters применяй exact format rules и различай Major и Minor.",
+      "typography": "Сравнивай каждый слой со своим effective baseline и требуй published text-style binding; не проверяй Major и Minor на буквальное равенство styles между собой.",
+      "contextOnly": "Addon swap/geometry, узкий overflow и контекстную кликабельность текущий runtime не доказывает автоматически."
+    }
+  }
 }

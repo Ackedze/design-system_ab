@@ -1,17 +1,67 @@
 {
   "schemaVersion": "apollo.rule-coverage.v1",
   "summary": {
-    "sourceRules": 4,
-    "deterministicSourceRules": 3,
+    "sourceRules": 14,
+    "deterministicSourceRules": 9,
     "executableDeterministicSourceRules": 3,
     "promotedManualOrAdvisorySourceRules": 0,
     "executable": 3,
     "advisory": 0,
-    "manual": 1,
-    "unsupported": 0,
-    "deterministicCoverageRatio": 1
+    "manual": 5,
+    "unsupported": 6,
+    "deterministicCoverageRatio": 0.3333
   },
   "rules": [
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.addon-geometry",
+      "sourceCheckType": "manual",
+      "status": "manual",
+      "targetRuleIds": [],
+      "reason": "Source checkType is manual.",
+      "structuredFields": [
+        "authority",
+        "requiredLayout"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
+      "sourceCheckType": "manual",
+      "status": "manual",
+      "targetRuleIds": [],
+      "reason": "Source checkType is manual.",
+      "structuredFields": [
+        "authority"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
     {
       "sourceRuleId": "component:web-corp.payment-masked-number.component-properties-are-first-class",
       "sourceCheckType": "deterministic",
@@ -32,6 +82,31 @@
         ],
         "operators": [
           "classificationPolicy"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.interaction-and-states-are-contextual",
+      "sourceCheckType": "manual",
+      "status": "manual",
+      "targetRuleIds": [],
+      "reason": "Source checkType is manual.",
+      "structuredFields": [
+        "authority"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "prototype.reactions"
+        ],
+        "operators": [
+          "author-structured-assertion"
         ],
         "remediations": []
       }
@@ -91,11 +166,91 @@
       }
     },
     {
-      "sourceRuleId": "component:web-corp.payment-masked-number.text-color-follows-baseline",
+      "sourceRuleId": "component:web-corp.payment-masked-number.mask-format",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters",
+          "variant.properties"
+        ],
+        "operators": [
+          "numericFormat"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.minor-last-four-digits",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters"
+        ],
+        "operators": [
+          "numericFormat"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.narrow-overflow-preserves-last-four",
+      "sourceCheckType": "manual",
+      "status": "manual",
+      "targetRuleIds": [],
+      "reason": "Source checkType is manual.",
+      "structuredFields": [
+        "authority",
+        "requiredLayout"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "layout.properties",
+          "text.characters"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.parts-share-color-token",
       "sourceCheckType": "deterministic",
       "status": "executable",
       "targetRuleIds": [
-        "rule-ir:web-corp.payment-masked-number.text-color-follows-baseline"
+        "rule-ir:web-corp.payment-masked-number.parts-share-color-token"
       ],
       "reason": "Structured source fields map to typed RuleIR capabilities.",
       "structuredFields": [
@@ -109,14 +264,123 @@
           "self-and-descendants"
         ],
         "facts": [
-          "baseline.effective",
           "component.identity",
-          "ownership.owner",
           "paint.fill",
           "variable.binding"
         ],
         "operators": [
-          "matchesEffectiveBaseline"
+          "classificationPolicy"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.public-root-only",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "ancestry",
+          "component.identity",
+          "node.documentOrder",
+          "semanticRole"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.text-style-binding-required",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "style.text",
+          "text.characters"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "ownership.owner",
+          "style.text",
+          "text.characters"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.unmasked-major-format",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters",
+          "variant.properties"
+        ],
+        "operators": [
+          "numericFormat"
         ],
         "remediations": []
       }
