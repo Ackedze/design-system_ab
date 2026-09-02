@@ -31,6 +31,12 @@
     },
     "holdingCompanySelectionPattern": {
       "path": "products/ab/patterns/holding-company-selection.md"
+    },
+    "promoMainBlockPattern": {
+      "path": "products/ab/patterns/promo-main-block.md"
+    },
+    "landingPagesPattern": {
+      "path": "products/ab/patterns/landing-pages.md"
     }
   },
   "entries": [
@@ -1026,7 +1032,7 @@
           "kind": "named-rule",
           "document": "paymentMaskedNumberPattern",
           "ruleId": "rule:components.payment-masked-number.addon-uses-final-component",
-          "heading": "Rule 5: Не оставляй служебный SwapMe в Addon"
+          "heading": "Rule 5: Настраивай Addon через Presets и не оставляй SwapMe"
         }
       ],
       "review": {
@@ -1218,14 +1224,14 @@
     {
       "apolloRuleId": "component:web-corp.content-card-wrapper.entity-collection-context",
       "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
-      "relation": "exact",
+      "relation": "semantic-equivalent",
       "enforcementScope": "component usage context",
       "hubEvidence": [
         {
           "kind": "named-rule",
           "document": "contentCardWrapperPattern",
-          "ruleId": "rule:components.content-card-wrapper.entity-collection-context",
-          "heading": "Rule 2: Используй компонент для однородного набора сущностей"
+          "ruleId": "rule:components.content-card-wrapper.form-or-view-page",
+          "heading": "Rule 2: Используй компонент в форме или на странице просмотра"
         }
       ],
       "review": {
@@ -1510,7 +1516,7 @@
           "kind": "named-rule",
           "document": "contentCardWrapperPattern",
           "ruleId": "rule:components.content-card-wrapper.inside-background-plate",
-          "heading": "Rule 17: Соблюдай платформенную surface-композицию"
+          "heading": "Rule 17: Размещай набор карточек внутри BackgroundPlate"
         }
       ],
       "review": {
@@ -1693,14 +1699,14 @@
     {
       "apolloRuleId": "component:web-corp.content-card-wrapper.delete-action-rightmost",
       "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
-      "relation": "exact",
+      "relation": "semantic-support",
       "enforcementScope": "delete action order",
       "hubEvidence": [
         {
           "kind": "named-rule",
           "document": "contentCardWrapperPattern",
-          "ruleId": "rule:components.content-card-wrapper.delete-action-rightmost",
-          "heading": "Rule 27: Располагай удаление справа"
+          "ruleId": "rule:components.content-card-wrapper.right-slot-actions",
+          "heading": "Rule 7: Ограничивай действия в RightSlot"
         }
       ],
       "review": {
@@ -1712,14 +1718,13 @@
     {
       "apolloRuleId": "component:web-corp.content-card-wrapper.notification-after-create",
       "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
-      "relation": "exact",
+      "relation": "semantic-support",
       "enforcementScope": "post-create notification",
       "hubEvidence": [
         {
-          "kind": "named-rule",
+          "kind": "section",
           "document": "contentCardWrapperPattern",
-          "ruleId": "rule:components.content-card-wrapper.notification-after-create",
-          "heading": "Rule 28: Показывай Notification после создания по контексту"
+          "heading": "Section 4: Принципы"
         }
       ],
       "review": {
@@ -2308,6 +2313,206 @@
         "reviewedAt": "2026-09-02",
         "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
       }
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.public-roots-only",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "public component roots",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.public-roots-only","heading":"Rule 1: Используй только публичные D/M roots"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.desktop-view-context",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "desktop View semantic context",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.desktop-view-context","heading":"Rule 2: Выбирай desktop View по host-контексту"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.background-matrix",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "D/M View and Background matrix",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.background-matrix","heading":"Rule 3: Соблюдай матрицу Background"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.desktop-compact-under-1024",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "desktop Compact by viewport",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.desktop-compact-under-1024","heading":"Rule 4: Включай Compact на desktop при viewport не больше 1024 px"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.desktop-blur-required",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "desktop BlurEffect",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.desktop-blur-required","heading":"Rule 5: Всегда включай BlurEffect на desktop"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.required-content",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "required Title Subtitle ImageContainer",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.required-content","heading":"Rule 6: Не скрывай обязательный контент"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.text-limits",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Title and Subtitle content limits",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.text-limits","heading":"Rule 7: Соблюдай лимиты Title и Subtitle"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.status-count-and-contract",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "StatusBadge count and delegated contract",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.status-count-and-contract","heading":"Rule 8: Используй не больше трёх StatusBadge"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.multiple-statuses-warning",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "StatusBadge recommendation",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.multiple-statuses-warning","heading":"Rule 9: Предпочитай один StatusBadge"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.holding-desktop-only",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Holding platform boundary",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.holding-desktop-only","heading":"Rule 10: Используй Holding только на desktop"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.bottom-slot-final-content",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Bottom slot final content",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.bottom-slot-final-content","heading":"Rule 11: Замени служебный SwapMe в Bottom slot"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.bottom-slot-parity",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Bottom slot D/M parity",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.bottom-slot-parity","heading":"Rule 12: Сохраняй Bottom slot между D/M"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.desktop-actions-optional",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "desktop action visibility",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.desktop-actions-optional","heading":"Rule 13: Действия на desktop опциональны"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.desktop-actions-follow-baseline",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "desktop button order View and properties",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.desktop-actions-follow-baseline","heading":"Rule 14: Сохраняй baseline desktop-кнопок"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.mobile-internal-button-group-warning",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "mobile internal ButtonGroup visibility",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.mobile-internal-button-group-warning","heading":"Rule 15: Не используй raw mobile ButtonGroup"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.content-order-by-platform",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "platform content order",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.content-order-by-platform","heading":"Rule 16: Сохраняй платформенный порядок областей"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.image-source-and-settings",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "ImageView source Crop Size Segment",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.image-source-and-settings","heading":"Rule 17: Используй штатное изображение"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.same-image-across-platforms",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "same D/M image asset",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.same-image-across-platforms","heading":"Rule 18: Используй одно изображение между D/M"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.layout-is-component-owned",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "component-owned geometry",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.layout-is-component-owned","heading":"Rule 19: Не меняй компонентную геометрию"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.overlay-is-derived",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "derived overlay",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.overlay-is-derived","heading":"Rule 20: Не настраивай Overlay вручную"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.status-casing-preset-owned",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "StatusBadge platform casing",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.status-casing-preset-owned","heading":"Rule 21: Сохраняй preset-owned casing StatusBadge"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.unsupported-states",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "unsupported component states",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.unsupported-states","heading":"Rule 22: Не создавай неподдерживаемые состояния"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.container-noninteractive",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "container and image interactions",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.container-noninteractive","heading":"Rule 23: Не делай контейнер и изображение кликабельными"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.responsive-parity",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "D/M content and action parity",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.responsive-parity","heading":"Rule 24: Сохраняй D/M-паритет с явными исключениями"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-02","basis":"Owner-confirmed human-first PromoMainBlock projection."}
+    },
+    {
+      "apolloRuleId": "component:web.promo-main-block.title-subtitle-visuals-follow-baseline",
+      "apolloSource": "JSONS/web/components/web-corp-promo/PromoMainBlock/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Title and Subtitle typography and fill",
+      "hubEvidence": [{"kind":"named-rule","document":"promoMainBlockPattern","ruleId":"rule:components.promo-main-block.title-subtitle-visuals-follow-baseline","heading":"Rule 25: Сохраняй визуальный baseline Title и Subtitle"}],
+      "review": {"status":"verified","reviewedAt":"2026-09-03","basis":"Owner-confirmed human-first PromoMainBlock projection."}
     }
   ],
   "projections": {
@@ -2434,6 +2639,64 @@
       },
       "retiredApolloRuleIds": [
         "component:web-corp.filter-company-select.selected-value-content"
+      ]
+    },
+    "promoMainBlock": {
+      "sourceDocument": "promoMainBlockPattern",
+      "readiness": "ready",
+      "humanRuleRoutes": [
+        {"humanRuleId":"rule:components.promo-main-block.public-roots-only","heading":"Rule 1: Используй только публичные D/M roots","route":"predicate"},
+        {"humanRuleId":"rule:components.promo-main-block.desktop-view-context","heading":"Rule 2: Выбирай desktop View по host-контексту","route":"not-evaluable without page semantic container"},
+        {"humanRuleId":"rule:components.promo-main-block.background-matrix","heading":"Rule 3: Соблюдай матрицу Background","route":"predicate"},
+        {"humanRuleId":"rule:components.promo-main-block.desktop-compact-under-1024","heading":"Rule 4: Включай Compact на desktop при viewport не больше 1024 px","route":"predicate"},
+        {"humanRuleId":"rule:components.promo-main-block.desktop-blur-required","heading":"Rule 5: Всегда включай BlurEffect на desktop","route":"predicate"},
+        {"humanRuleId":"rule:components.promo-main-block.required-content","heading":"Rule 6: Не скрывай обязательный контент","route":"predicate"},
+        {"humanRuleId":"rule:components.promo-main-block.text-limits","heading":"Rule 7: Соблюдай лимиты Title и Subtitle","route":"LLM-agent"},
+        {"humanRuleId":"rule:components.promo-main-block.status-count-and-contract","heading":"Rule 8: Используй не больше трёх StatusBadge","route":"not-evaluable without semantic composition facts"},
+        {"humanRuleId":"rule:components.promo-main-block.multiple-statuses-warning","heading":"Rule 9: Предпочитай один StatusBadge","route":"not-evaluable without semantic composition facts"},
+        {"humanRuleId":"rule:components.promo-main-block.holding-desktop-only","heading":"Rule 10: Используй Holding только на desktop","route":"policy/platform boundary"},
+        {"humanRuleId":"rule:components.promo-main-block.bottom-slot-final-content","heading":"Rule 11: Замени служебный SwapMe в Bottom slot","route":"predicate"},
+        {"humanRuleId":"rule:components.promo-main-block.bottom-slot-parity","heading":"Rule 12: Сохраняй Bottom slot между D/M","route":"LLM-agent"},
+        {"humanRuleId":"rule:components.promo-main-block.desktop-actions-optional","heading":"Rule 13: Действия на desktop опциональны","route":"policy/allow"},
+        {"humanRuleId":"rule:components.promo-main-block.desktop-actions-follow-baseline","heading":"Rule 14: Сохраняй baseline desktop-кнопок","route":"predicate"},
+        {"humanRuleId":"rule:components.promo-main-block.mobile-internal-button-group-warning","heading":"Rule 15: Не используй raw mobile ButtonGroup","route":"predicate"},
+        {"humanRuleId":"rule:components.promo-main-block.content-order-by-platform","heading":"Rule 16: Сохраняй платформенный порядок областей","route":"not-evaluable without semantic composition facts"},
+        {"humanRuleId":"rule:components.promo-main-block.image-source-and-settings","heading":"Rule 17: Используй штатное изображение","route":"predicate + not-evaluable source/segment"},
+        {"humanRuleId":"rule:components.promo-main-block.same-image-across-platforms","heading":"Rule 18: Используй одно изображение между D/M","route":"LLM-agent"},
+        {"humanRuleId":"rule:components.promo-main-block.layout-is-component-owned","heading":"Rule 19: Не меняй компонентную геометрию","route":"predicate"},
+        {"humanRuleId":"rule:components.promo-main-block.overlay-is-derived","heading":"Rule 20: Не настраивай Overlay вручную","route":"policy/invariant"},
+        {"humanRuleId":"rule:components.promo-main-block.status-casing-preset-owned","heading":"Rule 21: Сохраняй preset-owned casing StatusBadge","route":"policy/preset-owned"},
+        {"humanRuleId":"rule:components.promo-main-block.unsupported-states","heading":"Rule 22: Не создавай неподдерживаемые состояния","route":"policy/unsupported"},
+        {"humanRuleId":"rule:components.promo-main-block.container-noninteractive","heading":"Rule 23: Не делай контейнер и изображение кликабельными","route":"not-evaluable without interaction facts"},
+        {"humanRuleId":"rule:components.promo-main-block.responsive-parity","heading":"Rule 24: Сохраняй D/M-паритет с явными исключениями","route":"LLM-agent"},
+        {"humanRuleId":"rule:components.promo-main-block.title-subtitle-visuals-follow-baseline","heading":"Rule 25: Сохраняй визуальный baseline Title и Subtitle","route":"predicate"}
+      ],
+      "scenarioRules": {
+        "owner": "landingPagesPattern",
+        "humanRuleIds": [
+          "rule:landing-pages.alfa-business.hero-first-and-single",
+          "rule:landing-pages.alfa-business.hero-appearance-by-segment",
+          "rule:landing-pages.alfa-business.hero-holding-context",
+          "rule:landing-pages.alfa-business.mobile-hero-actions-button-stack"
+        ]
+      },
+      "retiredApolloRuleIds": [
+        "component:web.promo-main-block.first-and-single-on-page",
+        "component:web.promo-main-block.desktop-compact-required",
+        "component:web.promo-main-block.page-background-must-be-false",
+        "component:web.promo-main-block.mobile-background-must-be-true",
+        "component:web.promo-main-block.appearance-matches-surface",
+        "component:web.promo-main-block.page-blur-required",
+        "component:web.promo-main-block.holding-context",
+        "component:web.promo-main-block.bottom-slot-content",
+        "component:web.promo-main-block.actions-optional",
+        "component:web.promo-main-block.mobile-actions-use-button-stack",
+        "component:web.promo-main-block.content-order-is-fixed",
+        "component:web.promo-main-block.overlay-is-derived-from-appearance",
+        "component:web.promo-main-block.status-platform-casing-is-preset-owned",
+        "component:web.promo-main-block.loading-is-not-supported",
+        "component:web.promo-main-block.container-is-not-clickable",
+        "component:web.promo-main-block.active-canonical"
       ]
     }
   }
