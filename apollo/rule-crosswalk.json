@@ -1750,6 +1750,27 @@
       }
     },
     {
+      "apolloRuleId": "component:web-corp.filter-company-select.control-label-company-required",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "public root Label=Компания",
+      "executionRoute": "predicate",
+      "testEvidence": "filter-company-select.fail-control-label",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.fixed-control-labels",
+          "heading": "Rule 11: Не изменяй фиксированные подписи"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
       "apolloRuleId": "component:web-corp.filter-company-select.desktop-only",
       "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
       "relation": "exact",
@@ -1795,8 +1816,8 @@
       "apolloRuleId": "component:web-corp.filter-company-select.fixed-control-labels",
       "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
       "relation": "exact",
-      "enforcementScope": "fixed control labels",
-      "executionRoute": "LLM-agent",
+      "enforcementScope": "fixed control labels beyond root Label",
+      "executionRoute": "predicate + not-evaluable without text role",
       "testEvidence": "text-role fixture required",
       "hubEvidence": [
         {
@@ -2347,7 +2368,7 @@
         {
           "humanRuleId": "rule:components.filter-company-select.fixed-control-labels",
           "heading": "Rule 11: Не изменяй фиксированные подписи",
-          "route": "LLM-agent"
+          "route": "predicate + not-evaluable without text role"
         },
         {
           "humanRuleId": "rule:components.filter-company-select.select-all-current-set",

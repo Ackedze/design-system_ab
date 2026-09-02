@@ -94,7 +94,8 @@
         "component:web-corp.filter-company-select.desktop-only",
         "component:web-corp.filter-company-select.show-first-company-forbidden",
         "component:web-corp.filter-company-select.root-visuals-follow-effective-baseline",
-        "component:web-corp.filter-company-select.single-compact-selected-required"
+        "component:web-corp.filter-company-select.single-compact-selected-required",
+        "component:web-corp.filter-company-select.control-label-company-required"
       ],
       "delegatedRules": [
         {
@@ -270,6 +271,100 @@
         "checkType": "policy",
         "matchKind": "exact_component_rule",
         "ruleText": "Название компании, ИНН и адрес — runtime-контент. Реальные примеры разрешены и не сравниваются как фиксированный текст компонента."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.control-label-company-required",
+        "severity": "error",
+        "source": "human-projection",
+        "patternRuleId": "rule:components.filter-company-select.fixed-control-labels",
+        "appliesTo": "component.properties.✎ Label",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Подпись Label у вложенного CompactTag публичного FilterCompanySelect всегда «Компания». Это не runtime-название выбранной компании.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.filter-company-select"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": "compact-tag"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.filter-company-select"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "ownership.owner.component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "filter-company-select-multi",
+                    "filter-company-select-single"
+                  ]
+                }
+              }
+            ]
+          },
+          "actual": {
+            "fact": "component.properties.✎ Label"
+          },
+          "allowedValues": [
+            "Компания"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменена подпись FilterCompanySelect",
+            "observed": "В свойстве Label указано «{{actual}}».",
+            "expectation": "Подпись Label у FilterCompanySelect всегда «Компания»; название выбранной компании — runtime-данные и в эту проверку не входит.",
+            "action": "Вернуть значение Label к «Компания».",
+            "targetFact": "component.properties.✎ Label"
+          },
+          "scope": {
+            "platform": [
+              "desktop"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
       },
       {
         "ruleId": "component:web-corp.filter-company-select.desktop-only",

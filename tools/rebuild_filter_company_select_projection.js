@@ -57,6 +57,9 @@ const removedScenarioRules = new Set([
 
 const keep = rules.manual.rules
   .filter((rule) => !removedScenarioRules.has(rule.ruleId))
+  // This technical projection is synthesized below.  Filtering it first
+  // makes the builder idempotent when it is re-run after an earlier build.
+  .filter((rule) => rule.ruleId !== 'component:web-corp.filter-company-select.control-label-company-required')
   .map(clone);
 
 const replace = new Map();
@@ -194,9 +197,53 @@ const selectedValueDelegated = {
   ruleText: 'Selected-value display принадлежит Select, [D] FilterTag и [D] CompactTag. FilterCompanySelect не задаёт собственную формулу текста и не создаёт finding по runtime названию или счётчику.',
 };
 
+const controlLabelCompanyRequired = {
+  ruleId: 'component:web-corp.filter-company-select.control-label-company-required',
+  severity: 'error',
+  source: 'human-projection',
+  patternRuleId: 'rule:components.filter-company-select.fixed-control-labels',
+  appliesTo: 'component.properties.✎ Label',
+  checkType: 'deterministic',
+  matchKind: 'exact_component_rule',
+  ruleText: 'Подпись Label у вложенного CompactTag публичного FilterCompanySelect всегда «Компания». Это не runtime-название выбранной компании.',
+  ruleKind: 'design-rule',
+  authority: {
+    status: 'active',
+    provenance: 'design-system-author',
+    revision: 1,
+  },
+  predicateContour: {
+    schemaVersion: 'apollo.contour-definition.v1',
+    kind: 'fact-domain',
+    select: {
+      from: 'selection-root',
+      traverse: 'self-and-descendants',
+      where: [
+        { predicate: 'equals', actual: { fact: 'type' }, expected: { literal: 'INSTANCE' } },
+        { predicate: 'equals', actual: { fact: 'component.identity' }, expected: { literal: 'web-corp.filter-company-select' } },
+        { predicate: 'equals', actual: { fact: 'component.family' }, expected: { literal: 'compact-tag' } },
+        { predicate: 'equals', actual: { fact: 'ownership.owner.component.identity' }, expected: { literal: 'web-corp.filter-company-select' } },
+        { predicate: 'one-of', actual: { fact: 'ownership.owner.component.family' }, expected: { literal: ['filter-company-select-multi', 'filter-company-select-single'] } },
+      ],
+    },
+    actual: { fact: 'component.properties.✎ Label' },
+    allowedValues: ['Компания'],
+    presentation: {
+      schemaVersion: 'apollo.predicate-presentation.v1',
+      title: 'Изменена подпись FilterCompanySelect',
+      observed: 'В свойстве Label указано «{{actual}}».',
+      expectation: 'Подпись Label у FilterCompanySelect всегда «Компания»; название выбранной компании — runtime-данные и в эту проверку не входит.',
+      action: 'Вернуть значение Label к «Компания».',
+      targetFact: 'component.properties.✎ Label',
+    },
+    scope: { platform: ['desktop'] },
+    unknownPolicy: 'not-evaluable',
+  },
+};
+
 rules.manual.rules = keep
   .filter((rule) => !replaceIds.has(rule.ruleId))
-  .concat(Array.from(replace.values()), [selectedValueDelegated])
+  .concat(Array.from(replace.values()), [selectedValueDelegated, controlLabelCompanyRequired])
   .sort((left, right) => left.ruleId.localeCompare(right.ruleId));
 
 rules.metadata.status = 'draft';
@@ -223,6 +270,7 @@ rules.manual.executionPolicy = {
     'component:web-corp.filter-company-select.show-first-company-forbidden',
     'component:web-corp.filter-company-select.root-visuals-follow-effective-baseline',
     'component:web-corp.filter-company-select.single-compact-selected-required',
+    'component:web-corp.filter-company-select.control-label-company-required',
   ],
   delegatedRules: [
     {
@@ -314,6 +362,13 @@ examples.manual.examples = [
     inputState: { root: '[D] FilterCompanySelect_Single', platform: 'desktop', View: 'Compact', Selected: 'False', ShowFirstCompany: 'False' },
     expectedAudit: { category: 'components', severity: 'error', ruleId: 'component:web-corp.filter-company-select.single-compact-selected-required' },
     evidence: 'predicate-release-service:C21 compact fail',
+  },
+  {
+    exampleId: 'filter-company-select.fail-control-label',
+    title: 'FAIL · Изменена подпись Label',
+    inputState: { root: '[D] FilterCompanySelect_Single', platform: 'desktop', nested: '[D] CompactTag', Label: 'Организация' },
+    expectedAudit: { category: 'components', severity: 'error', ruleId: 'component:web-corp.filter-company-select.control-label-company-required' },
+    evidence: 'predicate-release-service:C21 fixed Label',
   },
   {
     exampleId: 'filter-company-select.fail-root-radius',
@@ -411,6 +466,7 @@ agentContext.manual.summary = {
 agentContext.manual.usageGuidance = [
   'Публичны только [D] FilterCompanySelect_Multi и [D] FilterCompanySelect_Single; скрытая [MW] секция не является mobile API.',
   'ShowFirstCompany всегда False. Single + View=Compact всегда требует Selected=True.',
+  'Подпись Label у публичного FilterCompanySelect всегда «Компания»; название выбранной компании, ИНН и адрес остаются runtime-данными.',
   'Root.width и dropdown.width можно менять независимо; остальные visual/layout свойства принадлежат effective baseline владельца.',
   'Selected-value display принадлежит Select, FilterTag и CompactTag; company name, ИНН и address — runtime-content.',
   'Multi transaction, Single immediate selection, search scope, select-all и clear требуют interaction/runtime facts; без них verdict not-evaluable.',
@@ -476,7 +532,8 @@ const crosswalkMap = {
   'search-contract': { relation: 'exact', route: 'interaction', scope: 'search field and placeholder', human: 9, test: 'text-role + interaction fixture required' },
   'select-all-current-results': { relation: 'exact', route: 'interaction', scope: 'Select All current set', human: 12, test: 'search result interaction fixture required' },
   'selected-value-display-delegated': { relation: 'exact', route: 'delegated', scope: 'selected value owner', human: 14, test: 'nested contract evidence' },
-  'fixed-control-labels': { relation: 'exact', route: 'LLM-agent', scope: 'fixed control labels', human: 11, test: 'text-role fixture required' },
+  'fixed-control-labels': { relation: 'exact', route: 'predicate + not-evaluable without text role', scope: 'fixed control labels beyond root Label', human: 11, test: 'text-role fixture required' },
+  'control-label-company-required': { relation: 'semantic-support', route: 'predicate', scope: 'public root Label=Компания', human: 11, test: 'filter-company-select.fail-control-label' },
   'search-visible-over-ten': { relation: 'exact', route: 'not-evaluable without runtime facts', scope: 'pre-search company count', human: 10, test: 'filter-company-select.not-evaluable-search-company-count' },
   'single-clear-filter-tag-only': { relation: 'exact', route: 'interaction', scope: 'Single clear action', human: 20, test: 'clear interaction fixture required' },
   'states-delegate-to-nested-components': { relation: 'exact', route: 'delegated', scope: 'nested state ownership', human: 15, test: 'nested contract evidence' },
@@ -521,7 +578,7 @@ crosswalk.projections.filterCompanySelect = {
     route: ({
       1: 'policy/context-only', 2: 'predicate', 3: 'predicate', 4: 'predicate', 5: 'LLM-agent',
       6: 'interaction', 7: 'interaction', 8: 'interaction', 9: 'interaction', 10: 'not-evaluable without runtime facts',
-      11: 'LLM-agent', 12: 'interaction', 13: 'not-evaluable without runtime facts', 14: 'delegated',
+      11: 'predicate + not-evaluable without text role', 12: 'interaction', 13: 'not-evaluable without runtime facts', 14: 'delegated',
       15: 'delegated', 16: 'predicate + delegated', 17: 'delegated', 18: 'policy/context-only',
       19: 'predicate + not-evaluable without runtime facts', 20: 'interaction', 21: 'policy/context-only',
     })[number],
