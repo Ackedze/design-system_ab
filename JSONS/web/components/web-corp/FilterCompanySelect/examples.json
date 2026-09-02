@@ -3,17 +3,16 @@
   "documentType": "component-examples",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "ready",
+    "status": "draft",
     "applicability": {
       "channels": [
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-04"
+      "updatedAt": "2026-09-02"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -30,350 +29,141 @@
   "manual": {
     "examples": [
       {
-        "exampleId": "filter-company-select.single-form",
-        "title": "Выбор одной компании в форме",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Single",
-          "platform": "desktop",
-          "View": "Select",
-          "ShowFirstCompany": "False"
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.single-filter",
-        "title": "Выбор одной компании в фильтрах",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Single",
-          "platform": "desktop",
-          "View": "FilterTag",
-          "ShowFirstCompany": "False"
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.single-compact-object-switcher",
-        "title": "Переключение отдельного объекта",
+        "exampleId": "filter-company-select.pass-public-single-compact",
+        "title": "PASS · Compact с выбранной компанией",
         "inputState": {
           "root": "[D] FilterCompanySelect_Single",
           "platform": "desktop",
           "View": "Compact",
-          "host": "TitleView or widget",
+          "Selected": "True",
           "ShowFirstCompany": "False"
         },
         "expectedAudit": {
           "category": "none"
-        }
+        },
+        "evidence": "predicate-release-service:C21 compact pass"
       },
       {
-        "exampleId": "filter-company-select.legacy-show-first-company",
-        "title": "Включён legacy-параметр ShowFirstCompany",
+        "exampleId": "filter-company-select.fail-internal-root",
+        "title": "FAIL · Вставлен внутренний CompactTag",
         "inputState": {
-          "root": "[D] FilterCompanySelect_Multi",
-          "ShowFirstCompany": "True"
+          "root": "[D] CompactTag",
+          "standalone": true,
+          "platform": "desktop"
         },
         "expectedAudit": {
-          "category": "customizations",
+          "category": "components",
           "severity": "error",
-          "ruleId": "component:web-corp.filter-company-select.show-first-company-forbidden"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.manual-root-width",
-        "title": "Ширина корня Single изменена вручную",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Single",
-          "width": 480,
-          "changedFromEffectiveBaseline": true
+          "ruleId": "component:web-corp.filter-company-select.public-roots-only"
         },
-        "expectedAudit": {
-          "category": "none"
-        }
+        "evidence": "predicate-release-service:C21 internal root"
       },
       {
-        "exampleId": "filter-company-select.invalid-root-opacity",
-        "title": "Вручную изменена прозрачность корня Single",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Single",
-          "property": "opacity",
-          "actual": 0.5,
-          "changedFromEffectiveBaseline": true
-        },
-        "expectedAudit": {
-          "category": "customizations",
-          "severity": "error",
-          "ruleId": "component:web-corp.filter-company-select.root-visuals-follow-effective-baseline"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.mobile-web",
-        "title": "Desktop-компонент использован на mobile-web",
+        "exampleId": "filter-company-select.fail-mobile-web",
+        "title": "FAIL · Desktop root использован на mobile-web",
         "inputState": {
           "root": "[D] FilterCompanySelect_Single",
           "platform": "mobile-web"
         },
         "expectedAudit": {
-          "category": "customizations",
+          "category": "components",
           "severity": "error",
           "ruleId": "component:web-corp.filter-company-select.desktop-only"
-        }
+        },
+        "evidence": "predicate-release-service:C21 platform"
       },
       {
-        "exampleId": "filter-company-select.multi-apply",
-        "title": "Multi применяет временный выбор",
+        "exampleId": "filter-company-select.fail-legacy-show-first-company",
+        "title": "FAIL · Включён legacy ShowFirstCompany",
         "inputState": {
           "root": "[D] FilterCompanySelect_Multi",
-          "temporarySelectionChanged": true,
-          "action": "Применить"
+          "platform": "desktop",
+          "ShowFirstCompany": "True"
         },
         "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.multi-close-cancels",
-        "title": "Закрытие Multi отменяет временные изменения",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Multi",
-          "temporarySelectionChanged": true,
-          "action": "close",
-          "committedSelectionChanged": false
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.multi-reset",
-        "title": "Сброс Multi сразу применяет пустое значение",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Multi",
-          "action": "Сбросить",
-          "committedValue": []
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.single-immediate",
-        "title": "Single сразу применяет выбранную компанию",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Single",
-          "action": "select-company-row",
-          "valueCommitted": true,
-          "Open": "False"
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.invalid-search-placeholder",
-        "title": "Изменён фиксированный placeholder поиска",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Multi",
-          "searchPlaceholder": "Найдите компанию"
-        },
-        "expectedAudit": {
-          "category": "customizations",
+          "category": "components",
           "severity": "error",
-          "ruleId": "component:web-corp.filter-company-select.search-contract"
-        }
+          "ruleId": "component:web-corp.filter-company-select.show-first-company-forbidden"
+        },
+        "evidence": "predicate-release-service:C21 legacy"
       },
       {
-        "exampleId": "filter-company-select.select-all-search-results",
-        "title": "Выбрать все после поиска",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Multi",
-          "searchApplied": true,
-          "visibleCompanyCount": 3,
-          "totalCompanyCount": 12,
-          "action": "Выбрать все",
-          "selectedCompanyCount": 3
-        },
-        "expectedAudit": {
-          "category": "none"
-        },
-        "mustNotSay": [
-          "Выбрать все всегда выбирает все компании холдинга независимо от поиска."
-        ]
-      },
-      {
-        "exampleId": "filter-company-select.single-filter-tag-clear",
-        "title": "Разрешённая очистка Single FilterTag",
+        "exampleId": "filter-company-select.fail-compact-without-selection",
+        "title": "FAIL · Compact без выбранной компании",
         "inputState": {
           "root": "[D] FilterCompanySelect_Single",
-          "View": "FilterTag",
-          "Selected": "True",
-          "action": "clear",
-          "result": {
-            "Selected": "False"
-          }
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.invalid-single-select-clear",
-        "title": "Очистка добавлена в Single Select",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Single",
-          "View": "Select",
-          "clearActionAvailable": true
-        },
-        "expectedAudit": {
-          "category": "customizations",
-          "severity": "error",
-          "ruleId": "component:web-corp.filter-company-select.single-clear-filter-tag-only"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.search-eleven-companies",
-        "title": "Поиск показан для 11 компаний",
-        "inputState": {
-          "companyCount": 11,
-          "searchVisible": true
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.invalid-search-ten-companies",
-        "title": "Поиск показан для 10 компаний",
-        "inputState": {
-          "companyCount": 10,
-          "searchVisible": true
-        },
-        "expectedAudit": {
-          "category": "customizations",
-          "severity": "error",
-          "ruleId": "component:web-corp.filter-company-select.search-visible-over-ten"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.single-select-optional-form",
-        "title": "Пустой Select в необязательном поле формы",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Single",
-          "View": "Select",
-          "formFieldRequired": false,
-          "Selected": "False"
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.invalid-compact-empty",
-        "title": "Compact без выбранной компании",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Single",
+          "platform": "desktop",
           "View": "Compact",
-          "Selected": "False"
+          "Selected": "False",
+          "ShowFirstCompany": "False"
         },
         "expectedAudit": {
-          "category": "customizations",
+          "category": "components",
           "severity": "error",
-          "ruleId": "component:web-corp.filter-company-select.empty-selection-by-view"
-        }
+          "ruleId": "component:web-corp.filter-company-select.single-compact-selected-required"
+        },
+        "evidence": "predicate-release-service:C21 compact fail"
       },
       {
-        "exampleId": "filter-company-select.select-all-partial",
-        "title": "Частично выбран текущий набор",
-        "inputState": {
-          "currentResultCount": 8,
-          "selectedFromCurrentResultCount": 3,
-          "selectAllState": "indeterminate"
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.runtime-company-data",
-        "title": "Реальные данные компании в макете",
-        "inputState": {
-          "companyName": "ООО «Ромашка»",
-          "inn": "7700000000",
-          "address": "Москва"
-        },
-        "expectedAudit": {
-          "category": "none"
-        },
-        "mustNotSay": [
-          "Название компании является запрещённым изменением фиксированного текста компонента."
-        ]
-      },
-      {
-        "exampleId": "filter-company-select.invalid-detach",
-        "title": "FilterCompanySelect detaching",
-        "inputState": {
-          "root": "detached [D] FilterCompanySelect_Multi"
-        },
-        "expectedAudit": {
-          "category": "customizations",
-          "severity": "error",
-          "ruleId": "component:web-corp.filter-company-select.preserve-library-composition"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.invalid-manual-radius",
-        "title": "Ручное изменение радиуса",
-        "inputState": {
-          "property": "radius",
-          "changedFromEffectiveBaseline": true
-        },
-        "expectedAudit": {
-          "category": "customizations",
-          "severity": "error",
-          "ruleId": "component:web-corp.filter-company-select.visuals-follow-effective-baseline"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.multi-all-available",
-        "title": "Выбраны все доступные компании",
-        "inputState": {
-          "root": "[D] FilterCompanySelect_Multi",
-          "availableCompanyCount": 25,
-          "selectedCompanyCount": 25
-        },
-        "expectedAudit": {
-          "category": "none"
-        }
-      },
-      {
-        "exampleId": "filter-company-select.invalid-single-two-companies",
-        "title": "В Single выбраны две компании",
+        "exampleId": "filter-company-select.fail-root-radius",
+        "title": "FAIL · Изменён radius public root",
         "inputState": {
           "root": "[D] FilterCompanySelect_Single",
-          "selectedCompanyCount": 2
+          "platform": "desktop",
+          "property": "radius",
+          "actual": 20,
+          "baseline": 12
         },
         "expectedAudit": {
-          "category": "customizations",
+          "category": "components",
           "severity": "error",
-          "ruleId": "component:web-corp.filter-company-select.selection-cardinality"
-        }
+          "ruleId": "component:web-corp.filter-company-select.root-visuals-follow-effective-baseline.radius"
+        },
+        "evidence": "predicate-release-service:C21 baseline"
       },
       {
-        "exampleId": "filter-company-select.no-results-delegated",
-        "title": "Нет результатов поиска",
+        "exampleId": "filter-company-select.not-evaluable-search-company-count",
+        "title": "NOT-EVALUABLE · Нет полного companyCount до поиска",
         "inputState": {
-          "searchResultCount": 0,
-          "stateOwner": "OptionList"
+          "root": "[D] FilterCompanySelect_Multi",
+          "searchVisible": true
         },
         "expectedAudit": {
-          "category": "none"
+          "category": "none",
+          "classification": "not-evaluable"
         },
-        "mustNotSay": [
-          "FilterCompanySelect требует собственный текст пустого результата."
-        ]
+        "evidence": "interaction/runtime fixture required"
+      },
+      {
+        "exampleId": "filter-company-select.interaction-multi-transaction",
+        "title": "INTERACTION · Multi apply / close / reset",
+        "inputState": {
+          "root": "[D] FilterCompanySelect_Multi",
+          "checks": [
+            "apply-commits",
+            "close-cancels",
+            "reset-commits-empty"
+          ]
+        },
+        "expectedAudit": {
+          "route": "interaction"
+        },
+        "evidence": "product interaction test required"
+      },
+      {
+        "exampleId": "filter-company-select.llm-holding-placement",
+        "title": "LLM · View и размещение в holding-сценарии",
+        "inputState": {
+          "root": "[D] FilterCompanySelect_Single",
+          "View": "Select",
+          "pageType": "form",
+          "holdingMode": "unknown"
+        },
+        "expectedAudit": {
+          "route": "llm-agent",
+          "classification": "not-evaluable-without-context"
+        },
+        "evidence": "holding-company-selection owner pattern"
       }
     ]
   }

@@ -3,14 +3,13 @@
   "documentType": "component-agent-context",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "ready",
+    "status": "draft",
     "applicability": {
       "channels": [
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
       "updatedAt": "2026-07-27"
@@ -216,69 +215,45 @@
   "manual": {
     "patternReferences": [
       {
+        "patternId": "ptrn:components.filter-company-select",
+        "file": "ds-ai-hub/products/ab/patterns/filter-company-select.md",
+        "sourceType": "human-semantic-authority",
+        "updatedAt": "2026-09-02"
+      },
+      {
         "patternId": "ptrn:flow.holding-company-selection",
-        "patternKey": "flow.holding-company-selection",
-        "file": "shared/design-system_ab/patterns/p_holding-company-selection.md",
-        "sourceType": "design-guideline",
-        "updatedAt": "2026-08-13"
+        "file": "ds-ai-hub/products/ab/patterns/holding-company-selection.md",
+        "sourceType": "scenario-owner",
+        "updatedAt": "2026-08-14"
       }
     ],
     "summary": {
       "componentFamily": "FilterCompanySelect",
       "library": "Web _ Corp Components",
-      "purpose": "FilterCompanySelect выбирает одну или несколько компаний в режиме холдинга. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из сгенерированного контекста."
+      "purpose": "Desktop-компонент режима холдинга для выбора одной или нескольких компаний. Human source определяет смысл; Apollo применяет только подтверждённые predicate и delegated routes."
     },
     "usageGuidance": [
-      "Если FilterCompanySelect используется для фильтрации внутри FilterBlock, размещай его как первый фильтр «Компания» в FilterBlock.tagLine независимо от типа страницы.",
-      "Для таблиц, которые могут показывать несколько компаний, используй [D] FilterCompanySelect_Multi как FilterTag :: Multi-Select.",
-      "Для таблиц, которые фильтруются одной компанией, используй [D] FilterCompanySelect_Single с View=FilterTag.",
-      "В форме используй [D] FilterCompanySelect_Single с View=Select для выбора компании, от которой заполняется форма.",
-      "В TitleView.Holding используй [D] FilterCompanySelect_Single с View=Compact.",
-      "В Multi «Выбрать все» выбирает текущий набор: результаты применённого поиска либо полный список.",
-      "В Multi одна выбранная компания показывается названием, несколько — счётчиком «выбрано N»; в Single пустое значение отображается как «Выберите компанию».",
-      "Подписи «Компания», «Выбрать все», «Применить» и «Сбросить» фиксированы.",
-      "Поиск показывается только при количестве компаний больше 10.",
-      "Очистка Single разрешена только в View=FilterTag и сразу возвращает Selected=False.",
-      "Состояния триггеров и списка наследуются от Select, FilterTag и OptionList-компонентов.",
-      "Ширину корня и dropdown можно менять вручную, но внутренняя геометрия наследуется от вложенных компонентов.",
-      "Пустой выбор допустим в Multi и Single/FilterTag; в Single/Select зависит от формы; в Single/Compact запрещён.",
-      "Оба public root остаются библиотечными instance; detach и swap внутренних частей запрещены.",
-      "Названия компаний, ИНН и адреса принадлежат runtime; реальные примеры в макете разрешены.",
-      "«Выбрать все» следует tri-state модели CheckboxLabel_24 для текущего набора.",
-      "Кроме ширины, визуальные и внутренние layout-параметры сохраняют effective baseline вложенных компонентов.",
-      "FilterCompanySelect_UniversalModal — связанный с режимом холдинга, но отдельный package для использования внутри UniversalModal.",
-      "Empty/no-results, hover, focus, keyboard и disabled делегированы продукту или вложенным компонентам.",
-      "Multi допускает 0…все доступные компании; Single — максимум одну.",
-      "Не выводи нарушение по backlog-сценариям холдинга без отдельного exact rule."
+      "Публичны только [D] FilterCompanySelect_Multi и [D] FilterCompanySelect_Single; скрытая [MW] секция не является mobile API.",
+      "ShowFirstCompany всегда False. Single + View=Compact всегда требует Selected=True.",
+      "Root.width и dropdown.width можно менять независимо; остальные visual/layout свойства принадлежат effective baseline владельца.",
+      "Selected-value display принадлежит Select, FilterTag и CompactTag; company name, ИНН и address — runtime-content.",
+      "Multi transaction, Single immediate selection, search scope, select-all и clear требуют interaction/runtime facts; без них verdict not-evaluable.",
+      "View/размещение для form/table/FilterBlock/TitleView принадлежат holding-company-selection.",
+      "Не выводи package, import, props или callbacks: прямой Code Connect отсутствует."
     ],
     "ruleHighlights": [
       "component:web-corp.filter-company-select.public-roots-only",
       "component:web-corp.filter-company-select.desktop-only",
       "component:web-corp.filter-company-select.show-first-company-forbidden",
-      "component:web-corp.filter-company-select.filterblock-company-first",
-      "component:web-corp.filter-company-select.table-multi-uses-multi-filtertag",
-      "component:web-corp.filter-company-select.table-single-uses-single-filtertag",
-      "component:web-corp.filter-company-select.form-uses-select-view",
-      "component:web-corp.filter-company-select.titleview-uses-compact-view",
-      "component:web-corp.filter-company-select.select-all-current-results",
-      "component:web-corp.filter-company-select.single-clear-filter-tag-only",
-      "component:web-corp.filter-company-select.preserve-library-composition",
-      "component:web-corp.filter-company-select.select-all-checkbox-state",
-      "component:web-corp.filter-company-select.visuals-follow-effective-baseline",
-      "component:web-corp.filter-company-select.selection-cardinality"
+      "component:web-corp.filter-company-select.root-visuals-follow-effective-baseline",
+      "component:web-corp.filter-company-select.single-compact-selected-required"
     ],
     "agentInstructions": [
-      "Не заставляй «Выбрать все» игнорировать применённый поиск.",
-      "Не добавляй очистку Single в Select или Compact.",
-      "Не придумывай отдельные loading, disabled, error или empty states поверх контрактов вложенных Select, FilterTag и OptionList-компонентов.",
-      "Не меняй канонический порядок слов счётчика «выбрано N».",
-      "Не показывай поиск при 10 компаниях или меньше и не скрывай его при количестве больше 10.",
-      "Не считай ручное изменение ширины нарушением само по себе; проверяй отдельно внутреннюю геометрию.",
-      "Не предлагай detach, замену DropdownList/OptionList или instance swap служебных частей.",
-      "Не трактуй реальные названия компаний в макете как изменение фиксированного компонентного текста.",
-      "Не разрешай ручные визуальные overrides под видом настройки runtime-контента.",
-      "Не включай FilterCompanySelect_UniversalModal в public roots текущего package.",
-      "Не придумывай собственные empty/no-results или keyboard rules, если их нет в контракте владельца вложенного компонента."
+      "Не создавай finding при отсутствии runtime или interaction facts.",
+      "Не дублируй сценарные ошибки form/table/TitleView/FilterBlock как правила FilterCompanySelect.",
+      "Не проверяй selected value по локальной формуле: делегируй Select, FilterTag и CompactTag.",
+      "Не считай lifecycle самостоятельным design violation.",
+      "Не рассматривай FilterCompanySelect_UniversalModal как public root текущего package."
     ],
     "unresolvedQuestions": [],
     "auditInterpretation": {

@@ -2,105 +2,2418 @@
   "schemaVersion": "apollo.rule-crosswalk.v2",
   "description": "Проверенный мост между исполняемыми RuleID Apollo и человекочитаемыми источниками ds-ai-hub. Идентификаторы намеренно не дублируются: одно human-правило может иметь несколько технических реализаций, а часть технических правил не требует отдельной политики для человека.",
   "documents": {
-    "amountPattern": { "path": "products/ab/patterns/amount_component.md" },
-    "amountInstructions": { "path": "products/ab/components/amount-styles/instructions.md" },
-    "amountCookbook": { "path": "products/ab/components/amount-styles/cookbook/02-build.md" },
-    "amountAdapter": { "path": "products/ab/components/amount-styles/adapter.figma.md" },
-    "paymentMaskedNumberPattern": { "path": "products/ab/patterns/payment-masked-number.md" },
-    "paymentMaskedNumberInstructions": { "path": "products/ab/components/payment-masked-number/instructions.md" },
-    "contentCardWrapperPattern": { "path": "products/ab/patterns/content-card-wrapper.md" }
+    "amountPattern": {
+      "path": "products/ab/patterns/amount_component.md"
+    },
+    "amountInstructions": {
+      "path": "products/ab/components/amount-styles/instructions.md"
+    },
+    "amountCookbook": {
+      "path": "products/ab/components/amount-styles/cookbook/02-build.md"
+    },
+    "amountAdapter": {
+      "path": "products/ab/components/amount-styles/adapter.figma.md"
+    },
+    "paymentMaskedNumberPattern": {
+      "path": "products/ab/patterns/payment-masked-number.md"
+    },
+    "paymentMaskedNumberInstructions": {
+      "path": "products/ab/components/payment-masked-number/instructions.md"
+    },
+    "contentCardWrapperPattern": {
+      "path": "products/ab/patterns/content-card-wrapper.md"
+    },
+    "filterCompanySelectPattern": {
+      "path": "products/ab/patterns/filter-company-select.md"
+    },
+    "filterCompanySelectInstructions": {
+      "path": "products/ab/components/filter-company-select/instructions.md"
+    },
+    "holdingCompanySelectionPattern": {
+      "path": "products/ab/patterns/holding-company-selection.md"
+    }
   },
   "entries": [
-    { "apolloRuleId": "component:web-corp.amount-styles.locked-components-are-figma-only-presets", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "AmountStyles preset", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Анатомия и defaults" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Human-инструкция описывает состав и defaults; техническое правило определяет Figma-only классификацию." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.operation-is-internal", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "nested Operation", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Анатомия и defaults" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Operation описан как часть nested Core Amount, не public preset property." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.parts-default-visibility", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Amount parts defaults", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Анатомия и defaults" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Документация задаёт default visibility частей." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.major-is-required", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "AmountStyles host composition", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.major-required", "heading": "Rule 1: Сохраняй Major обязательным" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Техническая декомпозиция совпадает с human-политикой обязательного Major." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.math-space-is-required", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "conflict", "enforcementScope": "Major value formatting", "hubEvidence": [{ "kind": "section", "document": "amountCookbook", "heading": "5. Тексты", "note": "Пример использует U+2009." }, { "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.math-space", "heading": "Rule 6: Используй математический пробел между разрядами", "note": "Примеры используют U+205F." }], "review": { "status": "conflict", "reviewedAt": "2026-08-31", "basis": "Источники расходятся по коду Unicode; правило не Missing и требует решения владельца DS." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.math-minus-is-required", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "negative amount value", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.math-minus", "heading": "Rule 7: Используй математический минус" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и техническая проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.addon-uses-supported-components", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Addon slot", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Анатомия и defaults" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Human-инструкция разрешает в Addon только IconView и StatusBadge." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.addon-does-not-exceed-text-line-height", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Addon geometry", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Анатомия и defaults" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Инструкция ограничивает размер Addon высотой строки текста." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.parts-share-color", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Amount text parts", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Цвет и акцент" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Все текстовые части должны использовать один цветовой токен." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.addon-keeps-own-contextual-colors", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Addon nested component", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Цвет и акцент" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "IconView и StatusBadge сохраняют собственные контекстные цвета." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.positive-color-context", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "positive amount context", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.positive-color-context", "heading": "Rule 8: Используй text/positive только для пополнений в таблицах и табличных списках" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.contextual-color-token-is-allowed", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Amount text parts", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Цвет и акцент" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Разрешена синхронная смена всех текстовых частей на один контекстный токен." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.opacity-is-forbidden", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "AmountStyles nested layer override", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.no-opacity", "heading": "Rule 5: Не используй opacity для Minor и Currency" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Human-политика запрещает opacity у Minor и Currency; Apollo проверяет layer override." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.opacity-property-is-forbidden", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "AmountStyles nested component property", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.no-opacity", "heading": "Rule 5: Не используй opacity для Minor и Currency" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "То же human-правило; Apollo отдельно проверяет component property Opacity." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.style-is-context-controlled", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Style property", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Выбор пресета и Style" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Style выбирается контекстом и задаёт стиль всей суммы." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.style-is-component-property", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "technical-only", "enforcementScope": "Apollo customization classification", "hubEvidence": [], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Техническая классификация отчёта, отдельное human-правило не требуется." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.geometry-follows-effective-baseline", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Amount geometry", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Анатомия и defaults" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Геометрия должна следовать effective baseline Style." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.currency-type-is-component-property", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Currency type", "hubEvidence": [{ "kind": "section", "document": "amountCookbook", "heading": "5. Тексты" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "В cookbook предписано выбирать штатный Currency.Type." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.negative-uses-primary", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "negative amount color", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.negative-primary", "heading": "Rule 9: Не окрашивай списания в красный" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.table-align-right", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "table amount alignment", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.table-align-right", "heading": "Rule 10: В таблицах выравнивай Amount по правому краю" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.table-weight-follows-role", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "table amount weight", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.table-weight", "heading": "Rule 11: Настраивай начертание Amount в таблицах по роли значения" }, { "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.table-list-weight", "heading": "Rule 15: В табличных списках различай общую сумму и остальные суммы" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Одна техническая проверка агрегирует две human-политики роли суммы." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.table-currency-not-duplicated", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "single-currency table column", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.table-currency-not-duplicated", "heading": "Rule 12: Не дублируй валюту, если она вынесена в заголовок" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.table-bulk-actions-neutral", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "TableBulkActions", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.table-bulk-actions", "heading": "Rule 13: В TableBulkActions не используй знаки и цвет операции" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.steps-use-regular", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Steps context", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.steps-regular", "heading": "Rule 14: В steps предпочитай Regular" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Policy has same recommended severity semantics." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.side-panel-matches-source", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "side panel context", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.side-panel-match-source", "heading": "Rule 16: В сайд-панели повторяй формат со страницы" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.platform-preset-matches-channel", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Apollo platform resolution", "hubEvidence": [{ "kind": "section", "document": "amountAdapter", "heading": "Public boundary" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Figma adapter явно связывает desktop/mobile-web с public preset roots; Apollo делает эту границу исполняемой." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.amount-stays-on-one-line", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Amount layout", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Layout, states и interaction" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Документация требует одну строку и запрещает ручное сокращение." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.has-no-own-system-states", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "AmountStyles states", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Layout, states и interaction" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Human-документация запрещает собственные системные состояния." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.clickability-is-context-controlled", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Amount interaction", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Layout, states и interaction" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Кликабельность определяется контекстом." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.manual-interactive-decoration-is-forbidden", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Amount interaction decoration", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Layout, states и interaction" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Human-документация запрещает manual underline, фон и эффекты." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.amount-input-uses-core-amount", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "AmountInput composition", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Когда не использовать" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Для AmountInput human-инструкция предписывает Core Amount." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.optional-parts-can-coexist", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Amount optional parts", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.optional-parts", "heading": "Rule 3: Подключай Minor, Currency и Addon как опциональные части" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.container-provides-single-line-width", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Amount container layout", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Layout, states и interaction" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Контейнер обязан дать ширину, при нехватке клипует Amount." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.addon-action-matches-amount", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "interactive Addon", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Layout, states и interaction" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Интерактивный Addon внутри кликабельного Amount должен выполнять то же действие." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.minor-has-one-or-two-digits", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "Minor value", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Значение" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Документация ограничивает Minor одним или двумя знаками." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.zero-format", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "zero value", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Значение" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Допустимые форматы нуля перечислены в human-документации." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.unknown-value-uses-separate-placeholder", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "technical-only", "enforcementScope": "Apollo unknown-value classification", "hubEvidence": [], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Отдельная техническая классификация placeholder; явной human-политики пока нет." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.ru-format", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-support", "enforcementScope": "ru-RU amount formatting", "hubEvidence": [{ "kind": "section", "document": "amountInstructions", "heading": "Значение" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Инструкция задаёт запятую, математические знаки и формат дробной части; точный пробел вынесен в отдельный конфликт." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.round-to-two-minor-digits", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Minor rounding", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.round-to-two-minor-digits", "heading": "Rule 17: Округляй дробную часть до двух знаков" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.fixed-part-order", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Amount parts order", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.fixed-part-order", "heading": "Rule 18: Сохраняй фиксированный порядок частей" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.monetary-values-only", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Amount semantic usage", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.monetary-values-only", "heading": "Rule 19: Используй Amount для денежных значений" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.major-max-13-digits", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Major value", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.major-max-13-digits", "heading": "Rule 20: Ограничивай Major 13 символами" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.operation-negative-is-part-property", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Operation negative property", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.operation-negative", "heading": "Rule 2: Настраивай Operation через Negative" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.parts-share-text-style", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Amount text parts", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.same-text-style-for-parts", "heading": "Rule 4: Используй один text style для всех текстовых частей Amount" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Политика и проверка совпадают." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "technical-only", "enforcementScope": "Apollo customization classification", "hubEvidence": [], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Техническая классификация свойства отчёта, отдельная human-политика не требуется." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "technical-only", "enforcementScope": "Apollo customization classification", "hubEvidence": [], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Техническая классификация свойства отчёта, отдельная human-политика не требуется." } },
-    { "apolloRuleId": "component:web-corp.amount-styles.manual-text-style-is-layer-property", "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json", "relation": "technical-only", "enforcementScope": "Apollo customization classification", "hubEvidence": [], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Техническая классификация свойства отчёта; запрет ручного text style описан в section-only источнике." } },
-    { "apolloRuleId": "component:web-core.amount.opacity-is-forbidden", "apolloSource": "JSONS/web/components/web-core/core/Amount/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Amount public component layer override", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.no-opacity", "heading": "Rule 5: Не используй opacity для Minor и Currency" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Одна human-политика применима к Core Amount; RuleID разделены по owner и focus." } },
-    { "apolloRuleId": "component:web-core.amount.opacity-property-is-forbidden", "apolloSource": "JSONS/web/components/web-core/core/Amount/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Amount public component property", "hubEvidence": [{ "kind": "named-rule", "document": "amountPattern", "ruleId": "rule:components.amount.no-opacity", "heading": "Rule 5: Не используй opacity для Minor и Currency" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Одна human-политика применима к Core Amount; RuleID разделены по owner и focus." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.public-root-only", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "exact", "enforcementScope": "PaymentMaskedNumber public boundary", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.public-root-only", "heading": "Rule 1: Используй только публичный PaymentMaskedNumber" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Human rule и public-root predicate запрещают самостоятельное использование Major, Minor, RightAddon и SwapMe." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.unmasked-major-format", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Unmasked Major text formatting", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.number-format", "heading": "Rule 2: Используй математические пробелы и штатную группировку" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Одна human-политика разложена на отдельные проверки Major и Minor; Major проверяет обе допустимые группировки и U+205F." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.minor-last-four-digits", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Minor last four digits", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.number-format", "heading": "Rule 2: Используй математические пробелы и штатную группировку" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Техническая проверка отдельно подтверждает четыре цифры Minor как часть одной human-политики формата." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.mask-format", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "exact", "enforcementScope": "Masked Major text formatting", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.mask-format", "heading": "Rule 3: Сохраняй штатный формат маски" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Human rule и predicate требуют `·· ` при Mask Number=True." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.parts-share-color-token", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "exact", "enforcementScope": "Major and Minor color token", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.parts-share-color-token", "heading": "Rule 4: Используй один цветовой токен для Major и Minor" }], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Human rule разрешает любой общий токен; predicate проверяет bound token и равенство обеих частей без требования default baseline." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "semantic-equivalent", "enforcementScope": "PaymentMaskedNumber Addon slot", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.addon-uses-final-component", "heading": "Rule 5: Не оставляй служебный SwapMe в Addon" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Predicate проверяет доказуемую часть правила: видимый Addon содержит финальный вложенный компонент и не содержит служебный SwapMe. Семантическая пригодность выбранного финального компонента остаётся контекстной проверкой." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.addon-geometry", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "exact", "enforcementScope": "PaymentMaskedNumber Addon geometry", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.addon-geometry", "heading": "Rule 6: Сохраняй геометрию Addon" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Predicate использует универсальные sibling-факты снимка: горизонтальный gap до Addon равен 4 px, высота Addon не больше line-height предыдущей текстовой части номера." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.typography-follows-effective-pair", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Major and Minor effective-baseline typography", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.typography-pair", "heading": "Rule 7: Сохраняй типографическую пару Major и Minor" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Одна human policy разложена на baseline-pair и binding predicates; эта проверка сравнивает каждый слой с его effective baseline." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.text-style-binding-required", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Major and Minor published text-style binding", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.typography-pair", "heading": "Rule 7: Сохраняй типографическую пару Major и Minor" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Вторая техническая часть human policy запрещает raw typography и требует published Figma Text Style." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.narrow-overflow-preserves-last-four", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "exact", "enforcementScope": "PaymentMaskedNumber narrow container", "hubEvidence": [{ "kind": "named-rule", "document": "paymentMaskedNumberPattern", "ruleId": "rule:components.payment-masked-number.narrow-overflow", "heading": "Rule 8: Сохраняй последние четыре цифры при overflow" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Human и Apollo context rule требуют одну строку, ellipsis до Minor и сохранение последних четырёх цифр." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.interaction-and-states-are-contextual", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "semantic-support", "enforcementScope": "PaymentMaskedNumber states and interaction", "hubEvidence": [{ "kind": "section", "document": "paymentMaskedNumberPattern", "heading": "Interaction и состояния" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Human section и Apollo context rule фиксируют отсутствие собственных system states и контекстную кликабельность." } },
-    { "apolloRuleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational", "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json", "relation": "technical-only", "enforcementScope": "Apollo lifecycle classification", "hubEvidence": [], "review": { "status": "verified", "reviewedAt": "2026-08-31", "basis": "Техническая классификация статуса package; отдельная human-политика не требуется." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.public-root-only", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "semantic-support", "enforcementScope": "ContentCardWrapper public boundary", "hubEvidence": [{ "kind": "section", "document": "contentCardWrapperPattern", "heading": "Section 5: Структура текста" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Технический public-root predicate защищает описанную в human-документе публичную структуру от самостоятельного использования slots и SwapMe." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.slot-placeholder-must-be-replaced", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "semantic-equivalent", "enforcementScope": "visible LeftSlot, ContentPresets and StatusSlot placeholder", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.left-slot-selection", "heading": "Rule 13: LeftSlot выбирает карточку" }, { "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.content-presets-semantics", "heading": "Rule 21: Используй ContentPresets по роли текста" }, { "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.status-slot-content", "heading": "Rule 24: Ограничивай содержимое StatusSlot" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Точная общая часть трёх human-правил вынесена в один атомарный predicate: видимый slot не может содержать служебный SwapMe. Выбор допустимого финального компонента остаётся отдельной semantic/context проверкой." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.homogeneous-items", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "card collection semantics", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.homogeneous-items", "heading": "Rule 1: Используй одинаковую структуру для однотипных сущностей" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Rule перенесён без изменения семантики; для verdict нужны semantic facts или агент." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.entity-collection-context", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "component usage context", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.entity-collection-context", "heading": "Rule 2: Используй компонент для однородного набора сущностей" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Rule сохранён как contextual/LLM policy до появления факта назначения экрана." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.entity-differentiation", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "entity identifying fields", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.entity-differentiation", "heading": "Rule 3: Показывай уникальные параметры сущности" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Rule сохранён как LLM policy: raw snapshot не знает бизнес-семантику текста." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.skeleton-variant", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Skeleton and State component properties", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.skeleton-variant", "heading": "Rule 4: Собирай loading через Skeleton=True" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Predicate проверяет опубликованный домен State и независимость Skeleton; interaction facet остаётся coverage gap." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.empty-placeholder-add", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "Empty flow", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.empty-placeholder-add", "heading": "Rule 5: Используй Empty только при отсутствии карточек" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Rule сохранён, но требует facts о количестве карточек и поведении add." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.interaction-priority", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "root and slot interactions", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.interaction-priority", "heading": "Rule 6: Соблюдай приоритет взаимодействий карточки и slots" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Interaction behavior is not represented in the current snapshot." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.right-slot-actions", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "RightSlot actions", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.right-slot-actions", "heading": "Rule 7: Ограничивай действия в RightSlot" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Semantic cardinality and selected component facts must be emitted before deterministic enforcement." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.mobile-right-slot-allowed", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "MobileWeb RightSlot policy", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.mobile-right-slot-allowed", "heading": "Rule 8: Разрешай RightSlot на MobileWeb по общему контракту" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires adaptive and interaction context." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.disabled-is-view-only", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "Disabled interaction policy", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.disabled-is-view-only", "heading": "Rule 9: В Disabled нельзя добавлять, изменять и выбирать карточки" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires interaction and page view-only facts." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.disabled-not-style", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "Disabled semantics", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.disabled-not-style", "heading": "Rule 10: Не используй Disabled как другой стиль карточки" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires selection and interaction semantics." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.desktop-horizontal-mobile-vertical", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "responsive layout semantics", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.desktop-horizontal-mobile-vertical", "heading": "Rule 11: Разводи Desktop и MobileWeb раскладку" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Needs semantic layout segments, not only raw auto-layout values." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.title-text-style-by-platform", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "semantic-equivalent", "enforcementScope": "Title platform typography", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.title-text-style-by-platform", "heading": "Rule 12: Используй платформенный стиль заголовка" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Delegated to text-style-immutable: effective baseline already resolves the platform-specific title style." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.left-slot-selection", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "LeftSlot interaction", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.left-slot-selection", "heading": "Rule 13: LeftSlot выбирает карточку" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires selected component and interaction facts." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.edge-padding-immutable", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "root edge padding baseline", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.edge-padding-immutable", "heading": "Rule 14: Не меняй отступы до краёв карточки" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Baseline-set predicate checks the root edge padding for the current variant." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.background-plate-level-by-platform", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "nested BackgroundPlate level", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.background-plate-level-by-platform", "heading": "Rule 15: Не меняй уровень BackgroundPlate" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Context-map predicate resolves the nested BackgroundPlate level by page platform; surface ancestor is a documented coverage gap." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.text-style-immutable", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "text effective baseline", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.text-style-immutable", "heading": "Rule 16: Не меняй стили типографики текстовых элементов" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Baseline-set predicate evaluates all visible text descendants." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.inside-background-plate", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "surface composition", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.inside-background-plate", "heading": "Rule 17: Соблюдай платформенную surface-композицию" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires surface ancestor and positioning semantics." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.modal-subflow-optimization", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "modal subflow", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.modal-subflow-optimization", "heading": "Rule 18: Выноси повторяющиеся данные в модальный подсценарий" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires flow and interaction semantics." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.required-anatomy", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "card anatomy", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.required-anatomy", "heading": "Rule 19: Сохраняй обязательную anatomy карточки" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Needs semantic slot-visibility facts beyond raw node visibility." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.middle-content-capacity-and-connection", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "MiddleContentSlot Capacity and Connected", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.middle-content-capacity-and-connection", "heading": "Rule 20: Не превышай Capacity MiddleContentSlot" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Needs ContentPresets cardinality fact from semantic snapshot." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.content-presets-semantics", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "ContentPresets semantic roles", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.content-presets-semantics", "heading": "Rule 21: Используй ContentPresets по роли текста" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires content semantic-role fact or agent classification." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.error-required-card-validation", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "Error validation flow", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.error-required-card-validation", "heading": "Rule 22: Используй Error только для ошибки обязательного набора" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires validation trigger and collection semantics." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.layer-properties-use-effective-baseline", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "visible non-text layer baseline", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.layer-properties-use-effective-baseline", "heading": "Rule 23: Не отклоняйся от component baseline" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Baseline-set predicate evaluates visible layer properties separately from typography." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.status-slot-content", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "StatusSlot contents", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.status-slot-content", "heading": "Rule 24: Ограничивай содержимое StatusSlot" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires selected component and slot cardinality semantic facts." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.inter-item-gap-tokenized", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "inter-item gap token binding", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.inter-item-gap-tokenized", "heading": "Rule 25: Настраивай интервалы только токенами" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Fact-assertion predicate requires a bound spacing token for visible owned auto-layout gaps." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.desktop-mobile-content-parity", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "Desktop/MobileWeb parity", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.desktop-mobile-content-parity", "heading": "Rule 26: Сохраняй смысловое D/M-соответствие" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires cross-platform entity identity and semantic role facts." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.delete-action-rightmost", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "delete action order", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.delete-action-rightmost", "heading": "Rule 27: Располагай удаление справа" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires action semantics and visual order fact." } },
-    { "apolloRuleId": "component:web-corp.content-card-wrapper.notification-after-create", "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json", "relation": "exact", "enforcementScope": "post-create notification", "hubEvidence": [{ "kind": "named-rule", "document": "contentCardWrapperPattern", "ruleId": "rule:components.content-card-wrapper.notification-after-create", "heading": "Rule 28: Показывай Notification после создания по контексту" }], "review": { "status": "verified", "reviewedAt": "2026-09-01", "basis": "Requires notification trigger and product-flow facts." } }
-  ]
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.locked-components-are-figma-only-presets",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "AmountStyles preset",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Анатомия и defaults"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Human-инструкция описывает состав и defaults; техническое правило определяет Figma-only классификацию."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.operation-is-internal",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "nested Operation",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Анатомия и defaults"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Operation описан как часть nested Core Amount, не public preset property."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.parts-default-visibility",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Amount parts defaults",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Анатомия и defaults"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Документация задаёт default visibility частей."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.major-is-required",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "AmountStyles host composition",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.major-required",
+          "heading": "Rule 1: Сохраняй Major обязательным"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Техническая декомпозиция совпадает с human-политикой обязательного Major."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.math-space-is-required",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "conflict",
+      "enforcementScope": "Major value formatting",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountCookbook",
+          "heading": "5. Тексты",
+          "note": "Пример использует U+2009."
+        },
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.math-space",
+          "heading": "Rule 6: Используй математический пробел между разрядами",
+          "note": "Примеры используют U+205F."
+        }
+      ],
+      "review": {
+        "status": "conflict",
+        "reviewedAt": "2026-08-31",
+        "basis": "Источники расходятся по коду Unicode; правило не Missing и требует решения владельца DS."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.math-minus-is-required",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "negative amount value",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.math-minus",
+          "heading": "Rule 7: Используй математический минус"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и техническая проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.addon-uses-supported-components",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Addon slot",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Анатомия и defaults"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Human-инструкция разрешает в Addon только IconView и StatusBadge."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.addon-does-not-exceed-text-line-height",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Addon geometry",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Анатомия и defaults"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Инструкция ограничивает размер Addon высотой строки текста."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.parts-share-color",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Amount text parts",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Цвет и акцент"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Все текстовые части должны использовать один цветовой токен."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.addon-keeps-own-contextual-colors",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Addon nested component",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Цвет и акцент"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "IconView и StatusBadge сохраняют собственные контекстные цвета."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.positive-color-context",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "positive amount context",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.positive-color-context",
+          "heading": "Rule 8: Используй text/positive только для пополнений в таблицах и табличных списках"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.contextual-color-token-is-allowed",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Amount text parts",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Цвет и акцент"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Разрешена синхронная смена всех текстовых частей на один контекстный токен."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.opacity-is-forbidden",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "AmountStyles nested layer override",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.no-opacity",
+          "heading": "Rule 5: Не используй opacity для Minor и Currency"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Human-политика запрещает opacity у Minor и Currency; Apollo проверяет layer override."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.opacity-property-is-forbidden",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "AmountStyles nested component property",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.no-opacity",
+          "heading": "Rule 5: Не используй opacity для Minor и Currency"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "То же human-правило; Apollo отдельно проверяет component property Opacity."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.style-is-context-controlled",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Style property",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Выбор пресета и Style"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Style выбирается контекстом и задаёт стиль всей суммы."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.style-is-component-property",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "technical-only",
+      "enforcementScope": "Apollo customization classification",
+      "hubEvidence": [],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Техническая классификация отчёта, отдельное human-правило не требуется."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.geometry-follows-effective-baseline",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Amount geometry",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Анатомия и defaults"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Геометрия должна следовать effective baseline Style."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.currency-type-is-component-property",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Currency type",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountCookbook",
+          "heading": "5. Тексты"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "В cookbook предписано выбирать штатный Currency.Type."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.negative-uses-primary",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "negative amount color",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.negative-primary",
+          "heading": "Rule 9: Не окрашивай списания в красный"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.table-align-right",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "table amount alignment",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.table-align-right",
+          "heading": "Rule 10: В таблицах выравнивай Amount по правому краю"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.table-weight-follows-role",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "table amount weight",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.table-weight",
+          "heading": "Rule 11: Настраивай начертание Amount в таблицах по роли значения"
+        },
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.table-list-weight",
+          "heading": "Rule 15: В табличных списках различай общую сумму и остальные суммы"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Одна техническая проверка агрегирует две human-политики роли суммы."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.table-currency-not-duplicated",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "single-currency table column",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.table-currency-not-duplicated",
+          "heading": "Rule 12: Не дублируй валюту, если она вынесена в заголовок"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.table-bulk-actions-neutral",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "TableBulkActions",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.table-bulk-actions",
+          "heading": "Rule 13: В TableBulkActions не используй знаки и цвет операции"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.steps-use-regular",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Steps context",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.steps-regular",
+          "heading": "Rule 14: В steps предпочитай Regular"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Policy has same recommended severity semantics."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.side-panel-matches-source",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "side panel context",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.side-panel-match-source",
+          "heading": "Rule 16: В сайд-панели повторяй формат со страницы"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.platform-preset-matches-channel",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Apollo platform resolution",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountAdapter",
+          "heading": "Public boundary"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Figma adapter явно связывает desktop/mobile-web с public preset roots; Apollo делает эту границу исполняемой."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.amount-stays-on-one-line",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Amount layout",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Layout, states и interaction"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Документация требует одну строку и запрещает ручное сокращение."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.has-no-own-system-states",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "AmountStyles states",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Layout, states и interaction"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Human-документация запрещает собственные системные состояния."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.clickability-is-context-controlled",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Amount interaction",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Layout, states и interaction"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Кликабельность определяется контекстом."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.manual-interactive-decoration-is-forbidden",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Amount interaction decoration",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Layout, states и interaction"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Human-документация запрещает manual underline, фон и эффекты."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.amount-input-uses-core-amount",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "AmountInput composition",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Когда не использовать"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Для AmountInput human-инструкция предписывает Core Amount."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.optional-parts-can-coexist",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Amount optional parts",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.optional-parts",
+          "heading": "Rule 3: Подключай Minor, Currency и Addon как опциональные части"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.container-provides-single-line-width",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Amount container layout",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Layout, states и interaction"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Контейнер обязан дать ширину, при нехватке клипует Amount."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.addon-action-matches-amount",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "interactive Addon",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Layout, states и interaction"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Интерактивный Addon внутри кликабельного Amount должен выполнять то же действие."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.minor-has-one-or-two-digits",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Minor value",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Значение"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Документация ограничивает Minor одним или двумя знаками."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.zero-format",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "zero value",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Значение"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Допустимые форматы нуля перечислены в human-документации."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.unknown-value-uses-separate-placeholder",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "technical-only",
+      "enforcementScope": "Apollo unknown-value classification",
+      "hubEvidence": [],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Отдельная техническая классификация placeholder; явной human-политики пока нет."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.ru-format",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "ru-RU amount formatting",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "amountInstructions",
+          "heading": "Значение"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Инструкция задаёт запятую, математические знаки и формат дробной части; точный пробел вынесен в отдельный конфликт."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.round-to-two-minor-digits",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Minor rounding",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.round-to-two-minor-digits",
+          "heading": "Rule 17: Округляй дробную часть до двух знаков"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.fixed-part-order",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Amount parts order",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.fixed-part-order",
+          "heading": "Rule 18: Сохраняй фиксированный порядок частей"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.monetary-values-only",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Amount semantic usage",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.monetary-values-only",
+          "heading": "Rule 19: Используй Amount для денежных значений"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.major-max-13-digits",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Major value",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.major-max-13-digits",
+          "heading": "Rule 20: Ограничивай Major 13 символами"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.operation-negative-is-part-property",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Operation negative property",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.operation-negative",
+          "heading": "Rule 2: Настраивай Operation через Negative"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.parts-share-text-style",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Amount text parts",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.same-text-style-for-parts",
+          "heading": "Rule 4: Используй один text style для всех текстовых частей Amount"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Политика и проверка совпадают."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "technical-only",
+      "enforcementScope": "Apollo customization classification",
+      "hubEvidence": [],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Техническая классификация свойства отчёта, отдельная human-политика не требуется."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "technical-only",
+      "enforcementScope": "Apollo customization classification",
+      "hubEvidence": [],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Техническая классификация свойства отчёта, отдельная human-политика не требуется."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.amount-styles.manual-text-style-is-layer-property",
+      "apolloSource": "JSONS/web/components/web-corp/AmountStyles/rules.json",
+      "relation": "technical-only",
+      "enforcementScope": "Apollo customization classification",
+      "hubEvidence": [],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Техническая классификация свойства отчёта; запрет ручного text style описан в section-only источнике."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-core.amount.opacity-is-forbidden",
+      "apolloSource": "JSONS/web/components/web-core/core/Amount/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Amount public component layer override",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.no-opacity",
+          "heading": "Rule 5: Не используй opacity для Minor и Currency"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Одна human-политика применима к Core Amount; RuleID разделены по owner и focus."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-core.amount.opacity-property-is-forbidden",
+      "apolloSource": "JSONS/web/components/web-core/core/Amount/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Amount public component property",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "amountPattern",
+          "ruleId": "rule:components.amount.no-opacity",
+          "heading": "Rule 5: Не используй opacity для Minor и Currency"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Одна human-политика применима к Core Amount; RuleID разделены по owner и focus."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.public-root-only",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "exact",
+      "enforcementScope": "PaymentMaskedNumber public boundary",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.public-root-only",
+          "heading": "Rule 1: Используй только публичный PaymentMaskedNumber"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Human rule и public-root predicate запрещают самостоятельное использование Major, Minor, RightAddon и SwapMe."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.unmasked-major-format",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Unmasked Major text formatting",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.number-format",
+          "heading": "Rule 2: Используй математические пробелы и штатную группировку"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Одна human-политика разложена на отдельные проверки Major и Minor; Major проверяет обе допустимые группировки и U+205F."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.minor-last-four-digits",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Minor last four digits",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.number-format",
+          "heading": "Rule 2: Используй математические пробелы и штатную группировку"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Техническая проверка отдельно подтверждает четыре цифры Minor как часть одной human-политики формата."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.mask-format",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Masked Major text formatting",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.mask-format",
+          "heading": "Rule 3: Сохраняй штатный формат маски"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Human rule и predicate требуют `·· ` при Mask Number=True."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.parts-share-color-token",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Major and Minor color token",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.parts-share-color-token",
+          "heading": "Rule 4: Используй один цветовой токен для Major и Minor"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Human rule разрешает любой общий токен; predicate проверяет bound token и равенство обеих частей без требования default baseline."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "PaymentMaskedNumber Addon slot",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.addon-uses-final-component",
+          "heading": "Rule 5: Не оставляй служебный SwapMe в Addon"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Predicate проверяет доказуемую часть правила: видимый Addon содержит финальный вложенный компонент и не содержит служебный SwapMe. Семантическая пригодность выбранного финального компонента остаётся контекстной проверкой."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.addon-geometry",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "exact",
+      "enforcementScope": "PaymentMaskedNumber Addon geometry",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.addon-geometry",
+          "heading": "Rule 6: Сохраняй геометрию Addon"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Predicate использует универсальные sibling-факты снимка: горизонтальный gap до Addon равен 4 px, высота Addon не больше line-height предыдущей текстовой части номера."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Major and Minor effective-baseline typography",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.typography-pair",
+          "heading": "Rule 7: Сохраняй типографическую пару Major и Minor"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Одна human policy разложена на baseline-pair и binding predicates; эта проверка сравнивает каждый слой с его effective baseline."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.text-style-binding-required",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Major and Minor published text-style binding",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.typography-pair",
+          "heading": "Rule 7: Сохраняй типографическую пару Major и Minor"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Вторая техническая часть human policy запрещает raw typography и требует published Figma Text Style."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.narrow-overflow-preserves-last-four",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "exact",
+      "enforcementScope": "PaymentMaskedNumber narrow container",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "paymentMaskedNumberPattern",
+          "ruleId": "rule:components.payment-masked-number.narrow-overflow",
+          "heading": "Rule 8: Сохраняй последние четыре цифры при overflow"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Human и Apollo context rule требуют одну строку, ellipsis до Minor и сохранение последних четырёх цифр."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.interaction-and-states-are-contextual",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "PaymentMaskedNumber states and interaction",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "paymentMaskedNumberPattern",
+          "heading": "Interaction и состояния"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Human section и Apollo context rule фиксируют отсутствие собственных system states и контекстную кликабельность."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational",
+      "apolloSource": "JSONS/web/components/web-corp/PaymentMaskedNumber/rules.json",
+      "relation": "technical-only",
+      "enforcementScope": "Apollo lifecycle classification",
+      "hubEvidence": [],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-08-31",
+        "basis": "Техническая классификация статуса package; отдельная human-политика не требуется."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.public-root-only",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "ContentCardWrapper public boundary",
+      "hubEvidence": [
+        {
+          "kind": "section",
+          "document": "contentCardWrapperPattern",
+          "heading": "Section 5: Структура текста"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Технический public-root predicate защищает описанную в human-документе публичную структуру от самостоятельного использования slots и SwapMe."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.slot-placeholder-must-be-replaced",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "visible LeftSlot, ContentPresets, StatusSlot and RightSlot placeholder",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.left-slot-selection",
+          "heading": "Rule 13: LeftSlot выбирает карточку"
+        },
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.content-presets-semantics",
+          "heading": "Rule 21: Используй ContentPresets по роли текста"
+        },
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.status-slot-content",
+          "heading": "Rule 24: Ограничивай содержимое StatusSlot"
+        },
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.right-slot-actions",
+          "heading": "Rule 7: Ограничивай действия в RightSlot"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Точная общая часть четырёх human-правил вынесена в один атомарный predicate: видимый slot не может содержать служебный SwapMe. Выбор допустимого финального компонента остаётся отдельной semantic/context проверкой."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.homogeneous-items",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "card collection semantics",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.homogeneous-items",
+          "heading": "Rule 1: Используй одинаковую структуру для однотипных сущностей"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Rule перенесён без изменения семантики; для verdict нужны semantic facts или агент."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.entity-collection-context",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "component usage context",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.entity-collection-context",
+          "heading": "Rule 2: Используй компонент для однородного набора сущностей"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Rule сохранён как contextual/LLM policy до появления факта назначения экрана."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.entity-differentiation",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "entity identifying fields",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.entity-differentiation",
+          "heading": "Rule 3: Показывай уникальные параметры сущности"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Rule сохранён как LLM policy: raw snapshot не знает бизнес-семантику текста."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.skeleton-variant",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Skeleton and State component properties",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.skeleton-variant",
+          "heading": "Rule 4: Собирай loading через Skeleton=True"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Predicate проверяет опубликованный домен State и независимость Skeleton; interaction facet остаётся coverage gap."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.empty-placeholder-add",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Empty flow",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.empty-placeholder-add",
+          "heading": "Rule 5: Используй Empty только при отсутствии карточек"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Rule сохранён, но требует facts о количестве карточек и поведении add."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.interaction-priority",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "root and slot interactions",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.interaction-priority",
+          "heading": "Rule 6: Соблюдай приоритет взаимодействий карточки и slots"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Interaction behavior is not represented in the current snapshot."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.right-slot-actions",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "RightSlot actions",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.right-slot-actions",
+          "heading": "Rule 7: Ограничивай действия в RightSlot"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Semantic cardinality and selected component facts must be emitted before deterministic enforcement."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.mobile-right-slot-allowed",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "MobileWeb RightSlot policy",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.mobile-right-slot-allowed",
+          "heading": "Rule 8: Разрешай RightSlot на MobileWeb по общему контракту"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires adaptive and interaction context."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.disabled-is-view-only",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Disabled interaction policy",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.disabled-is-view-only",
+          "heading": "Rule 9: В Disabled нельзя добавлять, изменять и выбирать карточки"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires interaction and page view-only facts."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.disabled-not-style",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Disabled semantics",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.disabled-not-style",
+          "heading": "Rule 10: Не используй Disabled как другой стиль карточки"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires selection and interaction semantics."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.desktop-horizontal-mobile-vertical",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "responsive layout semantics",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.desktop-horizontal-mobile-vertical",
+          "heading": "Rule 11: Разводи Desktop и MobileWeb раскладку"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Needs semantic layout segments, not only raw auto-layout values."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.title-text-style-by-platform",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Title platform typography",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.title-text-style-by-platform",
+          "heading": "Rule 12: Используй платформенный стиль заголовка"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Delegated to text-style-immutable: effective baseline already resolves the platform-specific title style."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.left-slot-selection",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "LeftSlot interaction",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.left-slot-selection",
+          "heading": "Rule 13: LeftSlot выбирает карточку"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires selected component and interaction facts."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.edge-padding-immutable",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "root edge padding baseline",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.edge-padding-immutable",
+          "heading": "Rule 14: Не меняй отступы до краёв карточки"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Baseline-set predicate checks the root edge padding for the current variant."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.background-plate-level-by-platform",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "nested BackgroundPlate level",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.background-plate-level-by-platform",
+          "heading": "Rule 15: Не меняй уровень BackgroundPlate"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Context-map predicate resolves the nested BackgroundPlate level by page platform; surface ancestor is a documented coverage gap."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.text-style-immutable",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "text effective baseline",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.text-style-immutable",
+          "heading": "Rule 16: Не меняй стили типографики текстовых элементов"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Baseline-set predicate evaluates all visible text descendants."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.inside-background-plate",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "surface composition",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.inside-background-plate",
+          "heading": "Rule 17: Соблюдай платформенную surface-композицию"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires surface ancestor and positioning semantics."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.modal-subflow-optimization",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "modal subflow",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.modal-subflow-optimization",
+          "heading": "Rule 18: Выноси повторяющиеся данные в модальный подсценарий"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires flow and interaction semantics."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.required-anatomy",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "card anatomy",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.required-anatomy",
+          "heading": "Rule 19: Сохраняй обязательную anatomy карточки"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Needs semantic slot-visibility facts beyond raw node visibility."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.middle-content-capacity-and-connection",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "MiddleContentSlot Capacity and Connected",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.middle-content-capacity-and-connection",
+          "heading": "Rule 20: Не превышай Capacity MiddleContentSlot"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Needs ContentPresets cardinality fact from semantic snapshot."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.content-presets-semantics",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "ContentPresets semantic roles",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.content-presets-semantics",
+          "heading": "Rule 21: Используй ContentPresets по роли текста"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires content semantic-role fact or agent classification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.error-required-card-validation",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Error validation flow",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.error-required-card-validation",
+          "heading": "Rule 22: Используй Error только для ошибки обязательного набора"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires validation trigger and collection semantics."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.layer-properties-use-effective-baseline",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "visible non-text layer baseline",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.layer-properties-use-effective-baseline",
+          "heading": "Rule 23: Не отклоняйся от component baseline"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Baseline-set predicate evaluates visible layer properties separately from typography."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.status-slot-content",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "StatusSlot contents",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.status-slot-content",
+          "heading": "Rule 24: Ограничивай содержимое StatusSlot"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires selected component and slot cardinality semantic facts."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.inter-item-gap-tokenized",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "inter-item gap token binding",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.inter-item-gap-tokenized",
+          "heading": "Rule 25: Настраивай интервалы только токенами"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Fact-assertion predicate requires a bound spacing token for visible owned auto-layout gaps."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.desktop-mobile-content-parity",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Desktop/MobileWeb parity",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.desktop-mobile-content-parity",
+          "heading": "Rule 26: Сохраняй смысловое D/M-соответствие"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires cross-platform entity identity and semantic role facts."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.delete-action-rightmost",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "delete action order",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.delete-action-rightmost",
+          "heading": "Rule 27: Располагай удаление справа"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires action semantics and visual order fact."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.content-card-wrapper.notification-after-create",
+      "apolloSource": "JSONS/web/components/web-corp/ContentCardWrapper/rules.json",
+      "relation": "exact",
+      "enforcementScope": "post-create notification",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "contentCardWrapperPattern",
+          "ruleId": "rule:components.content-card-wrapper.notification-after-create",
+          "heading": "Rule 28: Показывай Notification после создания по контексту"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-01",
+        "basis": "Requires notification trigger and product-flow facts."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.company-data-runtime-owned",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "runtime company content",
+      "executionRoute": "policy/context-only",
+      "testEvidence": "content allow policy fixture",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.company-data-runtime-owned",
+          "heading": "Rule 18: Считай данные компании runtime-контентом"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.desktop-only",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "desktop-only root",
+      "executionRoute": "predicate",
+      "testEvidence": "filter-company-select.fail-mobile-web",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.desktop-only",
+          "heading": "Rule 3: Используй компонент только на desktop"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.empty-and-interaction-states-delegated",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "no results and interaction state ownership",
+      "executionRoute": "delegated",
+      "testEvidence": "nested contract evidence",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.nested-states-delegated",
+          "heading": "Rule 15: Не создавай собственные состояния вложенных компонентов"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.fixed-control-labels",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "fixed control labels",
+      "executionRoute": "LLM-agent",
+      "testEvidence": "text-role fixture required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.fixed-control-labels",
+          "heading": "Rule 11: Не изменяй фиксированные подписи"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.holding-context",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "holding applicability",
+      "executionRoute": "policy/context-only",
+      "testEvidence": "holding scenario evidence required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.holding-context-only",
+          "heading": "Rule 1: Используй FilterCompanySelect только в режиме холдинга"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.lifecycle-context-is-informational",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "technical-only",
+      "enforcementScope": "lifecycle metadata",
+      "executionRoute": "policy/context-only",
+      "testEvidence": "release loader closure",
+      "hubEvidence": [],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.multi-apply-model",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Multi Apply commit",
+      "executionRoute": "interaction",
+      "testEvidence": "filter-company-select.interaction-multi-transaction",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.multi-transaction-model",
+          "heading": "Rule 7: Сохраняй transaction-модель Multi"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.multi-reset-immediate",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "Multi Reset commit empty",
+      "executionRoute": "interaction",
+      "testEvidence": "filter-company-select.interaction-multi-transaction",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.multi-transaction-model",
+          "heading": "Rule 7: Сохраняй transaction-модель Multi"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.preserve-library-composition",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "detach and inner swaps",
+      "executionRoute": "delegated",
+      "testEvidence": "generic component-known-key/component-no-detach tests",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.preserve-library-composition",
+          "heading": "Rule 17: Сохраняй библиотечную composition"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.public-roots-only",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "public root boundary",
+      "executionRoute": "predicate",
+      "testEvidence": "filter-company-select.fail-internal-root",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.public-roots-only",
+          "heading": "Rule 2: Используй только два публичных root"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.root-visuals-follow-effective-baseline",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "root visual baseline",
+      "executionRoute": "predicate",
+      "testEvidence": "filter-company-select.fail-root-radius",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.width-only-layout-override",
+          "heading": "Rule 16: Изменяй только ширину root и dropdown"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.runtime-owned-open-selected",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "runtime Open/Selected",
+      "executionRoute": "interaction",
+      "testEvidence": "runtime state fixture required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.open-selected-follow-runtime-state",
+          "heading": "Rule 6: Связывай Open и Selected с фактическим состоянием"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.search-contract",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "search field and placeholder",
+      "executionRoute": "interaction",
+      "testEvidence": "text-role + interaction fixture required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.search-fields-and-placeholders",
+          "heading": "Rule 9: Сохраняй search-контракт"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.search-visible-over-ten",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "pre-search company count",
+      "executionRoute": "not-evaluable without runtime facts",
+      "testEvidence": "filter-company-select.not-evaluable-search-company-count",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.search-visible-over-ten",
+          "heading": "Rule 10: Показывай поиск только при количестве компаний больше 10"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.select-all-checkbox-state",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "CheckboxLabel_24 tri-state",
+      "executionRoute": "not-evaluable without runtime facts",
+      "testEvidence": "current set runtime fixture required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.select-all-tristate",
+          "heading": "Rule 13: Сохраняй tri-state «Выбрать все»"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.select-all-current-results",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Select All current set",
+      "executionRoute": "interaction",
+      "testEvidence": "search result interaction fixture required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.select-all-current-set",
+          "heading": "Rule 12: Применяй «Выбрать все» к текущему набору"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.selected-value-display-delegated",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "selected value owner",
+      "executionRoute": "delegated",
+      "testEvidence": "nested contract evidence",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.selected-value-display-delegated",
+          "heading": "Rule 14: Делегируй отображение выбранного значения"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.selection-cardinality",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Multi/Single cardinality",
+      "executionRoute": "not-evaluable without runtime facts",
+      "testEvidence": "selected count runtime fixture required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.selection-cardinality",
+          "heading": "Rule 19: Соблюдай cardinality и пустой выбор"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.show-first-company-forbidden",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "legacy property",
+      "executionRoute": "predicate",
+      "testEvidence": "filter-company-select.fail-legacy-show-first-company",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.show-first-company-false",
+          "heading": "Rule 4: Сохраняй ShowFirstCompany=False"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.single-clear-filter-tag-only",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Single clear action",
+      "executionRoute": "interaction",
+      "testEvidence": "clear interaction fixture required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.single-clear-filtertag-only",
+          "heading": "Rule 20: Разрешай очистку Single только в FilterTag"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.single-compact-selected-required",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "semantic-equivalent",
+      "enforcementScope": "Compact selection required",
+      "executionRoute": "predicate",
+      "testEvidence": "filter-company-select.fail-compact-without-selection",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.selection-cardinality",
+          "heading": "Rule 19: Соблюдай cardinality и пустой выбор"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.single-select-immediate",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "Single commit and close",
+      "executionRoute": "interaction",
+      "testEvidence": "product interaction test required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.single-selection-immediate",
+          "heading": "Rule 8: Применяй Single сразу"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.single-view-purpose",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "scenario View choice",
+      "executionRoute": "LLM-agent",
+      "testEvidence": "filter-company-select.llm-holding-placement",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.view-semantics",
+          "heading": "Rule 5: Выбирай View по его собственной семантике"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.sizing-delegation",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "nested geometry and allowed widths",
+      "executionRoute": "delegated",
+      "testEvidence": "baseline fixture required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.width-only-layout-override",
+          "heading": "Rule 16: Изменяй только ширину root и dropdown"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.states-delegate-to-nested-components",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "nested state ownership",
+      "executionRoute": "delegated",
+      "testEvidence": "nested contract evidence",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.nested-states-delegated",
+          "heading": "Rule 15: Не создавай собственные состояния вложенных компонентов"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.universal-modal-is-separate-package",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "exact",
+      "enforcementScope": "separate UniversalModal package",
+      "executionRoute": "policy/context-only",
+      "testEvidence": "package boundary review",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.universal-modal-separate-package",
+          "heading": "Rule 21: Не подменяй пакет UniversalModal"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.filter-company-select.visuals-follow-effective-baseline",
+      "apolloSource": "JSONS/web/components/web-corp/FilterCompanySelect/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "nested visual baseline",
+      "executionRoute": "delegated",
+      "testEvidence": "nested baseline fixture required",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "filterCompanySelectPattern",
+          "ruleId": "rule:components.filter-company-select.width-only-layout-override",
+          "heading": "Rule 16: Изменяй только ширину root и dropdown"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-09-02",
+        "basis": "Human-first projection reviewed against owner-confirmed FilterCompanySelect pattern; Predicate remains Draft pending live Figma verification."
+      }
+    }
+  ],
+  "projections": {
+    "filterCompanySelect": {
+      "sourceDocument": "filterCompanySelectPattern",
+      "readiness": "draft",
+      "humanRuleRoutes": [
+        {
+          "humanRuleId": "rule:components.filter-company-select.holding-context-only",
+          "heading": "Rule 1: Используй FilterCompanySelect только в режиме холдинга",
+          "route": "policy/context-only"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.public-roots-only",
+          "heading": "Rule 2: Используй только два публичных root",
+          "route": "predicate"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.desktop-only",
+          "heading": "Rule 3: Используй компонент только на desktop",
+          "route": "predicate"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.show-first-company-false",
+          "heading": "Rule 4: Сохраняй ShowFirstCompany=False",
+          "route": "predicate"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.view-semantics",
+          "heading": "Rule 5: Выбирай View по его собственной семантике",
+          "route": "LLM-agent"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.open-selected-follow-runtime-state",
+          "heading": "Rule 6: Связывай Open и Selected с фактическим состоянием",
+          "route": "interaction"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.multi-transaction-model",
+          "heading": "Rule 7: Сохраняй transaction-модель Multi",
+          "route": "interaction"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.single-selection-immediate",
+          "heading": "Rule 8: Применяй Single сразу",
+          "route": "interaction"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.search-fields-and-placeholders",
+          "heading": "Rule 9: Сохраняй search-контракт",
+          "route": "interaction"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.search-visible-over-ten",
+          "heading": "Rule 10: Показывай поиск только при количестве компаний больше 10",
+          "route": "not-evaluable without runtime facts"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.fixed-control-labels",
+          "heading": "Rule 11: Не изменяй фиксированные подписи",
+          "route": "LLM-agent"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.select-all-current-set",
+          "heading": "Rule 12: Применяй «Выбрать все» к текущему набору",
+          "route": "interaction"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.select-all-tristate",
+          "heading": "Rule 13: Сохраняй tri-state «Выбрать все»",
+          "route": "not-evaluable without runtime facts"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.selected-value-display-delegated",
+          "heading": "Rule 14: Делегируй отображение выбранного значения",
+          "route": "delegated"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.nested-states-delegated",
+          "heading": "Rule 15: Не создавай собственные состояния вложенных компонентов",
+          "route": "delegated"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.width-only-layout-override",
+          "heading": "Rule 16: Изменяй только ширину root и dropdown",
+          "route": "predicate + delegated"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.preserve-library-composition",
+          "heading": "Rule 17: Сохраняй библиотечную composition",
+          "route": "delegated"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.company-data-runtime-owned",
+          "heading": "Rule 18: Считай данные компании runtime-контентом",
+          "route": "policy/context-only"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.selection-cardinality",
+          "heading": "Rule 19: Соблюдай cardinality и пустой выбор",
+          "route": "predicate + not-evaluable without runtime facts"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.single-clear-filtertag-only",
+          "heading": "Rule 20: Разрешай очистку Single только в FilterTag",
+          "route": "interaction"
+        },
+        {
+          "humanRuleId": "rule:components.filter-company-select.universal-modal-separate-package",
+          "heading": "Rule 21: Не подменяй пакет UniversalModal",
+          "route": "policy/context-only"
+        }
+      ],
+      "scenarioRules": {
+        "owner": "holdingCompanySelectionPattern",
+        "excludedFromComponentRuleIds": [
+          "component:web-corp.filter-company-select.filterblock-company-first",
+          "component:web-corp.filter-company-select.table-multi-uses-multi-filtertag",
+          "component:web-corp.filter-company-select.table-single-uses-single-filtertag",
+          "component:web-corp.filter-company-select.form-uses-select-view",
+          "component:web-corp.filter-company-select.titleview-uses-compact-view",
+          "component:web-corp.filter-company-select.selected-value-display-delegated"
+        ]
+      },
+      "retiredApolloRuleIds": [
+        "component:web-corp.filter-company-select.selected-value-content"
+      ]
+    }
+  }
 }

@@ -3,14 +3,13 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "ready",
+    "status": "draft",
     "applicability": {
       "channels": [
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
       "updatedAt": "2026-07-04"
@@ -204,17 +203,12 @@
       "placeholderEditable": false
     },
     "selectionContent": {
-      "Multi": {
-        "label": "Компания",
-        "singleSelection": "Показывай название выбранной компании.",
-        "multipleSelection": "Показывай количество выбранных компаний.",
-        "multipleSelectionTextTemplate": "выбрано N"
-      },
-      "Single": {
-        "emptyText": "Выберите компанию",
-        "selectedText": "Название выбранной компании",
-        "textEditable": false
-      }
+      "owner": [
+        "Select",
+        "[D] FilterTag",
+        "[D] CompactTag"
+      ],
+      "policy": "FilterCompanySelect не задаёт собственную формулу selected value; runtime company data не является фиксированным компонентным текстом."
     },
     "selectAll": {
       "scope": "current-result-set",
@@ -340,15 +334,22 @@
     },
     "codeConnect": {
       "rootStatus": "not-configured",
-      "nestedMappingsDoNotVerifyRoot": true
+      "nestedMappingsDoNotVerifyRoot": true,
+      "doNotInfer": [
+        "package",
+        "import",
+        "symbol",
+        "props",
+        "callbacks"
+      ]
     },
     "patternReferences": [
       {
-        "name": "holding-mode",
+        "name": "holding-company-selection",
         "patternId": "ptrn:flow.holding-company-selection",
         "file": "patterns/p_holding-company-selection.md",
-        "status": "ready",
-        "integration": "В rules.json перенесены ссылки только на применимые к FilterCompanySelect exact pattern rules."
+        "status": "verified",
+        "integration": "Сценарные table/form/TitleView/FilterBlock правила принадлежат flow-pattern и не дублируются в rules.json FilterCompanySelect."
       }
     ]
   }

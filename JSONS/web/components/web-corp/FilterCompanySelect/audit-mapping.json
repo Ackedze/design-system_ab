@@ -3,14 +3,13 @@
   "documentType": "component-audit-mapping",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "ready",
+    "status": "draft",
     "applicability": {
       "channels": [
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
       "source": "path-policy",
       "updatedAt": "2026-07-27"
@@ -303,14 +302,28 @@
       ]
     },
     "contentChecks": {
-      "Multi.searchPlaceholder": "Название, ИНН или адрес",
-      "Single.searchPlaceholder": "Поиск",
-      "Multi.label": "Компания",
-      "Multi.multipleSelectionText": "выбрано N",
-      "Single.emptyText": "Выберите компанию",
-      "control.selectAll": "Выбрать все",
-      "control.apply": "Применить",
-      "control.reset": "Сбросить"
+      "Multi": {
+        "searchPlaceholder": "Название, ИНН или адрес"
+      },
+      "Single": {
+        "searchPlaceholder": "Поиск"
+      },
+      "fixedControls": [
+        "Компания",
+        "Выбрать все",
+        "Применить",
+        "Сбросить"
+      ],
+      "runtimeOwned": [
+        "companyName",
+        "inn",
+        "address"
+      ],
+      "selectedValueOwner": [
+        "Select",
+        "[D] FilterTag",
+        "[D] CompactTag"
+      ]
     },
     "sizingPolicy": {
       "allowedManualOverrides": [
@@ -375,14 +388,17 @@
       "Single": "0..1 depending on View and form requiredness"
     },
     "runtimeLimitations": [
-      "Select-all scope, apply/cancel semantics and delegated nested states require interaction or composition evidence; do not claim they are enforced from a static diff alone.",
-      "Page-type routing rules require pattern-aware LLM evaluation."
+      "Apply/cancel/reset, search scope, Select All and runtime-derived Open/Selected require interaction or runtime evidence; static snapshots without these facts are not-evaluable.",
+      "View placement in tables, forms, FilterBlock and TitleView belongs to holding-company-selection; it is not a FilterCompanySelect-owned violation.",
+      "Selected-value display, nested states and nested visual geometry are delegated to Select, FilterTag, CompactTag, CheckboxLabel_24 and OptionList."
     ],
     "evidencePolicy": {
       "showFirstCompanyTrueIsViolation": true,
+      "singleCompactSelectedFalseIsViolation": true,
       "rootCodeConnectStatus": "not-configured",
       "nestedCodeConnectDoesNotVerifyRoot": true,
-      "holdingPatternPending": false
+      "noRuntimeFactCreatesViolation": false,
+      "projectionStatus": "draft"
     }
   }
 }

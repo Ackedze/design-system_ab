@@ -412,13 +412,14 @@
         "patternRuleIds": [
           "rule:components.content-card-wrapper.left-slot-selection",
           "rule:components.content-card-wrapper.content-presets-semantics",
-          "rule:components.content-card-wrapper.status-slot-content"
+          "rule:components.content-card-wrapper.status-slot-content",
+          "rule:components.content-card-wrapper.right-slot-actions"
         ],
         "ruleKind": "design-rule",
         "appliesTo": "component.slot.*|component.swap",
         "checkType": "deterministic",
         "matchKind": "atomic_rule_facet",
-        "ruleText": "В видимых LeftSlot, ContentPresets и StatusSlot служебный SwapMe должен быть заменён финальным компонентом. Допустимость конкретного финального компонента определяется отдельным правилом слота.",
+        "ruleText": "В видимых LeftSlot, ContentPresets, StatusSlot и RightSlot служебный SwapMe должен быть заменён допустимым содержимым. Допустимость конкретного содержимого определяется отдельным правилом слота.",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
@@ -432,7 +433,8 @@
             "families": [
               "left-slot",
               "content-presets",
-              "status-slot"
+              "status-slot",
+              "right-slot"
             ]
           },
           "visibleOnly": true,
@@ -443,13 +445,12 @@
               "forbiddenFamilies": [
                 "swap-me"
               ],
-              "minNestedComponents": 1,
               "presentation": {
                 "schemaVersion": "apollo.predicate-presentation.v1",
                 "title": "В слоте оставлен служебный SwapMe",
                 "observed": "В видимом слоте «{{targetName}}» не выбран финальный компонент.",
-                "expectation": "Видимые LeftSlot, ContentPresets и StatusSlot должны содержать финальный компонент вместо служебного SwapMe.",
-                "action": "Заменить SwapMe на компонент, допустимый для этого слота."
+                "expectation": "В видимых LeftSlot, ContentPresets, StatusSlot и RightSlot не должен оставаться служебный SwapMe.",
+                "action": "Заменить SwapMe на допустимое содержимое этого слота."
               }
             }
           ],

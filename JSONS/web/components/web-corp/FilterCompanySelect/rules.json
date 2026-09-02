@@ -3,17 +3,16 @@
   "documentType": "component-rules",
   "metadata": {
     "componentKey": "web-corp.filter-company-select",
-    "status": "ready",
+    "status": "draft",
     "applicability": {
       "channels": [
         "b2b"
       ],
       "platforms": [
-        "desktop",
-        "mobile-web"
+        "desktop"
       ],
-      "source": "path-policy",
-      "updatedAt": "2026-08-13"
+      "source": "owner-confirmed-human-pattern",
+      "updatedAt": "2026-09-02"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -79,34 +78,31 @@
       "componentIdentities": [
         "web-corp.filter-company-select"
       ],
+      "projection": {
+        "sourceOfMeaning": "ds-ai-hub/products/ab/patterns/filter-company-select.md",
+        "sourceRevision": "2026-09-02",
+        "readiness": "draft",
+        "scenarioOwner": "ptrn:flow.holding-company-selection",
+        "notes": [
+          "Scenario placement rules are not component-owned findings.",
+          "Runtime and interaction rules return not-evaluable without the required evidence.",
+          "No direct Code Connect package, props or callbacks are asserted."
+        ]
+      },
       "predicateRules": [
         "component:web-corp.filter-company-select.public-roots-only",
         "component:web-corp.filter-company-select.desktop-only",
         "component:web-corp.filter-company-select.show-first-company-forbidden",
-        "component:web-corp.filter-company-select.root-visuals-follow-effective-baseline"
+        "component:web-corp.filter-company-select.root-visuals-follow-effective-baseline",
+        "component:web-corp.filter-company-select.single-compact-selected-required"
       ],
       "delegatedRules": [
         {
-          "sourceRuleId": "component:web-corp.filter-company-select.visuals-follow-effective-baseline",
+          "sourceRuleId": "component:web-corp.filter-company-select.selected-value-display-delegated",
           "targetContracts": [
             "web-core.select",
             "web-core.filter-tag",
-            "web-core.option-list"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.preserve-library-composition",
-          "targetRuleIds": [
-            "component-known-key",
-            "component-no-detach"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.sizing-delegation",
-          "targetContracts": [
-            "web-core.select",
-            "web-core.filter-tag",
-            "web-core.option-list"
+            "web-core.compact-tag"
           ]
         },
         {
@@ -126,6 +122,31 @@
             "web-core.checkbox-label",
             "web-core.option-list"
           ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.filter-company-select.sizing-delegation",
+          "targetContracts": [
+            "web-core.select",
+            "web-core.filter-tag",
+            "web-core.compact-tag",
+            "web-core.option-list"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.filter-company-select.visuals-follow-effective-baseline",
+          "targetContracts": [
+            "web-core.select",
+            "web-core.filter-tag",
+            "web-core.compact-tag",
+            "web-core.option-list"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.filter-company-select.preserve-library-composition",
+          "targetRuleIds": [
+            "component-known-key",
+            "component-no-detach"
+          ]
         }
       ],
       "policyRules": [
@@ -135,7 +156,7 @@
         },
         {
           "sourceRuleId": "component:web-corp.filter-company-select.holding-context",
-          "effect": "context"
+          "effect": "scenario-context"
         },
         {
           "sourceRuleId": "component:web-corp.filter-company-select.company-data-runtime-owned",
@@ -150,61 +171,15 @@
         {
           "sourceRuleId": "component:web-corp.filter-company-select.single-view-purpose",
           "missingFacts": [
-            "component.semantic-role",
-            "page.holding-mode"
+            "page.holding-mode",
+            "component.semantic-role"
           ]
         },
         {
-          "sourceRuleId": "component:web-corp.filter-company-select.fixed-control-labels",
+          "sourceRuleId": "component:web-corp.filter-company-select.runtime-owned-open-selected",
           "missingFacts": [
-            "text.control-role"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.search-visible-over-ten",
-          "missingFacts": [
-            "data.companyCount"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.selection-cardinality",
-          "missingFacts": [
+            "interaction.open-state",
             "data.selectedCompanyCount"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.filterblock-company-first",
-          "missingFacts": [
-            "page.holding-mode",
-            "composition.filter-block-role"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.table-multi-uses-multi-filtertag",
-          "missingFacts": [
-            "page.holding-mode",
-            "data.table-company-cardinality"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.table-single-uses-single-filtertag",
-          "missingFacts": [
-            "page.holding-mode",
-            "data.table-company-cardinality"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.form-uses-select-view",
-          "missingFacts": [
-            "page.holding-mode",
-            "form.company-owner-role"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.titleview-uses-compact-view",
-          "missingFacts": [
-            "page.holding-mode",
-            "composition.title-view-slot-role"
           ]
         },
         {
@@ -229,17 +204,23 @@
           ]
         },
         {
-          "sourceRuleId": "component:web-corp.filter-company-select.runtime-owned-open-selected",
-          "missingFacts": [
-            "interaction.open-state",
-            "data.selectedCompanyCount"
-          ]
-        },
-        {
           "sourceRuleId": "component:web-corp.filter-company-select.search-contract",
           "missingFacts": [
             "text.control-role",
             "interaction.search-index"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.filter-company-select.search-visible-over-ten",
+          "missingFacts": [
+            "data.companyCount.beforeSearch",
+            "component.searchVisible"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.filter-company-select.fixed-control-labels",
+          "missingFacts": [
+            "text.control-role"
           ]
         },
         {
@@ -250,31 +231,24 @@
           ]
         },
         {
-          "sourceRuleId": "component:web-corp.filter-company-select.selected-value-content",
+          "sourceRuleId": "component:web-corp.filter-company-select.select-all-checkbox-state",
           "missingFacts": [
-            "data.selectedCompanyCount",
-            "text.control-role"
+            "data.currentSetCompanyIds",
+            "data.selectedCompanyIds"
           ]
         },
         {
           "sourceRuleId": "component:web-corp.filter-company-select.single-clear-filter-tag-only",
           "missingFacts": [
             "interaction.clear-action",
-            "data.selectedCompanyCount"
+            "interaction.applied-selection"
           ]
         },
         {
-          "sourceRuleId": "component:web-corp.filter-company-select.empty-selection-by-view",
+          "sourceRuleId": "component:web-corp.filter-company-select.selection-cardinality",
           "missingFacts": [
-            "form.required",
-            "data.selectedCompanyCount"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.filter-company-select.select-all-checkbox-state",
-          "missingFacts": [
-            "interaction.search-results",
-            "data.selectedCompanyIds"
+            "data.selectedCompanyCount",
+            "form.required"
           ]
         }
       ],
@@ -289,46 +263,13 @@
     },
     "rules": [
       {
-        "ruleId": "component:web-corp.filter-company-select.lifecycle-context-is-informational",
+        "ruleId": "component:web-corp.filter-company-select.company-data-runtime-owned",
         "severity": "info",
-        "source": "component-contract",
-        "appliesTo": "component.status",
-        "checkType": "manual",
-        "ruleText": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule."
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.public-roots-only",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "component.identity|component.composition",
-        "checkType": "deterministic",
+        "source": "runtime-content-policy",
+        "appliesTo": "content.companyName|content.inn|content.address",
+        "checkType": "policy",
         "matchKind": "exact_component_rule",
-        "ruleText": "Для новых макетов используй только [D] FilterCompanySelect_Multi или [D] FilterCompanySelect_Single. CompactTag, DropdownList и их 🔄-версии являются внутренними либо устаревшими частями и не используются отдельно.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        },
-        "predicateContour": {
-          "schemaVersion": "apollo.contour-definition.v1",
-          "kind": "public-root",
-          "identity": "web-corp.filter-company-select",
-          "standaloneOnly": true,
-          "allowedFamilies": [
-            "filter-company-select-multi",
-            "filter-company-select-single"
-          ],
-          "presentation": {
-            "schemaVersion": "apollo.predicate-presentation.v1",
-            "title": "Служебный компонент FilterCompanySelect используется отдельно",
-            "observed": "{{actual}} размещён как самостоятельный компонент.",
-            "expectation": "Самостоятельно допускаются только FilterCompanySelect_Multi и FilterCompanySelect_Single.",
-            "action": "Заменить служебный компонент на публичный FilterCompanySelect root."
-          },
-          "scope": { "platform": ["desktop"] },
-          "unknownPolicy": "not-evaluable"
-        }
+        "ruleText": "Название компании, ИНН и адрес — runtime-контент. Реальные примеры разрешены и не сравниваются как фиксированный текст компонента."
       },
       {
         "ruleId": "component:web-corp.filter-company-select.desktop-only",
@@ -351,16 +292,55 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.filter-company-select" } },
-              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["filter-company-select-multi", "filter-company-select-single"] } },
-              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.filter-company-select"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "filter-company-select-multi",
+                    "filter-company-select-single"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
             ]
           },
           "assert": {
             "predicate": "equals",
-            "actual": { "fact": "page.context.platform" },
-            "expected": { "literal": "desktop" }
+            "actual": {
+              "fact": "page.context.platform"
+            },
+            "expected": {
+              "literal": "desktop"
+            }
           },
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -369,157 +349,56 @@
             "expectation": "FilterCompanySelect поддерживается только на desktop.",
             "action": "Удалить FilterCompanySelect или выбрать desktop-компонент, допустимый для текущего сценария."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
       {
-        "ruleId": "component:web-corp.filter-company-select.show-first-company-forbidden",
+        "ruleId": "component:web-corp.filter-company-select.empty-and-interaction-states-delegated",
+        "severity": "info",
+        "source": "delegated-contract",
+        "appliesTo": "component.state|component.interaction",
+        "checkType": "delegated",
+        "matchKind": "exact_component_rule",
+        "ruleText": "No-results, отсутствие компаний, hover, focus, keyboard и disabled наследуются от продукта и nested contracts; локальные FilterCompanySelect state-правила не создаются."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.fixed-control-labels",
         "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "variant.ShowFirstCompany",
-        "checkType": "deterministic",
+        "appliesTo": "text.controlLabel",
+        "checkType": "context",
         "matchKind": "exact_component_rule",
-        "requiredValue": "False",
-        "ruleText": "ShowFirstCompany является legacy-параметром. В новых макетах и при генерации сохраняй ShowFirstCompany=False.",
+        "ruleText": "Подписи «Компания», «Выбрать все», «Применить», «Сбросить» фиксированы. Проверка требует подтверждённый text.control-role; произвольный текст runtime-данных компании не сравнивай.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
-        },
-        "predicateContour": {
-          "schemaVersion": "apollo.contour-definition.v1",
-          "kind": "fact-domain",
-          "select": {
-            "from": "selection-root",
-            "traverse": "self-and-descendants",
-            "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.filter-company-select" } },
-              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["filter-company-select-multi", "filter-company-select-single"] } },
-              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
-            ]
-          },
-          "actual": { "fact": "component.properties.ShowFirstCompany" },
-          "allowedValues": ["False"],
-          "presentation": {
-            "schemaVersion": "apollo.predicate-presentation.v1",
-            "title": "Включён legacy-параметр ShowFirstCompany",
-            "observed": "У FilterCompanySelect задан ShowFirstCompany={{actual}}.",
-            "expectation": "В новых макетах ShowFirstCompany должен быть False.",
-            "action": "Установить ShowFirstCompany=False."
-          },
-          "scope": { "platform": ["desktop"] },
-          "unknownPolicy": "not-evaluable"
         }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.single-view-purpose",
-        "severity": "warning",
-        "source": "owner-confirmed",
-        "appliesTo": "variant.View|component.usage",
-        "checkType": "manual",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Для Single используй View=Select в форме, View=FilterTag в фильтрах, View=Compact в TitleView или при переключении отдельного объекта, например виджета."
       },
       {
         "ruleId": "component:web-corp.filter-company-select.holding-context",
         "severity": "info",
-        "source": "pattern-link",
+        "source": "pattern-reference",
         "patternRuleId": "rule:flow.holding-company-selection.place-selector-by-page-type",
-        "appliesTo": "component.usage",
-        "checkType": "manual",
+        "appliesTo": "flow.context",
+        "checkType": "llm",
         "matchKind": "exact_component_rule",
-        "ruleText": "FilterCompanySelect применяется в режиме холдинга. Для выбора места и варианта компонента используй паттерн ptrn:flow.holding-company-selection."
+        "ruleText": "Режим холдинга — контекст сценария. Без подтверждённых flow-фактов не создавай design finding; применимость и размещение определяет holding-company-selection."
       },
       {
-        "ruleId": "component:web-corp.filter-company-select.filterblock-company-first",
-        "severity": "error",
-        "source": "pattern-link",
-        "patternRuleId": "rule:flow.holding-company-selection.company-filter-first-in-filterblock",
-        "appliesTo": "screen.composition|component.usage",
-        "checkType": "llm",
-        "matchKind": "composition_rule",
-        "conditions": {
-          "holdingMode": true,
-          "componentView": "FilterTag",
-          "container": "FilterBlock.tagLine"
-        },
-        "requiredComposition": {
-          "label": "Компания",
-          "order": "first"
-        },
-        "ruleText": "Если в режиме холдинга FilterCompanySelect используется для фильтрации внутри FilterBlock, размести его с View=FilterTag первым в FilterBlock.tagLine и назови «Компания» независимо от типа страницы."
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.table-multi-uses-multi-filtertag",
-        "severity": "error",
-        "source": "pattern-link",
-        "patternRuleId": "rule:flow.holding-company-selection.table-multi-company-filter",
-        "appliesTo": "variant.View|component.usage",
-        "checkType": "llm",
-        "matchKind": "composition_rule",
-        "conditions": {
-          "pageType": "table",
-          "holdingMode": true,
-          "supportsMultipleCompanies": true,
-          "companyFiltering": true
-        },
-        "requiredComponent": "[D] FilterCompanySelect_Multi",
-        "requiredView": "FilterTag",
-        "ruleText": "Если таблица может отображать данные по нескольким компаниям и поддерживает фильтрацию по компаниям, используй [D] FilterCompanySelect_Multi как FilterTag :: Multi-Select."
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.table-single-uses-single-filtertag",
-        "severity": "error",
-        "source": "pattern-link",
-        "patternRuleId": "rule:flow.holding-company-selection.table-single-company-filter",
-        "appliesTo": "variant.View|component.usage",
-        "checkType": "llm",
-        "matchKind": "composition_rule",
-        "conditions": {
-          "pageType": "table",
-          "holdingMode": true,
-          "supportsMultipleCompanies": false,
-          "companyFiltering": true
-        },
-        "requiredComponent": "[D] FilterCompanySelect_Single",
-        "requiredView": "FilterTag",
-        "ruleText": "Если таблица в режиме холдинга фильтруется только одной компанией, используй [D] FilterCompanySelect_Single с View=FilterTag."
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.form-uses-select-view",
-        "severity": "error",
-        "source": "pattern-link",
-        "patternRuleId": "rule:flow.holding-company-selection.form-company-select",
-        "appliesTo": "variant.View|component.usage",
-        "checkType": "llm",
-        "matchKind": "composition_rule",
-        "conditions": {
-          "pageType": "form",
-          "holdingMode": true,
-          "requiresSingleCompany": true
-        },
-        "requiredComponent": "[D] FilterCompanySelect_Single",
-        "requiredView": "Select",
-        "ruleText": "На странице формы в режиме холдинга используй [D] FilterCompanySelect_Single с View=Select для выбора компании, от которой заполняется форма."
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.titleview-uses-compact-view",
-        "severity": "error",
-        "source": "pattern-link",
-        "patternRuleId": "rule:flow.holding-company-selection.view-page-titleview-holding",
-        "appliesTo": "variant.View|component.usage",
-        "checkType": "llm",
-        "matchKind": "composition_rule",
-        "conditions": {
-          "container": "TitleView.Holding",
-          "holdingMode": true
-        },
-        "requiredComponent": "[D] FilterCompanySelect_Single",
-        "requiredView": "Compact",
-        "ruleText": "Когда выбор компании размещён в TitleView через Holding, используй [D] FilterCompanySelect_Single с View=Compact."
+        "ruleId": "component:web-corp.filter-company-select.lifecycle-context-is-informational",
+        "severity": "info",
+        "source": "technical-policy",
+        "appliesTo": "component.lifecycle",
+        "checkType": "policy",
+        "ruleText": "Lifecycle — metadata/context. Сам по себе статус lifecycle не создаёт finding; нарушение возможно только по отдельному активному правилу."
       },
       {
         "ruleId": "component:web-corp.filter-company-select.multi-apply-model",
@@ -552,179 +431,13 @@
         }
       },
       {
-        "ruleId": "component:web-corp.filter-company-select.single-select-immediate",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "interaction.selection|interaction.close",
-        "checkType": "manual",
-        "matchKind": "exact_component_rule",
-        "ruleText": "В Single клик по строке сразу применяет выбранную компанию и закрывает список.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.runtime-owned-open-selected",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "variant.Open|variant.Selected",
-        "checkType": "deterministic",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Open и Selected являются производными runtime-состояниями: Open=True только для открытого списка, Selected=True только при наличии выбора. Не задавай их произвольно при генерации.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.search-contract",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "interaction.search|text.searchPlaceholder",
-        "checkType": "manual",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Поиск в Multi и Single поддерживает название, ИНН и адрес. Сохраняй placeholder «Название, ИНН или адрес» в Multi и «Поиск» в Single без изменений.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.select-all-current-results",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "interaction.selectAll|interaction.search",
-        "checkType": "manual",
-        "matchKind": "exact_component_rule",
-        "ruleText": "В Multi действие «Выбрать все» выбирает текущий набор: все компании при полном списке или только результаты применённого поиска, если список отфильтрован.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.selected-value-content",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "text.selectedValue",
-        "checkType": "llm",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Сохраняй предметную метку «Компания». В Multi для одной выбранной компании показывай её название, для нескольких — счётчик «выбрано N». В Single без выбора показывай «Выберите компанию», после выбора — название компании.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.fixed-control-labels",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "text.controlLabel",
-        "checkType": "deterministic",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Не изменяй служебные подписи «Компания», «Выбрать все», «Применить» и «Сбросить».",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.search-visible-over-ten",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "component.searchVisibility|data.companyCount",
-        "checkType": "deterministic",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Показывай поиск только при количестве доступных компаний больше 10. При 10 компаниях или меньше поиск скрыт.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.single-clear-filter-tag-only",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "interaction.clear|variant.View",
-        "checkType": "deterministic",
-        "matchKind": "exact_component_rule",
-        "conditions": {
-          "root": "[D] FilterCompanySelect_Single",
-          "clearActionAvailable": true
-        },
-        "requiredValues": {
-          "View": "FilterTag"
-        },
-        "ruleText": "Очистка Single разрешена только в View=FilterTag. Она сразу удаляет выбранную компанию и возвращает состояние Selected=False.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.states-delegate-to-nested-components",
-        "severity": "info",
-        "source": "owner-confirmed",
-        "appliesTo": "component.state|component.composition",
-        "checkType": "manual",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Состояния Select- и FilterTag-триггеров наследуются от соответствующих компонентов. Элементы и контейнер списка наследуют состояния [D] OptionListCell, [D] OptionList, [D] OptionListHeader и [D] OptionListFooter; FilterCompanySelect не вводит для них отдельные значения."
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.sizing-delegation",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "layout.width|layout.height|layout.spacing",
-        "checkType": "manual",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Сохраняй внутреннюю геометрию вложенных Select, FilterTag, CompactTag и OptionList-компонентов. Ширину корня и dropdown разрешено менять вручную; ручное изменение высоты, padding, gap и внутренней геометрии не разрешено.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.empty-selection-by-view",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "component.value|variant.View|variant.Selected",
-        "checkType": "manual",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Пустой выбор допустим в Multi и Single/FilterTag. Для Single/Select обязательность определяется формой. В Single/Compact компания всегда должна быть выбрана.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
         "ruleId": "component:web-corp.filter-company-select.preserve-library-composition",
         "severity": "error",
-        "source": "owner-confirmed",
+        "source": "delegated-contract",
         "appliesTo": "component.composition|component.detach|component.instanceSwap",
-        "checkType": "deterministic",
+        "checkType": "delegated",
         "matchKind": "exact_component_rule",
-        "ruleText": "Сохраняй библиотечный instance FilterCompanySelect. Detach, замена внутренних DropdownList/OptionList и instance swap служебных частей запрещены.",
+        "ruleText": "Public root остаётся библиотечным instance. Detach, swap внутренних DropdownList/OptionList и служебных частей проверяются общими component-known-key/component-no-detach и nested contracts.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
@@ -733,42 +446,41 @@
         }
       },
       {
-        "ruleId": "component:web-corp.filter-company-select.company-data-runtime-owned",
-        "severity": "info",
-        "source": "owner-confirmed",
-        "appliesTo": "content.companyName|content.inn|content.address",
-        "checkType": "manual",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Название компании, ИНН и адрес являются runtime-данными. В рабочем макете разрешены реальные примеры, но они не становятся фиксированными текстами компонента."
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.select-all-checkbox-state",
+        "ruleId": "component:web-corp.filter-company-select.public-roots-only",
         "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "component.selectAllState|data.currentResultSelection",
+        "appliesTo": "component.identity|component.composition",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
-        "ruleText": "Состояние «Выбрать все» следует CheckboxLabel_24: empty, если ничего из текущего набора не выбрано; indeterminate, если выбрана часть; selected, если выбран весь текущий набор.",
+        "ruleText": "Для новых макетов используй только [D] FilterCompanySelect_Multi или [D] FilterCompanySelect_Single. CompactTag, DropdownList и их 🔄-версии являются внутренними либо устаревшими частями и не используются отдельно.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web-corp.filter-company-select.visuals-follow-effective-baseline",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "fill|stroke|styles.text|radius|effects.*|layout.height|layout.padding|layout.gap",
-        "checkType": "deterministic",
-        "matchKind": "exact_component_rule",
-        "ruleText": "Сравнивай визуальные и внутренние layout-параметры с effective baseline выбранного root, View и nested state. Ручные цвета, типографика, радиусы, тени, высота, padding и gap запрещены; подтверждённая ручная ширина остаётся разрешённым исключением.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "public-root",
+          "identity": "web-corp.filter-company-select",
+          "standaloneOnly": true,
+          "allowedFamilies": [
+            "filter-company-select-multi",
+            "filter-company-select-single"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Служебный компонент FilterCompanySelect используется отдельно",
+            "observed": "{{actual}} размещён как самостоятельный компонент.",
+            "expectation": "Самостоятельно допускаются только FilterCompanySelect_Multi и FilterCompanySelect_Single.",
+            "action": "Заменить служебный компонент на публичный FilterCompanySelect root."
+          },
+          "scope": {
+            "platform": [
+              "desktop"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
         }
       },
       {
@@ -792,23 +504,108 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.filter-company-select" } },
-              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["filter-company-select-multi", "filter-company-select-single"] } },
-              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.filter-company-select"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "filter-company-select-multi",
+                    "filter-company-select-single"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
             ]
           },
           "paths": [
-            { "suffix": "height", "label": "Высота", "actualFact": "height", "baselineFact": "baseline.effective.height" },
-            { "suffix": "padding-top", "label": "Верхний padding", "actualFact": "layout.padding.top", "baselineFact": "baseline.effective.layout.padding.top" },
-            { "suffix": "padding-right", "label": "Правый padding", "actualFact": "layout.padding.right", "baselineFact": "baseline.effective.layout.padding.right" },
-            { "suffix": "padding-bottom", "label": "Нижний padding", "actualFact": "layout.padding.bottom", "baselineFact": "baseline.effective.layout.padding.bottom" },
-            { "suffix": "padding-left", "label": "Левый padding", "actualFact": "layout.padding.left", "baselineFact": "baseline.effective.layout.padding.left" },
-            { "suffix": "item-spacing", "label": "Расстояние между элементами", "actualFact": "layout.itemSpacing", "baselineFact": "baseline.effective.layout.itemSpacing" },
-            { "suffix": "fill", "label": "Заливка", "actualFact": "appearance.fill.value", "baselineFact": "baseline.effective.appearance.fill.value" },
-            { "suffix": "stroke", "label": "Обводка", "actualFact": "appearance.stroke.value", "baselineFact": "baseline.effective.appearance.stroke.value" },
-            { "suffix": "radius", "label": "Скругление", "actualFact": "appearance.radius", "baselineFact": "baseline.effective.appearance.radius" },
-            { "suffix": "opacity", "label": "Прозрачность", "actualFact": "appearance.opacity", "baselineFact": "baseline.effective.appearance.opacity" }
+            {
+              "suffix": "height",
+              "label": "Высота",
+              "actualFact": "height",
+              "baselineFact": "baseline.effective.height"
+            },
+            {
+              "suffix": "padding-top",
+              "label": "Верхний padding",
+              "actualFact": "layout.padding.top",
+              "baselineFact": "baseline.effective.layout.padding.top"
+            },
+            {
+              "suffix": "padding-right",
+              "label": "Правый padding",
+              "actualFact": "layout.padding.right",
+              "baselineFact": "baseline.effective.layout.padding.right"
+            },
+            {
+              "suffix": "padding-bottom",
+              "label": "Нижний padding",
+              "actualFact": "layout.padding.bottom",
+              "baselineFact": "baseline.effective.layout.padding.bottom"
+            },
+            {
+              "suffix": "padding-left",
+              "label": "Левый padding",
+              "actualFact": "layout.padding.left",
+              "baselineFact": "baseline.effective.layout.padding.left"
+            },
+            {
+              "suffix": "item-spacing",
+              "label": "Расстояние между элементами",
+              "actualFact": "layout.itemSpacing",
+              "baselineFact": "baseline.effective.layout.itemSpacing"
+            },
+            {
+              "suffix": "fill",
+              "label": "Заливка",
+              "actualFact": "appearance.fill.value",
+              "baselineFact": "baseline.effective.appearance.fill.value"
+            },
+            {
+              "suffix": "stroke",
+              "label": "Обводка",
+              "actualFact": "appearance.stroke.value",
+              "baselineFact": "baseline.effective.appearance.stroke.value"
+            },
+            {
+              "suffix": "radius",
+              "label": "Скругление",
+              "actualFact": "appearance.radius",
+              "baselineFact": "baseline.effective.appearance.radius"
+            },
+            {
+              "suffix": "opacity",
+              "label": "Прозрачность",
+              "actualFact": "appearance.opacity",
+              "baselineFact": "baseline.effective.appearance.opacity"
+            }
           ],
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -817,36 +614,385 @@
             "expectation": "Свойство «{{property}}» корня должно совпадать с effective baseline выбранного View и state.",
             "action": "Сбросить свойство «{{property}}» к effective baseline FilterCompanySelect."
           },
-          "scope": { "platform": ["desktop"] },
+          "scope": {
+            "platform": [
+              "desktop"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
       {
-        "ruleId": "component:web-corp.filter-company-select.universal-modal-is-separate-package",
-        "severity": "info",
+        "ruleId": "component:web-corp.filter-company-select.runtime-owned-open-selected",
+        "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "component.identity|component.usage",
-        "checkType": "manual",
+        "appliesTo": "variant.Open|variant.Selected",
+        "checkType": "interaction",
         "matchKind": "exact_component_rule",
-        "ruleText": "[D] FilterCompanySelect_UniversalModal относится к элементам режима холдинга, но применяется внутри UniversalModal и ведётся отдельным package. Не включай его в public roots FilterCompanySelect."
+        "ruleText": "Open и Selected являются runtime-состояниями. Их связь с открытым списком и выбранными компаниями проверяется только interaction/runtime evidence; без него результат not-evaluable.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       },
       {
-        "ruleId": "component:web-corp.filter-company-select.empty-and-interaction-states-delegated",
-        "severity": "info",
+        "ruleId": "component:web-corp.filter-company-select.search-contract",
+        "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "component.state|component.interaction",
+        "appliesTo": "interaction.search|text.searchPlaceholder",
+        "checkType": "interaction",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Поиск в Multi и Single выполняется по названию, ИНН и адресу; placeholders: Multi «Название, ИНН или адрес», Single «Поиск». Поисковую семантику проверяй только с text-role и interaction evidence.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.search-visible-over-ten",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.searchVisibility|data.companyCount",
+        "checkType": "runtime",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Search видим при полном companyCount > 10 до поиска и не пересчитывается по числу результатов. Без pre-search companyCount и searchVisible результат not-evaluable.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.select-all-checkbox-state",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "component.selectAllState|data.currentResultSelection",
+        "checkType": "runtime",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Состояние «Выбрать все» наследует CheckboxLabel_24: empty / indeterminate / selected по текущему набору. Без current-set и selected-id facts результат not-evaluable.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.select-all-current-results",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "interaction.selectAll|interaction.search",
         "checkType": "manual",
         "matchKind": "exact_component_rule",
-        "ruleText": "No-results, отсутствие доступных компаний, hover, focus, keyboard navigation и disabled принадлежат продукту либо вложенным Select, FilterTag, CheckboxLabel_24 и OptionList-компонентам. FilterCompanySelect не создаёт для них отдельные variants или тексты."
+        "ruleText": "В Multi действие «Выбрать все» выбирает текущий набор: все компании при полном списке или только результаты применённого поиска, если список отфильтрован.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.selected-value-display-delegated",
+        "severity": "info",
+        "source": "delegated-contract",
+        "appliesTo": "text.selectedValue",
+        "checkType": "delegated",
+        "matchKind": "delegated_contract",
+        "ruleText": "Selected-value display принадлежит Select, [D] FilterTag и [D] CompactTag. FilterCompanySelect не задаёт собственную формулу текста и не создаёт finding по runtime названию или счётчику."
       },
       {
         "ruleId": "component:web-corp.filter-company-select.selection-cardinality",
         "severity": "error",
         "source": "owner-confirmed",
         "appliesTo": "component.selectedCount|variant.View",
+        "checkType": "runtime",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Multi допускает 0..all, Single — максимум одну компанию. Условие пустого Select зависит от requiredness формы; без selectedCompanyCount и form facts результат not-evaluable.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.show-first-company-forbidden",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.ShowFirstCompany",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
-        "ruleText": "Multi допускает от 0 до всех доступных компаний без дополнительного максимума. Single допускает не более одной компании; возможность нулевого выбора определяется View и обязательностью поля формы.",
+        "requiredValue": "False",
+        "ruleText": "ShowFirstCompany является legacy-параметром. В новых макетах и при генерации сохраняй ShowFirstCompany=False.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.filter-company-select"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "filter-company-select-multi",
+                    "filter-company-select-single"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          "actual": {
+            "fact": "component.properties.ShowFirstCompany"
+          },
+          "allowedValues": [
+            "False"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Включён legacy-параметр ShowFirstCompany",
+            "observed": "У FilterCompanySelect задан ShowFirstCompany={{actual}}.",
+            "expectation": "В новых макетах ShowFirstCompany должен быть False.",
+            "action": "Установить ShowFirstCompany=False."
+          },
+          "scope": {
+            "platform": [
+              "desktop"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.single-clear-filter-tag-only",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "interaction.clear|variant.View",
+        "checkType": "interaction",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "root": "[D] FilterCompanySelect_Single",
+          "clearActionAvailable": true
+        },
+        "requiredValues": {
+          "View": "FilterTag"
+        },
+        "ruleText": "Очистка Single разрешена только в View=FilterTag и сразу возвращает пустое значение. Доступность clear и commit проверяются interaction evidence; snapshot без action facts не создаёт finding.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.single-compact-selected-required",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "variant.View|variant.Selected",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "ruleText": "У FilterCompanySelect_Single с View=Compact должна быть предвыбрана компания: Selected=False — error. Для Multi, FilterTag и Select нужны контекстные/runtime факты.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.filter-company-select"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "filter-company-select-multi",
+                    "filter-company-select-single"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": "filter-company-select-single"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.properties.View"
+                },
+                "expected": {
+                  "literal": "Compact"
+                }
+              }
+            ]
+          },
+          "actual": {
+            "fact": "component.properties.Selected"
+          },
+          "allowedValues": [
+            "True"
+          ],
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "В Compact не выбрана компания",
+            "observed": "У FilterCompanySelect_Single с View=Compact задан Selected={{actual}}.",
+            "expectation": "View=Compact всегда показывает предвыбранную компанию: Selected должен быть True.",
+            "action": "Выбрать компанию или сменить View на вариант, допускающий пустой выбор."
+          },
+          "scope": {
+            "platform": [
+              "desktop"
+            ]
+          },
+          "unknownPolicy": "not-evaluable"
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.single-select-immediate",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "interaction.selection|interaction.close",
+        "checkType": "manual",
+        "matchKind": "exact_component_rule",
+        "ruleText": "В Single клик по строке сразу применяет выбранную компанию и закрывает список.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.single-view-purpose",
+        "severity": "info",
+        "source": "pattern-reference",
+        "appliesTo": "flow.context|variant.View",
+        "checkType": "llm",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Выбор View зависит от holding-сценария. Проверку соответствия View форме, таблице, FilterBlock и TitleView ведёт owner паттерна holding-company-selection."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.sizing-delegation",
+        "severity": "error",
+        "source": "delegated-contract",
+        "appliesTo": "layout.width|layout.height|layout.spacing",
+        "checkType": "delegated",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Root.width и dropdown.width можно менять независимо без min/max. Height, padding, gap и внутренняя геометрия принадлежат effective baseline nested-компонентов.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.states-delegate-to-nested-components",
+        "severity": "info",
+        "source": "delegated-contract",
+        "appliesTo": "component.state|component.composition",
+        "checkType": "delegated",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Loading, error, disabled, hover, focus, keyboard и no-results принадлежат Select, FilterTag, CheckboxLabel_24 и OptionList. FilterCompanySelect не создаёт собственных state-правил."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.universal-modal-is-separate-package",
+        "severity": "info",
+        "source": "package-policy",
+        "appliesTo": "component.identity|component.usage",
+        "checkType": "policy",
+        "matchKind": "exact_component_rule",
+        "ruleText": "FilterCompanySelect_UniversalModal — отдельный package внутри UniversalModal и не входит в public roots FilterCompanySelect; это policy/context, а не самостоятельный finding текущего пакета."
+      },
+      {
+        "ruleId": "component:web-corp.filter-company-select.visuals-follow-effective-baseline",
+        "severity": "error",
+        "source": "delegated-contract",
+        "appliesTo": "fill|stroke|styles.text|radius|effects.*|layout.height|layout.padding|layout.gap",
+        "checkType": "delegated",
+        "matchKind": "exact_component_rule",
+        "ruleText": "Визуальные и внутренние layout-свойства nested Select, FilterTag, CompactTag и OptionList сравниваются с их effective baseline. Root.width и dropdown.width — разрешённые независимые исключения.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
