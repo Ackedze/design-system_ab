@@ -89,20 +89,31 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web.promo-main-block.first-and-single-on-page",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "page.order|page.componentCount",
-        "checkType": "deterministic",
-        "matchKind": "composition_rule",
-        "conditions": {
-          "placement": "first",
-          "maxCount": 1
         },
-        "ruleText": "PromoMainBlock всегда стоит первым на странице и используется только один раз."
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "public-root",
+          "identity": "web.promo-main-block",
+          "standaloneOnly": true,
+          "familyFact": "component.family",
+          "allowedFamilies": [
+            "promo-main-block"
+          ],
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Служебная часть PromoMainBlock используется отдельно",
+            "observed": "{{actual}} размещён как самостоятельный компонент.",
+            "expectation": "Самостоятельно допускаются только [D] PromoMainBlock и [M] PromoMainBlock.",
+            "action": "Заменить служебную часть на публичный PromoMainBlock."
+          }
+        }
       },
       {
         "ruleId": "component:web.promo-main-block.desktop-view-context",
@@ -125,114 +136,179 @@
         }
       },
       {
-        "ruleId": "component:web.promo-main-block.desktop-compact-required",
+        "ruleId": "component:web.promo-main-block.desktop-compact-under-1024",
         "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "variant.Compact|viewport|content.fit",
+        "appliesTo": "variant.Compact|viewport",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "conditions": {
           "requiredWhen": [
-            "viewport<=1024",
-            "content-does-not-fit-standard-format"
-          ]
+            "viewport<=1024"
+          ],
+          "mobilePropertyExposed": false
         },
-        "ruleText": "Используй Compact=True при viewport 1024 px и меньше или когда контент не помещается.",
+        "ruleText": "На desktop при viewport 1024 px и меньше Compact=True обязателен. При большей ширине значение зависит от контекста. У mobile-web свойства Compact нет.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web.promo-main-block.page-background-must-be-false",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "variant.View|variant.Background",
-        "checkType": "deterministic",
-        "matchKind": "exact_component_rule",
-        "conditions": {
-          "when": {
-            "View": "Page",
-            "Background": "True"
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web.promo-main-block" } },
+              { "predicate": "equals", "actual": { "fact": "component.family" }, "expected": { "literal": "promo-main-block" } },
+              { "predicate": "equals", "actual": { "fact": "component.platform" }, "expected": { "literal": "desktop" } },
+              { "predicate": "compare", "actual": { "fact": "page.context.viewportWidth" }, "expected": { "literal": 1024 }, "operator": "lte" }
+            ]
           },
-          "recommended": {
-            "Background": "False"
+          "actual": { "fact": "component.properties.Compact" },
+          "allowedValues": ["True"],
+          "scope": { "platform": ["desktop"] },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Для узкого desktop не включён Compact",
+            "observed": "При viewport {{page.context.viewportWidth}} выбран Compact={{actual}}.",
+            "expectation": "При viewport 1024 px и меньше требуется Compact=True.",
+            "action": "Установить Compact=True."
           }
+        }
+      },
+      {
+        "ruleId": "component:web.promo-main-block.background-matrix",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "platform|variant.View|variant.Background",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "desktopPage": "False",
+          "desktopModal": "True",
+          "mobileWeb": "True"
         },
-        "ruleText": "Для View=Page обязательно используй Background=False; Background=True является ошибкой.",
+        "ruleText": "Соблюдай строгую матрицу Background: D Page=False, D Modal=True, M=True.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web.promo-main-block.mobile-background-must-be-true",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "platform|variant.Background",
-        "checkType": "deterministic",
-        "matchKind": "exact_component_rule",
-        "conditions": {
-          "when": {
-            "platform": "mobile-web",
-            "Background": "False"
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "equals",
+                "actual": { "fact": "type" },
+                "expected": { "literal": "INSTANCE" }
+              },
+              {
+                "predicate": "equals",
+                "actual": { "fact": "component.identity" },
+                "expected": { "literal": "web.promo-main-block" }
+              },
+              {
+                "predicate": "equals",
+                "actual": { "fact": "component.family" },
+                "expected": { "literal": "promo-main-block" }
+              }
+            ]
           },
-          "required": {
-            "Background": "True"
+          "assert": {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  { "predicate": "equals", "actual": { "fact": "component.platform" }, "expected": { "literal": "desktop" } },
+                  { "predicate": "equals", "actual": { "fact": "component.properties.View" }, "expected": { "literal": "Page" } },
+                  { "predicate": "equals", "actual": { "fact": "component.properties.Background" }, "expected": { "literal": "False" } }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  { "predicate": "equals", "actual": { "fact": "component.platform" }, "expected": { "literal": "desktop" } },
+                  { "predicate": "equals", "actual": { "fact": "component.properties.View" }, "expected": { "literal": "Modal" } },
+                  { "predicate": "equals", "actual": { "fact": "component.properties.Background" }, "expected": { "literal": "True" } }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  { "predicate": "equals", "actual": { "fact": "component.platform" }, "expected": { "literal": "mobile-web" } },
+                  { "predicate": "equals", "actual": { "fact": "component.properties.Background" }, "expected": { "literal": "True" } }
+                ]
+              }
+            ]
+          },
+          "scope": {
+            "platform": ["desktop", "mobile-web"]
+          },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Background не соответствует платформе и View",
+            "observed": "Сочетание платформы, View и Background не соответствует матрице PromoMainBlock.",
+            "expectation": "D Page=False, D Modal=True, M=True.",
+            "action": "Вернуть Background к значению из строгой матрицы PromoMainBlock."
           }
-        },
-        "ruleText": "В mobile-web разрешён только Background=True; Background=False является ошибкой.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
         }
       },
       {
-        "ruleId": "component:web.promo-main-block.appearance-matches-surface",
+        "ruleId": "component:web.promo-main-block.desktop-blur-required",
         "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "variant.Appearance|host.surface",
-        "checkType": "llm",
-        "matchKind": "exact_component_rule",
-        "conditions": {
-          "Light": "light colored surface for MMB segment",
-          "Dark": "dark surface for KIB segment",
-          "appearanceIsTheme": false
-        },
-        "ruleText": "Appearance — не тема: Light используй на светлых цветных подложках ММБ, Dark — на тёмной подложке КИБ.",
-        "ruleKind": "design-rule",
-        "authority": {
-          "status": "active",
-          "provenance": "design-system-author",
-          "revision": 1
-        }
-      },
-      {
-        "ruleId": "component:web.promo-main-block.page-blur-required",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "property.BlurEffect|variant.View",
+        "appliesTo": "property.BlurEffect|platform",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "conditions": {
-          "when": {
-            "View": "Page",
-            "BlurEffect": false
-          },
-          "modalOptional": true
+          "desktopPage": true,
+          "desktopModal": true,
+          "mobilePropertyExposed": false
         },
-        "ruleText": "Для View=Page BlurEffect обязателен; в modal-контексте он опционален.",
+        "ruleText": "На desktop BlurEffect=True обязателен и для View=Page, и для View=Modal. У mobile-web свойства BlurEffect нет.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web.promo-main-block" } },
+              { "predicate": "equals", "actual": { "fact": "component.family" }, "expected": { "literal": "promo-main-block" } },
+              { "predicate": "equals", "actual": { "fact": "component.platform" }, "expected": { "literal": "desktop" } }
+            ]
+          },
+          "actual": { "fact": "component.properties.BlurEffect" },
+          "allowedValues": [true, "True"],
+          "scope": { "platform": ["desktop"] },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "На desktop отключён BlurEffect",
+            "observed": "Выбрано BlurEffect={{actual}}.",
+            "expectation": "Для D Page и D Modal требуется BlurEffect=True.",
+            "action": "Включить BlurEffect."
+          }
         }
       },
       {
@@ -255,6 +331,35 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "required-regions",
+          "identity": "web.promo-main-block",
+          "collectionKey": "promoContent",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web.promo-main-block" } },
+              { "predicate": "equals", "actual": { "fact": "component.family" }, "expected": { "literal": "promo-main-block" } }
+            ]
+          },
+          "regions": [
+            { "role": "Title", "names": ["Title"], "requireVisibleText": true },
+            { "role": "Subtitle", "names": ["Subtitle"], "requireVisibleText": true },
+            { "role": "ImageContainer", "names": ["ImageContainer", "ImageContent"] }
+          ],
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Скрыт обязательный контент PromoMainBlock",
+            "observed": "Title, Subtitle или ImageContainer скрыт.",
+            "expectation": "Title, Subtitle и ImageContainer обязательны.",
+            "action": "Включить все обязательные области."
+          }
         }
       },
       {
@@ -289,21 +394,21 @@
         "ruleText": "Два или три StatusBadge допустимы, но возвращают warning; предпочтителен один статус."
       },
       {
-        "ruleId": "component:web.promo-main-block.holding-context",
+        "ruleId": "component:web.promo-main-block.holding-desktop-only",
         "severity": "error",
         "source": "owner-confirmed",
         "appliesTo": "property.Holding|user.companyContext",
         "checkType": "llm",
         "matchKind": "composition_rule",
         "conditions": {
-          "allowedWhen": "user works on behalf of a group of companies",
-          "inherits": "FilterCompanySelect/AccountSelect",
-          "preserveAcrossPlatforms": true
+          "desktopOnly": true,
+          "mobileSupported": false,
+          "inherits": "FilterCompanySelect/AccountSelect"
         },
-        "ruleText": "Holding используй только для пользователя, работающего от группы компаний; сохраняй его между D/M."
+        "ruleText": "Holding поддерживается только desktop-версией PromoMainBlock. На mobile-web его не сохраняй и не имитируй."
       },
       {
-        "ruleId": "component:web.promo-main-block.bottom-slot-content",
+        "ruleId": "component:web.promo-main-block.bottom-slot-final-content",
         "severity": "error",
         "source": "owner-confirmed",
         "appliesTo": "content.BottomSlot",
@@ -314,12 +419,61 @@
           "allowed": [
             "plain text",
             "arbitrary component"
-          ]
+          ],
+          "forbiddenFinalPlaceholder": "SwapMe"
         },
-        "ruleText": "Bottom slot опционален; помещай в него простой текст или произвольный компонент."
+        "ruleText": "Bottom slot опционален; помещай в него простой текст или один произвольный компонент. Служебный SwapMe запрещён в финальном макете.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.root.component.identity" }, "expected": { "literal": "web.promo-main-block" } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": false } },
+              { "predicate": "equals", "actual": { "fact": "component.family" }, "expected": { "literal": "swap-me" } },
+              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+            ]
+          },
+          "actual": { "fact": "component.properties.Presets" },
+          "allowedValues": ["Text"],
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "В Bottom slot оставлен SwapMe",
+            "observed": "Видимый Bottom slot использует Presets={{actual}}.",
+            "expectation": "Служебный SwapMe должен быть заменён на Text или финальный компонент.",
+            "action": "Заменить SwapMe на финальное содержимое или скрыть Bottom slot."
+          }
+        }
       },
       {
-        "ruleId": "component:web.promo-main-block.actions-optional",
+        "ruleId": "component:web.promo-main-block.bottom-slot-parity",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "responsive.BottomSlot",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "preserveAcrossPlatforms": [
+            "visibility",
+            "content",
+            "meaning"
+          ]
+        },
+        "ruleText": "Между D/M сохраняй видимость, содержимое и смысл Bottom slot."
+      },
+      {
+        "ruleId": "component:web.promo-main-block.desktop-actions-optional",
         "severity": "error",
         "source": "owner-confirmed",
         "appliesTo": "actions",
@@ -333,41 +487,131 @@
             "hidden"
           ]
         },
-        "ruleText": "CTA опциональны; допустимы Primary, Secondary, оба действия или полностью скрытый action-блок."
+        "ruleText": "На desktop CTA опциональны; допустимы Primary, Secondary, оба действия или полностью скрытый action-блок."
       },
       {
-        "ruleId": "component:web.promo-main-block.mobile-actions-use-button-stack",
+        "ruleId": "component:web.promo-main-block.desktop-actions-follow-baseline",
         "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "desktop.actions.order|desktop.actions.View|desktop.actions.properties",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "conditions": {
+          "preserve": [
+            "button order",
+            "button View",
+            "button component properties"
+          ]
+        },
+        "ruleText": "У видимых desktop-кнопок не меняй порядок, View и component properties относительно effective baseline.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "baseline-set",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.host.component.identity" }, "expected": { "literal": "web.promo-main-block" } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.host.component.platform" }, "expected": { "literal": "desktop" } },
+              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-core.button" } },
+              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+            ]
+          },
+          "paths": [
+            { "suffix": "view", "label": "View", "actualFact": "component.properties.View", "baselineFact": "baseline.effective.component.properties.View" },
+            { "suffix": "size", "label": "Size", "actualFact": "component.properties.Size", "baselineFact": "baseline.effective.component.properties.Size" },
+            { "suffix": "shape", "label": "Shape", "actualFact": "component.properties.Shape", "baselineFact": "baseline.effective.component.properties.Shape" },
+            { "suffix": "single-icon", "label": "SingleIcon", "actualFact": "component.properties.SingleIcon", "baselineFact": "baseline.effective.component.properties.SingleIcon" },
+            { "suffix": "disabled-state", "label": "DisabledState", "actualFact": "component.properties.DisabledState", "baselineFact": "baseline.effective.component.properties.DisabledState" },
+            { "suffix": "order", "label": "Порядок", "actualFact": "composition.index", "baselineFact": "baseline.effective.composition.index" }
+          ],
+          "scope": { "platform": ["desktop"] },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменён baseline desktop-кнопки PromoMainBlock",
+            "observed": "{{property}} изменён с {{expected}} на {{actual}}.",
+            "expectation": "View, component properties и порядок кнопок должны совпадать с effective baseline.",
+            "action": "Сбросить {{property}} к effective baseline."
+          }
+        }
+      },
+      {
+        "ruleId": "component:web.promo-main-block.mobile-internal-button-group-warning",
+        "severity": "warning",
         "source": "owner-confirmed",
         "appliesTo": "mobile.actions",
         "checkType": "llm",
         "matchKind": "composition_rule",
         "conditions": {
-          "requiredPresetWhenActionsVisible": "🔒 [M] ButtonStack",
-          "figmaOnly": true,
-          "patternStatus": "pending"
+          "internalButtonGroupVisible": "warning",
+          "preferredExternalPreset": "🔒 [M] ButtonStack"
         },
-        "ruleText": "На mobile при наличии действий используй figma-only пресет 🔒 [M] ButtonStack вместо ButtonGroup."
+        "ruleText": "Внутренний ButtonGroup на mobile должен быть скрыт. Если он видим, верни warning; отдельный ButtonStack размещает сценарный паттерн.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-domain",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.root.component.identity" }, "expected": { "literal": "web.promo-main-block" } },
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.root.component.platform" }, "expected": { "literal": "mobile-web" } },
+              { "predicate": "equals", "actual": { "fact": "component.family" }, "expected": { "literal": "button-group" } }
+            ]
+          },
+          "actual": { "fact": "visible" },
+          "allowedValues": [false],
+          "scope": { "platform": ["mobile-web"] },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Использован внутренний mobile ButtonGroup",
+            "observed": "Внутренний ButtonGroup видим.",
+            "expectation": "На mobile внутренний ButtonGroup должен быть скрыт.",
+            "action": "Скрыть ButtonGroup; если действия нужны, собрать отдельный ButtonStack по landing-паттерну."
+          }
+        }
       },
       {
-        "ruleId": "component:web.promo-main-block.content-order-is-fixed",
+        "ruleId": "component:web.promo-main-block.content-order-by-platform",
         "severity": "error",
         "source": "owner-confirmed",
         "appliesTo": "content.order|layout.gap|layout.padding",
         "checkType": "deterministic",
         "matchKind": "composition_rule",
         "conditions": {
-          "order": [
+          "desktopOrder": [
             "Status",
             "Title/Holding",
             "Subtitle",
             "Bottom slot",
             "actions"
           ],
+          "mobileOrder": [
+            "Status",
+            "Title",
+            "Subtitle",
+            "Bottom slot"
+          ],
           "manualGapAllowed": false,
           "manualPaddingAllowed": false
         },
-        "ruleText": "Сохраняй порядок Status → Title/Holding → Subtitle → Bottom slot → actions; не меняй gap и padding вручную."
+        "ruleText": "Сохраняй порядок областей из baseline: D — Status → Title/Holding → Subtitle → Bottom → actions; M — Status → Title → Subtitle → Bottom."
       },
       {
         "ruleId": "component:web.promo-main-block.text-limits",
@@ -408,7 +652,54 @@
           "Size": "534",
           "Segment": "match page segment and Appearance"
         },
-        "ruleText": "Используй обязательное изображение из Corp Image Library с Crop=Center и Size=534; Segment должен соответствовать сегменту страницы и Appearance."
+        "ruleText": "Используй обязательное изображение из Corp Image Library с Crop=Center и Size=534; Segment должен соответствовать сегменту страницы и Appearance.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
+              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": "web.promo-main-block" } },
+              { "predicate": "equals", "actual": { "fact": "component.key" }, "expected": { "literal": "c24abd31d970ab80c3e9539d600f8cf92278ed06" } }
+            ]
+          },
+          "assert": {
+            "predicate": "all",
+            "args": [
+              { "predicate": "equals", "actual": { "fact": "component.properties.Crop" }, "expected": { "literal": "Center" } },
+              { "predicate": "one-of", "actual": { "fact": "component.properties.Size" }, "expected": { "literal": ["534", 534] } }
+            ]
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Изменены настройки ImageView PromoMainBlock",
+            "observed": "Crop или Size вложенного ImageView отличается от обязательного значения.",
+            "expectation": "Требуются Crop=Center и Size=534.",
+            "action": "Вернуть Crop=Center и Size=534; затем сверить Segment и источник изображения по контексту лендинга."
+          }
+        }
+      },
+      {
+        "ruleId": "component:web.promo-main-block.same-image-across-platforms",
+        "severity": "error",
+        "source": "owner-confirmed",
+        "appliesTo": "responsive.ImageContainer.ImageView",
+        "checkType": "llm",
+        "matchKind": "composition_rule",
+        "conditions": {
+          "sameAssetAcrossPlatforms": true
+        },
+        "ruleText": "Для D/M используй один и тот же image asset; отдельного mobile-изображения у PromoMainBlock нет."
       },
       {
         "ruleId": "component:web.promo-main-block.layout-is-component-owned",
@@ -435,10 +726,59 @@
           "status": "active",
           "provenance": "design-system-author",
           "revision": 1
+        },
+        "predicateContour": {
+          "schemaVersion": "apollo.contour-definition.v1",
+          "kind": "fact-assertion",
+          "select": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              { "predicate": "equals", "actual": { "fact": "ownership.contour.root.component.identity" }, "expected": { "literal": "web.promo-main-block" } },
+              {
+                "predicate": "any",
+                "args": [
+                  { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.width" } },
+                  { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.height" } },
+                  { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.itemSpacing" } },
+                  { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.paddingTop" } },
+                  { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.paddingRight" } },
+                  { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.paddingBottom" } },
+                  { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.paddingLeft" } },
+                  { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.clipsContent" } }
+                ]
+              }
+            ]
+          },
+          "assert": {
+            "predicate": "not",
+            "args": [{
+              "predicate": "any",
+              "args": [
+                { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.width" } },
+                { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.height" } },
+                { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.itemSpacing" } },
+                { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.paddingTop" } },
+                { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.paddingRight" } },
+                { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.paddingBottom" } },
+                { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.paddingLeft" } },
+                { "predicate": "fact-present", "actual": { "fact": "directOverride.fields.clipsContent" } }
+              ]
+            }]
+          },
+          "scope": { "platform": ["desktop", "mobile-web"] },
+          "unknownPolicy": "not-evaluable",
+          "presentation": {
+            "schemaVersion": "apollo.predicate-presentation.v1",
+            "title": "Вручную изменена геометрия PromoMainBlock",
+            "observed": "В компоненте обнаружено ручное изменение геометрии или layout.",
+            "expectation": "Геометрия должна совпадать с effective baseline текущего варианта.",
+            "action": "Сбросить ручные изменения геометрии и layout к effective baseline."
+          }
         }
       },
       {
-        "ruleId": "component:web.promo-main-block.overlay-is-derived-from-appearance",
+        "ruleId": "component:web.promo-main-block.overlay-is-derived",
         "severity": "error",
         "source": "owner-confirmed",
         "appliesTo": "internal.LightOverlay|internal.DarkOverlay|variant.Appearance",
@@ -452,7 +792,7 @@
         "ruleText": "LightOverlay/DarkOverlay и их Presets выбираются компонентом из Appearance и вручную не меняются."
       },
       {
-        "ruleId": "component:web.promo-main-block.status-platform-casing-is-preset-owned",
+        "ruleId": "component:web.promo-main-block.status-casing-preset-owned",
         "severity": "error",
         "source": "owner-confirmed",
         "appliesTo": "responsive.Status.Uppercase",
@@ -466,16 +806,16 @@
         "ruleText": "Сохраняй текст, тип и количество StatusBadge между D/M; casing True на D и False на M принадлежит пресетам."
       },
       {
-        "ruleId": "component:web.promo-main-block.loading-is-not-supported",
+        "ruleId": "component:web.promo-main-block.unsupported-states",
         "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "state.loading",
+        "appliesTo": "state.loading|state.error|state.disabled|state.skeleton",
         "checkType": "deterministic",
         "matchKind": "exact_component_rule",
         "conditions": {
-          "supported": false
+          "supported": []
         },
-        "ruleText": "Не создавай отдельное loading-состояние PromoMainBlock.",
+        "ruleText": "Не создавай отдельные loading, error, disabled или skeleton-состояния PromoMainBlock.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
@@ -484,7 +824,7 @@
         }
       },
       {
-        "ruleId": "component:web.promo-main-block.container-is-not-clickable",
+        "ruleId": "component:web.promo-main-block.container-noninteractive",
         "severity": "error",
         "source": "owner-confirmed",
         "appliesTo": "interaction.*",
@@ -492,28 +832,14 @@
         "matchKind": "composition_rule",
         "conditions": {
           "containerClickable": false,
+          "imageClickable": false,
           "allowedInteractiveRegions": [
             "CTA",
             "Holding",
             "interactive Bottom slot content"
           ]
         },
-        "ruleText": "Контейнер некликабелен; интерактивность разрешена только CTA, Holding и интерактивному содержимому Bottom slot."
-      },
-      {
-        "ruleId": "component:web.promo-main-block.active-canonical",
-        "severity": "info",
-        "source": "owner-confirmed",
-        "appliesTo": "lifecycle",
-        "checkType": "manual",
-        "matchKind": "exact_component_rule",
-        "conditions": {
-          "status": "active",
-          "canonical": true,
-          "replacement": null,
-          "legacyVariants": []
-        },
-        "ruleText": "PromoMainBlock активен и каноничен; replacement и legacy-вариантов нет."
+        "ruleText": "Контейнер и изображение некликабельны; интерактивность разрешена только CTA, desktop Holding и интерактивному содержимому Bottom slot."
       },
       {
         "ruleId": "component:web.promo-main-block.responsive-parity",
@@ -527,7 +853,6 @@
             "content",
             "image",
             "Status",
-            "Holding",
             "Bottom slot",
             "actions",
             "Appearance"
@@ -541,8 +866,108 @@
             "mobileWeb": "True"
           }
         },
-        "ruleText": "Между D/M сохраняй контент, изображение, Status, Holding, Bottom slot, действия и Appearance; Background намеренно различается: D Page=False, M=True."
+        "ruleText": "Между D/M сохраняй смысловой контент, Status, Bottom slot, действия, Appearance и одно изображение. Holding, View, Compact и BlurEffect являются desktop-only; Background следует строгой матрице."
       }
-    ]
+    ],
+    "executionPolicy": {
+      "schemaVersion": "apollo.component-rule-execution.v1",
+      "componentIdentities": [
+        "web.promo-main-block"
+      ],
+      "projection": {
+        "sourceOfMeaning": "ds-ai-hub/products/ab/patterns/promo-main-block.md",
+        "sourceRevision": "2026-09-02",
+        "readiness": "ready",
+        "scenarioOwner": "ptrn:pages.landing.alfa-business",
+        "notes": [
+          "First/single placement, Appearance by segment, Holding context and fixed mobile ButtonStack placement are scenario-owned.",
+          "No direct root Code Connect package, props or callbacks are asserted.",
+          "LLM and interaction routes return not-evaluable without their declared facts."
+        ]
+      },
+      "predicateRules": [
+        "component:web.promo-main-block.public-roots-only",
+        "component:web.promo-main-block.desktop-compact-under-1024",
+        "component:web.promo-main-block.background-matrix",
+        "component:web.promo-main-block.desktop-blur-required",
+        "component:web.promo-main-block.required-content",
+        "component:web.promo-main-block.bottom-slot-final-content",
+        "component:web.promo-main-block.desktop-actions-follow-baseline",
+        "component:web.promo-main-block.mobile-internal-button-group-warning",
+        "component:web.promo-main-block.image-source-and-settings",
+        "component:web.promo-main-block.layout-is-component-owned"
+      ],
+      "delegatedRules": [],
+      "policyRules": [
+        {
+          "sourceRuleId": "component:web.promo-main-block.desktop-actions-optional",
+          "effect": "allow"
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.holding-desktop-only",
+          "effect": "platform-api-boundary"
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.overlay-is-derived",
+          "effect": "invariant-by-public-component-api"
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.status-casing-preset-owned",
+          "effect": "preset-owned-difference"
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.unsupported-states",
+          "effect": "unsupported"
+        }
+      ],
+      "contextOnlyRules": [
+        {
+          "sourceRuleId": "component:web.promo-main-block.desktop-view-context",
+          "missingFacts": ["page.semantic-container", "component.properties.View"]
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.status-count-and-contract",
+          "missingFacts": ["composition.status.count", "composition.status.contract"]
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.multiple-statuses-warning",
+          "missingFacts": ["composition.status.count"]
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.bottom-slot-parity",
+          "missingFacts": ["page.cross-platform.entityKey", "content.semantic-role"]
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.content-order-by-platform",
+          "missingFacts": ["composition.semantic-regions", "composition.visible-order"]
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.text-limits",
+          "missingFacts": ["text.semantic-role", "text.length", "text.lineCount"]
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.same-image-across-platforms",
+          "missingFacts": ["page.cross-platform.entityKey", "asset.identity"]
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.container-noninteractive",
+          "missingFacts": ["interaction.reactions", "content.semantic-role"]
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.responsive-parity",
+          "missingFacts": ["page.cross-platform.entityKey", "content.semantic-role", "interaction.action"]
+        }
+      ],
+      "coverageGaps": [
+        {
+          "sourceRuleId": "component:web.promo-main-block.image-source-and-settings",
+          "missingFacts": ["asset.source-library", "page.segment"]
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.layout-is-component-owned",
+          "missingFacts": ["appearance.effects", "layout.fade"]
+        }
+      ]
+    }
   }
 }
