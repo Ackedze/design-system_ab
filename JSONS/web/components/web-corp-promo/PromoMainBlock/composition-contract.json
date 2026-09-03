@@ -651,8 +651,7 @@
       ]
     },
     "compositionPolicy": {
-      "pagePlacement": "first",
-      "maxPerPage": 1,
+      "scenarioOwner": "ptrn:pages.landing.alfa-business",
       "desktopViewContexts": {
         "Page": "page",
         "Modal": "modal container"
@@ -662,26 +661,33 @@
         "content",
         "image",
         "Status",
-        "Holding",
         "Bottom slot",
         "actions",
         "Appearance"
       ],
       "platformBackground": {
         "desktopPage": "False",
+        "desktopModal": "True",
         "mobileWeb": "True"
       },
-      "contentOrder": [
+      "desktopContentOrder": [
         "Status",
         "Title/Holding",
         "Subtitle",
         "Bottom slot",
         "actions"
       ],
+      "mobileContentOrder": [
+        "Status",
+        "Title",
+        "Subtitle",
+        "Bottom slot"
+      ],
       "mobileActions": {
         "preset": "🔒 [M] ButtonStack",
         "figmaOnly": true,
-        "patternStatus": "pending"
+        "placementOwner": "ptrn:pages.landing.alfa-business",
+        "rawButtonGroupVisibleSeverity": "warning"
       },
       "image": {
         "required": true,
@@ -690,8 +696,25 @@
         "Size": "534",
         "Segment": "page segment and Appearance"
       },
+      "sameImageAcrossPlatforms": true,
+      "holding": {
+        "desktopOnly": true,
+        "mobileSupported": false
+      },
+      "bottomSlot": {
+        "forbiddenFinalPlaceholder": "SwapMe",
+        "preserveAcrossPlatforms": true
+      },
+      "desktopActions": {
+        "preserveBaseline": [
+          "order",
+          "View",
+          "component properties"
+        ]
+      },
       "overlaySelection": "internal and derived from Appearance",
       "containerClickable": false,
+      "imageClickable": false,
       "optionalRegions": [
         "Status",
         "Holding",

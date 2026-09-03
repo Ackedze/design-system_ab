@@ -145,8 +145,13 @@
     },
     "usage": {
       "purpose": "Главный промо-блок с ключевым сообщением, изображением и CTA.",
-      "pagePlacement": "first",
-      "maxPerPage": 1
+      "scenarioOwner": "ptrn:pages.landing.alfa-business",
+      "scenarioOwnedRules": [
+        "first-and-single",
+        "Appearance-by-segment",
+        "Holding-context",
+        "mobile-ButtonStack-placement"
+      ]
     },
     "variantSemantics": {
       "View": {
@@ -157,8 +162,7 @@
       "Compact": {
         "desktopOnly": true,
         "requiredWhen": [
-          "viewport<=1024",
-          "content-does-not-fit-standard-format"
+          "viewport<=1024"
         ]
       },
       "Appearance": {
@@ -167,13 +171,14 @@
         "Dark": "dark surface for KIB segment"
       },
       "Background": {
-        "False": "required for desktop View=Page; error on mobile-web",
-        "True": "required on mobile-web; error for desktop View=Page"
+        "desktopPage": "False",
+        "desktopModal": "True",
+        "mobileWeb": "True"
       },
       "BlurEffect": {
         "effect": "clips image at lower edge and adds fade",
-        "requiredWhen": "View=Page",
-        "optionalWhen": "View=Modal"
+        "requiredOnDesktop": true,
+        "mobileExposed": false
       }
     },
     "contentModel": {
@@ -202,16 +207,19 @@
       },
       "holding": {
         "optional": true,
-        "allowedWhen": "user works on behalf of a group of companies",
+        "platform": "desktop",
+        "contextOwnedBy": "ptrn:pages.landing.alfa-business",
         "componentContract": "FilterCompanySelect/AccountSelect",
-        "preserveAcrossPlatforms": true
+        "preserveAcrossPlatforms": false
       },
       "bottomSlot": {
         "optional": true,
         "allowedContent": [
           "plain text",
           "arbitrary component"
-        ]
+        ],
+        "forbiddenFinalPlaceholder": "SwapMe",
+        "preserveAcrossPlatforms": true
       }
     },
     "actionPolicy": {
@@ -222,9 +230,14 @@
         "Primary + Secondary",
         "hidden"
       ],
+      "desktopBaselineProtected": [
+        "button order",
+        "button View",
+        "button component properties"
+      ],
       "mobilePreset": "🔒 [M] ButtonStack",
-      "mobilePresetStatus": "figma-only; detailed pattern pending",
-      "rawMobileButtonGroupIsTarget": false
+      "mobilePresetStatus": "figma-only; placement is scenario-owned",
+      "rawMobileButtonGroupVisibleSeverity": "warning"
     },
     "textLimits": {
       "Title": {
@@ -253,12 +266,18 @@
       "manualPresetChangeAllowed": false
     },
     "layoutOwnership": {
-      "order": [
+      "desktopOrder": [
         "Status",
         "Title/Holding",
         "Subtitle",
         "Bottom slot",
         "actions"
+      ],
+      "mobileOrder": [
+        "Status",
+        "Title",
+        "Subtitle",
+        "Bottom slot"
       ],
       "componentOwned": [
         "ImageContainer size",
@@ -272,10 +291,11 @@
       ]
     },
     "loadingPolicy": {
-      "supported": false
+      "supportedStates": []
     },
     "interactionPolicy": {
       "containerClickable": false,
+      "imageClickable": false,
       "interactiveRegions": [
         "CTA",
         "Holding",
@@ -293,17 +313,20 @@
         "content",
         "image",
         "Status",
-        "Holding",
         "Bottom slot",
         "actions",
         "Appearance"
       ],
       "desktopOnly": [
         "View",
-        "Compact"
+        "Compact",
+        "BlurEffect",
+        "Holding"
       ],
+      "sameImageAsset": true,
       "platformBackground": {
         "desktopPage": "False",
+        "desktopModal": "True",
         "mobileWeb": "True"
       }
     }

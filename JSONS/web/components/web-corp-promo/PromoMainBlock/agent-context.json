@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-27"
+      "updatedAt": "2026-09-02"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -256,48 +256,48 @@
     "summary": {
       "componentFamily": "PromoMainBlock",
       "library": "Web _ Сorp Promo Components",
-      "purpose": "Главный промо-блок с ключевым сообщением, изображением и CTA; всегда первый и единственный на странице."
+      "purpose": "Главный промо-блок с ключевым сообщением, изображением и CTA. Сценарное размещение задаёт landing-page pattern."
     },
     "usageGuidance": [
       "Используй только [D] PromoMainBlock и [M] PromoMainBlock.",
-      "Размещай PromoMainBlock первым и не более одного раза на странице.",
+      "Первый/единственный hero, Appearance по сегменту, Holding-контекст и fixed mobile ButtonStack проверяет landing-page pattern.",
       "На desktop View=Page относится к странице, View=Modal — к modal container; mobile root общий.",
-      "Используй Compact=True при viewport <=1024 px или когда контент не помещается.",
-      "На desktop для View=Page обязательно используй Background=False; Background=True является error.",
-      "В mobile-web разрешён только Background=True; Background=False является error.",
-      "Appearance не является темой: Light — светлые цветные подложки ММБ, Dark — тёмная подложка КИБ.",
-      "Для View=Page BlurEffect обязателен; для View=Modal опционален.",
+      "На desktop используй Compact=True только при viewport <=1024 px; у mobile свойства Compact нет.",
+      "Соблюдай матрицу Background: D Page=False, D Modal=True, M=True.",
+      "Appearance не является темой; его связь с сегментом задаёт landing-page pattern.",
+      "На desktop BlurEffect=True обязателен и для Page, и для Modal; у mobile свойства нет.",
       "Title, Subtitle и ImageContainer обязательны.",
       "Status опционален: показывай 1–3 StatusBadge по их полному контракту; 2–3 статуса дают warning, больше 3 — error.",
-      "Holding используй только при работе от группы компаний; он наследует FilterCompanySelect/AccountSelect и сохраняется между D/M.",
-      "Bottom slot опционален и принимает простой текст или произвольный компонент.",
-      "CTA можно скрыть; иначе используй Primary, Secondary или оба действия.",
-      "На mobile используй figma-only пресет 🔒 [M] ButtonStack вместо ButtonGroup; детальный pattern contract будет добавлен позже.",
-      "Сохраняй порядок Status → Title/Holding → Subtitle → Bottom slot → actions и не меняй gap/padding вручную.",
+      "Holding поддерживается только на desktop и наследует FilterCompanySelect/AccountSelect.",
+      "Bottom slot опционален: Text или один финальный компонент; SwapMe запрещён, содержимое сохраняется D/M.",
+      "Desktop CTA можно скрыть; иначе используй Primary, Secondary или оба действия без изменения baseline порядка, View и параметров.",
+      "На mobile скрывай внутренний ButtonGroup; видимый raw ButtonGroup даёт warning, отдельный ButtonStack размещает landing-page pattern.",
+      "Сохраняй порядок D: Status → Title/Holding → Subtitle → Bottom → actions; M: Status → Title → Subtitle → Bottom.",
       "Title ограничен 40 символами/2 строками, Subtitle — 120 символами/3 строками.",
-      "Изображение обязательно бери из Corp Image Library с Crop=Center, Size=534; Segment должен соответствовать сегменту страницы и Appearance.",
+      "Изображение обязательно бери из Corp Image Library с Crop=Center, Size=534; Segment соответствует контексту, а asset одинаков для D/M.",
       "Не меняй вручную размеры/позицию ImageContainer, crop, fade, высоты блока, gap или padding.",
       "LightOverlay/DarkOverlay и их Presets выбираются автоматически из Appearance.",
       "Между D/M сохраняй текст, тип и количество StatusBadge; casing D=True/M=False принадлежит пресетам.",
-      "Не создавай loading-состояние и не назначай interaction контейнеру.",
+      "Не создавай loading/error/disabled/skeleton и не назначай interaction контейнеру или изображению.",
       "PromoMainBlock активен и каноничен, без replacement/legacy.",
-      "Между D/M сохраняй контент, изображение, Status, Holding, Bottom slot, действия и Appearance; Background следует платформенному правилу: D Page=False, M=True."
+      "Между D/M сохраняй контент, один image asset, Status, Bottom slot, действия и Appearance; Holding/View/Compact/BlurEffect desktop-only, Background следует матрице."
     ],
     "ruleHighlights": [
-      "first-and-single-on-page",
-      "page-background-false-recommended",
-      "appearance-matches-surface",
-      "page-blur-required",
+      "background-matrix",
+      "desktop-compact-under-1024",
+      "desktop-blur-required",
       "required-content",
       "status-count-and-contract",
-      "holding-context",
-      "mobile-actions-use-button-stack",
-      "content-order-is-fixed",
+      "holding-desktop-only",
+      "bottom-slot-final-content",
+      "desktop-actions-follow-baseline",
+      "mobile-internal-button-group-warning",
+      "content-order-by-platform",
       "text-limits",
       "image-source-and-settings",
       "layout-is-component-owned",
-      "overlay-is-derived-from-appearance",
-      "container-is-not-clickable",
+      "overlay-is-derived",
+      "container-noninteractive",
       "responsive-parity"
     ]
   }
