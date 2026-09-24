@@ -8,8 +8,8 @@ Apollo may load it only through the manually enabled Contract v2 test contour.
 - Executable RuleIR entries: 3
 - Deterministic coverage: 2/20
 - Unsupported deterministic rules: 18
-- Manual rules: 1
-- Advisory rules: 6
+- Manual rules: 0
+- Advisory rules: 7
 
 Unsupported rules are intentional discovery results. Their candidate capabilities are recorded
 in `coverage.json` and the root `capability-matrix.json`; they are never inferred from prose.
