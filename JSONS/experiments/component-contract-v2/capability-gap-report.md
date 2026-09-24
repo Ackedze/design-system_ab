@@ -12,11 +12,11 @@ Candidate capabilities are discovery hints, not executable behavior.
 
 ## Unsupported classification
 
-- structured-fields-unmapped: 248
+- structured-fields-unmapped: 250
 - structured-fields-missing-runtime-operator: 15
 - prose-existing-operator: 3
 - prose-missing-runtime-operator: 3
-- prose-unclassified: 37
+- prose-unclassified: 35
 
 The classification separates source authoring from runtime support. Structured source fields are
 reported independently from prose-only rules; candidate operators remain discovery hints.
@@ -457,24 +457,24 @@ No unsupported deterministic rules.
 
 | Source rule | Gap kind | Candidate operator | Blocking reason |
 | --- | --- | --- | --- |
-| `component:web.promo-main-block.actions-optional` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.container-is-not-clickable` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.content-order-is-fixed` | prose-existing-operator | matchesEffectiveBaseline, relativeOrder | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.desktop-compact-required` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.background-matrix` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.container-noninteractive` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.content-order-by-platform` | prose-existing-operator | relativeOrder | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.desktop-actions-follow-baseline` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.desktop-actions-optional` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.desktop-blur-required` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.desktop-compact-under-1024` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.promo-main-block.desktop-view-context` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.first-and-single-on-page` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.image-source-and-settings` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.image-source-and-settings` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.promo-main-block.layout-is-component-owned` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.loading-is-not-supported` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.mobile-background-must-be-true` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.promo-main-block.multiple-statuses-warning` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.overlay-is-derived-from-appearance` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.page-background-must-be-false` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.page-blur-required` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.overlay-is-derived` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.promo-main-block.public-roots-only` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.promo-main-block.required-content` | structured-fields-unmapped | requiredChild | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.status-casing-preset-owned` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 | `component:web.promo-main-block.status-count-and-contract` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
-| `component:web.promo-main-block.status-platform-casing-is-preset-owned` | prose-unclassified | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.title-subtitle-visuals-follow-baseline` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
+| `component:web.promo-main-block.unsupported-states` | structured-fields-unmapped | author-structured-assertion | The source declares a deterministic rule but contains no structured assertion parameters. |
 
 ## web-core.tag-group
 

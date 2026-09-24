@@ -6,64 +6,21 @@
     "executableDeterministicSourceRules": 2,
     "promotedManualOrAdvisorySourceRules": 0,
     "executable": 2,
-    "advisory": 6,
-    "manual": 1,
+    "advisory": 7,
+    "manual": 0,
     "unsupported": 18,
     "deterministicCoverageRatio": 0.1
   },
   "rules": [
     {
-      "sourceRuleId": "component:web.promo-main-block.actions-optional",
+      "sourceRuleId": "component:web.promo-main-block.background-matrix",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
       "targetRuleIds": [],
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web.promo-main-block.active-canonical",
-      "sourceCheckType": "manual",
-      "status": "manual",
-      "targetRuleIds": [],
-      "reason": "Source checkType is manual.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web.promo-main-block.appearance-matches-surface",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "targetRuleIds": [],
-      "reason": "Source checkType is llm.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -82,7 +39,33 @@
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.bottom-slot-content",
+      "sourceRuleId": "component:web.promo-main-block.bottom-slot-final-content",
+      "sourceCheckType": "llm",
+      "status": "advisory",
+      "targetRuleIds": [],
+      "reason": "Source checkType is llm.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web.promo-main-block.bottom-slot-parity",
       "sourceCheckType": "llm",
       "status": "advisory",
       "targetRuleIds": [],
@@ -96,7 +79,8 @@
         ],
         "facts": [
           "component.identity",
-          "text.characters"
+          "node.bounds",
+          "page.context"
         ],
         "operators": [
           "author-structured-assertion"
@@ -129,7 +113,7 @@
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.container-is-not-clickable",
+      "sourceRuleId": "component:web.promo-main-block.container-noninteractive",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
       "targetRuleIds": [],
@@ -152,7 +136,7 @@
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.content-order-is-fixed",
+      "sourceRuleId": "component:web.promo-main-block.content-order-by-platform",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
       "targetRuleIds": [],
@@ -170,20 +154,69 @@
           "text.characters"
         ],
         "operators": [
-          "matchesEffectiveBaseline",
           "relativeOrder"
         ],
         "remediations": []
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.desktop-compact-required",
+      "sourceRuleId": "component:web.promo-main-block.desktop-actions-follow-baseline",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
       "targetRuleIds": [],
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "ownership.owner"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web.promo-main-block.desktop-actions-optional",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web.promo-main-block.desktop-blur-required",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -193,7 +226,32 @@
         ],
         "facts": [
           "component.identity",
-          "text.characters",
+          "effects"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web.promo-main-block.desktop-compact-under-1024",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
           "variant.properties"
         ],
         "operators": [
@@ -229,31 +287,7 @@
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.first-and-single-on-page",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "node.bounds",
-          "page.context"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web.promo-main-block.holding-context",
+      "sourceRuleId": "component:web.promo-main-block.holding-desktop-only",
       "sourceCheckType": "llm",
       "status": "advisory",
       "targetRuleIds": [],
@@ -281,7 +315,10 @@
       "status": "unsupported",
       "targetRuleIds": [],
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [],
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
       "candidateCapabilities": {
         "selectors": [
           "ancestry",
@@ -337,7 +374,8 @@
       "targetRuleIds": [],
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -357,59 +395,14 @@
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.loading-is-not-supported",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "authority"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web.promo-main-block.mobile-actions-use-button-stack",
+      "sourceRuleId": "component:web.promo-main-block.mobile-internal-button-group-warning",
       "sourceCheckType": "llm",
       "status": "advisory",
       "targetRuleIds": [],
       "reason": "Source checkType is llm.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web.promo-main-block.mobile-background-must-be-true",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -418,8 +411,7 @@
           "semantic-role"
         ],
         "facts": [
-          "component.identity",
-          "variant.properties"
+          "component.identity"
         ],
         "operators": [
           "author-structured-assertion"
@@ -451,7 +443,7 @@
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.overlay-is-derived-from-appearance",
+      "sourceRuleId": "component:web.promo-main-block.overlay-is-derived",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
       "targetRuleIds": [],
@@ -474,64 +466,14 @@
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.page-background-must-be-false",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "authority"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "variant.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web.promo-main-block.page-blur-required",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "authority"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "effects",
-          "variant.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "sourceRuleId": "component:web.promo-main-block.public-roots-only",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
       "targetRuleIds": [],
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -555,7 +497,8 @@
       "targetRuleIds": [],
       "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
-        "authority"
+        "authority",
+        "predicateContour"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -598,11 +541,11 @@
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.status-count-and-contract",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
+      "sourceRuleId": "component:web.promo-main-block.same-image-across-platforms",
+      "sourceCheckType": "llm",
+      "status": "advisory",
       "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "reason": "Source checkType is llm.",
       "structuredFields": [],
       "candidateCapabilities": {
         "selectors": [
@@ -612,7 +555,8 @@
         ],
         "facts": [
           "component.identity",
-          "text.characters"
+          "node.bounds",
+          "page.context"
         ],
         "operators": [
           "author-structured-assertion"
@@ -621,7 +565,7 @@
       }
     },
     {
-      "sourceRuleId": "component:web.promo-main-block.status-platform-casing-is-preset-owned",
+      "sourceRuleId": "component:web.promo-main-block.status-casing-preset-owned",
       "sourceCheckType": "deterministic",
       "status": "unsupported",
       "targetRuleIds": [],
@@ -637,6 +581,29 @@
           "component.identity",
           "node.bounds",
           "page.context"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web.promo-main-block.status-count-and-contract",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity",
+          "text.characters"
         ],
         "operators": [
           "author-structured-assertion"
@@ -662,6 +629,61 @@
         "facts": [
           "component.identity",
           "text.characters"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web.promo-main-block.title-subtitle-visuals-follow-baseline",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority",
+        "predicateContour"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "baseline.effective",
+          "component.identity",
+          "ownership.owner",
+          "paint.fill",
+          "style.text",
+          "text.characters",
+          "variable.binding"
+        ],
+        "operators": [
+          "author-structured-assertion"
+        ],
+        "remediations": []
+      }
+    },
+    {
+      "sourceRuleId": "component:web.promo-main-block.unsupported-states",
+      "sourceCheckType": "deterministic",
+      "status": "unsupported",
+      "targetRuleIds": [],
+      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
+      "structuredFields": [
+        "authority"
+      ],
+      "candidateCapabilities": {
+        "selectors": [
+          "ancestry",
+          "component-identity",
+          "semantic-role"
+        ],
+        "facts": [
+          "component.identity"
         ],
         "operators": [
           "author-structured-assertion"
