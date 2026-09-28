@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "documentType": "generation-semantic-target-map",
+  "componentId": "TitleView",
+  "sourceContract": "contract.generated.json",
+  "profiles": [
+    {
+      "id": "desktop-content-heading",
+      "platform": "desktop",
+      "contractId": "title-view.desktop",
+      "publicRoot": "[D] TitleView",
+      "verification": {
+        "source": "contract.generated.json",
+        "liveInstanceVerified": false
+      },
+      "targets": [
+        {
+          "id": "variant.view",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "View",
+          "values": { "xlarge": "xLarge", "large": "Large", "medium": "Medium", "small": "Small" }
+        },
+        {
+          "id": "variant.skeleton",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "Skeleton",
+          "values": { "true": "True", "false": "False" }
+        },
+        {
+          "id": "content.title",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "MainContent / Heading / Title",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.subtitle",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "MainContent / Subtitle / Subtitle",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        }
+      ]
+    }
+  ]
+}

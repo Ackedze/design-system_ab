@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "documentType": "generation-semantic-target-map",
+  "componentId": "PromoMainBlock",
+  "sourceContract": "contract.generated.json",
+  "profiles": [
+    {
+      "id": "desktop-page",
+      "platform": "desktop",
+      "contractId": "promo-main-block.desktop",
+      "publicRoot": "[D] PromoMainBlock",
+      "verification": {
+        "source": "contract.generated.json",
+        "liveInstanceVerified": false
+      },
+      "targets": [
+        {
+          "id": "variant.view",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "View",
+          "values": { "page": "Page", "modal": "Modal" }
+        },
+        {
+          "id": "variant.appearance",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "Appearance",
+          "values": { "light": "Light", "dark": "Dark" }
+        },
+        {
+          "id": "variant.background",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "Background",
+          "values": { "true": "True", "false": "False" }
+        },
+        {
+          "id": "variant.compact",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "Compact",
+          "values": { "true": "True", "false": "False" }
+        },
+        {
+          "id": "content.title",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "Content / ContentWrapper / Content / Text content / Title / value",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.subtitle",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "Content / ContentWrapper / Content / Text content / Subtitle / value",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "actions.primary",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "Content / ContentWrapper / ButtonGroup / ButtonGroup / Primary / Text / Label",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.imageSegment",
+          "kind": "instance-property",
+          "supported": true,
+          "property": "Segment",
+          "values": { "MMB": "MMB", "KIB": "KIB" },
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "Content / ImageContainer / Container / ImageView",
+              "nodeTypes": ["INSTANCE"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.image",
+          "kind": "unsupported",
+          "supported": false,
+          "reason": "Каталог подтверждает ImageView и его варианты, но не даёт стабильной операции выбора конкретного image asset."
+        },
+        {
+          "id": "actions.secondary",
+          "kind": "unsupported",
+          "supported": false,
+          "reason": "В корневом контракте PromoMainBlock нет публичной capability, которая гарантированно включает и настраивает secondary action."
+        }
+      ]
+    }
+  ]
+}

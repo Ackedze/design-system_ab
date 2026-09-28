@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "documentType": "generation-semantic-target-map",
+  "componentId": "Input",
+  "sourceContract": "contract.generated.json",
+  "profiles": [
+    {
+      "id": "desktop-comment",
+      "platform": "desktop",
+      "contractId": "input.desktop",
+      "publicRoot": "[D] Input",
+      "verification": {
+        "source": "contract.generated.json",
+        "liveInstanceVerified": true
+      },
+      "targets": [
+        {
+          "id": "variant.size",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "Size",
+          "values": { "56": "56" }
+        },
+        {
+          "id": "variant.outerLabel",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "OuterLabel",
+          "values": { "true": "True", "false": "False" }
+        },
+        {
+          "id": "content.label",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "Label / Label",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.placeholder",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "Field / Content / Placeholder / Content / Placeholder",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first",
+          "availableWhen": [
+            { "property": "FilledState", "values": ["False"] },
+            { "property": "OuterLabel", "values": ["True"] }
+          ],
+          "onUnavailable": "omit"
+        },
+        {
+          "id": "content.hint",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "Hint / HintMessage",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "layout.multilineHeight",
+          "kind": "unsupported",
+          "supported": false,
+          "reason": "Runtime plan v4 не задаёт minHeight для component instance; semantic Textarea остаётся прокси через [D] Input до расширения executor."
+        }
+      ]
+    }
+  ]
+}

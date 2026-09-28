@@ -1,0 +1,264 @@
+{
+  "schemaVersion": "apollo.component-integration-live-review.v1",
+  "date": "2026-09-27",
+  "componentId": "core.web.button",
+  "manualRevision": 16,
+  "editorVersion": "0.2.34",
+  "manualSourceHash": "b1c2436226ea2ccb80a2f6ea77bee44fee86925bd787d02d29b7844f4a8141b8",
+  "dependency": {
+    "componentId": "core.web.spinner",
+    "revision": 8,
+    "compiledHash": "909113967175c1ae618d2857d96855a3d3f53cdfe0b38cf923ce10b56e553221"
+  },
+  "decision": "dependency-execution-accepted-full-integration-open",
+  "accepted": [
+    "All seven planned real Button instances match",
+    "All 2547 engine evaluations, editor diagnostics and details replay exactly",
+    "1008 child evaluations across six Spinner cases preserve own RuleIDs and child node focus",
+    "BS01/02/06 have zero violations; BS07 skips Spinner and has zero violations",
+    "BS03 detects parent Size24 versus allowed16 while child intrinsic24x24 remains valid",
+    "BS04 child intrinsic width/height detect30 versus24; nominal parent Size remains valid",
+    "BS05 child opacity.5 versus1 detected; four overlapping atomic checks group into one card",
+    "All nodes matched; zero capture warnings and inconclusive verdicts"
+  ],
+  "openIssues": [
+    {
+      "id": "button-parent-inactive-gap",
+      "priority": "P0",
+      "caseId": "BS04",
+      "scope": "Button manual policy / property applicability",
+      "evidence": "Two parent rules report itemSpacing10→12.5 on each of Addon and Spinner despite actual and reference gapApplicable=false; four atomic findings / two cards.",
+      "next": "Apply explicit shared property-applicability policies; do not blanket-disable active parent layout checks."
+    },
+    {
+      "id": "button-child-policy-boundary",
+      "priority": "P0",
+      "caseIds": [
+        "BS04",
+        "BS05"
+      ],
+      "scope": "Explicit ownership boundary of parent recursive policies",
+      "evidence": "Button self-and-descendants checks enter Spinner internals. BS05 has2 parent+2 child opacity checks, grouped into1 card. No duplicate source rules were copied, but policy scopes overlap.",
+      "next": "Declare and implement owned-subtree/dependency boundary semantics in manual/compiler; retain explicit parent embedding constraints and child invariants."
+    },
+    {
+      "id": "button-hidden-label-coverage",
+      "priority": "P0",
+      "caseIds": [
+        "BS01",
+        "BS02",
+        "BS03",
+        "BS04",
+        "BS05",
+        "BS06"
+      ],
+      "scope": "Rule applicability / coverage",
+      "evidence": "Known hidden Label yields two extra not-executed source rules: label-and-hint-color-locked and label-text-style-locked;12 pending versus10 on visible-label BS07.",
+      "next": "Distinguish known inactive target from missing/ambiguous target. Style checks may be not-applicable; required-presence rules remain separate."
+    }
+  ],
+  "unchanged": [
+    "Manual r16, compiled contract, ZIP, Spinner r8 and runtime unchanged",
+    "Button remains Draft; all reports complete=false",
+    "Existing10 applicable context-only/delegated gaps remain",
+    "Loading composition, palette, pre-loading width and front-end/pattern work not closed"
+  ],
+  "reportResults": [
+    {
+      "caseId": "BS01",
+      "file": "editor/button.validation-report.2026-09-27T15-54-48-146Z.json",
+      "fixtureFile": "qa/fixtures/spinner-integration-r16/button.validation-report.2026-09-27T15-54-48-146Z.json.gz",
+      "sha256": "40376eeff08e355ca062499360db3f450a8fe52da2e85a339cb39fbdb9de8cf8",
+      "nodeId": "13025:63382",
+      "matchedNodes": 17,
+      "capturedNodes": 17,
+      "engineEvaluations": 388,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 0,
+      "uiCards": 0,
+      "notExecuted": 12,
+      "dependencyRuns": [
+        {
+          "bindingId": "left",
+          "status": "executed",
+          "evaluations": 168
+        },
+        {
+          "bindingId": "right",
+          "status": "not-applicable",
+          "reason": "target-hidden"
+        }
+      ],
+      "parentViolations": 0,
+      "childViolations": 0
+    },
+    {
+      "caseId": "BS02",
+      "file": "editor/button.validation-report.2026-09-27T15-55-02-951Z.json",
+      "fixtureFile": "qa/fixtures/spinner-integration-r16/button.validation-report.2026-09-27T15-55-02-951Z.json.gz",
+      "sha256": "b600d3c902e4e57566efc9e5d6c2701a2a80eff8710733ee90e12bf460b79ee4",
+      "nodeId": "13025:63441",
+      "matchedNodes": 18,
+      "capturedNodes": 18,
+      "engineEvaluations": 388,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 0,
+      "uiCards": 0,
+      "notExecuted": 12,
+      "dependencyRuns": [
+        {
+          "bindingId": "left",
+          "status": "executed",
+          "evaluations": 168
+        },
+        {
+          "bindingId": "right",
+          "status": "not-applicable",
+          "reason": "target-hidden"
+        }
+      ],
+      "parentViolations": 0,
+      "childViolations": 0
+    },
+    {
+      "caseId": "BS03",
+      "file": "editor/button.validation-report.2026-09-27T15-55-13-014Z.json",
+      "fixtureFile": "qa/fixtures/spinner-integration-r16/button.validation-report.2026-09-27T15-55-13-014Z.json.gz",
+      "sha256": "cad3bc4910a2fb9873b9c9f600617a6e1ae2b0debb393874efa8e78af5df99af",
+      "nodeId": "13025:63504",
+      "matchedNodes": 17,
+      "capturedNodes": 17,
+      "engineEvaluations": 388,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 1,
+      "uiCards": 1,
+      "notExecuted": 12,
+      "dependencyRuns": [
+        {
+          "bindingId": "left",
+          "status": "executed",
+          "evaluations": 168
+        },
+        {
+          "bindingId": "right",
+          "status": "not-applicable",
+          "reason": "target-hidden"
+        }
+      ],
+      "parentViolations": 1,
+      "childViolations": 0
+    },
+    {
+      "caseId": "BS04",
+      "file": "editor/button.validation-report.2026-09-27T15-55-22-154Z.json",
+      "fixtureFile": "qa/fixtures/spinner-integration-r16/button.validation-report.2026-09-27T15-55-22-154Z.json.gz",
+      "sha256": "a3deda8c5e31753da926d9f369249270cfb4b7b77471a71cb0e0a836c475f78f",
+      "nodeId": "13025:63549",
+      "matchedNodes": 18,
+      "capturedNodes": 18,
+      "engineEvaluations": 388,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 18,
+      "uiCards": 10,
+      "notExecuted": 12,
+      "dependencyRuns": [
+        {
+          "bindingId": "left",
+          "status": "executed",
+          "evaluations": 168
+        },
+        {
+          "bindingId": "right",
+          "status": "not-applicable",
+          "reason": "target-hidden"
+        }
+      ],
+      "parentViolations": 16,
+      "childViolations": 2
+    },
+    {
+      "caseId": "BS05",
+      "file": "editor/button.validation-report.2026-09-27T15-55-30-059Z.json",
+      "fixtureFile": "qa/fixtures/spinner-integration-r16/button.validation-report.2026-09-27T15-55-30-059Z.json.gz",
+      "sha256": "5b64bec2d404ca66424b5438b6d770a13e3aa19384c1aa907c837aabfc129415",
+      "nodeId": "13025:63591",
+      "matchedNodes": 18,
+      "capturedNodes": 18,
+      "engineEvaluations": 388,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 4,
+      "uiCards": 1,
+      "notExecuted": 12,
+      "dependencyRuns": [
+        {
+          "bindingId": "left",
+          "status": "executed",
+          "evaluations": 168
+        },
+        {
+          "bindingId": "right",
+          "status": "not-applicable",
+          "reason": "target-hidden"
+        }
+      ],
+      "parentViolations": 2,
+      "childViolations": 2
+    },
+    {
+      "caseId": "BS06",
+      "file": "editor/button.validation-report.2026-09-27T15-55-37-297Z.json",
+      "fixtureFile": "qa/fixtures/spinner-integration-r16/button.validation-report.2026-09-27T15-55-37-297Z.json.gz",
+      "sha256": "59ad80b29c148b7c281073093e33c7ebeced878ee6d12e5c38819b12a9ee33b3",
+      "nodeId": "13025:63633",
+      "matchedNodes": 18,
+      "capturedNodes": 18,
+      "engineEvaluations": 388,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 0,
+      "uiCards": 0,
+      "notExecuted": 12,
+      "dependencyRuns": [
+        {
+          "bindingId": "left",
+          "status": "not-applicable",
+          "reason": "target-hidden"
+        },
+        {
+          "bindingId": "right",
+          "status": "executed",
+          "evaluations": 168
+        }
+      ],
+      "parentViolations": 0,
+      "childViolations": 0
+    },
+    {
+      "caseId": "BS07",
+      "file": "editor/button.validation-report.2026-09-27T15-55-47-398Z.json",
+      "fixtureFile": "qa/fixtures/spinner-integration-r16/button.validation-report.2026-09-27T15-55-47-398Z.json.gz",
+      "sha256": "7b05861b76c182ce8b8d58b4d1aa4307fd4816098ff98ef0cdc82edce4af56b7",
+      "nodeId": "13025:63675",
+      "matchedNodes": 15,
+      "capturedNodes": 15,
+      "engineEvaluations": 219,
+      "dependencyEvaluations": 0,
+      "atomicViolations": 0,
+      "uiCards": 0,
+      "notExecuted": 10,
+      "dependencyRuns": [
+        {
+          "bindingId": "left",
+          "status": "not-applicable",
+          "reason": "owner-variant-inactive"
+        },
+        {
+          "bindingId": "right",
+          "status": "not-applicable",
+          "reason": "target-hidden"
+        }
+      ],
+      "parentViolations": 0,
+      "childViolations": 0
+    }
+  ]
+}

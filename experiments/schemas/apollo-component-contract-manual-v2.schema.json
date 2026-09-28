@@ -1,0 +1,1140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ackedze.github.io/design-system_ab/JSONS/experiments/component-contract-v2/schemas/apollo-component-contract-manual-v2.schema.json",
+  "title": "Apollo ComponentContract manual authoring source v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "documentType",
+    "component",
+    "semantics",
+    "representations",
+    "semanticApi",
+    "documentation",
+    "examples",
+    "decisions",
+    "generation",
+    "source",
+    "targets",
+    "controlPorts",
+    "rules",
+    "metadata"
+  ],
+  "properties": {
+    "componentDependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "componentId",
+          "revision",
+          "manualSourceHash",
+          "compiledHash",
+          "bindings"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "componentId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "manualSourceHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "compiledHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bindings": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "targetRole",
+                "relativePath",
+                "ownerComponentSetKeys",
+                "activeVariant",
+                "childPath"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]*$"
+                },
+                "targetRole": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "relativePath": {
+                  "type": "string"
+                },
+                "ownerComponentSetKeys": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "activeVariant": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "property",
+                    "values"
+                  ],
+                  "properties": {
+                    "property": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "values": {
+                      "type": "array",
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  }
+                },
+                "childPath": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemaVersion": {
+      "const": "apollo.component-contract.manual.v2-experimental"
+    },
+    "documentType": {
+      "const": "component-contract-manual"
+    },
+    "component": {
+      "$ref": "#/$defs/component"
+    },
+    "semantics": {
+      "$ref": "#/$defs/semantics"
+    },
+    "representations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/representation"
+      }
+    },
+    "semanticApi": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/semanticApiProperty"
+      }
+    },
+    "documentation": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/documentationRef"
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/example"
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision"
+      }
+    },
+    "generation": {
+      "$ref": "#/$defs/generation"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/target"
+      }
+    },
+    "controlPorts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/controlPort"
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "componentId",
+        "familyId",
+        "contractId",
+        "family",
+        "layer",
+        "library",
+        "platform",
+        "platforms",
+        "lifecycle",
+        "componentKey"
+      ],
+      "properties": {
+        "componentId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "familyId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "contractId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "family": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "layer": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "library": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "platform": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "platforms": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "lifecycle": {
+          "enum": [
+            "active",
+            "scheduled",
+            "deprecated"
+          ]
+        },
+        "componentKey": {
+          "type": "string"
+        }
+      }
+    },
+    "semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "purpose",
+        "useWhen",
+        "doNotUseWhen",
+        "relatedComponentIds",
+        "keywords"
+      ],
+      "properties": {
+        "purpose": {
+          "type": "string"
+        },
+        "useWhen": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "doNotUseWhen": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "condition"
+            ],
+            "properties": {
+              "condition": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "useComponentId": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "relatedComponentIds": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "keywords": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "representation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "platform",
+        "status",
+        "locator"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "kind": {
+          "enum": [
+            "figma",
+            "code"
+          ]
+        },
+        "platform": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "surface": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "draft",
+            "scheduled",
+            "deprecated"
+          ]
+        },
+        "locator": {
+          "type": "object"
+        }
+      }
+    },
+    "semanticApiBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "representationId",
+        "path"
+      ],
+      "properties": {
+        "representationId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "path": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "transform": {
+          "type": "string"
+        }
+      }
+    },
+    "semanticApiProperty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "valueType",
+        "bindings"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "kind": {
+          "enum": [
+            "variant",
+            "content",
+            "visibility",
+            "slot",
+            "state",
+            "layout",
+            "appearance",
+            "code-only"
+          ]
+        },
+        "valueType": {
+          "enum": [
+            "boolean",
+            "string",
+            "number",
+            "enum",
+            "node",
+            "content"
+          ]
+        },
+        "domain": {
+          "type": "array"
+        },
+        "defaultValue": {},
+        "description": {
+          "type": "string"
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/semanticApiBinding"
+          }
+        }
+      }
+    },
+    "documentationRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "path",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "kind": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "path": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "draft",
+            "deprecated"
+          ]
+        },
+        "projection": {
+          "enum": [
+            "source",
+            "generated",
+            "reference-only"
+          ]
+        }
+      }
+    },
+    "example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "intent",
+        "input",
+        "expected",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "kind": {
+          "enum": [
+            "generation",
+            "validation",
+            "mapping"
+          ]
+        },
+        "intent": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "input": {
+          "type": "object"
+        },
+        "expected": {
+          "type": "object"
+        },
+        "ruleIds": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "sourceRefs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "reviewed",
+            "deprecated"
+          ]
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "summary",
+        "rationale",
+        "sourceRefs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "status": {
+          "enum": [
+            "accepted",
+            "needs-confirmation",
+            "superseded"
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "sourceRefs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "supersedes": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "generationProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "intent",
+        "platform",
+        "representationId",
+        "properties"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "intent": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "platform": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "representationId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "properties": {
+          "type": "object"
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profiles",
+        "instructions"
+      ],
+      "properties": {
+        "profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/generationProfile"
+          }
+        },
+        "instructions": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "importedFiles",
+        "sourceHash",
+        "importedAt"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "athena-package",
+            "component-contract-v2",
+            "manual-source",
+            "figma-selection"
+          ]
+        },
+        "importedFiles": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "sourceHash": {
+          "type": "string"
+        },
+        "importedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "representationHint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "representationId"
+      ],
+      "properties": {
+        "representationId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "nameHint": {
+          "type": "string"
+        },
+        "pathHint": {
+          "type": "string"
+        },
+        "structuralFingerprint": {
+          "type": "string"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "semanticRole",
+        "label",
+        "lineage"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "semanticRole": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "componentFamily": {
+          "type": "string"
+        },
+        "lineage": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "structuralFingerprint": {
+          "type": "string"
+        },
+        "representationHints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/representationHint"
+          }
+        },
+        "nameHint": {
+          "type": "string"
+        },
+        "pathHint": {
+          "type": "string"
+        },
+        "nodeIdHint": {
+          "type": "string"
+        },
+        "resolution": {
+          "enum": [
+            "resolved",
+            "ambiguous",
+            "missing",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "controlPort": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "targetId",
+        "capability",
+        "required"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "targetId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "capability": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "controlPath": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "direct",
+            "host-property",
+            "nested-property",
+            "slot-api",
+            "variable-binding",
+            "inherited-port"
+          ]
+        },
+        "property": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "collection": {
+          "type": "string"
+        },
+        "variable": {
+          "type": "string"
+        },
+        "port": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "number"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "exclusive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "propertyDomain",
+            "presence",
+            "propertyForbidden",
+            "quantity",
+            "positionOrder",
+            "relationship",
+            "tokenBinding",
+            "layoutConstraint",
+            "dependencyDomain"
+          ]
+        },
+        "dependency": {
+          "type": "object", "additionalProperties": false,
+          "required": ["subjects", "field", "baselinePolicy"],
+          "properties": {
+            "contractDependencyId":{"type":"string","pattern":"^[a-z][a-z0-9-]*$"},
+            "subjects": {"type":"array","minItems":1,"uniqueItems":true,"items":{
+              "type":"object","additionalProperties":false,"required":["targetRole","relativePath"],
+              "properties":{"targetRole":{"type":"string","minLength":1},"relativePath":{"type":"string"}}
+            }},
+            "field":{"enum":["componentSetKey","catalog","portName","width","height","variantProperty"]},
+            "baselinePolicy":{"enum":["require-domain","allow-unchanged"]},
+            "portNames":{"$ref":"#/$defs/stringArray"},
+            "property":{"type":"string","minLength":1},
+            "activePorts":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}},
+            "catalogs":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}},
+            "tolerance":{"type":"number","minimum":0},
+            "sourceFact":{"type":"string"},
+            "cases":{"type":"array","minItems":1,"items":{
+              "type":"object","additionalProperties":false,"required":["when","values"],
+              "properties":{"when":{"type":"array","minItems":1},"values":{"type":"array","minItems":1}}
+            }}
+          }
+        },
+        "fact": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array"
+        },
+        "value": {},
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "expected": {
+          "type": "boolean"
+        },
+        "order": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "relation": {
+          "enum": [
+            "direct-parent",
+            "ancestor",
+            "direct-child",
+            "descendant",
+            "before",
+            "after",
+            "adjacent"
+          ]
+        },
+        "targetRole": {
+          "type": "string"
+        },
+        "contractDependencyId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Quantity of visible identity-proven fixed children; mutually exclusive with semantic-role selectors."
+        },
+        "tokenIds": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "bindingRequired": {
+          "type": "boolean"
+        },
+        "operator": {
+          "enum": [
+            "equals",
+            "between"
+          ]
+        },
+        "targetRoles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        },
+        "visibleOnly": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {"required": ["contractDependencyId"]},
+          "then": {
+            "properties": {"type": {"const": "quantity"}, "min": {"type": "integer", "minimum": 0}, "max": {"type": "integer", "minimum": 0}},
+            "not": {"anyOf": [{"required": ["targetRole"]}, {"required": ["targetRoles"]}, {"required": ["visibleOnly"]}, {"required": ["fact"]}]}
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "targetRoles"
+            ]
+          },
+          "then": {
+            "required": [
+              "visibleOnly"
+            ],
+            "properties": {
+              "type": {
+                "const": "quantity"
+              },
+              "visibleOnly": {
+                "const": true
+              }
+            },
+            "not": {
+              "required": [
+                "targetRole"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "variants",
+        "modes",
+        "platforms"
+      ],
+      "properties": {
+        "variants": {
+          "oneOf": [
+            {
+              "const": "all"
+            },
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/stringArray"
+              }
+            }
+          ]
+        },
+        "modes": {
+          "oneOf": [
+            {
+              "const": "all"
+            },
+            {
+              "$ref": "#/$defs/stringArray"
+            },
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/stringArray"
+              }
+            }
+          ]
+        },
+        "platforms": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "products": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "channels": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "context": {
+          "type": "object"
+        },
+        "scopeStatus": {
+          "enum": [
+            "confirmed",
+            "needs-confirmation"
+          ]
+        },
+        "conditionSubject": {
+          "enum": [
+            "target",
+            "component-root"
+          ],
+          "description": "Explicit subject of variant and semantic context conditions; omitted means legacy target."
+        },
+        "activeDependency": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Apply when a visible proven owner selects a declared dependency variant, independently of child correctness."
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "route"
+      ],
+      "properties": {
+        "route": {
+          "enum": [
+            "auto",
+            "predicate",
+            "policy-only",
+            "delegated",
+            "context-only"
+          ]
+        },
+        "externalRuleIds": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "missingFacts": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "targetId",
+        "capability",
+        "permission",
+        "controlPaths",
+        "constraints",
+        "applicability",
+        "severity",
+        "rationale",
+        "status",
+        "owner"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "targetId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "targetScope": {
+          "enum": [
+            "self",
+            "self-and-descendants"
+          ]
+        },
+        "boundaryPolicy": { "const": "component-owned@1" },
+        "targetApplicability": { "const": "visible-target@1" },
+        "propertyApplicability": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "appearance.strokeWeight": { "const": "stroke-present-either@1" },
+            "layout.itemSpacing": { "const": "flow-gap-either@1" },
+            "layout.padding.top": { "const": "auto-layout-padding-either@1" },
+            "layout.padding.right": { "const": "auto-layout-padding-either@1" },
+            "layout.padding.bottom": { "const": "auto-layout-padding-either@1" },
+            "layout.padding.left": { "const": "auto-layout-padding-either@1" },
+            "layout.primaryAxisAlignItems": { "const": "flow-alignment-either@1" },
+            "layout.counterAxisAlignItems": { "const": "flow-alignment-either@1" }
+          }
+        },
+        "capability": {
+          "type": "string"
+        },
+        "capabilitySet": {
+          "type": "string"
+        },
+        "capabilitySelection": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "permission": {
+          "enum": [
+            "forbidden",
+            "allowed",
+            "constrained"
+          ]
+        },
+        "controlPaths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/controlPath"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/constraint"
+          }
+        },
+        "applicability": {
+          "$ref": "#/$defs/applicability"
+        },
+        "severity": {
+          "enum": [
+            "error",
+            "warning",
+            "info"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "remediationMessage": {
+          "type": "string"
+        },
+        "remediationIntent": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "reviewed",
+            "deprecated"
+          ]
+        },
+        "owner": {
+          "type": "string"
+        },
+        "sourceRefs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "execution": {
+          "$ref": "#/$defs/execution"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owners",
+        "revision"
+      ],
+      "properties": {
+        "owners": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "generated",
+            "manual",
+            "runtime"
+          ],
+          "properties": {
+            "generated": {
+              "const": "athena-cli"
+            },
+            "manual": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "runtime": {
+              "const": "apollo-runtime"
+            }
+          }
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

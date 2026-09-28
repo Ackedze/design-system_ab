@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "apollo.component-ownership-live-review.v1",
+  "date": "2026-09-27",
+  "componentId": "core.web.button",
+  "manualRevision": 17,
+  "editorVersion": "0.2.35",
+  "status": "runtime-accepted-diagnostic-explanation-open",
+  "manualSourceHash": "1f3d965acf37426887a736c93ce64810954e5b105d092904dbaab3b40ffc358f",
+  "compiledHash": "87f108cfd119e83e978f174ca67f2fa3660e2827f74f9d30c4524340933d3253",
+  "evaluatedContractHash": "bb06d16539bd3116b3fdaff21607c0c165b2809b05868da7a1b33fcd3b053a56",
+  "implementationEvidence": "qa/ownership-scope-r17.2026-09-27.json",
+  "dependency": {
+    "componentId": "core.web.spinner",
+    "revision": 8,
+    "compiledHash": "909113967175c1ae618d2857d96855a3d3f53cdfe0b38cf923ce10b56e553221"
+  },
+  "context": { "product": "ab", "platform": "desktop" },
+  "verification": {
+    "engineEvaluations": 2589,
+    "dependencyEvaluations": 1008,
+    "matchedNodes": 121,
+    "replay": "exact-engine-editor-details",
+    "captureWarnings": 0,
+    "unmatchedNodes": 0,
+    "inconclusive": 0,
+    "scopedPackageTests": 58,
+    "editorTests": 291,
+    "newLiveRegressionTests": 13,
+    "manualCompiledZipCorePluginHashes": "unchanged-from-implementation-evidence",
+    "runtimeScope": "accepted",
+    "diagnosticExplanation": "not-accepted"
+  },
+  "accepted": [
+    "BS03: parent Size constraint still rejects Spinner24 in Button40; intrinsic Spinner24 is valid",
+    "BS04: false inactive Addon/Spinner gaps removed; actual Button padding/gap/radius and child intrinsic geometry violations retained",
+    "BS05: only the two original Spinner opacity rules fire, grouped into one card; no parent blanket duplicate",
+    "BS01-BS06: proven hidden text is not-applicable rather than a missing target; unknown/missing evidence is not exercised by these live cases",
+    "BS06: right fixed binding executes; BS07: ordinary icon does not execute Spinner rules"
+  ],
+  "openIssues": [
+    {
+      "id": "rule-scope-diagnostic-boolean-trace",
+      "priority": "P1",
+      "location": "ComponentContractEditor/src/core/evaluation-view.ts:scopeTrace",
+      "observed": "Hidden-target and child-owned not-applicable details show generic condition text and true/false versus all true, with showComparison=true",
+      "cause": "scopeTrace reads record(entry.actual).value, while equals trace.actual is a primitive boolean false",
+      "impact": "Verdicts and coverage are correct; the promised specific human explanation is missing",
+      "acceptance": "Use the proven false visibility/ownership leaf, display its specific cause and showComparison=false; unknown or unrelated failed conditions must not become an exemption",
+      "runtimeChangeRequired": false,
+      "fixedInThisReview": false
+    }
+  ],
+  "pendingRuleIds": [
+    "component:web-core.button.backdrop-blur-maps-to-control-blur",
+    "component:web-core.button.block-maps-to-fill",
+    "component:web-core.button.button-group-pattern-delegated",
+    "component:web-core.button.desktop-safe-variants",
+    "component:web-core.button.loading-preserves-width",
+    "component:web-core.button.loading-spinner-style-follows-view",
+    "component:web-core.button.loading-uses-addon-spinner",
+    "component:web-core.button.nowrap-maps-to-figma-layout",
+    "component:web-core.button.text-follows-editorial-pattern",
+    "component:web-core.button.text-resizing-maps-to-figma-layout"
+  ],
+  "contractStatus": "draft",
+  "normativeChanges": false,
+  "registryChanged": false,
+  "productionPublished": false,
+  "reportResults": [
+    {
+      "caseId": "BS01",
+      "file": "editor/button.validation-report.2026-09-27T19-09-30-539Z.json",
+      "fixtureFile": "qa/fixtures/ownership-scope-r17/button.validation-report.2026-09-27T19-09-30-539Z.json.gz",
+      "sha256": "53acd4714629cfbcbcc6fe6d4e2ef8f13589c8ad6640745e83fc69f9eb7ad448",
+      "nodeId": "13025:63382",
+      "matchedNodes": 17,
+      "engineEvaluations": 394,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 0,
+      "uiCards": 0,
+      "notExecuted": 10
+    },
+    {
+      "caseId": "BS02",
+      "file": "editor/button.validation-report.2026-09-27T19-09-52-973Z.json",
+      "fixtureFile": "qa/fixtures/ownership-scope-r17/button.validation-report.2026-09-27T19-09-52-973Z.json.gz",
+      "sha256": "ddad1c675d8cb356f1708a81f06a4e30fa740986908fc64561c2d3fe051ac1cb",
+      "nodeId": "13025:63441",
+      "matchedNodes": 18,
+      "engineEvaluations": 394,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 0,
+      "uiCards": 0,
+      "notExecuted": 10
+    },
+    {
+      "caseId": "BS03",
+      "file": "editor/button.validation-report.2026-09-27T19-10-02-898Z.json",
+      "fixtureFile": "qa/fixtures/ownership-scope-r17/button.validation-report.2026-09-27T19-10-02-898Z.json.gz",
+      "sha256": "772fd9fa69e26bea5059b21a053cefdc1c4899947713a4e6b40b74bae63c7dcd",
+      "nodeId": "13025:63504",
+      "matchedNodes": 17,
+      "engineEvaluations": 394,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 1,
+      "uiCards": 1,
+      "notExecuted": 10
+    },
+    {
+      "caseId": "BS04",
+      "file": "editor/button.validation-report.2026-09-27T19-10-11-646Z.json",
+      "fixtureFile": "qa/fixtures/ownership-scope-r17/button.validation-report.2026-09-27T19-10-11-646Z.json.gz",
+      "sha256": "01803f3d104bb6ab9a73d19ed45792ddb4fbc44d04b1b7ee59defbd582fab4c5",
+      "nodeId": "13025:63549",
+      "matchedNodes": 18,
+      "engineEvaluations": 394,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 14,
+      "uiCards": 8,
+      "notExecuted": 10
+    },
+    {
+      "caseId": "BS05",
+      "file": "editor/button.validation-report.2026-09-27T19-10-18-894Z.json",
+      "fixtureFile": "qa/fixtures/ownership-scope-r17/button.validation-report.2026-09-27T19-10-18-894Z.json.gz",
+      "sha256": "e39b9ea6055eea20ae1f0b2a24ed610dff57c74659b6c4acd7581ab30daca9b6",
+      "nodeId": "13025:63591",
+      "matchedNodes": 18,
+      "engineEvaluations": 394,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 2,
+      "uiCards": 1,
+      "notExecuted": 10
+    },
+    {
+      "caseId": "BS06",
+      "file": "editor/button.validation-report.2026-09-27T19-10-25-384Z.json",
+      "fixtureFile": "qa/fixtures/ownership-scope-r17/button.validation-report.2026-09-27T19-10-25-384Z.json.gz",
+      "sha256": "0f72a13fff874c1b35819319ec9609abe3faf41de6f8d90923b16822086c4550",
+      "nodeId": "13025:63633",
+      "matchedNodes": 18,
+      "engineEvaluations": 394,
+      "dependencyEvaluations": 168,
+      "atomicViolations": 0,
+      "uiCards": 0,
+      "notExecuted": 10
+    },
+    {
+      "caseId": "BS07",
+      "file": "editor/button.validation-report.2026-09-27T19-10-32-958Z.json",
+      "fixtureFile": "qa/fixtures/ownership-scope-r17/button.validation-report.2026-09-27T19-10-32-958Z.json.gz",
+      "sha256": "22c80dfcd5173d6cf109e3f5e7fcb59d7945b9532590802daa667879c6672e05",
+      "nodeId": "13025:63675",
+      "matchedNodes": 15,
+      "engineEvaluations": 225,
+      "dependencyEvaluations": 0,
+      "atomicViolations": 0,
+      "uiCards": 0,
+      "notExecuted": 10
+    }
+  ]
+}

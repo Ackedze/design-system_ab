@@ -1,0 +1,223 @@
+{
+  "componentId": "core.web.spinner",
+  "semantics": {
+    "purpose": "Индикатор ожидания при загрузке данных или выполнении действия; используется отдельно или внутри другого компонента.",
+    "useWhen": [
+      "Нужно обозначить текущую операцию с неизвестной продолжительностью.",
+      "Родительский компонент требует штатный индикатор Loading."
+    ],
+    "doNotUseWhen": [
+      {
+        "condition": "Нужно показать структуру загружаемого экрана или блока.",
+        "useComponentId": "core.web.skeleton"
+      }
+    ],
+    "relatedComponentIds": [
+      "core.web.button",
+      "core.web.icon-button",
+      "core.web.skeleton"
+    ],
+    "keywords": [
+      "spinner",
+      "loading",
+      "загрузка",
+      "ожидание"
+    ]
+  },
+  "semanticApi": [
+    {
+      "id": "size",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        16,
+        24,
+        48
+      ],
+      "description": "Стандартный размер Figma / code preset. Figma default=48, общий default с code не задаётся. Это не ограничение размера Spinner внутри конкретного родителя.",
+      "bindings": [
+        {
+          "representationId": "core.web.spinner.figma.universal",
+          "path": "component.properties.Size",
+          "transform": "number-to-string"
+        },
+        {
+          "representationId": "core.web.spinner.code.web",
+          "path": "props.preset"
+        }
+      ]
+    },
+    {
+      "id": "inverted",
+      "kind": "appearance",
+      "valueType": "boolean",
+      "defaultValue": false,
+      "description": "Палитра Spinner. В коде соответствует colors=default/inverted; code mapping требует отдельной проверки.",
+      "bindings": [
+        {
+          "representationId": "core.web.spinner.figma.universal",
+          "path": "component.properties.Inverted",
+          "transform": "boolean-string"
+        }
+      ]
+    },
+    {
+      "id": "static",
+      "kind": "appearance",
+      "valueType": "boolean",
+      "defaultValue": false,
+      "description": "Статичное кольцо в Figma; отдельного prop Static в коде нет. Это не отключение runtime-анимации.",
+      "bindings": [
+        {
+          "representationId": "core.web.spinner.figma.universal",
+          "path": "component.properties.Static",
+          "transform": "boolean-string"
+        }
+      ]
+    },
+    {
+      "id": "visible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Видимость экземпляра в конкретном сценарии. Общий default не задаётся: у кода и Figma он различается.",
+      "bindings": [
+        {
+          "representationId": "core.web.spinner.figma.universal",
+          "path": "visible"
+        },
+        {
+          "representationId": "core.web.spinner.code.web",
+          "path": "props.visible"
+        }
+      ]
+    }
+  ],
+  "representations": [
+    {
+      "id": "core.web.spinner.figma.universal",
+      "kind": "figma",
+      "platform": "universal",
+      "status": "draft",
+      "locator": {
+        "fileKey": "lGWq8DtnUcSkRasagBuwq6",
+        "nodeId": "24:19668",
+        "componentKey": "44d3c426be11cb5bb6edbb3d80e6bf8ec9d8cf02",
+        "componentSetKey": "44d3c426be11cb5bb6edbb3d80e6bf8ec9d8cf02",
+        "name": "Spinner"
+      }
+    },
+    {
+      "id": "core.web.spinner.code.web",
+      "kind": "code",
+      "platform": "web",
+      "status": "draft",
+      "locator": {
+        "package": "@alfalab/core-components/spinner",
+        "export": "Spinner"
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "spinner.ownership.component-vs-usage",
+      "status": "accepted",
+      "summary": "Spinner владеет своим API и внутренними ограничениями. Родитель или паттерн владеет контекстом использования.",
+      "rationale": "Решение пользователя 2026-09-26: собственный контракт Spinner, затем подключение к Button по ограничениям Button. Product/channel не ограничивают универсальный Spinner.",
+      "sourceRefs": [
+        "hub.spinner.bridge"
+      ]
+    },
+    {
+      "id": "spinner.loading-parent-owns-composition",
+      "status": "accepted",
+      "summary": "Button выбирает Addon.Type=Spinner и допустимые параметры зависимости; IconButton имеет другой путь вложения.",
+      "rationale": "Не копировать матрицу View/Size родителя в Spinner и не заменять glyph на Spinner. Внешние правила не могут ослабить intrinsic-ограничения компонента.",
+      "sourceRefs": [
+        "hub.spinner.bridge"
+      ]
+    },
+    {
+      "id": "spinner.code-mapping-pending",
+      "status": "needs-confirmation",
+      "summary": "Code API описан источниками, но генерация и проверки фронта ещё не приняты.",
+      "rationale": "preset соответствует Size; colors — default/inverted; Static не имеет prop. preset нельзя смешивать с size/lineWidth. Кастомные code size/lineWidth не имеют точного Figma-представления: нельзя автоматически подбирать ближайший Size без явного разрешения автора. Наличие locator не означает готовность code adapter.",
+      "sourceRefs": [
+        "hub.spinner.bridge"
+      ]
+    },
+    {
+      "id": "spinner.context-policy-external",
+      "status": "accepted",
+      "summary": "Таймаут, возможность отмены/ошибки и выбор между Spinner/Skeleton принадлежат сценарию использования.",
+      "rationale": "Один статический экземпляр не доказывает поведение загрузки во времени. Эти требования не превращаются в фиктивные локальные predicates.",
+      "sourceRefs": [
+        "hub.spinner.guidelines"
+      ]
+    },
+    {
+      "id": "spinner.property-applicability-v1",
+      "status": "accepted",
+      "summary": "Проверять strokeWeight при наличии stroke хотя бы в одном состоянии; itemSpacing — при наличии ≥2 видимых не-absolute детей auto layout хотя бы в одном состоянии.",
+      "rationale": "Не представлять неактивные числовые поля после Scale как самостоятельные визуальные дефекты. Условия относятся только к указанным baseline-проверкам; отсутствие фактов даёт unknown. Добавление/удаление stroke и смена layout остаются проверяемыми. Включает пользовательские правила r4 и свежие source evidence r2.",
+      "sourceRefs": [
+        "hub.spinner.cookbook"
+      ]
+    },
+    {
+      "id": "spinner.padding-alignment-applicability-v1",
+      "status": "accepted",
+      "summary": "Padding сравнивается при auto layout хотя бы в одном состоянии; axis alignment — при HORIZONTAL/VERTICAL хотя бы в одном состоянии.",
+      "rationale": "Неактивные поля при NONE/NONE не являются нарушениями. Отключение auto layout не скрывает отличие от активного независимого reference. GRID использует padding, но не flow axis alignment. Неизвестная применимость оставляет проверку неполной. layout.mode, sizing и intrinsic bounds не отключаются.",
+      "sourceRefs": [
+        "hub.spinner.cookbook"
+      ]
+    }
+  ],
+  "generation": {
+    "profiles": [
+      {
+        "id": "spinner.profile.default",
+        "intent": "standalone-loading",
+        "platform": "universal",
+        "representationId": "core.web.spinner.figma.universal",
+        "properties": {
+          "size": 48,
+          "inverted": false,
+          "static": false,
+          "visible": true
+        }
+      },
+      {
+        "id": "spinner.profile.compact",
+        "intent": "compact-loading",
+        "platform": "universal",
+        "representationId": "core.web.spinner.figma.universal",
+        "properties": {
+          "size": 16,
+          "inverted": false,
+          "static": false,
+          "visible": true
+        }
+      },
+      {
+        "id": "spinner.profile.inverted",
+        "intent": "loading-on-inverted-surface",
+        "platform": "universal",
+        "representationId": "core.web.spinner.figma.universal",
+        "properties": {
+          "size": 24,
+          "inverted": true,
+          "static": false,
+          "visible": true
+        }
+      }
+    ],
+    "instructions": [
+      "Создавай библиотечный instance по ключу; выбирай только комбинации, подтверждённые Athena.",
+      "Размер и палитру меняй через Size/Inverted/Static, не через ручные paints или scale.",
+      "Вложение в Button/другой компонент выполняй по контракту родителя, не по standalone default этого Spinner.",
+      "Не выводи Loading родителя только из наличия Spinner: объявленное намерение и фактическая композиция проверяются отдельно.",
+      "Проверь результат по текущему варианту и независимому reference. Недоступные данные не означают pass."
+    ]
+  }
+}

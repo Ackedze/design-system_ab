@@ -1,0 +1,683 @@
+{
+  "schemaVersion": "apollo.component-contract.manual.v2-experimental",
+  "documentType": "component-contract-manual",
+  "component": {
+    "componentId": "core.web.spinner",
+    "familyId": "core.web.spinner",
+    "contractId": "core.web.spinner",
+    "family": "Spinner",
+    "layer": "core",
+    "library": "Web _ Core",
+    "platform": "universal",
+    "platforms": [
+      "universal"
+    ],
+    "lifecycle": "active",
+    "componentKey": "44d3c426be11cb5bb6edbb3d80e6bf8ec9d8cf02"
+  },
+  "semantics": {
+    "purpose": "Индикатор ожидания при загрузке данных или выполнении действия; используется отдельно или внутри другого компонента.",
+    "useWhen": [
+      "Нужно обозначить текущую операцию с неизвестной продолжительностью.",
+      "Родительский компонент требует штатный индикатор Loading."
+    ],
+    "doNotUseWhen": [
+      {
+        "condition": "Нужно показать структуру загружаемого экрана или блока.",
+        "useComponentId": "core.web.skeleton"
+      }
+    ],
+    "relatedComponentIds": [
+      "core.web.button",
+      "core.web.icon-button",
+      "core.web.skeleton"
+    ],
+    "keywords": [
+      "spinner",
+      "loading",
+      "загрузка",
+      "ожидание"
+    ]
+  },
+  "representations": [
+    {
+      "id": "core.web.spinner.figma.universal",
+      "kind": "figma",
+      "platform": "universal",
+      "status": "draft",
+      "locator": {
+        "fileKey": "lGWq8DtnUcSkRasagBuwq6",
+        "nodeId": "24:19668",
+        "componentKey": "44d3c426be11cb5bb6edbb3d80e6bf8ec9d8cf02",
+        "componentSetKey": "44d3c426be11cb5bb6edbb3d80e6bf8ec9d8cf02",
+        "name": "Spinner"
+      }
+    },
+    {
+      "id": "core.web.spinner.code.web",
+      "kind": "code",
+      "platform": "web",
+      "status": "draft",
+      "locator": {
+        "package": "@alfalab/core-components/spinner",
+        "export": "Spinner"
+      }
+    }
+  ],
+  "semanticApi": [
+    {
+      "id": "size",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        16,
+        24,
+        48
+      ],
+      "description": "Стандартный размер Figma / code preset. Figma default=48, общий default с code не задаётся. Это не ограничение размера Spinner внутри конкретного родителя.",
+      "bindings": [
+        {
+          "representationId": "core.web.spinner.figma.universal",
+          "path": "component.properties.Size",
+          "transform": "number-to-string"
+        },
+        {
+          "representationId": "core.web.spinner.code.web",
+          "path": "props.preset"
+        }
+      ]
+    },
+    {
+      "id": "inverted",
+      "kind": "appearance",
+      "valueType": "boolean",
+      "defaultValue": false,
+      "description": "Палитра Spinner. В коде соответствует colors=default/inverted; code mapping требует отдельной проверки.",
+      "bindings": [
+        {
+          "representationId": "core.web.spinner.figma.universal",
+          "path": "component.properties.Inverted",
+          "transform": "boolean-string"
+        }
+      ]
+    },
+    {
+      "id": "static",
+      "kind": "appearance",
+      "valueType": "boolean",
+      "defaultValue": false,
+      "description": "Статичное кольцо в Figma; отдельного prop Static в коде нет. Это не отключение runtime-анимации.",
+      "bindings": [
+        {
+          "representationId": "core.web.spinner.figma.universal",
+          "path": "component.properties.Static",
+          "transform": "boolean-string"
+        }
+      ]
+    },
+    {
+      "id": "visible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Видимость экземпляра в конкретном сценарии. Общий default не задаётся: у кода и Figma он различается.",
+      "bindings": [
+        {
+          "representationId": "core.web.spinner.figma.universal",
+          "path": "visible"
+        },
+        {
+          "representationId": "core.web.spinner.code.web",
+          "path": "props.visible"
+        }
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "id": "athena.spinner.rules",
+      "kind": "rules",
+      "path": "sources/design-system_ab/JSONS/web/components/web-core/core/Spinner/rules.json",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "athena.spinner.facts",
+      "kind": "generated-facts",
+      "path": "sources/design-system_ab/JSONS/web/components/web-core/core/Spinner/contract.generated.json",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "hub.spinner.guidelines",
+      "kind": "guidelines",
+      "path": "sources/ds-ai-hub/core/web/components/spinner/guidelines.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "hub.spinner.cookbook",
+      "kind": "cookbook",
+      "path": "sources/ds-ai-hub/core/web/components/spinner/cookbook.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "hub.spinner.bridge",
+      "kind": "bridge",
+      "path": "sources/ds-ai-hub/core/web/components/spinner/bridge.md",
+      "status": "draft",
+      "projection": "reference-only"
+    }
+  ],
+  "examples": [
+    {
+      "id": "spinner.example.default",
+      "kind": "generation",
+      "intent": "Самостоятельный индикатор ожидания",
+      "input": {
+        "representationId": "core.web.spinner.figma.universal",
+        "size": 48,
+        "inverted": false,
+        "static": false,
+        "visible": true
+      },
+      "expected": {
+        "componentSetKey": "44d3c426be11cb5bb6edbb3d80e6bf8ec9d8cf02",
+        "properties": {
+          "Size": "48",
+          "Inverted": "False",
+          "Static": "False"
+        }
+      },
+      "status": "draft"
+    },
+    {
+      "id": "spinner.example.inverted",
+      "kind": "generation",
+      "intent": "Индикатор с инвертированной палитрой",
+      "input": {
+        "size": 24,
+        "inverted": true,
+        "static": false
+      },
+      "expected": {
+        "properties": {
+          "Size": "24",
+          "Inverted": "True",
+          "Static": "False"
+        }
+      },
+      "status": "draft"
+    },
+    {
+      "id": "spinner.example.manual-resize",
+      "kind": "validation",
+      "intent": "Номинальный Size=24, но экземпляр растянут до 32",
+      "input": {
+        "variantSize": 24,
+        "actualWidth": 32,
+        "referenceWidth": 24
+      },
+      "expected": {
+        "classification": "violation"
+      },
+      "ruleIds": [
+        "component:web-core.spinner.intrinsic-size-required"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "spinner.example.detached-paint",
+      "kind": "validation",
+      "intent": "Тот же цвет, но отвязана переменная заливки",
+      "input": {
+        "actualTokenId": null,
+        "referenceTokenId": "fixture.token"
+      },
+      "expected": {
+        "classification": "violation"
+      },
+      "ruleIds": [
+        "component:web-core.spinner.layer-properties-use-effective-baseline"
+      ],
+      "status": "draft"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "spinner.ownership.component-vs-usage",
+      "status": "accepted",
+      "summary": "Spinner владеет своим API и внутренними ограничениями. Родитель или паттерн владеет контекстом использования.",
+      "rationale": "Решение пользователя 2026-09-26: собственный контракт Spinner, затем подключение к Button по ограничениям Button. Product/channel не ограничивают универсальный Spinner.",
+      "sourceRefs": [
+        "hub.spinner.bridge"
+      ]
+    },
+    {
+      "id": "spinner.loading-parent-owns-composition",
+      "status": "accepted",
+      "summary": "Button выбирает Addon.Type=Spinner и допустимые параметры зависимости; IconButton имеет другой путь вложения.",
+      "rationale": "Не копировать матрицу View/Size родителя в Spinner и не заменять glyph на Spinner. Внешние правила не могут ослабить intrinsic-ограничения компонента.",
+      "sourceRefs": [
+        "hub.spinner.bridge"
+      ]
+    },
+    {
+      "id": "spinner.code-mapping-pending",
+      "status": "needs-confirmation",
+      "summary": "Code API описан источниками, но генерация и проверки фронта ещё не приняты.",
+      "rationale": "preset соответствует Size; colors — default/inverted; Static не имеет prop. preset нельзя смешивать с size/lineWidth. Кастомные code size/lineWidth не имеют точного Figma-представления: нельзя автоматически подбирать ближайший Size без явного разрешения автора. Наличие locator не означает готовность code adapter.",
+      "sourceRefs": [
+        "hub.spinner.bridge"
+      ]
+    },
+    {
+      "id": "spinner.context-policy-external",
+      "status": "accepted",
+      "summary": "Таймаут, возможность отмены/ошибки и выбор между Spinner/Skeleton принадлежат сценарию использования.",
+      "rationale": "Один статический экземпляр не доказывает поведение загрузки во времени. Эти требования не превращаются в фиктивные локальные predicates.",
+      "sourceRefs": [
+        "hub.spinner.guidelines"
+      ]
+    },
+    {
+      "id": "spinner.property-applicability-v1",
+      "status": "accepted",
+      "summary": "Проверять strokeWeight при наличии stroke хотя бы в одном состоянии; itemSpacing — при наличии ≥2 видимых не-absolute детей auto layout хотя бы в одном состоянии.",
+      "rationale": "Не представлять неактивные числовые поля после Scale как самостоятельные визуальные дефекты. Условия относятся только к указанным baseline-проверкам; отсутствие фактов даёт unknown. Добавление/удаление stroke и смена layout остаются проверяемыми. Включает пользовательские правила r4 и свежие source evidence r2.",
+      "sourceRefs": [
+        "hub.spinner.cookbook"
+      ]
+    }
+  ],
+  "generation": {
+    "profiles": [
+      {
+        "id": "spinner.profile.default",
+        "intent": "standalone-loading",
+        "platform": "universal",
+        "representationId": "core.web.spinner.figma.universal",
+        "properties": {
+          "size": 48,
+          "inverted": false,
+          "static": false,
+          "visible": true
+        }
+      },
+      {
+        "id": "spinner.profile.compact",
+        "intent": "compact-loading",
+        "platform": "universal",
+        "representationId": "core.web.spinner.figma.universal",
+        "properties": {
+          "size": 16,
+          "inverted": false,
+          "static": false,
+          "visible": true
+        }
+      },
+      {
+        "id": "spinner.profile.inverted",
+        "intent": "loading-on-inverted-surface",
+        "platform": "universal",
+        "representationId": "core.web.spinner.figma.universal",
+        "properties": {
+          "size": 24,
+          "inverted": true,
+          "static": false,
+          "visible": true
+        }
+      }
+    ],
+    "instructions": [
+      "Создавай библиотечный instance по ключу; выбирай только комбинации, подтверждённые Athena.",
+      "Размер и палитру меняй через Size/Inverted/Static, не через ручные paints или scale.",
+      "Вложение в Button/другой компонент выполняй по контракту родителя, не по standalone default этого Spinner.",
+      "Не выводи Loading родителя только из наличия Spinner: объявленное намерение и фактическая композиция проверяются отдельно.",
+      "Проверь результат по текущему варианту и независимому reference. Недоступные данные не означают pass."
+    ]
+  },
+  "source": {
+    "kind": "athena-package",
+    "importedFiles": [
+      "design-system_ab/JSONS/web/components/web-core/core/Spinner/README.md",
+      "design-system_ab/JSONS/web/components/web-core/core/Spinner/agent-context.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Spinner/audit-mapping.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Spinner/composition-contract.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Spinner/contract.generated.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Spinner/contract.overrides.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Spinner/examples.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Spinner/rules.json",
+      "design-system_ab/experiments/web-core/core/Spinner/input/athena-rest/capture.json",
+      "design-system_ab/experiments/web-core/core/Spinner/input/athena-rest/catalog.json",
+      "design-system_ab/experiments/web-core/core/Spinner/input/athena-rest/response.json",
+      "ds-ai-hub/core/web/components/spinner/adapter.code.md",
+      "ds-ai-hub/core/web/components/spinner/adapter.figma.md",
+      "ds-ai-hub/core/web/components/spinner/bridge.md",
+      "ds-ai-hub/core/web/components/spinner/cookbook.md",
+      "ds-ai-hub/core/web/components/spinner/figma-keys.json",
+      "ds-ai-hub/core/web/components/spinner/guidelines.md",
+      "ds-ai-hub/core/web/components/spinner/meta.json"
+    ],
+    "sourceHash": "1d6e32d326058646dc397c6c34ef54e393fd7fecc2b4432247304e70efb7a64a",
+    "importedAt": "2026-09-26T17:51:18.088Z"
+  },
+  "targets": [
+    {
+      "id": "target.root",
+      "semanticRole": "root",
+      "label": "Spinner",
+      "componentFamily": "Spinner",
+      "lineage": [
+        "core.web.spinner"
+      ],
+      "nameHint": "Spinner",
+      "pathHint": "Spinner",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "core.web.spinner.figma.universal",
+          "pathHint": "Spinner",
+          "nameHint": "Spinner"
+        }
+      ]
+    }
+  ],
+  "controlPorts": [],
+  "rules": [
+    {
+      "id": "component:core.web.spinner.root.auto-layout-1",
+      "targetId": "target.root",
+      "targetScope": "self-and-descendants",
+      "capability": "",
+      "capabilitySet": "auto-layout@1",
+      "capabilitySelection": [
+        "layout.mode",
+        "layout.padding.top",
+        "layout.padding.right",
+        "layout.padding.bottom",
+        "layout.padding.left",
+        "layout.itemSpacing",
+        "layout.primaryAxisAlignItems",
+        "layout.counterAxisAlignItems",
+        "layout.sizingHorizontal",
+        "layout.sizingVertical"
+      ],
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "conditionSubject": "target"
+      },
+      "severity": "error",
+      "rationale": "Внутренняя геометрия компонента не изменяется напрямую.",
+      "remediationIntent": "restore-effective-baseline",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      },
+      "propertyApplicability": {
+        "layout.itemSpacing": "flow-gap-either@1"
+      }
+    },
+    {
+      "id": "component:core.web.spinner.root.visual-style-1",
+      "targetId": "target.root",
+      "targetScope": "self-and-descendants",
+      "capability": "",
+      "capabilitySet": "visual-style@1",
+      "capabilitySelection": [
+        "appearance.fill",
+        "appearance.stroke",
+        "appearance.opacity",
+        "appearance.radius",
+        "appearance.effects"
+      ],
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "conditionSubject": "target"
+      },
+      "severity": "error",
+      "rationale": "Внутреннее визуальное оформление компонента не изменяется напрямую.",
+      "remediationIntent": "restore-effective-baseline",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "sourceRefs": [],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:web-core.spinner.component-properties-are-first-class",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component-properties",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "Size"
+        },
+        {
+          "kind": "host-property",
+          "property": "Inverted"
+        },
+        {
+          "kind": "host-property",
+          "property": "Static"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": []
+      },
+      "severity": "info",
+      "rationale": "Сохранён исходный Athena RuleID. Выбор публичного варианта не является ручным изменением внутренних слоёв.",
+      "message": "Публичные параметры Spinner изменяются через API компонента.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.spinner.rules",
+        "hub.spinner.cookbook"
+      ],
+      "execution": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "id": "component:web-core.spinner.intrinsic-size-required",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "bounds",
+      "permission": "forbidden",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "Size",
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "bounds.width"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "bounds.height"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": []
+      },
+      "severity": "error",
+      "rationale": "Cookbook требует intrinsic-размер. Выбор Size допустим; ручное растяжение экземпляра относительно его текущего варианта — нет. Размерные ограничения родителя здесь не задаются.",
+      "message": "Размер экземпляра Spinner изменён вручную.",
+      "remediationMessage": "Выбрать нужный Size и восстановить width/height его независимого эталона.",
+      "remediationIntent": "restore-effective-baseline",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.spinner.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.spinner.layer-properties-use-effective-baseline",
+      "targetId": "target.root",
+      "targetScope": "self-and-descendants",
+      "capability": "layout-and-appearance",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.fill"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.stroke"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.opacity"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.radius"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.effects"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.strokeWeight"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.top"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.right"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.bottom"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.left"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.itemSpacing"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.sizingHorizontal"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.sizingVertical"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": []
+      },
+      "severity": "error",
+      "rationale": "Сохранён исходный Athena RuleID. Ручные styles/layout сравниваются с независимым effective baseline фактического варианта; token identity является частью paint фактов. Каталог по умолчанию не заменяет текущий reference.",
+      "message": "Изменено внутреннее оформление или layout Spinner.",
+      "remediationMessage": "Восстановить свойство и привязку переменной из подтверждённого эталона текущего варианта.",
+      "remediationIntent": "restore-effective-baseline",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.spinner.rules",
+        "hub.spinner.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      },
+      "propertyApplicability": {
+        "appearance.strokeWeight": "stroke-present-either@1",
+        "layout.itemSpacing": "flow-gap-either@1"
+      }
+    },
+    {
+      "id": "component:web-core.spinner.library-instance-required",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "type",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            "INSTANCE"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": []
+      },
+      "severity": "error",
+      "rationale": "Cookbook требует INSTANCE без detach. Identity и anatomy должны отдельно подтверждаться Athena/reference; одно совпадение имени не доказывает библиотечное происхождение.",
+      "message": "Spinner должен оставаться библиотечным instance.",
+      "remediationMessage": "Восстановить библиотечный Spinner; не менять type у произвольного слоя.",
+      "remediationIntent": "replace-with-library-instance",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.spinner.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    }
+  ],
+  "metadata": {
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "revision": 5,
+    "createdAt": "2026-09-26T00:00:00.000Z",
+    "updatedAt": "2026-09-26T19:09:05.326Z"
+  }
+}

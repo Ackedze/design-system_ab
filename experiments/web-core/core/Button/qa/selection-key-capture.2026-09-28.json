@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "apollo.capture-identity-fix.v1",
+  "date": "2026-09-28",
+  "componentId": "core.web.button",
+  "editorVersion": "0.2.38",
+  "manualRevision": 18,
+  "dependencyRevision": 8,
+  "status": "implemented-live-cross-representation-retest-pending",
+  "cause": [
+    "selection allowlist came only from workspace.variants of the active authoring representation",
+    "capture platform came from manual.component.platform, even for actual Mobile",
+    "legacy mismatch fallback imported many library variants before dumping all keys in the error"
+  ],
+  "changes": [
+    "Resolve actual main/set key against all root compiled Figma representations before capture; ambiguity/missing/foreign/deprecated fail closed",
+    "Capture root, independent baseline, nested host references and dependencies under the resolved platform",
+    "Use same resolver for preview; persist representationId in snapshot source and show actual representation in validation header",
+    "Do not mutate normative manual, authoring component choice or session edits; retry after a stale manualSourceHash",
+    "Remove mass-import key fallback and unbounded error list"
+  ],
+  "verification": {
+    "unchangedNormative": true,
+    "recompileExact": true,
+    "hashes": {
+      "buttonManual": "c5063d576ad657d1cafe54b83fc1fa4eeddf2c7d0267cc7aec21a025f884ef07",
+      "buttonCompiled": "4fbec3317cad2c4138a50a084095d033eeb24eed0c8a75972d2e6fe1f276d13f",
+      "buttonZip": "0e7cdb4e07121d3f7c00ab6482fc50765152f6f15ebfb8d86df49fdf99bded9a",
+      "spinnerManual": "5f24ba9657b3839427624634acf24fe845a12327cb61439581494bd0de20e740",
+      "spinnerCompiled": "979cfdbbef6f7248bde1685ad30ec4e5ddd68acba2031377c69148dc888116c4",
+      "spinnerZip": "f8eb8af5fce11b04f983151a2764a30fd4ba0419310c10171d02d731ab2dab46",
+      "engine": "7e16354bf5af7c222301acefb30ba88566b3d8da98d7c37e9728facd0706b8f1",
+      "core.cjs": "2d2c51dc86c6bd7f1ed1dadcbee677b7f1df62f63d668a283d370cab7ed22a45",
+      "code.js": "3a165236c4adb17eb3403251ba62137a065ddb10917b3e7348c8ce7373aaf806",
+      "ui.html": "23af6459e4e74a255b0548dcd9163f63f0745d9e89bccaca9c5ea2333130451c"
+    },
+    "editorTests": 316,
+    "scopedPackageTests": 83,
+    "newCaptureTests": 9,
+    "newLiveFixtureTests": 16,
+    "typecheck": "passed",
+    "build": "passed",
+    "vmCapture": "Desktop/Mobile/default/inverted, preview, dependency context, concise failures",
+    "browser": "Desktop authoring -> BP08/BP01/BP13; Mobile authoring -> BP01; edited session + stale capture retry + JSON engine parity; no page errors",
+    "browserScreenshot": "button-key-capture-ui.png",
+    "browserUsesSimulatedPluginAPI": true,
+    "freshFigmaCapture": false,
+    "historicalReplay": {
+      "reports": 13,
+      "engineEvaluations": 4831,
+      "childEvaluations": 2016,
+      "matchedNodes": 235,
+      "exactJSON": true
+    },
+    "mobileSimulation": {
+      "palette": [
+        "compliant",
+        "not-applicable",
+        "compliant",
+        "not-applicable"
+      ],
+      "engineEvaluations": 299,
+      "childEvaluations": 168,
+      "violations": 0,
+      "inconclusive": 0,
+      "notExecuted": 8,
+      "complete": false
+    }
+  },
+  "liveRetest": [
+    {
+      "authoring": "[D] Button",
+      "cases": [
+        "BP08",
+        "BP01",
+        "BP13"
+      ]
+    },
+    {
+      "authoring": "[M] Button",
+      "cases": [
+        "BP01"
+      ]
+    }
+  ],
+  "reportArchive": "qa/spinner-palette-live-review.2026-09-28.json",
+  "normativeChanges": false,
+  "registryChanged": false,
+  "productionPublished": false
+}

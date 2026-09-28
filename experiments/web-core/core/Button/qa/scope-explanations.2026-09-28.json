@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "apollo.editor-presentation-qa.v1",
+  "date": "2026-09-28",
+  "issueId": "rule-scope-diagnostic-boolean-trace",
+  "status": "fixed-replay-and-browser-verified",
+  "editorVersion": "0.2.36",
+  "compilerOutputVersion": "0.2.35",
+  "componentId": "core.web.button",
+  "manualRevision": 17,
+  "dependencyRevision": 8,
+  "sourceAcceptance": "qa/ownership-scope-live-review.2026-09-27.json",
+  "implementationHashes": {
+    "compilerCoreSha256": "f0efb642374da8ac71e1ec063ea57d08a3be1a13e397da28cb200a6b2389e2d7",
+    "uiSha256": "cf6f635afc97675ec90ee52c9c00c031d0a64b4d016e67d7e951690576b66bff",
+    "capturePluginSha256": "5dfbd9cedf6485083921aeb580463401d1546bbcee0d80ecf359d109dd76d832",
+    "predicateEngineSha256": "7e16354bf5af7c222301acefb30ba88566b3d8da98d7c37e9728facd0706b8f1"
+  },
+  "changes": [
+    "Presentation reads primitive boolean false from equals trace, requiring expected=true, matching fact path and an explicit versioned policy",
+    "Only failed all/any branches establish the displayed scope cause; successful OR and unknown branches cannot be blamed",
+    "Hidden-target and child-owned exclusions get specific reasonLabel and showComparison=false; raw trace data remain intact",
+    "Report editorVersion identifies the running application, not the producer of imported compiled artifacts"
+  ],
+  "checks": {
+    "editorTests": 299,
+    "newPresenterTests": 8,
+    "scopedPackageTests": 58,
+    "typecheck": "passed",
+    "build": "passed",
+    "engineReplay": "exact; all seven archived BS cases, 2589 evaluations including 1008 child evaluations",
+    "editorCoverageReplay": "exact; ten pending checks and incomplete coverage retained in every case",
+    "detailsParity": "only reasonLabel/showComparison change; every other serialized detail field remains identical",
+    "recompileButton": "identical compiled object, compiler issues and pinned child contract",
+    "archiveIntegrity": "all seven original report fixture SHA-256 values verified",
+    "browser": {
+      "status": "passed",
+      "implementation": "scripts/verify-scope-explanations-ui.cjs; built UI in headless Chrome",
+      "source": "archived actual Figma facts delivered via simulated Plugin API selection-result messages",
+      "freshFigmaCapture": false,
+      "checks": [
+        "Import unchanged Button r17 ZIP with pinned Spinner r8",
+        "BS01 and BS05 exact Node/browser engine and Editor coverage parity",
+        "Each case: two hidden-target and 117 child-owned cards have specific reasons and no comparison blocks",
+        "BS05 real opacity 0.5→1 remains one violation card with both child rules",
+        "Downloaded JSON identifies Editor0.2.36 and preserves compiler producer0.2.35",
+        "Screenshots of both corrected card types inspected; no page errors"
+      ]
+    }
+  },
+  "caseResults": [
+    { "caseId": "BS01", "changedExplanations": 119, "atomicViolations": 0, "uiCards": 0 },
+    { "caseId": "BS02", "changedExplanations": 119, "atomicViolations": 0, "uiCards": 0 },
+    { "caseId": "BS03", "changedExplanations": 119, "atomicViolations": 1, "uiCards": 1 },
+    { "caseId": "BS04", "changedExplanations": 119, "atomicViolations": 14, "uiCards": 8 },
+    { "caseId": "BS05", "changedExplanations": 119, "atomicViolations": 2, "uiCards": 1 },
+    { "caseId": "BS06", "changedExplanations": 119, "atomicViolations": 0, "uiCards": 0 },
+    { "caseId": "BS07", "changedExplanations": 0, "atomicViolations": 0, "uiCards": 0 }
+  ],
+  "unchanged": [
+    "Button r17 manual/compiled/ZIP bytes and review statuses",
+    "Spinner r8 manual/compiled/ZIP bytes and dependency pins",
+    "Generated Athena facts and Figma capture plugin",
+    "Canonical Predicate Engine",
+    "Original archived reports and prior QA manifests",
+    "Production publication state and normative registry"
+  ],
+  "manualSourceHash": "1f3d965acf37426887a736c93ce64810954e5b105d092904dbaab3b40ffc358f",
+  "compiledHash": "87f108cfd119e83e978f174ca67f2fa3660e2827f74f9d30c4524340933d3253",
+  "editorZipSha256": "bc6ddaa03992fded5c4b64302061609c132edfe23e2a5cc12febb7452e47da0c",
+  "contractStatus": "draft",
+  "productionPublished": false,
+  "next": "Button.View → Spinner.Inverted/Static using verified library states; not implemented by this presentation patch"
+}

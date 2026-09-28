@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "apollo.component-contract-spinner-only-loading-review.v1",
+  "date": "2026-09-28",
+  "status": "implemented-pending-live",
+  "editorVersion": "0.2.39",
+  "manualRevision": 20,
+  "ruleId": "component:web-core.button.loading-uses-addon-spinner",
+  "ownerDecision": {
+    "date": "2026-09-28",
+    "text": "В состоянии загрузки в кнопке должен остаться только спиннер соответствующего размера и больше ничего.",
+    "pendingQuestions": []
+  },
+  "scope": {
+    "confirmed": [
+      "Exactly one visible pinned Spinner at active fixed bindings",
+      "No effectively visible Label or Hint",
+      "Exactly one visible addon: the one containing Spinner",
+      "No invented Figma Loading property",
+      "Hidden/replaced child does not deactivate proven Spinner owner",
+      "Button32/40 -> Spinner16; Button48/56/64/72 -> Spinner24, existing size rule unchanged"
+    ],
+    "notAdditionalContent": [
+      "Button background and structural containers",
+      "Spinner internal anatomy",
+      "Hint with true boolean but hidden Text ancestor"
+    ],
+    "width": "Existing component-scoped behavioral invariant; context-only until linked before/after evidence under the same external context."
+  },
+  "hashes": {
+    "manualSourceHash": "674dc9925b23cb4d6450b6f404fc3506826e00d28ff4daa5347d68c5b0fbb085",
+    "manualFileSha256": "a05314227d3efa630a78ba999543fed5a33fdd4d7008cbb96662d3b2aaec2e62",
+    "compiledHash": "49fe938db1cfa27bb684a433b91a4a577c7a2c7d2872edbf4a376b0b79d7b6c3",
+    "compiledFileSha256": "08d5039171d7ce7f2d8939a73a1f07bdc981f7d7bf1eb36c73eb1d9e643fbce1",
+    "editorInputZipSha256": "03b4f130c1c11dbae0ed2f699695aae59b2c4db19d02bfb95266b98050fe8b1a",
+    "editorCoreSha256": "4803de9b2ccabfac7c479575fb4b1178eb7bea8640450d009b74b7a2e2b68dae",
+    "predicateEngineSha256": "7e16354bf5af7c222301acefb30ba88566b3d8da98d7c37e9728facd0706b8f1",
+    "spinnerContractHash": "909113967175c1ae618d2857d96855a3d3f53cdfe0b38cf923ce10b56e553221"
+  },
+  "verification": {
+    "editorTests": 323,
+    "packageTests": 101,
+    "build": "Button package regenerated with preserved sources",
+    "chrome": "passed: archived BS02 via simulated Plugin API; 3 composition checks pass; session-only quantity bounds edit yields 1 violation; constraints and pin preserved; downloaded JSON engine/details replay exactly",
+    "freshFigmaEditorAcceptance": false,
+    "figmaStructureAndScreenshot": "checked; BL12 corrected to reachable Label=True, Hint=True state",
+    "sourceRuleCount": 26,
+    "parentRuleIrCount": 58,
+    "changedSourceRuleCount": 1,
+    "validation": {
+      "errors": 0,
+      "existingWarnings": [
+        "TARGET_UNRESOLVED /targets/6"
+      ]
+    },
+    "unchanged": "Editor production/core, Predicate Engine, Spinner r8, 25 other Button rules, generated facts and dependency pins",
+    "historicalR19Archive": "history/r19-editor-0.2.39",
+    "scenarioCoverage": {
+      "BP01Pending": 7,
+      "BP08Pending": 7,
+      "BP13Pending": 8,
+      "complete": false
+    },
+    "syntheticHintTest": "Engine-level Hint-only snapshot mutation verifies generic visibility semantics; not evidence that this configuration is reachable through Button public Figma properties."
+  },
+  "registry": {
+    "spreadsheetId": "1u3Y7lhO3udXAhGlf7hOk2_zYkWZ0-vgtd6KjtbnxLnk",
+    "ranges": [
+      "'Правила'!A1825:O1825",
+      "'Леджер'!A57:O57",
+      "'Core components'!AF10:AH10"
+    ],
+    "readbackVerified": true,
+    "cellFormatsValidationAndChipsUnchanged": true,
+    "nativeSheetScreenshotVerified": false
+  },
+  "hubEvidence": [
+    {
+      "kind": "section",
+      "path": "core/web/components/button/bridge.md",
+      "heading": "Loading",
+      "relation": "partial semantic match; Label=false and official Spinner; owner-confirmed no Hint/second addon not yet projected into prose",
+      "sourcesVerified": true,
+      "driftStatus": "Найдено",
+      "hubModified": false
+    }
+  ],
+  "figma": {
+    "fileKey": "I3MsagXR8Tz2eZcGtIgUk8",
+    "pageId": "8701:32684",
+    "sectionId": "12877:55696",
+    "boardId": "13047:63768",
+    "totalCases": 14,
+    "previousCasesSource": "qa/loading-composition.2026-09-28.json",
+    "previousCaseExpectationChanges": {
+      "BL01": "three composition checks compliant",
+      "BL02": "three composition checks compliant",
+      "BL03": "three composition checks compliant",
+      "BL04": "three composition checks compliant",
+      "BL06": "Spinner quantity and addon quantity both violate: 2 instead of 1"
+    },
+    "cases": [
+      {
+        "id": "BL11",
+        "cardId": "13054:63772",
+        "buttonId": "13054:63776",
+        "title": "Hint=True, но Text скрыт",
+        "expected": "compliant",
+        "visibleSpinners": 1,
+        "visibleLabels": 0,
+        "visibleHints": 0,
+        "visibleAddons": 1
+      },
+      {
+        "id": "BL12",
+        "cardId": "13054:63794",
+        "buttonId": "13054:63798",
+        "title": "Label + Hint видны при Spinner",
+        "expected": "violation: visible text count 2, expected 0",
+        "visibleSpinners": 1,
+        "visibleLabels": 1,
+        "visibleHints": 1,
+        "visibleAddons": 1
+      },
+      {
+        "id": "BL13",
+        "cardId": "13054:63817",
+        "buttonId": "13054:63821",
+        "title": "Spinner слева + Icon справа",
+        "expected": "violation: visible addon count 2, expected 1",
+        "visibleSpinners": 1,
+        "visibleLabels": 0,
+        "visibleHints": 0,
+        "visibleAddons": 2
+      },
+      {
+        "id": "BL14",
+        "cardId": "13054:63839",
+        "buttonId": "13054:63843",
+        "title": "Icon слева + Spinner справа",
+        "expected": "violation: visible addon count 2, expected 1",
+        "visibleSpinners": 1,
+        "visibleLabels": 0,
+        "visibleHints": 0,
+        "visibleAddons": 2
+      }
+    ],
+    "limitation": "These counts are direct Figma structure evidence, not fresh Editor validation reports. BL12 initially attempted isolated visible Hint but parent binding kept it hidden; corrected to reachable Label+Hint before delivery."
+  }
+}

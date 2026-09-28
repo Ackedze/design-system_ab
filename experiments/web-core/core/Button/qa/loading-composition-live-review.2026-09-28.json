@@ -1,0 +1,544 @@
+{
+  "schemaVersion": "apollo.component-contract-loading-composition-live-review.v1",
+  "date": "2026-09-28",
+  "status": "loading-composition-accepted-with-separate-hint-semantics-follow-up",
+  "contractStatus": "draft",
+  "editorVersion": "0.2.39",
+  "manualRevision": 20,
+  "normativeChanges": false,
+  "runtimeChanges": false,
+  "ruleId": "component:web-core.button.loading-uses-addon-spinner",
+  "manualSourceHash": "674dc9925b23cb4d6450b6f404fc3506826e00d28ff4daa5347d68c5b0fbb085",
+  "compiledHash": "49fe938db1cfa27bb684a433b91a4a577c7a2c7d2872edbf4a376b0b79d7b6c3",
+  "dependencyCompiledHash": "909113967175c1ae618d2857d96855a3d3f53cdfe0b38cf923ce10b56e553221",
+  "verification": {
+    "submittedFiles": 14,
+    "uniqueRuns": 14,
+    "loadingCasesMatched": 14,
+    "atomicLoadingChecks": 42,
+    "atomicLoadingViolations": 7,
+    "otherViolations": 2,
+    "engineEvaluations": 5792,
+    "dependencyEvaluations": 2215,
+    "matchedNodes": 244,
+    "capturedNodes": 244,
+    "captureWarnings": 0,
+    "inconclusive": 0,
+    "engineEditorDetailsReplay": "exact",
+    "newLiveRegressionTestsPassed": 18,
+    "scopedPackageTestsPassed": 119,
+    "fullHistoricalGlobStatus": "blocked by two pre-existing missing-input suites; not an all-green full historical run",
+    "excludedHistoricalSuites": [
+      {
+        "file": "scripts/tests/spinner-gradient-acceptance.test.js",
+        "reason": "ENOENT: Spinner/editor/spinner.validation-report.2026-09-27T09-37-14-877Z.json"
+      },
+      {
+        "file": "scripts/tests/spinner-rule-review.test.js",
+        "reason": "ENOENT: Spinner/editor/spinner.validation-report.2026-09-27T06-24-38-590Z.json"
+      }
+    ],
+    "manualCompiledAndDependencyHashes": "match-r20-package",
+    "sourceCompilerWarnings": [
+      "TARGET_UNRESOLVED /targets/6 (pre-existing unused target)"
+    ],
+    "contractComplete": false
+  },
+  "knownFindings": [
+    {
+      "id": "button-hint-configured-vs-effective-visibility",
+      "status": "open",
+      "caseIds": [
+        "BL11",
+        "BL12"
+      ],
+      "ruleId": "component:web-core.button.desktop-hint-restricted",
+      "observed": "BL11: Hint=true, Hint.visible=true, Text.visible=false; semanticApi.hintVisible=true. Loading correctly passes; product rule reports a violation. BL12 has visible Label+Hint and both Loading/product violations.",
+      "cause": "manual semanticApi hintVisible binds directly to component.properties.Hint#4:8; semantic-facts.ts copies the configured property without ancestor visibility.",
+      "recommendation": "Distinguish configured property from effective visibility using contract-defined semantic targets and generic evidence. Rules forbidding visible content use effective visibility; explicit configuration prohibitions remain property rules. Do not blanket-disable Hint policy during Loading; hidden/absent/unknown remain distinct.",
+      "decisionBoundary": "The existing reviewed product rule explicitly requires Hint=false; do not silently weaken it. Confirm its intended semantic scope before normative change.",
+      "hubImpact": "bridge.md describes Hint as visibility but does not state parent Text dependency; revisit projection with semantic mapping change, without changing Hub now."
+    }
+  ],
+  "nextTask": "Resolve configured-vs-effective visibility semantics before paired-width work; Loading composition itself is accepted.",
+  "remainingScope": "4–8 not-executed checks per scenario: context-only/delegated rules and BL07 hidden-child coverage; no claim of a Ready whole contract.",
+  "reportResults": [
+    {
+      "caseId": "BL01",
+      "file": "editor/button.validation-report.2026-09-28T07-24-44-101Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-24-44-101Z.json.gz",
+      "sha256": "f7c563f9017bf2c1fd4258023e550db27cc0db349f77c32a34746b4d87b041f7",
+      "nodeId": "13047:63795",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 18,
+      "engineEvaluations": 401,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "compliant",
+        "compliant"
+      ],
+      "loadingActual": [
+        1,
+        0,
+        1
+      ],
+      "violationRuleIds": [],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL02",
+      "file": "editor/button.validation-report.2026-09-28T07-25-11-846Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-25-11-846Z.json.gz",
+      "sha256": "6f6f2a468ab544426e3b7ffbe890737716cecd2be980695e8b96b3b1253e309e",
+      "nodeId": "13047:63835",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 20,
+      "engineEvaluations": 401,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "compliant",
+        "compliant"
+      ],
+      "loadingActual": [
+        1,
+        0,
+        1
+      ],
+      "violationRuleIds": [],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL03",
+      "file": "editor/button.validation-report.2026-09-28T07-25-20-009Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-25-20-009Z.json.gz",
+      "sha256": "eec1671ef88ddce92b9a6d24cb3151db2a15b919d77d8291905ca6ec965a3894",
+      "nodeId": "13047:63887",
+      "platform": "mobile-web",
+      "representationId": "core.web.button.figma.mobile",
+      "matchedNodes": 18,
+      "engineEvaluations": 302,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "compliant",
+        "compliant"
+      ],
+      "loadingActual": [
+        1,
+        0,
+        1
+      ],
+      "violationRuleIds": [],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.mobile-hint-only-size-56",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL04",
+      "file": "editor/button.validation-report.2026-09-28T07-25-27-027Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-25-27-027Z.json.gz",
+      "sha256": "56d3c2379c9c438d5a89175eb542e74013643e0222a3549811c00199711cc5e8",
+      "nodeId": "13047:63927",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 17,
+      "engineEvaluations": 401,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "compliant",
+        "compliant"
+      ],
+      "loadingActual": [
+        1,
+        0,
+        1
+      ],
+      "violationRuleIds": [],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL05",
+      "file": "editor/button.validation-report.2026-09-28T07-25-35-924Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-25-35-924Z.json.gz",
+      "sha256": "fb3bdc97d29c1be8ce2831f54a783a84c4c3fce58ed6a436620407d1ef9fd1c4",
+      "nodeId": "13047:63967",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 18,
+      "engineEvaluations": 441,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "violation",
+        "compliant"
+      ],
+      "loadingActual": [
+        1,
+        1,
+        1
+      ],
+      "violationRuleIds": [
+        "component:web-core.button.loading-uses-addon-spinner.1.2"
+      ],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL06",
+      "file": "editor/button.validation-report.2026-09-28T07-25-43-008Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-25-43-008Z.json.gz",
+      "sha256": "5a11fb6e128387fc6bedecc3de1c7639c47e64fd256dfd0dd89b00dda142bcc0",
+      "nodeId": "13047:64007",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 20,
+      "engineEvaluations": 744,
+      "dependencyEvaluations": 336,
+      "loading": [
+        "violation",
+        "compliant",
+        "violation"
+      ],
+      "loadingActual": [
+        2,
+        0,
+        2
+      ],
+      "violationRuleIds": [
+        "component:web-core.button.loading-uses-addon-spinner.1.1",
+        "component:web-core.button.loading-uses-addon-spinner.1.3"
+      ],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL07",
+      "file": "editor/button.validation-report.2026-09-28T07-25-51-249Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-25-51-249Z.json.gz",
+      "sha256": "acf0d8f264e79cae35734dce296e262712544943f938a67039c31556f2336393",
+      "nodeId": "13047:64059",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 18,
+      "engineEvaluations": 141,
+      "dependencyEvaluations": 31,
+      "loading": [
+        "violation",
+        "compliant",
+        "compliant"
+      ],
+      "loadingActual": [
+        0,
+        0,
+        1
+      ],
+      "violationRuleIds": [
+        "component:web-core.button.loading-uses-addon-spinner.1.1"
+      ],
+      "notExecuted": 8,
+      "pendingRuleIds": [
+        "component-dependency:spinner:left",
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL08",
+      "file": "editor/button.validation-report.2026-09-28T07-26-00-900Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-26-00-900Z.json.gz",
+      "sha256": "c898dea29cedee955bb9c0f3f63fa31323e013851c24b21d62b3a8dec222581e",
+      "nodeId": "13047:64099",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 16,
+      "engineEvaluations": 232,
+      "dependencyEvaluations": 0,
+      "loading": [
+        "not-applicable",
+        "not-applicable",
+        "not-applicable"
+      ],
+      "loadingActual": [
+        null,
+        null,
+        null
+      ],
+      "violationRuleIds": [],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL09",
+      "file": "editor/button.validation-report.2026-09-28T07-26-09-953Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-26-09-953Z.json.gz",
+      "sha256": "0afef01db672ba582cf7ff3350eec4302f62cdee3320ee4d6b280315a0de19f7",
+      "nodeId": "13047:64144",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.inverted-desktop",
+      "matchedNodes": 18,
+      "engineEvaluations": 401,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "compliant",
+        "compliant"
+      ],
+      "loadingActual": [
+        1,
+        0,
+        1
+      ],
+      "violationRuleIds": [],
+      "notExecuted": 8,
+      "pendingRuleIds": [
+        "component:web-core.button.backdrop-blur-maps-to-control-blur",
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL10",
+      "file": "editor/button.validation-report.2026-09-28T07-26-18-130Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-26-18-130Z.json.gz",
+      "sha256": "8d4390184ff468b1ba92dbffa71d0bb9146aa8ccfd57a438d68cc39805956863",
+      "nodeId": "13047:64184",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 9,
+      "engineEvaluations": 401,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "compliant",
+        "compliant"
+      ],
+      "loadingActual": [
+        1,
+        0,
+        1
+      ],
+      "violationRuleIds": [],
+      "notExecuted": 4,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width"
+      ]
+    },
+    {
+      "caseId": "BL11",
+      "file": "editor/button.validation-report.2026-09-28T07-26-27-008Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-26-27-008Z.json.gz",
+      "sha256": "fd2cbd523914b8e6928f52edf72d48a0f0d7c827f27910fa0b092a045b4cdfee",
+      "nodeId": "13054:63776",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 18,
+      "engineEvaluations": 401,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "compliant",
+        "compliant"
+      ],
+      "loadingActual": [
+        1,
+        0,
+        1
+      ],
+      "violationRuleIds": [
+        "component:web-core.button.desktop-hint-restricted.1.1"
+      ],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL12",
+      "file": "editor/button.validation-report.2026-09-28T07-26-33-653Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-26-33-653Z.json.gz",
+      "sha256": "8f88d9713952624f7278105f2703b855779a04d814257fc0ba7b07d2df7c7fb3",
+      "nodeId": "13054:63798",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 18,
+      "engineEvaluations": 456,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "violation",
+        "compliant"
+      ],
+      "loadingActual": [
+        1,
+        2,
+        1
+      ],
+      "violationRuleIds": [
+        "component:web-core.button.desktop-hint-restricted.1.1",
+        "component:web-core.button.loading-uses-addon-spinner.1.2"
+      ],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL13",
+      "file": "editor/button.validation-report.2026-09-28T07-26-41-270Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-26-41-270Z.json.gz",
+      "sha256": "2089a6a36ec201adcaf07a235577dd80e6fab99a0098ee292fcd5cc0bba7803a",
+      "nodeId": "13054:63821",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 18,
+      "engineEvaluations": 535,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "compliant",
+        "violation"
+      ],
+      "loadingActual": [
+        1,
+        0,
+        2
+      ],
+      "violationRuleIds": [
+        "component:web-core.button.loading-uses-addon-spinner.1.3"
+      ],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    },
+    {
+      "caseId": "BL14",
+      "file": "editor/button.validation-report.2026-09-28T07-26-47-846Z.json",
+      "fixtureFile": "qa/fixtures/loading-composition-r20/button.validation-report.2026-09-28T07-26-47-846Z.json.gz",
+      "sha256": "2c95ca1aa79fbb7471618bfc9858749bd98b49f698501c43e31e500a92532fcc",
+      "nodeId": "13054:63843",
+      "platform": "desktop",
+      "representationId": "core.web.button.figma.desktop",
+      "matchedNodes": 18,
+      "engineEvaluations": 535,
+      "dependencyEvaluations": 168,
+      "loading": [
+        "compliant",
+        "compliant",
+        "violation"
+      ],
+      "loadingActual": [
+        1,
+        0,
+        2
+      ],
+      "violationRuleIds": [
+        "component:web-core.button.loading-uses-addon-spinner.1.3"
+      ],
+      "notExecuted": 7,
+      "pendingRuleIds": [
+        "component:web-core.button.block-maps-to-fill",
+        "component:web-core.button.button-group-pattern-delegated",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.loading-preserves-width",
+        "component:web-core.button.nowrap-maps-to-figma-layout",
+        "component:web-core.button.text-follows-editorial-pattern",
+        "component:web-core.button.text-resizing-maps-to-figma-layout"
+      ]
+    }
+  ]
+}

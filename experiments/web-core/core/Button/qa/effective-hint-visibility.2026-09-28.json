@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "apollo.component-contract-effective-visibility-review.v1",
+  "date": "2026-09-28",
+  "status": "implemented-pending-live",
+  "contractStatus": "draft",
+  "editorVersion": "0.2.40",
+  "manualRevision": 21,
+  "decisionId": "decision:core.web.button.hint-enabled-vs-visible",
+  "changedRuleIds": [
+    "component:web-core.button.desktop-hint-restricted",
+    "component:web-core.button.hint-requires-large-size"
+  ],
+  "model": {
+    "hintEnabled": "Configured Figma component property; writable generation input; existing representation bindings preserved.",
+    "hintVisible": "Read-only semantic fact with explicit targetId=target.hint and path=visibility.effective in four Figma representations.",
+    "visibilityEvidence": "Reuses shared target resolution, variant availability, snapshot topology and ancestor-aware ruleScope facts; no Button/Hint/Loading name exception.",
+    "absence": "Confirmed variant absence is a known false. Missing/remapped/ambiguous/truncated/foreign evidence stays unknown, never configured-false fallback.",
+    "policy": "Product ab desktop prohibition concerns visible Hint. Size condition also reads effective visibility; product/platform/size domains unchanged. Both changed rules returned to Draft.",
+    "legacy": "Opt-in runtimePolicy.semanticTargetVisibilityVersion=1; old compiled contracts retain their original semantic bindings and behavior.",
+    "generation": "Profiles use hintEnabled; validator rejects writes to target-derived visibility. Manual source remains editable; compiled JSON is generated."
+  },
+  "hashes": {
+    "manualSourceHash": "a50d0c5e5aa952fa0487685430e9967349f1332864389a63ed4009ad9716bd69",
+    "manualFileSha256": "b26c3b9b472edb947bb3dc2b469da4b1d6f94f248c867b696eff4891e44b2829",
+    "compiledHash": "2ac7377507d2fb5f9e8c3f671e57be13dbf72166c7822363e4b2ed72deebfd07",
+    "compiledFileSha256": "c8fd38622faeb80a744fe7a1156a67da3af1bd686c783dff3d9fb38cde9ea285",
+    "editorInputZipSha256": "521b97e538e938303a8dd57f8432cbf480fcee1c8e7f07c5b04d148bb39876c6",
+    "editorCoreSha256": "427f9819f341d4789c3decfe185ea958afa7f741277fbe21c7e20641180ee21f",
+    "predicateEngineSha256": "7e16354bf5af7c222301acefb30ba88566b3d8da98d7c37e9728facd0706b8f1",
+    "spinnerContractHash": "909113967175c1ae618d2857d96855a3d3f53cdfe0b38cf923ce10b56e553221",
+    "spinnerManualFileSha256": "5f24ba9657b3839427624634acf24fe845a12327cb61439581494bd0de20e740",
+    "spinnerCompiledFileSha256": "979cfdbbef6f7248bde1685ad30ec4e5ddd68acba2031377c69148dc888116c4"
+  },
+  "verification": {
+    "editorTests": 328,
+    "scopedPackageTests": 136,
+    "typecheck": "passed",
+    "build": "passed; Button rebuilt with --preserve-sources and pinned Spinner r8",
+    "sourceRuleCount": 26,
+    "parentRuleIrCount": 58,
+    "validationErrors": 0,
+    "existingWarnings": ["TARGET_UNRESOLVED /targets/6"],
+    "archivedCasesReevaluatedWithR21": 14,
+    "unrelatedVerdictsAndTraces": "identical to r20 reports",
+    "oldR20EngineCoverageDetailsReplay": "exact; immutable reports and r20 manual/compiled/core retained",
+    "chrome": "Built UI import, BL10/BL11/BL12 evaluation, passport/session metadata edit and JSON download passed. Engine/details replay exact; no page errors. Existing Loading quantity session edit also passed.",
+    "chromeScreenshot": "BL12 diagnostics inspected: two expected violations; separate pending category remains.",
+    "freshFigmaEditorAcceptance": false,
+    "figmaMutationThisTask": false,
+    "scenarioCoverageComplete": false,
+    "unchanged": ["Spinner r8", "Predicate Engine", "generated Athena facts", "dependency pins", "other 24 Button rules", "58 parent RuleIR count"],
+    "excludedHistoricalSuites": [
+      {"file": "scripts/tests/spinner-gradient-acceptance.test.js", "reason": "Pre-existing dependency on deleted Spinner/editor/ original reports; no replacement fabricated."},
+      {"file": "scripts/tests/spinner-rule-review.test.js", "reason": "Pre-existing dependency on deleted Spinner/editor/ original reports; separate archive debt."}
+    ]
+  },
+  "historicalEvidence": {
+    "contractArchive": "history/r20-editor-0.2.39",
+    "liveReview": "qa/loading-composition-live-review.2026-09-28.json",
+    "reportFixtures": "qa/fixtures/loading-composition-r20"
+  },
+  "retest": {
+    "product": "ab",
+    "figmaFileKey": "I3MsagXR8Tz2eZcGtIgUk8",
+    "boardId": "13047:63768",
+    "cases": [
+      {"caseId": "BL11", "nodeId": "13054:63776", "expectedViolations": 0, "hintEnabled": true, "hintVisible": false},
+      {"caseId": "BL12", "nodeId": "13054:63798", "expectedViolations": 2, "hintVisible": true, "reason": "Existing product Hint restriction plus visible text in Loading."},
+      {"caseId": "BL10", "nodeId": "13047:64184", "expectedViolations": 0, "hintVisible": false, "confirmedAbsent": true}
+    ],
+    "remaining": "Fresh live JSON for these three existing instances only. Other pending rules and temporal width evidence remain open."
+  },
+  "registry": {
+    "spreadsheetId": "1u3Y7lhO3udXAhGlf7hOk2_zYkWZ0-vgtd6KjtbnxLnk",
+    "ranges": ["'Правила'!A1590:O1590", "'Правила'!A1821:O1821", "'Леджер'!A58:O58", "'Core components'!AF10:AH10"],
+    "readbackVerified": true,
+    "cellFormatsValidationAndChipsUnchanged": true,
+    "predicateStatus": "Draft",
+    "driftStatus": "Найдено",
+    "nativeSheetScreenshotVerified": false
+  },
+  "hubEvidence": [
+    {
+      "kind": "section",
+      "path": "core/web/components/button/bridge.md",
+      "headings": ["Hint", "Ограничения"],
+      "relation": "Partial semantic match: size >=56 is documented; configured/effective visibility and AB product projection are not explicit. Not a Missing-ID conclusion.",
+      "sourcesVerified": true,
+      "hubModified": false,
+      "driftStatus": "Найдено"
+    }
+  ]
+}

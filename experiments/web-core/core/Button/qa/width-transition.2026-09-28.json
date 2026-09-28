@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "apollo.component-contract-width-transition-review.v1",
+  "date": "2026-09-28",
+  "status": "implemented-pending-live",
+  "contractStatus": "draft",
+  "editorVersion": "0.2.41",
+  "manualRevision": 22,
+  "changedRuleIds": ["component:web-core.button.loading-preserves-width"],
+  "model": {
+    "source": "Manual transitionInvariant: dependency spinner false→true, bounds.width, explicit semantic API invariants, absolute tolerance 0.01px.",
+    "compiler": "One new atomic RuleIR using existing approximately-equals. No Predicate Engine changes or Button-specific runtime branch.",
+    "evidence": "Two bounded sequential same-session snapshots of the same instance, page, representation and variant; same manual hash, Product/modes and external context. Recomputed before/after facts, never trust exported derived temporal results.",
+    "externalContext": "Fixed ancestor dimensions, layout parameters, variable modes/bindings, rotation/linear transform, child order, sibling dimensions and root placement constraints. Derived HUG/group dimensions and translation excluded. GRID ancestors unsupported.",
+    "limits": {"nodes":500,"ancestorDepth":32,"siblingsPerAncestor":200},
+    "missing": "Raw Engine unknown retained; Editor presents one Not executed coverage gap with reason, not duplicate unknown or false pass.",
+    "ui": "Remember before, normal selected-instance check after, clear pair. Pair session-only; import resets it. No Figma mutation or automatic Loading switch. Editable typed constraint fields preserve manual roundtrip.",
+    "legacy": "Opt-in transitionFactsVersion=1. Previous r21 manual/compiled/core archived; old reports replay exactly.",
+    "limitsOfProof": "Only observed endpoints and captured context are compared. This does not establish event history or infer runtime front-end behavior. Code adapter coverage is not claimed."
+  },
+  "hashes": {
+    "manualSourceHash": "db8efde6e7beb45c9eff1d00e59ae71081bbb05d7d5417ce53c11c858fda03b4",
+    "manualFileSha256": "674b2826e734a4b52439616b7d13f4e33287771b4f493e6bf491b20b736872f5",
+    "compiledHash": "9b9e0eb56ea5cd5ecf20471c1bd0af9cbf5309cd0a0a5dac0fb2228ed3a3c6bb",
+    "compiledFileSha256": "fba5506bfa6f34b988f10746415845ce62c6249796c809633bb47ac58c1d8c85",
+    "editorInputZipSha256": "c6f14cd02fb8a2e45e56f72ff281e87e016c9f5ebe6995b7366c28501794f0a6",
+    "editorCoreSha256": "fd8ab7e0a8670668c1786e5ffb383f770c5a9a8f3e7bfb245000b7a3ccfb36c5",
+    "predicateEngineSha256": "7e16354bf5af7c222301acefb30ba88566b3d8da98d7c37e9728facd0706b8f1",
+    "spinnerContractHash": "909113967175c1ae618d2857d96855a3d3f53cdfe0b38cf923ce10b56e553221",
+    "spinnerManualFileSha256": "5f24ba9657b3839427624634acf24fe845a12327cb61439581494bd0de20e740",
+    "spinnerCompiledFileSha256": "979cfdbbef6f7248bde1685ad30ec4e5ddd68acba2031377c69148dc888116c4"
+  },
+  "verification": {
+    "editorTests": 358,
+    "scopedPackageTests": 146,
+    "typecheck": "passed",
+    "build": "passed; preserved Athena evidence and explicit Spinner r8 dependency",
+    "sourceRuleCount": 26,
+    "parentRuleIrCount": 59,
+    "validationErrors": 0,
+    "existingWarnings": ["TARGET_UNRESOLVED /targets/6"],
+    "unimplementedRules": 8,
+    "chrome": "Built UI with archived Figma baseline and synthetic before/after pair: missing pair, pass, shrink violation, editable tolerance, manual edit invalidation, recapture and clear; exact downloaded engine/details replay, no page errors.",
+    "pluginVm": "Captures session/sequence/manual/context, detects in-flight mutations, leaves actual instance unchanged and cleans up references. Legacy capture remains opt-out.",
+    "legacyReplay": "r21 engine/coverage/details exact; r22 single-state replay adds only temporal unknown and preserves all unrelated verdicts/traces.",
+    "freshFigmaAcceptance": false,
+    "figmaMutationThisTask": false,
+    "unchanged": ["Spinner r8", "Predicate Engine", "Athena facts", "other 25 source rules", "26 RuleIDs"],
+    "excludedHistoricalSuites": [
+      {"file":"scripts/tests/spinner-gradient-acceptance.test.js","reason":"Pre-existing dependency on deleted original reports; no evidence fabricated."},
+      {"file":"scripts/tests/spinner-rule-review.test.js","reason":"Pre-existing dependency on deleted original reports; archive debt remains."}
+    ]
+  },
+  "retest": {
+    "instructions": "../TESTCASES.md#текущая-приёмка-bw01bw06--сохранение-ширины",
+    "cases": ["BW01 same width desktop", "BW02 shrink", "BW03 growth", "BW04 same width mobile", "BW05 no before", "BW06 changed parent"],
+    "reports": "One downloadable JSON per after-check; before snapshot included. Archive originals after user submission."
+  },
+  "registry": {
+    "spreadsheetId": "1u3Y7lhO3udXAhGlf7hOk2_zYkWZ0-vgtd6KjtbnxLnk",
+    "ranges": ["'Правила'!A1596:O1596", "'Леджер'!A59:O59", "'Core components'!AF10:AH10"],
+    "readbackVerified": true,
+    "cellFormatsValidationAndChipsUnchanged": true,
+    "predicateStatus": "Draft",
+    "driftStatus": "Найдено",
+    "nativeSheetScreenshotVerified": false,
+    "hubChanged": false,
+    "semanticReview": "bridge.md §Loading describes Spinner but not width preservation. apollo/rule-crosswalk.json has no matching relation; this is missing semantic coverage, not an ID equality test."
+  }
+}

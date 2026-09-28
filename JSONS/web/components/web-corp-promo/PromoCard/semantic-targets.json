@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "documentType": "generation-semantic-target-map",
+  "componentId": "PromoCard",
+  "sourceContract": "contract.generated.json",
+  "profiles": [
+    {
+      "id": "desktop-feature-bento",
+      "platform": "desktop",
+      "contractId": "promo-card.desktop",
+      "publicRoot": "[D] PromoCard",
+      "verification": {
+        "source": "contract.generated.json",
+        "liveInstanceVerified": false
+      },
+      "targets": [
+        {
+          "id": "variant.size",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "Size",
+          "values": { "small": "Small", "medium": "Medium", "large": "Large" }
+        },
+        {
+          "id": "variant.image",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "Image",
+          "values": { "none": "None (Figma only)", "top": "Top", "bottom": "Bottom" }
+        },
+        {
+          "id": "variant.imageCrop",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "ImageCrop",
+          "values": { "true": "True", "false": "False" }
+        },
+        {
+          "id": "content.title",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "ContentWrapper / Content / Content / Title / value",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.subtitle",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "ContentWrapper / Content / Content / Subtitle / value",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "actions.primary",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "ContentWrapper / Content / [D] ButtonGroup / ButtonGroup / Primary / Text / Label",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.imageAsset",
+          "kind": "unsupported",
+          "supported": false,
+          "reason": "Профиль MVP использует Image=None внутри bento; выбор конкретного Corp Image Library asset требует отдельного semantic asset catalog."
+        }
+      ]
+    }
+  ]
+}

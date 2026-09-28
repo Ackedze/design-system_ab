@@ -1,0 +1,450 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ackedze.github.io/design-system_ab/JSONS/experiments/component-contract-v2/schemas/apollo-component-contract-v2.1.schema.json",
+  "title": "Apollo compiled ComponentContract v2.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "documentType",
+    "package",
+    "status",
+    "facts",
+    "customizationPolicy",
+    "rules",
+    "nonExecutableRules",
+    "capabilities",
+    "coverage",
+    "runtimePolicy"
+  ],
+  "properties": {
+    "componentDependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "componentId",
+          "revision",
+          "manualSourceHash",
+          "compiledHash",
+          "bindings"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "componentId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "manualSourceHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "compiledHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bindings": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "targetRole",
+                "relativePath",
+                "ownerComponentSetKeys",
+                "activeVariant",
+                "childPath"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]*$"
+                },
+                "targetRole": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "relativePath": {
+                  "type": "string"
+                },
+                "ownerComponentSetKeys": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "activeVariant": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "property",
+                    "values"
+                  ],
+                  "properties": {
+                    "property": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "values": {
+                      "type": "array",
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  }
+                },
+                "childPath": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          "contract": {
+            "$ref": "#"
+          },
+          "issue": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "schemaVersion": {
+      "const": "apollo.component-contract.v2.1-experimental"
+    },
+    "documentType": {
+      "const": "component-contract"
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "componentId",
+        "family",
+        "library",
+        "sourcePath",
+        "sourceGeneratedAt",
+        "sourceExportVersion",
+        "manualSourceHash"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "componentId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "library": {
+          "type": "string"
+        },
+        "sourcePath": {
+          "const": "contract.manual.json"
+        },
+        "sourceGeneratedAt": {
+          "type": "string"
+        },
+        "sourceExportVersion": {
+          "type": "string"
+        },
+        "manualRevision": {"type":"integer","minimum":1},
+        "manualSourceHash": {
+          "type": "string",
+          "minLength": 16
+        },
+        "snapshotProfile": {
+          "enum": ["component-facts-v2", "variant-facts-v3", "variant-facts-v4", "dependency-facts-v5"]
+        },
+        "generatedFactsHash": {
+          "type": "string",
+          "minLength": 16
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "ready"
+      ]
+    },
+    "facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component",
+        "semantics",
+        "representations",
+        "semanticApi",
+        "documentation",
+        "examples",
+        "decisions",
+        "generation",
+        "targets",
+        "controlPorts"
+      ],
+      "properties": {
+        "dependencyBindings": {
+          "type":"array","items":{
+            "type":"object","additionalProperties":false,"required":["id","targetRole","relativePath","portNames"],
+            "properties":{"id":{"type":"string"},"targetRole":{"type":"string"},"relativePath":{"type":"string"},"portNames":{"type":"array","items":{"type":"string"}},"metrics":{"const":true},"variantProperty":{"type":"string","minLength":1},"contractDependencyId":{"type":"string","minLength":1}}
+          }
+        },
+        "variantEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schemaVersion", "sourceHash", "structures", "variants"],
+          "properties": {
+            "assetCatalogs": {"type":"array","items":{
+              "type":"object","additionalProperties":false,"required":["catalog","library","sourceHash","generatedAt","members"],
+              "properties":{
+                "catalog":{"type":"string"},"library":{"type":"string"},"sourceHash":{"type":"string"},"generatedAt":{"type":"string"},
+                "members":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["componentKey","componentSetKey"],"properties":{"componentKey":{"type":"string"},"componentSetKey":{"type":"string"}}}}
+              }
+            }},
+            "schemaVersion": { "const": "apollo.variant-anatomy.v1" },
+            "sourceHash": { "type": "string", "minLength": 16 },
+            "structures": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "object", "additionalProperties": false,
+                  "required": ["path", "type"],
+                  "properties": { "path": { "type": "string" }, "type": { "type": "string" } }
+                }
+              }
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object", "additionalProperties": false,
+                "required": ["componentKey", "componentSetKey", "structureId", "properties"],
+                "properties": {
+                  "componentKey": { "type": "string", "minLength": 1 },
+                  "componentSetKey": { "type": "string", "minLength": 1 },
+                  "structureId": { "type": "string", "minLength": 16 },
+                  "properties": { "type": "object", "additionalProperties": { "type": "string" } }
+                }
+              }
+            }
+          }
+        },
+        "component": {
+          "type": "object"
+        },
+        "semantics": {
+          "type": "object"
+        },
+        "representations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "semanticApi": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "documentation": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "generation": {
+          "type": "object"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "controlPorts": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "customizationPolicy": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "boundaryPolicy": { "const": "component-owned@1" },
+          "targetApplicability": { "const": "visible-target@1" }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schemaVersion",
+          "ruleId",
+          "source",
+          "authority",
+          "effect",
+          "scope",
+          "select",
+          "assert",
+          "severity",
+          "unknownPolicy",
+          "presentation",
+          "manual"
+        ]
+      }
+    },
+    "nonExecutableRules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "reason",
+          "sourceRuleId"
+        ]
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selectors",
+        "facts",
+        "operators",
+        "remediations"
+      ],
+      "properties": {
+        "selectors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "operators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remediations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceRules",
+        "policyRules",
+        "policyOnlyRules",
+        "compiledRules",
+        "nonExecutableRules",
+        "byConstraintType",
+        "byExecutionRoute"
+      ],
+      "properties": {
+        "sourceRules": {
+          "type": "integer"
+        },
+        "policyRules": {
+          "type": "integer"
+        },
+        "policyOnlyRules": {
+          "type": "integer"
+        },
+        "compiledRules": {
+          "type": "integer"
+        },
+        "nonExecutableRules": {
+          "type": "integer"
+        },
+        "byConstraintType": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "byExecutionRoute": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "runtimePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "engine",
+        "unknownPolicy",
+        "compiledIsSourceOfTruth"
+      ],
+      "properties": {
+        "engine": {
+          "const": "apollo-predicate-engine"
+        },
+        "unknownPolicy": {
+          "const": "fail-closed"
+        },
+        "compiledIsSourceOfTruth": {
+          "const": false
+        },
+        "gradientPaintFactsVersion": { "const": 1 },
+        "ruleScopeFactsVersion": { "const": 1 }
+      }
+    }
+  }
+}

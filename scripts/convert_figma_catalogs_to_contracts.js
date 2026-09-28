@@ -467,14 +467,20 @@ function buildRuntimeVariantStructures(variantStructures) {
   const result = {};
 
   for (const [variantKey, operations] of Object.entries(variantStructures || {})) {
+    if (!Array.isArray(operations)) throw new Error(`Invalid variant structure: ${variantKey}`);
     const runtimeOperations = [];
 
-    for (const operation of Array.isArray(operations) ? operations : []) {
+    for (const operation of operations) {
       if (operation.op === 'remove' && typeof operation.id === 'number') {
         runtimeOperations.push({
           op: 'remove',
           id: operation.id,
         });
+        continue;
+      }
+
+      if (operation.op === 'add' && operation.node && typeof operation.node.id === 'number') {
+        runtimeOperations.push({ op: 'add', id: operation.node.id, value: buildStructureSignature([operation.node])[0] });
         continue;
       }
 
@@ -484,11 +490,11 @@ function buildRuntimeVariantStructures(variantStructures) {
         !operation.value ||
         typeof operation.value !== 'object'
       ) {
-        continue;
+        throw new Error(`Unsupported variant operation in ${variantKey}`);
       }
 
       const value = cloneRuntimeNodePatch(operation.value);
-      if (!hasRuntimeComparisonFields(value)) {
+      if (!Object.keys(value).length) {
         continue;
       }
 
@@ -499,9 +505,9 @@ function buildRuntimeVariantStructures(variantStructures) {
       });
     }
 
-    if (runtimeOperations.length) {
-      result[variantKey] = runtimeOperations;
-    }
+    // An explicit empty patch is evidence of an unchanged structure. Missing is not.
+    // Keep names/parents too: anatomy consumers need them even without a style diff.
+    result[variantKey] = runtimeOperations;
   }
 
   return result;
@@ -535,23 +541,6 @@ function cloneRuntimeNodePatch(node) {
 
   addRuntimeNodeFields(patch, node);
   return patch;
-}
-
-function hasRuntimeComparisonFields(value) {
-  return [
-    'visible',
-    'layout',
-    'opacity',
-    'radius',
-    'fills',
-    'fillToken',
-    'strokes',
-    'strokeToken',
-    'typographyToken',
-    'componentInstance',
-    'text',
-    'styles',
-  ].some((key) => Object.prototype.hasOwnProperty.call(value, key));
 }
 
 function addRuntimeNodeFields(target, node) {
@@ -1064,6 +1053,7 @@ function runSelfTest() {
     variantA: [
       { op: 'remove', id: 2 },
       { op: 'update', id: 3, value: { layout: { itemSpacing: 12 } } },
+      { op: 'add', id: 4, value: { nodeId: 4, parentId: 1, type: 'FRAME', name: 'Added', path: 'Added', visible: true } },
     ],
   });
   const deprecatedRules = buildQualityRules({ status: 'deprecated', variants: [], structure: [] }, []);
@@ -1087,4 +1077,5 @@ function assertDeepEqual(actual, expected) {
   }
 }
 
-main();
+module.exports = { convertCatalog, validateCatalog, buildRuntimeVariantStructures };
+if (require.main === module) main();
