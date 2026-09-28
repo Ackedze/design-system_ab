@@ -6,11 +6,11 @@ This report classifies source rules without normalizing them or inferring execut
 
 - packages: 25
 - rules: 844
-- deterministic: 354
-- agent-required: 135
-- human-review: 202
+- deterministic: 363
+- agent-required: 136
+- human-review: 201
 - policy-only: 1
-- unresolved: 152
+- unresolved: 143
 
 `deterministic` means either executable now or backed by explicit structured assertion fields.
 `agent-required` is used only for rules explicitly authored as `llm` or `contextual`.
@@ -34,7 +34,7 @@ The first wave requires no new runtime operators and is ready only for shadow pa
 | `web-corp-promo.benefits` | 14/14 | 14 | 4 | 3 | 0 | ready-no-new-operators |
 | `web-corp-promo.benefits-block` | 3/18 | 4 | 10 | 5 | 14 | blocked-by-authoring-or-capabilities |
 | `web-corp-promo.promo-card` | 2/18 | 2 | 6 | 0 | 16 | blocked-by-authoring-or-capabilities |
-| `web-corp-promo.promo-main-block` | 2/20 | 2 | 6 | 1 | 18 | blocked-by-authoring-or-capabilities |
+| `web-corp-promo.promo-main-block` | 2/20 | 11 | 7 | 0 | 9 | blocked-by-authoring-or-capabilities |
 | `web-corp.account-select` | 4/23 | 19 | 0 | 20 | 4 | blocked-by-authoring-or-capabilities |
 | `web-corp.amount-styles` | 12/29 | 16 | 20 | 0 | 13 | blocked-by-authoring-or-capabilities |
 | `web-corp.background-plate` | 22/24 | 24 | 6 | 0 | 0 | ready-production-predicate-bridge |

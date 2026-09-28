@@ -268,26 +268,47 @@
             "where": [
               {
                 "predicate": "equals",
-                "actual": { "fact": "type" },
-                "expected": { "literal": "INSTANCE" }
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
               },
               {
                 "predicate": "equals",
-                "actual": { "fact": "component.identity" },
-                "expected": { "literal": "web-corp.status-property" }
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.status-property"
+                }
               },
               {
                 "predicate": "one-of",
-                "actual": { "fact": "component.family" },
-                "expected": { "literal": ["status-preset", "property-preset"] }
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "status-preset",
+                    "property-preset"
+                  ]
+                }
               }
             ]
           },
           "contextFact": "page.context.surface",
           "targetFact": "component.properties.Style",
           "mappingEntries": [
-            { "context": "graySurface", "target": "Contrast" },
-            { "context": "whiteSurface", "target": "Muted" }
+            {
+              "context": "graySurface",
+              "target": "Contrast"
+            },
+            {
+              "context": "whiteSurface",
+              "target": "Muted"
+            }
           ],
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -296,7 +317,12 @@
             "expectation": "На серой поверхности используется Contrast, на белой — Muted.",
             "action": "Установить Style preset в соответствии с поверхностью."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -465,37 +491,57 @@
             "where": [
               {
                 "predicate": "equals",
-                "actual": { "fact": "ownership.contour.identity" },
-                "expected": { "literal": "web-core.status" }
+                "actual": {
+                  "fact": "ownership.contour.identity"
+                },
+                "expected": {
+                  "literal": "web-core.status"
+                }
               },
               {
                 "predicate": "equals",
-                "actual": { "fact": "ownership.contour.host.component.identity" },
-                "expected": { "literal": "web-corp.status-property" }
+                "actual": {
+                  "fact": "ownership.contour.host.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.status-property"
+                }
               },
               {
                 "predicate": "any",
                 "args": [
                   {
                     "predicate": "equals",
-                    "actual": { "fact": "ownership.contour.host.component.family" },
-                    "expected": { "literal": "status-preset" }
+                    "actual": {
+                      "fact": "ownership.contour.host.component.family"
+                    },
+                    "expected": {
+                      "literal": "status-preset"
+                    }
                   },
                   {
                     "predicate": "all",
                     "args": [
                       {
                         "predicate": "equals",
-                        "actual": { "fact": "ownership.contour.host.component.family" },
-                        "expected": { "literal": "property-preset" }
+                        "actual": {
+                          "fact": "ownership.contour.host.component.family"
+                        },
+                        "expected": {
+                          "literal": "property-preset"
+                        }
                       },
                       {
                         "predicate": "not",
                         "args": [
                           {
                             "predicate": "equals",
-                            "actual": { "fact": "ownership.contour.host.component.properties.Color" },
-                            "expected": { "literal": "Custom" }
+                            "actual": {
+                              "fact": "ownership.contour.host.component.properties.Color"
+                            },
+                            "expected": {
+                              "literal": "Custom"
+                            }
                           }
                         ]
                       }
@@ -520,7 +566,12 @@
             "expectation": "Заливка поверхности и текста вложенного Status должна совпадать с effective baseline выбранного preset.",
             "action": "Сбросить заливку слоя «{{nodeName}}» к effective baseline Status."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -618,16 +669,55 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-core.status" } },
-              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": "web-corp.status-property" } },
-              { "predicate": "one-of", "actual": { "fact": "ownership.owner.component.family" }, "expected": { "literal": ["status-preset", "property-preset"] } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-core.status"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.status-property"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "ownership.owner.component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "status-preset",
+                    "property-preset"
+                  ]
+                }
+              }
             ]
           },
           "assert": {
             "predicate": "equals",
-            "actual": { "fact": "component.properties.Size" },
-            "expected": { "fact": "ownership.owner.component.properties.Size" }
+            "actual": {
+              "fact": "component.properties.Size"
+            },
+            "expected": {
+              "fact": "ownership.owner.component.properties.Size"
+            }
           },
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -636,7 +726,12 @@
             "expectation": "Size вложенного Status должен совпадать с Size родительского preset.",
             "action": "Установить вложенному Status размер родительского preset."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -685,16 +780,46 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "🔩 Label" } },
-              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": "web-core.status" } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "name"
+                },
+                "expected": {
+                  "literal": "🔩 Label"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-core.status"
+                }
+              }
             ]
           },
           "contextFact": "page.context.platform",
           "targetFact": "component.properties.Uppercase",
           "mappingEntries": [
-            { "context": "desktop", "target": "True" },
-            { "context": "mobile-web", "target": "False" }
+            {
+              "context": "desktop",
+              "target": "True"
+            },
+            {
+              "context": "mobile-web",
+              "target": "False"
+            }
           ],
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -703,7 +828,12 @@
             "expectation": "Desktop использует Uppercase=True, mobile-web — Uppercase=False.",
             "action": "Вернуть штатное значение Uppercase для выбранной платформы."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -793,19 +923,79 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.status-property" } },
-              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["status-preset", "property-preset"] } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.status-property"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "status-preset",
+                    "property-preset"
+                  ]
+                }
+              }
             ]
           },
           "query": {
             "from": "subject",
             "traverse": "descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "Label" } },
-              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } },
-              { "predicate": "compare", "actual": { "fact": "text.length" }, "expected": { "literal": 0 }, "operator": "gt" }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "TEXT"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "name"
+                },
+                "expected": {
+                  "literal": "Label"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "visible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "compare",
+                "actual": {
+                  "fact": "text.length"
+                },
+                "expected": {
+                  "literal": 0
+                },
+                "operator": "gt"
+              }
             ]
           },
           "lower": 1,
@@ -817,7 +1007,12 @@
             "expectation": "StatusPreset и PropertyPreset должны содержать один видимый непустой Label.",
             "action": "Показать Label и задать ему текст."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -854,10 +1049,45 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.status-property" } },
-              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["status-preset", "property-preset"] } },
-              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.status-property"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "status-preset",
+                    "property-preset"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
             ]
           },
           "expectations": {
@@ -871,7 +1101,12 @@
             "expectation": "StatusPreset и PropertyPreset должны сохранять Hug по ширине и высоте.",
             "action": "Установить корню preset ширину Hug и высоту Hug."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -896,17 +1131,72 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.status-property" } },
-              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["status-preset", "property-preset"] } },
-              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.status-property"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "status-preset",
+                    "property-preset"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
             ]
           },
           "paths": [
-            { "suffix": "fill", "label": "Заливка", "actualFact": "appearance.fill.value", "baselineFact": "baseline.effective.appearance.fill.value" },
-            { "suffix": "stroke", "label": "Обводка", "actualFact": "appearance.stroke.value", "baselineFact": "baseline.effective.appearance.stroke.value" },
-            { "suffix": "radius", "label": "Скругление", "actualFact": "appearance.radius", "baselineFact": "baseline.effective.appearance.radius" },
-            { "suffix": "opacity", "label": "Прозрачность", "actualFact": "appearance.opacity", "baselineFact": "baseline.effective.appearance.opacity" }
+            {
+              "suffix": "fill",
+              "label": "Заливка",
+              "actualFact": "appearance.fill.value",
+              "baselineFact": "baseline.effective.appearance.fill.value"
+            },
+            {
+              "suffix": "stroke",
+              "label": "Обводка",
+              "actualFact": "appearance.stroke.value",
+              "baselineFact": "baseline.effective.appearance.stroke.value"
+            },
+            {
+              "suffix": "radius",
+              "label": "Скругление",
+              "actualFact": "appearance.radius",
+              "baselineFact": "baseline.effective.appearance.radius"
+            },
+            {
+              "suffix": "opacity",
+              "label": "Прозрачность",
+              "actualFact": "appearance.opacity",
+              "baselineFact": "baseline.effective.appearance.opacity"
+            }
           ],
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -915,7 +1205,12 @@
             "expectation": "Свойство «{{property}}» корня preset должно совпадать с effective baseline выбранного варианта.",
             "action": "Сбросить свойство «{{property}}» к effective baseline preset."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },

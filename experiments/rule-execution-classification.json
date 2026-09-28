@@ -16,18 +16,18 @@
     "packages": 28,
     "rules": 866,
     "decisions": {
-      "deterministic": 373,
-      "agent-required": 135,
-      "human-review": 205,
+      "deterministic": 382,
+      "agent-required": 136,
+      "human-review": 204,
       "policy-only": 1,
-      "unresolved": 152
+      "unresolved": 143
     },
     "readiness": {
       "executable-now": 219,
-      "requires-typed-authoring": 144,
-      "requires-owner-triage": 152,
-      "human-route-required": 205,
-      "agent-route-required": 135,
+      "requires-typed-authoring": 153,
+      "requires-owner-triage": 143,
+      "human-route-required": 204,
+      "agent-route-required": 136,
       "requires-versioned-capability": 10,
       "non-verdict": 1
     }
@@ -36,18 +36,18 @@
     "packages": 25,
     "rules": 844,
     "decisions": {
-      "deterministic": 354,
-      "agent-required": 135,
-      "human-review": 202,
+      "deterministic": 363,
+      "agent-required": 136,
+      "human-review": 201,
       "policy-only": 1,
-      "unresolved": 152
+      "unresolved": 143
     },
     "readiness": {
-      "requires-typed-authoring": 140,
-      "requires-owner-triage": 152,
-      "human-route-required": 202,
+      "requires-typed-authoring": 149,
+      "requires-owner-triage": 143,
+      "human-route-required": 201,
       "executable-now": 207,
-      "agent-route-required": 135,
+      "agent-route-required": 136,
       "requires-versioned-capability": 7,
       "non-verdict": 1
     }
@@ -3870,26 +3870,27 @@
       "inventoryStatus": "ready-corp",
       "migrationEligibility": "blocked-by-authoring-or-capabilities",
       "closureStatus": "classified-with-gaps",
-      "productionPredicateBridgeRuleIds": [],
-      "blockingUnsupportedRuleIds": [
-        "component:web.promo-main-block.actions-optional",
-        "component:web.promo-main-block.container-is-not-clickable",
-        "component:web.promo-main-block.content-order-is-fixed",
-        "component:web.promo-main-block.desktop-compact-required",
-        "component:web.promo-main-block.desktop-view-context",
-        "component:web.promo-main-block.first-and-single-on-page",
+      "productionPredicateBridgeRuleIds": [
+        "component:web.promo-main-block.background-matrix",
+        "component:web.promo-main-block.desktop-actions-follow-baseline",
+        "component:web.promo-main-block.desktop-blur-required",
+        "component:web.promo-main-block.desktop-compact-under-1024",
         "component:web.promo-main-block.image-source-and-settings",
         "component:web.promo-main-block.layout-is-component-owned",
-        "component:web.promo-main-block.loading-is-not-supported",
-        "component:web.promo-main-block.mobile-background-must-be-true",
-        "component:web.promo-main-block.multiple-statuses-warning",
-        "component:web.promo-main-block.overlay-is-derived-from-appearance",
-        "component:web.promo-main-block.page-background-must-be-false",
-        "component:web.promo-main-block.page-blur-required",
         "component:web.promo-main-block.public-roots-only",
         "component:web.promo-main-block.required-content",
+        "component:web.promo-main-block.title-subtitle-visuals-follow-baseline"
+      ],
+      "blockingUnsupportedRuleIds": [
+        "component:web.promo-main-block.container-noninteractive",
+        "component:web.promo-main-block.content-order-by-platform",
+        "component:web.promo-main-block.desktop-actions-optional",
+        "component:web.promo-main-block.desktop-view-context",
+        "component:web.promo-main-block.multiple-statuses-warning",
+        "component:web.promo-main-block.overlay-is-derived",
+        "component:web.promo-main-block.status-casing-preset-owned",
         "component:web.promo-main-block.status-count-and-contract",
-        "component:web.promo-main-block.status-platform-casing-is-preset-owned"
+        "component:web.promo-main-block.unsupported-states"
       ],
       "compilerCoverage": {
         "sourceRules": 27,
@@ -3897,91 +3898,41 @@
         "executableDeterministicSourceRules": 2,
         "promotedManualOrAdvisorySourceRules": 0,
         "executable": 2,
-        "advisory": 6,
-        "manual": 1,
+        "advisory": 7,
+        "manual": 0,
         "unsupported": 18,
         "deterministicCoverageRatio": 0.1
       },
       "summary": {
         "total": 27,
         "decisions": {
-          "deterministic": 2,
-          "agent-required": 6,
-          "human-review": 1,
+          "deterministic": 11,
+          "agent-required": 7,
+          "human-review": 0,
           "policy-only": 0,
-          "unresolved": 18
+          "unresolved": 9
         },
         "readiness": {
-          "requires-owner-triage": 18,
-          "human-route-required": 1,
-          "agent-route-required": 6,
-          "executable-now": 2
+          "requires-typed-authoring": 9,
+          "agent-route-required": 7,
+          "executable-now": 2,
+          "requires-owner-triage": 9
         }
       },
       "rules": [
         {
-          "sourceRuleId": "component:web.promo-main-block.actions-optional",
+          "sourceRuleId": "component:web.promo-main-block.background-matrix",
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
-          "candidateCapabilities": {
-            "selectors": [
-              "ancestry",
-              "component-identity",
-              "semantic-role"
-            ],
-            "facts": [
-              "component.identity"
-            ],
-            "operators": [
-              "author-structured-assertion"
-            ],
-            "remediations": []
-          }
-        },
-        {
-          "sourceRuleId": "component:web.promo-main-block.active-canonical",
-          "sourceCheckType": "manual",
-          "compilerStatus": "manual",
-          "compilerRuleIds": [],
-          "decision": "human-review",
-          "readiness": "human-route-required",
-          "basis": "source-check-type:manual",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": null,
-          "candidateCapabilities": {
-            "selectors": [
-              "ancestry",
-              "component-identity",
-              "semantic-role"
-            ],
-            "facts": [
-              "component.identity"
-            ],
-            "operators": [
-              "author-structured-assertion"
-            ],
-            "remediations": []
-          }
-        },
-        {
-          "sourceRuleId": "component:web.promo-main-block.appearance-matches-surface",
-          "sourceCheckType": "llm",
-          "compilerStatus": "advisory",
-          "compilerRuleIds": [],
-          "decision": "agent-required",
-          "readiness": "agent-route-required",
-          "basis": "source-check-type:llm",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": null,
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -3999,15 +3950,17 @@
           }
         },
         {
-          "sourceRuleId": "component:web.promo-main-block.bottom-slot-content",
+          "sourceRuleId": "component:web.promo-main-block.bottom-slot-final-content",
           "sourceCheckType": "llm",
           "compilerStatus": "advisory",
           "compilerRuleIds": [],
           "decision": "agent-required",
           "readiness": "agent-route-required",
           "basis": "source-check-type:llm",
-          "policyRoute": null,
-          "structuredFields": [],
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
           "gapKind": null,
           "candidateCapabilities": {
             "selectors": [
@@ -4018,6 +3971,34 @@
             "facts": [
               "component.identity",
               "text.characters"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.bottom-slot-parity",
+          "sourceCheckType": "llm",
+          "compilerStatus": "advisory",
+          "compilerRuleIds": [],
+          "decision": "agent-required",
+          "readiness": "agent-route-required",
+          "basis": "source-check-type:llm",
+          "policyRoute": "context-only",
+          "structuredFields": [],
+          "gapKind": null,
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
+              "component.identity",
+              "node.bounds",
+              "page.context"
             ],
             "operators": [
               "author-structured-assertion"
@@ -4054,14 +4035,14 @@
           }
         },
         {
-          "sourceRuleId": "component:web.promo-main-block.container-is-not-clickable",
+          "sourceRuleId": "component:web.promo-main-block.container-noninteractive",
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -4081,14 +4062,14 @@
           }
         },
         {
-          "sourceRuleId": "component:web.promo-main-block.content-order-is-fixed",
+          "sourceRuleId": "component:web.promo-main-block.content-order-by-platform",
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": "prose-existing-operator",
           "candidateCapabilities": {
@@ -4103,21 +4084,50 @@
               "text.characters"
             ],
             "operators": [
-              "matchesEffectiveBaseline",
               "relativeOrder"
             ],
             "remediations": []
           }
         },
         {
-          "sourceRuleId": "component:web.promo-main-block.desktop-compact-required",
+          "sourceRuleId": "component:web.promo-main-block.desktop-actions-follow-baseline",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "unsupported",
+          "compilerRuleIds": [],
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
+              "baseline.effective",
+              "component.identity",
+              "ownership.owner"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.desktop-actions-optional",
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "policy",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -4127,8 +4137,64 @@
               "semantic-role"
             ],
             "facts": [
+              "component.identity"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.desktop-blur-required",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "unsupported",
+          "compilerRuleIds": [],
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
               "component.identity",
-              "text.characters",
+              "effects"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.desktop-compact-under-1024",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "unsupported",
+          "compilerRuleIds": [],
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
+              "component.identity",
               "variant.properties"
             ],
             "operators": [
@@ -4145,7 +4211,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -4166,42 +4232,14 @@
           }
         },
         {
-          "sourceRuleId": "component:web.promo-main-block.first-and-single-on-page",
-          "sourceCheckType": "deterministic",
-          "compilerStatus": "unsupported",
-          "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
-          "candidateCapabilities": {
-            "selectors": [
-              "ancestry",
-              "component-identity",
-              "semantic-role"
-            ],
-            "facts": [
-              "component.identity",
-              "node.bounds",
-              "page.context"
-            ],
-            "operators": [
-              "author-structured-assertion"
-            ],
-            "remediations": []
-          }
-        },
-        {
-          "sourceRuleId": "component:web.promo-main-block.holding-context",
+          "sourceRuleId": "component:web.promo-main-block.holding-desktop-only",
           "sourceCheckType": "llm",
           "compilerStatus": "advisory",
           "compilerRuleIds": [],
           "decision": "agent-required",
           "readiness": "agent-route-required",
           "basis": "source-check-type:llm",
-          "policyRoute": null,
+          "policyRoute": "policy",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -4225,12 +4263,14 @@
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -4288,12 +4328,14 @@
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -4312,41 +4354,17 @@
           }
         },
         {
-          "sourceRuleId": "component:web.promo-main-block.loading-is-not-supported",
-          "sourceCheckType": "deterministic",
-          "compilerStatus": "unsupported",
-          "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
-          "candidateCapabilities": {
-            "selectors": [
-              "ancestry",
-              "component-identity",
-              "semantic-role"
-            ],
-            "facts": [
-              "component.identity"
-            ],
-            "operators": [
-              "author-structured-assertion"
-            ],
-            "remediations": []
-          }
-        },
-        {
-          "sourceRuleId": "component:web.promo-main-block.mobile-actions-use-button-stack",
+          "sourceRuleId": "component:web.promo-main-block.mobile-internal-button-group-warning",
           "sourceCheckType": "llm",
           "compilerStatus": "advisory",
           "compilerRuleIds": [],
           "decision": "agent-required",
           "readiness": "agent-route-required",
           "basis": "source-check-type:llm",
-          "policyRoute": null,
-          "structuredFields": [],
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
           "gapKind": null,
           "candidateCapabilities": {
             "selectors": [
@@ -4364,33 +4382,6 @@
           }
         },
         {
-          "sourceRuleId": "component:web.promo-main-block.mobile-background-must-be-true",
-          "sourceCheckType": "deterministic",
-          "compilerStatus": "unsupported",
-          "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
-          "candidateCapabilities": {
-            "selectors": [
-              "ancestry",
-              "component-identity",
-              "semantic-role"
-            ],
-            "facts": [
-              "component.identity",
-              "variant.properties"
-            ],
-            "operators": [
-              "author-structured-assertion"
-            ],
-            "remediations": []
-          }
-        },
-        {
           "sourceRuleId": "component:web.promo-main-block.multiple-statuses-warning",
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
@@ -4398,7 +4389,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -4418,14 +4409,14 @@
           }
         },
         {
-          "sourceRuleId": "component:web.promo-main-block.overlay-is-derived-from-appearance",
+          "sourceRuleId": "component:web.promo-main-block.overlay-is-derived",
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "policy",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -4436,61 +4427,6 @@
             ],
             "facts": [
               "component.identity",
-              "variant.properties"
-            ],
-            "operators": [
-              "author-structured-assertion"
-            ],
-            "remediations": []
-          }
-        },
-        {
-          "sourceRuleId": "component:web.promo-main-block.page-background-must-be-false",
-          "sourceCheckType": "deterministic",
-          "compilerStatus": "unsupported",
-          "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
-          "candidateCapabilities": {
-            "selectors": [
-              "ancestry",
-              "component-identity",
-              "semantic-role"
-            ],
-            "facts": [
-              "component.identity",
-              "variant.properties"
-            ],
-            "operators": [
-              "author-structured-assertion"
-            ],
-            "remediations": []
-          }
-        },
-        {
-          "sourceRuleId": "component:web.promo-main-block.page-blur-required",
-          "sourceCheckType": "deterministic",
-          "compilerStatus": "unsupported",
-          "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
-          "candidateCapabilities": {
-            "selectors": [
-              "ancestry",
-              "component-identity",
-              "semantic-role"
-            ],
-            "facts": [
-              "component.identity",
-              "effects",
               "variant.properties"
             ],
             "operators": [
@@ -4504,12 +4440,14 @@
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -4530,12 +4468,14 @@
           "sourceCheckType": "deterministic",
           "compilerStatus": "unsupported",
           "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-existing-operator",
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -4560,9 +4500,65 @@
           "decision": "agent-required",
           "readiness": "agent-route-required",
           "basis": "source-check-type:llm",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": null,
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
+              "component.identity",
+              "node.bounds",
+              "page.context"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.same-image-across-platforms",
+          "sourceCheckType": "llm",
+          "compilerStatus": "advisory",
+          "compilerRuleIds": [],
+          "decision": "agent-required",
+          "readiness": "agent-route-required",
+          "basis": "source-check-type:llm",
+          "policyRoute": "context-only",
+          "structuredFields": [],
+          "gapKind": null,
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
+              "component.identity",
+              "node.bounds",
+              "page.context"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.status-casing-preset-owned",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "unsupported",
+          "compilerRuleIds": [],
+          "decision": "unresolved",
+          "readiness": "requires-owner-triage",
+          "basis": "prose-only-deterministic-label-is-insufficient",
+          "policyRoute": "policy",
+          "structuredFields": [],
+          "gapKind": "prose-unclassified",
           "candidateCapabilities": {
             "selectors": [
               "ancestry",
@@ -4588,7 +4584,7 @@
           "decision": "unresolved",
           "readiness": "requires-owner-triage",
           "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": "prose-unclassified",
           "candidateCapabilities": {
@@ -4600,34 +4596,6 @@
             "facts": [
               "component.identity",
               "text.characters"
-            ],
-            "operators": [
-              "author-structured-assertion"
-            ],
-            "remediations": []
-          }
-        },
-        {
-          "sourceRuleId": "component:web.promo-main-block.status-platform-casing-is-preset-owned",
-          "sourceCheckType": "deterministic",
-          "compilerStatus": "unsupported",
-          "compilerRuleIds": [],
-          "decision": "unresolved",
-          "readiness": "requires-owner-triage",
-          "basis": "prose-only-deterministic-label-is-insufficient",
-          "policyRoute": null,
-          "structuredFields": [],
-          "gapKind": "prose-unclassified",
-          "candidateCapabilities": {
-            "selectors": [
-              "ancestry",
-              "component-identity",
-              "semantic-role"
-            ],
-            "facts": [
-              "component.identity",
-              "node.bounds",
-              "page.context"
             ],
             "operators": [
               "author-structured-assertion"
@@ -4643,7 +4611,7 @@
           "decision": "agent-required",
           "readiness": "agent-route-required",
           "basis": "source-check-type:llm",
-          "policyRoute": null,
+          "policyRoute": "context-only",
           "structuredFields": [],
           "gapKind": null,
           "candidateCapabilities": {
@@ -4655,6 +4623,66 @@
             "facts": [
               "component.identity",
               "text.characters"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.title-subtitle-visuals-follow-baseline",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "unsupported",
+          "compilerRuleIds": [],
+          "decision": "deterministic",
+          "readiness": "requires-typed-authoring",
+          "basis": "explicit-structured-assertion-fields",
+          "policyRoute": "predicate",
+          "structuredFields": [
+            "predicateContour"
+          ],
+          "gapKind": "structured-fields-unmapped",
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
+              "baseline.effective",
+              "component.identity",
+              "ownership.owner",
+              "paint.fill",
+              "style.text",
+              "text.characters",
+              "variable.binding"
+            ],
+            "operators": [
+              "author-structured-assertion"
+            ],
+            "remediations": []
+          }
+        },
+        {
+          "sourceRuleId": "component:web.promo-main-block.unsupported-states",
+          "sourceCheckType": "deterministic",
+          "compilerStatus": "unsupported",
+          "compilerRuleIds": [],
+          "decision": "unresolved",
+          "readiness": "requires-owner-triage",
+          "basis": "prose-only-deterministic-label-is-insufficient",
+          "policyRoute": "policy",
+          "structuredFields": [],
+          "gapKind": "prose-unclassified",
+          "candidateCapabilities": {
+            "selectors": [
+              "ancestry",
+              "component-identity",
+              "semantic-role"
+            ],
+            "facts": [
+              "component.identity"
             ],
             "operators": [
               "author-structured-assertion"

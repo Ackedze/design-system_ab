@@ -216,20 +216,88 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.amount-styles" } },
-              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["amount-headline", "amount-paragraph"] } },
-              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.amount-styles"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "amount-headline",
+                    "amount-paragraph"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
             ]
           },
           "query": {
             "from": "subject",
             "traverse": "descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "Major" } },
-              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } },
-              { "predicate": "compare", "actual": { "fact": "text.length" }, "expected": { "literal": 0 }, "operator": "gt" }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "TEXT"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "name"
+                },
+                "expected": {
+                  "literal": "Major"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "visible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "compare",
+                "actual": {
+                  "fact": "text.length"
+                },
+                "expected": {
+                  "literal": 0
+                },
+                "operator": "gt"
+              }
             ]
           },
           "lower": 1,
@@ -241,7 +309,12 @@
             "expectation": "AmountHeadline и AmountParagraph должны содержать одну видимую непустую часть Major.",
             "action": "Показать Major и задать целую часть суммы."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -295,17 +368,61 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "Minus" } },
-              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } },
-              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": "web-corp.amount-styles" } },
-              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.family" }, "expected": { "literal": "operation" } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "TEXT"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "name"
+                },
+                "expected": {
+                  "literal": "Minus"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "visible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.amount-styles"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.family"
+                },
+                "expected": {
+                  "literal": "operation"
+                }
+              }
             ]
           },
           "assert": {
             "predicate": "equals",
-            "actual": { "fact": "text.characters" },
-            "expected": { "literal": "−" }
+            "actual": {
+              "fact": "text.characters"
+            },
+            "expected": {
+              "literal": "−"
+            }
           },
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -315,7 +432,12 @@
             "action": "Вернуть текст Minus к значению «−».",
             "targetFact": "text.characters"
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -395,10 +517,45 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-corp.amount-styles" } },
-              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["amount-headline", "amount-paragraph"] } },
-              { "predicate": "equals", "actual": { "fact": "ownership.contour.isRoot" }, "expected": { "literal": true } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.amount-styles"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "amount-headline",
+                    "amount-paragraph"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.isRoot"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
             ]
           },
           "assert": {
@@ -411,14 +568,47 @@
                     "from": "subject",
                     "traverse": "descendants",
                     "where": [
-                      { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-                      { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
-                      { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+                      {
+                        "predicate": "equals",
+                        "actual": {
+                          "fact": "type"
+                        },
+                        "expected": {
+                          "literal": "TEXT"
+                        }
+                      },
+                      {
+                        "predicate": "one-of",
+                        "actual": {
+                          "fact": "name"
+                        },
+                        "expected": {
+                          "literal": [
+                            "Minus",
+                            "Major",
+                            "Minor",
+                            "Currency"
+                          ]
+                        }
+                      },
+                      {
+                        "predicate": "equals",
+                        "actual": {
+                          "fact": "visible"
+                        },
+                        "expected": {
+                          "literal": true
+                        }
+                      }
                     ]
                   }
                 },
-                "lower": { "literal": 1 },
-                "upper": { "literal": 4 }
+                "lower": {
+                  "literal": 1
+                },
+                "upper": {
+                  "literal": 4
+                }
               },
               {
                 "predicate": "all-equal",
@@ -427,11 +617,42 @@
                     "from": "subject",
                     "traverse": "descendants",
                     "where": [
-                      { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-                      { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
-                      { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+                      {
+                        "predicate": "equals",
+                        "actual": {
+                          "fact": "type"
+                        },
+                        "expected": {
+                          "literal": "TEXT"
+                        }
+                      },
+                      {
+                        "predicate": "one-of",
+                        "actual": {
+                          "fact": "name"
+                        },
+                        "expected": {
+                          "literal": [
+                            "Minus",
+                            "Major",
+                            "Minor",
+                            "Currency"
+                          ]
+                        }
+                      },
+                      {
+                        "predicate": "equals",
+                        "actual": {
+                          "fact": "visible"
+                        },
+                        "expected": {
+                          "literal": true
+                        }
+                      }
                     ],
-                    "project": { "fact": "appearance.fill.value" }
+                    "project": {
+                      "fact": "appearance.fill.value"
+                    }
                   }
                 }
               },
@@ -442,14 +663,49 @@
                     "from": "subject",
                     "traverse": "descendants",
                     "where": [
-                      { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-                      { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
-                      { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+                      {
+                        "predicate": "equals",
+                        "actual": {
+                          "fact": "type"
+                        },
+                        "expected": {
+                          "literal": "TEXT"
+                        }
+                      },
+                      {
+                        "predicate": "one-of",
+                        "actual": {
+                          "fact": "name"
+                        },
+                        "expected": {
+                          "literal": [
+                            "Minus",
+                            "Major",
+                            "Minor",
+                            "Currency"
+                          ]
+                        }
+                      },
+                      {
+                        "predicate": "equals",
+                        "actual": {
+                          "fact": "visible"
+                        },
+                        "expected": {
+                          "literal": true
+                        }
+                      }
                     ],
-                    "project": { "fact": "bindings.fills.bound" }
+                    "project": {
+                      "fact": "bindings.fills.bound"
+                    }
                   }
                 },
-                "expected": { "literal": [true] }
+                "expected": {
+                  "literal": [
+                    true
+                  ]
+                }
               },
               {
                 "predicate": "all-equal",
@@ -458,11 +714,42 @@
                     "from": "subject",
                     "traverse": "descendants",
                     "where": [
-                      { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-                      { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
-                      { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } }
+                      {
+                        "predicate": "equals",
+                        "actual": {
+                          "fact": "type"
+                        },
+                        "expected": {
+                          "literal": "TEXT"
+                        }
+                      },
+                      {
+                        "predicate": "one-of",
+                        "actual": {
+                          "fact": "name"
+                        },
+                        "expected": {
+                          "literal": [
+                            "Minus",
+                            "Major",
+                            "Minor",
+                            "Currency"
+                          ]
+                        }
+                      },
+                      {
+                        "predicate": "equals",
+                        "actual": {
+                          "fact": "visible"
+                        },
+                        "expected": {
+                          "literal": true
+                        }
+                      }
                     ],
-                    "project": { "fact": "bindings.fills.token" }
+                    "project": {
+                      "fact": "bindings.fills.token"
+                    }
                   }
                 }
               }
@@ -475,7 +762,12 @@
             "expectation": "Все видимые текстовые части одной суммы должны использовать один общий цветовой токен.",
             "action": "Привязать Minus, Major, Minor и Currency к одному допустимому цветовому токену."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -656,16 +948,55 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "INSTANCE" } },
-              { "predicate": "equals", "actual": { "fact": "component.identity" }, "expected": { "literal": "web-core.amount" } },
-              { "predicate": "one-of", "actual": { "fact": "component.family" }, "expected": { "literal": ["minor", "currency"] } },
-              { "predicate": "equals", "actual": { "fact": "ownership.contour.host.component.identity" }, "expected": { "literal": "web-corp.amount-styles" } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "INSTANCE"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "component.identity"
+                },
+                "expected": {
+                  "literal": "web-core.amount"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "component.family"
+                },
+                "expected": {
+                  "literal": [
+                    "minor",
+                    "currency"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.contour.host.component.identity"
+                },
+                "expected": {
+                  "literal": "web-corp.amount-styles"
+                }
+              }
             ]
           },
           "assert": {
             "predicate": "equals",
-            "actual": { "fact": "component.properties.Opacity" },
-            "expected": { "literal": "False" }
+            "actual": {
+              "fact": "component.properties.Opacity"
+            },
+            "expected": {
+              "literal": "False"
+            }
           },
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -675,7 +1006,12 @@
             "action": "Установить свойство Opacity=False.",
             "targetFact": "component.properties.Opacity"
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -790,19 +1126,19 @@
               "actualFact": "layout.sizingVertical",
               "baselineFact": "baseline.effective.layout.sizingVertical"
             },
-          {
-            "suffix": "height",
-            "label": "Высота",
-            "actualFact": "height",
-            "baselineFact": "baseline.effective.height"
-          },
-          {
-            "suffix": "wrap",
-            "label": "Перенос строки",
-            "actualFact": "layout.wrap",
-            "baselineFact": "baseline.effective.layout.wrap"
-          }
-        ],
+            {
+              "suffix": "height",
+              "label": "Высота",
+              "actualFact": "height",
+              "baselineFact": "baseline.effective.height"
+            },
+            {
+              "suffix": "wrap",
+              "label": "Перенос строки",
+              "actualFact": "layout.wrap",
+              "baselineFact": "baseline.effective.layout.wrap"
+            }
+          ],
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
             "title": "Изменено свойство AmountStyles: {{property}}",
@@ -1172,16 +1508,52 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "Minor" } },
-              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } },
-              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": "web-core.amount" } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "TEXT"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "name"
+                },
+                "expected": {
+                  "literal": "Minor"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "visible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-core.amount"
+                }
+              }
             ]
           },
           "assert": {
             "predicate": "matches",
-            "actual": { "fact": "text.characters" },
-            "expected": { "literal": "^,[0-9]{1,2}$" }
+            "actual": {
+              "fact": "text.characters"
+            },
+            "expected": {
+              "literal": "^,[0-9]{1,2}$"
+            }
           },
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -1191,7 +1563,12 @@
             "action": "Исправить Minor, например на «,0» или «,00».",
             "targetFact": "text.characters"
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -1352,16 +1729,52 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-              { "predicate": "equals", "actual": { "fact": "name" }, "expected": { "literal": "Major" } },
-              { "predicate": "equals", "actual": { "fact": "visible" }, "expected": { "literal": true } },
-              { "predicate": "equals", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": "web-core.amount" } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "TEXT"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "name"
+                },
+                "expected": {
+                  "literal": "Major"
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "visible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": "web-core.amount"
+                }
+              }
             ]
           },
           "assert": {
             "predicate": "matches",
-            "actual": { "fact": "text.characters" },
-            "expected": { "literal": "^(?!(?:\\D*\\d){14})[\\s\\S]*$" }
+            "actual": {
+              "fact": "text.characters"
+            },
+            "expected": {
+              "literal": "^(?!(?:\\D*\\d){14})[\\s\\S]*$"
+            }
           },
           "presentation": {
             "schemaVersion": "apollo.predicate-presentation.v1",
@@ -1371,7 +1784,12 @@
             "action": "Сократить отображаемое значение или пересмотреть сценарий представления суммы.",
             "targetFact": "text.characters"
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       },
@@ -1482,9 +1900,41 @@
             "from": "selection-root",
             "traverse": "self-and-descendants",
             "where": [
-              { "predicate": "equals", "actual": { "fact": "type" }, "expected": { "literal": "TEXT" } },
-              { "predicate": "one-of", "actual": { "fact": "name" }, "expected": { "literal": ["Minus", "Major", "Minor", "Currency"] } },
-              { "predicate": "one-of", "actual": { "fact": "ownership.owner.component.identity" }, "expected": { "literal": ["web-corp.amount-styles", "web-core.amount"] } }
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "type"
+                },
+                "expected": {
+                  "literal": "TEXT"
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "name"
+                },
+                "expected": {
+                  "literal": [
+                    "Minus",
+                    "Major",
+                    "Minor",
+                    "Currency"
+                  ]
+                }
+              },
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "ownership.owner.component.identity"
+                },
+                "expected": {
+                  "literal": [
+                    "web-corp.amount-styles",
+                    "web-core.amount"
+                  ]
+                }
+              }
             ]
           },
           "paths": [
@@ -1502,7 +1952,12 @@
             "expectation": "Типографика всех частей суммы должна определяться component property Style и effective baseline.",
             "action": "Сбросить текстовый стиль слоя «{{targetName}}» к effective baseline."
           },
-          "scope": { "platform": ["desktop", "mobile-web"] },
+          "scope": {
+            "platform": [
+              "desktop",
+              "mobile-web"
+            ]
+          },
           "unknownPolicy": "not-evaluable"
         }
       }
