@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "apollo.component-contract.qa.v1",
+  "componentId": "core.web.amount",
+  "revision": 2,
+  "date": "2026-09-29",
+  "status": "draft",
+  "editorVersion": "0.2.54",
+  "manualStableHash": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+  "artifactSha256": {
+    "manual": "9dedd2f088ad84b401d6b9541eae7d51e87b895151aa132c2ba77a2ebdfdf165",
+    "compiled": "79dfdc703c3ad4a429841de1994fc951e5e7e32a93d42b8be30e211689dd73b0",
+    "editorZip": "7a9e0bd32aa78855f8a7e9db4f7817922f8f6c5cc30397786e680a8ee632b3d4"
+  },
+  "rootCause": "Amount r1 declared the standalone COMPONENT key as componentSetKey. The actual preview main component has no COMPONENT_SET parent, so the strict representation gate rejected the package. Major also used a synthetic set identity; offline fixtures had masked both mistakes.",
+  "changes": [
+    "Manual root locator uses componentKey only; existing Major RuleID checks component.identity.componentKey.",
+    "Shared representation matching supports explicit sets and standalone component identity; explicit set bindings remain strict.",
+    "Variant availability accepts absent set only with exact independent reference and proven singleton Athena v1 evidence.",
+    "Semantic target visibility uses actual standalone identity and preserves unknown evidence.",
+    "Compiler rejects STANDALONE_COMPONENT_AS_SET when generated evidence proves the mismatch.",
+    "No fake set is added to captured snapshots; preview/selection absent-vs-empty set is normalized for comparison only."
+  ],
+  "sources": {
+    "bundleHash": "2ab902474e771936d8ac387600d70c7e12cbfbb72e64c870c2d9ec2d01cfda59",
+    "generatedEvidenceModified": false,
+    "components": 5,
+    "verifiedVariantStructures": 23,
+    "amountKey": "fe3399f71c9e0971646821d935b64657e462c28e",
+    "majorKey": "a833c02e4fcb75fea1a89bf786912e108b8f93ba"
+  },
+  "coverage": {
+    "sourceRules": 23,
+    "predicateRules": 20,
+    "policyOnlyRules": 3,
+    "compiledRules": 35,
+    "compilerIssues": 0,
+    "unreviewedRules": 23
+  },
+  "tests": {
+    "amount": { "passed": 19, "failed": 0 },
+    "editor": { "passed": 444, "failed": 0, "typecheck": "passed", "build": "passed" },
+    "button": { "passed": 244, "failed": 0 },
+    "actualZipPreviewAndSelectedCapture": "passed in plugin VM; no live Figma run",
+    "zipRoundtrip": "exact manual and compiled equality",
+    "legacyRuntimeBytes": "unchanged",
+    "runtimeIndex": "unchanged",
+    "missingUnknownForeignIdentity": "fails closed"
+  },
+  "previousRevision": {
+    "path": "../history/r1-editor-0.2.53",
+    "archivedHashesVerifiedAgainstR1QA": true,
+    "manualSha256": "013f68aa56eed6b651fa14489e8b6a37358f8d579d49bd3ecaff21b0ab042864",
+    "compiledSha256": "d102aa5f5712d3d3c53ca329f05dcb40ec0e510f5c5a52a603cc7637334688ff",
+    "editorZipSha256": "71c4f7cb627dbdf5bec83886c958b3061159900bc4eb84c5833a4707e6ab2671"
+  },
+  "registry": {
+    "spreadsheetId": "1u3Y7lhO3udXAhGlf7hOk2_zYkWZ0-vgtd6KjtbnxLnk",
+    "updatedRanges": ["Правила!E1844:F1844", "Правила!H1844", "Правила!M1844:O1844", "Core components!AF5:AH5"],
+    "readbackRanges": ["Правила!A1842:O1846", "Core components!A5:AH5"],
+    "cellsVerified": 109,
+    "metadataFieldsVerified": 327,
+    "nativeFormatsValidationAndChipsPreserved": true,
+    "predicateStatus": "Draft",
+    "ruleStatus": "В работе",
+    "nativeVisualQA": "not-performed; connector structure/readback only"
+  },
+  "liveAcceptance": "pending; restart Editor 0.2.54 and reimport ZIP r2",
+  "remainingGates": [
+    "live Figma matrix with replay",
+    "nested style/token override policy",
+    "Currency.Type Custom vs standard currency text control",
+    "Addon boundary and ownership"
+  ],
+  "productionSourcesModified": false,
+  "patternRulesModified": false
+}

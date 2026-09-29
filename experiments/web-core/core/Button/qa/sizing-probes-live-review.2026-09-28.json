@@ -1,0 +1,242 @@
+{
+  "date": "2026-09-28",
+  "status": "partial-acceptance-identity-matching-blocker",
+  "editorVersion": "component-contract-editor@0.2.43",
+  "manualRevision": 23,
+  "manualSourceHash": "fafacd6cce7131dea9279c30dfd0d56a7ebb5e9265f4a4a769d695760253cbeb",
+  "accepted": [
+    "root-height-FIXED-rejected-once",
+    "root-height-FILL-rejected-once",
+    "internal-LeftAddon-width-FIXED-rejected-once"
+  ],
+  "pending": [
+    "root-width-HUG",
+    "root-width-FILL",
+    "root-width-FIXED"
+  ],
+  "issue": {
+    "priority": "P0",
+    "owner": "ComponentContractEditor",
+    "area": "structural identity / effective baseline",
+    "observed": "First three captures name the nested instance LeftAddon / 🔩 Addon; reference expects LeftAddon / LeftAddon. Component key/set key match the corresponding nested instance in the later successful captures.",
+    "cause": "snapshotPaths builds name-based paths; compareInstanceBoundaries cannot find the reference path and returns complete=false. materializeEffectiveBaseline then clears baseline for all18 nodes.",
+    "impact": "49 human-review evaluations,10 not-executed rules,0/18 baseline matches; Spinner dependency does not execute. Zero violations does not mean success.",
+    "diagnostic": "Renaming preview:2 to LeftAddon in a cloned snapshot only makes compareInstanceBoundaries complete=true and identifies the same-set variant boundary. Original JSONs/Figma nodes not changed; this is not a repaired validation or acceptance.",
+    "followUp": "Use explicit, unambiguous lineage/owner/identity evidence for nested instance correspondence; names only diagnostic. Ambiguous evidence must stay unknown. Add renamed-instance tests and fresh width-domain captures."
+  },
+  "reportResults": [
+    {
+      "file": "button.validation-report.2026-09-28T11-32-59-241Z.json",
+      "fixtureFile": "qa/fixtures/sizing-probes-r23/button.validation-report.2026-09-28T11-32-59-241Z.json.gz",
+      "sha256": "f0fa55c9970f389709a4c0b34e2586393845072b81d2e24955bc2543043f2320",
+      "status": "blocked-by-capture-matching",
+      "rootNodeId": "13070:63902",
+      "widthMode": "HUG",
+      "heightMode": "HUG",
+      "bounds": {
+        "x": 96,
+        "y": 20,
+        "width": 128,
+        "height": 56
+      },
+      "matchedNodes": 0,
+      "capturedNodes": 18,
+      "warnings": [
+        "18 узлов instance не сопоставлены с reference baseline."
+      ],
+      "engineEvaluations": 54,
+      "childEvaluations": 0,
+      "notExecuted": 10,
+      "inconclusive": 49,
+      "violations": [],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      }
+    },
+    {
+      "file": "button.validation-report.2026-09-28T11-34-26-759Z.json",
+      "fixtureFile": "qa/fixtures/sizing-probes-r23/button.validation-report.2026-09-28T11-34-26-759Z.json.gz",
+      "sha256": "69714e752581157ba82827fb6b5822d396429221947b305922f61f6bccf2a333",
+      "status": "blocked-by-capture-matching",
+      "rootNodeId": "13070:63902",
+      "widthMode": "FILL",
+      "heightMode": "HUG",
+      "bounds": {
+        "x": 0,
+        "y": 20,
+        "width": 320,
+        "height": 56
+      },
+      "matchedNodes": 0,
+      "capturedNodes": 18,
+      "warnings": [
+        "18 узлов instance не сопоставлены с reference baseline."
+      ],
+      "engineEvaluations": 54,
+      "childEvaluations": 0,
+      "notExecuted": 10,
+      "inconclusive": 49,
+      "violations": [],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      }
+    },
+    {
+      "file": "button.validation-report.2026-09-28T11-34-36-994Z.json",
+      "fixtureFile": "qa/fixtures/sizing-probes-r23/button.validation-report.2026-09-28T11-34-36-994Z.json.gz",
+      "sha256": "936f9342aaf4146e0bdd19e4ed6131072388d12b303e32298b8cb4accf640ccf",
+      "status": "blocked-by-capture-matching",
+      "rootNodeId": "13070:63902",
+      "widthMode": "FIXED",
+      "heightMode": "HUG",
+      "bounds": {
+        "x": 0,
+        "y": 20,
+        "width": 320,
+        "height": 56
+      },
+      "matchedNodes": 0,
+      "capturedNodes": 18,
+      "warnings": [
+        "18 узлов instance не сопоставлены с reference baseline."
+      ],
+      "engineEvaluations": 54,
+      "childEvaluations": 0,
+      "notExecuted": 10,
+      "inconclusive": 49,
+      "violations": [],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      }
+    },
+    {
+      "file": "button.validation-report.2026-09-28T11-35-05-043Z.json",
+      "fixtureFile": "qa/fixtures/sizing-probes-r23/button.validation-report.2026-09-28T11-35-05-043Z.json.gz",
+      "sha256": "eb324b75961336ceac3432760fec72b5b4447ed4c460308be774016ec708f0cc",
+      "status": "accepted-negative-probe",
+      "rootNodeId": "13070:63902",
+      "widthMode": "HUG",
+      "heightMode": "FIXED",
+      "bounds": {
+        "x": 96,
+        "y": 20,
+        "width": 128,
+        "height": 56
+      },
+      "matchedNodes": 18,
+      "capturedNodes": 18,
+      "warnings": [],
+      "engineEvaluations": 351,
+      "childEvaluations": 168,
+      "notExecuted": 7,
+      "inconclusive": 0,
+      "violations": [
+        {
+          "ruleId": "component:core.web.button.root.auto-layout-1.1.2",
+          "node": "[D] Button",
+          "actual": "FIXED",
+          "expected": [
+            "HUG"
+          ]
+        }
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      }
+    },
+    {
+      "file": "button.validation-report.2026-09-28T11-35-16-833Z.json",
+      "fixtureFile": "qa/fixtures/sizing-probes-r23/button.validation-report.2026-09-28T11-35-16-833Z.json.gz",
+      "sha256": "112f68234ff7c1f833bc9d8ee4ed93041d8dbf89d614c5d79d58be18e3561de5",
+      "status": "accepted-negative-probe",
+      "rootNodeId": "13070:63902",
+      "widthMode": "HUG",
+      "heightMode": "FILL",
+      "bounds": {
+        "x": 96,
+        "y": 0,
+        "width": 128,
+        "height": 96
+      },
+      "matchedNodes": 18,
+      "capturedNodes": 18,
+      "warnings": [],
+      "engineEvaluations": 351,
+      "childEvaluations": 168,
+      "notExecuted": 7,
+      "inconclusive": 0,
+      "violations": [
+        {
+          "ruleId": "component:core.web.button.root.auto-layout-1.1.2",
+          "node": "[D] Button",
+          "actual": "FILL",
+          "expected": [
+            "HUG"
+          ]
+        }
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      }
+    },
+    {
+      "file": "button.validation-report.2026-09-28T11-36-21-496Z.json",
+      "fixtureFile": "qa/fixtures/sizing-probes-r23/button.validation-report.2026-09-28T11-36-21-496Z.json.gz",
+      "sha256": "86e4ef48c9ccb3b69c1f81ee5a8ffde69c0b710c0929c3d0a049d3a4ddc0a9bc",
+      "status": "accepted-negative-probe",
+      "rootNodeId": "13070:63902",
+      "widthMode": "HUG",
+      "heightMode": "HUG",
+      "bounds": {
+        "x": 96,
+        "y": 20,
+        "width": 128,
+        "height": 56
+      },
+      "matchedNodes": 18,
+      "capturedNodes": 18,
+      "warnings": [],
+      "engineEvaluations": 351,
+      "childEvaluations": 168,
+      "notExecuted": 7,
+      "inconclusive": 0,
+      "violations": [
+        {
+          "ruleId": "component:web-core.button.internal-sizing-locked.1.1",
+          "node": "LeftAddon",
+          "actual": "FIXED",
+          "expected": "HUG"
+        }
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      }
+    }
+  ],
+  "normativeArtifactsUnchanged": [
+    {
+      "file": "contract.manual.json",
+      "sha256": "37d34b80a5be53d99a6dbfdefaa75d50a7a77ac45f7f2c9abef3b683b7e96fc1"
+    },
+    {
+      "file": "compiled/component-contract.v2.json",
+      "sha256": "2f06061ccce50f7653ad383d77fc93406e2a6004f635452e1f8a83c2ecdd5c26"
+    },
+    {
+      "file": "editor/Button.editor-input.zip",
+      "sha256": "6b40de6e7458c3988612948912d9633b6a7e46db27ea5d23c1ea5a734dca8ce0"
+    }
+  ]
+}

@@ -9,8 +9,9 @@ const core = require(path.join(workspace, 'projects/ComponentContractEditor/dist
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 const evidenceNames = ['agent-context.json', 'audit-mapping.json', 'composition-contract.json', 'contract.generated.json', 'contract.overrides.json', 'examples.json', 'rules.json'];
 const converter = require('./convert_figma_catalogs_to_contracts');
+const {collectRuleRelocations, missingSourceRuleIds} = require('./lib/component-rule-relocations');
 
-function build(relativePackage, preserve = true) {
+function build(relativePackage, preserve = true, allowNewSources = false) {
   const root = path.resolve(repo, relativePackage);
   if (!root.startsWith(path.join(repo, 'experiments') + path.sep)) throw new Error('Only isolated experiments are supported.');
   const manualFile = path.join(root, 'contract.manual.json');
@@ -22,7 +23,7 @@ function build(relativePackage, preserve = true) {
     if (!['design-system_ab', 'ds-ai-hub'].includes(repository) || parts.includes('..') || !parts.length) throw new Error(`Invalid source path: ${file}`);
     const destination = path.join(root, 'sources', file);
     const old = previous.find(s => s.path === file);
-    if (preserve && previous.length && !old) throw new Error(`New source requires explicit refresh: ${file}`);
+    if (preserve && previous.length && !old && !allowNewSources) throw new Error(`New source requires explicit --add-sources: ${file}`);
     const data = preserve && old ? fs.readFileSync(destination) : fs.readFileSync(path.join(repository === 'design-system_ab' ? repo : path.join(workspace, 'ds-ai-hub'), ...parts));
     if (old && sha(data) !== old.sha256) throw new Error(`Preserved source changed: ${file}`);
     return {path:file,sha256:sha(data),bytes:data.length,data,destination};
@@ -31,6 +32,9 @@ function build(relativePackage, preserve = true) {
   if (sourceHash !== manual.source.sourceHash) throw new Error('Source evidence hash differs from manual. Review the refreshed sources before updating manual sourceHash.');
   const athena = sources.filter(s => s.path.startsWith('design-system_ab/') && evidenceNames.includes(path.basename(s.path)));
   const inputFiles = [{name:'contract.manual.json',text:bytes.toString()}, ...athena.map(s=>({name:`evidence/${path.basename(s.path)}`,text:s.data.toString()}))];
+  for (const source of sources.filter(s => s.path.startsWith('design-system_ab/JSONS/styles/') && s.path.endsWith('.json'))) {
+    inputFiles.push({name:`evidence/styles/${path.basename(source.path)}`,text:source.data.toString()});
+  }
   const raw = sources.filter(s=>s.path.endsWith('.json') && s.path.startsWith('design-system_ab/') && JSON.parse(s.data).kind==='catalog');
   if (raw.length !== 1) throw new Error('Expected one explicit pinned Athena raw catalog.');
   const catalog = JSON.parse(raw[0].data);
@@ -47,12 +51,14 @@ function build(relativePackage, preserve = true) {
   const factsCoverage = {catalogVariants:expected.length,verifiedVariantStructures:imported.variantEvidence.variants.length,missingVariants:absent,complete:absent.length===0};
   const bundle = core.buildExportBundle(manual, imported.variantEvidence);
   if (!bundle.validation.valid) throw new Error(JSON.stringify(bundle.validation.issues));
-  const ids = new Set(manual.rules.map(r=>r.id));
   const athenaRules = athena.filter(s=>path.basename(s.path)==='rules.json').flatMap(s=>{
     const d=JSON.parse(s.data);return [...(d.generated?.rules||[]),...(d.manual?.rules||[])];
   });
-  const missing = athenaRules.filter(r=>!ids.has(r.ruleId));
-  if (missing.length) throw new Error(`Lost Athena RuleIDs: ${missing.map(r=>r.ruleId).join(', ')}`);
+  const relocationPath = path.join(root, 'migrations/usage-rules.json');
+  const relocatedRules = collectRuleRelocations({repoRoot:repo, componentId:manual.component.componentId,
+    manualRules:manual.rules, manifest:fs.existsSync(relocationPath) ? JSON.parse(fs.readFileSync(relocationPath)) : undefined});
+  const missing = missingSourceRuleIds(athenaRules.map(r=>r.ruleId),manual.rules,relocatedRules);
+  if (missing.length) throw new Error(`Lost Athena RuleIDs: ${missing.join(', ')}`);
   // Resolve references before touching derived outputs.
   for (const doc of manual.documentation) if (!sources.some(s=>`sources/${s.path}`===doc.path)) throw new Error(`Missing document: ${doc.path}`);
   const write = (name, value) => { const p=path.join(root,name);fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,ArrayBuffer.isView(value)?Buffer.from(value.buffer,value.byteOffset,value.byteLength):JSON.stringify(value,null,2)+'\n'); };
@@ -65,7 +71,7 @@ function build(relativePackage, preserve = true) {
   const readiness=core.buildContractReadiness(core.compileManualSource(manual,imported.variantEvidence),manual);
   write('reports/readiness.json',{...readiness,status:absent.length?'draft':readiness.status,generatedFactsCoverage:factsCoverage,liveAcceptance:'pending'});
   write('reports/source-inventory.json',{schemaVersion:'apollo.component-contract.source-inventory.v1',componentId:manual.component.componentId,sourceBundleHash:sourceHash,inSyncWithManual:true,ownership:'generated-read-only',sources:sources.map(({data,destination,...s})=>s)});
-  write('reports/rule-crosswalk.json',{componentId:manual.component.componentId,missingAthenaRuleIds:[],entries:manual.rules.map(r=>({ruleId:r.id,athenaRuleId:athenaRules.find(a=>a.ruleId===r.id)?.ruleId,sourceRefs:r.sourceRefs,hubEvidence:(r.sourceRefs||[]).filter(id=>id.startsWith('hub.')).map(id=>{
+  write('reports/rule-crosswalk.json',{componentId:manual.component.componentId,missingAthenaRuleIds:[],relocatedRules,entries:manual.rules.map(r=>({ruleId:r.id,athenaRuleId:athenaRules.find(a=>a.ruleId===r.id)?.ruleId,sourceRefs:r.sourceRefs,hubEvidence:(r.sourceRefs||[]).filter(id=>id.startsWith('hub.')).map(id=>{
     const doc=manual.documentation.find(d=>d.id===id),source=sources.find(s=>`sources/${s.path}`===doc.path);
     const heading=source.data.toString().match(/^# (.+)$/m)?.[1];
     if (!heading) throw new Error(`Missing hub document heading: ${doc.path}`);
@@ -82,5 +88,5 @@ function build(relativePackage, preserve = true) {
 module.exports={build};
 if (require.main===module) {
   const destination=process.argv[2];if (!destination) throw new Error('Usage: node scripts/build_component_contract_reference.js experiments/... [--refresh-sources]');
-  console.log(JSON.stringify(build(destination,!process.argv.includes('--refresh-sources')),null,2));
+  console.log(JSON.stringify(build(destination,!process.argv.includes('--refresh-sources'),process.argv.includes('--add-sources')),null,2));
 }

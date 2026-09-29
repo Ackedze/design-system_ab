@@ -1,0 +1,1929 @@
+{
+  "schemaVersion": "apollo.amount-live-review.v1",
+  "date": "2026-09-29",
+  "status": "live-matrix-incomplete-editor-defects-confirmed",
+  "componentId": "core.web.amount",
+  "editorVersion": "0.2.54",
+  "manualRevision": 2,
+  "coreByteSha256": "9d4aac45e648d85da52a73e4447ab76bd7bf54c9f7d0b3ce6da6158a086e3e42",
+  "manualSourceHash": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+  "compiledStableHash": "b537c918180372f19142dad2ec3e98deac2f81b05f2fcc558aa0f5f4e2ab8feb",
+  "artifacts": {
+    "contract.manual.json": "9dedd2f088ad84b401d6b9541eae7d51e87b895151aa132c2ba77a2ebdfdf165",
+    "compiled/component-contract.v2.json": "79dfdc703c3ad4a429841de1994fc951e5e7e32a93d42b8be30e211689dd73b0",
+    "editor/Amount.editor-input.zip": "7a9e0bd32aa78855f8a7e9db4f7817922f8f6c5cc30397786e680a8ee632b3d4"
+  },
+  "normativeArtifactsChanged": false,
+  "contractReady": false,
+  "reports": 18,
+  "allReplayExact": true,
+  "completeScenarios": 0,
+  "totalEngineEvaluations": 630,
+  "capturedNodes": 162,
+  "matchedNodes": 144,
+  "inconclusive": 304,
+  "notExecuted": 0,
+  "violationEvaluations": 2,
+  "captureWarnings": 2,
+  "importIdentityFix": "confirmed-for-18-Amount-instances",
+  "unreportedCases": [
+    "A18A",
+    "A18B"
+  ],
+  "findings": [
+    {
+      "id": "amount-public-property-binding",
+      "priority": "P0",
+      "cause": "Manual semantic paths use Minor/Currency/Addon; live capture preserves the #propertyId suffix. Exact lookups in semantic-facts.ts and variant-facts.ts cannot resolve these public properties.",
+      "effect": "Six visibility checks and eight order checks are human-review even in unchanged Amount.",
+      "next": "Use shared evidence-backed property identity resolution, prefer exact IDs, accept an unsuffixed alias only when unique and type-compatible; collisions/missing facts stay unknown. Do not rewrite raw snapshot facts."
+    },
+    {
+      "id": "amount-nested-variant-target",
+      "priority": "P0",
+      "cases": [
+        "A12",
+        "A13",
+        "A14B",
+        "A14C"
+      ],
+      "cause": "variantAvailability isolates all targets within component-variant-changed boundaries, including the boundary root. Independent host reference and lineage are proven but semantic target presence/visibility remains unknown.",
+      "next": "Separate proven target identity/visibility from interior baseline permissions. Restore only evidence-proven targets; same-set is not blanket permission to edit descendants."
+    },
+    {
+      "id": "amount-fixture-fidelity",
+      "priority": "P0",
+      "cause": "Synthetic Amount fixtures strip property #IDs and omit instanceIdentityVersion=1; existing green tests do not represent the current live capture path.",
+      "next": "Use these preserved snapshots for desired-behavior regression tests after the fix, including raw property IDs, current capture profile, ambiguous aliases and nested variants; retain Button/Spinner parity gates."
+    },
+    {
+      "id": "amount-replacement-remap",
+      "priority": "P1",
+      "cases": [
+        "A17A",
+        "A17B"
+      ],
+      "cause": "Replacement creates two sibling Major identities without an INSTANCE_SWAP port. compareInstanceCorrespondence rejects non-unique identity correspondence; variantAvailability becomes globally unknown.",
+      "result": "Safe incomplete fallback satisfies the no-full-pass test. It does not establish a precise identity violation; 0/9 baseline nodes match.",
+      "next": "Improve scoped diagnostics only with proven anchors; do not guess by name or sibling order and do not grant an unrelated component the original baseline."
+    }
+  ],
+  "limitations": [
+    "A15 gap and A16 Major visibility violations are confirmed; every scenario is still incomplete.",
+    "The fourteen positive cases have no violation findings, but this is not acceptance while checks remain inconclusive.",
+    "A18A/B are rejected-before-evaluation cases; no user evidence of their outcome was supplied.",
+    "Internal style/token policy, Currency text boundary and Addon boundary remain separate unresolved contract scope.",
+    "This is historical replay of Editor 0.2.54, not an assertion that these defective outcomes must persist after fixes."
+  ],
+  "reportResults": [
+    {
+      "caseId": "A02",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-40-19-671Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-40-19-671Z.json.gz",
+      "sha256": "7b533b09322906f576091eaccb91fd9dc179b800575665a99caa5e963e473440",
+      "rootNodeId": "13129:64565",
+      "expected": "Нет нарушений. Выключенные части не дают «Не выполнено».",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "not-applicable": 6,
+        "compliant": 17
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": false,
+        "Minor#72085:2": false
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A03",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-40-48-265Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-40-48-265Z.json.gz",
+      "sha256": "12daff0c69487741837b1769e87d5b3cd71de4d9e6c43c2d2a7bd6867ee89648",
+      "rootNodeId": "13129:64580",
+      "expected": "Нет нарушений. Выключенные части не дают «Не выполнено».",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "not-applicable": 3,
+        "compliant": 19
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": false,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A04",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-40-56-368Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-40-56-368Z.json.gz",
+      "sha256": "9c3946d0463559edca2a6c176f962d2a8059f7d4d5e521b223cbd00055826f5f",
+      "rootNodeId": "13129:64595",
+      "expected": "Нет нарушений. Выключенные части не дают «Не выполнено».",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "compliant": 19,
+        "not-applicable": 3
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": false
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A05",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-41-03-934Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-41-03-934Z.json.gz",
+      "sha256": "79199cb5e123dd2371b1402e0384ae3979eaa56d0065ec7849b7282e8ce48404",
+      "rootNodeId": "13129:64610",
+      "expected": "Нет нарушений. Выключенные части не дают «Не выполнено».",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "compliant": 21
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A06",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-41-19-939Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-41-19-939Z.json.gz",
+      "sha256": "fc69d089eba918a9e22c203ed4a52189e8502686f8ac03b97ddc080da17fd0ee",
+      "rootNodeId": "13129:64626",
+      "expected": "Нет нарушений. Выключенные части не дают «Не выполнено».",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "not-applicable": 6,
+        "compliant": 17
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": true,
+        "Currency#72085:3": false,
+        "Minor#72085:2": false
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A07",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-41-29-577Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-41-29-577Z.json.gz",
+      "sha256": "23272796e6259a9c029bc6105bbf88d3f557e016d3f21ace3b7dedeff6f91095",
+      "rootNodeId": "13129:64641",
+      "expected": "Нет нарушений. Выключенные части не дают «Не выполнено».",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "not-applicable": 3,
+        "compliant": 19
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": true,
+        "Currency#72085:3": false,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A08",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-41-36-226Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-41-36-226Z.json.gz",
+      "sha256": "f5e6bcf05f8fbda4205995dc45b8a64df46b46a5c8692f08ba51919c0defd965",
+      "rootNodeId": "13129:64656",
+      "expected": "Нет нарушений. Выключенные части не дают «Не выполнено».",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "compliant": 19,
+        "not-applicable": 3
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": true,
+        "Currency#72085:3": true,
+        "Minor#72085:2": false
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A09",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-41-43-289Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-41-43-289Z.json.gz",
+      "sha256": "5b9735b3c10429442ea25c42d4a273d3e2bfdde498036d4e547f7a3276fa4fb5",
+      "rootNodeId": "13129:64671",
+      "expected": "Нет нарушений. Выключенные части не дают «Не выполнено».",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "compliant": 21
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": true,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A10",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-41-53-637Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-41-53-637Z.json.gz",
+      "sha256": "6c35e4d1486d70464165ce5a5352db5f3c68c7101ab5b61cd8179869a5efc3ac",
+      "rootNodeId": "13129:64687",
+      "expected": "Текст и ширина меняются штатно; нет запрета размера.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "compliant": 21
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A11",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-42-02-072Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-42-02-072Z.json.gz",
+      "sha256": "3fb2e9b8baef4b9348374ea83453782d2a12359a7951f7eb7566285a1d02a62c",
+      "rootNodeId": "13129:64702",
+      "expected": "Нет ложного запрета смены Text Style.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "compliant": 21
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A12",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-42-09-914Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-42-09-914Z.json.gz",
+      "sha256": "4575f81844b659513ebd5adb50ac31f696038fdcec0c951c6e15a651bb5a2270",
+      "rootNodeId": "13129:64717",
+      "expected": "Нет продуктового AB-запрета в компонентном контракте.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 18,
+      "classifications": {
+        "human-review": 18,
+        "compliant": 17
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "partial",
+        "reason": "verified-outside-instance-boundaries",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [
+        {
+          "nodeId": "preview:3",
+          "actualPath": "Minor",
+          "referencePath": "Minor",
+          "reason": "component-variant-changed",
+          "actualComponentKey": "befbce9afb22a1dfc58bf9daeb72cfb1375bec43",
+          "referenceComponentKey": "1af9948d2ef74777f91e41a8d889ca28d036d7bb",
+          "componentSetKey": "e92f061b2cdfa20bd17d98554e113f4ce8c991b2"
+        },
+        {
+          "nodeId": "preview:5",
+          "actualPath": "Currency",
+          "referencePath": "Currency",
+          "reason": "component-variant-changed",
+          "actualComponentKey": "eeaa1e217d2654477668d0485573067cfcb9d312",
+          "referenceComponentKey": "5bef50328b151427bf28c514c2266233e2bfbf6c",
+          "componentSetKey": "33bfa9e278712759a5ea601d87135003599c98f2"
+        }
+      ],
+      "instanceContentResults": [
+        {
+          "boundaryNodeId": "preview:3",
+          "status": "matched",
+          "reason": "independent-host-variant-reference",
+          "matchedNodeIds": [
+            "preview:3",
+            "preview:4"
+          ],
+          "lineageProven": true
+        },
+        {
+          "boundaryNodeId": "preview:5",
+          "status": "matched",
+          "reason": "independent-host-variant-reference",
+          "matchedNodeIds": [
+            "preview:5",
+            "preview:6"
+          ],
+          "lineageProven": true
+        }
+      ],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-library-part-required.1.1",
+        "component:web-core.amount.currency-library-part-required.1.2",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-library-part-required.1.1",
+        "component:web-core.amount.minor-library-part-required.1.2",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A13",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-42-17-082Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-42-17-082Z.json.gz",
+      "sha256": "77859a2cf942e64c6488bfadef9597e37da79f3f6e82c154dacc3888b7ee39da",
+      "rootNodeId": "13129:64734",
+      "expected": "Свой текст разрешён; это не тест стандартных валют.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 16,
+      "classifications": {
+        "human-review": 16,
+        "compliant": 19
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "partial",
+        "reason": "verified-outside-instance-boundaries",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [
+        {
+          "nodeId": "preview:5",
+          "actualPath": "Currency",
+          "referencePath": "Currency",
+          "reason": "component-variant-changed",
+          "actualComponentKey": "faf78e14227c564cefc1fdfc70a9a283bb8fb1e2",
+          "referenceComponentKey": "5bef50328b151427bf28c514c2266233e2bfbf6c",
+          "componentSetKey": "33bfa9e278712759a5ea601d87135003599c98f2"
+        }
+      ],
+      "instanceContentResults": [
+        {
+          "boundaryNodeId": "preview:5",
+          "status": "matched",
+          "reason": "independent-host-variant-reference",
+          "matchedNodeIds": [
+            "preview:5",
+            "preview:6"
+          ],
+          "lineageProven": true
+        }
+      ],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-library-part-required.1.1",
+        "component:web-core.amount.currency-library-part-required.1.2",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A14B",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-42-27-512Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-42-27-512Z.json.gz",
+      "sha256": "8d94c0adb08891bd43e2f15a7d1ddaa5eee3f5009c3e4bb95b1df83d6ba3fcb0",
+      "rootNodeId": "13129:64751",
+      "expected": "Нет сравнения USD с дефолтным ₽.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 16,
+      "classifications": {
+        "human-review": 16,
+        "compliant": 19
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "partial",
+        "reason": "verified-outside-instance-boundaries",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [
+        {
+          "nodeId": "preview:5",
+          "actualPath": "Currency",
+          "referencePath": "Currency",
+          "reason": "component-variant-changed",
+          "actualComponentKey": "a2b00858eab4a518af88b45902451364266fe14b",
+          "referenceComponentKey": "5bef50328b151427bf28c514c2266233e2bfbf6c",
+          "componentSetKey": "33bfa9e278712759a5ea601d87135003599c98f2"
+        }
+      ],
+      "instanceContentResults": [
+        {
+          "boundaryNodeId": "preview:5",
+          "status": "matched",
+          "reason": "independent-host-variant-reference",
+          "matchedNodeIds": [
+            "preview:5",
+            "preview:6"
+          ],
+          "lineageProven": true
+        }
+      ],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-library-part-required.1.1",
+        "component:web-core.amount.currency-library-part-required.1.2",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A14C",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-42-34-793Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-42-34-793Z.json.gz",
+      "sha256": "dd2ce613e72feda46160f80b1351384b3c3afd6a4acda53921b2fd76f7affc69",
+      "rootNodeId": "13129:64767",
+      "expected": "Нет сравнения CNY с дефолтным ₽.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 16,
+      "classifications": {
+        "human-review": 16,
+        "compliant": 19
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "partial",
+        "reason": "verified-outside-instance-boundaries",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [
+        {
+          "nodeId": "preview:5",
+          "actualPath": "Currency",
+          "referencePath": "Currency",
+          "reason": "component-variant-changed",
+          "actualComponentKey": "cc9186ae8adba78e9518fc28402cf0e8070c5b03",
+          "referenceComponentKey": "5bef50328b151427bf28c514c2266233e2bfbf6c",
+          "componentSetKey": "33bfa9e278712759a5ea601d87135003599c98f2"
+        }
+      ],
+      "instanceContentResults": [
+        {
+          "boundaryNodeId": "preview:5",
+          "status": "matched",
+          "reason": "independent-host-variant-reference",
+          "matchedNodeIds": [
+            "preview:5",
+            "preview:6"
+          ],
+          "lineageProven": true
+        }
+      ],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-library-part-required.1.1",
+        "component:web-core.amount.currency-library-part-required.1.2",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "positive-case-incomplete"
+    },
+    {
+      "caseId": "A15",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-42-40-810Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-42-40-810Z.json.gz",
+      "sha256": "39e7f952eca9728022141d81fb10914a9fd2b2eb13b189bd8fb2635a9138712a",
+      "rootNodeId": "13129:64783",
+      "expected": "Нарушение layer-properties-use-effective-baseline.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "compliant": 20,
+        "violation": 1
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [
+        {
+          "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.6",
+          "subjectNodeId": "preview:0",
+          "trace": {
+            "predicate": "matches-effective-baseline",
+            "truth": "false",
+            "reason": "actual value differs from effective baseline",
+            "actual": 8,
+            "expected": 0,
+            "factPaths": [
+              "baseline.effective.layout.itemSpacing",
+              "layout.itemSpacing"
+            ]
+          }
+        }
+      ],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "intended-violation-detected-but-scenario-incomplete"
+    },
+    {
+      "caseId": "A16",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-42-47-560Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-42-47-560Z.json.gz",
+      "sha256": "7831ba7ed7a6f67d59eca6d38bbcc466264887980338622dd4cb8385d4e506b4",
+      "rootNodeId": "13129:64798",
+      "expected": "Нарушение major-required.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 14,
+      "classifications": {
+        "human-review": 14,
+        "compliant": 18,
+        "not-applicable": 3,
+        "violation": 1
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 9,
+      "warnings": [],
+      "violations": [
+        {
+          "ruleId": "component:web-core.amount.major-required.1.1",
+          "subjectNodeId": "preview:0",
+          "trace": {
+            "predicate": "count-between",
+            "truth": "false",
+            "reason": "numeric range inclusive evaluated",
+            "actual": 0,
+            "expected": {
+              "lower": 1,
+              "upper": 1,
+              "bounds": "inclusive"
+            },
+            "factPaths": [
+              "semantic.role"
+            ]
+          }
+        }
+      ],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "verified",
+        "reason": "catalog-and-live-reference-agree",
+        "targets": {
+          "root": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "major": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "minor": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "currency": {
+            "present": true,
+            "referenceState": "present"
+          },
+          "addon": {
+            "present": true,
+            "referenceState": "present"
+          }
+        }
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "intended-violation-detected-but-scenario-incomplete"
+    },
+    {
+      "caseId": "A17A",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-42-55-415Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-42-55-415Z.json.gz",
+      "sha256": "a9c8e3cc6d5a42bb0ac969ca1051597685f9796a1c6121029d47a6659224aac5",
+      "rootNodeId": "13129:64814",
+      "expected": "Нарушение identity / явная неполная проверка. Не полный pass.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 35,
+      "classifications": {
+        "human-review": 35
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 0,
+      "warnings": [
+        "9 узлов instance не сопоставлены с reference baseline."
+      ],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "unknown",
+        "reason": "instance-structure-needs-remap",
+        "targets": {}
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.1",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.10",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.11",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.12",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.13",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.2",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.3",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.4",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.5",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.6",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.7",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.8",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.9",
+        "component:web-core.amount.library-instance-required.1.1",
+        "component:web-core.amount.major-required.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1",
+        "component:web-core.amount.major-library-part-required.1.1",
+        "component:web-core.amount.major-library-part-required.1.2",
+        "component:web-core.amount.minor-library-part-required.1.1",
+        "component:web-core.amount.minor-library-part-required.1.2",
+        "component:web-core.amount.currency-library-part-required.1.1",
+        "component:web-core.amount.currency-library-part-required.1.2"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "safe-incomplete-fallback-confirmed-not-a-detected-violation"
+    },
+    {
+      "caseId": "A17B",
+      "originalFile": "editor/amount.validation-report.2026-09-29T09-43-09-355Z.json",
+      "fixtureFile": "reports/fixtures/r2-editor-0.2.54/amount.validation-report.2026-09-29T09-43-09-355Z.json.gz",
+      "sha256": "cdaf325369c45aa60d9e06aa2e3ec6ac3db5eebf69c22c18790c2e1e0f9faab2",
+      "rootNodeId": "13129:64830",
+      "expected": "Нарушение identity / явная неполная проверка. Не полный pass.",
+      "complete": false,
+      "notExecuted": 0,
+      "inconclusive": 35,
+      "classifications": {
+        "human-review": 35
+      },
+      "engineEvaluations": 35,
+      "capturedNodes": 9,
+      "matchedNodes": 0,
+      "warnings": [
+        "9 узлов instance не сопоставлены с reference baseline."
+      ],
+      "violations": [],
+      "rootPropertyFacts": {
+        "Addon#100902:0": false,
+        "Currency#72085:3": true,
+        "Minor#72085:2": true
+      },
+      "bindingEvidence": {
+        "minorEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        "currencyEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        "addonEnabled": {
+          "reason": "source-missing-unknown-or-incompatible",
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      },
+      "variantAvailability": {
+        "status": "unknown",
+        "reason": "instance-structure-needs-remap",
+        "targets": {}
+      },
+      "instanceBoundaries": [],
+      "instanceContentResults": [],
+      "unresolvedRuleIds": [
+        "component:web-core.amount.addon-visibility-off.1.1",
+        "component:web-core.amount.addon-visibility-on.1.1",
+        "component:web-core.amount.currency-visibility-off.1.1",
+        "component:web-core.amount.currency-visibility-on.1.1",
+        "component:web-core.amount.fixed-part-order.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+        "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.1",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.10",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.11",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.12",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.13",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.2",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.3",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.4",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.5",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.6",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.7",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.8",
+        "component:web-core.amount.layer-properties-use-effective-baseline.1.9",
+        "component:web-core.amount.library-instance-required.1.1",
+        "component:web-core.amount.major-required.1.1",
+        "component:web-core.amount.minor-visibility-off.1.1",
+        "component:web-core.amount.minor-visibility-on.1.1",
+        "component:web-core.amount.major-library-part-required.1.1",
+        "component:web-core.amount.major-library-part-required.1.2",
+        "component:web-core.amount.minor-library-part-required.1.1",
+        "component:web-core.amount.minor-library-part-required.1.2",
+        "component:web-core.amount.currency-library-part-required.1.1",
+        "component:web-core.amount.currency-library-part-required.1.2"
+      ],
+      "exactReplay": {
+        "engine": true,
+        "editor": true,
+        "details": true
+      },
+      "acceptance": "safe-incomplete-fallback-confirmed-not-a-detected-violation"
+    }
+  ]
+}

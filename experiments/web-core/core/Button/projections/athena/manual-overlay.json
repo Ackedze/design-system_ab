@@ -152,19 +152,6 @@
       "nodeIdHint": "preview:10"
     },
     {
-      "id": "target.spinner",
-      "semanticRole": "spinner",
-      "label": "Loading spinner",
-      "componentFamily": "Spinner",
-      "lineage": [
-        "core.web.button",
-        "root",
-        "addon"
-      ],
-      "nameHint": "Spinner",
-      "resolution": "missing"
-    },
-    {
       "id": "target.paint-me",
       "semanticRole": "paint-me",
       "label": "PaintMe",
@@ -182,22 +169,7 @@
       "resolution": "resolved"
     }
   ],
-  "controlPorts": [
-    {
-      "id": "port.button-group-policy",
-      "label": "Button group pattern policy",
-      "targetId": "target.root",
-      "capability": "pattern.button-group",
-      "required": false
-    },
-    {
-      "id": "port.editorial-label-policy",
-      "label": "Button label editorial policy",
-      "targetId": "target.label",
-      "capability": "content.editorial",
-      "required": false
-    }
-  ],
+  "controlPorts": [],
   "componentDependencies": [
     {
       "id": "spinner",
@@ -244,30 +216,46 @@
   "rules": [
     {
       "id": "component:core.web.button.root.auto-layout-1",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
-      "targetScope": "self-and-descendants",
-      "capability": "",
-      "capabilitySet": "auto-layout@1",
-      "capabilitySelection": [
-        "layout.mode",
-        "layout.padding.top",
-        "layout.padding.right",
-        "layout.padding.bottom",
-        "layout.padding.left",
-        "layout.itemSpacing",
-        "layout.primaryAxisAlignItems",
-        "layout.counterAxisAlignItems",
-        "layout.sizingHorizontal",
-        "layout.sizingVertical"
+      "targetScope": "self",
+      "capability": "layout.root-sizing",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "target": "root",
+          "required": true,
+          "exclusive": true
+        }
       ],
-      "permission": "forbidden",
-      "controlPaths": [],
-      "constraints": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "fact": "layout.sizingHorizontal",
+          "values": [
+            "HUG",
+            "FILL",
+            "FIXED"
+          ]
+        },
+        {
+          "type": "propertyDomain",
+          "fact": "layout.sizingVertical",
+          "values": [
+            "HUG"
+          ]
+        }
+      ],
       "applicability": {
         "variants": "all",
         "modes": "all",
         "platforms": [
-          "desktop"
+          "desktop",
+          "mobile-web"
         ],
         "products": [],
         "channels": [],
@@ -276,23 +264,25 @@
         "conditionSubject": "target"
       },
       "severity": "error",
-      "rationale": "Внутренняя геометрия компонента не изменяется напрямую.",
-      "remediationIntent": "restore-effective-baseline",
-      "status": "draft",
+      "rationale": "Размеры корня отделены от внутренней геометрии. Ширина: HUG по содержимому, FILL в Auto Layout родителе, FIXED для заданной ширины экземпляра (ds-ai-hub bridge: block и фиксированная ширина). Высота сохраняет HUG; это не фиксированная высота в px и допускает рост по содержимому. Ограничения block/nowrap уточняют сценарий отдельно; разрешение ширины не распространяется на потомков.",
+      "message": "Режим размеров корня Button вне допустимого домена.",
+      "status": "reviewed",
       "owner": "design-system-authors",
-      "sourceRefs": [],
+      "sourceRefs": [
+        "ds-ai-hub.button.bridge"
+      ],
       "execution": {
-        "route": "auto",
+        "route": "predicate",
         "externalRuleIds": [],
         "missingFacts": []
-      },
-      "boundaryPolicy": "component-owned@1",
-      "propertyApplicability": {
-        "layout.itemSpacing": "flow-gap-either@1"
       }
     },
     {
       "id": "component:core.web.button.root.visual-style-1",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self-and-descendants",
       "capability": "",
@@ -322,7 +312,7 @@
       "severity": "error",
       "rationale": "Внутреннее визуальное оформление компонента не изменяется напрямую.",
       "remediationIntent": "restore-effective-baseline",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [],
       "execution": {
@@ -334,6 +324,10 @@
     },
     {
       "id": "component:web-core.button.addon-size-follows-button-size",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "dependency.component-set",
@@ -681,9 +675,9 @@
         ]
       },
       "severity": "error",
-      "rationale": "Button 32/40 → Addon16 + активный Icon-20 + glyph-26 instance 20×20 px; Button 48/56/64/72 → Addon24 + активный Icon-24 + glyph-26 instance 24×24 px. Обе видимые стороны проверяются. Component set определяет контейнер; фактический размер берётся у INSTANCE в доказанном swap-порту, не у PaintMe/vector или Addon. Допуск размеров ±0.01 px. Порт и размеры проверяются у glyph-26, включая неизменённый default. Нетронутый legacy не подпадает под эти три проверки; запрет новой legacy-замены остаётся в addon-uses-glyph-26. Неизвестное происхождение/размер не считается успешной проверкой. Номинальный Size проверяется отдельно от bounds по доказанному каталогу и активному порту: general (glyph) + Icon-16 → Size=s; glyph-26 + Icon-20 → Size=20; glyph-26 + Icon-24 → Size=24. Значения берутся из типизированного VARIANT-свойства выбранной иконки; названия слоёв и геометрия не определяют Size. Корректный Size не отменяет запрет новой legacy-замены. При доказанном Addon.Type=Spinner: Button 32/40 → Spinner Size=16, Button 48/56/64/72 → Spinner Size=24. Это требование владельца Button; собственные правила Spinner выполняются из закреплённого контракта зависимости r8 без копирования. Смена Size и Scale проверяются независимо. Live-приёмка вложения ожидается.",
+      "rationale": "Button 32/40 → Addon16 + активный Icon-20 + glyph-26 instance 20×20 px; Button 48/56/64/72 → Addon24 + активный Icon-24 + glyph-26 instance 24×24 px. Обе видимые стороны проверяются. Component set определяет контейнер; фактический размер берётся у INSTANCE в доказанном swap-порту, не у PaintMe/vector или Addon. Допуск размеров ±0.01 px. Порт и размеры проверяются у glyph-26, включая неизменённый default. Нетронутый legacy не подпадает под эти три проверки; запрет новой legacy-замены остаётся в addon-uses-glyph-26. Неизвестное происхождение/размер не считается успешной проверкой. Номинальный Size проверяется отдельно от bounds по доказанному каталогу и активному порту: general (glyph) + Icon-16 → Size=s; glyph-26 + Icon-20 → Size=20; glyph-26 + Icon-24 → Size=24. Значения берутся из типизированного VARIANT-свойства выбранной иконки; названия слоёв и геометрия не определяют Size. Корректный Size не отменяет запрет новой legacy-замены. При доказанном Addon.Type=Spinner: Button 32/40 → Spinner Size=16, Button 48/56/64/72 → Spinner Size=24. Это требование владельца Button; собственные правила Spinner выполняются из закреплённого контракта зависимости r8 без копирования. Смена Size и Scale проверяются независимо. Вложение принято по live-проверкам; неизменяемые отчёты сохранены в QA.",
       "message": "Addon, активный порт, Size варианта или размер вложенного instance не соответствует контракту Button.",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
@@ -694,6 +688,10 @@
     },
     {
       "id": "component:web-core.button.addon-type-is-component-property",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.left-addon",
       "targetScope": "self",
       "capability": "component.properties.Type",
@@ -731,6 +729,10 @@
     },
     {
       "id": "component:web-core.button.addon-uses-glyph-26",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "asset.icon-family",
@@ -792,34 +794,23 @@
     },
     {
       "id": "component:web-core.button.backdrop-blur-maps-to-control-blur",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "appearance.effects.ControlBlur",
-      "permission": "constrained",
-      "controlPaths": [
-        {
-          "kind": "direct",
-          "target": "root",
-          "required": true,
-          "exclusive": true
-        }
-      ],
+      "permission": "forbidden",
+      "controlPaths": [],
       "constraints": [
         {
-          "type": "layoutConstraint",
-          "fact": "appearance.effects.ControlBlur.visible",
-          "operator": "equals",
-          "value": "semanticApi.allowBackdropBlur"
+          "type": "propertyForbidden",
+          "fact": "appearance.effectDetailsV1"
         }
       ],
       "applicability": {
-        "variants": {
-          "View": [
-            "Secondary",
-            "Outlined",
-            "Transparent"
-          ]
-        },
+        "variants": "all",
         "modes": "all",
         "platforms": [
           "desktop",
@@ -827,23 +818,23 @@
         ]
       },
       "severity": "warning",
-      "rationale": "Figma и code defaults расходятся; mapping должен учитывать фактическую видимость ControlBlur.",
-      "message": "ControlBlur и allowBackdropBlur не согласованы.",
-      "status": "draft",
+      "rationale": "29.09.2026 владелец подтвердил Figma-библиотеку источником нормы ControlBlur. Сравнивать эффекты, параметры и binding стиля с независимо полученным эталоном текущего варианта (componentKey), не общей матрицей из документации. Учитывать View, DisabledState, Size, Shape, SingleIcon и представление; не переносить actual в baseline. allowBackdropBlur не разрешает изменять библиотечный эффект.",
+      "message": "ControlBlur отличается от библиотечного эталона выбранного варианта Button.",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
       ],
       "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "semanticApi.allowBackdropBlur",
-          "appearance.effects.named.ControlBlur"
-        ]
+        "route": "predicate"
       }
     },
     {
       "id": "component:web-core.button.block-maps-to-fill",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "layout.sizingHorizontal",
@@ -862,9 +853,19 @@
           "fact": "layout.sizingHorizontal",
           "operator": "equals",
           "value": "FILL"
+        },
+        {
+          "type": "propertyDomain",
+          "fact": "parent.layout.mode",
+          "values": [
+            "HORIZONTAL",
+            "VERTICAL",
+            "GRID"
+          ]
         }
       ],
       "applicability": {
+        "validationMode": "specification",
         "variants": "all",
         "modes": "all",
         "platforms": [
@@ -872,115 +873,15 @@
           "mobile-web"
         ],
         "context": {
-          "semanticApi.block": true
+          "expectedInput.block": true
         }
       },
       "severity": "error",
-      "rationale": "Code block=true соответствует FILL у Figma instance внутри autolayout.",
-      "message": "Block Button не растянут по ширине контейнера.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "sourceRefs": [
-        "ds-ai-hub.button.bridge"
-      ],
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "semanticApi.block",
-          "parent.layout.mode"
-        ]
-      }
-    },
-    {
-      "id": "component:web-core.button.button-group-pattern-delegated",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "pattern.button-group",
-      "permission": "constrained",
-      "controlPaths": [
-        {
-          "kind": "inherited-port",
-          "port": "port.button-group-policy",
-          "required": false,
-          "exclusive": true
-        }
-      ],
-      "constraints": [
-        {
-          "type": "propertyDomain",
-          "values": [
-            "delegated"
-          ]
-        }
-      ],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ]
-      },
-      "severity": "warning",
-      "rationale": "Quantity, relative priority, order, alignment and sticky placement require pattern/page context.",
-      "message": "Проверить Button в контексте группы действий.",
+      "rationale": "Независимое ожидание block=true из спецификации требует FILL у Figma instance и autolayout у родителя. Actual Fill и semanticApi.defaultValue не определяют ожидание. При block=false правило неприменимо, но не вводит запрет Fill или требование Hug; без ожидания результат unknown.",
+      "message": "Ожидается block=true: Button должен иметь ширину Fill внутри Auto Layout-контейнера.",
       "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
-        "ds-ai-hub.button.guidelines"
-      ],
-      "execution": {
-        "route": "delegated",
-        "externalRuleIds": [
-          "pattern:buttons.max-three",
-          "pattern:buttons.single-high-priority",
-          "pattern:buttons.single-primary-action",
-          "pattern:buttons.platform-order",
-          "pattern:buttons.sticky-placement"
-        ]
-      }
-    },
-    {
-      "id": "component:web-core.button.desktop-hint-restricted",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "semanticApi.hintVisible",
-      "permission": "constrained",
-      "controlPaths": [
-        {
-          "kind": "host-property",
-          "property": "hintEnabled",
-          "required": true,
-          "exclusive": true
-        }
-      ],
-      "constraints": [
-        {
-          "type": "propertyDomain",
-          "values": [
-            false
-          ]
-        }
-      ],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop"
-        ],
-        "products": [
-          "ab"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "error",
-      "rationale": "Владелец подтвердил 2026-09-28: продуктовый запрет Альфа-Бизнес относится к фактически видимому Hint desktop Button. hintEnabled хранит настройку BOOLEAN; hintVisible — read-only видимость target.hint с учётом родителей. Скрытый предком Hint и подтверждённое отсутствие не являются использованием Hint; unknown/remap не pass. Это продуктовая политика, не универсальный запрет Core и не исключение специально для Loading.",
-      "message": "В Альфа-Бизнес нельзя показывать Hint в desktop Button.",
-      "remediationMessage": "Скрыть Hint через component property Hint; учитывать видимость контейнера Text.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "sourceRefs": [
-        "athena.button.rules",
         "ds-ai-hub.button.bridge"
       ],
       "execution": {
@@ -988,56 +889,11 @@
       }
     },
     {
-      "id": "component:web-core.button.desktop-safe-variants",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.properties.View|Size|Shape",
-      "permission": "constrained",
-      "controlPaths": [
-        {
-          "kind": "inherited-port",
-          "port": "port.button-group-policy",
-          "required": true,
-          "exclusive": true
-        }
-      ],
-      "constraints": [
-        {
-          "type": "propertyDomain",
-          "values": [
-            "delegated"
-          ]
-        }
-      ],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop"
-        ],
-        "products": [
-          "alfa-business"
-        ],
-        "scopeStatus": "needs-confirmation"
-      },
-      "severity": "error",
-      "rationale": "Ограничение принадлежит продуктовой политике групп кнопок, а не универсальному core API.",
-      "message": "Проверь desktop variant по правилам продукта.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "sourceRefs": [
-        "athena.button.rules",
-        "ds-ai-hub.button.bridge"
-      ],
-      "execution": {
-        "route": "delegated",
-        "externalRuleIds": [
-          "rule:controls.buttons-and-button-groups.desktop-safe-variants"
-        ]
-      }
-    },
-    {
       "id": "component:web-core.button.hint-requires-large-size",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "semanticApi.size",
@@ -1075,7 +931,7 @@
       "rationale": "Ограничение размера действует при фактически видимом Hint (read-only semanticApi.hintVisible), а не при одном лишь включённом BOOLEAN Hint. Скрытые родители учитываются; неизвестная видимость остаётся unknown. Поддерживаемый домен Hint: 56, 64, 72.",
       "message": "Hint используется в неподдерживаемом размере Button.",
       "remediationMessage": "Выбрать Size 56, 64 или 72 либо скрыть Hint.",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
@@ -1086,6 +942,10 @@
     },
     {
       "id": "component:web-core.button.label-and-hint-color-locked",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.text",
       "targetScope": "self-and-descendants",
       "capability": "appearance.fill",
@@ -1105,7 +965,7 @@
       "message": "Изменён фиксированный цвет текста Button.",
       "remediationMessage": "Сбросить цвет текста к effective baseline.",
       "remediationIntent": "restore-effective-baseline",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "athena.button.rules"
@@ -1117,6 +977,10 @@
     },
     {
       "id": "component:web-core.button.label-content-is-editable",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.text",
       "targetScope": "self-and-descendants",
       "capability": "text.characters",
@@ -1153,6 +1017,10 @@
     },
     {
       "id": "component:web-core.button.label-text-style-locked",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.text",
       "targetScope": "self-and-descendants",
       "capability": "appearance.typography",
@@ -1172,7 +1040,7 @@
       "message": "Изменена фиксированная типографика Button.",
       "remediationMessage": "Сбросить text style к effective baseline.",
       "remediationIntent": "restore-effective-baseline",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "athena.button.rules"
@@ -1184,6 +1052,10 @@
     },
     {
       "id": "component:web-core.button.loading-preserves-width",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "layout.width-transition",
@@ -1231,7 +1103,7 @@
       "severity": "error",
       "rationale": "При переходе того же экземпляра от неактивного Spinner к Type=Spinner ширина сохраняется (допуск 0.01 px) при неизменных внешних условиях layout, Product, modes, варианте и перечисленных semantic API фактах. Видимость Label/Hint и конфигурация Addon могут меняться для Loading. Без двух последовательных снимков одной сессии правило не выполнено; ширина библиотечного default не заменяет исходное состояние.",
       "message": "Loading изменил ширину Button.",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "athena.button.rules",
@@ -1243,6 +1115,10 @@
     },
     {
       "id": "component:web-core.button.loading-spinner-style-follows-view",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "component.properties.Inverted|Static",
@@ -1283,7 +1159,10 @@
                 ],
                 "values": [
                   "True"
-                ]
+                ],
+                "context": {
+                  "semanticApi.colors": "default"
+                }
               },
               {
                 "when": [
@@ -1294,7 +1173,36 @@
                 ],
                 "values": [
                   "False"
-                ]
+                ],
+                "context": {
+                  "semanticApi.colors": "default"
+                }
+              },
+              {
+                "when": [
+                  "accent",
+                  "secondary",
+                  "outlined",
+                  "transparent",
+                  "text"
+                ],
+                "values": [
+                  "True"
+                ],
+                "context": {
+                  "semanticApi.colors": "inverted"
+                }
+              },
+              {
+                "when": [
+                  "primary"
+                ],
+                "values": [
+                  "False"
+                ],
+                "context": {
+                  "semanticApi.colors": "inverted"
+                }
               }
             ]
           }
@@ -1324,7 +1232,10 @@
                 ],
                 "values": [
                   "True"
-                ]
+                ],
+                "context": {
+                  "semanticApi.colors": "default"
+                }
               },
               {
                 "when": [
@@ -1336,7 +1247,36 @@
                 ],
                 "values": [
                   "False"
-                ]
+                ],
+                "context": {
+                  "semanticApi.colors": "default"
+                }
+              },
+              {
+                "when": [
+                  "accent"
+                ],
+                "values": [
+                  "True"
+                ],
+                "context": {
+                  "semanticApi.colors": "inverted"
+                }
+              },
+              {
+                "when": [
+                  "primary",
+                  "secondary",
+                  "outlined",
+                  "transparent",
+                  "text"
+                ],
+                "values": [
+                  "False"
+                ],
+                "context": {
+                  "semanticApi.colors": "inverted"
+                }
               }
             ]
           }
@@ -1348,15 +1288,12 @@
         "platforms": [
           "desktop",
           "mobile-web"
-        ],
-        "context": {
-          "semanticApi.colors": "default"
-        }
+        ]
       },
       "severity": "error",
-      "rationale": "Палитра вложенного Spinner — ограничение Button, не внутренний инвариант Spinner. Для обычных [D]/[M] Button всех размеров 32–72: Accent → Inverted=True, Static=True; Primary → True/False; Secondary, Outlined, Transparent, Text → False/False. Расширение таблицы Size=56 на все размеры подтверждено владельцем 2026-09-28. Только доказанный видимый Addon.Type=Spinner слева или справа; Button_Inverted исключён до отдельного решения. Неизвестный View или неподтверждённая identity не дают pass. Полная Loading-композиция проверяется отдельно.",
-      "message": "Inverted/Static вложенного Spinner должны соответствовать View обычного Button.",
-      "status": "draft",
+      "rationale": "Владелец утвердил отдельные матрицы для обычных и inverted Button, D/M, Size=32–72, оба слота. Палитра определяется representation.surface и View; библиотечный default вложенного Spinner не заменяет эту норму.",
+      "message": "Inverted/Static вложенного Spinner должны соответствовать View и поверхности Button.",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
@@ -1367,6 +1304,10 @@
     },
     {
       "id": "component:web-core.button.loading-uses-addon-spinner",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "composition.loading",
@@ -1426,7 +1367,7 @@
       "severity": "error",
       "rationale": "Владелец подтвердил 2026-09-28: в Loading у Button остаётся только один Spinner соответствующего размера и больше никакого контента. В Figma нет свойства Loading: видимый штатный Addon.Type=Spinner активирует правило. Требуются ровно один видимый pinned Spinner, ноль видимых Label/Hint и ровно один видимый Addon (слева или справа), который содержит этот Spinner. Второй addon запрещён независимо от Type. Проверяется фактическая видимость, включая скрытых предков и подтверждённое отсутствие текста в SingleIcon; неиспользуемые значения свойств семейства не считаются видимым контентом. Скрытый или подменённый Spinner не выключает правило; неизвестная identity/lineage/visibility остаётся unknown. Размер отдельно проверяет существующий addon-size-follows-button-size: Button32/40 → Spinner16; Button48/56/64/72 → Spinner24. Фон и служебные контейнеры Button, внутренняя анатомия Spinner не являются дополнительным контентом. В коде этому соответствует loading=true. Намерение loading при отсутствии любого активного Spinner нельзя восстановить из одного статичного Figma-снимка.",
       "message": "В Loading у Button должен остаться только один Spinner: без Label, Hint и второго addon.",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
@@ -1437,6 +1378,10 @@
     },
     {
       "id": "component:web-core.button.manual-fill-is-layer-property",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self-and-descendants",
       "capability": "appearance.fill",
@@ -1467,6 +1412,10 @@
     },
     {
       "id": "component:web-core.button.manual-layout-and-appearance-overrides-prohibited",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self-and-descendants",
       "capability": "layout-and-appearance",
@@ -1495,11 +1444,15 @@
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.sizingHorizontal"
+          "fact": "layout.mode"
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.sizingVertical"
+          "fact": "layout.primaryAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.counterAxisAlignItems"
         },
         {
           "type": "propertyForbidden",
@@ -1523,11 +1476,11 @@
         ]
       },
       "severity": "error",
-      "rationale": "Layout, stroke, radius и opacity должны совпадать с effective baseline.",
+      "rationale": "Mode, padding, gap, alignment, stroke, radius и opacity должны совпадать с effective baseline в пределах владения Button. Sizing корня регулируется root.auto-layout-1, sizing потомков — internal-sizing-locked; эти проверки не дублируются здесь.",
       "message": "Изменено внутреннее layout или appearance свойство Button.",
       "remediationMessage": "Сбросить свойство к effective baseline Button.",
       "remediationIntent": "restore-effective-baseline",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "athena.button.rules"
@@ -1541,78 +1494,32 @@
       }
     },
     {
-      "id": "component:web-core.button.mobile-hint-only-size-56",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.properties.Size",
-      "permission": "constrained",
-      "controlPaths": [
-        {
-          "kind": "host-property",
-          "property": "Size",
-          "required": true,
-          "exclusive": true
-        }
-      ],
-      "constraints": [
-        {
-          "type": "propertyDomain",
-          "values": [
-            "56"
-          ]
-        }
-      ],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "mobile-web"
-        ],
-        "products": [
-          "alfa-business"
-        ],
-        "context": {
-          "hintVisible": true
-        },
-        "scopeStatus": "needs-confirmation"
+      "id": "component:web-core.button.internal-sizing-locked",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
       },
-      "severity": "error",
-      "rationale": "Продуктовое правило уже universal core domain Hint {56,64,72} и требует подтверждения.",
-      "message": "Mobile Hint допустим только при продуктово подтверждённом Size.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "sourceRefs": [
-        "athena.button.rules",
-        "ds-ai-hub.button.bridge"
-      ],
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "semanticApi.hintVisible",
-          "semanticApi.size"
-        ]
-      }
-    },
-    {
-      "id": "component:web-core.button.nowrap-maps-to-figma-layout",
-      "targetId": "target.text",
-      "targetScope": "self-and-descendants",
-      "capability": "layout.nowrap",
-      "permission": "constrained",
-      "controlPaths": [
-        {
-          "kind": "direct",
-          "target": "root|text|label",
-          "required": true,
-          "exclusive": true
-        }
-      ],
+      "targetId": "target.root",
+      "targetScope": "descendants",
+      "capability": "layout.internal-sizing",
+      "permission": "forbidden",
+      "controlPaths": [],
       "constraints": [
         {
-          "type": "layoutConstraint",
-          "fact": "derived.nowrap",
-          "operator": "equals",
-          "value": "semanticApi.nowrap"
+          "type": "propertyForbidden",
+          "fact": "layout.sizingHorizontal",
+          "exceptConfiguration": {
+            "ruleId": "component:web-core.button.text-resizing-maps-to-figma-layout",
+            "targetRoles": [
+              "text",
+              "label",
+              "hint"
+            ]
+          }
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.sizingVertical"
         }
       ],
       "applicability": {
@@ -1621,27 +1528,167 @@
         "platforms": [
           "desktop",
           "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Sizing потомков остаётся по effective baseline в пределах владения Button; Spinner проверяет собственный контракт. Единственное исключение: горизонтальный sizing доказанно сопоставленных Text/Label/Hint передан правилу text-resizing-maps-to-figma-layout, которое требует согласованную конфигурацию Hug/Fill. Вертикальный sizing не исключается. Неизвестное сопоставление не освобождает от проверки. Корень регулируется отдельно.",
+      "message": "Изменён режим размеров внутреннего слоя Button.",
+      "remediationIntent": "restore-effective-baseline",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.button.rules"
+      ],
+      "execution": {
+        "route": "predicate"
+      },
+      "boundaryPolicy": "component-owned@1"
+    },
+    {
+      "id": "component:web-core.button.nowrap-maps-to-figma-layout",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "layout.nowrap",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "target": "root|text|label|hint",
+          "required": true,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "configurationMapping",
+          "mapping": {
+            "activeRoles": [
+              "label",
+              "hint"
+            ],
+            "cases": [
+              {
+                "id": "no-wrap",
+                "when": {
+                  "nowrap": true
+                },
+                "requirements": [
+                  {
+                    "targetRole": "root",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "HUG"
+                  },
+                  {
+                    "targetRole": "text",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "HUG"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "HUG"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "text.textAutoResize",
+                    "value": "WIDTH_AND_HEIGHT"
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "HUG"
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "text.textAutoResize",
+                    "value": "WIDTH_AND_HEIGHT"
+                  }
+                ]
+              },
+              {
+                "id": "wrap-constrained",
+                "when": {
+                  "nowrap": false,
+                  "constrainedWidth": true
+                },
+                "requirements": [
+                  {
+                    "targetRole": "root",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "FILL"
+                  },
+                  {
+                    "targetRole": "root",
+                    "fact": "parent.layout.mode",
+                    "values": [
+                      "HORIZONTAL",
+                      "VERTICAL",
+                      "GRID"
+                    ]
+                  },
+                  {
+                    "targetRole": "text",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "FILL"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "FILL"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "text.textAutoResize",
+                    "value": "HEIGHT"
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "FILL"
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "text.textAutoResize",
+                    "value": "HEIGHT"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "applicability": {
+        "validationMode": "specification",
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
         ]
       },
       "severity": "error",
-      "rationale": "Nowrap требует HUG/WIDTH_AND_HEIGHT и не совместим с FILL на Button.",
+      "rationale": "По спецификации nowrap=true требует HUG у Button/Text/видимого текста и WIDTH_AND_HEIGHT у текстов. nowrap=false разрешает перенос, но требует FILL/HEIGHT и Auto Layout-родителя только при явно заданном constrainedWidth=true. constrainedWidth=false не вводит нового запрета или обязательного FILL; обычный аудит сохраняется. Скрытый/подтверждённо отсутствующий текст — N/A. Отсутствие ожидаемых входов или неизвестная цель — unknown. Конфликт с block=true либо textResizing=fill при nowrap=true не разрешается автоматически.",
       "message": "Перенос текста не соответствует nowrap.",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
       ],
       "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "semanticApi.nowrap",
-          "text.textAutoResize",
-          "parent.clipsContent"
-        ]
+        "route": "predicate"
       }
     },
     {
       "id": "component:web-core.button.single-icon-content-shape",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "composition.single-icon",
@@ -1697,7 +1744,7 @@
       "severity": "error",
       "rationale": "SingleIcon содержит ровно один addon без Label и Hint; левый слот предпочтителен по умолчанию.",
       "message": "SingleIcon Button имеет неверный состав.",
-      "status": "draft",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
@@ -1707,55 +1754,13 @@
       }
     },
     {
-      "id": "component:web-core.button.text-follows-editorial-pattern",
-      "targetId": "target.label",
-      "targetScope": "self",
-      "capability": "content.editorial",
-      "permission": "constrained",
-      "controlPaths": [
-        {
-          "kind": "inherited-port",
-          "port": "port.editorial-label-policy",
-          "required": true,
-          "exclusive": true
-        }
-      ],
-      "constraints": [
-        {
-          "type": "propertyDomain",
-          "values": [
-            "delegated"
-          ]
-        }
-      ],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ]
-      },
-      "severity": "info",
-      "rationale": "Качество формулировки определяется общей редакционной политикой действий.",
-      "message": "Label должен называть действие и избегать абстрактных формулировок.",
-      "status": "reviewed",
-      "owner": "design-system-authors",
-      "sourceRefs": [
-        "athena.button.rules"
-      ],
-      "execution": {
-        "route": "delegated",
-        "externalRuleIds": [
-          "rule:editorial.action-verb",
-          "rule:editorial.no-abstract-labels"
-        ]
-      }
-    },
-    {
       "id": "component:web-core.button.text-resizing-maps-to-figma-layout",
-      "targetId": "target.text",
-      "targetScope": "self-and-descendants",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
       "capability": "layout.text-resizing",
       "permission": "constrained",
       "controlPaths": [
@@ -1768,10 +1773,96 @@
       ],
       "constraints": [
         {
-          "type": "layoutConstraint",
-          "fact": "derived.textResizing",
-          "operator": "equals",
-          "value": "semanticApi.textResizing"
+          "type": "configurationDomain",
+          "configuration": {
+            "activeRoles": [
+              "label",
+              "hint"
+            ],
+            "specificationInput": "textResizing",
+            "profiles": [
+              {
+                "id": "hug",
+                "requirements": [
+                  {
+                    "targetRole": "text",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "HUG"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "HUG"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "text.textAutoResize",
+                    "value": "WIDTH_AND_HEIGHT"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "text.textAlignHorizontal",
+                    "baseline": true
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "HUG"
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "text.textAutoResize",
+                    "value": "WIDTH_AND_HEIGHT"
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "text.textAlignHorizontal",
+                    "baseline": true
+                  }
+                ]
+              },
+              {
+                "id": "fill",
+                "requirements": [
+                  {
+                    "targetRole": "text",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "FILL"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "FILL"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "text.textAutoResize",
+                    "value": "HEIGHT"
+                  },
+                  {
+                    "targetRole": "label",
+                    "fact": "text.textAlignHorizontal",
+                    "value": "CENTER"
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "layout.sizingHorizontal",
+                    "value": "FILL"
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "text.textAutoResize",
+                    "value": "HEIGHT"
+                  },
+                  {
+                    "targetRole": "hint",
+                    "fact": "text.textAlignHorizontal",
+                    "value": "CENTER"
+                  }
+                ]
+              }
+            ]
+          }
         }
       ],
       "applicability": {
@@ -1783,24 +1874,23 @@
         ]
       },
       "severity": "error",
-      "rationale": "Text, Label и Hint должны согласованно реализовать hug/fill mapping.",
-      "message": "Figma layout текста не соответствует textResizing.",
-      "status": "draft",
+      "rationale": "Владелец подтвердил 2026-09-28 точечное разрешение: Text, Label и видимый Hint согласованно используют Hug либо Fill. Hug: горизонтальный HUG и WIDTH_AND_HEIGHT у текста; выравнивание остаётся по effective baseline. Fill: горизонтальный FILL, HEIGHT и CENTER у видимых текстовых слоёв. В аудите проверяется допустимая конфигурация целиком; по спецификации дополнительно сравнивается независимый textResizing. Скрытые и доказанно отсутствующие цели исключены; при отсутствии видимого Label/Hint правило неприменимо. Неизвестные identity/visibility/facts не являются разрешением. Вертикальный sizing, padding/gap, шрифт, токены и другие свойства не разблокируются. Nowrap и контекст узкого контейнера — отдельная проверка nowrap-maps-to-figma-layout.",
+      "message": "Text, Label и видимый Hint должны согласованно использовать Hug или Fill.",
+      "status": "reviewed",
       "owner": "design-system-authors",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
       ],
       "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "semanticApi.textResizing",
-          "text.textAutoResize",
-          "text.textAlignHorizontal"
-        ]
+        "route": "predicate"
       }
     },
     {
       "id": "component:web-core.button.variant-state-is-component-property",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "component.properties",
@@ -1836,6 +1926,10 @@
     },
     {
       "id": "component:web-core.button.view-text-requires-rectangular-shape",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      },
       "targetId": "target.root",
       "targetScope": "self",
       "capability": "component.properties.Shape",
@@ -1881,6 +1975,14 @@
       "execution": {
         "route": "predicate"
       }
+    }
+  ],
+  "validationContext": [
+    {
+      "id": "constrainedWidth",
+      "valueType": "boolean",
+      "label": "Ограниченная ширина контейнера",
+      "description": "Независимый контекст сценария, не API Button и не значение из текущей геометрии. Да при nowrap=false: Button/Text/видимый текст FILL, текст HEIGHT, родитель Auto Layout. Нет: дополнительного требования FILL нет. Не задано: контекст неизвестен, проверка спецификации неполна."
     }
   ],
   "examples": [

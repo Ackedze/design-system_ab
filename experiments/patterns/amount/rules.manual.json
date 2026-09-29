@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "apollo.pattern-rule-handoff.v1",
+  "patternId": "ptrn:components.amount",
+  "status": "draft",
+  "description": "Изолированный handoff двух продуктовых правил. Не вход ComponentContract Editor и не готовый PatternContract. Production Amount/rules.json остаётся неизменным.",
+  "runtime": {
+    "status": "not-connected",
+    "published": false,
+    "execution": "none"
+  },
+  "componentBinding": {
+    "componentId": "core.web.amount",
+    "manualSource": "experiments/web-core/core/Amount/authoring/contract.manual.json",
+    "bindingStatus": "pending-pattern-authoring"
+  },
+  "rules": [
+    {
+      "id": "component:web-core.amount.opacity-is-forbidden",
+      "ownership": {
+        "kind": "product-policy",
+        "ownerId": "ab"
+      },
+      "status": "draft",
+      "applicability": {
+        "products": [
+          "ab"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "ruleText": "В Альфа-Бизнес прямое изменение opacity слоя у Minor и Currency запрещено. Обе части Amount должны сохранять полную непрозрачность.",
+      "sourceRefs": [
+        "JSONS/web/components/web-core/core/Amount/rules.json",
+        "ds-ai-hub/products/ab/patterns/amount_component.md"
+      ],
+      "execution": {
+        "route": "not-connected"
+      }
+    },
+    {
+      "id": "component:web-core.amount.opacity-property-is-forbidden",
+      "ownership": {
+        "kind": "product-policy",
+        "ownerId": "ab"
+      },
+      "status": "draft",
+      "applicability": {
+        "products": [
+          "ab"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "ruleText": "В Альфа-Бизнес включать component property Opacity у Minor и Currency запрещено. Штатное значение — Opacity=False.",
+      "sourceRefs": [
+        "JSONS/web/components/web-core/core/Amount/rules.json",
+        "ds-ai-hub/products/ab/patterns/amount_component.md"
+      ],
+      "execution": {
+        "route": "not-connected"
+      }
+    }
+  ]
+}

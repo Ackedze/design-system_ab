@@ -148,6 +148,21 @@
         "$ref": "#/$defs/semanticApiProperty"
       }
     },
+    "validationContext": {
+      "description": "Independent scenario inputs, not component API or observed Figma defaults.",
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "valueType", "label", "description"],
+        "properties": {
+          "id": {"type":"string","pattern":"^[a-zA-Z][a-zA-Z0-9_-]*$"},
+          "valueType": {"enum":["boolean","enum"]},
+          "label": {"type":"string","minLength":1},
+          "description": {"type":"string","minLength":1},
+          "domain": {"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}}
+        },
+        "allOf": [{"if":{"properties":{"valueType":{"const":"enum"}}},"then":{"required":["domain"]},"else":{"not":{"required":["domain"]}}}]
+      }
+    },
     "documentation": {
       "type": "array",
       "items": {
@@ -347,6 +362,7 @@
         "path"
       ],
       "properties": {
+        "targetId": {"type":"string","minLength":1},
         "representationId": {
           "$ref": "#/$defs/nonEmptyString"
         },
@@ -397,6 +413,16 @@
           "type": "array"
         },
         "defaultValue": {},
+        "validationInput": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["version", "label", "description"],
+          "properties": {
+            "version": {"enum": [1, 2]},
+            "label": {"$ref": "#/$defs/nonEmptyString"},
+            "description": {"$ref": "#/$defs/nonEmptyString"}
+          }
+        },
         "description": {
           "type": "string"
         },
@@ -712,6 +738,7 @@
         "kind"
       ],
       "properties": {
+        "contentOwnership": {"const":"external"},
         "kind": {
           "enum": [
             "direct",
@@ -758,16 +785,69 @@
         "type": {
           "enum": [
             "propertyDomain",
+            "propertyExclusion",
             "presence",
             "propertyForbidden",
             "quantity",
             "positionOrder",
             "relationship",
             "tokenBinding",
+            "styleBinding",
             "layoutConstraint",
-            "dependencyDomain"
+            "dependencyDomain",
+            "configurationDomain",
+            "configurationMapping",
+            "transitionInvariant"
           ]
         },
+        "transition": {
+          "type":"object","additionalProperties":false,
+          "required":["dependencyId","from","to","invariantFacts","tolerance","evidenceProfile"],
+          "properties":{
+            "dependencyId":{"type":"string","minLength":1},"from":{"type":"boolean"},"to":{"type":"boolean"},
+            "invariantFacts":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}},
+            "tolerance":{"type":"number","minimum":0},"evidenceProfile":{"const":"same-instance-context@1"}
+          }
+        },
+        "mapping": {
+          "type":"object","additionalProperties":false,"required":["activeRoles","cases"],
+          "properties":{
+            "activeRoles":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","pattern":"^[a-zA-Z0-9_-]+$"}},
+            "cases":{"type":"array","minItems":1,"items":{
+              "type":"object","additionalProperties":false,"required":["id","when","requirements"],
+              "properties":{
+                "id":{"type":"string","pattern":"^[a-zA-Z0-9_-]+$"},
+                "when":{"type":"object","minProperties":1,"additionalProperties":{"type":["boolean","string"]}},
+                "requirements":{"type":"array","minItems":1,"items":{
+                  "type":"object","additionalProperties":false,"required":["targetRole","fact"],
+                  "properties":{"targetRole":{"type":"string","pattern":"^[a-zA-Z0-9_-]+$"},"fact":{"type":"string","pattern":"^(layout|text|parent\\.layout)\\.[a-zA-Z][a-zA-Z0-9.]*$"},"value":{},"values":{"type":"array","minItems":1}},
+                  "oneOf":[{"required":["value"],"not":{"required":["values"]}},{"required":["values"],"not":{"required":["value"]}}]
+                }}
+              }
+            }}
+          }
+        },
+        "configuration": {
+          "type": "object", "additionalProperties": false, "required": ["activeRoles", "profiles"],
+          "properties": {
+            "activeRoles": {"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}},
+            "specificationInput": {"type":"string","minLength":1},
+            "profiles": {"type":"array","minItems":1,"items":{
+              "type":"object","additionalProperties":false,"required":["id","requirements"],
+              "properties":{"id":{"type":"string","minLength":1},"requirements":{"type":"array","minItems":1,"items":{
+                "type":"object","additionalProperties":false,"required":["targetRole","fact"],
+                "properties":{"targetRole":{"type":"string","minLength":1},"fact":{"type":"string","minLength":1},"value":{},"baseline":{"const":true}},
+                "oneOf":[{"required":["value"],"not":{"required":["baseline"]}},{"required":["baseline"],"not":{"required":["value"]}}]
+              }}}
+            }}
+          }
+        },
+        "exceptConfiguration": {
+          "type":"object","additionalProperties":false,"required":["ruleId","targetRoles"],
+          "properties":{"ruleId":{"type":"string","minLength":1},"targetRoles":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}}}
+        },
+        "baselineSource": {"const":"library-text"},
+        "textNormalization": {"const":"trim"},
         "dependency": {
           "type": "object", "additionalProperties": false,
           "required": ["subjects", "field", "baselinePolicy"],
@@ -787,7 +867,7 @@
             "sourceFact":{"type":"string"},
             "cases":{"type":"array","minItems":1,"items":{
               "type":"object","additionalProperties":false,"required":["when","values"],
-              "properties":{"when":{"type":"array","minItems":1},"values":{"type":"array","minItems":1}}
+              "properties":{"when":{"type":"array","minItems":1},"values":{"type":"array","minItems":1},"context":{"type":"object","minProperties":1,"additionalProperties":{"type":["boolean","string","number"]}}}
             }}
           }
         },
@@ -835,6 +915,7 @@
         "bindingRequired": {
           "type": "boolean"
         },
+        "styleCatalog": { "type": "string", "minLength": 1 },
         "operator": {
           "enum": [
             "equals",
@@ -855,6 +936,7 @@
         }
       },
       "allOf": [
+        {"if":{"properties":{"type":{"const":"configurationMapping"}}},"then":{"required":["mapping"]},"else":{"not":{"required":["mapping"]}}},
         {
           "if": {"required": ["contractDependencyId"]},
           "then": {
@@ -939,12 +1021,17 @@
         "context": {
           "type": "object"
         },
+        "contextDomains": {
+          "type": "object",
+          "additionalProperties": { "type": "array", "minItems": 1, "items": { "type": ["string", "number", "boolean"] } }
+        },
         "scopeStatus": {
           "enum": [
             "confirmed",
             "needs-confirmation"
           ]
         },
+        "validationMode": { "const": "specification", "description": "Cross-representation conformance only. Omitted: intrinsic checks in both audit and specification modes." },
         "conditionSubject": {
           "enum": [
             "target",
@@ -957,6 +1044,16 @@
           "pattern": "^[a-z][a-z0-9-]*$",
           "description": "Apply when a visible proven owner selects a declared dependency variant, independently of child correctness."
         }
+      }
+    },
+    "ruleOwnership": {
+      "description": "Normative responsibility, distinct from the author/team owner and execution route. Missing legacy ownership is unclassified, not implicitly component-owned.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "ownerId"],
+      "properties": {
+        "kind": { "enum": ["component", "product-policy", "pattern", "editorial-policy"] },
+        "ownerId": { "$ref": "#/$defs/nonEmptyString" }
       }
     },
     "execution": {
@@ -1009,7 +1106,8 @@
         "targetScope": {
           "enum": [
             "self",
-            "self-and-descendants"
+            "self-and-descendants",
+            "descendants"
           ]
         },
         "boundaryPolicy": { "const": "component-owned@1" },
@@ -1088,6 +1186,7 @@
         "owner": {
           "type": "string"
         },
+        "ownership": { "$ref": "#/$defs/ruleOwnership" },
         "sourceRefs": {
           "$ref": "#/$defs/stringArray"
         },
@@ -1104,6 +1203,7 @@
         "revision"
       ],
       "properties": {
+        "ruleOwnershipVersion": { "const": 1 },
         "owners": {
           "type": "object",
           "additionalProperties": false,

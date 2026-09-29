@@ -1,0 +1,5753 @@
+{
+  "schemaVersion": "apollo.component-contract.v2.1-experimental",
+  "documentType": "component-contract",
+  "package": {
+    "id": "core.web.amount",
+    "componentId": "core.web.amount",
+    "family": "Amount",
+    "library": "Web _ Core",
+    "sourcePath": "contract.manual.json",
+    "sourceGeneratedAt": "2026-09-29",
+    "sourceExportVersion": "component-contract-editor@0.2.45",
+    "snapshotProfile": "variant-facts-v4",
+    "generatedFactsHash": "334cefb8889d1d69691ec937dce4b21587f52bb243859a55f19af0b39076eefe",
+    "manualSourceHash": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499"
+  },
+  "status": "draft",
+  "facts": {
+    "variantEvidence": {
+      "schemaVersion": "apollo.variant-anatomy.v1",
+      "sourceHash": "75c0c1a1d056b4906f91a3b0d999d42bd4b35b69ee6c064f8bd7e033b2023931",
+      "structures": {
+        "0cefb393f6e3ae5546246ed84187f1a1d0b267ece9c09fe488d777d80d363937": [
+          {
+            "path": "",
+            "type": "ROOT"
+          },
+          {
+            "path": "Addon",
+            "type": "INSTANCE"
+          },
+          {
+            "path": "Addon / Wrapper",
+            "type": "FRAME"
+          },
+          {
+            "path": "Currency",
+            "type": "INSTANCE"
+          },
+          {
+            "path": "Currency / Currency",
+            "type": "TEXT"
+          },
+          {
+            "path": "Major",
+            "type": "INSTANCE"
+          },
+          {
+            "path": "Major / Major",
+            "type": "TEXT"
+          },
+          {
+            "path": "Minor",
+            "type": "INSTANCE"
+          },
+          {
+            "path": "Minor / Minor",
+            "type": "TEXT"
+          }
+        ]
+      },
+      "variants": [
+        {
+          "componentKey": "fe3399f71c9e0971646821d935b64657e462c28e",
+          "componentSetKey": "fe3399f71c9e0971646821d935b64657e462c28e",
+          "structureId": "0cefb393f6e3ae5546246ed84187f1a1d0b267ece9c09fe488d777d80d363937",
+          "properties": {}
+        }
+      ]
+    },
+    "component": {
+      "componentId": "core.web.amount",
+      "familyId": "core.web.amount",
+      "contractId": "core.web.amount",
+      "family": "Amount",
+      "layer": "core",
+      "library": "Web _ Core",
+      "platform": "universal",
+      "platforms": [
+        "universal"
+      ],
+      "lifecycle": "active",
+      "componentKey": "fe3399f71c9e0971646821d935b64657e462c28e"
+    },
+    "semantics": {
+      "purpose": "Компонент отображения денежной суммы: целая часть Major, опциональные Minor, Currency и правый Addon.",
+      "useWhen": [
+        "Нужно отобразить сумму, цену, баланс или лимит."
+      ],
+      "doNotUseWhen": [
+        {
+          "condition": "Нужен ввод суммы.",
+          "useComponentId": "core.web.amount-input"
+        },
+        {
+          "condition": "Нужно показать номер счёта, телефон или другой идентификатор без денежного значения."
+        }
+      ],
+      "relatedComponentIds": [
+        "core.web.amount-input"
+      ],
+      "keywords": [
+        "amount",
+        "сумма",
+        "валюта",
+        "баланс"
+      ]
+    },
+    "representations": [
+      {
+        "id": "core.web.amount.figma.universal",
+        "kind": "figma",
+        "platform": "universal",
+        "status": "draft",
+        "locator": {
+          "fileKey": "lGWq8DtnUcSkRasagBuwq6",
+          "nodeId": "485:67101",
+          "componentKey": "fe3399f71c9e0971646821d935b64657e462c28e",
+          "name": "Amount"
+        }
+      },
+      {
+        "id": "core.web.amount.code.web",
+        "kind": "code",
+        "platform": "web",
+        "status": "draft",
+        "locator": {
+          "package": "@alfalab/core-components/amount",
+          "export": "Amount"
+        }
+      }
+    ],
+    "semanticApi": [
+      {
+        "id": "minorEnabled",
+        "kind": "visibility",
+        "valueType": "boolean",
+        "defaultValue": true,
+        "description": "BOOLEAN корня; не равен эффективной видимости при скрытом родителе.",
+        "bindings": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "path": "component.properties.Minor"
+          }
+        ]
+      },
+      {
+        "id": "currencyEnabled",
+        "kind": "visibility",
+        "valueType": "boolean",
+        "defaultValue": true,
+        "description": "BOOLEAN корня; не равен эффективной видимости при скрытом родителе.",
+        "bindings": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "path": "component.properties.Currency"
+          }
+        ]
+      },
+      {
+        "id": "addonEnabled",
+        "kind": "visibility",
+        "valueType": "boolean",
+        "defaultValue": false,
+        "description": "BOOLEAN корня; не равен эффективной видимости при скрытом родителе.",
+        "bindings": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "path": "component.properties.Addon"
+          }
+        ]
+      },
+      {
+        "id": "amountVisible",
+        "kind": "visibility",
+        "valueType": "boolean",
+        "description": "Read-only эффективная видимость корня, не публичный Figma prop.",
+        "bindings": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "targetId": "target.root",
+            "path": "visibility.effective",
+            "transform": "identity"
+          }
+        ]
+      },
+      {
+        "id": "minorVisible",
+        "kind": "visibility",
+        "valueType": "boolean",
+        "description": "Read-only эффективная видимость части; не новый Figma prop.",
+        "bindings": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "targetId": "target.minor",
+            "path": "visibility.effective",
+            "transform": "identity"
+          }
+        ]
+      },
+      {
+        "id": "currencyVisible",
+        "kind": "visibility",
+        "valueType": "boolean",
+        "description": "Read-only эффективная видимость части; не новый Figma prop.",
+        "bindings": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "targetId": "target.currency",
+            "path": "visibility.effective",
+            "transform": "identity"
+          }
+        ]
+      },
+      {
+        "id": "addonVisible",
+        "kind": "visibility",
+        "valueType": "boolean",
+        "description": "Read-only эффективная видимость части; не новый Figma prop.",
+        "bindings": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "targetId": "target.addon",
+            "path": "visibility.effective",
+            "transform": "identity"
+          }
+        ]
+      },
+      {
+        "id": "majorVisible",
+        "kind": "visibility",
+        "valueType": "boolean",
+        "description": "Read-only эффективная видимость Major.",
+        "bindings": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "targetId": "target.major",
+            "path": "visibility.effective",
+            "transform": "identity"
+          }
+        ]
+      }
+    ],
+    "documentation": [
+      {
+        "id": "athena.amount.rules",
+        "kind": "rules",
+        "path": "sources/design-system_ab/JSONS/web/components/web-core/core/Amount/rules.json",
+        "status": "draft",
+        "projection": "reference-only"
+      },
+      {
+        "id": "athena.amount.facts",
+        "kind": "generated-facts",
+        "path": "sources/design-system_ab/JSONS/web/components/web-core/core/Amount/contract.generated.json",
+        "status": "draft",
+        "projection": "reference-only"
+      },
+      {
+        "id": "hub.amount.guidelines",
+        "kind": "guidelines",
+        "path": "sources/ds-ai-hub/core/web/components/amount/guidelines.md",
+        "status": "draft",
+        "projection": "reference-only"
+      },
+      {
+        "id": "hub.amount.adapter",
+        "kind": "figma-adapter",
+        "path": "sources/ds-ai-hub/core/web/components/amount/figma/adapter.md",
+        "status": "draft",
+        "projection": "reference-only"
+      },
+      {
+        "id": "hub.amount.cookbook",
+        "kind": "cookbook",
+        "path": "sources/ds-ai-hub/core/web/components/amount/figma/cookbook.md",
+        "status": "draft",
+        "projection": "reference-only"
+      },
+      {
+        "id": "hub.amount.bridge",
+        "kind": "bridge",
+        "path": "sources/ds-ai-hub/core/web/components/amount/bridge.md",
+        "status": "draft",
+        "projection": "reference-only"
+      }
+    ],
+    "examples": [
+      {
+        "id": "amount.default",
+        "kind": "generation",
+        "intent": "Сумма с дробной частью и символом рубля",
+        "input": {
+          "major": "1 234",
+          "minor": ",56",
+          "currency": "₽"
+        },
+        "expected": {
+          "rootProperties": {
+            "Minor": true,
+            "Currency": true,
+            "Addon": false
+          },
+          "nestedProperties": {
+            "Major": {
+              "✎ Major": "1 234"
+            },
+            "Minor": {
+              "✎ Minor": ",56",
+              "Opacity": "False"
+            },
+            "Currency": {
+              "Type": "₽",
+              "Opacity": "False"
+            }
+          }
+        },
+        "status": "draft"
+      },
+      {
+        "id": "amount.opacity-public",
+        "kind": "validation",
+        "intent": "Штатная прозрачность внутренних вариантов разрешена универсальным компонентом",
+        "input": {
+          "minorOpacity": "True",
+          "currencyOpacity": "True",
+          "product": "ab"
+        },
+        "expected": {
+          "componentViolation": false,
+          "patternEvaluation": "not-connected"
+        },
+        "status": "draft"
+      },
+      {
+        "id": "amount.text-style",
+        "kind": "validation",
+        "intent": "Другой библиотечный Text Style и более длинная сумма",
+        "input": {
+          "textStyle": "explicit-library-style",
+          "major": "123 456 789"
+        },
+        "expected": {
+          "componentViolation": false,
+          "width": "content-dependent"
+        },
+        "status": "draft"
+      }
+    ],
+    "decisions": [
+      {
+        "id": "amount.component-vs-pattern",
+        "status": "accepted",
+        "summary": "Продуктовые правила Opacity, редакционные правила и контекст таблиц не входят в компонент.",
+        "rationale": "Следуем принятой общей границе ownership. Два Athena ID учтены во внешнем handoff; production rules не меняются.",
+        "sourceRefs": [
+          "athena.amount.rules",
+          "hub.amount.bridge"
+        ]
+      },
+      {
+        "id": "amount.no-phantom-properties",
+        "status": "accepted",
+        "summary": "Не создавать Operation/Negative/Size на корне Amount.",
+        "rationale": "Свежий read-only Figma export подтверждает только Minor/Currency/Addon BOOLEAN. Внешний паттерн описывает другую анатомию; требуется отдельное уточнение владельца.",
+        "sourceRefs": [
+          "hub.amount.adapter"
+        ]
+      },
+      {
+        "id": "amount.partial-coverage-r1",
+        "status": "needs-confirmation",
+        "summary": "r1 — проверяемый черновик, не полный контракт: внутренние styles/token policy и допустимое наполнение Addon ещё не приняты.",
+        "rationale": "Не выдавать отсутствие проверки за разрешение или запрет. Code bridge также draft; совпадение внешнего вида не доказывает minor-unit mapping.",
+        "sourceRefs": [
+          "hub.amount.cookbook",
+          "hub.amount.bridge"
+        ]
+      }
+    ],
+    "generation": {
+      "profiles": [
+        {
+          "id": "amount.currency",
+          "intent": "Отображение суммы с валютой",
+          "platform": "universal",
+          "representationId": "core.web.amount.figma.universal",
+          "properties": {
+            "minorEnabled": true,
+            "currencyEnabled": true,
+            "addonEnabled": false
+          }
+        },
+        {
+          "id": "amount.integer",
+          "intent": "Отображение целой суммы без дробной части",
+          "platform": "universal",
+          "representationId": "core.web.amount.figma.universal",
+          "properties": {
+            "minorEnabled": false,
+            "currencyEnabled": true,
+            "addonEnabled": false
+          }
+        }
+      ],
+      "instructions": [
+        "Создай библиотечный instance Amount по componentKey; корневых variants нет.",
+        "Текст Major/Minor задавай через TEXT-свойства соответствующих вложенных instance после загрузки шрифтов.",
+        "Currency.Type выбирай из опубликованного домена: ₽, $, €, ¥, RUB, USD, EUR, CNY, Custom. Текст валюты изменяй только для Type=Custom.",
+        "Minor.Opacity и Currency.Opacity поддерживают False/True; ограничения продукта подключаются отдельно.",
+        "Типографику задавай Text Style на вложенных TEXT; не растягивай текст Scale. Размеры не фиксируются на default 110×20.",
+        "Boolean видимости применяй после настройки скрываемых частей. Addon не копируй как синий placeholder; состав слота должен быть отдельно согласован.",
+        "Не добавляй несуществующие Operation/Negative, не преобразуй Figma-строку в code value без currency/minority и проверки bridge."
+      ]
+    },
+    "targets": [
+      {
+        "id": "target.root",
+        "semanticRole": "root",
+        "label": "Amount",
+        "lineage": [
+          "core.web.amount"
+        ],
+        "nameHint": "Amount",
+        "pathHint": "Amount",
+        "resolution": "resolved",
+        "representationHints": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "nameHint": "Amount",
+            "pathHint": "Amount"
+          }
+        ]
+      },
+      {
+        "id": "target.major",
+        "semanticRole": "major",
+        "label": "Major",
+        "lineage": [
+          "amount"
+        ],
+        "nameHint": "Major",
+        "pathHint": "Amount / Major",
+        "resolution": "resolved",
+        "representationHints": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "nameHint": "Major",
+            "pathHint": "Amount / Major"
+          }
+        ]
+      },
+      {
+        "id": "target.minor",
+        "semanticRole": "minor",
+        "label": "Minor",
+        "lineage": [
+          "amount"
+        ],
+        "nameHint": "Minor",
+        "pathHint": "Amount / Minor",
+        "resolution": "resolved",
+        "representationHints": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "nameHint": "Minor",
+            "pathHint": "Amount / Minor"
+          }
+        ]
+      },
+      {
+        "id": "target.currency",
+        "semanticRole": "currency",
+        "label": "Currency",
+        "lineage": [
+          "amount"
+        ],
+        "nameHint": "Currency",
+        "pathHint": "Amount / Currency",
+        "resolution": "resolved",
+        "representationHints": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "nameHint": "Currency",
+            "pathHint": "Amount / Currency"
+          }
+        ]
+      },
+      {
+        "id": "target.addon",
+        "semanticRole": "addon",
+        "label": "Addon",
+        "lineage": [
+          "amount"
+        ],
+        "nameHint": "Addon",
+        "pathHint": "Amount / Addon",
+        "resolution": "resolved",
+        "representationHints": [
+          {
+            "representationId": "core.web.amount.figma.universal",
+            "nameHint": "Addon",
+            "pathHint": "Amount / Addon"
+          }
+        ]
+      }
+    ],
+    "controlPorts": []
+  },
+  "customizationPolicy": [
+    {
+      "id": "component:web-core.amount.addon-content-is-configurable",
+      "targetId": "target.addon",
+      "targetScope": "self",
+      "capability": "slot.content",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "slot-api",
+          "target": "target.addon"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "id": "component:web-core.amount.addon-visibility-off",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.addonVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.addonEnabled": false,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.addon-visibility-on",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.addonVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.addonEnabled": true,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.component-properties-are-first-class",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component-properties",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "Minor"
+        },
+        {
+          "kind": "host-property",
+          "property": "Currency"
+        },
+        {
+          "kind": "host-property",
+          "property": "Addon"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.major",
+          "property": "✎ Major"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.minor",
+          "property": "✎ Minor"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.minor",
+          "property": "Opacity"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.currency",
+          "property": "Type"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.currency",
+          "property": "Opacity"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.currency",
+          "property": "✎ Currency"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.amount.rules",
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "id": "component:web-core.amount.currency-library-part-required",
+      "targetId": "target.currency",
+      "targetScope": "self",
+      "capability": "component.identity",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.currencyVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.currency-visibility-off",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.currencyVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.currency-visibility-on",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.currencyVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": true,
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.addonEnabled": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-000",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": false,
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.addonEnabled": false
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-001",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": true,
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.addonEnabled": false
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-010",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": false,
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.addonEnabled": false
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-011",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": true,
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.addonEnabled": false
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-100",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": false,
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.addonEnabled": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-101",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": true,
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.addonEnabled": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-110",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": false,
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.addonEnabled": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.layer-properties-use-effective-baseline",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "root.layout-and-appearance",
+      "propertyApplicability": {
+        "layout.itemSpacing": "flow-gap-either@1",
+        "layout.padding.top": "auto-layout-padding-either@1",
+        "layout.padding.right": "auto-layout-padding-either@1",
+        "layout.padding.bottom": "auto-layout-padding-either@1",
+        "layout.padding.left": "auto-layout-padding-either@1",
+        "layout.primaryAxisAlignItems": "flow-alignment-either@1",
+        "layout.counterAxisAlignItems": "flow-alignment-either@1"
+      },
+      "permission": "forbidden",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.amount.rules",
+        "hub.amount.adapter"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.library-instance-required",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "type",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.major-library-part-required",
+      "targetId": "target.major",
+      "targetScope": "self",
+      "capability": "component.identity",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.majorVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.major-required",
+      "targetId": "target.major",
+      "targetScope": "self",
+      "capability": "composition.major",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.minor-library-part-required",
+      "targetId": "target.minor",
+      "targetScope": "self",
+      "capability": "component.identity",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.minor-visibility-off",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.minorVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.minorEnabled": false,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.minor-visibility-on",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.minorVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.minorEnabled": true,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.text-style-is-configurable",
+      "targetId": "target.root",
+      "targetScope": "descendants",
+      "capability": "text.style",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "target": "Major/Major|Minor/Minor|Currency/Currency",
+          "property": "textStyleId"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "execution": {
+        "route": "policy-only"
+      }
+    }
+  ],
+  "rules": [
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.addon-visibility-off.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.addon-visibility-off"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.properties.addonVisible"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "semanticApi.addonVisible"
+        },
+        "expected": {
+          "literal": [
+            false
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "BOOLEAN Addon=false управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+        "group": "semanticApi.addonVisible"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.addon-visibility-on.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.addon-visibility-on"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.properties.addonVisible"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "semanticApi.addonVisible"
+        },
+        "expected": {
+          "literal": [
+            true
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "BOOLEAN Addon=true управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+        "group": "semanticApi.addonVisible"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.currency-library-part-required.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.currency-library-part-required"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "currency"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.currency.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.currencyVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.currency.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "type"
+        },
+        "expected": {
+          "literal": [
+            "INSTANCE"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Часть currency должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима.",
+        "group": "component.identity"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.currency-library-part-required.1.2",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.currency-library-part-required"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "currency"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.currency.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.currencyVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.currency.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "component.identity.componentSetKey"
+        },
+        "expected": {
+          "literal": [
+            "33bfa9e278712759a5ea601d87135003599c98f2"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Часть currency должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима.",
+        "group": "component.identity"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.currency-visibility-off.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.currency-visibility-off"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.properties.currencyVisible"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "semanticApi.currencyVisible"
+        },
+        "expected": {
+          "literal": [
+            false
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "BOOLEAN Currency=false управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+        "group": "semanticApi.currencyVisible"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.currency-visibility-on.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.currency-visibility-on"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.properties.currencyVisible"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "semanticApi.currencyVisible"
+        },
+        "expected": {
+          "literal": [
+            true
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "BOOLEAN Currency=true управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+        "group": "semanticApi.currencyVisible"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.fixed-part-order.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.fixed-part-order"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self"
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "sequence-equals",
+        "actual": {
+          "query": {
+            "from": "selection-root",
+            "traverse": "direct-children",
+            "project": {
+              "fact": "semantic.role"
+            }
+          }
+        },
+        "expected": {
+          "literal": [
+            "major",
+            "minor",
+            "currency",
+            "addon"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Порядок видимых частей: major → minor → currency → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+        "group": "composition.order"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.fixed-part-order.visibility-000.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.fixed-part-order.visibility-000"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self"
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "sequence-equals",
+        "actual": {
+          "query": {
+            "from": "selection-root",
+            "traverse": "direct-children",
+            "project": {
+              "fact": "semantic.role"
+            }
+          }
+        },
+        "expected": {
+          "literal": [
+            "major"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Порядок видимых частей: major. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+        "group": "composition.order"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.fixed-part-order.visibility-001.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.fixed-part-order.visibility-001"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self"
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "sequence-equals",
+        "actual": {
+          "query": {
+            "from": "selection-root",
+            "traverse": "direct-children",
+            "project": {
+              "fact": "semantic.role"
+            }
+          }
+        },
+        "expected": {
+          "literal": [
+            "major",
+            "minor"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Порядок видимых частей: major → minor. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+        "group": "composition.order"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.fixed-part-order.visibility-010.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.fixed-part-order.visibility-010"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self"
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "sequence-equals",
+        "actual": {
+          "query": {
+            "from": "selection-root",
+            "traverse": "direct-children",
+            "project": {
+              "fact": "semantic.role"
+            }
+          }
+        },
+        "expected": {
+          "literal": [
+            "major",
+            "currency"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Порядок видимых частей: major → currency. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+        "group": "composition.order"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.fixed-part-order.visibility-011.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.fixed-part-order.visibility-011"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self"
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "sequence-equals",
+        "actual": {
+          "query": {
+            "from": "selection-root",
+            "traverse": "direct-children",
+            "project": {
+              "fact": "semantic.role"
+            }
+          }
+        },
+        "expected": {
+          "literal": [
+            "major",
+            "minor",
+            "currency"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Порядок видимых частей: major → minor → currency. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+        "group": "composition.order"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.fixed-part-order.visibility-100.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.fixed-part-order.visibility-100"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self"
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "sequence-equals",
+        "actual": {
+          "query": {
+            "from": "selection-root",
+            "traverse": "direct-children",
+            "project": {
+              "fact": "semantic.role"
+            }
+          }
+        },
+        "expected": {
+          "literal": [
+            "major",
+            "addon"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Порядок видимых частей: major → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+        "group": "composition.order"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.fixed-part-order.visibility-101.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.fixed-part-order.visibility-101"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self"
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "sequence-equals",
+        "actual": {
+          "query": {
+            "from": "selection-root",
+            "traverse": "direct-children",
+            "project": {
+              "fact": "semantic.role"
+            }
+          }
+        },
+        "expected": {
+          "literal": [
+            "major",
+            "minor",
+            "addon"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Порядок видимых частей: major → minor → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+        "group": "composition.order"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.fixed-part-order.visibility-110.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.fixed-part-order.visibility-110"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self"
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.currencyEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "semanticApi.addonEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "sequence-equals",
+        "actual": {
+          "query": {
+            "from": "selection-root",
+            "traverse": "direct-children",
+            "project": {
+              "fact": "semantic.role"
+            }
+          }
+        },
+        "expected": {
+          "literal": [
+            "major",
+            "currency",
+            "addon"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Порядок видимых частей: major → currency → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+        "group": "composition.order"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  },
+                  {
+                    "predicate": "fact-present",
+                    "actual": {
+                      "fact": "baseline.effective.layout.mode"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "layout.mode"
+        },
+        "expected": {
+          "fact": "baseline.effective.layout.mode"
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.10",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  },
+                  {
+                    "predicate": "fact-present",
+                    "actual": {
+                      "fact": "paintEvidenceV1.stroke"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "appearance.stroke"
+        },
+        "expected": {
+          "fact": "baseline.effective.appearance.stroke"
+        },
+        "missingPolicy": "unknown"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.11",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  },
+                  {
+                    "predicate": "fact-present",
+                    "actual": {
+                      "fact": "baseline.effective.appearance.opacity"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "appearance.opacity"
+        },
+        "expected": {
+          "fact": "baseline.effective.appearance.opacity"
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.12",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  },
+                  {
+                    "predicate": "fact-present",
+                    "actual": {
+                      "fact": "baseline.effective.appearance.radius"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "appearance.radius"
+        },
+        "expected": {
+          "fact": "baseline.effective.appearance.radius"
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.13",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  },
+                  {
+                    "predicate": "fact-present",
+                    "actual": {
+                      "fact": "baseline.effective.appearance.effects"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "appearance.effects"
+        },
+        "expected": {
+          "fact": "baseline.effective.appearance.effects"
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.2",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "propertyActivityV1.paddingApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "baseline.effective.propertyActivityV1.paddingApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "layout.padding.top"
+        },
+        "expected": {
+          "fact": "baseline.effective.layout.padding.top"
+        },
+        "missingPolicy": "unknown"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance",
+        "propertyApplicability": "auto-layout-padding-either@1"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.3",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "propertyActivityV1.paddingApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "baseline.effective.propertyActivityV1.paddingApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "layout.padding.right"
+        },
+        "expected": {
+          "fact": "baseline.effective.layout.padding.right"
+        },
+        "missingPolicy": "unknown"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance",
+        "propertyApplicability": "auto-layout-padding-either@1"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.4",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "propertyActivityV1.paddingApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "baseline.effective.propertyActivityV1.paddingApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "layout.padding.bottom"
+        },
+        "expected": {
+          "fact": "baseline.effective.layout.padding.bottom"
+        },
+        "missingPolicy": "unknown"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance",
+        "propertyApplicability": "auto-layout-padding-either@1"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.5",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "propertyActivityV1.paddingApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "baseline.effective.propertyActivityV1.paddingApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "layout.padding.left"
+        },
+        "expected": {
+          "fact": "baseline.effective.layout.padding.left"
+        },
+        "missingPolicy": "unknown"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance",
+        "propertyApplicability": "auto-layout-padding-either@1"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.6",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "propertyActivityV1.gapApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "baseline.effective.propertyActivityV1.gapApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "layout.itemSpacing"
+        },
+        "expected": {
+          "fact": "baseline.effective.layout.itemSpacing"
+        },
+        "missingPolicy": "unknown"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance",
+        "propertyApplicability": "flow-gap-either@1"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.7",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "propertyActivityV1.axisAlignmentApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "baseline.effective.propertyActivityV1.axisAlignmentApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "layout.primaryAxisAlignItems"
+        },
+        "expected": {
+          "fact": "baseline.effective.layout.primaryAxisAlignItems"
+        },
+        "missingPolicy": "unknown"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance",
+        "propertyApplicability": "flow-alignment-either@1"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.8",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "propertyActivityV1.axisAlignmentApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "baseline.effective.propertyActivityV1.axisAlignmentApplicable"
+                },
+                "expected": {
+                  "literal": true
+                },
+                "missingPolicy": "unknown"
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "layout.counterAxisAlignItems"
+        },
+        "expected": {
+          "fact": "baseline.effective.layout.counterAxisAlignItems"
+        },
+        "missingPolicy": "unknown"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance",
+        "propertyApplicability": "flow-alignment-either@1"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.layer-properties-use-effective-baseline.1.9",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.layer-properties-use-effective-baseline"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  },
+                  {
+                    "predicate": "fact-present",
+                    "actual": {
+                      "fact": "paintEvidenceV1.fill"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "matches-effective-baseline",
+        "actual": {
+          "fact": "appearance.fill"
+        },
+        "expected": {
+          "fact": "baseline.effective.appearance.fill"
+        },
+        "missingPolicy": "unknown"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": {
+        "kind": "restore-effective-baseline",
+        "safety": "compiler-review-required"
+      },
+      "presentation": {
+        "title": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+        "group": "root.layout-and-appearance"
+      },
+      "manual": {
+        "permission": "forbidden",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.library-instance-required.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.library-instance-required"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "type"
+        },
+        "expected": {
+          "literal": [
+            "INSTANCE"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Amount должен оставаться библиотечным экземпляром без detach. Ключ проверяется независимо механизмом сопоставления; совпадение имени недостаточно.",
+        "group": "type"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.major-library-part-required.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.major-library-part-required"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "major"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.major.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.majorVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.major.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "type"
+        },
+        "expected": {
+          "literal": [
+            "INSTANCE"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Major должен сохранять componentKey одиночного библиотечного компонента; имитация именем или подмена другим компонентом не допустима.",
+        "group": "component.identity"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.major-library-part-required.1.2",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.major-library-part-required"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "major"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.major.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.majorVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.major.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "component.identity.componentKey"
+        },
+        "expected": {
+          "literal": [
+            "a833c02e4fcb75fea1a89bf786912e108b8f93ba"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Major должен сохранять componentKey одиночного библиотечного компонента; имитация именем или подмена другим компонентом не допустима.",
+        "group": "component.identity"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.major-required.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.major-required"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self"
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "host.semanticApi.amountVisible"
+            },
+            "expected": {
+              "literal": true
+            }
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "semanticTargets.major.resolved"
+            },
+            "expected": {
+              "literal": true
+            }
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "semanticTargets.major.visibilityKnown"
+            },
+            "expected": {
+              "literal": true
+            }
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "count-between",
+        "actual": {
+          "query": {
+            "from": "selection-root",
+            "traverse": "self-and-descendants",
+            "where": [
+              {
+                "predicate": "one-of",
+                "actual": {
+                  "fact": "semantic.role"
+                },
+                "expected": {
+                  "literal": [
+                    "major"
+                  ]
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "visibility.effective"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          }
+        },
+        "lower": {
+          "literal": 1
+        },
+        "upper": {
+          "literal": 1
+        },
+        "bounds": "inclusive"
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "В видимом Amount должен быть один видимый Major. Проверяется наличие основной части, не редакционный формат числа.",
+        "group": "composition.major"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.minor-library-part-required.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.minor-library-part-required"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "minor"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.minor.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.minorVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.minor.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "type"
+        },
+        "expected": {
+          "literal": [
+            "INSTANCE"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Часть minor должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима.",
+        "group": "component.identity"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.minor-library-part-required.1.2",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.minor-library-part-required"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "minor"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.minor.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.minorVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.minor.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "component.identity.componentSetKey"
+        },
+        "expected": {
+          "literal": [
+            "e92f061b2cdfa20bd17d98554e113f4ce8c991b2"
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "Часть minor должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима.",
+        "group": "component.identity"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.minor-visibility-off.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.minor-visibility-off"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": false
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.properties.minorVisible"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "semanticApi.minorVisible"
+        },
+        "expected": {
+          "literal": [
+            false
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "BOOLEAN Minor=false управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+        "group": "semanticApi.minorVisible"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    },
+    {
+      "schemaVersion": "apollo.rule-ir.v1",
+      "ruleId": "component:web-core.amount.minor-visibility-on.1.1",
+      "revision": 2,
+      "source": {
+        "path": "contract.manual.json",
+        "checksum": "57e9bd2c7620bcc575e05eee23de611fdec7af82668c8ae6960f083c236f4499",
+        "anchor": "component:web-core.amount.minor-visibility-on"
+      },
+      "authority": {
+        "status": "draft",
+        "provenance": "design-system-authors"
+      },
+      "effect": "require",
+      "scope": {},
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "any",
+            "args": [
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "semantic.role"
+                    },
+                    "expected": {
+                      "literal": "root"
+                    }
+                  }
+                ]
+              },
+              {
+                "predicate": "all",
+                "args": [
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.isRoot"
+                    },
+                    "expected": {
+                      "literal": true
+                    },
+                    "missingPolicy": "unknown"
+                  },
+                  {
+                    "predicate": "equals",
+                    "actual": {
+                      "fact": "variantAvailability.targets.root.present"
+                    },
+                    "expected": {
+                      "literal": false
+                    },
+                    "missingPolicy": "unknown"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "when": {
+        "predicate": "all",
+        "args": [
+          {
+            "predicate": "all",
+            "args": [
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.minorEnabled"
+                },
+                "expected": {
+                  "literal": true
+                }
+              },
+              {
+                "predicate": "equals",
+                "actual": {
+                  "fact": "host.semanticApi.amountVisible"
+                },
+                "expected": {
+                  "literal": true
+                }
+              }
+            ]
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.targets.root.present"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "variantAvailability.properties.minorVisible"
+            },
+            "expected": {
+              "literal": true
+            },
+            "missingPolicy": "unknown"
+          }
+        ]
+      },
+      "assert": {
+        "predicate": "one-of",
+        "actual": {
+          "fact": "semanticApi.minorVisible"
+        },
+        "expected": {
+          "literal": [
+            true
+          ]
+        }
+      },
+      "severity": "error",
+      "unknownPolicy": "human-review",
+      "remediation": null,
+      "presentation": {
+        "title": "BOOLEAN Minor=true управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+        "group": "semanticApi.minorVisible"
+      },
+      "manual": {
+        "permission": "constrained",
+        "targetScope": "self",
+        "controlPaths": [],
+        "ownership": {
+          "kind": "component",
+          "ownerId": "core.web.amount"
+        }
+      }
+    }
+  ],
+  "nonExecutableRules": [],
+  "capabilities": {
+    "selectors": [
+      "selection-root",
+      "self",
+      "self-and-descendants"
+    ],
+    "facts": [
+      "appearance.effects",
+      "appearance.fill",
+      "appearance.opacity",
+      "appearance.radius",
+      "appearance.stroke",
+      "baseline.effective.appearance.effects",
+      "baseline.effective.appearance.fill",
+      "baseline.effective.appearance.opacity",
+      "baseline.effective.appearance.radius",
+      "baseline.effective.appearance.stroke",
+      "baseline.effective.layout.counterAxisAlignItems",
+      "baseline.effective.layout.itemSpacing",
+      "baseline.effective.layout.mode",
+      "baseline.effective.layout.padding.bottom",
+      "baseline.effective.layout.padding.left",
+      "baseline.effective.layout.padding.right",
+      "baseline.effective.layout.padding.top",
+      "baseline.effective.layout.primaryAxisAlignItems",
+      "baseline.effective.propertyActivityV1.axisAlignmentApplicable",
+      "baseline.effective.propertyActivityV1.gapApplicable",
+      "baseline.effective.propertyActivityV1.paddingApplicable",
+      "component.identity.componentKey",
+      "component.identity.componentSetKey",
+      "host.semanticApi.addonEnabled",
+      "host.semanticApi.amountVisible",
+      "host.semanticApi.currencyEnabled",
+      "host.semanticApi.currencyVisible",
+      "host.semanticApi.majorVisible",
+      "host.semanticApi.minorEnabled",
+      "host.semanticApi.minorVisible",
+      "layout.counterAxisAlignItems",
+      "layout.itemSpacing",
+      "layout.mode",
+      "layout.padding.bottom",
+      "layout.padding.left",
+      "layout.padding.right",
+      "layout.padding.top",
+      "layout.primaryAxisAlignItems",
+      "paintEvidenceV1.fill",
+      "paintEvidenceV1.stroke",
+      "propertyActivityV1.axisAlignmentApplicable",
+      "propertyActivityV1.gapApplicable",
+      "propertyActivityV1.paddingApplicable",
+      "semantic.role",
+      "semanticApi.addonEnabled",
+      "semanticApi.addonVisible",
+      "semanticApi.amountVisible",
+      "semanticApi.currencyEnabled",
+      "semanticApi.currencyVisible",
+      "semanticApi.minorEnabled",
+      "semanticApi.minorVisible",
+      "semanticTargets.major.resolved",
+      "semanticTargets.major.visibilityKnown",
+      "type",
+      "variantAvailability.isRoot",
+      "variantAvailability.properties.addonVisible",
+      "variantAvailability.properties.currencyVisible",
+      "variantAvailability.properties.minorVisible",
+      "variantAvailability.targets.currency.present",
+      "variantAvailability.targets.major.present",
+      "variantAvailability.targets.minor.present",
+      "variantAvailability.targets.root.present",
+      "visibility.effective"
+    ],
+    "operators": [
+      "all",
+      "any",
+      "count-between",
+      "equals",
+      "fact-present",
+      "matches-effective-baseline",
+      "one-of",
+      "sequence-equals"
+    ],
+    "remediations": [
+      "restore-effective-baseline"
+    ]
+  },
+  "coverage": {
+    "byOwnership": {
+      "component": 23,
+      "usage": 0,
+      "unclassified": 0
+    },
+    "sourceRules": 23,
+    "policyRules": 23,
+    "policyOnlyRules": 3,
+    "compiledRules": 35,
+    "nonExecutableRules": 0,
+    "byConstraintType": {
+      "positionOrder": 8,
+      "propertyDomain": 13,
+      "propertyForbidden": 13,
+      "quantity": 1
+    },
+    "byExecutionRoute": {
+      "policy-only": 3,
+      "predicate": 20
+    }
+  },
+  "runtimePolicy": {
+    "engine": "apollo-predicate-engine",
+    "unknownPolicy": "fail-closed",
+    "compiledIsSourceOfTruth": false,
+    "ruleOwnershipVersion": 1,
+    "gradientPaintFactsVersion": 1,
+    "ruleScopeFactsVersion": 1,
+    "semanticTargetVisibilityVersion": 1
+  }
+}

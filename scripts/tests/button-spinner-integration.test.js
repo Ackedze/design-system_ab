@@ -19,8 +19,8 @@ test('dependency pin links exact accepted Spinner r8 without a mutable copy of c
  const dep=compiled.componentDependencies[0],child=read('../Spinner/compiled/component-contract.v2.json');
  assert.equal(dep.componentId,'core.web.spinner');assert.equal(dep.revision,8);assert.equal(core.stableHash(child),dep.compiledHash);
  assert.deepEqual(dep.contract,child);assert.equal(dep.issue,undefined);assert.deepEqual(read('compiled/dependencies/core.web.spinner/component-contract.v2.json'),child);
- assert.equal(dep.contract.rules.length,31);assert.equal(compiled.rules.length,59);assert.equal(compiled.package.manualSourceHash,core.stableHash(manual));
- assert.equal(compiled.package.manualRevision,22);assert.equal(compiled.package.sourceExportVersion,'component-contract-editor@0.2.41');
+ assert.equal(dep.contract.rules.length,31);assert.equal(compiled.rules.length,60);assert.equal(compiled.package.manualSourceHash,core.stableHash(manual));
+ assert.equal(compiled.package.manualRevision,31);assert.equal(compiled.package.sourceExportVersion,'component-contract-editor@0.2.52');
 });
 test('Button r17 only opts five existing rules into explicit applicability/ownership; generated facts and child are unchanged',()=>{
  const manual=read('history/r17-editor-0.2.36/contract.manual.json');
@@ -46,10 +46,10 @@ test('Button ZIP imports only parent anatomy and reproduces dependency-aware com
  const bundle=core.buildExportBundle(w.manual,w.variantEvidence,w.dependencyContracts);
  assert.equal(bundle.validation.valid,true);assert.deepEqual(clone(bundle.compiled),compiled);
 });
-test('derived projections keep reference ownership; Loading completion and publication are not claimed',()=>{
+test('derived projections keep reference ownership; ready Figma package is not production publication',()=>{
  for(const p of ['projections/athena/manual-overlay.json','projections/ds-ai-hub/component.json'])assert.deepEqual(read(p).componentDependencies,manual.componentDependencies);
  assert.equal(read('runtime/component-contract.index.json').published,false);
- assert.equal(read('runtime/component-contract.index.json').status,'draft');
+ assert.equal(read('runtime/component-contract.index.json').status,'ready');
  assert.equal(manual.rules.find(r=>r.id.endsWith('loading-preserves-width')).execution.route,'predicate');
  assert.equal(manual.rules.find(r=>r.id.endsWith('loading-uses-addon-spinner')).execution.route,'predicate');
  assert.equal(manual.rules.find(r=>r.id.endsWith('loading-spinner-style-follows-view')).execution.route,'predicate');

@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "id": "Amount",
+  "manifest": "keys.json",
+  "roots": {
+    "amount": {
+      "manifestPointer": "/components/amount",
+      "nodeType": "COMPONENT",
+      "name": "Amount",
+      "publishStatus": "CURRENT",
+      "componentPropertyDefinitions": {
+        "Minor#72085:2": {
+          "type": "BOOLEAN",
+          "defaultValue": true
+        },
+        "Currency#72085:3": {
+          "type": "BOOLEAN",
+          "defaultValue": true
+        },
+        "Addon#100902:0": {
+          "type": "BOOLEAN",
+          "defaultValue": false
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "major": {
+      "manifestPointer": "/components/major",
+      "nodeType": "COMPONENT",
+      "name": "🔩 Major",
+      "publishStatus": "CURRENT",
+      "componentPropertyDefinitions": {
+        "✎ Major#487:0": {
+          "type": "TEXT",
+          "defaultValue": "1 234 567"
+        }
+      }
+    },
+    "minor": {
+      "manifestPointer": "/components/minor",
+      "nodeType": "COMPONENT_SET",
+      "name": "🔩 Minor",
+      "publishStatus": "CURRENT",
+      "componentPropertyDefinitions": {
+        "✎ Minor#487:1": {
+          "type": "TEXT",
+          "defaultValue": ",00"
+        },
+        "Opacity": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "options": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "defaultVariant": {
+        "Opacity": "False"
+      },
+      "variantMatrix": {
+        "count": 2,
+        "excludedCombinations": []
+      }
+    },
+    "currency": {
+      "manifestPointer": "/components/currency",
+      "nodeType": "COMPONENT_SET",
+      "name": "🔩 Currency",
+      "publishStatus": "CURRENT",
+      "componentPropertyDefinitions": {
+        "✎ Currency#487:4": {
+          "type": "TEXT",
+          "defaultValue": " Custom "
+        },
+        "Opacity": {
+          "type": "VARIANT",
+          "defaultValue": "False",
+          "options": [
+            "False",
+            "True"
+          ]
+        },
+        "Type": {
+          "type": "VARIANT",
+          "defaultValue": "₽",
+          "options": [
+            "₽",
+            "$",
+            "€",
+            "¥",
+            "RUB",
+            "USD",
+            "EUR",
+            "CNY",
+            "Custom"
+          ]
+        }
+      },
+      "defaultVariant": {
+        "Opacity": "False",
+        "Type": "₽"
+      },
+      "variantMatrix": {
+        "count": 18,
+        "excludedCombinations": []
+      }
+    },
+    "addon": {
+      "manifestPointer": "/components/addon",
+      "nodeType": "COMPONENT",
+      "name": "🔩 Addon",
+      "publishStatus": "CURRENT",
+      "componentPropertyDefinitions": {}
+    }
+  }
+}

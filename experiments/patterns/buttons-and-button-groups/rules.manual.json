@@ -1,0 +1,361 @@
+{
+  "schemaVersion": "apollo.pattern-rule-handoff.v1",
+  "patternId": "ptrn:controls.buttons-and-button-groups",
+  "status": "draft",
+  "description": "Единственный текущий ручной источник пяти перенесённых правил применения. Заготовка будущего паттерна, не готовый PatternContract и не вход ComponentContract Editor.",
+  "metadata": {
+    "revision": 1,
+    "updatedAt": "2026-09-28T14:00:00.000Z",
+    "owner": "design-system-authors",
+    "origin": {
+      "componentId": "core.web.button",
+      "manualRevision": 24,
+      "archive": "experiments/web-core/core/Button/history/r24-editor-0.2.45/contract.manual.json"
+    }
+  },
+  "runtime": {
+    "status": "not-connected",
+    "published": false,
+    "execution": "none",
+    "reason": "Сначала определить PatternContract и binding к component API; затем использовать общий compiler core и Predicate Engine."
+  },
+  "componentBinding": {
+    "componentId": "core.web.button",
+    "manualSource": "experiments/web-core/core/Button/contract.manual.json",
+    "targetRefs": [
+      "target.root",
+      "target.label"
+    ],
+    "bindingStatus": "pending-pattern-authoring"
+  },
+  "sourceRefs": [
+    {
+      "id": "ds-ai-hub.button.guidelines",
+      "kind": "guidelines",
+      "path": "experiments/web-core/core/Button/sources/ds-ai-hub/core/web/components/button/guidelines.md",
+      "status": "verified",
+      "projection": "source",
+      "role": "read-only-evidence"
+    },
+    {
+      "id": "ds-ai-hub.button.bridge",
+      "kind": "design-code-bridge",
+      "path": "experiments/web-core/core/Button/sources/ds-ai-hub/core/web/components/button/bridge.md",
+      "status": "draft",
+      "projection": "source",
+      "role": "read-only-evidence"
+    },
+    {
+      "id": "athena.button.rules",
+      "kind": "legacy-rules",
+      "path": "experiments/web-core/core/Button/sources/design-system_ab-athena/rules.json",
+      "status": "verified",
+      "projection": "source",
+      "role": "read-only-evidence"
+    }
+  ],
+  "controlPorts": [
+    {
+      "id": "port.button-group-policy",
+      "label": "Button group pattern policy",
+      "targetId": "target.root",
+      "capability": "pattern.button-group",
+      "required": false
+    },
+    {
+      "id": "port.editorial-label-policy",
+      "label": "Button label editorial policy",
+      "targetId": "target.label",
+      "capability": "content.editorial",
+      "required": false
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision:core.web.button.alfa-business-variant-policy",
+      "status": "needs-confirmation",
+      "summary": "Ограничения Athena для desktop variants и Hint временно ограничены продуктом alfa-business.",
+      "rationale": "Они противоречат универсальному core API и ds-ai-hub; до подтверждения владельцем не должны трактоваться как универсальные правила Button.",
+      "sourceRefs": [
+        "athena.button.rules",
+        "ds-ai-hub.button.bridge"
+      ]
+    },
+    {
+      "id": "decision:core.web.button.desktop-hint-canonical-rule",
+      "status": "accepted",
+      "summary": "Запрет Hint для desktop Альфа-Бизнес хранится только в component:web-core.button.desktop-hint-restricted; тестовый ID component:core.web.button.root.component-properties-hint-4-8 сохранён как deprecated.",
+      "rationale": "Пользователь подтвердил запрет Hint в Альфа-Бизнес и согласовал консолидацию. Product ID ab соответствует Editor. Другие неподтверждённые ограничения View/Size/Shape/mobile не становятся подтверждёнными автоматически.",
+      "sourceRefs": [
+        "athena.button.rules",
+        "ds-ai-hub.button.bridge"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "component:web-core.button.button-group-pattern-delegated",
+      "ownership": {
+        "kind": "pattern",
+        "ownerId": "ptrn:controls.buttons-and-button-groups"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "pattern.button-group",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "inherited-port",
+          "port": "port.button-group-policy",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            "delegated"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ]
+      },
+      "severity": "warning",
+      "rationale": "Quantity, relative priority, order, alignment and sticky placement require pattern/page context.",
+      "message": "Проверить Button в контексте группы действий.",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "ds-ai-hub.button.guidelines"
+      ],
+      "execution": {
+        "route": "delegated",
+        "externalRuleIds": [
+          "pattern:buttons.max-three",
+          "pattern:buttons.single-high-priority",
+          "pattern:buttons.single-primary-action",
+          "pattern:buttons.platform-order",
+          "pattern:buttons.sticky-placement"
+        ]
+      }
+    },
+    {
+      "id": "component:web-core.button.desktop-hint-restricted",
+      "ownership": {
+        "kind": "product-policy",
+        "ownerId": "ab"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.hintVisible",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "hintEnabled",
+          "required": true,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            false
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "products": [
+          "ab"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Владелец подтвердил 2026-09-28: продуктовый запрет Альфа-Бизнес относится к фактически видимому Hint desktop Button. hintEnabled хранит настройку BOOLEAN; hintVisible — read-only видимость target.hint с учётом родителей. Скрытый предком Hint и подтверждённое отсутствие не являются использованием Hint; unknown/remap не pass. Это продуктовая политика, не универсальный запрет Core и не исключение специально для Loading.",
+      "message": "В Альфа-Бизнес нельзя показывать Hint в desktop Button.",
+      "remediationMessage": "Скрыть Hint через component property Hint; учитывать видимость контейнера Text.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.button.rules",
+        "ds-ai-hub.button.bridge"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.button.desktop-safe-variants",
+      "ownership": {
+        "kind": "product-policy",
+        "ownerId": "ab"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component.properties.View|Size|Shape",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "inherited-port",
+          "port": "port.button-group-policy",
+          "required": true,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            "delegated"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "products": [
+          "alfa-business"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Ограничение принадлежит продуктовой политике групп кнопок, а не универсальному core API.",
+      "message": "Проверь desktop variant по правилам продукта.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.button.rules",
+        "ds-ai-hub.button.bridge"
+      ],
+      "execution": {
+        "route": "delegated",
+        "externalRuleIds": [
+          "rule:controls.buttons-and-button-groups.desktop-safe-variants"
+        ]
+      }
+    },
+    {
+      "id": "component:web-core.button.mobile-hint-only-size-56",
+      "ownership": {
+        "kind": "product-policy",
+        "ownerId": "ab"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component.properties.Size",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "Size",
+          "required": true,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            "56"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [
+          "alfa-business"
+        ],
+        "context": {
+          "hintVisible": true
+        },
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Продуктовое правило уже universal core domain Hint {56,64,72} и требует подтверждения.",
+      "message": "Mobile Hint допустим только при продуктово подтверждённом Size.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.button.rules",
+        "ds-ai-hub.button.bridge"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "semanticApi.hintVisible",
+          "semanticApi.size"
+        ]
+      }
+    },
+    {
+      "id": "component:web-core.button.text-follows-editorial-pattern",
+      "ownership": {
+        "kind": "editorial-policy",
+        "ownerId": "ds-ai-hub:core/common/editorial-policy"
+      },
+      "targetId": "target.label",
+      "targetScope": "self",
+      "capability": "content.editorial",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "inherited-port",
+          "port": "port.editorial-label-policy",
+          "required": true,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            "delegated"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ]
+      },
+      "severity": "info",
+      "rationale": "Качество формулировки определяется общей редакционной политикой действий.",
+      "message": "Label должен называть действие и избегать абстрактных формулировок.",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.button.rules"
+      ],
+      "execution": {
+        "route": "delegated",
+        "externalRuleIds": [
+          "rule:editorial.action-verb",
+          "rule:editorial.no-abstract-labels"
+        ]
+      }
+    }
+  ]
+}

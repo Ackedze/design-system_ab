@@ -24,10 +24,8 @@
       "component:web-core.button.addon-uses-glyph-26",
       "component:web-core.button.backdrop-blur-maps-to-control-blur",
       "component:web-core.button.block-maps-to-fill",
-      "component:web-core.button.button-group-pattern-delegated",
-      "component:web-core.button.desktop-hint-restricted",
-      "component:web-core.button.desktop-safe-variants",
       "component:web-core.button.hint-requires-large-size",
+      "component:web-core.button.internal-sizing-locked",
       "component:web-core.button.label-and-hint-color-locked",
       "component:web-core.button.label-content-is-editable",
       "component:web-core.button.label-text-style-locked",
@@ -36,30 +34,135 @@
       "component:web-core.button.loading-uses-addon-spinner",
       "component:web-core.button.manual-fill-is-layer-property",
       "component:web-core.button.manual-layout-and-appearance-overrides-prohibited",
-      "component:web-core.button.mobile-hint-only-size-56",
       "component:web-core.button.nowrap-maps-to-figma-layout",
       "component:web-core.button.single-icon-content-shape",
-      "component:web-core.button.text-follows-editorial-pattern",
       "component:web-core.button.text-resizing-maps-to-figma-layout",
       "component:web-core.button.variant-state-is-component-property",
       "component:web-core.button.view-text-requires-rectangular-shape"
+    ],
+    "relocated": [
+      "component:web-core.button.button-group-pattern-delegated",
+      "component:web-core.button.desktop-hint-restricted",
+      "component:web-core.button.desktop-safe-variants",
+      "component:web-core.button.mobile-hint-only-size-56",
+      "component:web-core.button.text-follows-editorial-pattern"
     ]
   },
   "missingAthenaRuleIds": [],
+  "relocatedRules": [
+    {
+      "ruleId": "component:web-core.button.button-group-pattern-delegated",
+      "ownership": {
+        "kind": "pattern",
+        "ownerId": "ptrn:controls.buttons-and-button-groups"
+      },
+      "destination": "experiments/patterns/buttons-and-button-groups/rules.manual.json",
+      "sourceSha": "4fbacf323926c5f8167ee37099bef83333119e6dcfb332fb5c512eb25df1cbe3",
+      "patternId": "ptrn:controls.buttons-and-button-groups",
+      "runtimeStatus": "not-connected",
+      "route": "delegated",
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "sourceRefs": [
+        "ds-ai-hub.button.guidelines"
+      ]
+    },
+    {
+      "ruleId": "component:web-core.button.desktop-hint-restricted",
+      "ownership": {
+        "kind": "product-policy",
+        "ownerId": "ab"
+      },
+      "destination": "experiments/patterns/buttons-and-button-groups/rules.manual.json",
+      "sourceSha": "4fbacf323926c5f8167ee37099bef83333119e6dcfb332fb5c512eb25df1cbe3",
+      "patternId": "ptrn:controls.buttons-and-button-groups",
+      "runtimeStatus": "not-connected",
+      "route": "predicate",
+      "status": "draft",
+      "scopeStatus": "confirmed",
+      "sourceRefs": [
+        "athena.button.rules",
+        "ds-ai-hub.button.bridge"
+      ]
+    },
+    {
+      "ruleId": "component:web-core.button.desktop-safe-variants",
+      "ownership": {
+        "kind": "product-policy",
+        "ownerId": "ab"
+      },
+      "destination": "experiments/patterns/buttons-and-button-groups/rules.manual.json",
+      "sourceSha": "4fbacf323926c5f8167ee37099bef83333119e6dcfb332fb5c512eb25df1cbe3",
+      "patternId": "ptrn:controls.buttons-and-button-groups",
+      "runtimeStatus": "not-connected",
+      "route": "delegated",
+      "status": "draft",
+      "scopeStatus": "needs-confirmation",
+      "sourceRefs": [
+        "athena.button.rules",
+        "ds-ai-hub.button.bridge"
+      ]
+    },
+    {
+      "ruleId": "component:web-core.button.mobile-hint-only-size-56",
+      "ownership": {
+        "kind": "product-policy",
+        "ownerId": "ab"
+      },
+      "destination": "experiments/patterns/buttons-and-button-groups/rules.manual.json",
+      "sourceSha": "4fbacf323926c5f8167ee37099bef83333119e6dcfb332fb5c512eb25df1cbe3",
+      "patternId": "ptrn:controls.buttons-and-button-groups",
+      "runtimeStatus": "not-connected",
+      "route": "context-only",
+      "status": "draft",
+      "scopeStatus": "needs-confirmation",
+      "sourceRefs": [
+        "athena.button.rules",
+        "ds-ai-hub.button.bridge"
+      ]
+    },
+    {
+      "ruleId": "component:web-core.button.text-follows-editorial-pattern",
+      "ownership": {
+        "kind": "editorial-policy",
+        "ownerId": "ds-ai-hub:core/common/editorial-policy"
+      },
+      "destination": "experiments/patterns/buttons-and-button-groups/rules.manual.json",
+      "sourceSha": "4fbacf323926c5f8167ee37099bef83333119e6dcfb332fb5c512eb25df1cbe3",
+      "patternId": "ptrn:controls.buttons-and-button-groups",
+      "runtimeStatus": "not-connected",
+      "route": "delegated",
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "sourceRefs": [
+        "athena.button.rules"
+      ]
+    }
+  ],
   "entries": [
     {
       "ruleId": "component:core.web.button.root.auto-layout-1",
-      "sourceRefs": [],
-      "route": "auto",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "sourceRefs": [
+        "ds-ai-hub.button.bridge"
+      ],
+      "route": "predicate",
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:core.web.button.root.visual-style-1",
       "sourceRefs": [],
       "route": "auto",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.addon-size-follows-button-size",
@@ -67,8 +170,12 @@
         "ds-ai-hub.button.bridge"
       ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.addon-type-is-component-property",
@@ -78,7 +185,11 @@
       ],
       "route": "policy-only",
       "status": "reviewed",
-      "scopeStatus": "confirmed"
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.addon-uses-glyph-26",
@@ -87,54 +198,37 @@
       ],
       "route": "predicate",
       "status": "reviewed",
-      "scopeStatus": "confirmed"
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.backdrop-blur-maps-to-control-blur",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
       ],
-      "route": "context-only",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "route": "predicate",
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.block-maps-to-fill",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
       ],
-      "route": "context-only",
-      "status": "draft",
-      "scopeStatus": "confirmed"
-    },
-    {
-      "ruleId": "component:web-core.button.button-group-pattern-delegated",
-      "sourceRefs": [
-        "ds-ai-hub.button.guidelines"
-      ],
-      "route": "delegated",
-      "status": "reviewed",
-      "scopeStatus": "confirmed"
-    },
-    {
-      "ruleId": "component:web-core.button.desktop-hint-restricted",
-      "sourceRefs": [
-        "athena.button.rules",
-        "ds-ai-hub.button.bridge"
-      ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
-    },
-    {
-      "ruleId": "component:web-core.button.desktop-safe-variants",
-      "sourceRefs": [
-        "athena.button.rules",
-        "ds-ai-hub.button.bridge"
-      ],
-      "route": "delegated",
-      "status": "draft",
-      "scopeStatus": "needs-confirmation"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.hint-requires-large-size",
@@ -142,8 +236,25 @@
         "ds-ai-hub.button.bridge"
       ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
+    },
+    {
+      "ruleId": "component:web-core.button.internal-sizing-locked",
+      "sourceRefs": [
+        "athena.button.rules"
+      ],
+      "route": "predicate",
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.label-and-hint-color-locked",
@@ -151,8 +262,12 @@
         "athena.button.rules"
       ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.label-content-is-editable",
@@ -162,7 +277,11 @@
       ],
       "route": "policy-only",
       "status": "reviewed",
-      "scopeStatus": "confirmed"
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.label-text-style-locked",
@@ -170,8 +289,12 @@
         "athena.button.rules"
       ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.loading-preserves-width",
@@ -180,8 +303,12 @@
         "ds-ai-hub.button.bridge"
       ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.loading-spinner-style-follows-view",
@@ -189,8 +316,12 @@
         "ds-ai-hub.button.bridge"
       ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.loading-uses-addon-spinner",
@@ -198,8 +329,12 @@
         "ds-ai-hub.button.bridge"
       ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.manual-fill-is-layer-property",
@@ -208,7 +343,11 @@
       ],
       "route": "predicate",
       "status": "reviewed",
-      "scopeStatus": "confirmed"
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.manual-layout-and-appearance-overrides-prohibited",
@@ -216,27 +355,25 @@
         "athena.button.rules"
       ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
-    },
-    {
-      "ruleId": "component:web-core.button.mobile-hint-only-size-56",
-      "sourceRefs": [
-        "athena.button.rules",
-        "ds-ai-hub.button.bridge"
-      ],
-      "route": "context-only",
-      "status": "draft",
-      "scopeStatus": "needs-confirmation"
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.nowrap-maps-to-figma-layout",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
       ],
-      "route": "context-only",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "route": "predicate",
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.single-icon-content-shape",
@@ -244,26 +381,25 @@
         "ds-ai-hub.button.bridge"
       ],
       "route": "predicate",
-      "status": "draft",
-      "scopeStatus": "confirmed"
-    },
-    {
-      "ruleId": "component:web-core.button.text-follows-editorial-pattern",
-      "sourceRefs": [
-        "athena.button.rules"
-      ],
-      "route": "delegated",
       "status": "reviewed",
-      "scopeStatus": "confirmed"
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.text-resizing-maps-to-figma-layout",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
       ],
-      "route": "context-only",
-      "status": "draft",
-      "scopeStatus": "confirmed"
+      "route": "predicate",
+      "status": "reviewed",
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.variant-state-is-component-property",
@@ -272,7 +408,11 @@
       ],
       "route": "policy-only",
       "status": "reviewed",
-      "scopeStatus": "confirmed"
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     },
     {
       "ruleId": "component:web-core.button.view-text-requires-rectangular-shape",
@@ -281,7 +421,11 @@
       ],
       "route": "predicate",
       "status": "reviewed",
-      "scopeStatus": "confirmed"
+      "scopeStatus": "confirmed",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.button"
+      }
     }
   ]
 }

@@ -1,0 +1,1610 @@
+{
+  "schemaVersion": "apollo.component-contract.manual.v2-experimental",
+  "documentType": "component-contract-manual",
+  "component": {
+    "componentId": "core.web.amount",
+    "familyId": "core.web.amount",
+    "contractId": "core.web.amount",
+    "family": "Amount",
+    "layer": "core",
+    "library": "Web _ Core",
+    "platform": "universal",
+    "platforms": [
+      "universal"
+    ],
+    "lifecycle": "active",
+    "componentKey": "fe3399f71c9e0971646821d935b64657e462c28e"
+  },
+  "semantics": {
+    "purpose": "Компонент отображения денежной суммы: целая часть Major, опциональные Minor, Currency и правый Addon.",
+    "useWhen": [
+      "Нужно отобразить сумму, цену, баланс или лимит."
+    ],
+    "doNotUseWhen": [
+      {
+        "condition": "Нужен ввод суммы.",
+        "useComponentId": "core.web.amount-input"
+      },
+      {
+        "condition": "Нужно показать номер счёта, телефон или другой идентификатор без денежного значения."
+      }
+    ],
+    "relatedComponentIds": [
+      "core.web.amount-input"
+    ],
+    "keywords": [
+      "amount",
+      "сумма",
+      "валюта",
+      "баланс"
+    ]
+  },
+  "representations": [
+    {
+      "id": "core.web.amount.figma.universal",
+      "kind": "figma",
+      "platform": "universal",
+      "status": "draft",
+      "locator": {
+        "fileKey": "lGWq8DtnUcSkRasagBuwq6",
+        "nodeId": "485:67101",
+        "componentKey": "fe3399f71c9e0971646821d935b64657e462c28e",
+        "componentSetKey": "fe3399f71c9e0971646821d935b64657e462c28e",
+        "name": "Amount"
+      }
+    },
+    {
+      "id": "core.web.amount.code.web",
+      "kind": "code",
+      "platform": "web",
+      "status": "draft",
+      "locator": {
+        "package": "@alfalab/core-components/amount",
+        "export": "Amount"
+      }
+    }
+  ],
+  "semanticApi": [
+    {
+      "id": "minorEnabled",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "defaultValue": true,
+      "description": "BOOLEAN корня; не равен эффективной видимости при скрытом родителе.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor"
+        }
+      ]
+    },
+    {
+      "id": "currencyEnabled",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "defaultValue": true,
+      "description": "BOOLEAN корня; не равен эффективной видимости при скрытом родителе.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency"
+        }
+      ]
+    },
+    {
+      "id": "addonEnabled",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "defaultValue": false,
+      "description": "BOOLEAN корня; не равен эффективной видимости при скрытом родителе.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon"
+        }
+      ]
+    },
+    {
+      "id": "amountVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость корня, не публичный Figma prop.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.root",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "minorVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость части; не новый Figma prop.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.minor",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "currencyVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость части; не новый Figma prop.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.currency",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "addonVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость части; не новый Figma prop.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.addon",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "majorVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость Major.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.major",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "id": "athena.amount.rules",
+      "kind": "rules",
+      "path": "sources/design-system_ab/JSONS/web/components/web-core/core/Amount/rules.json",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "athena.amount.facts",
+      "kind": "generated-facts",
+      "path": "sources/design-system_ab/JSONS/web/components/web-core/core/Amount/contract.generated.json",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "hub.amount.guidelines",
+      "kind": "guidelines",
+      "path": "sources/ds-ai-hub/core/web/components/amount/guidelines.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "hub.amount.adapter",
+      "kind": "figma-adapter",
+      "path": "sources/ds-ai-hub/core/web/components/amount/figma/adapter.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "hub.amount.cookbook",
+      "kind": "cookbook",
+      "path": "sources/ds-ai-hub/core/web/components/amount/figma/cookbook.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "hub.amount.bridge",
+      "kind": "bridge",
+      "path": "sources/ds-ai-hub/core/web/components/amount/bridge.md",
+      "status": "draft",
+      "projection": "reference-only"
+    }
+  ],
+  "examples": [
+    {
+      "id": "amount.default",
+      "kind": "generation",
+      "intent": "Сумма с дробной частью и символом рубля",
+      "input": {
+        "major": "1 234",
+        "minor": ",56",
+        "currency": "₽"
+      },
+      "expected": {
+        "rootProperties": {
+          "Minor": true,
+          "Currency": true,
+          "Addon": false
+        },
+        "nestedProperties": {
+          "Major": {
+            "✎ Major": "1 234"
+          },
+          "Minor": {
+            "✎ Minor": ",56",
+            "Opacity": "False"
+          },
+          "Currency": {
+            "Type": "₽",
+            "Opacity": "False"
+          }
+        }
+      },
+      "status": "draft"
+    },
+    {
+      "id": "amount.opacity-public",
+      "kind": "validation",
+      "intent": "Штатная прозрачность внутренних вариантов разрешена универсальным компонентом",
+      "input": {
+        "minorOpacity": "True",
+        "currencyOpacity": "True",
+        "product": "ab"
+      },
+      "expected": {
+        "componentViolation": false,
+        "patternEvaluation": "not-connected"
+      },
+      "status": "draft"
+    },
+    {
+      "id": "amount.text-style",
+      "kind": "validation",
+      "intent": "Другой библиотечный Text Style и более длинная сумма",
+      "input": {
+        "textStyle": "explicit-library-style",
+        "major": "123 456 789"
+      },
+      "expected": {
+        "componentViolation": false,
+        "width": "content-dependent"
+      },
+      "status": "draft"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "amount.component-vs-pattern",
+      "status": "accepted",
+      "summary": "Продуктовые правила Opacity, редакционные правила и контекст таблиц не входят в компонент.",
+      "rationale": "Следуем принятой общей границе ownership. Два Athena ID учтены во внешнем handoff; production rules не меняются.",
+      "sourceRefs": [
+        "athena.amount.rules",
+        "hub.amount.bridge"
+      ]
+    },
+    {
+      "id": "amount.no-phantom-properties",
+      "status": "accepted",
+      "summary": "Не создавать Operation/Negative/Size на корне Amount.",
+      "rationale": "Свежий read-only Figma export подтверждает только Minor/Currency/Addon BOOLEAN. Внешний паттерн описывает другую анатомию; требуется отдельное уточнение владельца.",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ]
+    },
+    {
+      "id": "amount.partial-coverage-r1",
+      "status": "needs-confirmation",
+      "summary": "r1 — проверяемый черновик, не полный контракт: внутренние styles/token policy и допустимое наполнение Addon ещё не приняты.",
+      "rationale": "Не выдавать отсутствие проверки за разрешение или запрет. Code bridge также draft; совпадение внешнего вида не доказывает minor-unit mapping.",
+      "sourceRefs": [
+        "hub.amount.cookbook",
+        "hub.amount.bridge"
+      ]
+    }
+  ],
+  "generation": {
+    "profiles": [
+      {
+        "id": "amount.currency",
+        "intent": "Отображение суммы с валютой",
+        "platform": "universal",
+        "representationId": "core.web.amount.figma.universal",
+        "properties": {
+          "minorEnabled": true,
+          "currencyEnabled": true,
+          "addonEnabled": false
+        }
+      },
+      {
+        "id": "amount.integer",
+        "intent": "Отображение целой суммы без дробной части",
+        "platform": "universal",
+        "representationId": "core.web.amount.figma.universal",
+        "properties": {
+          "minorEnabled": false,
+          "currencyEnabled": true,
+          "addonEnabled": false
+        }
+      }
+    ],
+    "instructions": [
+      "Создай библиотечный instance Amount по componentKey; корневых variants нет.",
+      "Текст Major/Minor задавай через TEXT-свойства соответствующих вложенных instance после загрузки шрифтов.",
+      "Currency.Type выбирай из опубликованного домена: ₽, $, €, ¥, RUB, USD, EUR, CNY, Custom. Текст валюты изменяй только для Type=Custom.",
+      "Minor.Opacity и Currency.Opacity поддерживают False/True; ограничения продукта подключаются отдельно.",
+      "Типографику задавай Text Style на вложенных TEXT; не растягивай текст Scale. Размеры не фиксируются на default 110×20.",
+      "Boolean видимости применяй после настройки скрываемых частей. Addon не копируй как синий placeholder; состав слота должен быть отдельно согласован.",
+      "Не добавляй несуществующие Operation/Negative, не преобразуй Figma-строку в code value без currency/minority и проверки bridge."
+    ]
+  },
+  "source": {
+    "kind": "athena-package",
+    "importedFiles": [
+      "design-system_ab/JSONS/web/components/web-core/core/Amount/README.md",
+      "design-system_ab/JSONS/web/components/web-core/core/Amount/agent-context.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Amount/audit-mapping.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Amount/composition-contract.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Amount/contract.generated.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Amount/contract.overrides.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Amount/examples.json",
+      "design-system_ab/JSONS/web/components/web-core/core/Amount/rules.json",
+      "design-system_ab/experiments/web-core/core/Amount/input/athena-rest/capture.json",
+      "design-system_ab/experiments/web-core/core/Amount/input/athena-rest/catalog.json",
+      "design-system_ab/experiments/web-core/core/Amount/input/athena-rest/response.json",
+      "design-system_ab/patterns/p_amount_component.md",
+      "ds-ai-hub/core/web/components/amount/bridge.md",
+      "ds-ai-hub/core/web/components/amount/code/adapter.md",
+      "ds-ai-hub/core/web/components/amount/figma/adapter.md",
+      "ds-ai-hub/core/web/components/amount/figma/cookbook.md",
+      "ds-ai-hub/core/web/components/amount/figma/keys.json",
+      "ds-ai-hub/core/web/components/amount/figma/model.json",
+      "ds-ai-hub/core/web/components/amount/figma/snippets.md",
+      "ds-ai-hub/core/web/components/amount/guidelines.md",
+      "ds-ai-hub/core/web/components/amount/meta.json",
+      "ds-ai-hub/products/ab/patterns/amount_component.md"
+    ],
+    "sourceHash": "2ab902474e771936d8ac387600d70c7e12cbfbb72e64c870c2d9ec2d01cfda59",
+    "importedAt": "2026-09-29T06:53:51.251Z"
+  },
+  "targets": [
+    {
+      "id": "target.root",
+      "semanticRole": "root",
+      "label": "Amount",
+      "lineage": [
+        "core.web.amount"
+      ],
+      "nameHint": "Amount",
+      "pathHint": "Amount",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "nameHint": "Amount",
+          "pathHint": "Amount"
+        }
+      ]
+    },
+    {
+      "id": "target.major",
+      "semanticRole": "major",
+      "label": "Major",
+      "lineage": [
+        "amount"
+      ],
+      "nameHint": "Major",
+      "pathHint": "Amount / Major",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "nameHint": "Major",
+          "pathHint": "Amount / Major"
+        }
+      ]
+    },
+    {
+      "id": "target.minor",
+      "semanticRole": "minor",
+      "label": "Minor",
+      "lineage": [
+        "amount"
+      ],
+      "nameHint": "Minor",
+      "pathHint": "Amount / Minor",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "nameHint": "Minor",
+          "pathHint": "Amount / Minor"
+        }
+      ]
+    },
+    {
+      "id": "target.currency",
+      "semanticRole": "currency",
+      "label": "Currency",
+      "lineage": [
+        "amount"
+      ],
+      "nameHint": "Currency",
+      "pathHint": "Amount / Currency",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "nameHint": "Currency",
+          "pathHint": "Amount / Currency"
+        }
+      ]
+    },
+    {
+      "id": "target.addon",
+      "semanticRole": "addon",
+      "label": "Addon",
+      "lineage": [
+        "amount"
+      ],
+      "nameHint": "Addon",
+      "pathHint": "Amount / Addon",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "nameHint": "Addon",
+          "pathHint": "Amount / Addon"
+        }
+      ]
+    }
+  ],
+  "controlPorts": [],
+  "componentDependencies": [],
+  "rules": [
+    {
+      "id": "component:web-core.amount.component-properties-are-first-class",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component-properties",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "Minor"
+        },
+        {
+          "kind": "host-property",
+          "property": "Currency"
+        },
+        {
+          "kind": "host-property",
+          "property": "Addon"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.major",
+          "property": "✎ Major"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.minor",
+          "property": "✎ Minor"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.minor",
+          "property": "Opacity"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.currency",
+          "property": "Type"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.currency",
+          "property": "Opacity"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.currency",
+          "property": "✎ Currency"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "rationale": "Публичные BOOLEAN корня и TEXT/VARIANT внутренних частей изменяются через API. Opacity=True допустим в универсальном Amount; продуктовые запреты принадлежат паттерну.",
+      "message": "Публичные BOOLEAN корня и TEXT/VARIANT внутренних частей изменяются через API. Opacity=True допустим в универсальном Amount; продуктовые запреты принадлежат паттерну.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.amount.rules",
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "id": "component:web-core.amount.text-style-is-configurable",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "descendants",
+      "capability": "text.style",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "target": "Major/Major|Minor/Minor|Currency/Currency",
+          "property": "textStyleId"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "rationale": "Text Style на видимых текстовых слоях Major, Minor и Currency является разрешённой настройкой Amount. Ширина и высота текста меняются вслед за содержимым и типографикой, не фиксируются по default.",
+      "message": "Text Style на видимых текстовых слоях Major, Minor и Currency является разрешённой настройкой Amount. Ширина и высота текста меняются вслед за содержимым и типографикой, не фиксируются по default.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "id": "component:web-core.amount.addon-content-is-configurable",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.addon",
+      "targetScope": "self",
+      "capability": "slot.content",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "slot-api",
+          "target": "target.addon"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "rationale": "Addon — опциональный слот. Его содержимое определяется выбранным библиотечным компонентом/согласованной спецификацией, а не синим placeholder из исходного каталога. Allowlist ещё не согласован; разрешение не доказывает корректность любого содержимого.",
+      "message": "Addon — опциональный слот. Его содержимое определяется выбранным библиотечным компонентом/согласованной спецификацией, а не синим placeholder из исходного каталога. Allowlist ещё не согласован; разрешение не доказывает корректность любого содержимого.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "id": "component:web-core.amount.layer-properties-use-effective-baseline",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "root.layout-and-appearance",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.mode"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.top"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.right"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.bottom"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.left"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.itemSpacing"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.primaryAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.counterAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.fill"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.stroke"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.opacity"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.radius"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.effects"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+      "message": "В r1 оформление и Auto Layout корня сохраняют независимый effective baseline. Не распространять этот запрет на Text Style, размеры текста, вложенный Opacity и содержимое Addon. Проверки внутренних ручных styles требуют отдельной матрицы допустимых настроек.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "athena.amount.rules",
+        "hub.amount.adapter"
+      ],
+      "execution": {
+        "route": "predicate"
+      },
+      "remediationIntent": "restore-effective-baseline",
+      "propertyApplicability": {
+        "layout.itemSpacing": "flow-gap-either@1",
+        "layout.padding.top": "auto-layout-padding-either@1",
+        "layout.padding.right": "auto-layout-padding-either@1",
+        "layout.padding.bottom": "auto-layout-padding-either@1",
+        "layout.padding.left": "auto-layout-padding-either@1",
+        "layout.primaryAxisAlignItems": "flow-alignment-either@1",
+        "layout.counterAxisAlignItems": "flow-alignment-either@1"
+      }
+    },
+    {
+      "id": "component:web-core.amount.library-instance-required",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "type",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            "INSTANCE"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Amount должен оставаться библиотечным экземпляром без detach. Ключ проверяется независимо механизмом сопоставления; совпадение имени недостаточно.",
+      "message": "Amount должен оставаться библиотечным экземпляром без detach. Ключ проверяется независимо механизмом сопоставления; совпадение имени недостаточно.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.major-required",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.major",
+      "targetScope": "self",
+      "capability": "composition.major",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "quantity",
+          "targetRoles": [
+            "major"
+          ],
+          "visibleOnly": true,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "В видимом Amount должен быть один видимый Major. Проверяется наличие основной части, не редакционный формат числа.",
+      "message": "В видимом Amount должен быть один видимый Major. Проверяется наличие основной части, не редакционный формат числа.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.major-library-part-required",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.major",
+      "targetScope": "self",
+      "capability": "component.identity",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "fact": "type",
+          "values": [
+            "INSTANCE"
+          ]
+        },
+        {
+          "type": "propertyDomain",
+          "fact": "component.identity.componentSetKey",
+          "values": [
+            "a833c02e4fcb75fea1a89bf786912e108b8f93ba"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.majorVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "Часть major должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима. Правило применяется к фактически видимой части; скрытые ветки не являются подтверждением их содержимого.",
+      "message": "Часть major должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.minor-library-part-required",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.minor",
+      "targetScope": "self",
+      "capability": "component.identity",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "fact": "type",
+          "values": [
+            "INSTANCE"
+          ]
+        },
+        {
+          "type": "propertyDomain",
+          "fact": "component.identity.componentSetKey",
+          "values": [
+            "e92f061b2cdfa20bd17d98554e113f4ce8c991b2"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "Часть minor должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима. Правило применяется к фактически видимой части; скрытые ветки не являются подтверждением их содержимого.",
+      "message": "Часть minor должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.currency-library-part-required",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.currency",
+      "targetScope": "self",
+      "capability": "component.identity",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "fact": "type",
+          "values": [
+            "INSTANCE"
+          ]
+        },
+        {
+          "type": "propertyDomain",
+          "fact": "component.identity.componentSetKey",
+          "values": [
+            "33bfa9e278712759a5ea601d87135003599c98f2"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.currencyVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "Часть currency должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима. Правило применяется к фактически видимой части; скрытые ветки не являются подтверждением их содержимого.",
+      "message": "Часть currency должна сохранять библиотечное происхождение. Для variant-компонентов разрешены все варианты того же component set; имитация именем или подмена другим компонентом не допустима.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.minor-visibility-on",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.minorVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            true
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.minorEnabled": true,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "BOOLEAN Minor=true управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "message": "BOOLEAN Minor=true управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.minor-visibility-off",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.minorVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            false
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.minorEnabled": false,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "BOOLEAN Minor=false управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "message": "BOOLEAN Minor=false управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.currency-visibility-on",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.currencyVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            true
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "BOOLEAN Currency=true управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "message": "BOOLEAN Currency=true управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.currency-visibility-off",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.currencyVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            false
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "BOOLEAN Currency=false управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "message": "BOOLEAN Currency=false управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.addon-visibility-on",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.addonVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            true
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.addonEnabled": true,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "BOOLEAN Addon=true управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "message": "BOOLEAN Addon=true управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.addon-visibility-off",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "semanticApi.addonVisible",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            false
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "context": {
+          "semanticApi.addonEnabled": false,
+          "semanticApi.amountVisible": true
+        }
+      },
+      "severity": "error",
+      "rationale": "BOOLEAN Addon=false управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "message": "BOOLEAN Addon=false управляет видимостью соответствующей части; ручное переопределение не должно противоречить API.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.cookbook"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-000",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "positionOrder",
+          "order": [
+            "major"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": false,
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.addonEnabled": false
+        }
+      },
+      "severity": "error",
+      "rationale": "Порядок видимых частей: major. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "message": "Порядок видимых частей: major. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-001",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "positionOrder",
+          "order": [
+            "major",
+            "minor"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": true,
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.addonEnabled": false
+        }
+      },
+      "severity": "error",
+      "rationale": "Порядок видимых частей: major → minor. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "message": "Порядок видимых частей: major → minor. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-010",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "positionOrder",
+          "order": [
+            "major",
+            "currency"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": false,
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.addonEnabled": false
+        }
+      },
+      "severity": "error",
+      "rationale": "Порядок видимых частей: major → currency. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "message": "Порядок видимых частей: major → currency. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-011",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "positionOrder",
+          "order": [
+            "major",
+            "minor",
+            "currency"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": true,
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.addonEnabled": false
+        }
+      },
+      "severity": "error",
+      "rationale": "Порядок видимых частей: major → minor → currency. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "message": "Порядок видимых частей: major → minor → currency. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-100",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "positionOrder",
+          "order": [
+            "major",
+            "addon"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": false,
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.addonEnabled": true
+        }
+      },
+      "severity": "error",
+      "rationale": "Порядок видимых частей: major → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "message": "Порядок видимых частей: major → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-101",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "positionOrder",
+          "order": [
+            "major",
+            "minor",
+            "addon"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": true,
+          "semanticApi.currencyEnabled": false,
+          "semanticApi.addonEnabled": true
+        }
+      },
+      "severity": "error",
+      "rationale": "Порядок видимых частей: major → minor → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "message": "Порядок видимых частей: major → minor → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order.visibility-110",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "positionOrder",
+          "order": [
+            "major",
+            "currency",
+            "addon"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": false,
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.addonEnabled": true
+        }
+      },
+      "severity": "error",
+      "rationale": "Порядок видимых частей: major → currency → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "message": "Порядок видимых частей: major → currency → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    },
+    {
+      "id": "component:web-core.amount.fixed-part-order",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "core.web.amount"
+      },
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.order",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "positionOrder",
+          "order": [
+            "major",
+            "minor",
+            "currency",
+            "addon"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.amountVisible": true,
+          "semanticApi.minorEnabled": true,
+          "semanticApi.currencyEnabled": true,
+          "semanticApi.addonEnabled": true
+        }
+      },
+      "severity": "error",
+      "rationale": "Порядок видимых частей: major → minor → currency → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "message": "Порядок видимых частей: major → minor → currency → addon. Условие задано реальными BOOLEAN корня; отключённые части не включаются в визуальную последовательность.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ],
+      "execution": {
+        "route": "predicate"
+      }
+    }
+  ],
+  "metadata": {
+    "ruleOwnershipVersion": 1,
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "revision": 1,
+    "createdAt": "2026-09-29",
+    "updatedAt": "2026-09-29"
+  }
+}

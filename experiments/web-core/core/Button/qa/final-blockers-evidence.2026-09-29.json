@@ -1,0 +1,3080 @@
+{
+  "schemaVersion": "apollo.component-contract.evidence-review.v1",
+  "componentId": "core.web.button",
+  "date": "2026-09-29",
+  "status": "awaiting-owner-decisions",
+  "normative": false,
+  "manualRevision": 29,
+  "registrySync": {"changedCells":51,"neighborCellsPreserved":72,"nativeMetadataCellsPreserved":123,"visualCheck":"best-effort cell format/validation readback; no Google UI render","rulesRows":[1826,1830],"ledgerRows":[56,60,62,63],"corePredicate":"Draft","coreRow":10},
+  "summary": "Read-only investigation of final Spinner palette and ControlBlur blockers. This file is evidence and a proposal, not manual authoring source or a validation pass.",
+  "figma": {
+    "fileKey": "lGWq8DtnUcSkRasagBuwq6",
+    "mutatedNodeIds": [],
+    "variantCount": 1056,
+    "blurScope": "All 264 variants of each of four Button sets",
+    "invertedPaletteScope": "Size=56, Rectangular, SingleIcon=False, DisabledState=False, six View values in both inverted sets",
+    "spinnerScope": "Four existing Size=24 palette variants"
+  },
+  "unchangedArtifacts": {
+    "manual": "6257a2d64d12934528dd649b50aa550127201ce1bab7897210841a0285fe3f34",
+    "compiled": "bedab2c5c768546da532dc290c69f95909df8f965c4c4c0df91327d90841fe79",
+    "editorInputZip": "55374c68b85603db5767a96b2c8c5d8128d5fddb3173b30a05ffcfea0e8beca1"
+  },
+  "paletteProposal": {
+    "status": "needs-confirmation",
+    "decisionId": "decision:core.web.button.inverted-loading-palette",
+    "sourceRuleId": "component:web-core.button.loading-spinner-style-follows-view",
+    "scope": {
+      "surface": "inverted",
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "sizes": [
+        32,
+        40,
+        48,
+        56,
+        64,
+        72
+      ],
+      "sides": [
+        "left",
+        "right"
+      ]
+    },
+    "cases": [
+      {
+        "views": [
+          "Accent"
+        ],
+        "Inverted": true,
+        "Static": true
+      },
+      {
+        "views": [
+          "Primary"
+        ],
+        "Inverted": false,
+        "Static": false
+      },
+      {
+        "views": [
+          "Secondary",
+          "Outlined",
+          "Transparent",
+          "Text"
+        ],
+        "Inverted": true,
+        "Static": false
+      }
+    ],
+    "basis": "Inverted Button label colours and existing Spinner palette token identities. Normative inference proposed to owner; not a published loading matrix or confirmed rule.",
+    "implementationPlan": [
+      "Preserve source RuleID and existing ordinary palette.",
+      "Encode surface+View branching as typed manual data through shared compiler; no Button-specific runtime branch.",
+      "Keep Spinner r8 contract and ownership boundary intact.",
+      "Unknown surface/View/identity stays unknown; hidden/inactive targets stay not-applicable.",
+      "After approval, rebuild compiled/projections/ZIP and run golden parity before live tests."
+    ],
+    "plannedTests": [
+      "All six Views and six sizes across D/M and left/right loading slots.",
+      "Independently wrong Inverted and wrong Static, including same rendered colour with wrong dynamic/static token family.",
+      "Default-colors matrix unchanged, Spinner child violations preserved.",
+      "Missing/ambiguous identity, unknown View/surface, hidden Spinner and inactive slot.",
+      "Loading composition and before/after width remain independent."
+    ],
+    "liveValidation": "not-performed"
+  },
+  "blur": {
+    "sourceRuleId": "component:web-core.button.backdrop-blur-maps-to-control-blur",
+    "route": "context-only",
+    "status": "needs-owner-resolution-of-source-conflict",
+    "hubPath": "ds-ai-hub/core/web/components/button/bridge.md#allowbackdropblur",
+    "hubClaim": "Secondary/Outlined/Transparent have ControlBlur on by default.",
+    "observedSummary": [
+      "Secondary: ControlBlur on in all four representations, both DisabledState values, all sizes.",
+      "Outlined/Transparent/Text: no effects in all four sets and all their variants (480 variants).",
+      "Accent/Primary DisabledState=True: ControlBlur on.",
+      "Accent/Primary DisabledState=False: no effects except two Mobile inverted Primary Size72 Rectangular variants."
+    ],
+    "style": {
+      "key": "01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9",
+      "name": "ControlBlur",
+      "source": "JSONS/styles/Web _ Core.json",
+      "type": "BACKGROUND_BLUR",
+      "radius": 80
+    },
+    "exceptions": [
+      {
+        "id": "42:45647",
+        "key": "936a12d89347a9d48f67f19370f2792ffa402cef",
+        "props": {
+          "View": "Primary",
+          "Size": "72",
+          "Shape": "Rectangular",
+          "SingleIcon": "False",
+          "DisabledState": "False"
+        },
+        "effects": [
+          {
+            "type": "BACKGROUND_BLUR",
+            "visible": true,
+            "radius": 80,
+            "boundVariables": {},
+            "blurType": "NORMAL"
+          }
+        ],
+        "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,"
+      },
+      {
+        "id": "42:45679",
+        "key": "ef949184631531151c3e4e2ddf4240647fe2085b",
+        "props": {
+          "View": "Primary",
+          "Size": "72",
+          "Shape": "Rectangular",
+          "SingleIcon": "True",
+          "DisabledState": "False"
+        },
+        "effects": [
+          {
+            "type": "BACKGROUND_BLUR",
+            "visible": true,
+            "radius": 80,
+            "boundVariables": {},
+            "blurType": "NORMAL"
+          }
+        ],
+        "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,"
+      }
+    ],
+    "requiredDecision": "Is the desired norm the current library matrix, the Hub claim, or an explicitly corrected matrix? Independently decide whether explicit specification allowBackdropBlur=false may override the intrinsic baseline and on which Views/states. Do not silently expand the code API domain.",
+    "implementationPlan": [
+      "Keep component audit baseline independent from specification input.",
+      "Read expected true/false/unset independently; unset must not become false.",
+      "Resolve ControlBlur by known style key plus effect identity, not arbitrary blur or display-name guessing.",
+      "Only an owner-approved exact configuration exception may supersede baseline blur visibility; preserve other effects/style restrictions.",
+      "Distinguish absent, hidden, wrong radius/style, unknown evidence and unsupported View.",
+      "No inferred Figma default may be promoted to normative authoring source automatically."
+    ],
+    "coverageStatus": "not-implemented"
+  },
+  "additionalFinding": {
+    "id": "drift:spinner-static-palette-semantics",
+    "summary": "Static switches dynamic vs static palette token family; existing Spinner description 'static ring' is incomplete/misleading.",
+    "affectedSources": [
+      "experiments/web-core/core/Spinner/contract.manual.json#semanticApi.static",
+      "ds-ai-hub/core/web/components/spinner/bridge.md#static"
+    ],
+    "evidence": [
+      {
+        "Static": false,
+        "Inverted": false,
+        "key": "e86a96753bbf5affba4ec9ebf5bc294c4b824a97",
+        "name": "neutral-translucent/1300",
+        "collection": "Interface Dynamic",
+        "modeValues": [
+          "#030306E0",
+          "#FFFFFFF0"
+        ]
+      },
+      {
+        "Static": false,
+        "Inverted": true,
+        "key": "40c66e4914c6bc4528e459831c0fe21731462d9d",
+        "name": "neutral-translucent_inverted/1300",
+        "collection": "Interface Dynamic",
+        "modeValues": [
+          "#FFFFFFF0",
+          "#030306E0"
+        ]
+      },
+      {
+        "Static": true,
+        "Inverted": false,
+        "key": "a85d96e37cfd4de58ccd8515f26255a3f86c4160",
+        "name": "static_neutral-translucent/1300",
+        "collection": "Interface Static",
+        "modeValues": [
+          "#030306E0"
+        ]
+      },
+      {
+        "Static": true,
+        "Inverted": true,
+        "key": "3ae8a4cacc6e560441bd23207c4bf16316c166e0",
+        "name": "static_neutral-translucent_inverted/1300",
+        "collection": "Interface Static",
+        "modeValues": [
+          "#FFFFFFF0"
+        ]
+      }
+    ],
+    "status": "recorded-not-changed",
+    "note": "No new Spinner revision, no dependency repin and no claim about runtime animation or verified frontend implementation."
+  },
+  "rawEvidence": {
+    "blurGroups": [
+      {
+        "id": "47:50695",
+        "name": "[D] Button",
+        "key": "f9979d6cc8598aec25f721e0a45b7eef2eeb0088",
+        "variantCount": 264,
+        "groups": [
+          {
+            "view": "Accent",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "47:50696"
+            ]
+          },
+          {
+            "view": "Accent",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "47:50776"
+            ]
+          },
+          {
+            "view": "Primary",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "8:18842"
+            ]
+          },
+          {
+            "view": "Primary",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "40",
+              "48",
+              "56",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "13:4612"
+            ]
+          },
+          {
+            "view": "Secondary",
+            "disabled": "False",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "16:11056"
+            ]
+          },
+          {
+            "view": "Secondary",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "16:11096"
+            ]
+          },
+          {
+            "view": "Outlined",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "47:48608"
+            ]
+          },
+          {
+            "view": "Outlined",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "47:48656"
+            ]
+          },
+          {
+            "view": "Transparent",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "48:100655"
+            ]
+          },
+          {
+            "view": "Transparent",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "48:100703"
+            ]
+          },
+          {
+            "view": "Text",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 12,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "48:102532"
+            ]
+          },
+          {
+            "view": "Text",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 12,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "48:102580"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "47:52208",
+        "name": "[M] Button",
+        "key": "7fb0c8679c682f7f82c031538c1b9efef8d98f1c",
+        "variantCount": 264,
+        "groups": [
+          {
+            "view": "Accent",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "47:52209"
+            ]
+          },
+          {
+            "view": "Accent",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "47:52257"
+            ]
+          },
+          {
+            "view": "Primary",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "16:9184"
+            ]
+          },
+          {
+            "view": "Primary",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "16:9224"
+            ]
+          },
+          {
+            "view": "Secondary",
+            "disabled": "False",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "16:11813"
+            ]
+          },
+          {
+            "view": "Secondary",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "16:11837"
+            ]
+          },
+          {
+            "view": "Outlined",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "47:49113"
+            ]
+          },
+          {
+            "view": "Outlined",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "47:49161"
+            ]
+          },
+          {
+            "view": "Transparent",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "48:101160"
+            ]
+          },
+          {
+            "view": "Transparent",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "48:101208"
+            ]
+          },
+          {
+            "view": "Text",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 12,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "48:104407"
+            ]
+          },
+          {
+            "view": "Text",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 12,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "48:104455"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "650:19395",
+        "name": "[D] Button_Inverted",
+        "key": "5781a924d5b55813fab42082574f06e463eebd80",
+        "variantCount": 264,
+        "groups": [
+          {
+            "view": "Accent",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "47:50704"
+            ]
+          },
+          {
+            "view": "Accent",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "47:50784"
+            ]
+          },
+          {
+            "view": "Primary",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "42:43715"
+            ]
+          },
+          {
+            "view": "Primary",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "42:43755"
+            ]
+          },
+          {
+            "view": "Secondary",
+            "disabled": "False",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "42:46980"
+            ]
+          },
+          {
+            "view": "Secondary",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "42:47004"
+            ]
+          },
+          {
+            "view": "Outlined",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "47:48616"
+            ]
+          },
+          {
+            "view": "Outlined",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "47:48664"
+            ]
+          },
+          {
+            "view": "Transparent",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "48:100663"
+            ]
+          },
+          {
+            "view": "Transparent",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "48:100711"
+            ]
+          },
+          {
+            "view": "Text",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 12,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "48:102540"
+            ]
+          },
+          {
+            "view": "Text",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 12,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "48:102588"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "650:20356",
+        "name": "[M] Button_Inverted",
+        "key": "3d1fe2250afc57dc8d43a868fc986b7beb6672ed",
+        "variantCount": 264,
+        "groups": [
+          {
+            "view": "Accent",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "47:52217"
+            ]
+          },
+          {
+            "view": "Accent",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "47:52265"
+            ]
+          },
+          {
+            "view": "Primary",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 22,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "42:45631"
+            ]
+          },
+          {
+            "view": "Primary",
+            "disabled": "False",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 2,
+            "sizes": [
+              "72"
+            ],
+            "exampleNodeIds": [
+              "42:45647"
+            ]
+          },
+          {
+            "view": "Primary",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "42:45655"
+            ]
+          },
+          {
+            "view": "Secondary",
+            "disabled": "False",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "42:47916"
+            ]
+          },
+          {
+            "view": "Secondary",
+            "disabled": "True",
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80
+              }
+            ],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "42:47940"
+            ]
+          },
+          {
+            "view": "Outlined",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "47:49121"
+            ]
+          },
+          {
+            "view": "Outlined",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "47:49169"
+            ]
+          },
+          {
+            "view": "Transparent",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "48:101168"
+            ]
+          },
+          {
+            "view": "Transparent",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 24,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "48:101216"
+            ]
+          },
+          {
+            "view": "Text",
+            "disabled": "False",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 12,
+            "sizes": [
+              "56",
+              "64",
+              "72",
+              "48",
+              "40",
+              "32"
+            ],
+            "exampleNodeIds": [
+              "48:104415"
+            ]
+          },
+          {
+            "view": "Text",
+            "disabled": "True",
+            "effectStyleId": "",
+            "effects": [],
+            "count": 12,
+            "sizes": [
+              "72",
+              "64",
+              "32",
+              "40",
+              "48",
+              "56"
+            ],
+            "exampleNodeIds": [
+              "48:104463"
+            ]
+          }
+        ]
+      }
+    ],
+    "invertedSamples": [
+      {
+        "name": "[D] Button_Inverted",
+        "id": "650:19395",
+        "key": "5781a924d5b55813fab42082574f06e463eebd80",
+        "ancestors": [
+          {
+            "id": "42:43028",
+            "name": "[Default]",
+            "type": "SECTION"
+          },
+          {
+            "id": "2:376",
+            "name": "    Button",
+            "type": "PAGE"
+          },
+          {
+            "id": "0:0",
+            "name": "Document",
+            "type": "DOCUMENT"
+          }
+        ],
+        "count": 264,
+        "rows": [
+          {
+            "id": "47:50704",
+            "key": "a08623ef21d8960b8c819c0c2040dcb7d6e795e9",
+            "props": {
+              "View": "Accent",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.9725490212440491,
+                  "g": 0.22745098173618317,
+                  "b": 0.16470588743686676
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:19e99273630dd61b313ad233a40f68b0cceba539/2350:3"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "47:50706",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:50708",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:778da1cf34e33c7b149c1b7599bcf1f42b4c47c7/2350:4"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:50709",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:54e0c1b4d3bc3c2ea2043eab332a036f5f8857cd/2350:5"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:50711",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "42:43715",
+            "key": "ee10fd4bae713f10909b9153ec4cbd6f65823c97",
+            "props": {
+              "View": "Primary",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.9490196108818054,
+                  "g": 0.9529411792755127,
+                  "b": 0.9607843160629272
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:23d854ad43a66a016f77b3cc305f040b7e630373/2350:9"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "42:43717",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:43719",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.8799999952316284,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.0117647061124444,
+                      "g": 0.0117647061124444,
+                      "b": 0.0235294122248888
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:834476828e97b1d87ec2fecef3287ccca97bd101/2350:10"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:43720",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.01568627543747425,
+                      "g": 0.01568627543747425,
+                      "b": 0.07450980693101883
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:87c0914c60bb97aa2bc0284d592cdb47be10a6e7/2350:11"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:43722",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "42:46980",
+            "key": "184cc86114ebfeb602bafb84e533be371207c155",
+            "props": {
+              "View": "Secondary",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80,
+                "boundVariables": {},
+                "blurType": "NORMAL"
+              }
+            ],
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.12999999523162842,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.8705882430076599,
+                  "g": 0.8705882430076599,
+                  "b": 0.9333333373069763
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:571bd9b6345e0fd4100bc6f257570d120f77b61b/3541:156"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "42:46982",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:46984",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:de53e1056e003a1b3aedbb9e81b2d767e4c85fa2/3541:135"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:46985",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.9333333373069763,
+                      "g": 0.9333333373069763,
+                      "b": 0.9843137264251709
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:161225b731874655180c29126e4a344df42cff83/3541:184"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:46987",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "47:48616",
+            "key": "ab66c6c81476123351ab6b6ca894ac8a9d7faf72",
+            "props": {
+              "View": "Outlined",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:c52bca1d1a94f5d75adbada37c98813cd1b4f9ef/5538:0"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "47:48618",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:48620",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:de53e1056e003a1b3aedbb9e81b2d767e4c85fa2/3541:135"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:48621",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.9333333373069763,
+                      "g": 0.9333333373069763,
+                      "b": 0.9843137264251709
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:161225b731874655180c29126e4a344df42cff83/3541:184"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:48623",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "48:100663",
+            "key": "75e790b4ca38261f6a61aa91a76e7df33b56fd45",
+            "props": {
+              "View": "Transparent",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:c52bca1d1a94f5d75adbada37c98813cd1b4f9ef/5538:0"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "48:100665",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:100667",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:de53e1056e003a1b3aedbb9e81b2d767e4c85fa2/3541:135"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:100668",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.9333333373069763,
+                      "g": 0.9333333373069763,
+                      "b": 0.9843137264251709
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:161225b731874655180c29126e4a344df42cff83/3541:184"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:100670",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "48:102540",
+            "key": "eaaa7187a1eeb7b9c006c401c39fc37d3a36facd",
+            "props": {
+              "View": "Text",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:c52bca1d1a94f5d75adbada37c98813cd1b4f9ef/5538:0"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "48:102542",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:102544",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:de53e1056e003a1b3aedbb9e81b2d767e4c85fa2/3541:135"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:102545",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.9333333373069763,
+                      "g": 0.9333333373069763,
+                      "b": 0.9843137264251709
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:161225b731874655180c29126e4a344df42cff83/3541:184"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:102547",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "[M] Button_Inverted",
+        "id": "650:20356",
+        "key": "3d1fe2250afc57dc8d43a868fc986b7beb6672ed",
+        "ancestors": [
+          {
+            "id": "42:43028",
+            "name": "[Default]",
+            "type": "SECTION"
+          },
+          {
+            "id": "2:376",
+            "name": "    Button",
+            "type": "PAGE"
+          },
+          {
+            "id": "0:0",
+            "name": "Document",
+            "type": "DOCUMENT"
+          }
+        ],
+        "count": 264,
+        "rows": [
+          {
+            "id": "47:52217",
+            "key": "70bd7e586f2ae8d8eb481651f7be685268470c6d",
+            "props": {
+              "View": "Accent",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.9725490212440491,
+                  "g": 0.22745098173618317,
+                  "b": 0.16470588743686676
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:19e99273630dd61b313ad233a40f68b0cceba539/2350:3"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "47:52219",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:52221",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:778da1cf34e33c7b149c1b7599bcf1f42b4c47c7/2350:4"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:52222",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:54e0c1b4d3bc3c2ea2043eab332a036f5f8857cd/2350:5"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:52224",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "42:45631",
+            "key": "66f9b7152aa878bbf026fc5ab6de4743017096b7",
+            "props": {
+              "View": "Primary",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.9490196108818054,
+                  "g": 0.9529411792755127,
+                  "b": 0.9607843160629272
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:89b9a7e1dd7bfb84ae3d5f16897de0b3c2d191b4/3541:123"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "42:45633",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:45635",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.8799999952316284,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.0117647061124444,
+                      "g": 0.0117647061124444,
+                      "b": 0.0235294122248888
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:53f842b1771349c5dca692351edfc422e8f081b5/3541:208"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:45636",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.01568627543747425,
+                      "g": 0.01568627543747425,
+                      "b": 0.07450980693101883
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:d9d26239617e3ab9e69d7ed378d811a3c4561063/3541:205"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:45638",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "42:47916",
+            "key": "5b64039fca3830ca7c0d135a5668e7de02ab37e5",
+            "props": {
+              "View": "Secondary",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [
+              {
+                "type": "BACKGROUND_BLUR",
+                "visible": true,
+                "radius": 80,
+                "boundVariables": {},
+                "blurType": "NORMAL"
+              }
+            ],
+            "effectStyleId": "S:01c83f6e3a7dcc11f03eb6e99064b356ba9ac1a9,",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.07000000029802322,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.8392156958580017,
+                  "g": 0.8392156958580017,
+                  "b": 0.8980392217636108
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:3d53e633d971e4b9f89daee977977ffedb098813/3541:124"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "42:47918",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:47920",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:de53e1056e003a1b3aedbb9e81b2d767e4c85fa2/3541:135"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:47921",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.9333333373069763,
+                      "g": 0.9333333373069763,
+                      "b": 0.9843137264251709
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:161225b731874655180c29126e4a344df42cff83/3541:184"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "42:47923",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "47:49121",
+            "key": "2c4883a3b7907b9ff317bde4fee09a8831282141",
+            "props": {
+              "View": "Outlined",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:c52bca1d1a94f5d75adbada37c98813cd1b4f9ef/5538:0"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "47:49123",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:49125",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:de53e1056e003a1b3aedbb9e81b2d767e4c85fa2/3541:135"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:49126",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.9333333373069763,
+                      "g": 0.9333333373069763,
+                      "b": 0.9843137264251709
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:161225b731874655180c29126e4a344df42cff83/3541:184"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "47:49128",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "48:101168",
+            "key": "64918b26d23199f66926710a075a030884e1639c",
+            "props": {
+              "View": "Transparent",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:c52bca1d1a94f5d75adbada37c98813cd1b4f9ef/5538:0"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "48:101170",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:101172",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:de53e1056e003a1b3aedbb9e81b2d767e4c85fa2/3541:135"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:101173",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.9333333373069763,
+                      "g": 0.9333333373069763,
+                      "b": 0.9843137264251709
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:161225b731874655180c29126e4a344df42cff83/3541:184"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:101175",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          },
+          {
+            "id": "48:104415",
+            "key": "e0d856dfe4d5685b07339eb8664578dfae442d0c",
+            "props": {
+              "View": "Text",
+              "Size": "56",
+              "Shape": "Rectangular",
+              "SingleIcon": "False",
+              "DisabledState": "False"
+            },
+            "effects": [],
+            "effectStyleId": "",
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:c52bca1d1a94f5d75adbada37c98813cd1b4f9ef/5538:0"
+                  }
+                }
+              }
+            ],
+            "layers": [
+              {
+                "id": "48:104417",
+                "type": "INSTANCE",
+                "name": "LeftAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:104419",
+                "type": "TEXT",
+                "name": "Label",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.9399999976158142,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 1,
+                      "g": 1,
+                      "b": 1
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:de53e1056e003a1b3aedbb9e81b2d767e4c85fa2/3541:135"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:104420",
+                "type": "TEXT",
+                "name": "Hint",
+                "visible": true,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "visible": true,
+                    "opacity": 0.550000011920929,
+                    "blendMode": "NORMAL",
+                    "color": {
+                      "r": 0.9333333373069763,
+                      "g": 0.9333333373069763,
+                      "b": 0.9843137264251709
+                    },
+                    "boundVariables": {
+                      "color": {
+                        "type": "VARIABLE_ALIAS",
+                        "id": "VariableID:161225b731874655180c29126e4a344df42cff83/3541:184"
+                      }
+                    }
+                  }
+                ],
+                "fillStyleId": ""
+              },
+              {
+                "id": "48:104422",
+                "type": "INSTANCE",
+                "name": "RightAddon",
+                "visible": true,
+                "fills": [],
+                "variants": {
+                  "Type": "Icon-24"
+                },
+                "fillStyleId": ""
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "spinnerPaints": [
+      {
+        "id": "24:19679",
+        "name": "Size=24, Static=False, Inverted=False",
+        "props": {
+          "Size": "24",
+          "Static": "False",
+          "Inverted": "False"
+        },
+        "painted": [
+          {
+            "id": "24:19681",
+            "type": "ELLIPSE",
+            "name": "Mask",
+            "visible": true,
+            "fills": [
+              {
+                "type": "GRADIENT_ANGULAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "color": {
+                      "r": 0.05000000074505806,
+                      "g": 0.05000000074505806,
+                      "b": 0.05000000074505806,
+                      "a": 0
+                    },
+                    "position": 0,
+                    "boundVariables": {}
+                  },
+                  {
+                    "color": {
+                      "r": 0.05098039284348488,
+                      "g": 0.05098039284348488,
+                      "b": 0.05098039284348488,
+                      "a": 0
+                    },
+                    "position": 0.06524641811847687,
+                    "boundVariables": {}
+                  },
+                  {
+                    "color": {
+                      "r": 0.05098039284348488,
+                      "g": 0.05098039284348488,
+                      "b": 0.05098039284348488,
+                      "a": 1
+                    },
+                    "position": 1,
+                    "boundVariables": {}
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    -1.0714285373687744,
+                    1.0172257950384492e-15,
+                    1.0357142686843872
+                  ],
+                  [
+                    -5.414159424675419e-16,
+                    -1.0714285373687744,
+                    1.0357142686843872
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "id": "24:19682",
+            "type": "ELLIPSE",
+            "name": "Ellipse 1",
+            "visible": true,
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.8799999952316284,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.0117647061124444,
+                  "g": 0.0117647061124444,
+                  "b": 0.0235294122248888
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:e86a96753bbf5affba4ec9ebf5bc294c4b824a97/3541:128"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "24:19683",
+            "type": "ELLIPSE",
+            "name": "Head",
+            "visible": true,
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.8799999952316284,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.0117647061124444,
+                  "g": 0.0117647061124444,
+                  "b": 0.0235294122248888
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:e86a96753bbf5affba4ec9ebf5bc294c4b824a97/3541:128"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "24:19684",
+        "name": "Size=24, Static=True, Inverted=False",
+        "props": {
+          "Size": "24",
+          "Static": "True",
+          "Inverted": "False"
+        },
+        "painted": [
+          {
+            "id": "24:19686",
+            "type": "ELLIPSE",
+            "name": "Mask",
+            "visible": true,
+            "fills": [
+              {
+                "type": "GRADIENT_ANGULAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "color": {
+                      "r": 0.05000000074505806,
+                      "g": 0.05000000074505806,
+                      "b": 0.05000000074505806,
+                      "a": 0
+                    },
+                    "position": 0,
+                    "boundVariables": {}
+                  },
+                  {
+                    "color": {
+                      "r": 0.05098039284348488,
+                      "g": 0.05098039284348488,
+                      "b": 0.05098039284348488,
+                      "a": 0
+                    },
+                    "position": 0.06524641811847687,
+                    "boundVariables": {}
+                  },
+                  {
+                    "color": {
+                      "r": 0.05098039284348488,
+                      "g": 0.05098039284348488,
+                      "b": 0.05098039284348488,
+                      "a": 1
+                    },
+                    "position": 1,
+                    "boundVariables": {}
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    -1.0714285373687744,
+                    1.0172257950384492e-15,
+                    1.0357142686843872
+                  ],
+                  [
+                    -5.414159424675419e-16,
+                    -1.0714285373687744,
+                    1.0357142686843872
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "id": "24:19687",
+            "type": "ELLIPSE",
+            "name": "Ellipse 1",
+            "visible": true,
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.8799999952316284,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.0117647061124444,
+                  "g": 0.0117647061124444,
+                  "b": 0.0235294122248888
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:a85d96e37cfd4de58ccd8515f26255a3f86c4160/1930:7"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "24:19688",
+            "type": "ELLIPSE",
+            "name": "Head",
+            "visible": true,
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.8799999952316284,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 0.0117647061124444,
+                  "g": 0.0117647061124444,
+                  "b": 0.0235294122248888
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:a85d96e37cfd4de58ccd8515f26255a3f86c4160/1930:7"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "24:19704",
+        "name": "Size=24, Static=False, Inverted=True",
+        "props": {
+          "Size": "24",
+          "Static": "False",
+          "Inverted": "True"
+        },
+        "painted": [
+          {
+            "id": "24:19706",
+            "type": "ELLIPSE",
+            "name": "Mask",
+            "visible": true,
+            "fills": [
+              {
+                "type": "GRADIENT_ANGULAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "color": {
+                      "r": 0.05000000074505806,
+                      "g": 0.05000000074505806,
+                      "b": 0.05000000074505806,
+                      "a": 0
+                    },
+                    "position": 0,
+                    "boundVariables": {}
+                  },
+                  {
+                    "color": {
+                      "r": 0.05098039284348488,
+                      "g": 0.05098039284348488,
+                      "b": 0.05098039284348488,
+                      "a": 0
+                    },
+                    "position": 0.06524641811847687,
+                    "boundVariables": {}
+                  },
+                  {
+                    "color": {
+                      "r": 0.05098039284348488,
+                      "g": 0.05098039284348488,
+                      "b": 0.05098039284348488,
+                      "a": 1
+                    },
+                    "position": 1,
+                    "boundVariables": {}
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    -1.0714285373687744,
+                    1.0172257950384492e-15,
+                    1.0357142686843872
+                  ],
+                  [
+                    -5.414159424675419e-16,
+                    -1.0714285373687744,
+                    1.0357142686843872
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "id": "24:19707",
+            "type": "ELLIPSE",
+            "name": "Ellipse 1",
+            "visible": true,
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.9399999976158142,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:40c66e4914c6bc4528e459831c0fe21731462d9d/3541:114"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "24:19708",
+            "type": "ELLIPSE",
+            "name": "Head",
+            "visible": true,
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.9399999976158142,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:40c66e4914c6bc4528e459831c0fe21731462d9d/3541:114"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "24:19719",
+        "name": "Size=24, Static=True, Inverted=True",
+        "props": {
+          "Size": "24",
+          "Static": "True",
+          "Inverted": "True"
+        },
+        "painted": [
+          {
+            "id": "24:19721",
+            "type": "ELLIPSE",
+            "name": "Mask",
+            "visible": true,
+            "fills": [
+              {
+                "type": "GRADIENT_ANGULAR",
+                "visible": true,
+                "opacity": 1,
+                "blendMode": "NORMAL",
+                "gradientStops": [
+                  {
+                    "color": {
+                      "r": 0.05000000074505806,
+                      "g": 0.05000000074505806,
+                      "b": 0.05000000074505806,
+                      "a": 0
+                    },
+                    "position": 0,
+                    "boundVariables": {}
+                  },
+                  {
+                    "color": {
+                      "r": 0.05098039284348488,
+                      "g": 0.05098039284348488,
+                      "b": 0.05098039284348488,
+                      "a": 0
+                    },
+                    "position": 0.06524641811847687,
+                    "boundVariables": {}
+                  },
+                  {
+                    "color": {
+                      "r": 0.05098039284348488,
+                      "g": 0.05098039284348488,
+                      "b": 0.05098039284348488,
+                      "a": 1
+                    },
+                    "position": 1,
+                    "boundVariables": {}
+                  }
+                ],
+                "gradientTransform": [
+                  [
+                    -1.0714285373687744,
+                    1.0172257950384492e-15,
+                    1.0357142686843872
+                  ],
+                  [
+                    -5.414159424675419e-16,
+                    -1.0714285373687744,
+                    1.0357142686843872
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "id": "24:19722",
+            "type": "ELLIPSE",
+            "name": "Ellipse 1",
+            "visible": true,
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.9399999976158142,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:3ae8a4cacc6e560441bd23207c4bf16316c166e0/1930:44"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "24:19723",
+            "type": "ELLIPSE",
+            "name": "Head",
+            "visible": true,
+            "fills": [
+              {
+                "type": "SOLID",
+                "visible": true,
+                "opacity": 0.9399999976158142,
+                "blendMode": "NORMAL",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1
+                },
+                "boundVariables": {
+                  "color": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "VariableID:3ae8a4cacc6e560441bd23207c4bf16316c166e0/1930:44"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "limitations": [
+    "Live variable/style resolving and page switching returned read-only errors; subsequent successful reads used only existing node properties with exact IDs.",
+    "Token names/modes and ControlBlur style name were matched by stable keys against local Athena catalogues.",
+    "No core-components MCP is available in this session; no frontend parity claim.",
+    "No new plugin build, no new runtime rules, no Figma test instances or acceptance reports."
+  ]
+}

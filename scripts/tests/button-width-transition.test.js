@@ -1,7 +1,8 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),zlib=require('node:zlib');
 const root=path.resolve(__dirname,'../../experiments/web-core/core/Button'),core=require('../../../../projects/ComponentContractEditor/dist/core.cjs');
 const read=p=>JSON.parse(fs.readFileSync(path.join(root,p))),clone=x=>JSON.parse(JSON.stringify(x));
-const manual=read('contract.manual.json'),compiled=read('compiled/component-contract.v2.json'),old=read('history/r21-editor-0.2.40/contract.manual.json');
+// r22 migration is immutable; later revisions must not rewrite historical acceptance.
+const manual=read('history/r22-editor-0.2.41/contract.manual.json'),compiled=JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(root,'history/r22-editor-0.2.41/component-contract.v2.json.gz')))),old=read('history/r21-editor-0.2.40/contract.manual.json');
 const prior=JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(root,'history/r21-editor-0.2.40/component-contract.v2.json.gz'))));
 const id='component:web-core.button.loading-preserves-width';
 test('r22 changes exactly the existing width rule; no new IDs, copied Spinner rules or generated facts',()=>{
@@ -27,6 +28,7 @@ test('archived single-state reports cannot prove temporal width; all unrelated v
  }
 });
 test('ZIP/projections remain derived from one manual and the independent Spinner pin',async()=>{
+ const manual=read('contract.manual.json'),compiled=read('compiled/component-contract.v2.json');
  const entries=await core.readZip(fs.readFileSync(path.join(root,'editor/Button.editor-input.zip')));
  const ws=core.importWorkspace(entries.map(e=>({name:e.name,text:core.zipEntryText(e)})));
  assert.deepEqual(ws.manual,manual);const bundle=core.buildExportBundle(ws.manual,ws.variantEvidence,ws.dependencyContracts);

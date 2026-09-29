@@ -3,6 +3,7 @@
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
+const {collectRuleRelocations, missingSourceRuleIds} = require('./lib/component-rule-relocations');
 
 const repoRoot = path.resolve(__dirname, '..');
 const workspaceRoot = path.resolve(repoRoot, '../..');
@@ -149,8 +150,10 @@ if (!bundle.validation.valid) {
 }
 
 const athenaRules = JSON.parse(fs.readFileSync(path.join(evidenceRoot, 'rules.json'), 'utf8')).manual.rules;
-const manualRuleIds = new Set(manual.rules.map((rule) => rule.id));
-const missingAthenaRuleIds = athenaRules.map((rule) => rule.ruleId).filter((ruleId) => !manualRuleIds.has(ruleId));
+const relocationPath = path.join(packageRoot, 'migrations/usage-rules-r25.json');
+const relocatedRules = collectRuleRelocations({repoRoot, componentId:manual.component.componentId, manualRules:manual.rules,
+  manifest:fs.existsSync(relocationPath) ? JSON.parse(fs.readFileSync(relocationPath, 'utf8')) : undefined});
+const missingAthenaRuleIds = missingSourceRuleIds(athenaRules.map(rule => rule.ruleId), manual.rules, relocatedRules);
 if (missingAthenaRuleIds.length) {
   throw new Error(`Manual source lost Athena rule ids: ${missingAthenaRuleIds.join(', ')}`);
 }
@@ -190,20 +193,26 @@ writeJson('reports/rule-crosswalk.json', {
   sourceRuleIds: {
     athena: athenaRules.map((rule) => rule.ruleId).sort(),
     manual: manual.rules.map((rule) => rule.id).sort(),
+    relocated: relocatedRules.map(rule => rule.ruleId).sort(),
   },
   missingAthenaRuleIds,
+  relocatedRules,
   entries: manual.rules.map((rule) => ({
     ruleId: rule.id,
     sourceRefs: rule.sourceRefs || [],
     route: rule.execution?.route || 'auto',
     status: rule.status,
     scopeStatus: rule.applicability.scopeStatus || 'confirmed',
+    ...(rule.ownership ? { ownership: rule.ownership } : {}),
   })).sort((left, right) => left.ruleId.localeCompare(right.ruleId)),
 });
 writeJson('reports/ownership.json', {
   schemaVersion: 'apollo.component-contract.ownership.v1',
   componentId: manual.component.componentId,
   normativeEditable: ['contract.manual.json'],
+  externalRuleSources: [...new Set(relocatedRules.map(rule => rule.destination))],
+  externalUsageEvaluation: 'not-connected; outside component-check scope',
+  ...(manual.metadata.ruleOwnershipVersion === 1 ? { ruleOwnershipVersion: 1, requirements: bundle.compiled.coverage.byOwnership } : {}),
   generatedReadOnly: ['compiled/', 'editor/', 'reports/', 'projections/', 'runtime/', 'sources/'],
   excludedFromRuntimeIndexes: true,
   compiler: 'projects/ComponentContractEditor/dist/core.cjs',
@@ -212,6 +221,7 @@ writeJson('reports/ownership.json', {
     'Compiler output is never edited by hand.',
     'Source snapshots preserve evidence but are not normative after migration.',
     'Existing Athena rule ids are preserved; only previously unmodelled claims receive new ids.',
+    'Transferred rules must exist at exactly one active manual owner; evidence and history never reactivate them.',
   ],
 });
 
@@ -222,6 +232,7 @@ writeJson('projections/ds-ai-hub/component.json', {
   semantics: manual.semantics,
   representations: manual.representations,
   semanticApi: manual.semanticApi,
+  ...(manual.validationContext ? {validationContext:manual.validationContext} : {}),
   documentation: manual.documentation,
   generation: manual.generation,
   decisions: manual.decisions,
@@ -236,6 +247,7 @@ writeJson('projections/athena/manual-overlay.json', {
   controlPorts: manual.controlPorts,
   componentDependencies: manual.componentDependencies || [],
   rules: manual.rules,
+  ...(manual.validationContext ? {validationContext:manual.validationContext} : {}),
   examples: manual.examples,
 });
 writeJson('runtime/component-contract.index.json', {

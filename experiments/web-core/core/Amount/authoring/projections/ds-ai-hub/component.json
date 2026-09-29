@@ -1,0 +1,271 @@
+{
+  "componentId": "core.web.amount",
+  "semantics": {
+    "purpose": "Компонент отображения денежной суммы: целая часть Major, опциональные Minor, Currency и правый Addon.",
+    "useWhen": [
+      "Нужно отобразить сумму, цену, баланс или лимит."
+    ],
+    "doNotUseWhen": [
+      {
+        "condition": "Нужен ввод суммы.",
+        "useComponentId": "core.web.amount-input"
+      },
+      {
+        "condition": "Нужно показать номер счёта, телефон или другой идентификатор без денежного значения."
+      }
+    ],
+    "relatedComponentIds": [
+      "core.web.amount-input"
+    ],
+    "keywords": [
+      "amount",
+      "сумма",
+      "валюта",
+      "баланс"
+    ]
+  },
+  "semanticApi": [
+    {
+      "id": "minorEnabled",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "defaultValue": true,
+      "description": "BOOLEAN корня; не равен эффективной видимости при скрытом родителе.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Minor"
+        }
+      ]
+    },
+    {
+      "id": "currencyEnabled",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "defaultValue": true,
+      "description": "BOOLEAN корня; не равен эффективной видимости при скрытом родителе.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Currency"
+        }
+      ]
+    },
+    {
+      "id": "addonEnabled",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "defaultValue": false,
+      "description": "BOOLEAN корня; не равен эффективной видимости при скрытом родителе.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "path": "component.properties.Addon"
+        }
+      ]
+    },
+    {
+      "id": "amountVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость корня, не публичный Figma prop.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.root",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "minorVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость части; не новый Figma prop.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.minor",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "currencyVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость части; не новый Figma prop.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.currency",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "addonVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость части; не новый Figma prop.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.addon",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "majorVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "description": "Read-only эффективная видимость Major.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.major",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "currencyType",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "₽",
+        "$",
+        "€",
+        "¥",
+        "RUB",
+        "USD",
+        "EUR",
+        "CNY",
+        "Custom"
+      ],
+      "description": "Type вложенной Currency, только после подтверждения semantic target и библиотечного происхождения.",
+      "bindings": [
+        {
+          "representationId": "core.web.amount.figma.universal",
+          "targetId": "target.currency",
+          "path": "component.properties.Type",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "representations": [
+    {
+      "id": "core.web.amount.figma.universal",
+      "kind": "figma",
+      "platform": "universal",
+      "status": "draft",
+      "locator": {
+        "fileKey": "lGWq8DtnUcSkRasagBuwq6",
+        "nodeId": "485:67101",
+        "componentKey": "fe3399f71c9e0971646821d935b64657e462c28e",
+        "name": "Amount"
+      }
+    },
+    {
+      "id": "core.web.amount.code.web",
+      "kind": "code",
+      "platform": "web",
+      "status": "draft",
+      "locator": {
+        "package": "@alfalab/core-components/amount",
+        "export": "Amount"
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "amount.component-vs-pattern",
+      "status": "accepted",
+      "summary": "Продуктовые правила Opacity, редакционные правила и контекст таблиц не входят в компонент.",
+      "rationale": "Следуем принятой общей границе ownership. Два Athena ID учтены во внешнем handoff; production rules не меняются.",
+      "sourceRefs": [
+        "athena.amount.rules",
+        "hub.amount.bridge"
+      ]
+    },
+    {
+      "id": "amount.no-phantom-properties",
+      "status": "accepted",
+      "summary": "Не создавать Operation/Negative/Size на корне Amount.",
+      "rationale": "Свежий read-only Figma export подтверждает только Minor/Currency/Addon BOOLEAN. Внешний паттерн описывает другую анатомию; требуется отдельное уточнение владельца.",
+      "sourceRefs": [
+        "hub.amount.adapter"
+      ]
+    },
+    {
+      "id": "amount.partial-coverage-r1",
+      "status": "superseded",
+      "summary": "r1 — проверяемый черновик, не полный контракт: внутренние styles/token policy и допустимое наполнение Addon ещё не приняты.",
+      "rationale": "Не выдавать отсутствие проверки за разрешение или запрет. Code bridge также draft; совпадение внешнего вида не доказывает minor-unit mapping.",
+      "sourceRefs": [
+        "hub.amount.cookbook",
+        "hub.amount.bridge"
+      ]
+    },
+    {
+      "id": "amount.owner-boundaries-r3",
+      "status": "accepted",
+      "summary": "Цвета только через токены; Custom — произвольный текст; Addon — свободный swap, видимый placeholder запрещён.",
+      "rationale": "Явное решение владельца в чате 29.09.2026. Не вводим одинаковый цвет/Text Style, продуктовую семантику или allowlist Addon. Правила реализуются общим compiler/Predicate Engine; Ready требует новой live-приёмки.",
+      "sourceRefs": []
+    },
+    {
+      "id": "amount.text-style-binding-required",
+      "status": "accepted",
+      "summary": "Каждый видимый текстовый диапазон Major, Minor и Currency должен быть привязан к библиотечному Text Style. Разные библиотечные стили разрешены; detach запрещён.",
+      "rationale": "Уточнение владельца 2026-09-29: разрешение выбирать Text Style не означает разрешение отвязывать его. Цветовой токен проверяется независимо. Содержимое внешнего Addon не принадлежит Amount.",
+      "sourceRefs": [
+        "athena.typography.styles"
+      ]
+    }
+  ],
+  "generation": {
+    "profiles": [
+      {
+        "id": "amount.currency",
+        "intent": "Отображение суммы с валютой",
+        "platform": "universal",
+        "representationId": "core.web.amount.figma.universal",
+        "properties": {
+          "minorEnabled": true,
+          "currencyEnabled": true,
+          "addonEnabled": false
+        }
+      },
+      {
+        "id": "amount.integer",
+        "intent": "Отображение целой суммы без дробной части",
+        "platform": "universal",
+        "representationId": "core.web.amount.figma.universal",
+        "properties": {
+          "minorEnabled": false,
+          "currencyEnabled": true,
+          "addonEnabled": false
+        }
+      }
+    ],
+    "instructions": [
+      "Создай библиотечный instance Amount по componentKey; корневых variants нет.",
+      "Текст Major/Minor задавай через TEXT-свойства соответствующих вложенных instance после загрузки шрифтов.",
+      "Currency.Type выбирай из опубликованного домена: ₽, $, €, ¥, RUB, USD, EUR, CNY, Custom. Текст валюты изменяй только для Type=Custom.",
+      "Minor.Opacity и Currency.Opacity поддерживают False/True; ограничения продукта подключаются отдельно.",
+      "Типографику задавай Text Style на вложенных TEXT; не растягивай текст Scale. Размеры не фиксируются на default 110×20.",
+      "Boolean видимости применяй после настройки скрываемых частей. При Addon=True замени исходный placeholder через swap на любой требуемый компонент; оставлять синий placeholder видимым запрещено.",
+      "Не добавляй несуществующие Operation/Negative, не преобразуй Figma-строку в code value без currency/minority и проверки bridge.",
+      "Для цветов Major/Minor/Currency сохраняй variable bindings: raw RGB/HEX запрещены. Разные части могут использовать разные токены; равенство цветов и стилей не является правилом Core Amount.",
+      "Currency.Type=Custom разрешает любой текст, включая пустой; стандартный Type сохраняет собственный текст из библиотечного варианта."
+    ]
+  }
+}

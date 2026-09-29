@@ -655,6 +655,11 @@
       "kind": "layout",
       "valueType": "boolean",
       "defaultValue": false,
+      "validationInput": {
+        "version": 1,
+        "label": "Растягивать на ширину контейнера",
+        "description": "Ожидание спецификации (код: props.block), не Figma property. Да требует Fill и Auto Layout-родителя. Нет исключает только это условное требование, не запрещает Fill. Не задано оставляет проверку спецификации неполной, но не влияет на обычный аудит."
+      },
       "bindings": [
         {
           "representationId": "core.web.button.figma.desktop",
@@ -710,13 +715,23 @@
           "representationId": "core.web.button.code.adaptive",
           "path": "props.textResizing"
         }
-      ]
+      ],
+      "validationInput": {
+        "version": 2,
+        "label": "Ширина текстовой области",
+        "description": "Независимое ожидание из спецификации: hug или fill. Это не Figma property и не значение, выведенное из макета."
+      }
     },
     {
       "id": "nowrap",
       "kind": "layout",
       "valueType": "boolean",
       "defaultValue": false,
+      "validationInput": {
+        "version": 1,
+        "label": "Запретить перенос текста",
+        "description": "Независимое ожидание спецификации, не Figma property. Да: Button/Text/видимый текст HUG, тексты WIDTH_AND_HEIGHT. Нет: перенос разрешён, но FILL обязателен только в явно заданном сценарии ограниченной ширины. Не задано — unknown."
+      },
       "bindings": [
         {
           "representationId": "core.web.button.figma.desktop",
@@ -765,7 +780,8 @@
           "representationId": "core.web.button.code.adaptive",
           "path": "props.allowBackdropBlur"
         }
-      ]
+      ],
+      "description": "Code API reference only. В Figma эффект не является независимым параметром: действует библиотечный baseline текущего варианта. Code ↔ Figma mapping требует отдельной проверки front-adapter и не переопределяет intrinsic норму."
     },
     {
       "id": "href",
@@ -831,6 +847,14 @@
           "path": "props.client"
         }
       ]
+    }
+  ],
+  "validationContext": [
+    {
+      "id": "constrainedWidth",
+      "valueType": "boolean",
+      "label": "Ограниченная ширина контейнера",
+      "description": "Независимый контекст сценария, не API Button и не значение из текущей геометрии. Да при nowrap=false: Button/Text/видимый текст FILL, текст HEIGHT, родитель Auto Layout. Нет: дополнительного требования FILL нет. Не задано: контекст неизвестен, проверка спецификации неполна."
     }
   ],
   "documentation": [
@@ -968,6 +992,16 @@
   },
   "decisions": [
     {
+      "id": "decision:core.web.button.nowrap-conditional-width",
+      "status": "accepted",
+      "summary": "nowrap=false разрешает перенос; обязательный FILL относится только к явно заданному сценарию ограниченной ширины.",
+      "rationale": "Подтверждено владельцем 29.09.2026. Контекст не является code/Figma prop, не выводится из actual или defaultValue. При отсутствии видимого текста правило неприменимо. Неизвестная видимость/идентичность/ожидание не означает pass. Обычный аудит продолжает проверять согласованные Hug/Fill профили независимо от спецификации. Clipping внешнего контейнера не становится универсальным ограничением Button: cookbook-рекомендацию нужно оценивать в контексте размещения; этот mapping не обещает отсутствие внешнего обрезания. Продуктовые и канальные паттерны не включены.",
+      "sourceRefs": [
+        "ds-ai-hub.button.bridge",
+        "ds-ai-hub.button.figma-cookbook"
+      ]
+    },
+    {
       "id": "decision:core.web.button.working-default",
       "status": "accepted",
       "summary": "Рабочий default генерации не равен техническому default Figma.",
@@ -989,30 +1023,10 @@
     {
       "id": "decision:core.web.button.pattern-ownership",
       "status": "accepted",
-      "summary": "Правила группировки, количества и порядка кнопок принадлежат PatternContract.",
-      "rationale": "ComponentContract публикует только локальную точку делегации и не присваивает себе page/pattern context.",
+      "summary": "Правила применения, каналов, продуктов и группировки не входят в ComponentContract Button.",
+      "rationale": "Пять существующих правил применения перенесены с прежними RuleID в ручной источник будущего паттерна кнопок. В Button нет нормативных копий, делегаций или pending-заглушек этих правил. API, intrinsic constraints и зависимости остаются компонентными. Проверка Button не является проверкой применения; паттерн пока не подключён.",
       "sourceRefs": [
         "ds-ai-hub.button.guidelines"
-      ]
-    },
-    {
-      "id": "decision:core.web.button.alfa-business-variant-policy",
-      "status": "needs-confirmation",
-      "summary": "Ограничения Athena для desktop variants и Hint временно ограничены продуктом alfa-business.",
-      "rationale": "Они противоречат универсальному core API и ds-ai-hub; до подтверждения владельцем не должны трактоваться как универсальные правила Button.",
-      "sourceRefs": [
-        "athena.button.rules",
-        "ds-ai-hub.button.bridge"
-      ]
-    },
-    {
-      "id": "decision:core.web.button.desktop-hint-canonical-rule",
-      "status": "accepted",
-      "summary": "Запрет Hint для desktop Альфа-Бизнес хранится только в component:web-core.button.desktop-hint-restricted; тестовый ID component:core.web.button.root.component-properties-hint-4-8 сохранён как deprecated.",
-      "rationale": "Пользователь подтвердил запрет Hint в Альфа-Бизнес и согласовал консолидацию. Product ID ab соответствует Editor. Другие неподтверждённые ограничения View/Size/Shape/mobile не становятся подтверждёнными автоматически.",
-      "sourceRefs": [
-        "athena.button.rules",
-        "ds-ai-hub.button.bridge"
       ]
     },
     {
@@ -1029,7 +1043,16 @@
       "id": "decision.button.spinner-palette-scope",
       "status": "accepted",
       "summary": "Матрица View→Spinner.Inverted/Static действует для обычных [D]/[M] Button всех размеров 32–72, слева и справа; не для Button_Inverted.",
-      "rationale": "Владелец подтвердил расширение Size=56 на все размеры 2026-09-28. Допустимые комбинации Spinner проверены в Figma; само наличие комбинации не используется как нормативное разрешение. Матрица Button_Inverted, полная Loading-композиция и сохранение ширины остаются отдельными открытыми задачами. Исполнимое правило остаётся Draft до live-приёмки.",
+      "rationale": "Обычная матрица для D/M всех размеров 32–72 подтверждена 28.09.2026 и сохранена. Отдельная inverted-матрица утверждена 29.09.2026 в decision:core.web.button.inverted-loading-palette; матрица принята владельцем, отдельный повтор live-кейсов не требуется. Приёмка и границы свидетельств сохранены в QA.",
+      "sourceRefs": [
+        "ds-ai-hub.button.bridge"
+      ]
+    },
+    {
+      "id": "decision:core.web.button.inverted-loading-palette",
+      "status": "accepted",
+      "summary": "Button_Inverted: Accent → Inverted=True/Static=True; Primary → False/False; Secondary/Outlined/Transparent/Text → True/False. D/M, Size=32–72, оба слота.",
+      "rationale": "Утверждено владельцем 29.09.2026. Локальное ограничение композиции Button, не паттерн применения. Собственный pinned контракт Spinner r8 остаётся неизменным.",
       "sourceRefs": [
         "ds-ai-hub.button.bridge"
       ]
@@ -1037,10 +1060,29 @@
     {
       "id": "decision:core.web.button.hint-enabled-vs-visible",
       "status": "accepted",
-      "summary": "hintEnabled — настроенный BOOLEAN; hintVisible — read-only видимость semantic target. Продуктовый запрет и Hint/Size проверяют видимый контент.",
-      "rationale": "Владелец согласовал после BL11/BL12 2026-09-28. Результат задаётся manual bindings; общий runtime вычисляет факты, Predicate Engine исполняет прежние RuleIDs. Старые r20 snapshots сохраняют прежнюю семантику. Product/pattern scope не расширяется.",
+      "summary": "hintEnabled — настроенный BOOLEAN; hintVisible — read-only видимость semantic target. Собственное ограничение Hint/Size проверяет видимый контент.",
+      "rationale": "Владелец согласовал после BL11/BL12 2026-09-28. Результат задаётся manual bindings; общий runtime вычисляет факты, Predicate Engine исполняет прежние RuleIDs. Старые r20 snapshots сохраняют прежнюю семантику. Продуктовые ограничения определяются внешним владельцем, а не Button.",
       "sourceRefs": [
         "athena.button.rules",
+        "ds-ai-hub.button.bridge"
+      ]
+    },
+    {
+      "id": "decision:core.web.button.coordinated-text-layout",
+      "status": "accepted",
+      "summary": "Разрешить согласованный Hug/Fill для Text, Label и видимого Hint; при Fill центрировать текст.",
+      "rationale": "Владелец подтвердил «верно» 2026-09-28. Точечное компонентное разрешение, не продуктовый паттерн. Остальные внутренние свойства сохраняют ограничения. Nowrap=false не означает обязательный Fill без отдельного контекста; палитра Button_Inverted здесь не меняется.",
+      "sourceRefs": [
+        "ds-ai-hub.button.bridge",
+        "ds-ai-hub.button.figma-cookbook"
+      ]
+    },
+    {
+      "id": "decision:core.web.button.control-blur-library-baseline",
+      "status": "accepted",
+      "summary": "ControlBlur следует библиотечному эталону конкретного Figma-варианта.",
+      "rationale": "Финальное уточнение владельца 29.09.2026 отменяет предложенную общую disabled-матрицу. Secondary имеет blur всегда, Accent/Primary — в disabled; Outlined/Transparent/Text без blur. Два enabled M Button_Inverted Primary72 также сохраняют библиотечный blur. Точный источник — независимый baseline componentKey. Расхождение с Hub фиксируется отдельно; продуктовые правила не добавляются.",
+      "sourceRefs": [
         "ds-ai-hub.button.bridge"
       ]
     }
