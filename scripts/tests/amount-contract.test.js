@@ -43,8 +43,8 @@ function scenario(){
  return {nodes,snapshot,node,run};
 }
 const violations=r=>r.engine.evaluations.filter(e=>e.classification==='violation');
-test('r4 compiles but remains Draft, no excluded rules',()=>{
- const r=core.compileManualSource(manual,evidence);assert.deepEqual(r.issues,[]);assert.equal(r.contract.status,'draft');assert.equal(r.contract.rules.length,47);assert.equal(r.contract.nonExecutableRules.length,0);assert.equal(manual.rules.length,31);assert.ok(manual.rules.every(r=>r.status==='draft'));
+test('r5 is reviewed and Ready for Figma, no excluded rules',()=>{
+ const r=core.compileManualSource(manual,evidence);assert.equal(manual.metadata.revision,5);assert.deepEqual(r.issues,[]);assert.equal(r.contract.status,'ready');assert.equal(r.contract.rules.length,47);assert.equal(r.contract.nonExecutableRules.length,0);assert.equal(manual.rules.length,31);assert.ok(manual.rules.every(r=>r.status==='reviewed'));
 });
 test('23 proven library variants; only Amount is a root',()=>{
  assert.equal(evidence.variants.length,23);assert.equal(read('reports/generated-facts.json').complete,true);const c=core.compileManualSource(manual,evidence).contract;assert.equal(c.facts.variantEvidence.variants.length,1);assert.deepEqual(c.facts.variantEvidence.variants[0].properties,{});
@@ -69,7 +69,7 @@ test('standalone support never accepts a fabricated set, foreign key or referenc
  assert.ok(core.compileManualSource(wrong,evidence).issues.some(i=>i.code==='STANDALONE_COMPONENT_AS_SET'));
 });
 test('independent library fixture passes included checks',()=>{
- const r=scenario().run();assert.deepEqual(violations(r),[]);assert.equal(r.report.scenarioCoverage.complete,true,JSON.stringify(r.report.scenarioCoverage));assert.equal(r.report.contractReadiness.status,'draft');
+ const r=scenario().run();assert.deepEqual(violations(r),[]);assert.equal(r.report.scenarioCoverage.complete,true,JSON.stringify(r.report.scenarioCoverage));assert.equal(r.report.contractReadiness.status,'ready');
 });
 test('all eight visibility combinations checked; visible unswapped Addon is now an error',()=>{
  for(let mask=0;mask<8;mask++){const f=scenario();['Minor','Currency','Addon'].forEach((name,i)=>{const v=Boolean(mask&(1<<i)),key=Object.keys(f.node('').component.properties).find(k=>k.startsWith(name+'#'));assert(key);f.node('').component.properties[key]=v;f.node(name).visible=v;});const r=f.run();assert.deepEqual(violations(r).map(e=>e.ruleId),mask&4?['component:web-core.amount.addon-content-is-configurable.1.2']:[],String(mask));assert.equal(r.report.scenarioCoverage.complete,true,JSON.stringify({mask,coverage:r.report.scenarioCoverage,uncertain:r.engine.evaluations.filter(e=>!['compliant','not-applicable'].includes(e.classification)).map(e=>({id:e.ruleId,reason:e.trace?.reason,classification:e.classification}))}));}

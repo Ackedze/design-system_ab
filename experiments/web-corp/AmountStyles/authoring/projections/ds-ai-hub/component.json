@@ -1,0 +1,462 @@
+{
+  "componentId": "corp.web.amount-styles",
+  "semantics": {
+    "purpose": "Типографические Figma-пресеты вокруг Core Amount: сумма с единым стилем и цветовым токеном, опциональным знаком операции и Addon.",
+    "useWhen": [
+      "Нужна готовая paragraph/headline композиция суммы."
+    ],
+    "doNotUseWhen": [
+      {
+        "condition": "Нужен ввод суммы.",
+        "useComponentId": "core.web.amount-input"
+      },
+      {
+        "condition": "Нужен самостоятельный code export AmountStyles: его нет."
+      }
+    ],
+    "relatedComponentIds": [
+      "core.web.amount",
+      "core.web.icon-view",
+      "core.web.status-badge"
+    ],
+    "keywords": [
+      "amount",
+      "сумма",
+      "preset",
+      "типографика"
+    ]
+  },
+  "semanticApi": [
+    {
+      "id": "style",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "Paragraph 14/20",
+        "Action 14/20",
+        "Accent 14/20",
+        "Action 16/24",
+        "Action 16/20",
+        "Paragraph 16/24",
+        "Paragraph 16/20",
+        "Accent 16/24",
+        "Accent 16/20",
+        "Headline 18/22",
+        "Headline 22/26",
+        "Headline 30/36",
+        "Headline 40/48",
+        "Headline 48/52",
+        "Headline 16/20",
+        "Headline 20/28",
+        "Headline 26/32",
+        "Headline 34/40"
+      ],
+      "description": "Домен зависит от Figma representation; не переносить headline Style между платформами.",
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "path": "component.properties.Style",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "path": "component.properties.Style",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "path": "component.properties.Style",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "operationEnabled",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "defaultValue": true,
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "path": "component.properties.Operation",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "path": "component.properties.Operation",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "path": "component.properties.Operation",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "negative",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "True",
+        "False"
+      ],
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "targetId": "target.operation",
+          "path": "component.properties.Negative",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "targetId": "target.operation",
+          "path": "component.properties.Negative",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "targetId": "target.operation",
+          "path": "component.properties.Negative",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "minorEnabled",
+      "kind": "state",
+      "valueType": "boolean",
+      "defaultValue": true,
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "targetId": "target.amount",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "targetId": "target.amount",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "targetId": "target.amount",
+          "path": "component.properties.Minor",
+          "transform": "identity"
+        }
+      ],
+      "description": "Read-only наблюдение настройки вложенного Amount; запись выполняется по его собственному контракту."
+    },
+    {
+      "id": "currencyEnabled",
+      "kind": "state",
+      "valueType": "boolean",
+      "defaultValue": true,
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "targetId": "target.amount",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "targetId": "target.amount",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "targetId": "target.amount",
+          "path": "component.properties.Currency",
+          "transform": "identity"
+        }
+      ],
+      "description": "Read-only наблюдение настройки вложенного Amount; запись выполняется по его собственному контракту."
+    },
+    {
+      "id": "addonEnabled",
+      "kind": "state",
+      "valueType": "boolean",
+      "defaultValue": false,
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "targetId": "target.amount",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "targetId": "target.amount",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "targetId": "target.amount",
+          "path": "component.properties.Addon",
+          "transform": "identity"
+        }
+      ],
+      "description": "Read-only наблюдение настройки вложенного Amount; запись выполняется по его собственному контракту."
+    },
+    {
+      "id": "presetVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "targetId": "target.root",
+          "path": "visibility.effective",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "targetId": "target.root",
+          "path": "visibility.effective",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "targetId": "target.root",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "addonVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "targetId": "target.addon",
+          "path": "visibility.effective",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "targetId": "target.addon",
+          "path": "visibility.effective",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "targetId": "target.addon",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "minorVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "targetId": "target.minor",
+          "path": "visibility.effective",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "targetId": "target.minor",
+          "path": "visibility.effective",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "targetId": "target.minor",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "currencyVisible",
+      "kind": "visibility",
+      "valueType": "boolean",
+      "bindings": [
+        {
+          "representationId": "corp.web.amount-styles.figma.paragraph",
+          "targetId": "target.currency",
+          "path": "visibility.effective",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-desktop",
+          "targetId": "target.currency",
+          "path": "visibility.effective",
+          "transform": "identity"
+        },
+        {
+          "representationId": "corp.web.amount-styles.figma.headline-mobile",
+          "targetId": "target.currency",
+          "path": "visibility.effective",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "representations": [
+    {
+      "id": "corp.web.amount-styles.figma.paragraph",
+      "kind": "figma",
+      "platform": "universal",
+      "status": "draft",
+      "locator": {
+        "fileKey": "NrzEFUSTXgzOUmsfYym0xD",
+        "nodeId": "57377:15927",
+        "componentKey": "6276f825ec9ee2ceded5305171c715a7dd73637e",
+        "componentSetKey": "6276f825ec9ee2ceded5305171c715a7dd73637e",
+        "name": "🔒 AmountParagraph"
+      }
+    },
+    {
+      "id": "corp.web.amount-styles.figma.headline-desktop",
+      "kind": "figma",
+      "platform": "desktop",
+      "status": "draft",
+      "locator": {
+        "fileKey": "NrzEFUSTXgzOUmsfYym0xD",
+        "nodeId": "57388:16155",
+        "componentKey": "46d9453084998704a7c26aefd8c2d4427e3a4f5c",
+        "componentSetKey": "46d9453084998704a7c26aefd8c2d4427e3a4f5c",
+        "name": "🔒 [D] AmountHeadline"
+      }
+    },
+    {
+      "id": "corp.web.amount-styles.figma.headline-mobile",
+      "kind": "figma",
+      "platform": "mobile-web",
+      "status": "draft",
+      "locator": {
+        "fileKey": "NrzEFUSTXgzOUmsfYym0xD",
+        "nodeId": "57388:16319",
+        "componentKey": "cee3a597980650c3d43dbe8bf283d2c4f6c1507e",
+        "componentSetKey": "cee3a597980650c3d43dbe8bf283d2c4f6c1507e",
+        "name": "🔒 [M] AmountHeadline"
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "preset-owner-boundaries",
+      "status": "accepted",
+      "summary": "Addon только IconView/StatusBadge и не выше line-height; Opacity Minor/Currency запрещён в пресете.",
+      "rationale": "Прямые ответы владельца 2026-09-29. Не переносить эти ограничения в Core Amount и не выносить их в продуктовый паттерн.",
+      "sourceRefs": []
+    },
+    {
+      "id": "amount-dependency",
+      "status": "accepted",
+      "summary": "Core Amount r5 подключён по revision и двум hashes; правила дочернего компонента не копируются.",
+      "rationale": "Пресет сужает API вложенного Amount. Эффективная типографика определяется Style пресета, внутреннее устройство — контрактом Amount.",
+      "sourceRefs": []
+    },
+    {
+      "id": "operation-default-drift",
+      "status": "accepted",
+      "summary": "Живой библиотечный default Operation=True; старый текст Operation=False не является запретом.",
+      "rationale": "Проверены все 19 публичных variants. Hub не исправлен молча; расхождение внесено в backlog.",
+      "sourceRefs": [
+        "athena.amount-styles.rules",
+        "hub.amount-styles.instructions"
+      ]
+    },
+    {
+      "id": "partial-runtime-r1",
+      "status": "accepted",
+      "summary": "r1 — Draft с явными неисполненными проверками; не заявлять полноту по отсутствию нарушений.",
+      "rationale": "Нужны новые проверки равенства токенов/типографики и live acceptance. Code mapping и patterns отдельно.",
+      "sourceRefs": []
+    },
+    {
+      "id": "currency-custom-scope",
+      "status": "accepted",
+      "summary": "Ограничение Currency.Custom только для отсутствующей в списке валюты полностью отменено.",
+      "rationale": "Прямой ответ владельца 2026-09-29: «убираем это ограничение вообще». Не переносить его в паттерн; старые sources сохраняются только как evidence отменённой нормы.",
+      "sourceRefs": [
+        "athena.amount-styles.rules",
+        "hub.amount-styles.instructions"
+      ]
+    },
+    {
+      "id": "remove-single-line",
+      "status": "accepted",
+      "summary": "Правило однострочности полностью отменено; ширина и клиппинг внешнего контейнера принадлежат паттерну.",
+      "rationale": "Владелец 2026-09-29 подтвердил «удаляем». Не переносить однострочность в другое активное правило и не восстанавливать из Athena evidence.",
+      "sourceRefs": [
+        "athena.amount-styles.rules",
+        "hub.amount-styles.instructions"
+      ],
+      "retiredRuleIds": [
+        "component:web-corp.amount-styles.amount-stays-on-one-line"
+      ]
+    },
+    {
+      "id": "remaining-preset-checks",
+      "status": "accepted",
+      "summary": "Следующие этапы: запрет изменения текста Operation; внутренняя геометрия; запрет ручного оформления без условия кликабельности.",
+      "rationale": "Operation может быть скрыт и переключать Negative штатно. Геометрия не включает внешнюю ширину, клиппинг и отменённую однострочность. У ручного оформления исключить внешнее содержимое Addon. Эти проверки остаются context-only до реализации и тестов.",
+      "sourceRefs": []
+    },
+    {
+      "id": "operation-native-sign-r7",
+      "status": "accepted",
+      "summary": "Operation: библиотечный текст выбранного Negative неизменяем; штатное переключение Negative и скрытие разрешены.",
+      "rationale": "Сохранены оба исходных RuleID: запрет текста исполняется через propertyForbidden/library-text, штатная настройка является policy-only. Ожидаемый знак берётся из pinned Athena variant evidence по componentKey, не выводится из имени или текста actual. Существующий same-family-text связывает sign с Operation при переключении варианта.",
+      "sourceRefs": [
+        "athena.amount-styles.rules"
+      ]
+    }
+  ],
+  "generation": {
+    "profiles": [
+      {
+        "id": "paragraph",
+        "intent": "Библиотечный 🔒 AmountParagraph",
+        "platform": "universal",
+        "representationId": "corp.web.amount-styles.figma.paragraph",
+        "properties": {
+          "style": "Paragraph 14/20",
+          "operationEnabled": true
+        }
+      },
+      {
+        "id": "headline-desktop",
+        "intent": "Библиотечный 🔒 [D] AmountHeadline",
+        "platform": "desktop",
+        "representationId": "corp.web.amount-styles.figma.headline-desktop",
+        "properties": {
+          "style": "Headline 18/22",
+          "operationEnabled": true
+        }
+      },
+      {
+        "id": "headline-mobile",
+        "intent": "Библиотечный 🔒 [M] AmountHeadline",
+        "platform": "mobile-web",
+        "representationId": "corp.web.amount-styles.figma.headline-mobile",
+        "properties": {
+          "style": "Headline 16/20",
+          "operationEnabled": true
+        }
+      }
+    ],
+    "instructions": [
+      "Создай instance нужного публичного component set по ключу; выбирай Style только из его фактического домена.",
+      "Operation/Negative настраиваются отдельно от вложенного Amount. Operation нельзя создавать как самостоятельный UI-компонент.",
+      "Core Amount настраивается по pinned контракту. Пресет запрещает Opacity=True и ручной opacity у Minor/Currency.",
+      "Typography задаётся Style корня. Все видимые Operation/Minus, Major, Minor, Currency используют один библиотечный Text Style и один цветовой токен.",
+      "Addon допускает только IconView/StatusBadge не выше line-height; его собственные цвета не наследуют требование равенства.",
+      "Продуктовые правила применения подключаются отдельно; r1 не готов для автономной генерации без проверки открытых gaps."
+    ]
+  }
+}

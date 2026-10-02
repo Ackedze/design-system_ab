@@ -1,0 +1,59 @@
+{
+  "documentType": "authoring-decisions",
+  "component": "ButtonsGroup",
+  "date": "2026-10-01",
+  "scope": "new manual contract; desktop and mobile-web",
+  "normativeArtifact": false,
+  "manualCreated": false,
+  "decisions": [
+    {
+      "id": "buttons-group-minimum-visible",
+      "status": "accepted",
+      "userAnswer": "Разрешить одну видимую кнопку",
+      "norm": {
+        "desktop": {
+          "min": 1,
+          "max": 4
+        },
+        "mobileWeb": {
+          "min": 1,
+          "max": 2
+        }
+      },
+      "supersededLegacyRuleId": "component:web-corp.buttons-group.minimum-two-buttons",
+      "preservedSeparateRuleIds": [
+        "component:web-corp.buttons-group.single-icon-requires-two-buttons",
+        "component:web-corp.buttons-group.overflow-is-optional-from-two-buttons"
+      ]
+    },
+    {
+      "id": "buttons-group-view-domain",
+      "status": "accepted",
+      "userAnswer": "Только Primary и Secondary",
+      "norm": {
+        "allowedViews": [
+          "Primary",
+          "Secondary"
+        ]
+      },
+      "sourceRuleId": "component:web-corp.buttons-group.nested-button-views-are-primary-or-secondary"
+    },
+    {
+      "id": "buttons-group-root-sizing",
+      "status": "accepted",
+      "userAnswer": "не используем это правило",
+      "retiredRuleIds": [
+        "component:web-corp.buttons-group.root-sizing-is-hug-hug"
+      ],
+      "norm": {
+        "rootSizingLock": false,
+        "rootWidthHeightLock": false
+      },
+      "preservedRules": [
+        "horizontal-layout-is-fixed",
+        "spacing-uses-effective-baseline",
+        "visual-and-layout-baseline-is-fixed"
+      ]
+    }
+  ]
+}

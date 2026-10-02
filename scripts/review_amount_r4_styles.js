@@ -3,7 +3,9 @@ const fs=require('node:fs'),path=require('node:path'),zlib=require('node:zlib'),
 const repo=path.resolve(__dirname,'..'),root=path.join(repo,'experiments/web-core/core/Amount/authoring');
 const coreFile=path.resolve(repo,'../../projects/ComponentContractEditor/dist/core.cjs'),core=require(coreFile);
 const read=p=>JSON.parse(fs.readFileSync(path.join(root,p))),sha=x=>crypto.createHash('sha256').update(x).digest('hex');
-const manual=read('contract.manual.json'),compiled=read('compiled/component-contract.v2.json'),runtime=core.prepareAuthoringPreviewContract(compiled);
+const historical=path.resolve(root,'../history/r4-editor-0.2.57');
+const readR4=p=>JSON.parse(fs.readFileSync(path.join(fs.existsSync(historical)?historical:root,p)));
+const manual=readR4('contract.manual.json'),compiled=readR4('compiled/component-contract.v2.json'),runtime=core.prepareAuthoringPreviewContract(compiled);
 assert.equal(manual.metadata.revision,4);assert.equal(compiled.package.manualSourceHash,core.stableHash(manual));
 const dir='reports/fixtures/r3-editor-0.2.56',results=[];
 for(const name of fs.readdirSync(path.join(root,dir)).filter(n=>n.endsWith('.json.gz')).sort()){

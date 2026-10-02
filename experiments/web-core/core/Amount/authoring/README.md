@@ -1,163 +1,111 @@
-# Amount — компонентный контракт r4
+# Amount — компонентный контракт r5
 
-Статус на 29.09.2026: **Draft / не опубликован / r4 проверен офлайн,
-повторная live-проверка Text Style ожидается**. В r3 найдены два пропуска отвязки
-Text Style: прежнее `complete=true` не означало покрытия этого ограничения.
-Core компонент `core.web.amount` из Web _ Core; не AmountInput и не AmountStyles.
-Корневой Figma componentKey: `fe3399f71c9e0971646821d935b64657e462c28e`.
+Статус на 29.09.2026: **Ready для компонентного Figma scope / не опубликован**.
+Принят владельцем: «отлично, закрываем контракт». Это третий принятый компонентный
+контракт после Button и Spinner; связь с фронтом сюда не входит.
 
-## Что загрузить
+## Рабочий пакет
 
-Перезапустите **ComponentContract Editor 0.2.57** и импортируйте
-[`editor/Amount.editor-input.zip`](editor/Amount.editor-input.zip).
-Это пакет r4 с manual и pinned Athena evidence; компиляция выполняется общим core.
-Не загружайте старый соседний `../compiled/component-contract.v2.json`.
+В **ComponentContract Editor 0.2.57** импортировать
+[Amount.editor-input.zip](editor/Amount.editor-input.zip) — финальная ревизия r5.
+Обновлять сам Editor не требуется. Старый ZIP r4 остаётся историческим Draft.
+Не загружать соседний `../compiled/component-contract.v2.json`: это legacy эксперимент.
 
-Единственный редактируемый нормативный источник — [contract.manual.json](contract.manual.json).
-Editor позволяет менять все добавленные поля: typed constraints, semantic conditions,
-источник текстового эталона, нормализацию, якорь и владение содержимым слота,
-а также `styleBinding.styleCatalog` — каталог обязательных библиотечных Text Style.
-Сохраняйте manual из Editor и пересобирайте пакет. `compiled/`, `evidence/`,
-`reports/`, `projections/`, `runtime/` и ZIP — производные артефакты.
-`sources/` — закреплённые read-only документы с SHA-256. Не правьте generated JSON вручную.
+Единственный ручной нормативный источник — [contract.manual.json](contract.manual.json).
+Правки делаются в Editor; compiled JSON не редактируется. Общий compiler создаёт
+[component-contract.v2.json](compiled/component-contract.v2.json), проекции и ZIP.
+`sources/` — закреплённые read-only Athena/Hub facts; `reports/` — доказательства
+проверки, не параллельный источник правил. Ready не означает публикацию в Apollo.
 
-## Нормы компонента
+## Что описывает контракт
 
-- **Text Style обязателен** для каждого видимого текстового диапазона Major,
-  Minor и Currency. Допустимые ключи берутся из закреплённого Athena-каталога
-  `sources/design-system_ab/JSONS/styles/Web _ Typography.json` (56 стилей).
-  Можно выбирать разные библиотечные стили. Detach и кастомный стиль вне каталога
-  запрещены; сходство шрифта/размера/имени не доказывает привязку.
-  Проверка общая, `styleBinding` компилируется в Predicate Engine `binding-satisfies`.
-  Capture-facts `textStyleEvidenceV1` изолированы от baseline; проверяются смешанные
-  диапазоны, file-local ID разрешается через BaseStyle.key. Недостаток сведений —
-  unknown/неполная проверка, не успех. Внешнее содержимое Addon не затронуто.
-- Amount — одиночный компонент; root API — BOOLEAN Minor, Currency, Addon.
-  Major обязателен. Нет выдуманных root Type, Size, Operation, Negative.
-- Проверяются происхождение Amount/Major/Minor/Currency, видимость, порядок частей
-  и независимый baseline оформления/Auto Layout корня.
-- **Цвет Major, Minor и Currency — только токены:** каждая активная заливка,
-  обводка и цветовая точка градиента. Совпадение RGB с токеном не заменяет binding.
-  Разные части могут иметь разные токены и Text Style; требование единообразия
-  относится к AmountStyles, не к этому Core контракту.
-- **Currency.Type=Custom — любой текст**, включая пустую строку: без regex,
-  допустимого алфавита, списка валют или ограничений длины.
-- При стандартном Type содержимое соответствует выбранному библиотечному варианту
-  из pinned Athena facts. `textNormalization=trim` убирает только краевые Unicode-пробелы;
-  не меняет регистр, символы или внутренние пробелы. Сохранённый текстовый override
-  исходного Amount не является эталоном выбранной USD/CNY.
-- **Addon — открытый слот:** разрешён любой native instance swap без allowlist,
-  требования размера или унаследованных стилей placeholder.
-  Ошибка — видимый исходный placeholder по ключу
-  `b95166da66ad15ecad14244d670ab1b66db66f80`.
-  Перекраска/переименование синего квадрата не считается заменой. Скрытый допустим.
-- BOOLEAN reference `Addon#100902:0` — якорь соответствия, не выдуманный INSTANCE_SWAP
-  property. `contentOwnership=external` оставляет внутренности замены её собственному
-  контракту; Amount по-прежнему проверяет корень слота, видимость и порядок.
-  Отсутствующий/неоднозначный anchor или неизвестный ключ не превращаются в pass.
-- Opacity варианты Minor/Currency сами по себе допустимы. Продуктовые ограничения
-  вынесены с прежними RuleID в [отдельный pattern handoff](../../../../patterns/amount/README.md)
-  и здесь не исполняются.
+Core `core.web.amount`, библиотека Web _ Core, componentKey
+`fe3399f71c9e0971646821d935b64657e462c28e`. Не AmountInput и не AmountStyles.
 
-r4: **31 source rules → 47 RuleIR**, три явных разрешения policy-only, без исключённых
-исполняемых правил. Восемь order-записей — одна норма для visibility-комбинаций.
-Все статусы пока Draft. Проверка токенов реализована в общем core, но не включается
-автоматически во всех остальных компонентах.
+- Библиотечное происхождение Amount/Major/Minor/Currency; Major обязателен.
+  Root API: BOOLEAN Minor, Currency, Addon. Фиктивных root Type/Size/Operation/Negative нет.
+- Видимость и порядок частей, независимый baseline оформления и Auto Layout корня.
+- Цвета Major/Minor/Currency только через токены: активные fill/stroke/gradient stops.
+  Совпадение RGB не заменяет привязку. Разные части могут использовать разные токены.
+- Major/Minor/Currency должны использовать библиотечный Text Style из закреплённого
+  Web _ Typography (56 стилей). Разные библиотечные стили допустимы. Detach и стиль
+  вне каталога запрещены; одинаковое имя/шрифт не доказывают принадлежность.
+- Currency.Type=Custom допускает любой текст, включая пустой, без regex/domain/длины.
+  Standard Type сравнивается с текстом выбранного Athena-варианта, не host override.
+  Нормализация trim убирает только краевые Unicode-пробелы.
+- Addon — открытый native swap: любой заменяющий компонент без allowlist/размерных
+  ограничений. Видимый исходный placeholder запрещён по ключу, даже после перекраски
+  или переименования. Скрытый допустим. BOOLEAN reference — якорь, не выдуманный swap API.
+- Содержимое заменённого Addon принадлежит его контракту: Amount проверяет свою
+  границу/видимость/порядок, не наследует внутренностям baseline placeholder.
+- Opacity-варианты разрешены. Продуктовые и канальные ограничения вынесены с прежними
+  RuleID в [pattern handoff](../../../../patterns/amount/README.md), здесь не исполняются.
+  Единообразие типографики/цвета AmountStyles не добавлено в Core Amount.
 
-## Проверки и границы готовности
+**31 reviewed source rules → 47 RuleIR**, 3 явных разрешения policy-only,
+0 исключённых/неисполняемых правил, 0 ошибок compiler. Восемь order-записей описывают
+одну норму для восьми visibility-комбинаций. r5 меняет только review-статусы и revision;
+семантика правил, ключи и pinned generated facts не изменены.
 
-R4: **538 Editor tests + 290 package tests**, typecheck, 18 responsive layouts,
-18 dialog layouts и семь реальных UI-roundtrip правил. Пакет проходит проверку
-схем; полноценный live-прогон новой версии не подменяется этими результатами.
+## Доказательства приёмки
 
-Новый [QA r4](reports/text-style-binding-r4.2026-09-29.json) повторяет восемь сохранённых
-снимков r3: все прежние нарушения сохранены, добавлены два ранее пропущенных detach.
-На `13129:64610` — Major Text Style вместе с Currency color binding;
-на `13129:64751` — Currency Text Style вместе с неверным USD-текстом.
-Это офлайн replay, не новая live-приёмка. Разные библиотечные Text Style, скрытые
-части и внешний Addon не получают ложных запретов. Исторический r3 доступен в
-`../history/r3-editor-0.2.56/`; его артефакты не переписываются.
+[Итоговый QA-манифест](reports/acceptance.json) содержит hashes, свидетельства по
+каждому RuleID, шесть новых live-отчётов r4 и границы покрытия.
 
-Предыдущий регрессионный baseline r3:
+- Шесть live JSON r4: engine/editor/UI-details воспроизводятся точно; все проверки
+  полные, 9/9 узлов, без capture warnings. Major detach, альтернативный библиотечный
+  Text Style и небиблиотечный local style различаются корректно; color bindings
+  проверяются независимо. Minor/Currency token detach также обнаружены.
+- Восемь прежних live r3 подтверждают Custom, стандартную валюту, native Addon swap,
+  placeholder, разные токены/типографику, root gap и hidden Major.
+- **32 архивных снимка / 1 666 evaluations**: r4→r5 без изменения поведения.
+  Это офлайн replay, а не 32 новых ручных прогона. Повреждённые A17 остаются явно
+  неполными, а не зелёными. Ready контракта не превращает неизвестность в успех.
+- Финальный прогон: **538/538 тестов Editor** вместе с typecheck/build и
+  **285/285 тестов Amount, Button и доступных acceptance-наборов Spinner**.
+  Исторические Spinner-наборы, зависящие от удалённых пользовательских exports,
+  в этот прогон не включены и не объявляются пройденными.
+- Дополнительные границы покрыты автотестами: Custom empty/RUB, правильный USD,
+  detaches каждой части, renamed/recolored placeholder, произвольный renamed swap,
+  foreign/missing identity, отсутствие/неоднозначность фактов и ZIP roundtrip.
+  Там, где нет нового live-отчёта, это явно указано в манифесте.
+- Частичный детач не подтверждён как ручная операция внутри Amount и **не является
+  блокером приёмки**. Синтетическая защита от смешанных/неполных диапазонов остаётся
+  внутренним тестом общего валидатора; это не требование создавать невозможный UI-кейс.
 
-510 Editor tests и 290 package regressions (244 Button, 27 доступных Spinner, 19 Amount),
-typecheck; 18 адаптивных UI-сценариев и 18 размеров диалога.
-Четыре roundtrip через реальный UI: Addon, standard Currency, Custom и token rule;
-повреждённый JSON условий не сохраняется и не теряет manual. Новые поля сохранены.
-Два прежних Spinner suites с удалёнными источниками не включены в эти числа.
-Новые синтетические случаи проверяют raw/token цвета, несколько paints, градиенты,
-Custom/standard текст, свободный slot swap, unknown, повреждённые anchors и ZIP roundtrip.
+Все шесть новых JSON сохранены побайтово в
+`reports/fixtures/r4-editor-0.2.57/*.json.gz` с SHA-256. Эти шесть выгрузок из `editor/`
+можно удалять: повторные тесты используют архив. r4 сохранён в `../history/r4-editor-0.2.57/`.
+Исторические r2/r3 факты не переписаны. Подробная матрица — [TESTCASES](TESTCASES.md).
 
-[QA r3](reports/owner-boundaries-r3.2026-09-29.json) повторяет 18 неизменённых raw
-отчётов r2: **10 полных положительных, 6 полных отрицательных, 2 неполных**.
-A06–A09 теперь правильно отрицательные: в них показан незаменённый Addon.
-A15 gap и A16 hidden Major остаются ошибками; A17A/B подмены защищены fail-closed.
-Это новый расчёт старых снимков, **не новые live-тесты Figma**.
+## Границы Ready и следующий этап
 
-### Live r3: восемь отчётов 13:04–13:07 UTC
+Вне этой приёмки: frontend mapping/value/minority/formatting parity, продуктовые
+паттерны, AmountStyles, валидация внутренностей произвольного Addon, обновление
+production Hub и переключение runtime routing. Это отдельные работы, не скрытые
+неисполняемые правила этого контракта.
 
-[Разбор и контрольные суммы](reports/live-review-r3.2026-09-29.json):
-**8/8 полных проверок**, 392 engine evaluations, `notExecuted=0`, `inconclusive=0`.
-Все используют r3 / Editor0.2.56; manual, compiled и snapshot hashes сверены.
-Повторный расчёт engine/editor/details совпал во всех восьми случаях.
+A17 разрушительные подмены внутренних частей дают безопасную неполную проверку;
+более точная локализация остаётся P1. Предупреждение о внешних узлах Addon — P2 UX.
+Hub drift сохраняется в Леджере как «Найдено», не объявлен устранённым. В реестре
+Predicate Ready относится только к `authoring/`, не к старому production пакету.
 
-| Сценарий | Подтверждённый результат |
-|---|---|
-| Видимый исходный Addon | Ошибка по componentKey placeholder |
-| Разные токены и типографика Major/Minor (14/16) | Разрешено; скрытый placeholder не мешает |
-| Custom «баллов» | Разрешено |
-| Type=USD, фактический текст «UD» | Ошибка; эталон именно USD, не ₽ |
-| Native swap Addon на другой библиотечный компонент | Разрешено; проверка Amount полная |
-| Gap 0 → 8 | Ошибка baseline |
-| Скрытый Major | Обнаружен; два связанных правила, один дефект |
-| Отвязанный цвет Currency при прежнем RGB/opacity | Ошибка token binding |
-
-У swap отчёт сохраняет техническое предупреждение о21 несопоставленном узле
-внешнего содержимого. Это ожидаемая граница:7 узлов Amount сопоставлены,
-новый slot root привязан по `Addon#100902:0`, baseline placeholder не унаследован.
-Полнота относится к правилам Amount, **не** к внутренностям заменённого компонента.
-Уточнение текста предупреждения записано в backlog как P2, не блокер семантики.
-
-Оставшийся P0 — [проверка Text Style r4 и прежние непокрытые границы](TESTCASES.md).
-Два случая с пропущенными стилями нужно повторить на новом пакете. После закрытия остатка можно принять
-контракт для объявленного Figma scope. Code mapping, продуктовые паттерны,
-проверка произвольного содержимого Addon и production migration не объявлены готовыми.
-Button/Spinner, production routing и действующие каталоги не изменены.
-
-## Сборка и воспроизведение
+## Сборка и проверка
 
 Из корня design-system_ab:
 
 ```sh
+node scripts/review_amount_finalization.js
 node scripts/build_component_contract_reference.js experiments/web-core/core/Amount/authoring
-node --test scripts/tests/amount-contract.test.js
-node scripts/review_amount_r3_boundaries.js
+node --test scripts/tests/amount-*.test.js
 node scripts/review_amount_r3_live_reports.js
 node scripts/review_amount_r4_styles.js
 ```
 
-Из ComponentContractEditor: `npm run typecheck && npm test`.
-Обычная сборка сохраняет pinned sources и проверяет hashes; manual не переписывается.
-`--refresh-sources` — только отдельное осознанное обновление после сверки библиотеки.
-`--add-sources` разрешает добавить новый явный source, не обновляя остальные pins;
-manual.source.sourceHash должен заранее соответствовать проверенному набору.
+Из ComponentContractEditor: `npm run validate`.
+Обычная сборка не обновляет pinned sources и не переписывает manual. Приёмка
+проверяется по точным manual/compiled/generated hashes; изменённый пакет не наследует
+старую приёмку. `--refresh-sources` допустим только после отдельной сверки библиотеки.
 
-История и прежние инструкции:
-[r2 / Editor 0.2.55](../history/r2-editor-0.2.55/README.md),
-[r1](../history/r1-editor-0.2.53/), [BACKLOG](BACKLOG.md).
-Архивы исходных live JSON сохранены как `reports/fixtures/r2-editor-0.2.54/*.json.gz`
-и `reports/fixtures/r3-editor-0.2.56/*.json.gz`. Все восемь новых JSON архивированы
-и проверены по SHA-256; пользовательские выгрузки из editor теперь можно удалять.
-
-## Синхронизация знаний
-
-R4: Правила1840 и1866–1868, Леджер70 и Core Predicate обновлены. Новый drift —
-отсутствие обязательной привязки Text Style и рекомендация ручного веса в Hub bridge.
-Отдельный readback-отчёт: `reports/registry-sync-r4.2026-09-29.json`.
-
-История r3:
-
-Правила1841 и1861–1865, Леджер67–69 и Core Predicate обновлены и проверены чтением.
-Predicate остаётся Draft. Расхождения Hub по token-only, открытому Addon и свободному
-Custom зафиксированы как «Найдено»; Hub не изменён молча. Проекции из r3 локальные,
-не опубликованные. `contract.manual.json` остаётся единственным ручным источником.
+[Бэклог](BACKLOG.md) · [История r4](../history/r4-editor-0.2.57/README.md) ·
+[Реестр синхронизации r5](reports/registry-sync-r5.2026-09-29.json).

@@ -1,0 +1,362 @@
+{
+  "schemaVersion": "apollo.component-contract.manual.v2-experimental",
+  "documentType": "component-contract-manual",
+  "component": {
+    "componentId": "web-corp.corporate-content",
+    "familyId": "web-corp.corporate-content",
+    "contractId": "corporate-content.desktop",
+    "family": "CorporateContent",
+    "layer": "core",
+    "library": "Web _ Corp Components",
+    "platform": "desktop",
+    "platforms": [
+      "desktop"
+    ],
+    "lifecycle": "active",
+    "componentKey": "a8d13cb6e1ae67a7296709f669238f41971c7197"
+  },
+  "semantics": {
+    "purpose": "",
+    "useWhen": [],
+    "doNotUseWhen": [],
+    "relatedComponentIds": [],
+    "keywords": []
+  },
+  "representations": [
+    {
+      "id": "web-corp.corporate-content.figma.desktop",
+      "kind": "figma",
+      "platform": "desktop",
+      "status": "draft",
+      "locator": {
+        "componentKey": "a8d13cb6e1ae67a7296709f669238f41971c7197"
+      }
+    }
+  ],
+  "semanticApi": [],
+  "documentation": [],
+  "examples": [],
+  "decisions": [],
+  "generation": {
+    "profiles": [],
+    "instructions": []
+  },
+  "source": {
+    "kind": "athena-package",
+    "importedFiles": [
+      "agent-context.json",
+      "audit-mapping.json",
+      "composition-contract.json",
+      "contract.generated.json",
+      "contract.overrides.json",
+      "examples.json",
+      "rules.json",
+      "semantic-targets.json"
+    ],
+    "sourceHash": "ca823156b78fa3b9223d3658d916c81f5f35e4fe3d296577b513e45f63b7372c",
+    "importedAt": "2026-09-30T07:55:12.042Z"
+  },
+  "targets": [
+    {
+      "id": "target.corporate-content",
+      "semanticRole": "corporate-content",
+      "label": "[D] CorporateContent",
+      "componentFamily": "[D] CorporateContent",
+      "lineage": [],
+      "structuralFingerprint": "fea1639566875e1d",
+      "nameHint": "[D] CorporateContent",
+      "pathHint": "[D] CorporateContent",
+      "nodeIdHint": "preview:0",
+      "resolution": "resolved"
+    },
+    {
+      "id": "target.body",
+      "semanticRole": "body",
+      "label": "[D] Body",
+      "componentFamily": "CorporateContent",
+      "lineage": [
+        "corporate-content"
+      ],
+      "structuralFingerprint": "87f801222746e49e",
+      "nameHint": "[D] Body",
+      "pathHint": "[D] CorporateContent / [D] Body",
+      "nodeIdHint": "preview:1",
+      "resolution": "resolved"
+    }
+  ],
+  "controlPorts": [],
+  "rules": [
+    {
+      "id": "component:corporate-content.desktop.body.composition-content",
+      "targetId": "target.body",
+      "targetScope": "self",
+      "capability": "composition.content",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "slot-api",
+          "required": true,
+          "exclusive": true,
+          "target": "target.body",
+          "property": "[D] Body#135096:3",
+          "contentOwnership": "external"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Body — открытый слот CorporateContent для произвольного содержимого и\nкомпозиций. Внутренние элементы содержимого принадлежат собственным\nкомпонентам и паттернам. CorporateContent владеет границей слота, но не\nнавязывает содержимому структуру библиотечного placeholder",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.corporate-content"
+      },
+      "sourceRefs": [],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:corporate-content.desktop.corporate-content.auto-layout-1",
+      "targetId": "target.corporate-content",
+      "targetScope": "self",
+      "capability": "",
+      "capabilitySet": "auto-layout@1",
+      "capabilitySelection": [
+        "layout.mode",
+        "layout.padding.top",
+        "layout.padding.right",
+        "layout.padding.bottom",
+        "layout.padding.left",
+        "layout.itemSpacing",
+        "layout.primaryAxisAlignItems",
+        "layout.counterAxisAlignItems",
+        "layout.sizingHorizontal"
+      ],
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "target"
+      },
+      "severity": "error",
+      "rationale": "Внутренняя геометрия компонента не изменяется напрямую.",
+      "remediationIntent": "restore-effective-baseline",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.corporate-content"
+      },
+      "sourceRefs": [],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:corporate-content.desktop.corporate-content.layout-clips-content",
+      "targetId": "target.corporate-content",
+      "targetScope": "self",
+      "capability": "layout.clipsContent",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "CorporateContent содержит произвольное наполнение через Body. Обрезка на уровне корня может скрыть части вложенного содержимого, поэтому clipsContent должен оставаться выключенным. Необходимое ограничение содержимого задаётся внутри соответствующей композиции",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.corporate-content"
+      },
+      "sourceRefs": [],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:corporate-content.desktop.corporate-content.layout-grid-style-id",
+      "targetId": "target.corporate-content",
+      "targetScope": "self",
+      "capability": "layout.gridStyleId",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Сетка CorporateContent определяет системную структуру колонок. Её ручная замена или отвязка нарушает согласованность компонента с сеткой дизайн-системы. Стиль должен сохраняться таким, каким он задан в библиотечном компоненте.",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.corporate-content"
+      },
+      "sourceRefs": [],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:corporate-content.desktop.corporate-content.variable-modes-22d83aeb0d0d643a5359f63464a2ab81838fbe9f",
+      "targetId": "target.corporate-content",
+      "targetScope": "self",
+      "capability": "variable.modes.22d83aeb0d0d643a5359f63464a2ab81838fbe9f",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "propertyDomain",
+          "values": [
+            "136853:0",
+            "136853:1"
+          ]
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "CorporateContent — контейнер содержимого страницы. Для его фона разрешены только page modes: base-bg-alt (grey) и base-bg (white). Modal modes предназначены для модальных поверхностей и не допускаются в этом компоненте. Выбор между серым и белым фоном определяется паттерном страницы.",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.corporate-content"
+      },
+      "sourceRefs": [],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:corporate-content.desktop.corporate-content.visual-style-1",
+      "targetId": "target.corporate-content",
+      "targetScope": "self",
+      "capability": "",
+      "capabilitySet": "visual-style@1",
+      "capabilitySelection": [
+        "appearance.fill",
+        "appearance.stroke",
+        "appearance.opacity",
+        "appearance.radius",
+        "appearance.effects"
+      ],
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "target"
+      },
+      "severity": "error",
+      "rationale": "Внутреннее визуальное оформление компонента не изменяется напрямую.",
+      "remediationIntent": "restore-effective-baseline",
+      "status": "reviewed",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.corporate-content"
+      },
+      "sourceRefs": [],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    }
+  ],
+  "metadata": {
+    "ruleOwnershipVersion": 1,
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "revision": 11,
+    "createdAt": "2026-09-30T07:55:12.042Z",
+    "updatedAt": "2026-09-30T17:22:38.951Z"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "apollo.source-drift.v1",
+  "date": "2026-09-29",
+  "status": "open-hub-sync",
+  "entries": [
+    {
+      "id": "drift:amount-styles-operation-default",
+      "ruleOrAspect": "Operation default",
+      "manual": "r1: Operation=True, read-only live facts 19/19 public variants.",
+      "hub": "Старый текст Operation=False.",
+      "action": "Обновить docs по фактам; не превращать default в запрет.",
+      "status": "Найдено",
+      "relation": "conflict",
+      "hubPath": "products/ab/components/amount-styles/instructions.md"
+    },
+    {
+      "id": "drift:amount-styles-custom-restriction-removed",
+      "ruleOrAspect": "Currency.Type=Custom",
+      "manual": "Владелец 29.09.2026 полностью отменил ограничение, произвольный текст разрешён.",
+      "hub": "Custom допускается только для валюты вне стандартного списка.",
+      "action": "Удалить ограничение из Hub; не переносить в паттерн.",
+      "status": "Найдено",
+      "relation": "conflict",
+      "hubPath": "products/ab/components/amount-styles/instructions.md; cookbook/02-build.md"
+    },
+    {
+      "id": "drift:amount-styles-rule-ownership-r1",
+      "ruleOrAspect": "Компонент vs применение",
+      "manual": "20 правил применения отделены; Addon/Opacity остаются в пресете; Core Amount r5 отдельно.",
+      "hub": "Компонентные документы содержат правила каналов, таблиц, форматирования, цвета по смыслу.",
+      "action": "Сформировать pattern docs из отдельного handoff; не копировать predicates.",
+      "status": "Найдено",
+      "relation": "conflict",
+      "hubPath": "products/ab/components/amount-styles/instructions.md; products/ab/patterns/amount_component.md"
+    }
+  ]
+}

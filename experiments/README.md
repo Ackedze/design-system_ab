@@ -1,5 +1,12 @@
 # Component contract v2 capability experiments
 
+Current manually authored, accepted Figma packages are collected in
+[current-contract-packages/](current-contract-packages/README.md):
+Button r31, Spinner r8, Amount r5, AmountStyles r10, CorporateContent r11.
+These are distribution copies only; canonical manual sources remain in the
+component directories. The generated capability inventory below is historical
+research, not a list of additional finalized manual contracts.
+
 These packages are isolated research artifacts. Athena production discovery and Apollo's default
 runtime do not use them. The bootstrap manifest exposes only `runtime-index.json`, which Apollo
 loads lazily after the user manually enables the Contract v2 test contour. The contour is disabled

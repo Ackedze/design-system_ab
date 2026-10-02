@@ -35,8 +35,16 @@ function collectRuleRelocations({repoRoot, componentId, manualRules, manifest, r
   });
 }
 
-function missingSourceRuleIds(sourceIds, manualRules, relocations) {
-  const accounted = new Set([...manualRules.map(r => r.id), ...relocations.map(r => r.ruleId)]);
+function collectRuleRetirements(sourceIds, manualRules, relocations, decisions) {
+  const occupied=new Set([...manualRules.map(r=>r.id),...relocations.map(r=>r.ruleId)]),retired=[];
+  for(const d of decisions || [])for(const ruleId of d.retiredRuleIds || []){
+    if(d.status!=='accepted'||!d.rationale?.trim()||!sourceIds.includes(ruleId)||occupied.has(ruleId))throw Error(`Invalid or duplicate retired RuleID: ${ruleId}`);
+    occupied.add(ruleId);retired.push({ruleId,decisionId:d.id,reason:d.rationale,status:'retired-by-owner'});
+  }
+  return retired;
+}
+function missingSourceRuleIds(sourceIds, manualRules, relocations, retirements=[]) {
+  const accounted = new Set([...manualRules.map(r => r.id), ...relocations.map(r => r.ruleId),...retirements.map(r=>r.ruleId)]);
   return sourceIds.filter(id => !accounted.has(id));
 }
-module.exports = {collectRuleRelocations, missingSourceRuleIds};
+module.exports = {collectRuleRelocations, collectRuleRetirements, missingSourceRuleIds};

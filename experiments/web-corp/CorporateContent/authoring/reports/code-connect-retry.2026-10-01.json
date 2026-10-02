@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "apollo.component-contract.code-connect-publication-attempt.v1",
+  "normative": false,
+  "date": "2026-10-01",
+  "componentId": "web-corp.corporate-content",
+  "outcome": "pointer-only-template-not-persisted",
+  "before": {
+    "mappingEmpty": true,
+    "unmappedComponentConfirmed": true
+  },
+  "sourceTemplateSha256": "458891bdc03ffbd85b989d9b7f9b919b08c6ba01da01db5aa8377e0c2a840f5d",
+  "request": {
+    "fileKey": "NrzEFUSTXgzOUmsfYym0xD",
+    "nodeId": "89622:29551",
+    "componentName": "CorporateContent",
+    "label": "React",
+    "source": "src/corporate-content/corporate-content.tsx",
+    "template": "const figma = require('figma');\nconst instance = figma.selectedInstance;\nconst body = instance.getSlot('[D] Body');\n// Background modes and responsive geometry are not React component props.\n// Keep defaults; never manufacture background, grid, width or platform props.\nexport default {\n    example: figma.code `<CorporateContent>${body}</CorporateContent>`,\n    imports: ['import { CorporateContent } from \"arui-private/corporate-content\";'],\n    id: 'web-corp.corporate-content',\n    metadata: {\n        nestable: true,\n        props: {\n            componentId: 'web-corp.corporate-content',\n            representationId: 'web-corp.corporate-content.figma.desktop',\n            mappedCapabilities: ['body-content'],\n        },\n    },\n};\n",
+    "templateData": {
+      "nestable": true,
+      "isParserless": true
+    }
+  },
+  "publicationResult": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"success\": true,\n  \"message\": \"Successfully mapped node 89622:29551 to CorporateContent at src/corporate-content/corporate-content.tsx\"\n}"
+      }
+    ],
+    "isError": false
+  },
+  "readback": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"89622:29551\":{\"componentName\":\"CorporateContent\",\"source\":\"src/corporate-content/corporate-content.tsx\",\"version\":\"unknown\",\"hasTemplate\":false,\"snippet\":\"<DCorporateContent />\",\"snippetImports\":[],\"snippetNestedFunctions\":[\"type DCorporateContentProps = {\\n  className?: string;\\n  children?: React.ReactNode | null;\\n};\\n\\nexport default function DCorporateContent({ className, children = null }: DCorporateContentProps) {\\n  return (\\n    <div className={className || \\\"bg-[var(--backgroundcolor,#f2f3f5)] content-stretch flex flex-col h-[194px] items-start pb-[var(--grid\\\\\\\\/bottommargin,64px)] pt-[var(--grid\\\\\\\\/topmargin,40px)] px-[var(--grid\\\\\\\\/grid-margin,52px)] relative w-[var(--grid\\\\\\\\/content,1352px)]\\\"} data-name=\\\"[D] CorporateContent\\\">\\n      <div className=\\\"content-stretch flex flex-[1_0_0] flex-col items-start min-h-px relative w-[1248px]\\\" data-name=\\\"[D] Body\\\">\\n        {children || (\\n          <div className=\\\"bg-[var(--static_status-muted\\\\/info,#e4f0ff)] border border-[var(--text_inverted\\\\/info,#4a9dfc)] border-solid content-stretch flex flex-[1_0_0] flex-col items-center justify-center min-h-px p-[10px] relative rounded-[16px] w-full\\\" data-name=\\\"SwapMe\\\">\\n            <div className=\\\"[word-break:break-word] flex flex-col font-[family-name:var(--font_family\\\\/\\\\<20,'Alfa_Interface_Sans:Bold')] justify-center leading-[0] not-italic relative shrink-0 text-[12px] text-[color:var(--text_inverted\\\\/info,#4a9dfc)] text-center tracking-[1.25px] uppercase w-full\\\">\\n              <p className=\\\"leading-[16px]\\\">Content</p>\\n            </div>\\n          </div>\\n        )}\\n      </div>\\n    </div>\\n  );\\n}\"]}}"
+      }
+    ],
+    "isError": false
+  },
+  "verification": {
+    "repeatedReadbackWithoutLabelMatched": true,
+    "hasTemplate": false,
+    "namedPublicImportPersisted": false,
+    "nativeBodyTemplatePersisted": false,
+    "sourceNamePointerRecreated": true,
+    "localTypecheck": true,
+    "localTestsPassed": 5,
+    "officialCliParse": true,
+    "cliForceAvailable": true,
+    "cliAuthenticationConfigured": false
+  },
+  "next": "Publish the existing template with the official CLI using --force once FIGMA_ACCESS_TOKEN is configured locally; then verify actual Figma readback."
+}

@@ -1,5 +1,10 @@
 # AmountStyles component contract v2 experiment
 
+Актуальный редактируемый пакет: [authoring/README.md](authoring/README.md), **r10 Ready для Figma** (Editor ≥ 0.2.64), принят 2026-09-30.
+Единственный manual находится в `authoring/contract.manual.json`; пакет Editor —
+`authoring/editor/AmountStyles.editor-input.zip`. Ниже описан прежний runtime-эксперимент;
+он сохранён и не перенаправлен на новый пакет. Production-публикация и связь с кодом не входят в эту приёмку.
+
 This package is excluded from Apollo production enforcement and Athena production discovery.
 Apollo may load it only through the manually enabled Contract v2 test contour.
 

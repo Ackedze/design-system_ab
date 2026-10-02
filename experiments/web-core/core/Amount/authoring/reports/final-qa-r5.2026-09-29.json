@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "apollo.component-contract.release-verification.v1",
+  "date": "2026-09-29",
+  "componentId": "component/core.web.amount",
+  "manualRevision": 5,
+  "editorVersion": "0.2.57",
+  "manualSourceHash": "a5231e0c3c1cea518ff7ecb6ba2eb8e94d0cc0c8eb848e71c8dde4386eb83264",
+  "compiledHash": "ad59c6c2da9ef5b3c4405bf1f58b6db7fe5f8e50c65ffbbe13917d3a196ac09b",
+  "scope": "figma-component",
+  "published": false,
+  "checks": [
+    {
+      "command": "npm run validate",
+      "repository": "ComponentContractEditor",
+      "typecheck": true,
+      "build": true,
+      "tests": {
+        "passed": 538,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "command": "node --test scripts/tests/amount-*.test.js scripts/tests/button-*.test.js scripts/tests/spinner-final-review.test.js scripts/tests/spinner-layout-acceptance.test.js",
+      "repository": "design-system_ab",
+      "tests": {
+        "passed": 285,
+        "failed": 0,
+        "skipped": 0
+      },
+      "scopeNote": "Only the listed Spinner acceptance suites; older suites depending on deleted user exports were not run or counted."
+    },
+    {
+      "command": "node scripts/review_amount_r3_live_reports.js",
+      "reports": 8,
+      "exactReplay": true
+    },
+    {
+      "command": "node scripts/review_amount_r4_styles.js",
+      "reports": 8,
+      "exactHistoricalInterpretation": true
+    },
+    {
+      "command": "node scripts/review_amount_finalization.js",
+      "historicalSnapshots": 32,
+      "comparedEvaluations": 1666,
+      "liveR4Reports": 6,
+      "behaviorParity": true
+    },
+    {
+      "command": "build_component_contract_reference.build(Amount/authoring)",
+      "idempotent": true,
+      "filesCompared": 93,
+      "manualPreserved": true
+    },
+    {
+      "kind": "registry-readback",
+      "path": "registry-sync-r5.2026-09-29.json",
+      "verified": true
+    }
+  ],
+  "ownerAcceptance": "отлично, закрываем контракт",
+  "notClaimed": [
+    "new r5 live Figma captures",
+    "frontend/code Ready",
+    "production publication",
+    "resolved ds-ai-hub drift"
+  ]
+}
