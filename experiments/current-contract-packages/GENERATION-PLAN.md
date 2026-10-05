@@ -4,6 +4,8 @@
 
 Исходная подборка контрактов: `design-system_ab/experiments/current-contract-packages`. На дату фиксации проверено содержимое ZIP. План не меняет компонентные нормы, статусы приёмки, паттерны или production-публикацию. Описанные ниже сервисы, форматы и этапы являются предлагаемой архитектурой; наличие этого документа не означает, что они уже реализованы.
 
+Задачи реализации, зависимости и критерии завершения зафиксированы в [GENERATION-ACTIONS.md](GENERATION-ACTIONS.md). Сценарий первой сборки описан в [GENERATION-PILOT.md](GENERATION-PILOT.md), размещение общего ядра и двух адаптеров — в [GENERATION-PLACEMENT.md](GENERATION-PLACEMENT.md).
+
 ## Основное решение
 
 Общий маршрут:
@@ -62,7 +64,7 @@
 
 Manual остаётся редактируемым источником компонентных норм. Проекции для генератора, compiled и индексы являются производными. При загрузке проверяются соответствие manual, facts и compiled, происхождение и hashes. Противоречащие версии не объединяются молча.
 
-README и manifest используются как навигация и сведения о приёмке. На дату фиксации они отстают от части ZIP: desktop CorporateContent указан в manifest как r11, фактический manual в архиве — r12; ButtonsGroup r52 отсутствует в manifest. Приёмка обновлённого пакета не выводится только из текста старого manifest или поля `ready`.
+README и manifest используются как навигация и сведения о приёмке. На дату фиксации они отстают от части ZIP: desktop CorporateContent указан в manifest как r11, фактический manual в архиве — r12; ButtonsGroup r56 отсутствует в manifest. Приёмка обновлённого пакета не выводится только из текста старого manifest или поля `ready`.
 
 ## Общая спецификация и план композиции
 
@@ -126,7 +128,7 @@ Figma variant names, Body SLOT IDs и variable modes не превращаютс
 Текущие связи:
 
 ```text
-ButtonsGroup r52 → Button r31 → Spinner r8
+ButtonsGroup r56 → Button r31 → Spinner r8
 AmountStyles r10 → Amount r5
 CorporateContent → внешнее содержимое Body из плана задачи
 ```
@@ -183,7 +185,7 @@ ButtonsGroup включается в desktop-ветку там, где нужн�
 ## Текущие ограничения и необходимые решения
 
 - В подборке отсутствует Modal. Его актуальный пакет и mappings нужны для включения модальных сценариев.
-- ButtonsGroup r52 не содержит `generation.profiles`, `generation.instructions` и semantic API; требуется определить производный рецепт использования или дополнить авторский контракт штатным маршрутом.
+- ButtonsGroup r56 не содержит `generation.profiles`, `generation.instructions` и semantic API; требуется определить производный рецепт использования или дополнить авторский контракт штатным маршрутом.
 - Code representations Button, Amount и Spinner имеют статус draft. У AmountStyles, ButtonsGroup и CorporateContent кодовые представления в проверенных manual отсутствуют. Их mappings и границы поддержки фронта предстоит подтвердить.
 - Host compiled отсутствует в ZIP Button, Spinner, Amount и AmountStyles; там, где нужна пересборка, используется общий compiler core с facts и закреплёнными зависимостями. В ZIP AmountStyles и Button лежат compiled дочерних контрактов. Для runtime не следует предполагать, что каждый ZIP уже содержит compiled собственного host.
 - Паттерны композиции и редакционные источники не выбираются автоматически из одного набора компонентных ZIP. Их реестр, версии и способ подключения входят в отдельную часть загрузчика.
@@ -205,9 +207,11 @@ ButtonsGroup включается в desktop-ветку там, где нужн�
 | [Amount.component-contract.zip](Amount.component-contract.zip) | `core.web.amount` | 5 | `2e4c688b524684172a63691e1bb933f2a09f66a58018beeb033659cabe12d233` |
 | [AmountStyles.component-contract.zip](AmountStyles.component-contract.zip) | `corp.web.amount-styles` | 10 | `e8113a284c03b9d667228040e5a1454bffc8915cbbfaefe4a4ee3f83b124f512` |
 | [Button.component-contract.zip](Button.component-contract.zip) | `core.web.button` | 31 | `56aaa478ad4e4deb4d8b6f1973a382c8cdd99757759b6d997c5d84645d3a72f3` |
-| [ButtonsGroup.component-contract.zip](ButtonsGroup.component-contract.zip) | `web-corp.buttons-group` | 52 | `5a129260e0596b7ee7a731647ccfe50b806db608e8c8245bbc6f6a704c3914e5` |
+| [ButtonsGroup.component-contract.zip](ButtonsGroup.component-contract.zip) | `web-corp.buttons-group` | 56 | `dc7b20314cef984f2509a99ee535821155e864c52145c7c90fe48c439627bbb4` |
 | [CorporateContent.component-contract.zip](CorporateContent.component-contract.zip) | `web-corp.corporate-content` | 12 | `281159400f53164d58c4302b8f3fcecc32da3aff573bb8dd949e9072cd8bc8de` |
 | [CorporateContent.mobile-web.component-contract.zip](CorporateContent.mobile-web.component-contract.zip) | `corporate-content.mobile-web` | 7 | `7bcabd8ec7659bf1992720b312f42c5e93bfd3c1ee936c445cf916c70f2e6925` |
 | [Spinner.component-contract.zip](Spinner.component-contract.zip) | `core.web.spinner` | 8 | `f8eb8af5fce11b04f983151a2764a30fd4ba0419310c10171d02d731ab2dab46` |
 
 Ревизия документа меняется вместе с архитектурными решениями. Снимок пакетов обновляется явно; появление нового ZIP не должно незаметно менять уже сохранённый план генерации.
+
+Снимок обновлён прогоном G02 от 05.10.2026: ButtonsGroup r56. Более ранний G01 читал r52; revision и SHA не фиксируются навсегда для будущих запусков. Каждый run читает фактические ZIP и получает собственный lock. Размещение реализации уточнено: общий generation-core и отдельные адаптеры находятся в Apollo V4, см. [GENERATION-PLACEMENT.md](GENERATION-PLACEMENT.md).
