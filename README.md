@@ -115,3 +115,17 @@ node scripts/convert_figma_catalogs_to_contracts.js \
 ```bash
 node scripts/convert_figma_catalogs_to_contracts.js --self-test
 ```
+
+В converter сохранены полные `add`-операции и parent lineage. Для старого
+`0.1.0-rest` восстановление пересекающихся add IDs допускается только при явном
+однократном удалении старого base ID и отсутствии неоднозначного update/reparent;
+новые локальные ID и предупреждение записываются в generated output, raw не меняется.
+Неоднозначные collisions, duplicate IDs, missing parent и cycles завершают
+конвертацию ошибкой. В таком случае требуется новая выгрузка Athena; нельзя
+выбрасывать add или подменять anatomy проверяемым actual instance.
+
+Дополнительная проверка legacy variant namespace:
+
+```bash
+node --test scripts/convert-legacy-variant-ids.test.js
+```

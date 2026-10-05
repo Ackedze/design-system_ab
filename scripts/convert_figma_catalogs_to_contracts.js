@@ -268,7 +268,9 @@ function convertComponent(component, catalog, usedIds) {
       anatomy,
       tokens,
       structureSignature,
-      variantStructures: buildRuntimeVariantStructures(component.variantStructures || {}),
+      variantStructures: buildRuntimeVariantStructures(component.variantStructures || {}, component.structure || [], {
+        legacyAddIdNamespace: catalog.source.exportVersion === '0.1.0-rest', warnings,
+      }),
       variantStructureRules,
     },
     qualityRules,
@@ -463,12 +465,34 @@ function buildStructureSignature(nodes) {
   });
 }
 
-function buildRuntimeVariantStructures(variantStructures) {
+function buildRuntimeVariantStructures(variantStructures, baseStructure, options = {}) {
   const result = {};
+  const baseIds = new Set((baseStructure || []).map(node => node.id));
+  if (baseStructure && (baseIds.size !== baseStructure.length || [...baseIds].some(id => !Number.isSafeInteger(id)))) {
+    throw new Error('Duplicate or invalid base structure IDs');
+  }
 
   for (const [variantKey, operations] of Object.entries(variantStructures || {})) {
     if (!Array.isArray(operations)) throw new Error(`Invalid variant structure: ${variantKey}`);
     const runtimeOperations = [];
+    const additions = operations.filter(operation => operation.op === 'add').map(operation => operation.node);
+    if (additions.some(node => !node || !Number.isSafeInteger(node.id)) || new Set(additions.map(node => node.id)).size !== additions.length) {
+      throw new Error(`Duplicate or invalid added node IDs in ${variantKey}`);
+    }
+    const rebased = new Map();
+    let nextId = Math.max(0, ...baseIds, ...additions.map(node => node.id)) + 1;
+    for (const node of additions) if (baseIds.has(node.id)) {
+      // Old REST exports gave new variant nodes local DFS IDs while removes
+      // addressed the base namespace. Recover only an explicit replacement:
+      // the old ID is removed once and never updated/reparented ambiguously.
+      if (!options.legacyAddIdNamespace || operations.filter(op => op.op === 'remove' && op.id === node.id).length !== 1
+        || operations.some(op => op.op === 'update' && (op.id === node.id || op.value?.parentId === node.id))) {
+        throw new Error(`Added node ID collides with base structure in ${variantKey}: ${node.id}`);
+      }
+      if (!Number.isSafeInteger(nextId)) throw new Error('Variant structure ID space exhausted');
+      rebased.set(node.id, nextId++);
+    }
+    if (rebased.size) options.warnings?.push(`legacy add IDs rebased in ${variantKey}: ${[...rebased].map(([oldId,newId]) => `${oldId}->${newId}`).join(', ')}`);
 
     for (const operation of operations) {
       if (operation.op === 'remove' && typeof operation.id === 'number') {
@@ -480,7 +504,10 @@ function buildRuntimeVariantStructures(variantStructures) {
       }
 
       if (operation.op === 'add' && operation.node && typeof operation.node.id === 'number') {
-        runtimeOperations.push({ op: 'add', id: operation.node.id, value: buildStructureSignature([operation.node])[0] });
+        const value = buildStructureSignature([operation.node])[0];
+        value.nodeId = rebased.get(operation.node.id) ?? operation.node.id;
+        value.parentId = rebased.get(operation.node.parentId) ?? operation.node.parentId;
+        runtimeOperations.push({ op: 'add', id: value.nodeId, value });
         continue;
       }
 
@@ -507,6 +534,27 @@ function buildRuntimeVariantStructures(variantStructures) {
 
     // An explicit empty patch is evidence of an unchanged structure. Missing is not.
     // Keep names/parents too: anatomy consumers need them even without a style diff.
+    if (baseStructure) {
+      const tree = new Map(baseStructure.map(node => [node.id, {parentId:node.parentId}]));
+      for (const operation of runtimeOperations) {
+        if (operation.op === 'add') {
+          if (tree.has(operation.id)) throw new Error(`Duplicate variant node ID in ${variantKey}`);
+          tree.set(operation.id, {parentId:operation.value.parentId});
+        } else if (operation.op === 'remove') {
+          if (!tree.delete(operation.id)) throw new Error(`Missing removed node in ${variantKey}`);
+        } else {
+          if (!tree.has(operation.id)) throw new Error(`Missing updated node in ${variantKey}`);
+          if (Object.hasOwn(operation.value, 'parentId')) tree.get(operation.id).parentId = operation.value.parentId;
+        }
+      }
+      for (const [id,node] of tree) {
+        const seen = new Set([id]); let parentId = node.parentId;
+        while (parentId !== null) {
+          if (!tree.has(parentId) || seen.has(parentId)) throw new Error(`Invalid variant parent chain in ${variantKey}`);
+          seen.add(parentId); parentId = tree.get(parentId).parentId;
+        }
+      }
+    }
     result[variantKey] = runtimeOperations;
   }
 
