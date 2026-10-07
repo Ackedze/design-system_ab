@@ -1,0 +1,438 @@
+{
+  "date": "2026-10-06",
+  "status": "draft",
+  "ruleCount": 31,
+  "ruleIdsPreserved": true,
+  "rules": [
+    {
+      "ruleId": "component:web.benefits-block.promo-banner-purpose",
+      "sourceCheckType": "manual",
+      "sourceText": "BenefitsBlock — промо-баннер для яркой подачи ключевой информации и преимуществ пользователю. Используй его на промо-странице.",
+      "currentText": "BenefitsBlock — промо-баннер для яркой подачи ключевой информации и преимуществ пользователю. Используй его на промо-странице.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: component.usage"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.one-per-promo-page-recommended",
+      "sourceCheckType": "llm",
+      "sourceText": "На промо-странице рекомендуется один BenefitsBlock, но несколько блоков допустимы и не являются нарушением.",
+      "currentText": "На промо-странице рекомендуется один BenefitsBlock, но несколько блоков допустимы и не являются нарушением.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: page.composition"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.only-platform-roots-are-public",
+      "sourceCheckType": "deterministic",
+      "sourceText": "Публичны только [D] BenefitsBlock и [M] BenefitsBlock. Вложенные ButtonGroup и ContentPresets отдельно не используются.",
+      "currentText": "Публичны только [D] BenefitsBlock и [M] BenefitsBlock. Вложенные ButtonGroup и ContentPresets отдельно не используются.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Полный типизированный contour нормы и актуальный native capture: component.identity|component.composition"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.image-position-is-platform-independent",
+      "sourceCheckType": "manual",
+      "sourceText": "Позиции изображения выбираются независимо: desktop допускает Left/Right, mobile-web — Top/Bottom. Не требуй фиксированного D→M соответствия.",
+      "currentText": "Позиции изображения выбираются независимо: desktop допускает Left/Right, mobile-web — Top/Bottom. Не требуй фиксированного D→M соответствия.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: responsive.variant.Image"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.desktop-compact-required",
+      "sourceCheckType": "llm",
+      "sourceText": "Desktop BenefitsBlock использует Compact=True при viewport 1024 px и меньше, а также когда контент не помещается в стандартный формат.",
+      "currentText": "Desktop BenefitsBlock использует Compact=True при viewport 1024 px и меньше, а также когда контент не помещается в стандартный формат.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: variant.Compact|layout.contentFit"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.background-false-uses-host-surface",
+      "sourceCheckType": "deterministic",
+      "sourceText": "Background=False означает работу на внешней общей поверхности без собственного BackgroundPlate.",
+      "currentText": "Background=False означает работу на внешней общей поверхности без собственного BackgroundPlate.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.height-custom-controls-background-height",
+      "sourceCheckType": "llm",
+      "sourceText": "HeightCustom управляет произвольной высотой BackgroundPlate. При False поверхность следует только высоте контента без учёта изображения; ширина не ограничивается, но перекрытие контента изображением запрещено.",
+      "currentText": "HeightCustom управляет произвольной высотой BackgroundPlate. При False поверхность следует только высоте контента без учёта изображения; ширина не ограничивается, но перекрытие контента изображением запрещено.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: variant.HeightCustom|nested.BackgroundPlate.layout.height|layout.overlap"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.title-and-image-are-required",
+      "sourceCheckType": "deterministic",
+      "sourceText": "Title и изображение обязательны для BenefitsBlock на обеих платформах.",
+      "currentText": "Title и изображение обязательны для BenefitsBlock на обеих платформах.",
+      "classification": "executable-draft",
+      "fullNormTranslated": true,
+      "reviewStatus": "draft",
+      "missingFacts": [],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.content-preset-semantics",
+      "sourceCheckType": "llm",
+      "sourceText": "ContentPresets можно скрыть. Text используй для простого текста с заголовком, List — для перечня, Steps — для инструкции или последовательности шагов.",
+      "currentText": "ContentPresets можно скрыть. Text используй для простого текста с заголовком, List — для перечня, Steps — для инструкции или последовательности шагов.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: nested.ContentPresets.variant.Type|content"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.button-group-is-optional",
+      "sourceCheckType": "deterministic",
+      "sourceText": "ButtonGroup опционален. Если он показан, допустимы только Primary, только Secondary или оба действия.",
+      "currentText": "ButtonGroup опционален. Если он показан, допустимы только Primary, только Secondary или оба действия.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.responsive-content-parity",
+      "sourceCheckType": "llm",
+      "sourceText": "Desktop и mobile-web сохраняют контент, изображение, количество и порядок действий. Позиция изображения выбирается независимо.",
+      "currentText": "Desktop и mobile-web сохраняют контент, изображение, количество и порядок действий. Позиция изображения выбирается независимо.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: responsive.content|responsive.actions|responsive.image"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.allowed-background-types",
+      "sourceCheckType": "deterministic",
+      "sourceText": "BenefitsBlock с собственной поверхностью допускает только типы Primary и Colored.",
+      "currentText": "BenefitsBlock с собственной поверхностью допускает только типы Primary и Colored.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.mobile-height-follows-content",
+      "sourceCheckType": "deterministic",
+      "sourceText": "У [M] BenefitsBlock нет HeightCustom: высота определяется содержимым и штатным mobile layout.",
+      "currentText": "У [M] BenefitsBlock нет HeightCustom: высота определяется содержимым и штатным mobile layout.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Полный текущий capture baseline и подтверждённая область владения; типизированная проверка всей нормы с её исключениями."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.right-addon-must-be-hidden",
+      "sourceCheckType": "deterministic",
+      "sourceText": "RightAddon в BenefitsBlock должен быть скрыт.",
+      "currentText": "RightAddon в BenefitsBlock должен быть скрыт.",
+      "classification": "executable-draft",
+      "fullNormTranslated": true,
+      "reviewStatus": "draft",
+      "missingFacts": [],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.title-addon-status-badge-only",
+      "sourceCheckType": "deterministic",
+      "sourceText": "TitleAddon в BenefitsBlock допускается только как StatusBadge.",
+      "currentText": "TitleAddon в BenefitsBlock допускается только как StatusBadge.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Полный типизированный contour нормы и актуальный native capture: nested.TitleView.TitleAddon"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.image-view-settings",
+      "sourceCheckType": "deterministic",
+      "sourceText": "ImageView использует Crop=Center; Segment соответствует сегменту лендинга. Отдельное требование к фиксированному Size отсутствует.",
+      "currentText": "ImageView использует Crop=Center; Segment соответствует сегменту лендинга. Отдельное требование к фиксированному Size отсутствует.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.surface-color-overrides",
+      "sourceCheckType": "deterministic",
+      "sourceText": "Colored разрешает только token-bound fill. Primary сохраняет исходный цветовой baseline без overrides.",
+      "currentText": "Colored разрешает только token-bound fill. Primary сохраняет исходный цветовой baseline без overrides.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.loading-allowed-without-background",
+      "sourceCheckType": "manual",
+      "sourceText": "Loading допустим при Background=False; отсутствие собственной BackgroundPlate не делает loading нарушением.",
+      "currentText": "Loading допустим при Background=False; отсутствие собственной BackgroundPlate не делает loading нарушением.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: variant.Background|state.loading"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.root-sizing-and-height-scope",
+      "sourceCheckType": "deterministic",
+      "sourceText": "BenefitsBlock использует Fill по ширине и Hug по высоте. HeightCustom меняет только высоту BackgroundPlate и не разрешает ручные размеры остальных частей.",
+      "currentText": "BenefitsBlock использует Fill по ширине и Hug по высоте. HeightCustom меняет только высоту BackgroundPlate и не разрешает ручные размеры остальных частей.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Полный текущий capture baseline и подтверждённая область владения; типизированная проверка всей нормы с её исключениями."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.list-and-steps-count-owned-by-nested-component",
+      "sourceCheckType": "manual",
+      "sourceText": "Количество элементов List и Steps определяется возможностями соответствующих вложенных компонентов; BenefitsBlock не вводит жёсткий дополнительный лимит.",
+      "currentText": "Количество элементов List и Steps определяется возможностями соответствующих вложенных компонентов; BenefitsBlock не вводит жёсткий дополнительный лимит.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: nested.ContentPresets.items"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.steps-count-recommendation",
+      "sourceCheckType": "deterministic",
+      "sourceText": "Для ContentPresets=Steps рекомендуется 3 шага. Если шагов больше 3, возвращайте warning.",
+      "currentText": "Для ContentPresets=Steps рекомендуется 3 шага. Если шагов больше 3, возвращайте warning.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Полный типизированный contour нормы и актуальный native capture: nested.ContentPresets[Type=Steps].items"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.text-limits",
+      "sourceCheckType": "llm",
+      "sourceText": "Title ограничен 60 символами и двумя строками, Text — 240 символами и четырьмя строками. Button label наследует контракт Button.",
+      "currentText": "Title ограничен 60 символами и двумя строками, Text — 240 символами и четырьмя строками. Button label наследует контракт Button.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: content.Title|content.Text|nested.Button.label"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.image-source-and-swap",
+      "sourceCheckType": "deterministic",
+      "sourceText": "Изображение берётся только из Corp :: Image Library. Swap внутри библиотеки разрешён при сохранении Crop=Center и корректного Segment.",
+      "currentText": "Изображение берётся только из Corp :: Image Library. Swap внутри библиотеки разрешён при сохранении Crop=Center и корректного Segment.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.loading-covers-whole-block",
+      "sourceCheckType": "llm",
+      "sourceText": "Loading охватывает весь BenefitsBlock и блокирует действия. Он допустим и при Background=False; частичный loading запрещён.",
+      "currentText": "Loading охватывает весь BenefitsBlock и блокирует действия. Он допустим и при Background=False; частичный loading запрещён.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: state.loading|interaction.*"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.container-is-not-clickable",
+      "sourceCheckType": "deterministic",
+      "sourceText": "Контейнер BenefitsBlock некликабелен; действия доступны только через ButtonGroup.",
+      "currentText": "Контейнер BenefitsBlock некликабелен; действия доступны только через ButtonGroup.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Типизированные факты состояния, доступности взаимодействия и идентичности действий."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.segment-matches-colored-surface",
+      "sourceCheckType": "llm",
+      "sourceText": "При поверхности Colored Segment изображения должен совпадать с сегментом token-bound fill.",
+      "currentText": "При поверхности Colored Segment изображения должен совпадать с сегментом token-bound fill.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: nested.ImageView.variant.Segment|nested.BackgroundPlate.fill"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.image-overflow-by-height-custom",
+      "sourceCheckType": "llm",
+      "sourceText": "Изображение может выходить за BackgroundPlate только при HeightCustom=False, если не перекрывает контент и остаётся внутри BenefitsBlock root.",
+      "currentText": "Изображение может выходить за BackgroundPlate только при HeightCustom=False, если не перекрывает контент и остаётся внутри BenefitsBlock root.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: variant.HeightCustom|nested.ImageView.layout.bounds|layout.overlap"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.layout-is-component-owned",
+      "sourceCheckType": "deterministic",
+      "sourceText": "Gap, padding, axis, порядок внутренних областей и размеры ImageContainer принадлежат BenefitsBlock и вручную не изменяются.",
+      "currentText": "Gap, padding, axis, порядок внутренних областей и размеры ImageContainer принадлежат BenefitsBlock и вручную не изменяются.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Полный текущий capture baseline и подтверждённая область владения; типизированная проверка всей нормы с её исключениями."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.active-canonical-component",
+      "sourceCheckType": "manual",
+      "sourceText": "BenefitsBlock — активный канонический компонент без planned replacement и legacy-вариантов.",
+      "currentText": "BenefitsBlock — активный канонический компонент без planned replacement и legacy-вариантов.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: component.lifecycle"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.title-addon-inherits-status-badge",
+      "sourceCheckType": "llm",
+      "sourceText": "TitleAddon допускает только StatusBadge и полностью наследует его контракт без дополнительных ограничений BenefitsBlock.",
+      "currentText": "TitleAddon допускает только StatusBadge и полностью наследует его контракт без дополнительных ограничений BenefitsBlock.",
+      "classification": "manual-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Подтверждённый контекст сценария и ручная/политическая проверка: nested.TitleView.TitleAddon.StatusBadge"
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    },
+    {
+      "ruleId": "component:web.benefits-block.raw-colors-forbidden",
+      "sourceCheckType": "deterministic",
+      "sourceText": "Raw colors запрещены. Поверхность Colored использует только token-bound fill, совпадающий с Segment изображения.",
+      "currentText": "Raw colors запрещены. Поверхность Colored использует только token-bound fill, совпадающий с Segment изображения.",
+      "classification": "unsupported-context-only",
+      "fullNormTranslated": false,
+      "reviewStatus": "draft",
+      "missingFacts": [
+        "Полный текущий capture baseline и подтверждённая область владения; типизированная проверка всей нормы с её исключениями."
+      ],
+      "sourcePath": "source/rules.json",
+      "sourceRuleIdentityPreserved": true
+    }
+  ]
+}

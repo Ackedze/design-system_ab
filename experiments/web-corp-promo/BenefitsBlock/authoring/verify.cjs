@@ -1,0 +1,5 @@
+const fs=require('fs'),path=require('path');
+const dir=__dirname;
+const workspace=process.env.APOLLO_CONTRACT_WORKSPACE||'/Users/alexkukhta/Desktop/workplace';
+const core=require(path.join(workspace,'projects/Apollo-v3/packages/component-contract-core/dist/core.cjs'));
+(async()=>{const entries=await core.readZip(fs.readFileSync(path.join(dir,'BenefitsBlock.component-contract.zip')));const files=entries.filter(e=>e.name.endsWith('.json')).map(e=>({name:e.name,text:new TextDecoder().decode(e.data)}));const manual=JSON.parse(fs.readFileSync(path.join(dir,'contract.manual.json')));const compiled=JSON.parse(fs.readFileSync(path.join(dir,'compiled/component-contract.v2.json')));for(const rep of manual.representations.filter(r=>r.kind==='figma')){const id='benefits-block.'+rep.platform;const w=core.importWorkspace(files,id);const b=core.buildExportBundle(w.manual,w.variantEvidence,[]);if(!b.validation.valid||core.stableHash(w.manual)!==core.stableHash(manual)||core.stableHash(b.compiled)!==core.stableHash(compiled)||w.componentChoices.length!==2)throw Error('Replay mismatch: '+id);console.log(id+' OK');}})().catch(e=>{console.error(e);process.exit(1)});

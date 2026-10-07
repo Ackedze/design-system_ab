@@ -20,11 +20,11 @@ Title и изображение обязательны. `ContentPresets` мож�
 
 При `Background=True` разрешены только поверхности `Primary` и `Colored`. У mobile-web нет `HeightCustom`: высота определяется содержимым и штатным mobile layout.
 
-RightAddon должен быть скрыт. TitleAddon допускается только как StatusBadge. Изображение использует `Crop=Center`, owner-confirmed `Size=348`, а `Segment` выбирается по сегменту лендинга. Это намеренная curated-дельта: текущий raw baseline содержит `Size=534`.
+RightAddon должен быть скрыт. TitleAddon допускается только как StatusBadge. Изображение использует `Crop=Center`, а `Segment` выбирается по сегменту лендинга. Отдельное требование к фиксированному `Size` отменено владельцем 2026-10-06.
 
 Для `Colored` разрешён только token-bound fill; `Primary` сохраняет baseline без цветовых overrides. Loading допустим при `Background=False`. Root использует Fill по ширине и Hug по высоте; `HeightCustom` меняет только высоту BackgroundPlate и не разрешает ручные размеры остальных частей. Количество элементов List/Steps задаётся соответствующими вложенными компонентами.
 
-Текстовые лимиты: Title — до 60 символов и двух строк; Text — до 240 символов и четырёх строк; label кнопок следует контракту Button. Изображение обязательно выбирается из `Corp :: Image Library`; swap внутри этой библиотеки разрешён при сохранении `Crop=Center`, `Size=348` и Segment лендинга.
+Текстовые лимиты: Title — до 60 символов и двух строк; Text — до 240 символов и четырёх строк; label кнопок следует контракту Button. Изображение обязательно выбирается из `Corp :: Image Library`; swap внутри этой библиотеки разрешён при сохранении `Crop=Center` и Segment лендинга.
 
 Loading охватывает весь BenefitsBlock и блокирует действия. Сам контейнер некликабелен: действия доступны только через ButtonGroup. Segment изображения и token-bound fill поверхности Colored должны совпадать. При `HeightCustom=False` изображение может выходить за визуальные границы BackgroundPlate, если не перекрывает контент и остаётся внутри root; при `HeightCustom=True` такой overflow не допускается.
 

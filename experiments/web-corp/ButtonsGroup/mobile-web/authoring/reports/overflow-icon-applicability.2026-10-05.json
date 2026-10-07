@@ -1,0 +1,129 @@
+{
+  "documentType": "buttons-group-mobile-overflow-icon-applicability-regression",
+  "normative": false,
+  "verifiedAt": "2026-10-05T15:19:16.654Z",
+  "revision": 2,
+  "manualSourceHash": "8751580d7a0c48f1e67e1c5f8d285cb11e2ef4860a4cf75e76d6fc4cd9798a43",
+  "compiledHash": "61a4562f2b7a872d79c45f9fe2652cf0557e355cf33ff946f5ca46de7d51477c",
+  "zipSha256": "bbd820ccfab57e4909e77e11bfe1c02a0ef689d8f7912ca6fa5f78f539d0a8d8",
+  "decision": {
+    "id": "decision.buttons-group.single-icon-lock-requires-overflow",
+    "status": "accepted",
+    "summary": "Защита иконки SingleIcon применяется только при Overflow=true во всех размерах.",
+    "rationale": "Уточнение владельца 05.10.2026: при SingleIcon=True и Overflow=false достаточно ошибки недопустимого режима; замена иконки в этом режиме не является отдельным нарушением группового asset lock. Не подавлять самостоятельные проверки pinned Button и явную неполноту их фактов.",
+    "sourceRefs": [
+      "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+      "component:web-corp.buttons-group.single-icon-requires-overflow",
+      "docs.buttons-group.owner-decisions"
+    ]
+  },
+  "removedRuleId": "component:buttons-group.mobile-web.single-icon-is-fixed-second-occurrence-no-overflow",
+  "firstRuleId": "component:buttons-group.mobile-web.single-icon-is-fixed-first-occurrence",
+  "checks": {
+    "schema": true,
+    "compile": true,
+    "sharedCompilerParity": true,
+    "zipReopen": true,
+    "recompile": true,
+    "sourceFactsUnchanged": true,
+    "sourceTargetsUnchanged": true,
+    "exactChildPinsUnchanged": true
+  },
+  "regression": [
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-22-25-866Z.json",
+      "violations": [],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-22-41-248Z.json",
+      "violations": [
+        "component:buttons-group.mobile-web.single-icon-is-fixed-size48-56.1.1.1"
+      ],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-22-59-859Z.json",
+      "violations": [
+        "component:buttons-group.mobile-web.gap-is-fixed.1.1",
+        "component:buttons-group.mobile-web.single-icon-is-fixed-size48-56.1.1.1",
+        "component:buttons-group.mobile-web.view-domain.1.1"
+      ],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-25-56-175Z.json",
+      "violations": [],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-30-23-662Z.json",
+      "violations": [],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-31-20-071Z.json",
+      "violations": [
+        "component:buttons-group.mobile-web.single-icon-is-fixed-size32-40.1.1.1"
+      ],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-32-47-091Z.json",
+      "violations": [],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-33-54-161Z.json",
+      "violations": [],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-35-46-465Z.json",
+      "violations": [
+        "component:buttons-group.mobile-web.visible-button-count.1.1"
+      ],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-46-35-823Z.json",
+      "violations": [
+        "component:buttons-group.mobile-web.primary-is-first.1.1",
+        "component:buttons-group.mobile-web.primary-is-unique.1.1"
+      ],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T14-54-25-622Z.json",
+      "violations": [
+        "component:buttons-group.mobile-web.uniform-size.1.1"
+      ],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T15-03-47-701Z.json",
+      "violations": [
+        "component:buttons-group.mobile-web.single-icon-requires-overflow.1.1"
+      ],
+      "humanReview": []
+    },
+    {
+      "file": "buttons-group.validation-report.2026-10-05T15-13-24-687Z.json",
+      "violations": [
+        "component:buttons-group.mobile-web.single-icon-requires-overflow.1.1"
+      ],
+      "humanReview": [
+        "component:web-core.button.addon-size-follows-button-size.1.2.1",
+        "component:web-core.button.addon-size-follows-button-size.1.3.1",
+        "component:web-core.button.addon-size-follows-button-size.1.4.1",
+        "component:web-core.button.addon-size-follows-button-size.1.5.1",
+        "component:web-core.button.addon-uses-glyph-26.1.1.1"
+      ]
+    }
+  ],
+  "limits": [
+    "Private historical snapshot replay, not fresh live acceptance of r2.",
+    "All rules remain Draft; 9 scenario/runtime rules pending.",
+    "Five Button human-review results on the foreign icon swap remain explicit; no facts or child constraints are suppressed."
+  ]
+}

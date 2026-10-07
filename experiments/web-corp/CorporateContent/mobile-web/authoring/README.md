@@ -1,3 +1,17 @@
+# CorporateContent mobile-web — главный manual r7
+
+05.10.2026 главный источник восстановлен побайтно из закреплённого owner ZIP r7. История предыдущего main r6, рабочего ZIP и проекций сохранена в `history/r6-primary-before-owner-r7-2026-10-05`.
+
+Шесть нормативных правил, 17 Predicate checks, targets, control ports и Figma facts совпали с прежней принятой областью. Добавленных норм нет. Body semantic API, паспорт, Figma generation fields и metadata теперь соответствуют owner export. Code fields из NEXT-02 остаются предложениями и не применены.
+
+Текущий редактируемый источник: `contract.manual.json`. Рабочий ZIP: `editor/CorporateContent.mobile-web.component-contract.zip` — точная копия текущего owner ZIP. Принятый ZIP в current-contract-packages не изменён; его manual/facts/compiled hashes сохранены. Predicate Ready остаётся только для шести Figma норм; code, layout parity, внешнее Body содержимое и публикация вне этой приёмки.
+
+Проверки и полный diff: `reports/next-02.primary-source-reconciliation.2026-10-05.json`. Оригинальная `reports/acceptance.json` сохранена как историческое доказательство приёмки r6; новых live проверок этим переносом не заявляется.
+
+---
+
+## Историческое описание до восстановления main
+
 # [M] CorporateContent — ручной контракт r6, Ready
 
 Подготовлен 01.10.2026 по мобильному авторскому экспорту r5 и принятому
@@ -203,3 +217,6 @@ Hub/legacy содержит более широкие нормы: FILL/HUG, Spac
 page rules. Они не объявлены полностью мигрированными в эти шесть правил;
 расхождение сохранено в Леджере. Проверены чтением: `Правила!A1879:O1884`,
 `Леджер!A81:O82`, `Corp components!AF17:AH17`; Predicate Draft от 01.10.2026.
+
+
+NEXT-02 technical source/API fields (2026-10-05): main r8, manualSourceHash `722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452`; source Predicate ready in the unchanged Figma rule scope. Code representation Draft, parity not-confirmed, acceptance not-run, publication not-confirmed; no accepted code generation profile/native write capability. Details: `reports/next-02.typed-passport-application.2026-10-05.json`. Historical source/ZIP preserved in `r7-before-next-02-typed-code-2026-10-05`.

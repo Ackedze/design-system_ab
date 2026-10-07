@@ -1,0 +1,312 @@
+{
+  "documentType": "buttons-group-context-review-source-update",
+  "normative": false,
+  "status": "owner-review-still-pending",
+  "currentRevision": 58,
+  "currentManualSourceHash": "a5517e6141f0c373dea37fd8e133437bcc11bdd7adde9a2f193c5bca075a2548",
+  "currentArchiveSha256": "c681b49ce0357d70644eed275c7b0e79c4ffc4d80419438cc9453ce859813d32",
+  "historicalR57Archive": "shared/design-system_ab/experiments/web-corp/ButtonsGroup/authoring/history/r57-before-next-02-typed-code-2026-10-05/ButtonsGroup.component-contract.zip",
+  "historicalR57ArchiveSha256": "214d9cc0c16a4b7c56e3a69e9151e0d5a36d3d9d05e947bf2122d0e53eb3743a",
+  "originalReview": "NEXT-02.context-draft-review.2026-10-05.md",
+  "rules": [
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.actions-descend-by-priority",
+      "normText": "Кнопки располагаются слева направо в порядке убывания приоритета действия; SingleIcon при его наличии остаётся последним.",
+      "status": "draft",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.actions-descend-by-priority",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.editorial-pattern"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.identity",
+          "scenario.actions.priority",
+          "scenario.actions.visibleOrder"
+        ]
+      },
+      "currentManualLine": 2068,
+      "normUnchangedFromR57": true
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.overflow-moves-nearest-action-first",
+      "normText": "При переносе действий в список у SingleIcon первым переносится действие кнопки, расположенной непосредственно перед SingleIcon; дальнейший перенос продолжается справа налево по убыванию приоритета.",
+      "status": "draft",
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-moves-nearest-action-first",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.beforeTransfer",
+          "scenario.actions.transferSequence",
+          "scenario.actions.priority"
+        ]
+      },
+      "currentManualLine": 2111,
+      "normUnchangedFromR57": true
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.single-icon-opens-overflow-list",
+      "normText": "Последняя кнопка с SingleIcon=true открывает список перенесённых действий: [D] OptionList на desktop или BottomSheet на mobile-web. Использовать её для другого действия запрещено.",
+      "status": "draft",
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-opens-overflow-list",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "interaction.singleIcon.activation",
+          "interaction.overflow.opened",
+          "interaction.singleIcon.actionIdentity"
+        ]
+      },
+      "currentManualLine": 2157,
+      "normUnchangedFromR57": true
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.overflow-container-follows-platform",
+      "normText": "SingleIcon открывает [D] OptionList на desktop и BottomSheet на mobile-web. Mobile BottomSheet содержит только список действий без footer.",
+      "status": "draft",
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-container-follows-platform",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.overflow.containerIdentity",
+          "scenario.platform"
+        ]
+      },
+      "currentManualLine": 2203,
+      "normUnchangedFromR57": true
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.overflow-items-preserve-action-content",
+      "normText": "Пункт списка для перенесённой кнопки сохраняет её label, действие и наличие иконки: если у исходной кнопки иконки нет, пункт списка также остаётся без иконки.",
+      "status": "draft",
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-items-preserve-action-content",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.sourceContent",
+          "scenario.overflow.items.actionIdentity",
+          "scenario.overflow.items.label",
+          "scenario.overflow.items.iconPresence"
+        ]
+      },
+      "currentManualLine": 2248,
+      "normUnchangedFromR57": true
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.visible-and-overflow-actions-are-unique",
+      "normText": "Каждая видимая текстовая кнопка может запускать отдельное действие, а SingleIcon служит только входом в список перенесённых действий. Одно действие нельзя одновременно оставлять видимым и дублировать в списке.",
+      "status": "draft",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visible-and-overflow-actions-are-unique",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.visibleIdentity",
+          "scenario.overflow.items.actionIdentity"
+        ]
+      },
+      "currentManualLine": 2295,
+      "normUnchangedFromR57": true
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.disabled-state-is-preserved-in-overflow",
+      "normText": "Если перенесённое действие недоступно, его disabled state должно сохраняться в соответствующем пункте OptionList или BottomSheet; по hover показывается Tooltip с причиной недоступности.",
+      "status": "draft",
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.disabled-state-is-preserved-in-overflow",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.disabled",
+          "scenario.overflow.items.disabled",
+          "interaction.overflow.itemHover",
+          "interaction.tooltip.disabledReason"
+        ]
+      },
+      "currentManualLine": 2336,
+      "normUnchangedFromR57": true
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.overflow-list-closes-after-action",
+      "normText": "После выбора доступного действия [D] OptionList или BottomSheet сразу закрывается.",
+      "status": "draft",
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-list-closes-after-action",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "interaction.overflow.enabledActionSelected",
+          "interaction.overflow.openBefore",
+          "interaction.overflow.openAfter"
+        ]
+      },
+      "currentManualLine": 2383,
+      "normUnchangedFromR57": true
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.visible-button-loading-follows-button",
+      "normText": "Loading разрешён у отдельной видимой Button, например после запуска её действия, и настраивается по контракту Button. У OptionListCell нет Loading state.",
+      "status": "draft",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visible-button-loading-follows-button",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "interaction.visibleButton.loadingState",
+          "scenario.overflow.items.loadingApi",
+          "code.button.contract"
+        ]
+      },
+      "currentManualLine": 2429,
+      "normUnchangedFromR57": true
+    }
+  ],
+  "acceptedNorms": false,
+  "acceptedProfile": false,
+  "liveAcceptance": "not-run",
+  "note": "r58 changes technical code fields only; all nine exact norms/RuleIDs/applicability/routes/statuses remain identical. r57 review packet is historical; its then-current ZIP pin is now available under history, not current-contract-packages."
+}

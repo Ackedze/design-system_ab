@@ -57,6 +57,23 @@ Production не изменяется; Ready и область приёмки у�
 
 ## Обновление подборки
 
+### Рабочий ButtonsGroup
+
+[ButtonsGroup.component-contract.zip](ButtonsGroup.component-contract.zip) —
+desktop authoring **r57, Draft**: 17 Reviewed Figma-правил и девять Draft
+context-only правил поведения. Паспорт и source crosswalk заполнены.
+Канонический source находится в
+[ButtonsGroup/authoring](../web-corp/ButtonsGroup/authoring/README.md);
+рабочая копия учитывается в `draft-manifest.json`, не в accepted manifest.
+Для anatomy необходим live preview или исходный Athena-пакет.
+
+[ButtonsGroup.mobile-web.component-contract.zip](ButtonsGroup.mobile-web.component-contract.zip) —
+отдельный mobile-web **r1, Draft**: 20 Figma-правил и девять context-only правил.
+Паспорт заполнен; обе встроенные Button привязаны во всех восьми вариантах.
+Свежие source facts включены в ZIP, anatomy восстанавливается при импорте.
+Мобильная live приёмка, runtime и code mapping для Apollo v4 ещё открыты.
+Канонический source: [mobile-web/authoring](../web-corp/ButtonsGroup/mobile-web/authoring/README.md).
+
 После нового принятого экспорта обновить ZIP в его исходной папке, пересобрать
 и принять контракт штатным маршрутом, затем из корня design-system_ab:
 

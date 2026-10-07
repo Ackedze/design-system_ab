@@ -1,0 +1,2491 @@
+{
+  "schemaVersion": "apollo.component-contract.manual.v2-experimental",
+  "documentType": "component-contract-manual",
+  "component": {
+    "componentId": "web-corp.buttons-group",
+    "familyId": "web-corp.buttons-group",
+    "contractId": "buttons-group.mobile-web",
+    "family": "ButtonsGroup",
+    "layer": "product",
+    "library": "Web _ Corp Components",
+    "platform": "mobile-web",
+    "platforms": [
+      "mobile-web"
+    ],
+    "lifecycle": "active",
+    "componentKey": "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062"
+  },
+  "semantics": {
+    "purpose": "Группирует связанные действия одного контекста в горизонтальную композицию с общей иерархией, единым размером кнопок и необязательным overflow.",
+    "useWhen": [
+      "Нужно показать связанные действия одного сценария на mobile-web в штатной горизонтальной группе.",
+      "Нужна группа с одной–двумя видимыми кнопками, включая SingleIcon.",
+      "Дополнительные действия выносятся в mobile overflow — BottomSheet только с действиями, без footer."
+    ],
+    "doNotUseWhen": [
+      {
+        "condition": "Действия не связаны одним контекстом."
+      },
+      {
+        "condition": "Нужна одна самостоятельная кнопка без группового контекста.",
+        "useComponentId": "core.web.button"
+      },
+      {
+        "condition": "Нужна вертикальная колонка кнопок."
+      },
+      {
+        "condition": "Нужно показать более двух видимых кнопок; дополнительные действия следует вынести в overflow."
+      },
+      {
+        "condition": "Нужна desktop группа с четырьмя occurrences; используйте отдельный desktop контракт."
+      }
+    ],
+    "relatedComponentIds": [
+      "core.web.button"
+    ],
+    "keywords": [
+      "ButtonsGroup",
+      "ButtonGroup",
+      "button group",
+      "группа кнопок",
+      "связанные действия",
+      "overflow",
+      "SingleIcon",
+      "mobile-web",
+      "BottomSheet"
+    ]
+  },
+  "representations": [
+    {
+      "id": "web-corp.buttons-group.figma.mobile-web",
+      "kind": "figma",
+      "platform": "mobile-web",
+      "status": "verified",
+      "locator": {
+        "componentKey": "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062",
+        "componentSetKey": "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062",
+        "figmaFileKey": "NrzEFUSTXgzOUmsfYym0xD",
+        "nodeId": "133812:11630"
+      }
+    }
+  ],
+  "semanticApi": [
+    {
+      "id": "size",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "32",
+        "40",
+        "48",
+        "56"
+      ],
+      "description": "Единый размер группы и всех видимых встроенных Button. В Figma Size имеет тип VARIANT и строковые значения. Default не задаётся: размер выбирается по сценарию.",
+      "bindings": [
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "overflow",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "false",
+        "true"
+      ],
+      "description": "Штатный overflow группы. Это строковый VARIANT Figma, а не BOOLEAN. Overflow=true допустим при двух и более видимых кнопках; наличие видимого SingleIcon не выводится только из Overflow=true. Code prop/import не подтверждён.",
+      "bindings": [
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "path": "component.properties.Overflow",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "id": "docs.buttons-group.legacy-rules",
+      "kind": "component-rules",
+      "path": "JSONS/web/components/web-corp/ButtonGroup [D]/rules.json",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "docs.buttons-group.owner-decisions",
+      "kind": "owner-decisions",
+      "path": "experiments/web-corp/ButtonsGroup/mobile-web/authoring/owner-decisions.2026-10-05.json",
+      "status": "verified",
+      "projection": "source"
+    },
+    {
+      "id": "docs.buttons-group.figma-readback",
+      "kind": "figma-evidence",
+      "path": "experiments/web-corp/ButtonsGroup/mobile-web/authoring/source/figma-readback.2026-10-05.json",
+      "status": "verified",
+      "projection": "reference-only"
+    },
+    {
+      "id": "docs.buttons-group.hub-instructions",
+      "kind": "human-instructions",
+      "path": "ds-ai-hub/products/ab/components/button-group/instructions.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "docs.buttons-group.code-intent",
+      "kind": "code-intent",
+      "path": "ds-ai-hub/products/ab/components/button-group/adapter.code.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "docs.buttons-group.editorial-pattern",
+      "kind": "editorial-pattern",
+      "path": "ds-ai-hub/products/ab/patterns/buttons-and-buttons-group.md",
+      "status": "verified",
+      "projection": "reference-only"
+    },
+    {
+      "id": "docs.buttons-group.mobile-source",
+      "kind": "figma-source-facts",
+      "path": "experiments/web-corp/ButtonsGroup/mobile-web/authoring/source/contract.generated.json",
+      "status": "verified",
+      "projection": "reference-only"
+    },
+    {
+      "id": "docs.buttons-group.mobile-icon-ports",
+      "kind": "figma-source-facts",
+      "path": "experiments/web-corp/ButtonsGroup/mobile-web/authoring/source/button-single-icon-ports.2026-10-05.json",
+      "status": "verified",
+      "projection": "reference-only"
+    }
+  ],
+  "examples": [
+    {
+      "id": "example.buttons-group.mobile-two-actions",
+      "kind": "generation",
+      "status": "draft",
+      "intent": "Mobile-web группа из двух связанных текстовых действий.",
+      "input": {
+        "platform": "mobile-web",
+        "properties": {
+          "size": "56",
+          "overflow": "false"
+        },
+        "visibleButtons": 2
+      },
+      "expected": {
+        "viewDomain": [
+          "Primary",
+          "Secondary"
+        ],
+        "equalSize": true,
+        "codeMapping": "required-before-generation"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visible-button-limit",
+        "component:web-corp.buttons-group.uniform-size"
+      ]
+    },
+    {
+      "id": "example.buttons-group.mobile-one-action",
+      "kind": "validation",
+      "status": "draft",
+      "intent": "Одна штатная видимая текстовая кнопка без overflow допустима.",
+      "input": {
+        "properties": {
+          "Overflow": "false"
+        },
+        "visibleButtons": 1,
+        "SingleIcon": "False"
+      },
+      "expected": {
+        "visibleButtonCount": "pass",
+        "membership": "both-original-occurrences-preserved"
+      },
+      "ruleIds": [
+        "component:buttons-group.mobile-web.visible-button-count",
+        "component:buttons-group.mobile-web.built-in-membership"
+      ],
+      "sourceRefs": [
+        "component:web-corp.buttons-group.minimum-two-buttons"
+      ]
+    },
+    {
+      "id": "example.buttons-group.mobile-overflow",
+      "kind": "validation",
+      "status": "draft",
+      "intent": "SingleIcon на конце в группе из двух видимых Button.",
+      "input": {
+        "properties": {
+          "Size": "40",
+          "Overflow": "true"
+        },
+        "visibleButtons": 2,
+        "lastButton": {
+          "SingleIcon": "True"
+        }
+      },
+      "expected": {
+        "icon": "unchanged-selected-Button-baseline",
+        "container": "BottomSheet",
+        "footer": false,
+        "runtimeAcceptance": "pending"
+      },
+      "ruleIds": [
+        "component:buttons-group.mobile-web.single-icon-requires-overflow",
+        "component:buttons-group.mobile-web.single-icon-is-fixed-size32-40"
+      ],
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-container-follows-platform"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision.buttons-group.minimum-visible-one",
+      "status": "accepted",
+      "summary": "Обычная mobile-web группа допускает одну–две видимые кнопки.",
+      "rationale": "Владелец разрешил одну видимую кнопку. SingleIcon и Overflow=true сохраняют отдельный минимум две; пункты BottomSheet не входят в число видимых Button.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.minimum-two-buttons",
+        "component:web-corp.buttons-group.visible-button-limit",
+        "component:web-corp.buttons-group.single-icon-requires-two-buttons",
+        "component:web-corp.buttons-group.overflow-is-optional-from-two-buttons",
+        "docs.buttons-group.owner-decisions"
+      ],
+      "supersedes": [
+        "component:web-corp.buttons-group.minimum-two-buttons"
+      ],
+      "retiredRuleIds": [
+        "component:web-corp.buttons-group.minimum-two-buttons"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.view-domain",
+      "status": "accepted",
+      "summary": "В группе разрешены только View=Primary и View=Secondary.",
+      "rationale": "Владелец подтвердил более узкий domain по сравнению с публичным Button API. Primary необязателен, максимум один и первый среди видимых.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.nested-button-views-are-primary-or-secondary",
+        "component:web-corp.buttons-group.primary-is-first-and-unique",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.root-sizing-retired",
+      "status": "accepted",
+      "summary": "Норма Hug/Hug корня отменена.",
+      "rationale": "Прямое решение владельца: «не используем это правило». Нет width/height/sizing lock. HORIZONTAL, gap, padding и выбранные визуальные ограничения сохраняются.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.root-sizing-is-hug-hug",
+        "docs.buttons-group.owner-decisions"
+      ],
+      "retiredRuleIds": [
+        "component:web-corp.buttons-group.root-sizing-is-hug-hug"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.single-icon-all-sizes",
+      "status": "accepted",
+      "summary": "Иконку активного SingleIcon нельзя заменять ни в одном Size.",
+      "rationale": "Сравнение выполняется с независимым эталоном выбранного библиотечного варианта Button. Номинальный размер иконки не фиксируется одинаковым для всех Size; правило не переносится на addons обычных текстовых Button.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.root-visual-baseline",
+      "status": "accepted",
+      "summary": "Визуальные свойства корня сохраняются по эталону выбранного варианта.",
+      "rationale": "Перенесены согласованные ограничения fill, stroke и его параметров, opacity, radius и effects. Исполнение мобильных правил требует отдельной live приёмки. Свойства вложенных Button проверяет закреплённый дочерний контракт.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visual-and-layout-baseline-is-fixed",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.button-ownership",
+      "status": "accepted",
+      "summary": "Вложенные Button сохраняют свой контракт; группа добавляет только явные ограничения.",
+      "rationale": "Button r31 с полным Spinner r8 closure закреплён exact hashes. Labels, Disabled, Loading и обычные addons принадлежат Button и редакционному паттерну. Дополнительных текстовых запретов группа не вводит.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.nested-buttons-follow-button-contract",
+        "component:web-corp.buttons-group.button-labels-follow-button-contract",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.built-in-visibility",
+      "status": "accepted",
+      "summary": "Оба штатных Button разрешено скрывать и показывать.",
+      "rationale": "Membership учитывает оба встроенных occurrence, включая скрытые; count, View, Size, Primary и SingleIcon — видимую композицию. Скрытие не разрешает добавление, удаление, дублирование или подмену.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.built-in-buttons-can-be-hidden",
+        "component:web-corp.buttons-group.use-only-built-in-button-slots",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.overflow-count-contextual",
+      "status": "accepted",
+      "summary": "Количество пунктов внешнего overflow не ограничено лимитом видимых Button.",
+      "rationale": "BottomSheet находится вне двух встроенных occurrences. Исходная норма не задаёт отдельного максимума перенесённых действий. Контент списка и взаимодействие проверяются отдельно от snapshot группы.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-item-count-is-contextual",
+        "component:web-corp.buttons-group.visible-button-limit",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.group-state-boundary",
+      "status": "accepted",
+      "summary": "Общих Disabled и Loading свойств у Figma группы нет.",
+      "rationale": "Root API содержит только Size и Overflow. Состояния задаются на Button. Общий Skeleton существует в коде и отсутствует в Figma; его нельзя требовать от дизайнера.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.has-no-group-state",
+        "component:web-corp.buttons-group.skeleton-is-code-only",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.code-mapping-pending",
+      "status": "needs-confirmation",
+      "summary": "Точный runtime package, import, props и Skeleton API ещё не привязаны.",
+      "rationale": "Наличие кодового компонента подтверждено curated source и владельцем; отсутствие Code Connect не означает его отсутствие. До чтения implementation source кодовая representation и имена props не создаются.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.exists-in-code",
+        "component:web-corp.buttons-group.skeleton-is-code-only",
+        "docs.buttons-group.code-intent"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.mobile-overflow-container",
+      "status": "accepted",
+      "summary": "Mobile-web overflow — BottomSheet только с действиями, без footer.",
+      "rationale": "SingleIcon открывает [D] OptionList на desktop и BottomSheet на mobile-web. Mobile BottomSheet содержит только список действий без footer.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-container-follows-platform",
+        "docs.buttons-group.legacy-rules"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.mobile-disabled-reason-pending",
+      "status": "needs-confirmation",
+      "summary": "Способ показа disabled reason на mobile ещё не определён.",
+      "rationale": "Исходная норма упоминает hover и Tooltip для D/M; touch activation и presentation не подтверждены. Tap/long press и новый компонент не вводятся без решения владельца.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.disabled-state-is-preserved-in-overflow",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.hub-instructions"
+      ]
+    }
+  ],
+  "generation": {
+    "profiles": [
+      {
+        "id": "mobile-web-size56-overflow-false",
+        "intent": "Выбрать [M] ButtonsGroup Size=56, Overflow=false",
+        "platform": "mobile-web",
+        "representationId": "web-corp.buttons-group.figma.mobile-web",
+        "properties": {
+          "size": "56",
+          "overflow": "false"
+        },
+        "rationale": "Выбор root VARIANT; это не default или подтверждение code/runtime поведения."
+      },
+      {
+        "id": "mobile-web-size56-overflow-true",
+        "intent": "Выбрать [M] ButtonsGroup Size=56, Overflow=true",
+        "platform": "mobile-web",
+        "representationId": "web-corp.buttons-group.figma.mobile-web",
+        "properties": {
+          "size": "56",
+          "overflow": "true"
+        },
+        "rationale": "Выбор root VARIANT; это не default или подтверждение code/runtime поведения."
+      },
+      {
+        "id": "mobile-web-size48-overflow-false",
+        "intent": "Выбрать [M] ButtonsGroup Size=48, Overflow=false",
+        "platform": "mobile-web",
+        "representationId": "web-corp.buttons-group.figma.mobile-web",
+        "properties": {
+          "size": "48",
+          "overflow": "false"
+        },
+        "rationale": "Выбор root VARIANT; это не default или подтверждение code/runtime поведения."
+      },
+      {
+        "id": "mobile-web-size48-overflow-true",
+        "intent": "Выбрать [M] ButtonsGroup Size=48, Overflow=true",
+        "platform": "mobile-web",
+        "representationId": "web-corp.buttons-group.figma.mobile-web",
+        "properties": {
+          "size": "48",
+          "overflow": "true"
+        },
+        "rationale": "Выбор root VARIANT; это не default или подтверждение code/runtime поведения."
+      },
+      {
+        "id": "mobile-web-size40-overflow-false",
+        "intent": "Выбрать [M] ButtonsGroup Size=40, Overflow=false",
+        "platform": "mobile-web",
+        "representationId": "web-corp.buttons-group.figma.mobile-web",
+        "properties": {
+          "size": "40",
+          "overflow": "false"
+        },
+        "rationale": "Выбор root VARIANT; это не default или подтверждение code/runtime поведения."
+      },
+      {
+        "id": "mobile-web-size40-overflow-true",
+        "intent": "Выбрать [M] ButtonsGroup Size=40, Overflow=true",
+        "platform": "mobile-web",
+        "representationId": "web-corp.buttons-group.figma.mobile-web",
+        "properties": {
+          "size": "40",
+          "overflow": "true"
+        },
+        "rationale": "Выбор root VARIANT; это не default или подтверждение code/runtime поведения."
+      },
+      {
+        "id": "mobile-web-size32-overflow-false",
+        "intent": "Выбрать [M] ButtonsGroup Size=32, Overflow=false",
+        "platform": "mobile-web",
+        "representationId": "web-corp.buttons-group.figma.mobile-web",
+        "properties": {
+          "size": "32",
+          "overflow": "false"
+        },
+        "rationale": "Выбор root VARIANT; это не default или подтверждение code/runtime поведения."
+      },
+      {
+        "id": "mobile-web-size32-overflow-true",
+        "intent": "Выбрать [M] ButtonsGroup Size=32, Overflow=true",
+        "platform": "mobile-web",
+        "representationId": "web-corp.buttons-group.figma.mobile-web",
+        "properties": {
+          "size": "32",
+          "overflow": "true"
+        },
+        "rationale": "Выбор root VARIANT; это не default или подтверждение code/runtime поведения."
+      }
+    ],
+    "instructions": [
+      "Для связанных действий на mobile-web используй библиотечный [M] ButtonsGroup по component set key. Настраивай только два встроенных Button; не detach и не собирай замену вручную.",
+      "Выбери Size 32/40/48/56 и строковый Overflow false/true. Неподтверждённые code props/imports не выводятся из Figma API.",
+      "Оставь 1–2 видимые кнопки. Можно скрывать любой штатный occurrence; identity, membership и точные Button/Spinner pins сохраняются.",
+      "View только Primary/Secondary; Size видимых Button равен Size группы. Primary необязателен, не более одного и первый среди видимых. Иерархию остальных действий определяет сценарий.",
+      "SingleIcon необязателен, не более одного и последним среди видимых. Он доступен только с Overflow=true и минимум двумя видимыми Button. Overflow=true также требует две видимые кнопки.",
+      "Не меняй иконку SingleIcon ни в одном размере: сравнивай с независимым эталоном выбранного Button. У второй кнопки в готовых Size 32/40 Overflow=true путь LeftAddon / 🔩 Addon; у первой кнопки и остальных вариантов LeftAddon / LeftAddon. После изменения View/Disabled/Shape требуется live проверка соответствия пути.",
+      "Overflow на mobile-web размещается в BottomSheet только с действиями, без footer. Не вводи отдельный максимум действий BottomSheet из лимита двух видимых Button.",
+      "Сохрани HORIZONTAL, gap 8 и внутренние padding 0 по выбранному эталону, а также заявленные визуальные свойства корня. Hug/Hug, width/height locks отсутствуют.",
+      "Labels, обычные addons и состояния Button принадлежат его pinned контракту и редакционному паттерну. Не выводи групповые Disabled/Loading из Figma root API; Skeleton описывается только подтверждённым кодом.",
+      "Поведение overflow, disabled reason и Loading BottomSheet требуют scenario/code фактов. Snapshot группы не доказывает эти нормы.",
+      "Генерация и consumption в Apollo v4 требуют подтверждённого arui-private mapping и прохождения v4 source/runtime gates. Mapping, runtime, live и release acceptance учитываются отдельно."
+    ]
+  },
+  "source": {
+    "kind": "figma-selection",
+    "importedFiles": [
+      "button-single-icon-ports.2026-10-05.json",
+      "contract.generated.json",
+      "figma-readback.2026-10-05.json",
+      "rules.json"
+    ],
+    "sourceHash": "478118d0afe3b8b60dedd4f29ca0d99445fa5f1bd2a33f5a1a3c38b0d83d3bb7",
+    "importedAt": "2026-10-05T13:58:03.958Z"
+  },
+  "targets": [
+    {
+      "id": "target.buttons-group",
+      "semanticRole": "buttons-group",
+      "label": "[M] ButtonsGroup",
+      "componentFamily": "[M] ButtonsGroup",
+      "lineage": [],
+      "structuralFingerprint": "421f09e20f1f4f0f500f036e10062a74d9f51bde75fcfa49c68bcd08c4c87775",
+      "nameHint": "[M] ButtonsGroup",
+      "pathHint": "[M] ButtonsGroup",
+      "nodeIdHint": "133812:11630",
+      "resolution": "resolved"
+    },
+    {
+      "id": "target.button",
+      "semanticRole": "button",
+      "label": "[M] Button",
+      "componentFamily": "[M] Button",
+      "lineage": [
+        "buttons-group"
+      ],
+      "structuralFingerprint": "ae42108fd0e372f905d6a84fed9def882f354221c533e5bcab2d8b7e4ef23ce8",
+      "nameHint": "[M] Button",
+      "pathHint": "[M] ButtonsGroup / @source:133812%3A11632",
+      "nodeIdHint": "133812:11632",
+      "resolution": "resolved",
+      "variantHints": [
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "68a95cbef7aa701d8541a5b644f7a601d0ba9663",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11632"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "d128adb02da4554c0db1df2bc74820daeb270d59",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11637"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "fd0ca7e82b6a5d611bef3c5ae3fef6f06c7de854",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11642"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "256df0fce14ccc1a6393382e113826cff0957e95",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11647"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "bcf7ad81a1f0827cfd781ea9b399a6ef8f3eaa92",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11652"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "df97ae1fa85336a98f0500a813378a29bbbb6147",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11657"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "cd7d04db79eafba6b48736ca1ddc8c57c71b0870",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11662"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "333d0acdea99fdc0f554301411ad720ebe6a1025",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11667"
+        }
+      ]
+    },
+    {
+      "id": "target.button-2",
+      "semanticRole": "button-2",
+      "label": "[M] Button",
+      "componentFamily": "[M] Button",
+      "lineage": [
+        "buttons-group"
+      ],
+      "structuralFingerprint": "068fb06237acd595d8e22c0a0cf2ec8eed28a647e84e42259bf6961bc947f72c",
+      "nameHint": "[M] Button",
+      "pathHint": "[M] ButtonsGroup / @source:133812%3A11633",
+      "nodeIdHint": "133812:11633",
+      "resolution": "resolved",
+      "variantHints": [
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "68a95cbef7aa701d8541a5b644f7a601d0ba9663",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11633"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "d128adb02da4554c0db1df2bc74820daeb270d59",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11640"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "fd0ca7e82b6a5d611bef3c5ae3fef6f06c7de854",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11643"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "256df0fce14ccc1a6393382e113826cff0957e95",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11650"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "bcf7ad81a1f0827cfd781ea9b399a6ef8f3eaa92",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11653"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "df97ae1fa85336a98f0500a813378a29bbbb6147",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11660"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "cd7d04db79eafba6b48736ca1ddc8c57c71b0870",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11663"
+        },
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "componentKey": "333d0acdea99fdc0f554301411ad720ebe6a1025",
+          "pathHint": "[M] ButtonsGroup / @source:133812%3A11670"
+        }
+      ]
+    }
+  ],
+  "controlPorts": [],
+  "rules": [
+    {
+      "id": "component:buttons-group.mobile-web.root-padding-is-fixed",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "",
+      "capabilitySet": "auto-layout@1",
+      "capabilitySelection": [
+        "layout.padding.top",
+        "layout.padding.right",
+        "layout.padding.bottom",
+        "layout.padding.left"
+      ],
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Внутренние отступы группы сохраняются по эталону выбранного варианта",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visual-and-layout-baseline-is-fixed",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.built-in-membership",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": false,
+            "assertion": {
+              "kind": "membership"
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Группа содержит только исходные встроенные экземпляры Button, включая скрытые. Добавление, удаление, дублирование и подмена запрещены",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.use-only-built-in-button-slots",
+        "component:web-corp.buttons-group.built-in-buttons-can-be-hidden",
+        "component:web-corp.buttons-group.nested-buttons-follow-button-contract",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.visible-button-count",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "count",
+              "min": 1,
+              "max": 2
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "В mobile-web группе должно быть от одной до двух видимых кнопок, включая SingleIcon.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visible-button-limit",
+        "component:web-corp.buttons-group.minimum-two-buttons",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.view-domain",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "propertyDomain",
+              "property": "View",
+              "propertyType": "VARIANT",
+              "values": [
+                "Primary",
+                "Secondary"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Видимые кнопки группы могут иметь View только Primary или Secondary",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.nested-button-views-are-primary-or-secondary",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.gap-is-fixed",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "layout.itemSpacing",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Расстояние между кнопками сохраняется по эталону выбранного варианта.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.spacing-uses-effective-baseline",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.horizontal-layout",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "layout.mode",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Кнопки группы располагаются горизонтально; направление группы сохраняется",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.horizontal-layout-is-fixed",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.single-icon-is-fixed-size48-56",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "dependencyDomain",
+          "values": [
+            false
+          ],
+          "dependency": {
+            "field": "changed",
+            "baselinePolicy": "require-domain",
+            "subjects": [
+              {
+                "targetRole": "button-2",
+                "relativePath": "LeftAddon / LeftAddon"
+              }
+            ],
+            "portNames": [
+              "Icon-24"
+            ],
+            "subjectCondition": {
+              "property": "SingleIcon",
+              "propertyType": "VARIANT",
+              "values": [
+                "True"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": {
+          "Size": [
+            "48",
+            "56"
+          ],
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "При SingleIcon=True у второго occurrence в Size 48/56 с Overflow=true запрещена замена иконки или её варианта относительно собственного библиотечного эталона Button; слот LeftAddon / LeftAddon.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback",
+        "docs.buttons-group.mobile-icon-ports"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.single-icon-is-fixed-size32-40",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "dependencyDomain",
+          "values": [
+            false
+          ],
+          "dependency": {
+            "field": "changed",
+            "baselinePolicy": "require-domain",
+            "subjects": [
+              {
+                "targetRole": "button-2",
+                "relativePath": "LeftAddon / 🔩 Addon"
+              }
+            ],
+            "portNames": [
+              "Icon-16",
+              "Icon-20"
+            ],
+            "subjectCondition": {
+              "property": "SingleIcon",
+              "propertyType": "VARIANT",
+              "values": [
+                "True"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": {
+          "Size": [
+            "32",
+            "40"
+          ],
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "При SingleIcon=True у второго occurrence в Size 32/40 с Overflow=true запрещена замена иконки или её варианта относительно собственного библиотечного эталона Button; сохранённый в группе слот LeftAddon / 🔩 Addon.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback",
+        "docs.buttons-group.mobile-icon-ports"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.single-icon-is-fixed-first-occurrence",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "dependencyDomain",
+          "values": [
+            false
+          ],
+          "dependency": {
+            "field": "changed",
+            "baselinePolicy": "require-domain",
+            "subjects": [
+              {
+                "targetRole": "button",
+                "relativePath": "LeftAddon / LeftAddon"
+              }
+            ],
+            "portNames": [
+              "Icon-16",
+              "Icon-20",
+              "Icon-24"
+            ],
+            "subjectCondition": {
+              "property": "SingleIcon",
+              "propertyType": "VARIANT",
+              "values": [
+                "True"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "При SingleIcon=True у первого occurrence во всех Size запрещена замена иконки или её варианта относительно собственного библиотечного эталона Button; слот LeftAddon / LeftAddon. Порядок и минимум видимых Button проверяются отдельно.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback",
+        "docs.buttons-group.mobile-icon-ports"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.single-icon-is-fixed-second-occurrence-no-overflow",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "dependencyDomain",
+          "values": [
+            false
+          ],
+          "dependency": {
+            "field": "changed",
+            "baselinePolicy": "require-domain",
+            "subjects": [
+              {
+                "targetRole": "button-2",
+                "relativePath": "LeftAddon / LeftAddon"
+              }
+            ],
+            "portNames": [
+              "Icon-16",
+              "Icon-20",
+              "Icon-24"
+            ],
+            "subjectCondition": {
+              "property": "SingleIcon",
+              "propertyType": "VARIANT",
+              "values": [
+                "True"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "false"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "При SingleIcon=True у второго occurrence исходного Overflow=false варианта запрещена замена иконки во всех Size; слот LeftAddon / LeftAddon. Использование SingleIcon без Overflow=true отдельно нарушает правило композиции.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback",
+        "docs.buttons-group.mobile-icon-ports"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.uniform-size",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "propertyMapping",
+              "property": "Size",
+              "propertyType": "VARIANT",
+              "hostProperty": "Size",
+              "hostPropertyType": "VARIANT",
+              "transform": "identity"
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Размер видимых кнопок согласован с размером группы",
+      "message": "Size видимой кнопки должен совпадать с Size группы",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.uniform-size",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.primary-is-unique",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "count",
+              "min": 0,
+              "max": 1
+            },
+            "filter": {
+              "property": "View",
+              "propertyType": "VARIANT",
+              "values": [
+                "Primary"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "В группе допускается не более одной видимой кнопки Primary",
+      "message": "В группе может быть не более одной видимой кнопки с View=Primary",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.primary-is-first-and-unique",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.primary-is-first",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "position",
+              "position": "first"
+            },
+            "filter": {
+              "property": "View",
+              "propertyType": "VARIANT",
+              "values": [
+                "Primary"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Primary располагается первой среди видимых кнопок группы",
+      "message": "Кнопка с View=Primary должна быть первой среди видимых кнопок",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.primary-is-first-and-unique",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.single-icon-is-unique",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "count",
+              "min": 0,
+              "max": 1
+            },
+            "filter": {
+              "property": "SingleIcon",
+              "propertyType": "VARIANT",
+              "values": [
+                "True"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "В группе допускается не более одной видимой кнопки SingleIcon",
+      "message": "В группе может быть не более одной видимой кнопки с SingleIcon=True",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-enables-last-single-icon",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.single-icon-requires-overflow",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "hostRequirement",
+              "property": "Overflow",
+              "propertyType": "VARIANT",
+              "values": [
+                "true"
+              ]
+            },
+            "filter": {
+              "property": "SingleIcon",
+              "propertyType": "VARIANT",
+              "values": [
+                "True"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Видимая SingleIcon допускается только при включённом Overflow",
+      "message": "Для видимой кнопки SingleIcon=True группа должна иметь Overflow=true",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-enables-last-single-icon",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.single-icon-is-last",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "position",
+              "position": "last"
+            },
+            "filter": {
+              "property": "SingleIcon",
+              "propertyType": "VARIANT",
+              "values": [
+                "True"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Видимая SingleIcon располагается последней среди видимых кнопок группы",
+      "message": "Кнопка с SingleIcon=True должна быть последней среди видимых кнопок",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-is-last",
+        "component:web-corp.buttons-group.overflow-enables-last-single-icon",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.single-icon-requires-two-buttons",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "count",
+              "min": 2
+            },
+            "whenMember": {
+              "property": "SingleIcon",
+              "propertyType": "VARIANT",
+              "values": [
+                "True"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Видимая SingleIcon допускается в группе минимум из двух видимых кнопок",
+      "message": "При видимой SingleIcon=True в группе должно быть минимум две видимые кнопки",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-requires-two-buttons",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.overflow-requires-two-buttons",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "required": false,
+          "exclusive": true
+        }
+      ],
+      "constraints": [
+        {
+          "type": "memberCollection",
+          "collection": {
+            "version": 1,
+            "ownerTargetRole": "buttons-group",
+            "memberTargetRoles": [
+              "button",
+              "button-2"
+            ],
+            "representationIds": [
+              "web-corp.buttons-group.figma.mobile-web"
+            ],
+            "visibleOnly": true,
+            "assertion": {
+              "kind": "count",
+              "min": 2
+            },
+            "whenHost": {
+              "property": "Overflow",
+              "propertyType": "VARIANT",
+              "values": [
+                "true"
+              ]
+            }
+          }
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "При включённом Overflow группа содержит минимум две видимые кнопки",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-is-optional-from-two-buttons",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.root-stroke-is-fixed",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "",
+      "capabilitySet": "stroke@1",
+      "capabilitySelection": [
+        "appearance.stroke",
+        "appearance.strokeStyleId",
+        "appearance.strokeWeight",
+        "appearance.strokeAlign",
+        "appearance.dashPattern"
+      ],
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Параметры обводки группы должны соответствовать эталону выбранного варианта.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visual-and-layout-baseline-is-fixed",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.root-appearance-is-fixed",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "",
+      "capabilitySet": "visual-style@1",
+      "capabilitySelection": [
+        "appearance.fill",
+        "appearance.opacity",
+        "appearance.radius",
+        "appearance.effects"
+      ],
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed",
+        "context": {},
+        "contextDomains": {},
+        "conditionSubject": "component-root"
+      },
+      "severity": "error",
+      "rationale": "Визуальные свойства группы должны соответствовать эталону выбранного варианта.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visual-and-layout-baseline-is-fixed",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.owner-decisions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "auto",
+        "externalRuleIds": [],
+        "missingFacts": []
+      }
+    },
+    {
+      "id": "component:buttons-group.mobile-web.buttons-group.actions-descend-by-priority",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.actionPriority",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Кнопки располагаются слева направо в порядке убывания приоритета действия; SingleIcon при его наличии остаётся последним.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "pattern",
+        "ownerId": "ptrn:controls.buttons-and-button-groups"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.actions-descend-by-priority",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.editorial-pattern",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.identity",
+          "scenario.actions.priority",
+          "scenario.actions.visibleOrder"
+        ]
+      },
+      "message": "Кнопки располагаются слева направо в порядке убывания приоритета действия; SingleIcon при его наличии остаётся последним.",
+      "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+    },
+    {
+      "id": "component:buttons-group.mobile-web.buttons-group.overflow-moves-nearest-action-first",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "interaction.overflowTransfer",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "При переносе действий в список у SingleIcon первым переносится действие кнопки, расположенной непосредственно перед SingleIcon; дальнейший перенос продолжается справа налево по убыванию приоритета.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-moves-nearest-action-first",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.beforeTransfer",
+          "scenario.actions.transferSequence",
+          "scenario.actions.priority"
+        ]
+      },
+      "message": "При переносе действий в список у SingleIcon первым переносится действие кнопки, расположенной непосредственно перед SingleIcon; дальнейший перенос продолжается справа налево по убыванию приоритета.",
+      "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+    },
+    {
+      "id": "component:buttons-group.mobile-web.buttons-group.single-icon-opens-overflow-list",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "interaction.overflowTrigger",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Последняя SingleIcon открывает BottomSheet с перенесёнными действиями. Использовать её для другого действия запрещено.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-opens-overflow-list",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "interaction.singleIcon.activation",
+          "interaction.overflow.opened",
+          "interaction.singleIcon.actionIdentity"
+        ]
+      },
+      "message": "Последняя SingleIcon открывает BottomSheet с перенесёнными действиями. Использовать её для другого действия запрещено.",
+      "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+    },
+    {
+      "id": "component:buttons-group.mobile-web.buttons-group.overflow-container-follows-platform",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.overflowContainer",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "В mobile-web overflow используется BottomSheet только с действиями, без footer. Desktop OptionList не является мобильным контейнером.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-container-follows-platform",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.platform",
+          "scenario.overflow.containerIdentity",
+          "scenario.overflow.bottomSheet.actionItems",
+          "scenario.overflow.bottomSheet.footerPresence"
+        ]
+      },
+      "message": "В mobile-web overflow используется BottomSheet только с действиями, без footer. Desktop OptionList не является мобильным контейнером.",
+      "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+    },
+    {
+      "id": "component:buttons-group.mobile-web.buttons-group.overflow-items-preserve-action-content",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "content.overflowActionMapping",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Пункт списка для перенесённой кнопки сохраняет её label, действие и наличие иконки: если у исходной кнопки иконки нет, пункт списка также остаётся без иконки.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-items-preserve-action-content",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.sourceContent",
+          "scenario.overflow.items.actionIdentity",
+          "scenario.overflow.items.label",
+          "scenario.overflow.items.iconPresence"
+        ]
+      },
+      "message": "Пункт списка для перенесённой кнопки сохраняет её label, действие и наличие иконки: если у исходной кнопки иконки нет, пункт списка также остаётся без иконки.",
+      "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+    },
+    {
+      "id": "component:buttons-group.mobile-web.buttons-group.visible-and-overflow-actions-are-unique",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "composition.actionIdentity",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Каждая видимая текстовая кнопка может запускать отдельное действие, а SingleIcon служит только входом в список перенесённых действий. Одно действие нельзя одновременно оставлять видимым и дублировать в списке.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visible-and-overflow-actions-are-unique",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.visibleIdentity",
+          "scenario.overflow.items.actionIdentity"
+        ]
+      },
+      "message": "Каждая видимая текстовая кнопка может запускать отдельное действие, а SingleIcon служит только входом в список перенесённых действий. Одно действие нельзя одновременно оставлять видимым и дублировать в списке.",
+      "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+    },
+    {
+      "id": "component:buttons-group.mobile-web.buttons-group.disabled-state-is-preserved-in-overflow",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "interaction.overflowDisabled",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Disabled действия остаются disabled в mobile overflow. Способ показа причины недоступности на mobile требует решения владельца: исходная норма hover/Tooltip не задаёт touch взаимодействие.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.disabled-state-is-preserved-in-overflow",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "scenario.actions.disabled",
+          "scenario.overflow.items.disabled",
+          "interaction.mobile.disabledReasonActivation",
+          "interaction.mobile.disabledReasonPresentation"
+        ]
+      },
+      "message": "Disabled действия остаются disabled в mobile overflow. Способ показа причины недоступности на mobile требует решения владельца: исходная норма hover/Tooltip не задаёт touch взаимодействие.",
+      "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+    },
+    {
+      "id": "component:buttons-group.mobile-web.buttons-group.overflow-list-closes-after-action",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "interaction.overflowClose",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": {
+          "Overflow": [
+            "true"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "После выбора доступного действия BottomSheet сразу закрывается.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-list-closes-after-action",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "interaction.overflow.enabledActionSelected",
+          "interaction.overflow.openBefore",
+          "interaction.overflow.openAfter"
+        ]
+      },
+      "message": "После выбора доступного действия BottomSheet сразу закрывается.",
+      "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+    },
+    {
+      "id": "component:buttons-group.mobile-web.buttons-group.visible-button-loading-follows-button",
+      "targetId": "target.buttons-group",
+      "targetScope": "self",
+      "capability": "interaction.actionLoading",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Loading видимых кнопок соответствует контракту Button. Поддержка Loading у действий BottomSheet должна быть подтверждена по mobile code API; desktop OptionListCell API не переносится автоматически.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.buttons-group"
+      },
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visible-button-loading-follows-button",
+        "docs.buttons-group.legacy-rules",
+        "docs.buttons-group.code-intent",
+        "docs.buttons-group.hub-instructions",
+        "docs.buttons-group.mobile-source",
+        "docs.buttons-group.figma-readback"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "interaction.visibleButton.loadingState",
+          "code.mobile.overflowItem.loadingApi",
+          "code.button.contract"
+        ]
+      },
+      "message": "Loading видимых кнопок соответствует контракту Button. Поддержка Loading у действий BottomSheet должна быть подтверждена по mobile code API; desktop OptionListCell API не переносится автоматически.",
+      "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+    }
+  ],
+  "metadata": {
+    "ruleOwnershipVersion": 1,
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "revision": 1,
+    "createdAt": "2026-10-05T13:58:03.958Z",
+    "updatedAt": "2026-10-05T13:58:03.958Z",
+    "publicRepresentationBoundaryVersion": 1
+  },
+  "componentDependencies": [
+    {
+      "id": "core-web-button",
+      "componentId": "core.web.button",
+      "revision": 31,
+      "manualSourceHash": "0177a9b6cd3fc60c8ebafbf962ec7da74538e13fd18b6b22cf77ac663feebc22",
+      "compiledHash": "6136013045fbcab513f8e7cbcd0ce968903ef81851c927dd7426e218438f5f8b",
+      "bindings": [
+        {
+          "kind": "direct-child",
+          "id": "buttons-group-button",
+          "targetRole": "button",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.mobile-web"
+          ]
+        },
+        {
+          "kind": "direct-child",
+          "id": "buttons-group-button-2",
+          "targetRole": "button-2",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.mobile-web"
+          ]
+        }
+      ]
+    }
+  ]
+}

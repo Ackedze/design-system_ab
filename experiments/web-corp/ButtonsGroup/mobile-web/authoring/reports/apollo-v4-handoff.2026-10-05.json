@@ -1,0 +1,134 @@
+{
+  "documentType": "contract-code-mapping-handoff",
+  "normative": false,
+  "date": "2026-10-05",
+  "targetProduct": "projects/Apollo-v3/apps/apollo-v4",
+  "componentId": "web-corp.buttons-group",
+  "contractId": "buttons-group.mobile-web",
+  "revision": 2,
+  "manualSourceHash": "8751580d7a0c48f1e67e1c5f8d285cb11e2ef4860a4cf75e76d6fc4cd9798a43",
+  "zipSha256": "bbd820ccfab57e4909e77e11bfe1c02a0ef689d8f7912ca6fa5f78f539d0a8d8",
+  "status": "draft",
+  "manual": "experiments/web-corp/ButtonsGroup/mobile-web/authoring/contract.manual.json",
+  "compiled": "experiments/web-corp/ButtonsGroup/mobile-web/authoring/compiled/component-contract.v2.json",
+  "authoringZip": "experiments/current-contract-packages/ButtonsGroup.mobile-web.component-contract.zip",
+  "representation": {
+    "id": "web-corp.buttons-group.figma.mobile-web",
+    "kind": "figma",
+    "platform": "mobile-web",
+    "status": "verified",
+    "locator": {
+      "componentKey": "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062",
+      "componentSetKey": "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062",
+      "figmaFileKey": "NrzEFUSTXgzOUmsfYym0xD",
+      "nodeId": "133812:11630"
+    }
+  },
+  "semanticApi": [
+    {
+      "id": "size",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "32",
+        "40",
+        "48",
+        "56"
+      ],
+      "description": "Единый размер группы и всех видимых встроенных Button. В Figma Size имеет тип VARIANT и строковые значения. Default не задаётся: размер выбирается по сценарию.",
+      "bindings": [
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "overflow",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "false",
+        "true"
+      ],
+      "description": "Штатный overflow группы. Это строковый VARIANT Figma, а не BOOLEAN. Overflow=true допустим при двух и более видимых кнопках; наличие видимого SingleIcon не выводится только из Overflow=true. Code prop/import не подтверждён.",
+      "bindings": [
+        {
+          "representationId": "web-corp.buttons-group.figma.mobile-web",
+          "path": "component.properties.Overflow",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "pins": [
+    {
+      "id": "core-web-button",
+      "componentId": "core.web.button",
+      "revision": 31,
+      "manualSourceHash": "0177a9b6cd3fc60c8ebafbf962ec7da74538e13fd18b6b22cf77ac663feebc22",
+      "compiledHash": "6136013045fbcab513f8e7cbcd0ce968903ef81851c927dd7426e218438f5f8b",
+      "bindings": [
+        {
+          "kind": "direct-child",
+          "id": "buttons-group-button",
+          "targetRole": "button",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.mobile-web"
+          ]
+        },
+        {
+          "kind": "direct-child",
+          "id": "buttons-group-button-2",
+          "targetRole": "button-2",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "3efdfaf64eddbcf48b183ce917b7a64c0c3d6062"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.mobile-web"
+          ]
+        }
+      ]
+    }
+  ],
+  "acceptance": {
+    "sourceApi": "verified-read-only",
+    "sourceTopology": "8/8 current Figma variants including hidden nodes",
+    "manualAndSharedCompile": "passed",
+    "mobileLive": "partial: r2 Overflow=false icon-lock applicability confirmed by fresh 16:24:43 UTC report; child evidence incomplete; remaining matrix pending",
+    "codeMapping": "pending",
+    "runtime": "pending",
+    "release": "not-published"
+  },
+  "remainingAcceptance": [
+    "Mobile live original/negative/reset in all 8 variants, including SingleIcon View/Disabled/Shape changes and wrapper path overrides; no Draft rule becomes Reviewed automatically",
+    "Exact mobile arui-private import/API/platform mapping before generation in Apollo v4",
+    "Scenario/runtime facts for nine context-only rules",
+    "Owner decision for mobile disabled reason presentation",
+    "Hub projections for owner decisions and mobile runtime differences",
+    "Apollo v4 accepted-ready source/runtime gate; current Draft must be refused"
+  ],
+  "applicabilityDecision": {
+    "id": "decision.buttons-group.single-icon-lock-requires-overflow",
+    "status": "accepted",
+    "summary": "Защита иконки SingleIcon применяется только при Overflow=true во всех размерах.",
+    "rationale": "Уточнение владельца 05.10.2026: при SingleIcon=True и Overflow=false достаточно ошибки недопустимого режима; замена иконки в этом режиме не является отдельным нарушением группового asset lock. Не подавлять самостоятельные проверки pinned Button и явную неполноту их фактов.",
+    "sourceRefs": [
+      "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+      "component:web-corp.buttons-group.single-icon-requires-overflow",
+      "docs.buttons-group.owner-decisions"
+    ]
+  },
+  "applicabilityRegression": "reports/overflow-icon-applicability.2026-10-05.json",
+  "registrySync": "verified-readback",
+  "registrySyncAudit": "reports/registry-sync.r2.completed.json",
+  "mobileLiveEvidence": "reports/live-r2-applicability.2026-10-05.json"
+}

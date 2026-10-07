@@ -1,0 +1,175 @@
+{
+  "documentType": "primary-source-reconciliation",
+  "status": "completed",
+  "generatedAt": "2026-10-05T18:04:16.300Z",
+  "componentId": "web-corp.corporate-content",
+  "contractId": "corporate-content.desktop",
+  "history": "shared/design-system_ab/experiments/web-corp/CorporateContent/authoring/history/r11-primary-before-owner-r12-2026-10-05",
+  "mainSource": {
+    "path": "shared/design-system_ab/experiments/web-corp/CorporateContent/authoring/contract.manual.json",
+    "oldRevision": 11,
+    "oldManualSourceHash": "8c014c78a0163b7d32b9a79e957bebc7cc3f6f85ff0036d4aa60f37f0e666b9f",
+    "oldSha256": "ef510e5d2289b7739bc197afee8748fe80b6dd0e7d4afb8fa4cc7d2912ae3f85",
+    "revision": 12,
+    "manualSourceHash": "babd61bace922b9ce4c46ddad751c8bf1ebd906fd7c8e828a7a0d02c82d1a408",
+    "sha256": "b75e16f99fd8a273eaeaddf3d0f2bdbcc36733241f49b50a4e0877ad819874d4"
+  },
+  "acceptedArchive": {
+    "path": "shared/design-system_ab/experiments/current-contract-packages/CorporateContent.component-contract.zip",
+    "sha256": "281159400f53164d58c4302b8f3fcecc32da3aff573bb8dd949e9072cd8bc8de",
+    "unchanged": true
+  },
+  "workingArchive": {
+    "path": "shared/design-system_ab/experiments/web-corp/CorporateContent/authoring/corporate-content.component-contract.zip",
+    "oldSha256": "4ca6dd0b70073577f09af2e6070c2875a140e7d74b33c55b7fc2d9b423e38add",
+    "sha256": "281159400f53164d58c4302b8f3fcecc32da3aff573bb8dd949e9072cd8bc8de",
+    "exactAcceptedMirror": true
+  },
+  "factsHash": "de2cc3722fe73f090490843be7a5c1ec8dcbc7a240830659f63ebe0065279ae9",
+  "compiledHash": "287f3257d81bf8ac5232e65b1b8b82aa7a737b0e31f59fdcde730f6448637003",
+  "acceptedPredicateScope": {
+    "status": "ready",
+    "sourceRules": 6,
+    "compiledChecks": 17,
+    "scope": "desktop Figma only",
+    "normativeRulesUnchanged": true,
+    "targetsUnchanged": true,
+    "controlPortsUnchanged": true,
+    "factsUnchanged": true,
+    "acceptanceSource": "shared/design-system_ab/experiments/web-corp/CorporateContent/authoring/reports/acceptance.json",
+    "acceptanceSha256": "496dc703038ffebf80058b92129321349a1f098d2e17e4a9f5d5dc0ece7cbd54",
+    "newLiveAcceptance": false,
+    "codeFieldsApplied": false,
+    "ruleIRSemanticsAndPolicyUnchanged": true,
+    "ruleIRProvenanceChanges": [
+      "revision",
+      "source.checksum"
+    ]
+  },
+  "fieldDiff": [
+    {
+      "path": "/component/library",
+      "before": "Web _ Corp Components",
+      "after": "Web :: Corp Components"
+    },
+    {
+      "path": "/semantics/purpose",
+      "before": "",
+      "after": "Контейнер основного содержимого desktop-страницы корпоративного интерфейса. Сохраняет системную геометрию и оформление библиотечного компонента и предоставляет открытый слот Body для произвольного содержимого и композиций."
+    },
+    {
+      "path": "/semantics/useWhen",
+      "before": [],
+      "after": [
+        "Нужно разместить основное содержимое desktop-страницы в системном контейнере CorporateContent.",
+        "Нужно собрать произвольную композицию внутри Body, сохранив библиотечную геометрию и оформление контейнера."
+      ]
+    },
+    {
+      "path": "/semantics/doNotUseWhen",
+      "before": [],
+      "after": [
+        {
+          "condition": "Нужна mobile-web версия: это представление и профиль предназначены для desktop."
+        },
+        {
+          "condition": "Нужен контейнер самостоятельной модальной поверхности: CorporateContent допускает только page modes фона."
+        }
+      ]
+    },
+    {
+      "path": "/semantics/keywords",
+      "before": [],
+      "after": [
+        "CorporateContent",
+        "контейнер",
+        "содержимое страницы",
+        "Body",
+        "слот",
+        "desktop"
+      ]
+    },
+    {
+      "path": "/semanticApi",
+      "before": [],
+      "after": [
+        {
+          "id": "body",
+          "kind": "slot",
+          "valueType": "content",
+          "description": "Открытое внешнее содержимое Body: пустой слот или произвольная композиция. Содержимое проверяется по контрактам вложенных компонентов и паттернов.",
+          "bindings": [
+            {
+              "representationId": "web-corp.corporate-content.figma.desktop",
+              "path": "component.properties.[D] Body#135096:3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/generation/profiles",
+      "before": [],
+      "after": [
+        {
+          "id": "web-corp.corporate-content.figma.desktop.empty",
+          "intent": "Создать desktop-экземпляр CorporateContent с пустым Body.",
+          "platform": "desktop",
+          "representationId": "web-corp.corporate-content.figma.desktop",
+          "properties": {
+            "body": []
+          },
+          "rationale": "Стартовый контейнер без содержимого. Для наполненного макета body задаётся задачей; пустое содержимое не является обязательным состоянием компонента."
+        }
+      ]
+    },
+    {
+      "path": "/generation/instructions",
+      "before": [],
+      "after": [
+        "Создай экземпляр Figma-представления по его componentKey.",
+        "Передавай содержимое body через native SLOT [D] Body#135096:3, согласно controlPaths правила composition.content.",
+        "Если body пуст, оставь слот пустым; не создавай содержимое библиотечного placeholder как пользовательское содержимое.",
+        "Сохраняй библиотечный baseline свойств, защищённых правилами текущего контракта.",
+        "Для фона используй только разрешённые page modes; выбор режима для конкретной страницы получай из задачи или паттерна.",
+        "Не ограничивай режим высоты корня: layout.sizingVertical не входит в принятый locked selection.",
+        "Состав и layout содержимого Body определяй по задаче, контрактам вложенных компонентов и паттернам.",
+        "После создания проверь экземпляр по текущему контракту; отдельно проверь вложенные компоненты по их собственным контрактам."
+      ]
+    },
+    {
+      "path": "/metadata/revision",
+      "before": 11,
+      "after": 12
+    },
+    {
+      "path": "/metadata/updatedAt",
+      "before": "2026-09-30T17:22:38.951Z",
+      "after": "2026-10-01T19:36:48.464Z"
+    }
+  ],
+  "checks": {
+    "acceptedPins": "pass",
+    "bothCompilersExactProjection": "pass-with-accepted-historical-exporter-stamp-validated-by-v4-actual-ZIP",
+    "v4ActualZipSourceLoad": "pass",
+    "historyReadback": "pass-main-and-original-working-archive-sha256",
+    "mainByteExactZipEntry": "pass",
+    "workingZipByteExactAccepted": "pass",
+    "acceptedZipUnchanged": "pass",
+    "originalAcceptanceUnchanged": "pass"
+  },
+  "registrySync": {
+    "status": "verified-readback",
+    "spreadsheetId": "1u3Y7lhO3udXAhGlf7hOk2_zYkWZ0-vgtd6KjtbnxLnk",
+    "reportPath": "shared/design-system_ab/experiments/web-corp/ButtonsGroup/authoring/reports/next-02.primary-source-registry-sync.2026-10-05.json",
+    "changedCells": 77,
+    "ranges": [
+      "'Правила'!A1873:O1884",
+      "'Леджер'!A78:O82",
+      "'Corp components'!AF17:AH17"
+    ],
+    "formatsAndValidationPreserved": true,
+    "scopedPredicateStatus": "Ready",
+    "newRuleOrCodeAcceptance": false
+  }
+}

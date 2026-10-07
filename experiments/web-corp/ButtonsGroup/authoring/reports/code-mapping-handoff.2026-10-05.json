@@ -1,0 +1,179 @@
+{
+  "documentType": "contract-code-mapping-handoff",
+  "normative": false,
+  "date": "2026-10-05",
+  "task": "NEXT-02",
+  "nextInput": "NEXT-01 confirmed arui-private code mapping, delivered through Apollo CB :: General",
+  "scope": "ButtonsGroup desktop; CorporateContent mapping work follows its own canonical source",
+  "componentId": "web-corp.buttons-group",
+  "contractId": "buttons-group.desktop",
+  "revision": 57,
+  "manualSourceHash": "5ba3bf8f2b92bc842f917c209eef2e5a98f939eb0403bb4e204c7154f2cbef6a",
+  "zipSha256": "214d9cc0c16a4b7c56e3a69e9151e0d5a36d3d9d05e947bf2122d0e53eb3743a",
+  "manual": "experiments/web-corp/ButtonsGroup/authoring/contract.manual.json",
+  "compiled": "experiments/web-corp/ButtonsGroup/authoring/compiled/component-contract.v2.json",
+  "authoringZip": "experiments/current-contract-packages/ButtonsGroup.component-contract.zip",
+  "status": "draft",
+  "reviewedFigmaRules": 17,
+  "draftContextRules": 9,
+  "compiledPredicates": 30,
+  "figmaRepresentation": {
+    "id": "web-corp.buttons-group.figma.desktop",
+    "kind": "figma",
+    "platform": "desktop",
+    "status": "verified",
+    "locator": {
+      "componentKey": "f05915599f71e822fd8b46a2b2509a2e395005cf",
+      "componentSetKey": "f05915599f71e822fd8b46a2b2509a2e395005cf",
+      "figmaFileKey": "NrzEFUSTXgzOUmsfYym0xD",
+      "nodeId": "62786:48893"
+    }
+  },
+  "semanticApi": [
+    {
+      "id": "size",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "32",
+        "40",
+        "48",
+        "56"
+      ],
+      "description": "Единый размер группы и всех видимых встроенных Button. В Figma Size имеет тип VARIANT и строковые значения. Default не задаётся: размер выбирается по сценарию.",
+      "bindings": [
+        {
+          "representationId": "web-corp.buttons-group.figma.desktop",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "overflow",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "false",
+        "true"
+      ],
+      "description": "Штатный overflow группы. Это строковый VARIANT Figma, а не BOOLEAN. Overflow=true допустим при двух и более видимых кнопках; наличие видимого SingleIcon не выводится только из Overflow=true. Code prop/import не подтверждён.",
+      "bindings": [
+        {
+          "representationId": "web-corp.buttons-group.figma.desktop",
+          "path": "component.properties.Overflow",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "pins": [
+    {
+      "id": "core-web-button",
+      "componentId": "core.web.button",
+      "revision": 31,
+      "manualSourceHash": "0177a9b6cd3fc60c8ebafbf962ec7da74538e13fd18b6b22cf77ac663feebc22",
+      "compiledHash": "6136013045fbcab513f8e7cbcd0ce968903ef81851c927dd7426e218438f5f8b",
+      "bindings": [
+        {
+          "kind": "direct-child",
+          "id": "buttons-group-button",
+          "targetRole": "button",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "f05915599f71e822fd8b46a2b2509a2e395005cf"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.desktop"
+          ]
+        },
+        {
+          "kind": "direct-child",
+          "id": "buttons-group-button-2",
+          "targetRole": "button-2",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "f05915599f71e822fd8b46a2b2509a2e395005cf"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.desktop"
+          ]
+        },
+        {
+          "kind": "direct-child",
+          "id": "buttons-group-button-3",
+          "targetRole": "button-3",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "f05915599f71e822fd8b46a2b2509a2e395005cf"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.desktop"
+          ]
+        },
+        {
+          "kind": "direct-child",
+          "id": "buttons-group-button-4",
+          "targetRole": "button-4",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "f05915599f71e822fd8b46a2b2509a2e395005cf"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.desktop"
+          ]
+        }
+      ]
+    }
+  ],
+  "unchangedTransitiveClosure": "Spinner r8 within exact Button r31 projection",
+  "codeMapping": {
+    "representation": null,
+    "package": null,
+    "version": null,
+    "commit": null,
+    "export": null,
+    "publicSubpath": null,
+    "props": null,
+    "events": null,
+    "platforms": null,
+    "candidateNameFromInventory": "ButtonGroup",
+    "candidateNameIsNotMappingEvidence": true
+  },
+  "neededCodeEvidence": [
+    "Public arui-private export/subpath and package/version/commit/file hashes",
+    "Desktop/platform support and Figma family/key correspondence",
+    "Typed mapping for Size and Overflow, preserving VARIANT string types",
+    "Button actions composition, ordering/identity, visibility and host narrowing semantics",
+    "Overflow trigger/container, transfer algorithm, disabled/Tooltip and close transitions",
+    "State APIs: visible Button Loading, no invented group Disabled/Loading, actual Skeleton availability/API",
+    "Exact code dependency inventory separately from the pinned Figma Button/Spinner contracts"
+  ],
+  "routeBoundary": {
+    "contextPathsAreFutureRequirementsNotCurrentRuntimeFacts": true,
+    "patternOwnedRule": "actions-descend-by-priority",
+    "componentOwnedContextRules": 8,
+    "generationAvailability": "Both Figma and frontend routes require confirmed arui-private mapping before write/output"
+  },
+  "checks": [
+    "Schema/compiler 0 errors",
+    "ZIP manual lossless reimport and deterministic recompilation",
+    "Existing 30 RuleIR bodies and IDs unchanged",
+    "Original targets/generated evidence/exact child closure preserved",
+    "Editor/shared compiler parity",
+    "Apollo v4 rejects unaccepted Draft as expected",
+    "DS Rules/Ledger/component status saved and reread"
+  ],
+  "openGaps": [
+    "Nine context-only checkers/facts",
+    "Current ZIP requires live preview or original Athena source for anatomy",
+    "Size 32/40/48 direct occurrences and live original/swap/reset",
+    "Separate mobile authoring/mapping",
+    "Hub human projections and scope wording",
+    "Runtime/live/release acceptance"
+  ]
+}

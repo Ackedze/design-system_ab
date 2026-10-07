@@ -1,0 +1,1 @@
+Historical snapshot; not an independently editable normative source. Restored from the prior main before exact owner ZIP reconciliation. Acceptance scope and source provenance remain in the original reports.

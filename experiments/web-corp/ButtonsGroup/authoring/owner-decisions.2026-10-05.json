@@ -1,0 +1,128 @@
+{
+  "documentType": "authoring-decisions",
+  "normativeArtifact": false,
+  "date": "2026-10-05",
+  "scope": "ButtonsGroup desktop manual r57",
+  "source": "Owner instructions in this contract-authoring thread and existing exact source rules",
+  "previousDecisions": "owner-decisions.2026-10-01.json",
+  "decisions": [
+    {
+      "id": "decision.buttons-group.minimum-visible-one",
+      "status": "accepted",
+      "summary": "Обычная desktop группа допускает одну–четыре видимые кнопки.",
+      "rationale": "Владелец разрешил одну видимую кнопку. SingleIcon и Overflow=true сохраняют отдельный минимум две; пункты OptionList не входят в число видимых Button.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.minimum-two-buttons",
+        "component:web-corp.buttons-group.visible-button-limit",
+        "component:web-corp.buttons-group.single-icon-requires-two-buttons",
+        "component:web-corp.buttons-group.overflow-is-optional-from-two-buttons",
+        "docs.buttons-group.owner-decisions"
+      ],
+      "supersedes": [
+        "component:web-corp.buttons-group.minimum-two-buttons"
+      ],
+      "retiredRuleIds": [
+        "component:web-corp.buttons-group.minimum-two-buttons"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.view-domain",
+      "status": "accepted",
+      "summary": "В группе разрешены только View=Primary и View=Secondary.",
+      "rationale": "Владелец подтвердил более узкий domain по сравнению с публичным Button API. Primary необязателен, максимум один и первый среди видимых.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.nested-button-views-are-primary-or-secondary",
+        "component:web-corp.buttons-group.primary-is-first-and-unique",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.root-sizing-retired",
+      "status": "accepted",
+      "summary": "Норма Hug/Hug корня отменена.",
+      "rationale": "Прямое решение владельца: «не используем это правило». Нет width/height/sizing lock. HORIZONTAL, gap, padding и выбранные визуальные ограничения сохраняются.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.root-sizing-is-hug-hug",
+        "docs.buttons-group.owner-decisions"
+      ],
+      "retiredRuleIds": [
+        "component:web-corp.buttons-group.root-sizing-is-hug-hug"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.single-icon-all-sizes",
+      "status": "accepted",
+      "summary": "Иконку активного SingleIcon нельзя заменять ни в одном Size.",
+      "rationale": "Сравнение выполняется с независимым эталоном выбранного библиотечного варианта Button. Номинальный размер иконки не фиксируется одинаковым для всех Size; правило не переносится на addons обычных текстовых Button.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.single-icon-icon-is-fixed",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.root-visual-baseline",
+      "status": "accepted",
+      "summary": "Визуальные свойства корня сохраняются по эталону выбранного варианта.",
+      "rationale": "Владелец расширил формулировку до запрета визуальных изменений. Сохранены текущие reviewed проверки fill, stroke и его параметров, opacity, radius и effects. Свойства вложенных Button проверяет закреплённый дочерний контракт.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visual-and-layout-baseline-is-fixed",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.button-ownership",
+      "status": "accepted",
+      "summary": "Вложенные Button сохраняют свой контракт; группа добавляет только явные ограничения.",
+      "rationale": "Button r31 с полным Spinner r8 closure закреплён exact hashes. Labels, Disabled, Loading и обычные addons принадлежат Button и редакционному паттерну. Дополнительных текстовых запретов группа не вводит.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.nested-buttons-follow-button-contract",
+        "component:web-corp.buttons-group.button-labels-follow-button-contract",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.built-in-visibility",
+      "status": "accepted",
+      "summary": "Штатные Button разрешено скрывать и показывать, включая среднюю.",
+      "rationale": "Membership учитывает все четыре встроенных occurrence, включая скрытые; количество, Primary и SingleIcon проверяются по видимой композиции. Скрытие не даёт права добавлять, дублировать, удалять или заменять Button.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.built-in-buttons-can-be-hidden",
+        "component:web-corp.buttons-group.use-only-built-in-button-slots",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.overflow-count-contextual",
+      "status": "accepted",
+      "summary": "Количество пунктов внешнего overflow не ограничено лимитом видимых Button.",
+      "rationale": "OptionList не является пятым встроенным occurrence. Исходная норма не задаёт отдельного максимума перенесённых действий. Контент списка и взаимодействие проверяются отдельно от snapshot группы.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.overflow-item-count-is-contextual",
+        "component:web-corp.buttons-group.visible-button-limit",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.group-state-boundary",
+      "status": "accepted",
+      "summary": "Общих Disabled и Loading свойств у Figma группы нет.",
+      "rationale": "Root API содержит только Size и Overflow. Состояния задаются на Button. Общий Skeleton существует в коде и отсутствует в Figma; его нельзя требовать от дизайнера.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.has-no-group-state",
+        "component:web-corp.buttons-group.skeleton-is-code-only",
+        "docs.buttons-group.owner-decisions"
+      ]
+    },
+    {
+      "id": "decision.buttons-group.code-mapping-pending",
+      "status": "needs-confirmation",
+      "summary": "Точный runtime package, import, props и Skeleton API ещё не привязаны.",
+      "rationale": "Наличие кодового компонента подтверждено curated source и владельцем; отсутствие Code Connect не означает его отсутствие. До чтения implementation source кодовая representation и имена props не создаются.",
+      "sourceRefs": [
+        "component:web-corp.buttons-group.exists-in-code",
+        "component:web-corp.buttons-group.skeleton-is-code-only",
+        "docs.buttons-group.code-intent"
+      ]
+    }
+  ]
+}

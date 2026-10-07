@@ -1,0 +1,1886 @@
+{
+  "schemaVersion": "apollo.component-contract.manual.v2-experimental",
+  "documentType": "component-contract-manual",
+  "component": {
+    "componentId": "web.promo-card",
+    "familyId": "web.promo-card",
+    "contractId": "promo-card.desktop",
+    "family": "PromoCard",
+    "layer": "product",
+    "library": "Web _ Сorp Promo Components",
+    "platform": "desktop",
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "lifecycle": "active",
+    "componentKey": "efdc65ad205ceb06c6940d074b9f131f15ebc5e8"
+  },
+  "semantics": {
+    "purpose": "Показывает отдельное промопредложение, преимущество или акцию через короткий текст, изображение и опциональное действие.",
+    "useWhen": [
+      "Показать отдельное промопредложение с коротким текстом.",
+      "Показать изображение и до двух CTA."
+    ],
+    "doNotUseWhen": [
+      {
+        "condition": "Без Title."
+      },
+      {
+        "condition": "Image=None вне бенто."
+      }
+    ],
+    "relatedComponentIds": [],
+    "keywords": [
+      "PromoCard",
+      "promo",
+      "desktop",
+      "mobile-web"
+    ]
+  },
+  "representations": [
+    {
+      "id": "web.promo-card.figma.desktop",
+      "kind": "figma",
+      "platform": "desktop",
+      "status": "draft",
+      "locator": {
+        "componentKey": "efdc65ad205ceb06c6940d074b9f131f15ebc5e8",
+        "componentSetKey": "efdc65ad205ceb06c6940d074b9f131f15ebc5e8",
+        "figmaFileKey": "IgMTjHSWHjRKY5HyQrDtbA"
+      }
+    },
+    {
+      "id": "web.promo-card.figma.mobile-web",
+      "kind": "figma",
+      "platform": "mobile-web",
+      "status": "draft",
+      "locator": {
+        "componentKey": "1b7189d801ba823fb46086c963929003fe30242d",
+        "componentSetKey": "1b7189d801ba823fb46086c963929003fe30242d",
+        "figmaFileKey": "IgMTjHSWHjRKY5HyQrDtbA"
+      }
+    }
+  ],
+  "semanticApi": [
+    {
+      "id": "Size",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "Small",
+        "Large",
+        "Medium"
+      ],
+      "description": "Исторический Figma VARIANT Size. Значения сохраняют тип string и исходное написание; это не подтверждённый code API.",
+      "bindings": [
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "Image",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "Bottom",
+        "Top",
+        "None (Figma only)"
+      ],
+      "description": "Исторический Figma VARIANT Image. Значения сохраняют тип string и исходное написание; это не подтверждённый code API.",
+      "bindings": [
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "path": "component.properties.Image",
+          "transform": "identity"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "path": "component.properties.Image",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "ImageCrop",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "False",
+        "True"
+      ],
+      "description": "Исторический Figma VARIANT ImageCrop. Значения сохраняют тип string и исходное написание; это не подтверждённый code API.",
+      "bindings": [
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "path": "component.properties.ImageCrop",
+          "transform": "identity"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "path": "component.properties.ImageCrop",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "id": "source.rules",
+      "kind": "component-rules",
+      "path": "source/rules.json",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "source.hub",
+      "kind": "component-instructions",
+      "path": "ds-ai-hub/products/ab/components/promo-card/instructions.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "source.raw",
+      "kind": "historical-catalog",
+      "path": "source/Web _ Сorp Promo Components -- PromoCard.json",
+      "status": "draft",
+      "projection": "reference-only"
+    }
+  ],
+  "examples": [
+    {
+      "id": "promo-card.desktop-standard",
+      "kind": "validation",
+      "intent": "Стандартная PromoCard на desktop",
+      "input": {
+        "root": "[D] PromoCard",
+        "viewportWidth": 1440,
+        "Size": "Medium",
+        "Image": "Top",
+        "ImageCrop": false,
+        "verticalResizing": "Hug",
+        "Stopper.verticalResizing": "Fill"
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.mobile-standard",
+      "kind": "validation",
+      "intent": "Стандартная PromoCard на mobile-web",
+      "input": {
+        "root": "[M] PromoCard",
+        "viewportWidth": 375,
+        "Size": "Small",
+        "Image": "Top"
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.invalid-internal-root",
+      "kind": "validation",
+      "intent": "Служебный ContentWrapper используется отдельно",
+      "input": {
+        "root": "[D] ContentWrapper"
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "error",
+        "ruleId": "component:web.promo-card.public-roots-only",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card.public-roots-only"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.bento-without-image",
+      "kind": "validation",
+      "intent": "PromoCard без изображения внутри бенто",
+      "input": {
+        "parentComposition": "bento",
+        "Image": "None (Figma only)",
+        "ImageCrop": false,
+        "Offset": false
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.invalid-image-none-outside-bento",
+      "kind": "validation",
+      "intent": "PromoCard без изображения вне бенто",
+      "input": {
+        "parentComposition": "standalone",
+        "Image": "None (Figma only)"
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "error",
+        "ruleId": "component:web.promo-card-image-none-bento-only",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card-image-none-bento-only"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.top-offset-crop",
+      "kind": "validation",
+      "intent": "Верхнее изображение использует Offset и Crop",
+      "input": {
+        "Image": "Top",
+        "ImageCrop": true,
+        "Offset": true
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.invalid-bottom-offset",
+      "kind": "validation",
+      "intent": "Offset включён для нижнего изображения",
+      "input": {
+        "Image": "Bottom",
+        "Offset": true
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "error",
+        "ruleId": "component:web.promo-card-offset-top-only",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card-offset-top-only"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.image-view-segment",
+      "kind": "validation",
+      "intent": "У ImageView изменён разрешённый Segment",
+      "input": {
+        "ImageView.Segment": "SB"
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.invalid-image-view-crop",
+      "kind": "validation",
+      "intent": "Crop изменён внутри ImageView",
+      "input": {
+        "changedProperty": "ImageView.Crop"
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "error",
+        "ruleId": "component:web.promo-card-image-view-overrides",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card-image-view-overrides"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.bottom-content-local-instance",
+      "kind": "validation",
+      "intent": "BottomContent заменён на локальный component instance",
+      "input": {
+        "BottomContent.Presets": "custom-instance",
+        "nestedInstances": 1,
+        "detached": false
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.invalid-bottom-swapme",
+      "kind": "validation",
+      "intent": "В готовом макете оставлен SwapMe",
+      "input": {
+        "BottomContent.Presets": "SwapMe"
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "error",
+        "ruleId": "component:web.promo-card-bottom-content-single-instance",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card-bottom-content-single-instance"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.invalid-bottom-detach",
+      "kind": "validation",
+      "intent": "Вложенный компонент BottomContent детачен",
+      "input": {
+        "BottomContent.detached": true
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "error",
+        "ruleId": "component:web.promo-card-bottom-content-follows-own-contract",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card-bottom-content-follows-own-contract"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.single-primary-button",
+      "kind": "validation",
+      "intent": "Одна Primary кнопка",
+      "input": {
+        "platform": "desktop",
+        "buttons": [
+          {
+            "View": "Primary",
+            "Size": 48
+          }
+        ]
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.two-buttons",
+      "kind": "validation",
+      "intent": "Две кнопки с разными действиями",
+      "input": {
+        "entireCardClickable": false,
+        "buttons": [
+          {
+            "View": "Primary",
+            "action": "open-offer"
+          },
+          {
+            "View": "Secondary",
+            "action": "show-terms"
+          }
+        ]
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.invalid-clickable-two-buttons",
+      "kind": "validation",
+      "intent": "Кликабельная карточка содержит две кнопки",
+      "input": {
+        "entireCardClickable": true,
+        "buttonCount": 2
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "error",
+        "ruleId": "component:web.promo-card-two-buttons-disable-card-click",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card-two-buttons-disable-card-click"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.inline-explanation-link",
+      "kind": "validation",
+      "intent": "Текстовая ссылка открывает пояснение",
+      "input": {
+        "entireCardAction": "open-offer",
+        "inlineTextLink.action": "open-tooltip"
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.colored-fade",
+      "kind": "validation",
+      "intent": "Fade использует токен цветной поверхности",
+      "input": {
+        "Image": "Top",
+        "BackgroundPlate.Type": "Colored",
+        "BackgroundPlate.fillToken": "promo/green",
+        "fade.colorToken": "promo/green"
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.invalid-colored-fade",
+      "kind": "validation",
+      "intent": "Fade не совпадает с цветной поверхностью",
+      "input": {
+        "Image": "Top",
+        "BackgroundPlate.Type": "Colored",
+        "BackgroundPlate.fillToken": "promo/green",
+        "fade.colorToken": "promo/blue"
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "error",
+        "ruleId": "component:web.promo-card-top-fade-matches-surface",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card-top-fade-matches-surface"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.full-skeleton",
+      "kind": "validation",
+      "intent": "Skeleton скрывает всю карточку",
+      "input": {
+        "BackgroundPlate.Skeleton": true,
+        "contentVisible": false,
+        "interactionEnabled": false
+      },
+      "expected": {
+        "category": "none",
+        "agent": ""
+      },
+      "ruleIds": [],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.secondary-surface",
+      "kind": "validation",
+      "intent": "Использован нерекомендованный Secondary",
+      "input": {
+        "BackgroundPlate.Type": "Secondary"
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "warning",
+        "ruleId": "component:web.promo-card-secondary-surface-not-recommended",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card-secondary-surface-not-recommended"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "promo-card.invalid-manual-radius",
+      "kind": "validation",
+      "intent": "Скругление изменено вручную",
+      "input": {
+        "changedProperty": "radius"
+      },
+      "expected": {
+        "category": "customizations",
+        "severity": "error",
+        "ruleId": "component:web.promo-card-visuals-follow-effective-baseline",
+        "agent": ""
+      },
+      "ruleIds": [
+        "component:web.promo-card-visuals-follow-effective-baseline"
+      ],
+      "sourceRefs": [
+        "source.rules"
+      ],
+      "status": "draft"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "promo-card.source-migration",
+      "status": "accepted",
+      "summary": "Сохранить все существующие нормы и RuleID в новом primary manual без автоматического Reviewed/Ready.",
+      "rationale": "Исторические curated нормы мигрируют; текущий native/code/live acceptance отдельно не выполнен.",
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ]
+    }
+  ],
+  "generation": {
+    "profiles": [],
+    "instructions": [
+      "Выбрать один из двух public roots для требуемой платформы; внутренние семейства не импортировать отдельно.",
+      "Использовать текущий manual как primary normative source.",
+      "До генерации и Ready пройти native bindings, dependency closure, актуальные baseline facts, code API и live checklist."
+    ]
+  },
+  "source": {
+    "kind": "manual-source",
+    "importedFiles": [
+      "PromoCard/source/agent-context.json",
+      "PromoCard/source/audit-mapping.json",
+      "PromoCard/source/composition-contract.json",
+      "PromoCard/source/contract.generated.json",
+      "PromoCard/source/contract.overrides.json",
+      "PromoCard/source/examples.json",
+      "PromoCard/source/rules.json",
+      "PromoCard/source/semantic-targets.json",
+      "PromoCard/source/Web _ Сorp Promo Components -- PromoCard.json"
+    ],
+    "sourceHash": "1ec9fd6c879ab8f9dd6e6ca93b5ae3081e2bbb1d77d5bd3ff67e4fd39d4df34f",
+    "importedAt": "2026-10-06T14:30:00.000Z"
+  },
+  "targets": [
+    {
+      "id": "target.root",
+      "semanticRole": "root",
+      "label": "PromoCard",
+      "componentFamily": "PromoCard",
+      "lineage": [
+        "web.promo-card"
+      ],
+      "nameHint": "[D] PromoCard",
+      "pathHint": "[D] PromoCard",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "nameHint": "[D] PromoCard",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "nameHint": "[M] PromoCard",
+          "pathHint": "[M] PromoCard"
+        }
+      ],
+      "variantHints": [
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "b6b2a9c0ea5178ad3062078c4656fea02f3db12c",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "10fce20dd400465b46def5e811dc87ed68e558c3",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "a7f0c197cb4676d48505ce6959930c80adfb717b",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "ac325242874b6ab61dee9ad4d30adfb390e975bc",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "ebd570e78ef4c21d34061e66b8e84e7f5483dca2",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "ccb896d259519ce655b123d78c1cac17c6c3e5b1",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "d2cbc56d78e191f1a38b825750726d31adc7b689",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "454baaa574d8826c58522ff03e6820e94e864360",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "c37be75a15c3cac1d12d556fe5b1be0967f73f23",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "b91288a34c94b1c953bde33277a9be9683cf29de",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "1579ed784b45c4967557e3fa2633951b7a97ce76",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "9bef08aae9a625c955fdb27c965c1191d4468a6e",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "3f6b35e125e1b827e2f494105e8745cf60613ea0",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "0a3f1955e3beb2e026f1ec96828ace5b04613196",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "e494ff12986ce8a962930ed11a52b12c4003569f",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "fb5948d06774454d74f726b599501ca949250ad9",
+          "pathHint": "[D] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "80579ec0bf8248058cf19f969035007e3c53a84f",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "2c6dc29e85fddc2684dd0245fd13858299507cda",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "550d4b8aa3a3a2cdd8bd2d857fa4789485f5251e",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "2871728440cc08eda2dad6fcf13fa4c0b2a87f71",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "1fe42042d91e2b834fb5a0e626dec21c9ddabe4c",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "5b14d035713d8bec373bc7f2d193d53c47e1aec2",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "bf53dbbcedaf4529536b49fa5c506d419c339b4f",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "985cff725e2d77b513cdc4e547d72b9903d1a465",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "d4d0c2e6bfc52daa10f9ccf2c8aebef8e562fce8",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "5ad1592aee36fe2040de8614b4aad91595312fbd",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "b6f4096d10d247e4fdf50d28f4a3a0af023ae72f",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "6c57e6ea897fab2c714edff5a027b28026ec2361",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "f34ed038d37c81e3084452ca79f35c55e8f8e5a7",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "5a054036966fe98b622532a96034d66975f85abe",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "569d91ba587b8bff59b952d681c25216c1b0fc16",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "39124fbe761cba2189082ae01ab27cb5a70f0504",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "99707b8f552df185f7dd556ded08047e4dd620c4",
+          "pathHint": "[M] PromoCard"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "f4d356a98f7287fcc1db3e2d4aa3d433ed8f4e03",
+          "pathHint": "[M] PromoCard"
+        }
+      ]
+    },
+    {
+      "id": "target.title",
+      "semanticRole": "title",
+      "label": "title",
+      "componentFamily": "PromoCard",
+      "lineage": [
+        "web.promo-card"
+      ],
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value",
+          "nameHint": "value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value",
+          "nameHint": "value"
+        }
+      ],
+      "variantHints": [
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "b6b2a9c0ea5178ad3062078c4656fea02f3db12c",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "10fce20dd400465b46def5e811dc87ed68e558c3",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "a7f0c197cb4676d48505ce6959930c80adfb717b",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "ac325242874b6ab61dee9ad4d30adfb390e975bc",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "ebd570e78ef4c21d34061e66b8e84e7f5483dca2",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "ccb896d259519ce655b123d78c1cac17c6c3e5b1",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "d2cbc56d78e191f1a38b825750726d31adc7b689",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "454baaa574d8826c58522ff03e6820e94e864360",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "c37be75a15c3cac1d12d556fe5b1be0967f73f23",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "b91288a34c94b1c953bde33277a9be9683cf29de",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "1579ed784b45c4967557e3fa2633951b7a97ce76",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "9bef08aae9a625c955fdb27c965c1191d4468a6e",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "3f6b35e125e1b827e2f494105e8745cf60613ea0",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "0a3f1955e3beb2e026f1ec96828ace5b04613196",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "e494ff12986ce8a962930ed11a52b12c4003569f",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.desktop",
+          "componentKey": "fb5948d06774454d74f726b599501ca949250ad9",
+          "pathHint": "[D] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "80579ec0bf8248058cf19f969035007e3c53a84f",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "2c6dc29e85fddc2684dd0245fd13858299507cda",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "550d4b8aa3a3a2cdd8bd2d857fa4789485f5251e",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "2871728440cc08eda2dad6fcf13fa4c0b2a87f71",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "1fe42042d91e2b834fb5a0e626dec21c9ddabe4c",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "5b14d035713d8bec373bc7f2d193d53c47e1aec2",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "bf53dbbcedaf4529536b49fa5c506d419c339b4f",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "985cff725e2d77b513cdc4e547d72b9903d1a465",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "d4d0c2e6bfc52daa10f9ccf2c8aebef8e562fce8",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "5ad1592aee36fe2040de8614b4aad91595312fbd",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "b6f4096d10d247e4fdf50d28f4a3a0af023ae72f",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "6c57e6ea897fab2c714edff5a027b28026ec2361",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "f34ed038d37c81e3084452ca79f35c55e8f8e5a7",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "5a054036966fe98b622532a96034d66975f85abe",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "569d91ba587b8bff59b952d681c25216c1b0fc16",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "39124fbe761cba2189082ae01ab27cb5a70f0504",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "99707b8f552df185f7dd556ded08047e4dd620c4",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        },
+        {
+          "representationId": "web.promo-card.figma.mobile-web",
+          "componentKey": "f4d356a98f7287fcc1db3e2d4aa3d433ed8f4e03",
+          "pathHint": "[M] PromoCard / ContentWrapper / Content / Content / Title / value"
+        }
+      ]
+    }
+  ],
+  "controlPorts": [],
+  "rules": [
+    {
+      "id": "component:web.promo-card.public-roots-only",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Используй только публичные корни [D] PromoCard и [M] PromoCard. BottomContent, ButtonGroup, ContentWrapper и ImageContainer являются служебными частями и не используются отдельно.",
+      "message": "Используй только публичные корни [D] PromoCard и [M] PromoCard. BottomContent, ButtonGroup, ContentWrapper и ImageContainer являются служебными частями и не используются отдельно.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Полный типизированный contour нормы и актуальный native capture: component"
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card.platform-version-must-match",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Используй [D] PromoCard при ширине 768 px и больше, а [M] PromoCard — на mobile-web при ширине меньше 768 px.",
+      "message": "Используй [D] PromoCard при ширине 768 px и больше, а [M] PromoCard — на mobile-web при ширине меньше 768 px.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Наблюдаемые viewport/contentFit и поддержанный полный conditional contour."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card.title-required",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "composition.members",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "quantity",
+          "targetRoles": [
+            "title"
+          ],
+          "visibleOnly": true,
+          "min": 1
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Title обязателен. Subtitle и изображение можно не использовать, если это соответствует композиции.",
+      "message": "Title обязателен. Subtitle и изображение можно не использовать, если это соответствует композиции.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "auto"
+      }
+    },
+    {
+      "id": "component:web.promo-card.content-limits",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "text",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "warning",
+      "rationale": "Рекомендуется ограничивать Title 60 символами и двумя строками, Subtitle — 120 символами и тремя строками.",
+      "message": "Рекомендуется ограничивать Title 60 символами и двумя строками, Subtitle — 120 символами и тремя строками.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Типизированные факты длины текста и числа отрисованных строк для указанных контентных областей."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card.button-composition",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component.ButtonGroup",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Используй не более двух кнопок. Разрешены сочетания Primary / Secondary и Secondary / Transparent. Размер кнопок: 48 на desktop и 56 на mobile-web.",
+      "message": "Используй не более двух кнопок. Разрешены сочетания Primary / Secondary и Secondary / Transparent. Размер кнопок: 48 на desktop и 56 на mobile-web.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-image-none-bento-only",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "variant.Image",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Image=None разрешён только для PromoCard внутри бенто-сетки. В остальных композициях используй Image=Top или Image=Bottom.",
+      "message": "Image=None разрешён только для PromoCard внутри бенто-сетки. В остальных композициях используй Image=Top или Image=Bottom.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Подтверждённый контекст сценария и ручная/политическая проверка: variant.Image"
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-offset-top-only",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "variant.Offset",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Offset используется только при Image=Top, чтобы изображение выходило за границы [Promo] BackgroundPlate. Offset можно сочетать с ImageCrop.",
+      "message": "Offset используется только при Image=Top, чтобы изображение выходило за границы [Promo] BackgroundPlate. Offset можно сочетать с ImageCrop.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Полный типизированный contour нормы и актуальный native capture: variant.Offset"
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-internal-image-alignment-baseline",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "nested.ImageContainer.Image Centred",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Image Centred относится к служебному ImageContainer и не является публичной настройкой PromoCard. Не меняй его вручную; сравнивай с effective baseline. Для выравнивания текстового блока используй ContentWrapper.Centred.",
+      "message": "Image Centred относится к служебному ImageContainer и не является публичной настройкой PromoCard. Не меняй его вручную; сравнивай с effective baseline. Для выравнивания текстового блока используй ContentWrapper.Centred.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-surface-follows-contract",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "nested.[Promo] BackgroundPlate",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Настраивай вложенный [Promo] BackgroundPlate по его контракту. Для Colored разрешена токенизированная заливка, для Border — токенизированная обводка.",
+      "message": "Настраивай вложенный [Promo] BackgroundPlate по его контракту. Для Colored разрешена токенизированная заливка, для Border — токенизированная обводка.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-skeleton-covers-entire-card",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "variant.Skeleton",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Skeleton=True доступен для любого Type вложенного [Promo] BackgroundPlate, скрывает весь контент PromoCard и блокирует взаимодействие со всей карточкой. Частичный skeleton не используется.",
+      "message": "Skeleton=True доступен для любого Type вложенного [Promo] BackgroundPlate, скрывает весь контент PromoCard и блокирует взаимодействие со всей карточкой. Частичный skeleton не используется.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Типизированные факты состояния, доступности взаимодействия и идентичности действий."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-content-alignment-contextual",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "variant.Centred",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "info",
+      "rationale": "Выбирай ContentWrapper.Centred по контексту задачи. При Centred=True рекомендуется ButtonGroup.Axis=Vertical.",
+      "message": "Выбирай ContentWrapper.Centred по контексту задачи. При Centred=True рекомендуется ButtonGroup.Axis=Vertical.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Подтверждённый контекст сценария и ручная/политическая проверка: variant.Centred"
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-click-action-consistency",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "interaction",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "PromoCard может быть полностью кликабельной и содержать один интерактивный элемент, который дублирует действие карточки. Исключение — текстовая ссылка внутри текстового блока: она может открывать отдельное пояснение или Tooltip.",
+      "message": "PromoCard может быть полностью кликабельной и содержать один интерактивный элемент, который дублирует действие карточки. Исключение — текстовая ссылка внутри текстового блока: она может открывать отдельное пояснение или Tooltip.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Подтверждённый контекст сценария и ручная/политическая проверка: interaction"
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-visuals-follow-effective-baseline",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "styles.*,layout.*",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Не меняй вручную внутренние padding, gap, radius, typography, opacity и effects. Используй effective baseline выбранного размера и состояния.",
+      "message": "Не меняй вручную внутренние padding, gap, radius, typography, opacity и effects. Используй effective baseline выбранного размера и состояния.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Полный текущий capture baseline и подтверждённая область владения; типизированная проверка всей нормы с её исключениями."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-two-buttons-disable-card-click",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "interaction",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "PromoCard с двумя кнопками не должна быть полностью кликабельной. Каждая кнопка может выполнять собственное действие.",
+      "message": "PromoCard с двумя кнопками не должна быть полностью кликабельной. Каждая кнопка может выполнять собственное действие.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Подтверждённый контекст сценария и ручная/политическая проверка: interaction"
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-image-view-overrides",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "nested.ImageView",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Во вложенном ImageView можно менять Segment по контексту задачи. Не меняй ImageView.Crop и ImageView.Size: обрезкой управляет публичный параметр PromoCard.ImageCrop.",
+      "message": "Во вложенном ImageView можно менять Segment по контексту задачи. Не меняй ImageView.Crop и ImageView.Size: обрезкой управляет публичный параметр PromoCard.ImageCrop.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-bottom-content-is-open-slot",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "slot.BottomContent",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "info",
+      "rationale": "BottomContent — разрешённый произвольный slot PromoCard. Presets=SwapMe означает возможность выполнить instance swap и добавить контекстный элемент; BottomContent может быть видимым без кнопок.",
+      "message": "BottomContent — разрешённый произвольный slot PromoCard. Presets=SwapMe означает возможность выполнить instance swap и добавить контекстный элемент; BottomContent может быть видимым без кнопок.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Подтверждённый контекст сценария и ручная/политическая проверка: slot.BottomContent"
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-image-none-disables-image-effects",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "variant.Image",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "При Image=None используй ImageCrop=False и Offset=False, поскольку изображение отсутствует.",
+      "message": "При Image=None используй ImageCrop=False и Offset=False, поскольку изображение отсутствует.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-top-fade-matches-surface",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "styles.gradient",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Для Image=Top используется fade. Если [Promo] BackgroundPlate имеет цветную подложку, градиент должен использовать тот же цветовой токен, что и её заливка.",
+      "message": "Для Image=Top используется fade. Если [Promo] BackgroundPlate имеет цветную подложку, градиент должен использовать тот же цветовой токен, что и её заливка.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-bottom-content-single-instance",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "slot.BottomContent",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Замени BottomContent на один локальный или библиотечный component instance. Presets=SwapMe не должен оставаться в готовом макете; несколько вложенных instances запрещены.",
+      "message": "Замени BottomContent на один локальный или библиотечный component instance. Presets=SwapMe не должен оставаться в готовом макете; несколько вложенных instances запрещены.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-avoid-multiple-interactive-elements",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "interaction",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "warning",
+      "rationale": "Не рекомендуется одновременно использовать кнопки и другой кликабельный элемент в BottomContent. Исключение — текстовая ссылка внутри текстового блока.",
+      "message": "Не рекомендуется одновременно использовать кнопки и другой кликабельный элемент в BottomContent. Исключение — текстовая ссылка внутри текстового блока.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Подтверждённый контекст сценария и ручная/политическая проверка: interaction"
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-secondary-surface-not-recommended",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "nested.[Promo] BackgroundPlate.variant.Type",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "warning",
+      "rationale": "Type=Secondary вложенного [Promo] BackgroundPlate разрешён, но не рекомендуется для PromoCard.",
+      "message": "Type=Secondary вложенного [Promo] BackgroundPlate разрешён, но не рекомендуется для PromoCard.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+        ]
+      }
+    },
+    {
+      "id": "component:web.promo-card-bottom-content-follows-own-contract",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "slot.BottomContent",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Вложенный в BottomContent локальный или библиотечный компонент должен оставаться instance и настраиваться по собственному контракту. Detach и ручные изменения его внутренних стилей запрещены.",
+      "message": "Вложенный в BottomContent локальный или библиотечный компонент должен оставаться instance и настраиваться по собственному контракту. Detach и ручные изменения его внутренних стилей запрещены.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.promo-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "ruleOwnershipVersion": 1,
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "revision": 1,
+    "createdAt": "2026-10-06T14:30:00.000Z",
+    "updatedAt": "2026-10-06T14:30:00.000Z",
+    "publicRepresentationBoundaryVersion": 1
+  }
+}

@@ -5,13 +5,13 @@
     "id": "corporate-content.mobile-web",
     "componentId": "corporate-content.mobile-web",
     "family": "CorporateContent",
-    "library": "Web _ Corp Components",
+    "library": "Web :: Corp Components",
     "sourcePath": "contract.manual.json",
-    "sourceGeneratedAt": "2026-10-01T12:55:09.000Z",
-    "sourceExportVersion": "component-contract-editor@0.2.70",
+    "sourceGeneratedAt": "2026-10-05T19:54:22.102Z",
+    "sourceExportVersion": "component-contract-editor@0.2.91",
     "snapshotProfile": "variant-facts-v4",
     "generatedFactsHash": "e1e86a557639e4bdfa1c3bd292e10fbf8d029fe2a05c9f464ce0690225c63db7",
-    "manualSourceHash": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31"
+    "manualSourceHash": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452"
   },
   "status": "ready",
   "facts": {
@@ -71,7 +71,7 @@
       "contractId": "corporate-content.mobile-web",
       "family": "CorporateContent",
       "layer": "core",
-      "library": "Web _ Corp Components",
+      "library": "Web :: Corp Components",
       "platform": "mobile-web",
       "platforms": [
         "mobile-web"
@@ -80,11 +80,28 @@
       "componentKey": "11ae074b596a6b3dfb6696f51531439723c0225b"
     },
     "semantics": {
-      "purpose": "",
-      "useWhen": [],
-      "doNotUseWhen": [],
+      "purpose": "Контейнер основного содержимого mobile-web страницы корпоративного интерфейса. Сохраняет системную геометрию и оформление мобильного библиотечного компонента и предоставляет открытый слот Body для произвольного содержимого и композиций.",
+      "useWhen": [
+        "Нужно разместить основное содержимое mobile-web страницы в системном контейнере CorporateContent.",
+        "Нужно собрать произвольную мобильную композицию внутри Body, сохранив библиотечную геометрию и оформление контейнера."
+      ],
+      "doNotUseWhen": [
+        {
+          "condition": "Нужно desktop-представление CorporateContent: этот профиль предназначен для mobile-web."
+        },
+        {
+          "condition": "Нужен контейнер самостоятельной модальной поверхности: CorporateContent допускает только page modes фона."
+        }
+      ],
       "relatedComponentIds": [],
-      "keywords": []
+      "keywords": [
+        "CorporateContent",
+        "контейнер",
+        "содержимое страницы",
+        "Body",
+        "слот",
+        "mobile-web"
+      ]
     },
     "representations": [
       {
@@ -95,15 +112,126 @@
         "locator": {
           "componentKey": "11ae074b596a6b3dfb6696f51531439723c0225b"
         }
+      },
+      {
+        "id": "corporate-content.mobile-web.code.arui-private",
+        "kind": "code",
+        "platform": "mobile-web",
+        "status": "draft",
+        "locator": {
+          "packageName": "arui-private",
+          "packageVersion": "80.7.1",
+          "importPath": "arui-private/corporate-content",
+          "exportName": "CorporateContent",
+          "sourceCommit": "c037d0c322ea9774a9c251400d76d41222819b87",
+          "registryDigest": "bf7834d4f4b89b187476dc80dd84c93c9130562e88c552073a3343e53e2abad0",
+          "mappingId": "arui-private.corporate-content.mobile-web",
+          "sourceIndex": "arui-private/src/corporate-content/index.ts",
+          "sourceImplementation": "arui-private/src/corporate-content/corporate-content.tsx"
+        },
+        "codeEvidence": {
+          "version": 1,
+          "sourcePin": {
+            "packageName": "arui-private",
+            "packageVersion": "80.7.1",
+            "commit": "c037d0c322ea9774a9c251400d76d41222819b87",
+            "registryDigest": "bf7834d4f4b89b187476dc80dd84c93c9130562e88c552073a3343e53e2abad0",
+            "mappingId": "arui-private.corporate-content.mobile-web"
+          },
+          "availability": {
+            "status": "confirmed-source-api",
+            "evidenceRefs": [
+              {
+                "path": "package.json",
+                "sha256": "f7a63bfdce23d238ed1b6511255a376a65608f64ce371f85795f43c0bc0f6ede"
+              },
+              {
+                "path": "src/corporate-content/corporate-content.tsx",
+                "sha256": "9accd069c87d7195e7b18963c9408b6cde5fac9b0497b5228dbf91f8bd357b56"
+              },
+              {
+                "path": "src/corporate-content/index.ts",
+                "sha256": "f712977dd91506de8bfa40dbbe5fe82da85dfce0ac383f60b14af7edf341c13c"
+              }
+            ]
+          },
+          "parity": {
+            "status": "not-confirmed",
+            "profileIds": [],
+            "unresolvedGapIds": [
+              "CC-GEOMETRY",
+              "CC-PADDING",
+              "CC-SURFACE",
+              "CC-NATIVE-SLOT-WRITE"
+            ]
+          },
+          "acceptance": {
+            "status": "not-run",
+            "receiptRefs": []
+          },
+          "publication": {
+            "status": "not-confirmed"
+          }
+        }
       }
     ],
-    "semanticApi": [],
+    "semanticApi": [
+      {
+        "id": "body",
+        "kind": "slot",
+        "valueType": "content",
+        "description": "Открытое внешнее содержимое Body: пустой слот или произвольная композиция. Содержимое проверяется по контрактам вложенных компонентов и паттернов.",
+        "bindings": [
+          {
+            "representationId": "corporate-content.mobile-web.figma.mobile-web",
+            "path": "component.properties.[M] Body#135096:2"
+          },
+          {
+            "representationId": "corporate-content.mobile-web.code.arui-private",
+            "path": "props.children",
+            "targetId": "target.body",
+            "nativeSlotBinding": {
+              "version": 1,
+              "figmaRepresentationId": "corporate-content.mobile-web.figma.mobile-web",
+              "targetId": "target.body",
+              "propertyIdentity": "[M] Body#135096:2",
+              "propertyType": "SLOT",
+              "codeRepresentationId": "corporate-content.mobile-web.code.arui-private",
+              "codePath": "props.children",
+              "contentPolicy": "preserve-ordered-content",
+              "proof": "trusted-native-capture"
+            }
+          }
+        ]
+      }
+    ],
     "documentation": [],
     "examples": [],
     "decisions": [],
     "generation": {
-      "profiles": [],
-      "instructions": []
+      "profiles": [
+        {
+          "id": "corporate-content.mobile-web.figma.mobile-web.empty",
+          "intent": "Создать mobile-web экземпляр CorporateContent с пустым Body.",
+          "platform": "mobile-web",
+          "representationId": "corporate-content.mobile-web.figma.mobile-web",
+          "properties": {
+            "body": []
+          },
+          "rationale": "Стартовый контейнер без содержимого. Для наполненного макета body задаётся задачей; пустое содержимое не является обязательным состоянием компонента."
+        }
+      ],
+      "instructions": [
+        "Создай экземпляр мобильного Figma-представления по его componentKey.",
+        "Передавай содержимое body через native SLOT [M] Body#135096:2, согласно controlPaths правила composition.content.",
+        "Если body пуст, оставь слот пустым; не создавай содержимое библиотечного placeholder как пользовательское содержимое.",
+        "Сохраняй библиотечный baseline свойств, защищённых правилами текущего mobile-web контракта.",
+        "Сохраняй библиотечную структуру мобильного экземпляра, включая TopMargin и BottomMargin.",
+        "Для фона используй только разрешённые page modes; выбор режима для конкретной страницы получай из задачи или паттерна.",
+        "Не ограничивай режим высоты корня: layout.sizingVertical не входит в принятый locked selection.",
+        "Состав и layout содержимого Body определяй по задаче, контрактам вложенных компонентов и мобильным паттернам.",
+        "После создания проверь экземпляр по mobile-web контракту; отдельно проверь вложенные компоненты по их собственным контрактам."
+      ]
     },
     "targets": [
       {
@@ -374,10 +502,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.auto-layout-1.1.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.auto-layout-1"
       },
       "authority": {
@@ -493,10 +621,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.auto-layout-1.2.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.auto-layout-1"
       },
       "authority": {
@@ -612,10 +740,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.auto-layout-1.3.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.auto-layout-1"
       },
       "authority": {
@@ -731,10 +859,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.auto-layout-1.4.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.auto-layout-1"
       },
       "authority": {
@@ -850,10 +978,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.auto-layout-1.5.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.auto-layout-1"
       },
       "authority": {
@@ -969,10 +1097,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.auto-layout-1.6.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.auto-layout-1"
       },
       "authority": {
@@ -1088,10 +1216,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.auto-layout-1.7.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.auto-layout-1"
       },
       "authority": {
@@ -1207,10 +1335,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.auto-layout-1.8.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.auto-layout-1"
       },
       "authority": {
@@ -1326,10 +1454,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.auto-layout-1.9.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.auto-layout-1"
       },
       "authority": {
@@ -1445,10 +1573,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.layout-clips-content.1.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.layout-clips-content"
       },
       "authority": {
@@ -1556,10 +1684,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.layout-grid-style-id.1.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.layout-grid-style-id"
       },
       "authority": {
@@ -1667,10 +1795,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.variable-modes-22d83aeb0d0d643a5359f63464a2ab81838fbe9f.1.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.variable-modes-22d83aeb0d0d643a5359f63464a2ab81838fbe9f"
       },
       "authority": {
@@ -1787,10 +1915,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.visual-style-1.1.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.visual-style-1"
       },
       "authority": {
@@ -1907,10 +2035,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.visual-style-1.2.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.visual-style-1"
       },
       "authority": {
@@ -2027,10 +2155,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.visual-style-1.3.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.visual-style-1"
       },
       "authority": {
@@ -2146,10 +2274,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.visual-style-1.4.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.visual-style-1"
       },
       "authority": {
@@ -2265,10 +2393,10 @@
     {
       "schemaVersion": "apollo.rule-ir.v1",
       "ruleId": "component:corporate-content.mobile-web.corporate-content.visual-style-1.5.1",
-      "revision": 6,
+      "revision": 8,
       "source": {
         "path": "contract.manual.json",
-        "checksum": "e68649c64756864d3acaaf1e44c51a41fd82f9e7cb9a9660deaca6e7f63ced31",
+        "checksum": "722b98e830a58e18fb47d258f99db099d52a32cd413cde7f2571c5c765408452",
         "anchor": "component:corporate-content.mobile-web.corporate-content.visual-style-1"
       },
       "authority": {
@@ -2467,6 +2595,8 @@
     "ruleOwnershipVersion": 1,
     "gradientPaintFactsVersion": 1,
     "slotTargetFactsVersion": 1,
-    "nativeSlotTargetsVersion": 1
+    "nativeSlotTargetsVersion": 1,
+    "representationEvidenceVersion": 1,
+    "crossRepresentationBindingsVersion": 1
   }
 }

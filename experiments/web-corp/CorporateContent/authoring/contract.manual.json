@@ -7,7 +7,7 @@
     "contractId": "corporate-content.desktop",
     "family": "CorporateContent",
     "layer": "core",
-    "library": "Web _ Corp Components",
+    "library": "Web :: Corp Components",
     "platform": "desktop",
     "platforms": [
       "desktop"
@@ -16,11 +16,28 @@
     "componentKey": "a8d13cb6e1ae67a7296709f669238f41971c7197"
   },
   "semantics": {
-    "purpose": "",
-    "useWhen": [],
-    "doNotUseWhen": [],
+    "purpose": "Контейнер основного содержимого desktop-страницы корпоративного интерфейса. Сохраняет системную геометрию и оформление библиотечного компонента и предоставляет открытый слот Body для произвольного содержимого и композиций.",
+    "useWhen": [
+      "Нужно разместить основное содержимое desktop-страницы в системном контейнере CorporateContent.",
+      "Нужно собрать произвольную композицию внутри Body, сохранив библиотечную геометрию и оформление контейнера."
+    ],
+    "doNotUseWhen": [
+      {
+        "condition": "Нужна mobile-web версия: это представление и профиль предназначены для desktop."
+      },
+      {
+        "condition": "Нужен контейнер самостоятельной модальной поверхности: CorporateContent допускает только page modes фона."
+      }
+    ],
     "relatedComponentIds": [],
-    "keywords": []
+    "keywords": [
+      "CorporateContent",
+      "контейнер",
+      "содержимое страницы",
+      "Body",
+      "слот",
+      "desktop"
+    ]
   },
   "representations": [
     {
@@ -31,15 +48,125 @@
       "locator": {
         "componentKey": "a8d13cb6e1ae67a7296709f669238f41971c7197"
       }
+    },
+    {
+      "id": "web-corp.corporate-content.code.arui-private.desktop",
+      "kind": "code",
+      "platform": "desktop",
+      "status": "draft",
+      "locator": {
+        "packageName": "arui-private",
+        "packageVersion": "80.7.1",
+        "importPath": "arui-private/corporate-content",
+        "exportName": "CorporateContent",
+        "sourceCommit": "c037d0c322ea9774a9c251400d76d41222819b87",
+        "registryDigest": "bf7834d4f4b89b187476dc80dd84c93c9130562e88c552073a3343e53e2abad0",
+        "mappingId": "arui-private.corporate-content.desktop",
+        "sourceIndex": "arui-private/src/corporate-content/index.ts",
+        "sourceImplementation": "arui-private/src/corporate-content/corporate-content.tsx"
+      },
+      "codeEvidence": {
+        "version": 1,
+        "sourcePin": {
+          "packageName": "arui-private",
+          "packageVersion": "80.7.1",
+          "commit": "c037d0c322ea9774a9c251400d76d41222819b87",
+          "registryDigest": "bf7834d4f4b89b187476dc80dd84c93c9130562e88c552073a3343e53e2abad0",
+          "mappingId": "arui-private.corporate-content.desktop"
+        },
+        "availability": {
+          "status": "confirmed-source-api",
+          "evidenceRefs": [
+            {
+              "path": "package.json",
+              "sha256": "f7a63bfdce23d238ed1b6511255a376a65608f64ce371f85795f43c0bc0f6ede"
+            },
+            {
+              "path": "src/corporate-content/corporate-content.tsx",
+              "sha256": "9accd069c87d7195e7b18963c9408b6cde5fac9b0497b5228dbf91f8bd357b56"
+            },
+            {
+              "path": "src/corporate-content/index.ts",
+              "sha256": "f712977dd91506de8bfa40dbbe5fe82da85dfce0ac383f60b14af7edf341c13c"
+            }
+          ]
+        },
+        "parity": {
+          "status": "not-confirmed",
+          "profileIds": [],
+          "unresolvedGapIds": [
+            "CC-GEOMETRY",
+            "CC-PADDING",
+            "CC-SURFACE",
+            "CC-NATIVE-SLOT-WRITE"
+          ]
+        },
+        "acceptance": {
+          "status": "not-run",
+          "receiptRefs": []
+        },
+        "publication": {
+          "status": "not-confirmed"
+        }
+      }
     }
   ],
-  "semanticApi": [],
+  "semanticApi": [
+    {
+      "id": "body",
+      "kind": "slot",
+      "valueType": "content",
+      "description": "Открытое внешнее содержимое Body: пустой слот или произвольная композиция. Содержимое проверяется по контрактам вложенных компонентов и паттернов.",
+      "bindings": [
+        {
+          "representationId": "web-corp.corporate-content.figma.desktop",
+          "path": "component.properties.[D] Body#135096:3"
+        },
+        {
+          "representationId": "web-corp.corporate-content.code.arui-private.desktop",
+          "path": "props.children",
+          "targetId": "target.body",
+          "nativeSlotBinding": {
+            "version": 1,
+            "figmaRepresentationId": "web-corp.corporate-content.figma.desktop",
+            "targetId": "target.body",
+            "propertyIdentity": "[D] Body#135096:3",
+            "propertyType": "SLOT",
+            "codeRepresentationId": "web-corp.corporate-content.code.arui-private.desktop",
+            "codePath": "props.children",
+            "contentPolicy": "preserve-ordered-content",
+            "proof": "trusted-native-capture"
+          }
+        }
+      ]
+    }
+  ],
   "documentation": [],
   "examples": [],
   "decisions": [],
   "generation": {
-    "profiles": [],
-    "instructions": []
+    "profiles": [
+      {
+        "id": "web-corp.corporate-content.figma.desktop.empty",
+        "intent": "Создать desktop-экземпляр CorporateContent с пустым Body.",
+        "platform": "desktop",
+        "representationId": "web-corp.corporate-content.figma.desktop",
+        "properties": {
+          "body": []
+        },
+        "rationale": "Стартовый контейнер без содержимого. Для наполненного макета body задаётся задачей; пустое содержимое не является обязательным состоянием компонента."
+      }
+    ],
+    "instructions": [
+      "Создай экземпляр Figma-представления по его componentKey.",
+      "Передавай содержимое body через native SLOT [D] Body#135096:3, согласно controlPaths правила composition.content.",
+      "Если body пуст, оставь слот пустым; не создавай содержимое библиотечного placeholder как пользовательское содержимое.",
+      "Сохраняй библиотечный baseline свойств, защищённых правилами текущего контракта.",
+      "Для фона используй только разрешённые page modes; выбор режима для конкретной страницы получай из задачи или паттерна.",
+      "Не ограничивай режим высоты корня: layout.sizingVertical не входит в принятый locked selection.",
+      "Состав и layout содержимого Body определяй по задаче, контрактам вложенных компонентов и паттернам.",
+      "После создания проверь экземпляр по текущему контракту; отдельно проверь вложенные компоненты по их собственным контрактам."
+    ]
   },
   "source": {
     "kind": "athena-package",
@@ -355,8 +482,8 @@
       "manual": "design-system-authors",
       "runtime": "apollo-runtime"
     },
-    "revision": 11,
+    "revision": 13,
     "createdAt": "2026-09-30T07:55:12.042Z",
-    "updatedAt": "2026-09-30T17:22:38.951Z"
+    "updatedAt": "2026-10-05T19:54:22.102Z"
   }
 }

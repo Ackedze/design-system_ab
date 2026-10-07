@@ -1,0 +1,593 @@
+{
+  "documentType": "component-code-fields-proposal",
+  "status": "proposed-not-applied",
+  "normative": false,
+  "generatedAt": "2026-10-05T17:46:18.531Z",
+  "mappingId": "arui-private.buttons-group.desktop",
+  "baseAcceptedArchive": {
+    "path": "shared/design-system_ab/experiments/current-contract-packages/ButtonsGroup.component-contract.zip",
+    "archiveSha256": "214d9cc0c16a4b7c56e3a69e9151e0d5a36d3d9d05e947bf2122d0e53eb3743a",
+    "manualSha256": "dbf57822d3d4b36a2d521c02a5af670fff7576066d3c6cb53940c4af51de7593",
+    "manualSourceHash": "5ba3bf8f2b92bc842f917c209eef2e5a98f939eb0403bb4e204c7154f2cbef6a",
+    "revision": 57,
+    "compiledHash": "a026c0a2e626e2c95bf57953ad21ef84875dafe899359ff97ee84d0c4ef199f1",
+    "storedPredicateStatus": "draft"
+  },
+  "mainSource": {
+    "path": "shared/design-system_ab/experiments/web-corp/ButtonsGroup/authoring/contract.manual.json",
+    "revision": 57,
+    "manualSourceHash": "5ba3bf8f2b92bc842f917c209eef2e5a98f939eb0403bb4e204c7154f2cbef6a",
+    "sha256": "dbf57822d3d4b36a2d521c02a5af670fff7576066d3c6cb53940c4af51de7593",
+    "differencesFromPinnedArchive": [],
+    "promotionRequiredBeforePatch": false
+  },
+  "codeRepresentation": {
+    "id": "web-corp.buttons-group.code.arui-private.desktop",
+    "kind": "code",
+    "platform": "desktop",
+    "status": "draft",
+    "locator": {
+      "packageName": "arui-private",
+      "packageVersion": "80.7.1",
+      "importPath": "arui-private/button-group",
+      "exportName": "ButtonGroup",
+      "sourceCommit": "c037d0c322ea9774a9c251400d76d41222819b87",
+      "registryDigest": "bf7834d4f4b89b187476dc80dd84c93c9130562e88c552073a3343e53e2abad0",
+      "mappingId": "arui-private.buttons-group.desktop",
+      "sourceIndex": "arui-private/src/button-group/index.ts",
+      "sourceImplementation": "arui-private/src/button-group/button-group.tsx"
+    }
+  },
+  "semanticBindingAddition": {
+    "propertyId": "size",
+    "binding": {
+      "representationId": "web-corp.buttons-group.code.arui-private.desktop",
+      "path": "props.size",
+      "transform": "numeric-enum"
+    }
+  },
+  "existingSemanticApi": [
+    {
+      "id": "size",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "32",
+        "40",
+        "48",
+        "56"
+      ],
+      "description": "Единый размер группы и всех видимых встроенных Button. В Figma Size имеет тип VARIANT и строковые значения. Default не задаётся: размер выбирается по сценарию.",
+      "bindings": [
+        {
+          "representationId": "web-corp.buttons-group.figma.desktop",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "overflow",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "false",
+        "true"
+      ],
+      "description": "Штатный overflow группы. Это строковый VARIANT Figma, а не BOOLEAN. Overflow=true допустим при двух и более видимых кнопках; наличие видимого SingleIcon не выводится только из Overflow=true. Code prop/import не подтверждён.",
+      "bindings": [
+        {
+          "representationId": "web-corp.buttons-group.figma.desktop",
+          "path": "component.properties.Overflow",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "codeApiInventory": [
+    {
+      "name": "elements",
+      "required": true,
+      "type": "Array<ButtonElementProps | PickerElementProps>",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 30
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "candidate-pilot"
+    },
+    {
+      "name": "size",
+      "required": false,
+      "type": "Size",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 35
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "candidate-pilot"
+    },
+    {
+      "name": "maxVisibleButtons",
+      "required": false,
+      "type": "number",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 40
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "candidate-pilot"
+    },
+    {
+      "name": "pickerButtonProps",
+      "required": false,
+      "type": "Omit<\n        PickerButtonProps,\n        'variant' | 'view' | 'preventFlip' | 'size' | 'optionClassName' | 'options' | 'className'\n    >",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 45
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "outside-pilot"
+    },
+    {
+      "name": "primaryFirst",
+      "required": false,
+      "type": "boolean",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 53
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "candidate-pilot"
+    },
+    {
+      "name": "showSkeleton",
+      "required": false,
+      "type": "boolean",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 58
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "outside-pilot"
+    },
+    {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 63
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "outside-pilot"
+    },
+    {
+      "name": "dataTestId",
+      "required": false,
+      "type": "string",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 68
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "outside-pilot"
+    },
+    {
+      "name": "mapElementToPickerOption",
+      "required": false,
+      "type": "MapElementToOption",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 73
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "outside-pilot"
+    },
+    {
+      "name": "tooltipProps",
+      "required": false,
+      "type": "TooltipProps",
+      "evidence": {
+        "path": "src/button-group/typings.ts",
+        "line": 78
+      },
+      "sourcePath": "arui-private/src/button-group/typings.ts",
+      "scope": "source-api-availability-only",
+      "pilotStatus": "outside-pilot"
+    }
+  ],
+  "sourceCodeCrosswalk": {
+    "sourceRepresentationId": "web-corp.buttons-group.figma.desktop",
+    "sourceVariantProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "domain": [
+          "32",
+          "40",
+          "48",
+          "56"
+        ]
+      },
+      "Overflow": {
+        "type": "VARIANT",
+        "domain": [
+          "false",
+          "true"
+        ]
+      }
+    },
+    "rootMappings": [
+      {
+        "from": "Size",
+        "type": "VARIANT",
+        "to": "size",
+        "transform": "numeric-enum",
+        "domain": [
+          "32",
+          "40",
+          "48",
+          "56"
+        ],
+        "source": {
+          "file": "src/button-group/constants.ts",
+          "symbols": [
+            "SIZE_TO_CLASSNAME_MAP"
+          ],
+          "note": "Numeric sizes implemented"
+        }
+      },
+      {
+        "from": "Overflow",
+        "to": null,
+        "transform": "unsupported-direct-prop",
+        "gapId": "BG-AUTO-OVERFLOW"
+      }
+    ],
+    "ownedOccurrences": [
+      {
+        "targetId": "target.button",
+        "semanticRole": "button",
+        "ownerSemanticRole": "buttons-group",
+        "dependencyBinding": {
+          "kind": "direct-child",
+          "id": "buttons-group-button",
+          "targetRole": "button",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "f05915599f71e822fd8b46a2b2509a2e395005cf"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.desktop"
+          ]
+        },
+        "sourceVariantHints": [
+          {
+            "representationId": "web-corp.buttons-group.figma.desktop",
+            "componentKey": "a9277df1027c31dc94cd15bd70a45af22ecbf48e",
+            "pathHint": "[D] ButtonsGroup / @source:62786%3A48895"
+          },
+          {
+            "representationId": "web-corp.buttons-group.figma.desktop",
+            "componentKey": "580dd1eb8a889ea04774fb0a92a1a588716babd8",
+            "pathHint": "[D] ButtonsGroup / @source:62786%3A48900"
+          }
+        ],
+        "codeAddress": "elements[indexOfVisibleOccurrenceId]",
+        "indexRule": "Resolve from locked native identity and source order after effective visibility filtering. Hidden middle occurrences do not retain the same array index.",
+        "fieldMappings": [
+          {
+            "from": "direct Button.✎ Label#16:294",
+            "to": "elements[].children",
+            "transform": "string",
+            "source": {
+              "file": "src/button-group/button-group.tsx",
+              "symbols": [
+                "props.children"
+              ],
+              "note": "Normal Button content"
+            }
+          },
+          {
+            "from": "direct Button.DisabledState",
+            "to": "elements[].disabled",
+            "transform": "False/True→boolean",
+            "source": {
+              "file": "src/button-group/utils/get-picker-button-options.ts",
+              "symbols": [
+                "disabled"
+              ],
+              "note": "Runtime source forwards/preserves disabled"
+            }
+          }
+        ]
+      },
+      {
+        "targetId": "target.button-2",
+        "semanticRole": "button-2",
+        "ownerSemanticRole": "buttons-group",
+        "dependencyBinding": {
+          "kind": "direct-child",
+          "id": "buttons-group-button-2",
+          "targetRole": "button-2",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "f05915599f71e822fd8b46a2b2509a2e395005cf"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.desktop"
+          ]
+        },
+        "sourceVariantHints": [
+          {
+            "representationId": "web-corp.buttons-group.figma.desktop",
+            "componentKey": "a9277df1027c31dc94cd15bd70a45af22ecbf48e",
+            "pathHint": "[D] ButtonsGroup / @source:62786%3A48896"
+          },
+          {
+            "representationId": "web-corp.buttons-group.figma.desktop",
+            "componentKey": "580dd1eb8a889ea04774fb0a92a1a588716babd8",
+            "pathHint": "[D] ButtonsGroup / @source:62786%3A48901"
+          }
+        ],
+        "codeAddress": "elements[indexOfVisibleOccurrenceId]",
+        "indexRule": "Resolve from locked native identity and source order after effective visibility filtering. Hidden middle occurrences do not retain the same array index.",
+        "fieldMappings": [
+          {
+            "from": "direct Button.✎ Label#16:294",
+            "to": "elements[].children",
+            "transform": "string",
+            "source": {
+              "file": "src/button-group/button-group.tsx",
+              "symbols": [
+                "props.children"
+              ],
+              "note": "Normal Button content"
+            }
+          },
+          {
+            "from": "direct Button.DisabledState",
+            "to": "elements[].disabled",
+            "transform": "False/True→boolean",
+            "source": {
+              "file": "src/button-group/utils/get-picker-button-options.ts",
+              "symbols": [
+                "disabled"
+              ],
+              "note": "Runtime source forwards/preserves disabled"
+            }
+          }
+        ]
+      },
+      {
+        "targetId": "target.button-3",
+        "semanticRole": "button-3",
+        "ownerSemanticRole": "buttons-group",
+        "dependencyBinding": {
+          "kind": "direct-child",
+          "id": "buttons-group-button-3",
+          "targetRole": "button-3",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "f05915599f71e822fd8b46a2b2509a2e395005cf"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.desktop"
+          ]
+        },
+        "sourceVariantHints": [
+          {
+            "representationId": "web-corp.buttons-group.figma.desktop",
+            "componentKey": "a9277df1027c31dc94cd15bd70a45af22ecbf48e",
+            "pathHint": "[D] ButtonsGroup / @source:62786%3A48897"
+          },
+          {
+            "representationId": "web-corp.buttons-group.figma.desktop",
+            "componentKey": "580dd1eb8a889ea04774fb0a92a1a588716babd8",
+            "pathHint": "[D] ButtonsGroup / @source:62786%3A48902"
+          }
+        ],
+        "codeAddress": "elements[indexOfVisibleOccurrenceId]",
+        "indexRule": "Resolve from locked native identity and source order after effective visibility filtering. Hidden middle occurrences do not retain the same array index.",
+        "fieldMappings": [
+          {
+            "from": "direct Button.✎ Label#16:294",
+            "to": "elements[].children",
+            "transform": "string",
+            "source": {
+              "file": "src/button-group/button-group.tsx",
+              "symbols": [
+                "props.children"
+              ],
+              "note": "Normal Button content"
+            }
+          },
+          {
+            "from": "direct Button.DisabledState",
+            "to": "elements[].disabled",
+            "transform": "False/True→boolean",
+            "source": {
+              "file": "src/button-group/utils/get-picker-button-options.ts",
+              "symbols": [
+                "disabled"
+              ],
+              "note": "Runtime source forwards/preserves disabled"
+            }
+          }
+        ]
+      },
+      {
+        "targetId": "target.button-4",
+        "semanticRole": "button-4",
+        "ownerSemanticRole": "buttons-group",
+        "dependencyBinding": {
+          "kind": "direct-child",
+          "id": "buttons-group-button-4",
+          "targetRole": "button-4",
+          "relativePath": "",
+          "ownerTargetRole": "buttons-group",
+          "ownerComponentKeys": [
+            "f05915599f71e822fd8b46a2b2509a2e395005cf"
+          ],
+          "representationIds": [
+            "web-corp.buttons-group.figma.desktop"
+          ]
+        },
+        "sourceVariantHints": [
+          {
+            "representationId": "web-corp.buttons-group.figma.desktop",
+            "componentKey": "a9277df1027c31dc94cd15bd70a45af22ecbf48e",
+            "pathHint": "[D] ButtonsGroup / @source:62786%3A48898"
+          },
+          {
+            "representationId": "web-corp.buttons-group.figma.desktop",
+            "componentKey": "580dd1eb8a889ea04774fb0a92a1a588716babd8",
+            "pathHint": "[D] ButtonsGroup / @source:62786%3A48903"
+          }
+        ],
+        "codeAddress": "elements[indexOfVisibleOccurrenceId]",
+        "indexRule": "Resolve from locked native identity and source order after effective visibility filtering. Hidden middle occurrences do not retain the same array index.",
+        "fieldMappings": [
+          {
+            "from": "direct Button.✎ Label#16:294",
+            "to": "elements[].children",
+            "transform": "string",
+            "source": {
+              "file": "src/button-group/button-group.tsx",
+              "symbols": [
+                "props.children"
+              ],
+              "note": "Normal Button content"
+            }
+          },
+          {
+            "from": "direct Button.DisabledState",
+            "to": "elements[].disabled",
+            "transform": "False/True→boolean",
+            "source": {
+              "file": "src/button-group/utils/get-picker-button-options.ts",
+              "symbols": [
+                "disabled"
+              ],
+              "note": "Runtime source forwards/preserves disabled"
+            }
+          }
+        ]
+      }
+    ],
+    "scenarioMappings": [
+      {
+        "from": "first-visible Button.View",
+        "to": "primaryFirst",
+        "transform": "Primary→true, Secondary→false",
+        "source": {
+          "file": "src/button-group/button-group.tsx",
+          "symbols": [
+            "primaryFirst",
+            "view"
+          ],
+          "note": "Other elements are forced secondary"
+        }
+      },
+      {
+        "from": "scenario.action.onClick.handlerRef",
+        "to": "elements[].onClick",
+        "transform": "bind-real-handler",
+        "source": {
+          "file": "src/button-group/typings.ts",
+          "symbols": [
+            "ButtonHTMLAttributes"
+          ],
+          "note": "Events are scenario input, not inferred from Figma"
+        }
+      }
+    ],
+    "unavailableNativeInputs": [
+      "No visibility inference from name, ordinal, preview node ID or raw array position.",
+      "No action/handler inference from labels.",
+      "Native instance ID → symbol/main component family key must be captured and checked."
+    ]
+  },
+  "apiAvailability": "confirmed-source-api",
+  "fullContractParity": "not-confirmed",
+  "pilotProfile": {
+    "platform": "desktop",
+    "figmaSize": "56",
+    "figmaOverflow": "false",
+    "visibleActions": [
+      1,
+      4
+    ],
+    "content": "text-only normal Button elements",
+    "runtimeWidthFitRequired": true,
+    "eventsRequired": true,
+    "addonsSupported": false,
+    "singleIconSupported": false
+  },
+  "gaps": [
+    {
+      "id": "BG-AUTO-OVERFLOW",
+      "description": "No overflow prop. Count and measured width can hide actions even when Figma Overflow=false; voluntary Figma overflow has no exact mapping.",
+      "sources": [
+        "src/button-group/button-group.tsx",
+        "src/button-group/utils/calculate-hidden-elements.ts"
+      ]
+    },
+    {
+      "id": "BG-OVERFLOW-ACTIONS",
+      "description": "Default hidden options preserve children/disabled but do not forward onClick/action identity/icon/disabled reason. Explicit mapElementToPickerOption and picker event routing need a parity profile.",
+      "sources": [
+        "src/button-group/utils/get-picker-button-options.ts",
+        "src/button-group/typings.ts"
+      ]
+    },
+    {
+      "id": "BG-OVERFLOW-ORDER",
+      "description": "Hidden indexes/options keep original ascending order; contract requests nearest-to-SingleIcon then right-to-left transfer. No automatic equivalence.",
+      "sources": [
+        "src/button-group/utils/calculate-hidden-elements.ts",
+        "src/button-group/utils/get-picker-button-options.ts"
+      ]
+    },
+    {
+      "id": "BG-MOBILE",
+      "description": "Code supports runtime <768 but shows only the first action plus PickerButton; no mobile authoring contract in this input and no two-visible-action parity.",
+      "sources": [
+        "src/utils/use-corp-is-desktop.ts",
+        "src/button-group/utils/calculate-hidden-elements.ts"
+      ]
+    },
+    {
+      "id": "BG-SIZE-BINDINGS",
+      "description": "Code/root Size supports 32/40/48/56. Accepted authoring evidence requires occurrence binding/live acceptance for non-56 variants; current mapping route covers 56.",
+      "sources": [
+        "shared/design-system_ab/experiments/current-contract-packages/ButtonsGroup.component-contract.zip"
+      ]
+    },
+    {
+      "id": "BG-VISIBILITY-PORT",
+      "description": "Code Connect handle has no documented native visible property. Group template requires locked occurrence visibility and event inputs from NEXT-03; no guessing from names/order.",
+      "sources": [
+        "tools/code-connect/ButtonsGroup.figma.ts"
+      ]
+    }
+  ],
+  "applicationGates": [
+    "Review and reconcile the single editable main source against the pinned ZIP; do not create a second editable manual.",
+    "Resolve typed code evidence/target/slot/profile schema requests listed in the handoff.",
+    "After any authoring change, increment source revision, export with Editor/shared core, review new pins, refresh Code Connect registry separately, and synchronize Google rule ledger/Predicate where norms or machine-readable contract changes apply.",
+    "No Ready or generation approval follows from public export availability or the candidate shape validation."
+  ]
+}

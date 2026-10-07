@@ -1,3 +1,17 @@
+# CorporateContent desktop — главный manual r12
+
+05.10.2026 главный источник восстановлен побайтно из закреплённого owner ZIP r12. История предыдущего main r11, рабочего ZIP и проекций сохранена в `history/r11-primary-before-owner-r12-2026-10-05`.
+
+Шесть нормативных правил, 17 Predicate checks, targets, control ports и Figma facts совпали с прежней принятой областью. Добавленных норм нет. Body semantic API, паспорт, Figma generation fields и metadata теперь соответствуют owner export. Code fields из NEXT-02 остаются предложениями и не применены.
+
+Текущий редактируемый источник: `contract.manual.json`. Рабочий ZIP: `corporate-content.component-contract.zip` — точная копия текущего owner ZIP. Принятый ZIP в current-contract-packages не изменён; его manual/facts/compiled hashes сохранены. Predicate Ready остаётся только для шести Figma норм; code, layout parity, внешнее Body содержимое и публикация вне этой приёмки.
+
+Проверки и полный diff: `reports/next-02.primary-source-reconciliation.2026-10-05.json`. Оригинальная `reports/acceptance.json` сохранена как историческое доказательство приёмки r11; новых live проверок этим переносом не заявляется.
+
+---
+
+## Историческое описание до восстановления main
+
 # CorporateContent — принятый ручной контракт r11
 
 Владелец принял проверки **01.10.2026**: **[D] CorporateContent**, шесть
@@ -100,3 +114,6 @@ CLI умеет overwrite UI mapping через `--force`, но `FIGMA_ACCESS_TOK
 React responsive geometry/theme API отличаются от Figma. Code Connect не
 доказывает визуальный parity и не заменяет проверки фронта.
 Сначала полный template/readback, затем тест сборки по промпту.
+
+
+NEXT-02 technical source/API fields (2026-10-05): main r13, manualSourceHash `6393e14c0369c4f9f409931a1d7d3725819a6f35de18283060e38e435b43f914`; source Predicate ready in the unchanged Figma rule scope. Code representation Draft, parity not-confirmed, acceptance not-run, publication not-confirmed; no accepted code generation profile/native write capability. Details: `reports/next-02.typed-passport-application.2026-10-05.json`. Historical source/ZIP preserved in `r12-before-next-02-typed-code-2026-10-05`.
