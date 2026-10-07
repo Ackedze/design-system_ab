@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "apollo.card-public-api-evidence.v1",
+  "family": "PromoCard",
+  "revision": 2,
+  "status": "confirmed-source-api",
+  "sourcePin": {
+    "packageName": "arui-private",
+    "packageVersion": "80.7.1",
+    "commit": "c037d0c322ea9774a9c251400d76d41222819b87"
+  },
+  "publicSpecifier": "arui-private/promo-card",
+  "exports": [
+    "PromoCardDesktop",
+    "PromoCardMobile"
+  ],
+  "sourceFiles": [
+    {
+      "path": "arui-private/src/promo-card/components/promo-card-base/index.ts",
+      "sha256": "de51e54bf0ebab46edd7702f5a5afd53da68038b37b7a4a17e98795c421ebd40"
+    },
+    {
+      "path": "arui-private/src/promo-card/components/promo-card-base/promo-card-base.module.css",
+      "sha256": "1303b14aeb36bf59b98f53107c3188abbc51cee3960b52368aa5897ca4790475"
+    },
+    {
+      "path": "arui-private/src/promo-card/components/promo-card-base/promo-card-base.tsx",
+      "sha256": "b74e4aff02ec02d7de0c21f98831b9b7818b1169e7ba8b7a968dc985de6f9d09"
+    },
+    {
+      "path": "arui-private/src/promo-card/components/promo-card-content/index.ts",
+      "sha256": "e82618998af88eb7446c5a318af689f1498d45a247fd7bcaee40cec5976eb178"
+    },
+    {
+      "path": "arui-private/src/promo-card/components/promo-card-content/promo-card-content.tsx",
+      "sha256": "5bf6a9de86fe2691a4917904e2e8a65b7bb5253caf9660148ae55dd9f25d37fb"
+    },
+    {
+      "path": "arui-private/src/promo-card/index.ts",
+      "sha256": "2611051430414854d61d07949f58d09800c007f57a6e55383745294bacb13cbb"
+    },
+    {
+      "path": "arui-private/src/promo-card/promo-card-desktop.tsx",
+      "sha256": "072c1d33ec8344c82f363d8a239c6a923eb9d52b75907c82f69b8f3a05f46db8"
+    },
+    {
+      "path": "arui-private/src/promo-card/promo-card-mobile.tsx",
+      "sha256": "14f0efb5aa30c8264755c77bf68ec88f34d45830493fd888a3bb8548567db5bc"
+    },
+    {
+      "path": "arui-private/src/promo-card/promo-card.tsx",
+      "sha256": "4732f77232653f45f1943be7c28c175c582043f4e6400b06225f48dcee617702"
+    },
+    {
+      "path": "arui-private/src/promo-card/types.ts",
+      "sha256": "9b1b2899aac72835b146a948444cc7211f5f1bce9fd234a714e8127782ac2de2"
+    }
+  ],
+  "independentReview": {
+    "sha256": "cbc807e683e9b026a31cb4c23ad9c8ce5e04e61cdbc65ba34a41289d166d7193",
+    "status": "PASS",
+    "strictEsmAndCjsPublicImports": true,
+    "productionPackageMembersCompared": 269,
+    "browserAssertions": 20,
+    "browserWidths": [
+      1440,
+      390
+    ],
+    "normativeNativeCoverageLiveReleaseAccepted": false
+  },
+  "notes": [
+    "Image включает Figma-only None; публичный code imageOrientation принимает только top/bottom. Полный enum Image не связан с code через неполную таблицу.",
+    "Offset — реальный BOOLEAN Offset#1101:0. Code imageOffset применяется только сверху; crop/align могут зависеть от размера и ориентации.",
+    "Code всегда использует BackgroundPlate. Кнопки — core Button, desktop size=48/view=primary, mobile size=56/view=accent; это факт кода, parity не принята."
+  ],
+  "mappings": [
+    {
+      "id": "PC-MAP-01",
+      "ownerConcept": "Size",
+      "codeFieldOrSurface": "size",
+      "sourceReviewStatement": "Code enum uses lowercase strings. No automatic lowercase fallback for unknown values.",
+      "finiteMap": {
+        "Small": "small",
+        "Medium": "medium",
+        "Large": "large"
+      },
+      "gapClassification": "unknown",
+      "platformBehavior": "Same enum for both platform exports.",
+      "requiredOwnerFacts": [
+        "actual selected Size",
+        "accepted code/native binding"
+      ]
+    },
+    {
+      "id": "PC-MAP-02",
+      "ownerConcept": "Image position",
+      "codeFieldOrSurface": "imageOrientation",
+      "sourceReviewStatement": "Code enum contains only top/bottom. Literal None (Figma only) is preserved as a distinct unresolved owner concept.",
+      "finiteMap": {
+        "Top": "top",
+        "Bottom": "bottom"
+      },
+      "gapClassification": "semantic-gap",
+      "platformBehavior": "Same code enum on both platforms.",
+      "requiredOwnerFacts": [
+        "actual selected Image",
+        "accepted position parity"
+      ]
+    },
+    {
+      "id": "PC-MAP-03",
+      "ownerConcept": "Image=None / Bento",
+      "codeFieldOrSurface": "image / imageOrientation",
+      "sourceReviewStatement": "Omitting image is code-expressible but does not prove equivalence to Figma None/Bento; never emit imageOrientation:none.",
+      "finiteMap": null,
+      "gapClassification": "owner-context-gap",
+      "platformBehavior": "Bento eligibility is an owner usage fact, not a code enum.",
+      "requiredOwnerFacts": [
+        "actual Bento context",
+        "explicit image absence",
+        "current owner approval of projection"
+      ]
+    },
+    {
+      "id": "PC-MAP-04",
+      "ownerConcept": "Image payload",
+      "codeFieldOrSurface": "image",
+      "sourceReviewStatement": "Code field is optional and conditionally renders image wrappers. It does not establish ImageView child identity or asset provenance.",
+      "finiteMap": null,
+      "gapClassification": "asset-and-native-gap",
+      "platformBehavior": "Conditional class behavior depends on actual truthy image.",
+      "requiredOwnerFacts": [
+        "Corp Image Library asset",
+        "actual ImageView metadata",
+        "code/native child identity"
+      ]
+    },
+    {
+      "id": "PC-MAP-05",
+      "ownerConcept": "ImageCrop",
+      "codeFieldOrSurface": "imageCrop",
+      "sourceReviewStatement": "Source may force imageCrop=false when imageAlign=bottomRight. Do not confuse requested prop with effective source behavior.",
+      "finiteMap": {
+        "True": true,
+        "False": false
+      },
+      "gapClassification": "effective-value-gap",
+      "platformBehavior": "Same branch on both exports.",
+      "requiredOwnerFacts": [
+        "actual crop request",
+        "effective image alignment",
+        "render/parity proof"
+      ]
+    },
+    {
+      "id": "PC-MAP-06",
+      "ownerConcept": "Offset",
+      "codeFieldOrSurface": "imageOffset",
+      "sourceReviewStatement": "Not in current root semanticApi. Source bottom orientation forces false; offset class is applied only without customHeight.",
+      "finiteMap": null,
+      "gapClassification": "native-and-context-gap",
+      "platformBehavior": "Same source normalization for both exports.",
+      "requiredOwnerFacts": [
+        "native Boolean property addresses/types",
+        "actual top/bottom state",
+        "actual customHeight absence/value"
+      ]
+    },
+    {
+      "id": "PC-MAP-07",
+      "ownerConcept": "Image Centred / imageAlign",
+      "codeFieldOrSurface": "imageAlign",
+      "sourceReviewStatement": "Public enum normal/bottomRight; internal default center is not an extra public enum value. Top forces normal.",
+      "finiteMap": null,
+      "gapClassification": "semantic-conflict",
+      "platformBehavior": "Same code behavior on both platforms.",
+      "requiredOwnerFacts": [
+        "effective baseline and owner restrictions",
+        "native internal ownership",
+        "future parity review"
+      ]
+    },
+    {
+      "id": "PC-MAP-08",
+      "ownerConcept": "Title",
+      "codeFieldOrSurface": "title",
+      "sourceReviewStatement": "Optional in code, mandatory by owner; falsy title is omitted.",
+      "finiteMap": null,
+      "gapClassification": "semantic-validation-gap",
+      "platformBehavior": "Wrapper forces primary D / secondary M.",
+      "requiredOwnerFacts": [
+        "nonempty title",
+        "actual line/length facts",
+        "native title target"
+      ]
+    },
+    {
+      "id": "PC-MAP-09",
+      "ownerConcept": "Subtitle visibility/content",
+      "codeFieldOrSurface": "subtitle",
+      "sourceReviewStatement": "Optional code content does not change owner composition or text recommendations.",
+      "finiteMap": null,
+      "gapClassification": "semantic-validation-gap",
+      "platformBehavior": "Source uses primary-small on M when forced secondary; primary-medium otherwise.",
+      "requiredOwnerFacts": [
+        "actual subtitle or declared absence",
+        "rendered line count"
+      ]
+    },
+    {
+      "id": "PC-MAP-10",
+      "ownerConcept": "ContentWrapper.Title",
+      "codeFieldOrSurface": "titleView",
+      "sourceReviewStatement": "Both platform wrappers overwrite supplied titleView after {...props}.",
+      "finiteMap": null,
+      "gapClassification": "semantic-conflict",
+      "platformBehavior": "D fixed primary, M fixed secondary.",
+      "requiredOwnerFacts": [
+        "intended owner title variant",
+        "reviewed source/native parity"
+      ]
+    },
+    {
+      "id": "PC-MAP-11",
+      "ownerConcept": "ContentWrapper.Centred",
+      "codeFieldOrSurface": "centred",
+      "sourceReviewStatement": "Root code centred applies component CSS; same meaning as nested Figma Centred is not accepted yet.",
+      "finiteMap": null,
+      "gapClassification": "native-parity-gap",
+      "platformBehavior": "Both platform exports accept centred.",
+      "requiredOwnerFacts": [
+        "actual native enum/Boolean type",
+        "actual alignment intent",
+        "rendered parity"
+      ]
+    },
+    {
+      "id": "PC-MAP-12",
+      "ownerConcept": "ButtonGroup.Axis",
+      "codeFieldOrSurface": "buttonsDirection",
+      "sourceReviewStatement": "Code renders core Button directly inside a div; Figma ButtonGroup name is not an arui-private/ButtonGroup dependency.",
+      "finiteMap": {
+        "Horizontal": "row",
+        "Vertical": "column"
+      },
+      "gapClassification": "native-and-dependency-gap",
+      "platformBehavior": "Direction API is shared; source default row is not an owner value.",
+      "requiredOwnerFacts": [
+        "actual selected axis",
+        "native button occurrences",
+        "exact Button contract pins"
+      ]
+    },
+    {
+      "id": "PC-MAP-13",
+      "ownerConcept": "Primary/Secondary button visibility",
+      "codeFieldOrSurface": "primaryButtonProps / secondaryButtonProps",
+      "sourceReviewStatement": "Each object requires label and optional core ButtonProps; no callbacks/noops/actions generated.",
+      "finiteMap": null,
+      "gapClassification": "owner-action-gap",
+      "platformBehavior": "Default size D48/M56; primary view Dprimary/Maccent, secondary view secondary. Passed props may override view/size.",
+      "requiredOwnerFacts": [
+        "actual owner action data",
+        "real callback/destination",
+        "approved core-view mapping",
+        "Button dependency identity"
+      ]
+    },
+    {
+      "id": "PC-MAP-14",
+      "ownerConcept": "BottomContent slot",
+      "codeFieldOrSurface": "bottomAddon",
+      "sourceReviewStatement": "ReactNode can contain multiple elements; code typing does not prove the one-instance/no-detach owner rule.",
+      "finiteMap": null,
+      "gapClassification": "slot-validation-gap",
+      "platformBehavior": "Root does not expose generic children; this is an explicit slot.",
+      "requiredOwnerFacts": [
+        "actual nested component identity",
+        "one-instance ownership",
+        "own component contract and dependency closure"
+      ]
+    },
+    {
+      "id": "PC-MAP-15",
+      "ownerConcept": "BackgroundPlate Type/colors",
+      "codeFieldOrSurface": "backgroundPlateProps",
+      "sourceReviewStatement": "Source always renders BackgroundPlate; there is no root withBackgroundPlate switch. Full BackgroundPlateProps requires children at type level although JSX owns rendered children.",
+      "finiteMap": null,
+      "gapClassification": "type-adapter-and-token-gap",
+      "platformBehavior": "Platform wrapper supplies base-bg-alt D / base-bg M; render child props spread may override defaults.",
+      "requiredOwnerFacts": [
+        "real approved surface properties",
+        "token bridge",
+        "reviewed type adapter without invented placeholder data"
+      ]
+    },
+    {
+      "id": "PC-MAP-16",
+      "ownerConcept": "Outer dimensions",
+      "codeFieldOrSurface": "customWidth / customHeight",
+      "sourceReviewStatement": "Numeric source values become px; truthiness checks mean zero is not equivalent to a supplied active size. Do not derive business dimensions from preview bounds.",
+      "finiteMap": null,
+      "gapClassification": "owner-value-gap",
+      "platformBehavior": "Same optional fields on both exports.",
+      "requiredOwnerFacts": [
+        "actual contextual width/height",
+        "units",
+        "rendered overflow proof"
+      ]
+    },
+    {
+      "id": "PC-MAP-17",
+      "ownerConcept": "Spaced layout",
+      "codeFieldOrSurface": "spaced",
+      "sourceReviewStatement": "Source applies spaced class only with custom dimensions; internal protected spacing norm still applies.",
+      "finiteMap": null,
+      "gapClassification": "owner-policy-gap",
+      "platformBehavior": "Same source modifier on both exports.",
+      "requiredOwnerFacts": [
+        "actual authorized context",
+        "actual custom size"
+      ]
+    },
+    {
+      "id": "PC-MAP-18",
+      "ownerConcept": "Right title/subtitle addons",
+      "codeFieldOrSurface": "rightTitleAddon / rightSubtitleAddon",
+      "sourceReviewStatement": "ReactNode addon renders only with corresponding text. Availability does not establish owner/native slot permission.",
+      "finiteMap": null,
+      "gapClassification": "owner-slot-gap",
+      "platformBehavior": "Both exports expose these fields.",
+      "requiredOwnerFacts": [
+        "actual allowed owner slot composition",
+        "native identity and nested contract"
+      ]
+    },
+    {
+      "id": "PC-MAP-19",
+      "ownerConcept": "Public root/platform",
+      "codeFieldOrSurface": "public import / exported types",
+      "sourceReviewStatement": "PromoCardProps is exported; source typing is confirmed without installed/built import acceptance.",
+      "finiteMap": null,
+      "gapClassification": "canonical-mapping-gap",
+      "platformBehavior": "Responsive entry uses 768 boundary; fixed platform exports are explicit.",
+      "requiredOwnerFacts": [
+        "accepted representation mapping",
+        "built import proof from assigned owner",
+        "native parity"
+      ]
+    }
+  ],
+  "parity": "not-confirmed",
+  "live": "not-run-for-r2",
+  "release": "not-confirmed"
+}

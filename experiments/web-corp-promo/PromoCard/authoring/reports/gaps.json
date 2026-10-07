@@ -1,56 +1,40 @@
-[
-  {
-    "id": "NATIVE-BINDINGS",
-    "blockingForReady": true,
-    "detail": "Исторические path hints не доказывают native identity и property/slot IDs текущего Figma. Нужны captures обоих roots и всех вариантов."
-  },
-  {
-    "id": "DEPENDENCY-CLOSURE",
-    "blockingForReady": true,
-    "detail": "Исторические вложенные имена не доказывают component identity; componentDependencies пока не объявлены. Нужны точные дочерние пакеты и bindings."
-  },
-  {
-    "id": "CODE-API",
-    "blockingForCodeReady": true,
-    "detail": "Публичные импорты, props, slots и parity реализации не подтверждены."
-  },
-  {
-    "id": "LIVE-ACCEPTANCE",
-    "blockingForReady": true,
-    "detail": "Текущие пользовательские прогоны этих новых manuals не выполнены."
-  },
-  {
-    "id": "TYPED-NORMS",
-    "blockingForReady": true,
-    "detail": "Неисполняемые нормы явно сохранены с missingFacts; успешная компиляция не доказывает проверку этих норм."
-  },
-  {
-    "id": "IMAGE-NONE-RAW-DRIFT",
-    "blockingForReady": true,
-    "detail": "Raw Image=None (Figma only) и возможный ImageCrop=True сохраняются как исторический факт; текущая норма требует ImageCrop=False/Offset=False. Offset — nested, native binding не подтверждён."
-  },
-  {
-    "id": "HISTORICAL-CATALOG-DRIFT",
-    "blockingForReady": true,
-    "detail": "Raw и исторический generated contract имеют разные variant inventories. Оба сохранены с точными pins; generated evidence не выдаётся за текущий полный native capture.",
-    "catalogCoverage": [
-      {
-        "root": "[D] PromoCard",
-        "rawVariantCount": 18,
-        "importedVariantCount": 16,
-        "rawOnly": [
-          "016ebd5c0c4dceae8081ac0c9942f871e7172e7c",
-          "8becae9ce2c91d2ea44331cdc065058c37291ebd"
-        ],
-        "generatedOnly": []
-      },
-      {
-        "root": "[M] PromoCard",
-        "rawVariantCount": 18,
-        "importedVariantCount": 18,
-        "rawOnly": [],
-        "generatedOnly": []
-      }
-    ]
-  }
-]
+{
+  "date": "2026-10-07",
+  "gaps": [
+    {
+      "id": "DEPENDENCY-CLOSURE",
+      "blockingForReady": true,
+      "detail": "Исторические вложенные имена не доказывают component identity; componentDependencies пока не объявлены. Нужны точные дочерние пакеты и bindings."
+    },
+    {
+      "id": "LIVE-ACCEPTANCE",
+      "blockingForReady": true,
+      "detail": "Текущие пользовательские прогоны этих новых manuals не выполнены."
+    },
+    {
+      "id": "TYPED-NORMS",
+      "blockingForReady": true,
+      "detail": "Неисполняемые нормы явно сохранены с missingFacts; успешная компиляция не доказывает проверку этих норм."
+    },
+    {
+      "id": "IMAGE-NONE-RAW-DRIFT",
+      "blockingForReady": true,
+      "detail": "Native Offset#1101:0 BOOLEAN подтверждён на корне. Каталог содержит Image=None с ImageCrop=True; норма требует оба effects false. Полный configured-property contour пока context-only из-за inactive property availability."
+    },
+    {
+      "id": "ROOT-PROPERTY-CONFORMANCE",
+      "blockingForReady": true,
+      "detail": "Offset/ImageCrop configuration constraints authored as Draft context-only. Current property-availability gate suppresses inactive property conformance; targeted failing probe saved for shared-core review."
+    },
+    {
+      "id": "NATIVE-LIVE-RETEST-R2",
+      "blockingForReady": true,
+      "detail": "Exact native targets authored across all public variants; new r2 user reports required."
+    },
+    {
+      "id": "NATIVE-CODE-PARITY",
+      "blockingForCodeReady": true,
+      "detail": "Public source/import/browser proof available; card normative/native parity and generation profiles not accepted."
+    }
+  ]
+}

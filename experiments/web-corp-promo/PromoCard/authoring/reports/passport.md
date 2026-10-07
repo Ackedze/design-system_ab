@@ -1,13 +1,17 @@
-# PromoCard — passport
+# PromoCard — паспорт r2
 
-Purpose: Показывает отдельное промопредложение, преимущество или акцию через короткий текст, изображение и опциональное действие.
+Статус: **Draft**. Desktop и mobile-web в одном family package.
 
-Layer: AB product, promo. Platforms: desktop, mobile-web.
+Показывает отдельное промопредложение, преимущество или акцию через короткий текст, изображение и опциональное действие.
 
-Public roots: [D] PromoCard, [M] PromoCard. Internal families: [D] BottomContent, [D] ButtonGroup, [D] ContentWrapper, [D] ImageContainerLarge, [D] ImageContainerMedium, [D] ImageContainerSmall, [M] BottomContent, [M] ButtonGroup, [M] ContentWrapper, [M] ImageContainerLarge, [M] ImageContainerMedium, [M] ImageContainerSmall.
+Публичные корни: [D] PromoCard, [M] PromoCard. Внутренние части отдельно не используются. 36 вариантов, 2 объявленных целей с native identity, включая скрытые слои. Привязки закреплены за master-версией тестового борда в лаборатории I3MsagXR8Tz2eZcGtIgUk8.
 
-Code imports/props/slots: unverified. Native slot/property identities: unverified. Raw catalog date: 2026-07-27T13:29:07.697Z. Current authoring: Draft.
+Импорты: `PromoCardDesktop`, `PromoCardMobile` из `arui-private/promo-card`, версия 80.7.1. Публичные imports/types и production package/browser proof подтверждены отдельной технической проверкой. Parity, пользовательская live-приёмка r2 и release не подтверждены.
 
-Rule coverage and full missing facts: `rule-coverage.json`, `gaps.json`. Source/dependency pins: `source-and-dependency-pins.json`, `dependency-candidates.json`.
+- Image включает Figma-only None; публичный code imageOrientation принимает только top/bottom. Полный enum Image не связан с code через неполную таблицу.
+- Offset — реальный BOOLEAN Offset#1101:0. Code imageOffset применяется только сверху; crop/align могут зависеть от размера и ориентации.
+- Code всегда использует BackgroundPlate. Кнопки — core Button, desktop size=48/view=primary, mobile size=56/view=accent; это факт кода, parity не принята.
 
-Replay: `node verify.cjs`; compiler runtime path can be set using `APOLLO_CONTRACT_WORKSPACE`. No live acceptance is implied.
+Сохранены 22 RuleID и формулировок. Исполняемых норм: 1. Остальные ограничения сохранены с missingFacts в rule-coverage.json.
+
+Подробнее: code-api.source-evidence.json, native-target-bindings.r2.json, gaps.json.

@@ -1,0 +1,319 @@
+{
+  "schemaVersion": "apollo.card-public-api-evidence.v1",
+  "family": "BenefitsBlock",
+  "revision": 2,
+  "status": "confirmed-source-api",
+  "sourcePin": {
+    "packageName": "arui-private",
+    "packageVersion": "80.7.1",
+    "commit": "c037d0c322ea9774a9c251400d76d41222819b87"
+  },
+  "publicSpecifier": "arui-private/benefit-block",
+  "exports": [
+    "BenefitBlockDesktop",
+    "BenefitBlockMobile"
+  ],
+  "sourceFiles": [
+    {
+      "path": "arui-private/src/benefit-block/benefit-block-desktop.tsx",
+      "sha256": "59b70fd4ac2840b1d1fcd7e54edfb194d7533c24de37d00cab1f7e2e38b95a4d"
+    },
+    {
+      "path": "arui-private/src/benefit-block/benefit-block-mobile.tsx",
+      "sha256": "ba04bcc741c158b4dddfc412231cbf78e63a2fcb0bc1f7da7b0aed8d2cf7b4c7"
+    },
+    {
+      "path": "arui-private/src/benefit-block/benefit-block.tsx",
+      "sha256": "6b2e27483ad397c7b58062f961b2a269ce427bbe2c1aa896844f726bae7e057c"
+    },
+    {
+      "path": "arui-private/src/benefit-block/components/benefit-block-base/benefit-block-base.module.css",
+      "sha256": "ccf92a0d3d8f26793713e87d9eaf56ccacc043772e83780c4f8eefa2eba37362"
+    },
+    {
+      "path": "arui-private/src/benefit-block/components/benefit-block-base/benefit-block-base.tsx",
+      "sha256": "3ef89d9d8dadb36f1626c1bb463bd095515fd6ed30bda043c7678c8a1d3002cc"
+    },
+    {
+      "path": "arui-private/src/benefit-block/components/benefit-block-base/index.tsx",
+      "sha256": "d1c3464ea729b502fa95bc0da67eba3153e45e142f241ade8021e5d7e2a76735"
+    },
+    {
+      "path": "arui-private/src/benefit-block/components/benefit-block-content/benefit-block-content.tsx",
+      "sha256": "d3bae4d942a0e09ea7b9b22d30921fb1f1e6601e93427ecbd6b08544d9c63541"
+    },
+    {
+      "path": "arui-private/src/benefit-block/components/benefit-block-content/index.tsx",
+      "sha256": "6438ae71275d9a4069dbadd6612e65a776fa361205051fecf62d1a38a16cd9c7"
+    },
+    {
+      "path": "arui-private/src/benefit-block/index.ts",
+      "sha256": "63aa397abee7e41c04feed98a7e96f8af6813a3f2fa854e3b63fdb5a19b56948"
+    },
+    {
+      "path": "arui-private/src/benefit-block/types.ts",
+      "sha256": "e2a4189c9b94423b8943f6d122675296c71010a12d1ce21f07b806a1a318169f"
+    }
+  ],
+  "independentReview": {
+    "sha256": "cbc807e683e9b026a31cb4c23ad9c8ce5e04e61cdbc65ba34a41289d166d7193",
+    "status": "PASS",
+    "strictEsmAndCjsPublicImports": true,
+    "productionPackageMembersCompared": 269,
+    "browserAssertions": 20,
+    "browserWidths": [
+      1440,
+      390
+    ],
+    "normativeNativeCoverageLiveReleaseAccepted": false
+  },
+  "notes": [
+    "Канонический DS owner BenefitsBlock соответствует публичному модулю arui-private/benefit-block и экспортам BenefitBlockDesktop/Mobile.",
+    "HeightCustom является строковым Figma VARIANT, а heightCustom в коде — number. Автоматического преобразования нет.",
+    "Для preset=list требуется listItems, для preset=steps — stepsItems. Desktop imagePositionDesktop принимает left/right; mobile imagePositionMobile — top/bottom.",
+    "RightAddon и TitleAddon отсутствуют в публичном code API. Точный актуальный источник 26 норм не получен; сохраняется историческая проекция 31 правила.",
+    "Требование ImageView.Size=348 отменено; замена другим фиксированным размером не вводится."
+  ],
+  "mappings": [
+    {
+      "id": "BB-MAP-01",
+      "ownerConcept": "Public root alias",
+      "codeFieldOrSurface": "arui-private/benefit-block",
+      "sourceReviewStatement": "Actual public path is singular benefit-block; owner componentId web.benefits-block is preserved.",
+      "finiteMap": null,
+      "gapClassification": "canonical-mapping-gap",
+      "platformBehavior": "Both fixed exports exist; responsive entry uses 768 boundary.",
+      "requiredOwnerFacts": [
+        "accepted canonical source association",
+        "code/native parity"
+      ]
+    },
+    {
+      "id": "BB-MAP-02",
+      "ownerConcept": "Image desktop position",
+      "codeFieldOrSurface": "imagePositionDesktop",
+      "sourceReviewStatement": "Shared owner semantic Image domain must be restricted per platform before binding.",
+      "finiteMap": {
+        "Left": "left",
+        "Right": "right"
+      },
+      "gapClassification": "native-parity-gap",
+      "platformBehavior": "Desktop branch reads imagePositionDesktop; Top/Bottom are unsupported for this field.",
+      "requiredOwnerFacts": [
+        "actual desktop selection",
+        "platform-scoped native binding"
+      ]
+    },
+    {
+      "id": "BB-MAP-03",
+      "ownerConcept": "Image mobile position",
+      "codeFieldOrSurface": "imagePositionMobile",
+      "sourceReviewStatement": "Do not derive mobile position from desktop selection.",
+      "finiteMap": {
+        "Top": "top",
+        "Bottom": "bottom"
+      },
+      "gapClassification": "native-parity-gap",
+      "platformBehavior": "Mobile branch reads imagePositionMobile; Left/Right are unsupported for this field.",
+      "requiredOwnerFacts": [
+        "actual independent mobile selection",
+        "platform-scoped native binding"
+      ]
+    },
+    {
+      "id": "BB-MAP-04",
+      "ownerConcept": "HeightCustom",
+      "codeFieldOrSurface": "heightCustom",
+      "sourceReviewStatement": "Public code field is optional number. Source internal default false is interpolated as falsepx on D by the shown branch; this is source inference, not a runtime defect proof.",
+      "finiteMap": null,
+      "gapClassification": "owner-value-and-source-gap",
+      "platformBehavior": "Desktop effect only; code accepts field on M but branch does not apply height.",
+      "requiredOwnerFacts": [
+        "exact current26 owner source",
+        "actual approved numeric height",
+        "built/render proof for omission behavior"
+      ]
+    },
+    {
+      "id": "BB-MAP-05",
+      "ownerConcept": "Background",
+      "codeFieldOrSurface": "withBackground",
+      "sourceReviewStatement": "Code branch conditionally wraps with BackgroundPlate; current approved background policy remains source-pending.",
+      "finiteMap": {
+        "True": true,
+        "False": false
+      },
+      "gapClassification": "owner-source-gap",
+      "platformBehavior": "Field exists for both exports; M CSS has no-background modifier.",
+      "requiredOwnerFacts": [
+        "exact current26 source",
+        "actual selected background state",
+        "surface/native parity"
+      ]
+    },
+    {
+      "id": "BB-MAP-06",
+      "ownerConcept": "Compact",
+      "codeFieldOrSurface": "compact",
+      "sourceReviewStatement": "Code accepts compact on both exports; historical semantic binding is D-only. Current Compact/contentFit norm is source-pending.",
+      "finiteMap": {
+        "True": true,
+        "False": false
+      },
+      "gapClassification": "owner-source-gap",
+      "platformBehavior": "Desktop title and image classes use compact; M title stays small but image compact class is code-expressible.",
+      "requiredOwnerFacts": [
+        "exact current26 source",
+        "actual desktop context/state",
+        "accepted platform domain"
+      ]
+    },
+    {
+      "id": "BB-MAP-07",
+      "ownerConcept": "Title",
+      "codeFieldOrSurface": "title",
+      "sourceReviewStatement": "Required string in types, but falsy value is not rendered. Required type presence does not prove visible title.",
+      "finiteMap": null,
+      "gapClassification": "semantic-validation-gap",
+      "platformBehavior": "D title medium/small by compact; M title small.",
+      "requiredOwnerFacts": [
+        "actual title",
+        "rendered line count",
+        "native title identity"
+      ]
+    },
+    {
+      "id": "BB-MAP-08",
+      "ownerConcept": "Image content",
+      "codeFieldOrSurface": "image",
+      "sourceReviewStatement": "Required ReactNode can still be null/falsy; source uses image &&. No fixed Size=348 requirement and no substitute size introduced.",
+      "finiteMap": null,
+      "gapClassification": "asset-and-native-gap",
+      "platformBehavior": "ImagePosition is independent for D/M; native asset metadata cannot be inferred from ReactNode.",
+      "requiredOwnerFacts": [
+        "actual Corp Image Library asset",
+        "Crop/Segment child facts",
+        "exact ImageView source/native identity"
+      ]
+    },
+    {
+      "id": "BB-MAP-09",
+      "ownerConcept": "ContentPresets.Type",
+      "codeFieldOrSurface": "preset",
+      "sourceReviewStatement": "Source union requires listItems for list and stepsItems for steps; no general custom preset enum.",
+      "finiteMap": {
+        "Text": "text",
+        "List": "list",
+        "Steps": "steps"
+      },
+      "gapClassification": "native-and-slot-gap",
+      "platformBehavior": "Same union for both exports.",
+      "requiredOwnerFacts": [
+        "actual selected preset",
+        "actual payload collection",
+        "ContentPresets native ownership"
+      ]
+    },
+    {
+      "id": "BB-MAP-10",
+      "ownerConcept": "ContentPresets hidden",
+      "codeFieldOrSurface": "preset / subtitle / listItems / stepsItems",
+      "sourceReviewStatement": "No public visibility Boolean exists. Omitting preset invokes text default; empty arrays are not invented to simulate a hidden native preset.",
+      "finiteMap": null,
+      "gapClassification": "semantic-gap",
+      "platformBehavior": "Text absence can omit subtitle only if owner declares content absent; equivalence of hidden list/steps needs review.",
+      "requiredOwnerFacts": [
+        "actual owner content absence",
+        "approved composite projection",
+        "native/effective presence"
+      ]
+    },
+    {
+      "id": "BB-MAP-11",
+      "ownerConcept": "Text/List/Steps payload",
+      "codeFieldOrSurface": "subtitle / listItems / stepsItems",
+      "sourceReviewStatement": "List items have title; Steps items have title and optional subtitle. No fabricated steps, counts or noop handlers.",
+      "finiteMap": null,
+      "gapClassification": "owner-data-gap",
+      "platformBehavior": "Steps renders interactive=false and activeStep=null; no action added.",
+      "requiredOwnerFacts": [
+        "actual content entries",
+        "approved count/recommendation source26",
+        "real child contracts"
+      ]
+    },
+    {
+      "id": "BB-MAP-12",
+      "ownerConcept": "ButtonGroup visibility/actions",
+      "codeFieldOrSurface": "primaryButtonProps / secondaryButtonProps",
+      "sourceReviewStatement": "Source uses core Button directly, not arui-private/ButtonGroup. Caller props spread after defaults; no action synthesized.",
+      "finiteMap": null,
+      "gapClassification": "owner-source-and-dependency-gap",
+      "platformBehavior": "Source size48 on both platforms; block=true on M. Any owner requirement to override is pending current26 source.",
+      "requiredOwnerFacts": [
+        "actual action labels/callbacks",
+        "exact current26 button override policy",
+        "core Button/DS native bridge"
+      ]
+    },
+    {
+      "id": "BB-MAP-13",
+      "ownerConcept": "RightAddon",
+      "codeFieldOrSurface": "no public corresponding field",
+      "sourceReviewStatement": "Complete current source API does not expose RightAddon/rightTitleAddon. API absence alone does not bind native right-addon role or accept Predicate coverage.",
+      "finiteMap": null,
+      "gapClassification": "native-coverage-gap",
+      "platformBehavior": "Both exports share this limitation.",
+      "requiredOwnerFacts": [
+        "accepted source/native target model",
+        "native right-addon identity"
+      ]
+    },
+    {
+      "id": "BB-MAP-14",
+      "ownerConcept": "TitleAddon StatusBadge",
+      "codeFieldOrSurface": "no public corresponding field",
+      "sourceReviewStatement": "There is no TitleAddon slot in BenefitBlockProps; title is string, not a custom ReactNode slot.",
+      "finiteMap": null,
+      "gapClassification": "semantic-capability-gap",
+      "platformBehavior": "Both exports have no corresponding public field.",
+      "requiredOwnerFacts": [
+        "current owner source",
+        "reviewed expression/implementation path",
+        "actual StatusBadge contract"
+      ]
+    },
+    {
+      "id": "BB-MAP-15",
+      "ownerConcept": "BackgroundPlate props/tokens",
+      "codeFieldOrSurface": "backgroundPlateProps",
+      "sourceReviewStatement": "Full BackgroundPlateProps requires children at type level; JSX owns rendered children. Type requirement must not be met with invented product payload.",
+      "finiteMap": null,
+      "gapClassification": "type-adapter-and-owner-source-gap",
+      "platformBehavior": "Source branch uses props only with withBackground=true.",
+      "requiredOwnerFacts": [
+        "current26 surface policy",
+        "token bridge",
+        "reviewed type adapter",
+        "BackgroundPlate native/package identity"
+      ]
+    },
+    {
+      "id": "BB-MAP-16",
+      "ownerConcept": "Loading/container action/overflow",
+      "codeFieldOrSurface": "no accepted mapping",
+      "sourceReviewStatement": "Loading, container action, HeightCustom/overflow and visual baseline remain provisional. Code Button→Spinner does not establish whole-block loading.",
+      "finiteMap": null,
+      "gapClassification": "owner-source-gap",
+      "platformBehavior": "Source behavior and rendered acceptance are distinct; no live expectations created.",
+      "requiredOwnerFacts": [
+        "exact already-approved26 source",
+        "actual owner interaction/loading facts",
+        "assigned built/render/native evidence"
+      ]
+    }
+  ],
+  "parity": "not-confirmed",
+  "live": "not-run-for-r2",
+  "release": "not-confirmed"
+}

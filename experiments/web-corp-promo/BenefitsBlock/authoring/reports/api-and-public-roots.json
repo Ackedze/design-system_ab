@@ -87,10 +87,130 @@
     }
   ],
   "code": {
-    "status": "unverified",
-    "props": [],
-    "imports": [],
-    "reason": "Существование реализации в старых знаниях не подтверждает API, importPath или parity."
+    "status": "confirmed-source-api",
+    "imports": [
+      {
+        "packageName": "arui-private",
+        "packageVersion": "80.7.1",
+        "sourceCommit": "c037d0c322ea9774a9c251400d76d41222819b87",
+        "registryDigest": "70a0a506ffb2b9230dc73c03a8b4cc1f598502b6dd5b4b074efa7aa618973ad4",
+        "mappingId": "web.benefits-block.public-api.r2",
+        "importPath": "arui-private/benefit-block",
+        "exportName": "BenefitBlockDesktop",
+        "propsType": "ComponentProps<typeof BenefitBlockDesktop>"
+      },
+      {
+        "packageName": "arui-private",
+        "packageVersion": "80.7.1",
+        "sourceCommit": "c037d0c322ea9774a9c251400d76d41222819b87",
+        "registryDigest": "70a0a506ffb2b9230dc73c03a8b4cc1f598502b6dd5b4b074efa7aa618973ad4",
+        "mappingId": "web.benefits-block.public-api.r2",
+        "importPath": "arui-private/benefit-block",
+        "exportName": "BenefitBlockMobile",
+        "propsType": "ComponentProps<typeof BenefitBlockMobile>"
+      }
+    ],
+    "props": [
+      {
+        "id": "Background",
+        "valueType": "enum",
+        "domain": [
+          "True",
+          "False"
+        ],
+        "bindings": [
+          {
+            "representationId": "web.benefits-block.code.desktop",
+            "path": "props.withBackground",
+            "codeTransform": {
+              "version": 1,
+              "id": "enum-map",
+              "entries": [
+                {
+                  "from": "True",
+                  "to": true
+                },
+                {
+                  "from": "False",
+                  "to": false
+                }
+              ]
+            }
+          },
+          {
+            "representationId": "web.benefits-block.code.mobile-web",
+            "path": "props.withBackground",
+            "codeTransform": {
+              "version": 1,
+              "id": "enum-map",
+              "entries": [
+                {
+                  "from": "True",
+                  "to": true
+                },
+                {
+                  "from": "False",
+                  "to": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Compact",
+        "valueType": "enum",
+        "domain": [
+          "False",
+          "True"
+        ],
+        "bindings": [
+          {
+            "representationId": "web.benefits-block.code.desktop",
+            "path": "props.compact",
+            "codeTransform": {
+              "version": 1,
+              "id": "enum-map",
+              "entries": [
+                {
+                  "from": "False",
+                  "to": false
+                },
+                {
+                  "from": "True",
+                  "to": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Title",
+        "valueType": "string",
+        "bindings": [
+          {
+            "representationId": "web.benefits-block.code.desktop",
+            "path": "props.title",
+            "codeTransform": {
+              "version": 1,
+              "id": "identity"
+            }
+          },
+          {
+            "representationId": "web.benefits-block.code.mobile-web",
+            "path": "props.title",
+            "codeTransform": {
+              "version": 1,
+              "id": "identity"
+            }
+          }
+        ]
+      }
+    ],
+    "evidencePath": "code-api.source-evidence.json",
+    "parity": "not-confirmed",
+    "liveAccepted": false
   },
   "slots": {
     "status": "native-bindings-unverified",
@@ -98,25 +218,141 @@
   },
   "targets": [
     {
-      "role": "title",
-      "variantCount": 20,
+      "id": "target.root",
+      "nodeTypes": [
+        "INSTANCE"
+      ],
       "addressCount": 20,
-      "unresolved": [],
-      "addressAuthority": "historical-catalog-path; native acceptance not run"
+      "authority": "exact independent source identity; file/version pinned"
     },
     {
-      "role": "image",
-      "variantCount": 20,
+      "id": "target.title",
+      "nodeTypes": [
+        "TEXT"
+      ],
       "addressCount": 20,
-      "unresolved": [],
-      "addressAuthority": "historical-catalog-path; native acceptance not run"
+      "authority": "exact independent source identity; file/version pinned"
     },
     {
-      "role": "right-addon",
-      "variantCount": 20,
+      "id": "target.image",
+      "nodeTypes": [
+        "INSTANCE"
+      ],
       "addressCount": 20,
-      "unresolved": [],
-      "addressAuthority": "historical-catalog-path; native acceptance not run"
+      "authority": "exact independent source identity; file/version pinned"
+    },
+    {
+      "id": "target.right-addon",
+      "nodeTypes": [
+        "INSTANCE"
+      ],
+      "addressCount": 20,
+      "authority": "exact independent source identity; file/version pinned"
+    }
+  ],
+  "date": "2026-10-07",
+  "rootNativeProperties": [
+    {
+      "platform": "desktop",
+      "properties": [
+        {
+          "name": "ButtonGroup#610:16",
+          "type": "BOOLEAN",
+          "observedValues": [
+            true
+          ],
+          "typedDomain": [
+            false,
+            true
+          ]
+        },
+        {
+          "name": "Presets#610:11",
+          "type": "BOOLEAN",
+          "observedValues": [
+            true
+          ],
+          "typedDomain": [
+            false,
+            true
+          ]
+        },
+        {
+          "name": "Image",
+          "type": "VARIANT",
+          "observedValues": [
+            "Right",
+            "Left"
+          ]
+        },
+        {
+          "name": "HeightCustom",
+          "type": "VARIANT",
+          "observedValues": [
+            "False",
+            "True"
+          ]
+        },
+        {
+          "name": "Background",
+          "type": "VARIANT",
+          "observedValues": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "name": "Compact",
+          "type": "VARIANT",
+          "observedValues": [
+            "False",
+            "True"
+          ]
+        }
+      ]
+    },
+    {
+      "platform": "mobile-web",
+      "properties": [
+        {
+          "name": "Presets#610:27",
+          "type": "BOOLEAN",
+          "observedValues": [
+            true
+          ],
+          "typedDomain": [
+            false,
+            true
+          ]
+        },
+        {
+          "name": "ButtonGroup#610:24",
+          "type": "BOOLEAN",
+          "observedValues": [
+            true
+          ],
+          "typedDomain": [
+            false,
+            true
+          ]
+        },
+        {
+          "name": "Image",
+          "type": "VARIANT",
+          "observedValues": [
+            "Bottom",
+            "Top"
+          ]
+        },
+        {
+          "name": "Background",
+          "type": "VARIANT",
+          "observedValues": [
+            "True",
+            "False"
+          ]
+        }
+      ]
     }
   ]
 }

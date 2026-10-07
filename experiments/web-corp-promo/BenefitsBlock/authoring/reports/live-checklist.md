@@ -1,11 +1,10 @@
-# BenefitsBlock — live checklist
+# BenefitsBlock — live-проверка r2
 
-1. Загрузить ZIP в Editor и переключить оба public roots. Проверить preview, anatomy и все варианты.
-2. Подтвердить каждую semantic target binding в desktop и mobile-web, включая скрытые occurrences.
-3. Подтвердить native VARIANT/BOOLEAN/TEXT/INSTANCE_SWAP identities; не преобразовывать строковые True/False в BOOLEAN.
-4. Загрузить точные дочерние контракты и привязать доказанные occurrences; проверить полный closure.
-5. Проверить эталон, по одному нарушению каждой исполняемой нормы и штатные исключения. Сохранить отчёты с точными manual/capture pins.
-6. Для context-only норм заполнить перечисленные missingFacts и провести ручную/политическую проверку.
-7. Проверить cross-platform content/action parity там, где она требуется.
-8. Переводить в Reviewed только проверенные правила; Ready — после полного текущего контура, а не по отсутствию schema errors.
-9. Убедиться, что проверка не требует ImageView.Size=348; Crop, Segment и библиотека изображений продолжают проверяться.
+Статус Draft. Эти действия проверяют новую редакцию; старые отчёты не являются live-приёмкой r2.
+
+1. Загрузить BenefitsBlock.component-contract.zip в Editor 0.2.92 или совместимую версию. Проверить r2, anatomy и desktop/mobile-web.
+2. На существующем тестовом борде лаборатории повторить эталоны D01/M01. Цели должны иметь exact native identity; отсутствие schema ошибок не означает полную проверку норм.
+3. Повторить D04/M04 (скрытый Title), D05/M05 (скрытый Image), D06/M06 (видимый RightAddon). Ожидаются соответствующие нарушения.
+4. Не повышать context-only правила до Reviewed по зелёному исполняемому отчёту. Их missingFacts/ручная проверка перечислены в rule-coverage.json.
+5. При другой версии/import master-компонента reference pin может стать stale; требуется новый authoring capture и перенос привязок с проверкой.
+6. BB-D07/M07 сохраняются source-pending до фактического текущего источника 26 правил. Требование Size=348 отсутствует.
