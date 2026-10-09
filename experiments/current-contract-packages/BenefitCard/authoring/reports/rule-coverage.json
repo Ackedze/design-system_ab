@@ -1,0 +1,500 @@
+{
+  "date": "2026-10-09",
+  "revision": 4,
+  "manualSourceHash": "eb25ad722d2f8316fdfcc5dd559d64450923a2f3a418d0e2ca582e6001665082",
+  "sourceRules": 21,
+  "ruleIR": 37,
+  "nonExecutable": 4,
+  "nativeTargets": 9,
+  "nativeBindings": 256,
+  "currentRules": [
+    {
+      "sourceRuleId": "component:web.benefit-card.title-required",
+      "rationale": "Title обязателен и должен быть видимым.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.title-required.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.graphic-required",
+      "rationale": "Graphic обязателен и должен быть видимым.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.graphic-required.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-content-is-closed",
+      "rationale": "Запрещён instance swap любых элементов BenefitCard, включая Graphic. Единственное исключение — Bottom; его содержимое дополнительно проверяется по контракту Link.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card-content-is-closed.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-bottom-content-link-only",
+      "rationale": "В готовом макете BottomContent допускает только Presets=Link. Presets=SwapMe является служебным placeholder.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card-bottom-content-link-only.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.BottomEnabled": true
+        }
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-image-view-segment-only",
+      "rationale": "У ImageView разрешено менять только Segment. Size=80, Crop=Center; Grid и остальные настройки сохраняются по эталону. Instance swap ImageView запрещён.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card-image-view-segment-only.1.1",
+        "component:web.benefit-card-image-view-segment-only.1.2",
+        "component:web.benefit-card-image-view-segment-only.1.3"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.GraphicPreset": "Image"
+        }
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-title-content-limit",
+      "rationale": "Title должен содержать не более 60 символов и занимать не более двух строк.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card-title-content-limit.1.1",
+        "component:web.benefit-card-title-content-limit.1.2"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-subtitle-content-limit",
+      "rationale": "Subtitle должен содержать не более 120 символов и занимать не более трёх строк.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card-subtitle-content-limit.1.1",
+        "component:web.benefit-card-subtitle-content-limit.1.2"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-platform-version-must-match.desktop",
+      "rationale": "Используй [D] BenefitCard на desktop при ширине 768 px и больше, а [M] BenefitCard — на mobile-web при ширине меньше 768 px.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card-platform-version-must-match.desktop.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-platform-version-must-match.mobile-web",
+      "rationale": "Используй [D] BenefitCard на desktop при ширине 768 px и больше, а [M] BenefitCard — на mobile-web при ширине меньше 768 px.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card-platform-version-must-match.mobile-web.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.compact-uses-secondary-title.compact-true",
+      "rationale": "При Compact=True вложенный ContentWrapper должен использовать Title=Secondary. При Compact=False разрешены Title=Primary и Title=Secondary.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.compact-uses-secondary-title.compact-true.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": {
+          "Compact": [
+            "True"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.compact-uses-secondary-title.compact-false",
+      "rationale": "При Compact=True вложенный ContentWrapper должен использовать Title=Secondary. При Compact=False разрешены Title=Primary и Title=Secondary.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.compact-uses-secondary-title.compact-false.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": {
+          "Compact": [
+            "False"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.vertical-resizing-policy",
+      "rationale": "Одиночная BenefitCard использует Hug по высоте. Правила Fill, Stopper и выравнивания карточек в группе относятся к рецепту сборки группы.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.vertical-resizing-policy.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "context": {
+          "expectedInput.CardPlacement": "single"
+        }
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.text-alignment-protected",
+      "rationale": "Не меняй вручную горизонтальное выравнивание текста внутри BenefitCard. Текстовые слои должны использовать штатное выравнивание LEFT.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.text-alignment-protected.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "compiled-draft-needs-live-acceptance",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.background-plate-style-overrides",
+      "rationale": "У BackgroundPlate разрешено менять только Type. Остальные настройки и допустимые значения Type регулируются отдельным контрактом BackgroundPlate. Parent BenefitCard не даёт разрешения на ручное изменение заливки или обводки.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.background-plate-style-overrides.1.1",
+        "component:web.benefit-card.background-plate-style-overrides.1.2"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "partial-child-contract-or-token-membership",
+      "applicability": {
+        "variants": {
+          "Background": [
+            "True"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.background-plate-colors-use-tokens",
+      "rationale": "Цвет заливки Colored и цвет обводки Border должны быть заданы библиотечными цветовыми токенами. Сейчас палитра не ограничена; сегментные ограничения ММБ, СБ и КИБ будут добавлены отдельным правилом позднее.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.background-plate-colors-use-tokens.1.1",
+        "component:web.benefit-card.background-plate-colors-use-tokens.1.2"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "partial-child-contract-or-token-membership",
+      "applicability": {
+        "variants": {
+          "Background": [
+            "True"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.visuals-follow-effective-baseline",
+      "rationale": "Запрещены ручные изменения внутренних отступов, интервалов, скруглений, заливок, обводок, типографики, opacity и эффектов BenefitCard относительно выбранного эталона. Type BackgroundPlate разрешён; настройка подложки далее регулируется её контрактом. Дочерние публичные настройки применяются по соответствующим контрактам.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.1",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.10",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.11",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.12",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.13",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.14",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.15",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.2",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.3",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.4",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.5",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.6",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.7",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.8",
+        "component:web.benefit-card.visuals-follow-effective-baseline.1.9"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "partial-child-contract-or-token-membership",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-bottom-link-text-only",
+      "rationale": "У BottomContent.Link разрешено менять только текст. Остальные свойства Link должны соответствовать effective baseline.",
+      "status": "draft",
+      "executionRoute": "context-only",
+      "IR": [],
+      "nonExecutableReason": "Missing runtime facts: Принятый контракт Link и точный dependency pin..",
+      "fullNormAccepted": false,
+      "scope": "not-executable",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-icon-view-public-settings-allowed",
+      "rationale": "При Graphic.Presets=IconView разрешено использовать все публичные настройки компонента IconView по его контракту.",
+      "status": "draft",
+      "executionRoute": "context-only",
+      "IR": [],
+      "nonExecutableReason": "Missing runtime facts: Принятый контракт IconView и точный dependency pin..",
+      "fullNormAccepted": false,
+      "scope": "not-executable",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.GraphicPreset": "IconView"
+        }
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card-link-content-limit",
+      "rationale": "Текст BottomContent.Link должен содержать не более 32 символов и занимать одну строку.",
+      "status": "draft",
+      "executionRoute": "context-only",
+      "IR": [],
+      "nonExecutableReason": "Missing runtime facts: Native TEXT target Link во всех допустимых BottomContent и контракт Link..",
+      "fullNormAccepted": false,
+      "scope": "not-executable",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.public-roots-only",
+      "rationale": "Используй только публичные корни [D] BenefitCard и [M] BenefitCard. BottomContent, ContentWrapper и Graphic являются служебными частями и не используются отдельно.",
+      "status": "draft",
+      "executionRoute": "context-only",
+      "IR": [],
+      "nonExecutableReason": "Missing runtime facts: Runtime admission gate для public roots и отдельная проверка standalone служебных компонентов..",
+      "fullNormAccepted": false,
+      "scope": "not-executable",
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      }
+    },
+    {
+      "sourceRuleId": "component:web.benefit-card.background-plate-style-overrides.position",
+      "rationale": "У BackgroundPlate разрешено менять только Type. Остальные настройки и допустимые значения Type регулируются отдельным контрактом BackgroundPlate. Parent BenefitCard не даёт разрешения на ручное изменение заливки или обводки.",
+      "status": "draft",
+      "executionRoute": "auto",
+      "IR": [
+        "component:web.benefit-card.background-plate-style-overrides.position.1.1"
+      ],
+      "nonExecutableReason": null,
+      "fullNormAccepted": false,
+      "scope": "partial-child-contract-or-token-membership",
+      "applicability": {
+        "variants": {
+          "Background": [
+            "True"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root"
+      }
+    }
+  ],
+  "ownerDecisionCrosswalk": "reports/owner-decisions.r4.json",
+  "historicalCoverage": "reports/rule-coverage.r3.json"
+}

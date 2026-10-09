@@ -1,0 +1,324 @@
+{
+  "schemaVersion": "apollo.card-public-api-evidence.v1",
+  "family": "BenefitCard",
+  "revision": 2,
+  "status": "confirmed-source-api",
+  "sourcePin": {
+    "packageName": "arui-private",
+    "packageVersion": "80.7.1",
+    "commit": "c037d0c322ea9774a9c251400d76d41222819b87"
+  },
+  "publicSpecifier": "arui-private/benefit-card",
+  "exports": [
+    "BenefitCardDesktop",
+    "BenefitCardMobile"
+  ],
+  "sourceFiles": [
+    {
+      "path": "arui-private/src/benefit-card/benefit-card-base/benefit-card-base.module.css",
+      "sha256": "848a3d9453c5c86d0096ee46700ec2902ce12d92197f96b77fdb37824006d26b"
+    },
+    {
+      "path": "arui-private/src/benefit-card/benefit-card-base/benefit-card-base.tsx",
+      "sha256": "77f0896e1caa5659354ee2bed46477d5c2ace9254498f12c2982dd8cf72c72c4"
+    },
+    {
+      "path": "arui-private/src/benefit-card/benefit-card-base/index.ts",
+      "sha256": "f45e2121c5c39f4a452788ab122523d0288dcfc53f32af11d1b0d36bc9fbe90d"
+    },
+    {
+      "path": "arui-private/src/benefit-card/benefit-card-base/utils/get-graphic-type.ts",
+      "sha256": "c4a6f9384c5b5834fab119681899bb67a0ffb576871ddb21bcc40ee16a386d80"
+    },
+    {
+      "path": "arui-private/src/benefit-card/benefit-card-base/utils/render-graphic.tsx",
+      "sha256": "455ed969a062e69a2ffc0e295a2f9e8b0faf760c2c997d8fd056611ce4973c0f"
+    },
+    {
+      "path": "arui-private/src/benefit-card/benefit-card-desktop.tsx",
+      "sha256": "da5aafdd3addc9048bc028087fe783283e4109476836feebb6e219258c5ec371"
+    },
+    {
+      "path": "arui-private/src/benefit-card/benefit-card-mobile.tsx",
+      "sha256": "5ade45888b5751a8715c13d722d6f443d69dcf1389aaebaaf156c3bd091da15c"
+    },
+    {
+      "path": "arui-private/src/benefit-card/benefit-card.tsx",
+      "sha256": "a8ff6b25867cb2cfc3e258489360bf274f2db11afa82b9096b00a1f2b554957d"
+    },
+    {
+      "path": "arui-private/src/benefit-card/index.ts",
+      "sha256": "59db3674e1aa5c117f6e00f66f7406a23fc0b4673b60431a5edc1e5600d4c75e"
+    },
+    {
+      "path": "arui-private/src/benefit-card/typings.ts",
+      "sha256": "ff7fe9a9342dc85e5e3391b34adc97e79d2722e3ab0278223a6f4285e9e223f3"
+    }
+  ],
+  "independentReview": {
+    "sha256": "cbc807e683e9b026a31cb4c23ad9c8ce5e04e61cdbc65ba34a41289d166d7193",
+    "status": "PASS",
+    "strictEsmAndCjsPublicImports": true,
+    "productionPackageMembersCompared": 269,
+    "browserAssertions": 20,
+    "browserWidths": [
+      1440,
+      390
+    ],
+    "normativeNativeCoverageLiveReleaseAccepted": false
+  },
+  "notes": [
+    "Публичный prop выравнивания называется textAling (исходное написание).",
+    "Desktop wrapper задаёт titleView=primary, mobile — secondary после spread props. Compact/Secondary требует отдельной проверки parity.",
+    "Graphic, BottomContent, токены и действия требуют фактического контента и точных дочерних контрактов."
+  ],
+  "mappings": [
+    {
+      "id": "BC-MAP-01",
+      "ownerConcept": "GraphicPosition",
+      "codeFieldOrSurface": "graphicPosition",
+      "sourceReviewStatement": "Enum casing changes explicitly.",
+      "finiteMap": {
+        "Left": "left",
+        "Right": "right"
+      },
+      "gapClassification": "unknown",
+      "platformBehavior": "Both platform exports accept the same enum.",
+      "requiredOwnerFacts": [
+        "actual selected Figma variant",
+        "accepted code/native binding"
+      ]
+    },
+    {
+      "id": "BC-MAP-02",
+      "ownerConcept": "CardAxis",
+      "codeFieldOrSurface": "orientation",
+      "sourceReviewStatement": "Enum casing changes explicitly; source default horizontal is not an owner value.",
+      "finiteMap": {
+        "Vertical": "vertical",
+        "Horizontal": "horizontal"
+      },
+      "gapClassification": "unknown",
+      "platformBehavior": "Both platform exports accept the same enum.",
+      "requiredOwnerFacts": [
+        "actual selected axis",
+        "accepted layout parity"
+      ]
+    },
+    {
+      "id": "BC-MAP-03",
+      "ownerConcept": "Background",
+      "codeFieldOrSurface": "withBackgroundPlate",
+      "sourceReviewStatement": "Source branch either renders BackgroundPlate or a div. String VARIANT and Boolean remain different representations.",
+      "finiteMap": {
+        "True": true,
+        "False": false
+      },
+      "gapClassification": "unknown",
+      "platformBehavior": "Both platforms expose this field; wrapper sets platform surface defaults before child props spread.",
+      "requiredOwnerFacts": [
+        "actual selected background state",
+        "BackgroundPlate contract and token bridge"
+      ]
+    },
+    {
+      "id": "BC-MAP-04",
+      "ownerConcept": "Compact",
+      "codeFieldOrSurface": "compactView",
+      "sourceReviewStatement": "Wrapper uses compact padding 24/16 versus normal 32/20. Desktop titleView remains primary after props spread.",
+      "finiteMap": {
+        "True": true,
+        "False": false
+      },
+      "gapClassification": "semantic-conflict",
+      "platformBehavior": "Desktop and mobile both accept compactView; desktop Compact→Secondary norm cannot be satisfied through titleView in this wrapper.",
+      "requiredOwnerFacts": [
+        "selected state",
+        "viewport/content-fit context",
+        "resolution of compact/title code parity"
+      ]
+    },
+    {
+      "id": "BC-MAP-05",
+      "ownerConcept": "Title",
+      "codeFieldOrSurface": "title",
+      "sourceReviewStatement": "Code field is optional and falsy title is not rendered. Owner still requires visible Title.",
+      "finiteMap": null,
+      "gapClassification": "semantic-validation-gap",
+      "platformBehavior": "D wrapper forces primary title; M forces secondary.",
+      "requiredOwnerFacts": [
+        "nonempty actual title",
+        "rendered line count",
+        "native title target"
+      ]
+    },
+    {
+      "id": "BC-MAP-06",
+      "ownerConcept": "Subtitle visibility/content",
+      "codeFieldOrSurface": "subtitle",
+      "sourceReviewStatement": "Code condition is subtitle truthiness. Omission is not permission to delete an existing owner fact.",
+      "finiteMap": null,
+      "gapClassification": "semantic-validation-gap",
+      "platformBehavior": "Subtitle typography depends on forced titleView and mobile.",
+      "requiredOwnerFacts": [
+        "actual subtitle string or explicit absence",
+        "rendered line count"
+      ]
+    },
+    {
+      "id": "BC-MAP-07",
+      "ownerConcept": "ContentWrapper.Title",
+      "codeFieldOrSurface": "titleView",
+      "sourceReviewStatement": "Public prop accepts primary/secondary but both exported platform wrappers overwrite it after {...props}.",
+      "finiteMap": null,
+      "gapClassification": "semantic-conflict",
+      "platformBehavior": "D always primary; M always secondary at the wrapper boundary.",
+      "requiredOwnerFacts": [
+        "actual intended title style",
+        "parity resolution by assigned code/owner writer"
+      ]
+    },
+    {
+      "id": "BC-MAP-08",
+      "ownerConcept": "Graphic.Presets",
+      "codeFieldOrSurface": "graphicContent.type",
+      "sourceReviewStatement": "Source graphic discriminant exists, but Figma native Graphic identity and child asset are not bound.",
+      "finiteMap": {
+        "Image": "image",
+        "Icon": "icon",
+        "IconView": "icon-view"
+      },
+      "gapClassification": "native-and-dependency-gap",
+      "platformBehavior": "icon-view fallback differs by platform: 64/32 D and 48/24 M.",
+      "requiredOwnerFacts": [
+        "selected preset",
+        "real approved asset/component",
+        "exact native child addresses and pins"
+      ]
+    },
+    {
+      "id": "BC-MAP-09",
+      "ownerConcept": "Graphic/Image/Icon payload",
+      "codeFieldOrSurface": "graphicContent.addon / graphicContent.props",
+      "sourceReviewStatement": "Image/icon addon is required by their type branch; icon-view can use props or addon. Code does not prove Corp Image Library or glyph-26 membership.",
+      "finiteMap": null,
+      "gapClassification": "asset-provenance-gap",
+      "platformBehavior": "Native crop, Size=80, Segment and glyph baseline cannot be inferred from ReactNode.",
+      "requiredOwnerFacts": [
+        "asset provenance",
+        "glyph membership when applicable",
+        "ImageView/IconView source contract identity"
+      ]
+    },
+    {
+      "id": "BC-MAP-10",
+      "ownerConcept": "BottomContent Link",
+      "codeFieldOrSurface": "bottomSlot",
+      "sourceReviewStatement": "Type tag is optional in typings but rendering requires explicit link/custom-slot. Link defaults are applied before supplied props.",
+      "finiteMap": null,
+      "gapClassification": "owner-slot-gap",
+      "platformBehavior": "Same API on both platforms.",
+      "requiredOwnerFacts": [
+        "actual link text",
+        "real action destination/callback",
+        "same-action relationship",
+        "Link dependency contract"
+      ]
+    },
+    {
+      "id": "BC-MAP-11",
+      "ownerConcept": "BottomContent SwapMe/custom-slot",
+      "codeFieldOrSurface": "bottomSlot.type / bottomSlot.slot",
+      "sourceReviewStatement": "Code allows custom-slot; owner rule limits finished BottomContent to Link. Code capability does not authorize arbitrary composition.",
+      "finiteMap": null,
+      "gapClassification": "semantic-conflict",
+      "platformBehavior": "No platform exception is proven.",
+      "requiredOwnerFacts": [
+        "existing owner policy; no new permission inferred",
+        "accepted slot composition"
+      ]
+    },
+    {
+      "id": "BC-MAP-12",
+      "ownerConcept": "Content block alignment",
+      "codeFieldOrSurface": "textAling",
+      "sourceReviewStatement": "Keep misspelled public API field textAling. It aligns the content block only when orientation is horizontal; it is not textAlign=LEFT.",
+      "finiteMap": null,
+      "gapClassification": "semantic-validation-gap",
+      "platformBehavior": "No effect of this field for vertical orientation in the shown source class branches.",
+      "requiredOwnerFacts": [
+        "actual rendered line/fit facts",
+        "owner alignment decision",
+        "code/native parity"
+      ]
+    },
+    {
+      "id": "BC-MAP-13",
+      "ownerConcept": "BackgroundPlate Type/colors",
+      "codeFieldOrSurface": "backgroundPlateProps",
+      "sourceReviewStatement": "Public type is Omit<BackgroundPlateProps,children>. Nested code defaults and overrides do not prove canonical DS token bindings.",
+      "finiteMap": null,
+      "gapClassification": "token-and-dependency-gap",
+      "platformBehavior": "Platform backgroundColor is supplied by wrapper; actual child props spread may override defaults.",
+      "requiredOwnerFacts": [
+        "approved surface Type",
+        "actual token references",
+        "BackgroundPlate child package/native identity"
+      ]
+    },
+    {
+      "id": "BC-MAP-14",
+      "ownerConcept": "Outer custom height",
+      "codeFieldOrSurface": "customHeight",
+      "sourceReviewStatement": "Code sets div style height from customHeight:number. No Figma HeightCustom axis exists for this family.",
+      "finiteMap": null,
+      "gapClassification": "owner-value-gap",
+      "platformBehavior": "Same optional number accepted by both exports.",
+      "requiredOwnerFacts": [
+        "explicit contextual sizing fact",
+        "reviewed sizing policy"
+      ]
+    },
+    {
+      "id": "BC-MAP-15",
+      "ownerConcept": "Spaced layout",
+      "codeFieldOrSurface": "spaced",
+      "sourceReviewStatement": "Source Boolean influences spacing CSS; owner protects internal layout. Public code capability is not an owner edit permission.",
+      "finiteMap": null,
+      "gapClassification": "owner-policy-gap",
+      "platformBehavior": "Source also enables spaced styling for right graphic in horizontal mode.",
+      "requiredOwnerFacts": [
+        "actual authorized layout intent"
+      ]
+    },
+    {
+      "id": "BC-MAP-16",
+      "ownerConcept": "Right title/subtitle addons",
+      "codeFieldOrSurface": "rightTitleAddon / rightSubtitleAddon",
+      "sourceReviewStatement": "Source renders these ReactNodes only with truthy corresponding text. Closed owner anatomy does not automatically permit them.",
+      "finiteMap": null,
+      "gapClassification": "owner-slot-gap",
+      "platformBehavior": "Available in both code exports; no native addon identity accepted.",
+      "requiredOwnerFacts": [
+        "explicit allowed owner composition",
+        "actual addon instance/contract"
+      ]
+    },
+    {
+      "id": "BC-MAP-17",
+      "ownerConcept": "Public root and props type",
+      "codeFieldOrSurface": "public import / ComponentProps",
+      "sourceReviewStatement": "BenefitCardProps is not re-exported by index.ts; use ComponentProps<typeof export> for a future typing proposal.",
+      "finiteMap": null,
+      "gapClassification": "canonical-mapping-gap",
+      "platformBehavior": "Responsive export uses 768 breakpoint; two fixed platform exports are explicit.",
+      "requiredOwnerFacts": [
+        "accepted component-to-code mapping",
+        "native parity evidence"
+      ]
+    }
+  ],
+  "parity": "not-confirmed",
+  "live": "not-run-for-r2",
+  "release": "not-confirmed"
+}

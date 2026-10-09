@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "apollo.cross-component-policy.v1",
+  "id": "policy:web.icons",
+  "status": "draft",
+  "scope": "Все иконки web DS; не только BenefitCard",
+  "norms": [
+    {
+      "sourceRule": {
+        "id": "component:web.benefit-card-icon-visuals-follow-baseline",
+        "targetId": "target.root",
+        "targetScope": "self",
+        "capability": "fill|layout.size",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "needs-confirmation"
+        },
+        "severity": "error",
+        "rationale": "При Graphic.Presets=Icon можно заменить glyph в пределах glyph-26, но размер, цвет и остальные визуальные параметры иконки должны соответствовать effective baseline.",
+        "message": "При Graphic.Presets=Icon можно заменить glyph в пределах glyph-26, но размер, цвет и остальные визуальные параметры иконки должны соответствовать effective baseline.",
+        "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+          ]
+        }
+      },
+      "ruleId": "rule:web.icons.visual-baseline"
+    },
+    {
+      "sourceRule": {
+        "id": "component:web.benefit-card.icon-uses-glyph-26",
+        "targetId": "target.root",
+        "targetScope": "self",
+        "capability": "component",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "needs-confirmation"
+        },
+        "severity": "error",
+        "rationale": "При Graphic.Presets=Icon используй только иконки из набора glyph-26.",
+        "message": "При Graphic.Presets=Icon используй только иконки из набора glyph-26.",
+        "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "Native identity и свойства вложенных occurrences/слотов, применимость и точные дочерние контракты."
+          ]
+        }
+      },
+      "ruleId": "rule:web.icons.glyph-26"
+    }
+  ],
+  "requiredEvidence": [
+    "Native icon identity и membership allowlist по key из общего каталога",
+    "Размер/color/типографика относительно своего эталона",
+    "PASS/FAIL по нескольким компонентам, включая BenefitCard"
+  ],
+  "execution": "not-integrated",
+  "date": "2026-10-09"
+}

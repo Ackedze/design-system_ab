@@ -1,0 +1,546 @@
+{
+  "schemaVersion": "apollo.component-recipe-context.v1",
+  "documentType": "component-recipe-context",
+  "componentId": "web-corp.buttons-group",
+  "platform": "desktop",
+  "date": "2026-10-09",
+  "status": "draft",
+  "runtimeAcceptance": "not-run",
+  "frontendImplementationVerified": false,
+  "normsDeleted": false,
+  "rules": [
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.actions-descend-by-priority",
+      "sourceRule": {
+        "id": "component:buttons-group.desktop.buttons-group.actions-descend-by-priority",
+        "targetId": "target.buttons-group",
+        "targetScope": "self",
+        "capability": "composition.actionPriority",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "conditionSubject": "component-root",
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "Кнопки располагаются слева направо в порядке убывания приоритета действия; SingleIcon при его наличии остаётся последним.",
+        "status": "reviewed",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "pattern",
+          "ownerId": "ptrn:controls.buttons-and-button-groups"
+        },
+        "sourceRefs": [
+          "component:web-corp.buttons-group.actions-descend-by-priority",
+          "docs.buttons-group.legacy-rules",
+          "docs.buttons-group.code-intent",
+          "docs.buttons-group.hub-instructions",
+          "docs.buttons-group.editorial-pattern"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "scenario.actions.identity",
+            "scenario.actions.priority",
+            "scenario.actions.visibleOrder"
+          ]
+        },
+        "message": "Кнопки располагаются слева направо в порядке убывания приоритета действия; SingleIcon при его наличии остаётся последним.",
+        "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+      },
+      "ownerDecision": {
+        "item": 1,
+        "rule": "actions-descend-by-priority",
+        "layer": "pattern/recipe/context",
+        "decision": "Приоритет берётся из контекста действий; существующий ownership.kind=pattern подходит. Не блокировать им отдельную Figma-приёмку группы."
+      }
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.overflow-moves-nearest-action-first",
+      "sourceRule": {
+        "id": "component:buttons-group.desktop.buttons-group.overflow-moves-nearest-action-first",
+        "targetId": "target.buttons-group",
+        "targetScope": "self",
+        "capability": "interaction.overflowTransfer",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": {
+            "Overflow": [
+              "true"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "conditionSubject": "component-root",
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "При переносе действий в список у SingleIcon первым переносится действие кнопки, расположенной непосредственно перед SingleIcon; дальнейший перенос продолжается справа налево по убыванию приоритета.",
+        "status": "reviewed",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.buttons-group"
+        },
+        "sourceRefs": [
+          "component:web-corp.buttons-group.overflow-moves-nearest-action-first",
+          "docs.buttons-group.legacy-rules",
+          "docs.buttons-group.code-intent",
+          "docs.buttons-group.hub-instructions"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "scenario.actions.beforeTransfer",
+            "scenario.actions.transferSequence",
+            "scenario.actions.priority"
+          ]
+        },
+        "message": "При переносе действий в список у SingleIcon первым переносится действие кнопки, расположенной непосредственно перед SingleIcon; дальнейший перенос продолжается справа налево по убыванию приоритета.",
+        "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+      },
+      "ownerDecision": {
+        "item": 2,
+        "rule": "overflow-moves-nearest-action-first",
+        "layer": "recipe/code-component behavior",
+        "decision": "Алгоритм переноса закрепить в рецепте и проверке frontend реализации."
+      }
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.single-icon-opens-overflow-list",
+      "sourceRule": {
+        "id": "component:buttons-group.desktop.buttons-group.single-icon-opens-overflow-list",
+        "targetId": "target.buttons-group",
+        "targetScope": "self",
+        "capability": "interaction.overflowTrigger",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": {
+            "Overflow": [
+              "true"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "conditionSubject": "component-root",
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "Последняя кнопка с SingleIcon=true открывает список перенесённых действий: [D] OptionList на desktop или BottomSheet на mobile-web. Использовать её для другого действия запрещено.",
+        "status": "reviewed",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.buttons-group"
+        },
+        "sourceRefs": [
+          "component:web-corp.buttons-group.single-icon-opens-overflow-list",
+          "docs.buttons-group.legacy-rules",
+          "docs.buttons-group.code-intent",
+          "docs.buttons-group.hub-instructions"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "interaction.singleIcon.activation",
+            "interaction.overflow.opened",
+            "interaction.singleIcon.actionIdentity"
+          ]
+        },
+        "message": "Последняя кнопка с SingleIcon=true открывает список перенесённых действий: [D] OptionList на desktop или BottomSheet на mobile-web. Использовать её для другого действия запрещено.",
+        "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+      },
+      "ownerDecision": {
+        "item": 3,
+        "rule": "single-icon-opens-overflow-list",
+        "layer": "recipe/code-component behavior",
+        "decision": "В Figma проверять композицию рецепта; открытие по клику — интерактивный frontend слой."
+      }
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.overflow-container-follows-platform",
+      "sourceRule": {
+        "id": "component:buttons-group.desktop.buttons-group.overflow-container-follows-platform",
+        "targetId": "target.buttons-group",
+        "targetScope": "self",
+        "capability": "composition.overflowContainer",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": {
+            "Overflow": [
+              "true"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "conditionSubject": "component-root",
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "SingleIcon открывает [D] OptionList на desktop и BottomSheet на mobile-web. Mobile BottomSheet содержит только список действий без footer.",
+        "status": "reviewed",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.buttons-group"
+        },
+        "sourceRefs": [
+          "component:web-corp.buttons-group.overflow-container-follows-platform",
+          "docs.buttons-group.legacy-rules",
+          "docs.buttons-group.code-intent",
+          "docs.buttons-group.hub-instructions"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "scenario.overflow.containerIdentity",
+            "scenario.platform"
+          ]
+        },
+        "message": "SingleIcon открывает [D] OptionList на desktop и BottomSheet на mobile-web. Mobile BottomSheet содержит только список действий без footer.",
+        "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+      },
+      "ownerDecision": {
+        "item": 4,
+        "rule": "overflow-container-follows-platform",
+        "layer": "recipe composition/code-component behavior",
+        "decision": "Тип контейнера проверяем в полном рецепте, где есть OptionList/BottomSheet; из одной группы этот объект не наблюдается."
+      }
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.overflow-items-preserve-action-content",
+      "sourceRule": {
+        "id": "component:buttons-group.desktop.buttons-group.overflow-items-preserve-action-content",
+        "targetId": "target.buttons-group",
+        "targetScope": "self",
+        "capability": "content.overflowActionMapping",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": {
+            "Overflow": [
+              "true"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "conditionSubject": "component-root",
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "Пункт списка для перенесённой кнопки сохраняет её label, действие и наличие иконки: если у исходной кнопки иконки нет, пункт списка также остаётся без иконки.",
+        "status": "reviewed",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.buttons-group"
+        },
+        "sourceRefs": [
+          "component:web-corp.buttons-group.overflow-items-preserve-action-content",
+          "docs.buttons-group.legacy-rules",
+          "docs.buttons-group.code-intent",
+          "docs.buttons-group.hub-instructions"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "scenario.actions.sourceContent",
+            "scenario.overflow.items.actionIdentity",
+            "scenario.overflow.items.label",
+            "scenario.overflow.items.iconPresence"
+          ]
+        },
+        "message": "Пункт списка для перенесённой кнопки сохраняет её label, действие и наличие иконки: если у исходной кнопки иконки нет, пункт списка также остаётся без иконки.",
+        "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+      },
+      "ownerDecision": {
+        "item": 5,
+        "rule": "overflow-items-preserve-action-content",
+        "layer": "recipe/context action mapping",
+        "decision": "Сопоставлять label, icon presence и action identity между кнопками и списком в рецепте."
+      }
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.visible-and-overflow-actions-are-unique",
+      "sourceRule": {
+        "id": "component:buttons-group.desktop.buttons-group.visible-and-overflow-actions-are-unique",
+        "targetId": "target.buttons-group",
+        "targetScope": "self",
+        "capability": "composition.actionIdentity",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "conditionSubject": "component-root",
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "Каждая видимая текстовая кнопка может запускать отдельное действие, а SingleIcon служит только входом в список перенесённых действий. Одно действие нельзя одновременно оставлять видимым и дублировать в списке.",
+        "status": "reviewed",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.buttons-group"
+        },
+        "sourceRefs": [
+          "component:web-corp.buttons-group.visible-and-overflow-actions-are-unique",
+          "docs.buttons-group.legacy-rules",
+          "docs.buttons-group.code-intent",
+          "docs.buttons-group.hub-instructions"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "scenario.actions.visibleIdentity",
+            "scenario.overflow.items.actionIdentity"
+          ]
+        },
+        "message": "Каждая видимая текстовая кнопка может запускать отдельное действие, а SingleIcon служит только входом в список перенесённых действий. Одно действие нельзя одновременно оставлять видимым и дублировать в списке.",
+        "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+      },
+      "ownerDecision": {
+        "item": 6,
+        "rule": "visible-and-overflow-actions-are-unique",
+        "layer": "recipe/context",
+        "decision": "Предлагается исключить из локального Figma-гейта группы; окончательное удаление из контракта не утверждено. Названия недостаточны для доказательства дубля — нужны action IDs.",
+        "removalDecision": "pending-owner-decision"
+      }
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.disabled-state-is-preserved-in-overflow",
+      "sourceRule": {
+        "id": "component:buttons-group.desktop.buttons-group.disabled-state-is-preserved-in-overflow",
+        "targetId": "target.buttons-group",
+        "targetScope": "self",
+        "capability": "interaction.overflowDisabled",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": {
+            "Overflow": [
+              "true"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "conditionSubject": "component-root",
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "Если перенесённое действие недоступно, его disabled state должно сохраняться в соответствующем пункте OptionList или BottomSheet; по hover показывается Tooltip с причиной недоступности.",
+        "status": "reviewed",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.buttons-group"
+        },
+        "sourceRefs": [
+          "component:web-corp.buttons-group.disabled-state-is-preserved-in-overflow",
+          "docs.buttons-group.legacy-rules",
+          "docs.buttons-group.code-intent",
+          "docs.buttons-group.hub-instructions"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "scenario.actions.disabled",
+            "scenario.overflow.items.disabled",
+            "interaction.overflow.itemHover",
+            "interaction.tooltip.disabledReason"
+          ]
+        },
+        "message": "Если перенесённое действие недоступно, его disabled state должно сохраняться в соответствующем пункте OptionList или BottomSheet; по hover показывается Tooltip с причиной недоступности.",
+        "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+      },
+      "ownerDecision": {
+        "item": 7,
+        "rule": "disabled-state-is-preserved-in-overflow",
+        "layer": "recipe/context mapping plus interactive code behavior",
+        "decision": "Disabled mapping проверять в полном рецепте; появление Tooltip — в интерактивном слое. Пользователь указал условие: рецепт нужен, если это не обеспечивает фронтовый компонент. Фронтовая реализация здесь не проверена."
+      }
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.overflow-list-closes-after-action",
+      "sourceRule": {
+        "id": "component:buttons-group.desktop.buttons-group.overflow-list-closes-after-action",
+        "targetId": "target.buttons-group",
+        "targetScope": "self",
+        "capability": "interaction.overflowClose",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": {
+            "Overflow": [
+              "true"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "conditionSubject": "component-root",
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "После выбора доступного действия [D] OptionList или BottomSheet сразу закрывается.",
+        "status": "reviewed",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.buttons-group"
+        },
+        "sourceRefs": [
+          "component:web-corp.buttons-group.overflow-list-closes-after-action",
+          "docs.buttons-group.legacy-rules",
+          "docs.buttons-group.code-intent",
+          "docs.buttons-group.hub-instructions"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "interaction.overflow.enabledActionSelected",
+            "interaction.overflow.openBefore",
+            "interaction.overflow.openAfter"
+          ]
+        },
+        "message": "После выбора доступного действия [D] OptionList или BottomSheet сразу закрывается.",
+        "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+      },
+      "ownerDecision": {
+        "item": 8,
+        "rule": "overflow-list-closes-after-action",
+        "layer": "interactive code behavior",
+        "decision": "Закрытие после выбора относится к frontend взаимодействиям; статическая Figma группа его не подтверждает."
+      }
+    },
+    {
+      "ruleId": "component:buttons-group.desktop.buttons-group.visible-button-loading-follows-button",
+      "sourceRule": {
+        "id": "component:buttons-group.desktop.buttons-group.visible-button-loading-follows-button",
+        "targetId": "target.buttons-group",
+        "targetScope": "self",
+        "capability": "interaction.actionLoading",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "conditionSubject": "component-root",
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "Loading разрешён у отдельной видимой Button, например после запуска её действия, и настраивается по контракту Button. У OptionListCell нет Loading state.",
+        "status": "reviewed",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.buttons-group"
+        },
+        "sourceRefs": [
+          "component:web-corp.buttons-group.visible-button-loading-follows-button",
+          "docs.buttons-group.legacy-rules",
+          "docs.buttons-group.code-intent",
+          "docs.buttons-group.hub-instructions"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "interaction.visibleButton.loadingState",
+            "scenario.overflow.items.loadingApi",
+            "code.button.contract"
+          ]
+        },
+        "message": "Loading разрешён у отдельной видимой Button, например после запуска её действия, и настраивается по контракту Button. У OptionListCell нет Loading state.",
+        "remediationMessage": "Подключить факты сценария и соответствующий проверяющий маршрут. Снимок Figma группы не подтверждает это поведение."
+      },
+      "ownerDecision": {
+        "item": 9,
+        "rule": "visible-button-loading-follows-button",
+        "layer": "Button dependency plus recipe/code API",
+        "decision": "Разделить смешанную норму. Loading видимой Button уже имеет исполняемые проверки в pinned Button r31; все четыре occurrences связаны с ним. OptionListCell Loading принадлежит его API/контракту, момент запуска после клика — сценарию.",
+        "existingButtonRules": [
+          "component:web-core.button.loading-uses-addon-spinner",
+          "component:web-core.button.loading-spinner-style-follows-view",
+          "component:web-core.button.loading-preserves-width"
+        ],
+        "widthEvidence": "Два последовательных снимка одного instance/context; один снимок не доказывает сохранение ширины."
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "example.buttons-group.action-identity-not-label",
+      "kind": "validation",
+      "status": "draft",
+      "intent": "Уникальность проверяется по action identity, а не по одинаковому или разному Label.",
+      "input": {
+        "visibleActionIds": [
+          "action.save"
+        ],
+        "overflowActionIds": [
+          "action.save"
+        ],
+        "labels": [
+          "Сохранить",
+          "Сохранить копию"
+        ]
+      },
+      "expected": {
+        "violation": true,
+        "route": "context-only",
+        "executionPending": true
+      },
+      "ruleIds": [
+        "component:buttons-group.desktop.buttons-group.visible-and-overflow-actions-are-unique"
+      ],
+      "sourceRefs": [
+        "component:web-corp.buttons-group.visible-and-overflow-actions-are-unique"
+      ]
+    }
+  ],
+  "loading": {
+    "componentState": "Checked by pinned Button r31 direct-child dependencies; no group Loading state is introduced.",
+    "buttonRuleIds": [
+      "component:web-core.button.loading-uses-addon-spinner",
+      "component:web-core.button.loading-spinner-style-follows-view",
+      "component:web-core.button.loading-preserves-width"
+    ],
+    "widthEvidence": "Два последовательных снимка одного instance/context; один снимок не доказывает сохранение ширины.",
+    "triggerAfterClick": "recipe/interactive-code",
+    "optionListCell": "No Loading state: separate OptionListCell API/contract; no invented group predicate."
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "status": "APPLIED_TO_CURRENT_PACKAGES",
+  "contractRevision": 60,
+  "classification": [
+    {
+      "item": 1,
+      "rule": "actions-descend-by-priority",
+      "layer": "pattern/recipe/context",
+      "decision": "Приоритет берётся из контекста действий; существующий ownership.kind=pattern подходит. Не блокировать им отдельную Figma-приёмку группы."
+    },
+    {
+      "item": 2,
+      "rule": "overflow-moves-nearest-action-first",
+      "layer": "recipe/code-component behavior",
+      "decision": "Алгоритм переноса закрепить в рецепте и проверке frontend реализации."
+    },
+    {
+      "item": 3,
+      "rule": "single-icon-opens-overflow-list",
+      "layer": "recipe/code-component behavior",
+      "decision": "В Figma проверять композицию рецепта; открытие по клику — интерактивный frontend слой."
+    },
+    {
+      "item": 4,
+      "rule": "overflow-container-follows-platform",
+      "layer": "recipe composition/code-component behavior",
+      "decision": "Тип контейнера проверяем в полном рецепте, где есть OptionList/BottomSheet; из одной группы этот объект не наблюдается."
+    },
+    {
+      "item": 5,
+      "rule": "overflow-items-preserve-action-content",
+      "layer": "recipe/context action mapping",
+      "decision": "Сопоставлять label, icon presence и action identity между кнопками и списком в рецепте."
+    },
+    {
+      "item": 6,
+      "rule": "visible-and-overflow-actions-are-unique",
+      "layer": "recipe/context",
+      "decision": "Предлагается исключить из локального Figma-гейта группы; окончательное удаление из контракта не утверждено. Названия недостаточны для доказательства дубля — нужны action IDs.",
+      "removalDecision": "pending-owner-decision"
+    },
+    {
+      "item": 7,
+      "rule": "disabled-state-is-preserved-in-overflow",
+      "layer": "recipe/context mapping plus interactive code behavior",
+      "decision": "Disabled mapping проверять в полном рецепте; появление Tooltip — в интерактивном слое. Пользователь указал условие: рецепт нужен, если это не обеспечивает фронтовый компонент. Фронтовая реализация здесь не проверена."
+    },
+    {
+      "item": 8,
+      "rule": "overflow-list-closes-after-action",
+      "layer": "interactive code behavior",
+      "decision": "Закрытие после выбора относится к frontend взаимодействиям; статическая Figma группа его не подтверждает."
+    },
+    {
+      "item": 9,
+      "rule": "visible-button-loading-follows-button",
+      "layer": "Button dependency plus recipe/code API",
+      "decision": "Разделить смешанную норму. Loading видимой Button уже имеет исполняемые проверки в pinned Button r31; все четыре occurrences связаны с ним. OptionListCell Loading принадлежит его API/контракту, момент запуска после клика — сценарию.",
+      "existingButtonRules": [
+        "component:web-core.button.loading-uses-addon-spinner",
+        "component:web-core.button.loading-spinner-style-follows-view",
+        "component:web-core.button.loading-preserves-width"
+      ],
+      "widthEvidence": "Два последовательных снимка одного instance/context; один снимок не доказывает сохранение ширины."
+    }
+  ],
+  "packageChanged": true,
+  "readinessChanged": true,
+  "frontendImplementationVerified": false,
+  "nextChangeScope": "Развести Figma readiness, recipe/context requirements и code behavior. При изменении Editor reading/readiness синхронизировать backlog Apollo v4; нормы и реестр менять отдельным согласованным применением.",
+  "mobileRevision": 3,
+  "fullAcceptance": false,
+  "implementationReceipt": "authoring/reports/update.2026-10-09.json"
+}

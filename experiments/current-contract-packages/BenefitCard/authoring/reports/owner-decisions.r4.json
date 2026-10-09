@@ -1,0 +1,338 @@
+{
+  "date": "2026-10-09",
+  "items": [
+    {
+      "item": 1,
+      "sourceRuleId": "component:web.benefit-card-bottom-content-link-only",
+      "sourceRationale": "В готовом макете BottomContent допускает только Presets=Link. Presets=SwapMe является служебным placeholder.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-bottom-content-link-only"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft"
+    },
+    {
+      "item": 2,
+      "sourceRuleId": "component:web.benefit-card-bottom-link-text-only",
+      "sourceRationale": "У BottomContent.Link разрешено менять только текст. Остальные свойства Link должны соответствовать effective baseline.",
+      "action": "dependency-contract",
+      "destination": "context/dependency-requirements.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-bottom-link-text-only"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "pending"
+    },
+    {
+      "item": 3,
+      "sourceRuleId": "component:web.benefit-card-card-and-link-actions-match",
+      "sourceRationale": "Если кликабельны и вся BenefitCard, и BottomContent.Link, они должны вести в один сценарий и выполнять одно действие.",
+      "action": "recipe",
+      "destination": "context/recipe-rules.json",
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 4,
+      "sourceRuleId": "component:web.benefit-card-card-and-link-may-be-clickable",
+      "sourceRationale": "Вся BenefitCard может быть кликабельной. Одновременно разрешено использовать отдельную ссылку через BottomContent=Link, но карточка и ссылка должны выполнять одно действие.",
+      "action": "recipe",
+      "destination": "context/recipe-rules.json",
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 5,
+      "sourceRuleId": "component:web.benefit-card-content-is-closed",
+      "sourceRationale": "Состав контента BenefitCard ограничен обязательными Title и Graphic, опциональным Subtitle и одной ссылкой BottomContent. Не добавляй произвольные элементы.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-content-is-closed",
+        "component:web.benefit-card.title-required",
+        "component:web.benefit-card.graphic-required"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft"
+    },
+    {
+      "item": 6,
+      "sourceRuleId": "component:web.benefit-card-icon-view-public-settings-allowed",
+      "sourceRationale": "При Graphic.Presets=IconView разрешено использовать все публичные настройки компонента IconView по его контракту.",
+      "action": "dependency-contract",
+      "destination": "context/dependency-requirements.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-icon-view-public-settings-allowed"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "pending"
+    },
+    {
+      "item": 7,
+      "sourceRuleId": "component:web.benefit-card-icon-visuals-follow-baseline",
+      "sourceRationale": "При Graphic.Presets=Icon можно заменить glyph в пределах glyph-26, но размер, цвет и остальные визуальные параметры иконки должны соответствовать effective baseline.",
+      "action": "cross-component-policy",
+      "destination": "context/icon-policy-reference.json",
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 8,
+      "sourceRuleId": "component:web.benefit-card-image-view-segment-only",
+      "sourceRationale": "Во вложенном ImageView разрешено менять только Segment. Используй Crop=Center и Size=80.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-image-view-segment-only"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft"
+    },
+    {
+      "item": 9,
+      "sourceRuleId": "component:web.benefit-card-link-content-limit",
+      "sourceRationale": "Текст BottomContent.Link должен содержать не более 32 символов и занимать одну строку.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-link-content-limit"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "pending"
+    },
+    {
+      "item": 10,
+      "sourceRuleId": "component:web.benefit-card-platform-version-must-match",
+      "sourceRationale": "Используй [D] BenefitCard на desktop при ширине 768 px и больше, а [M] BenefitCard — на mobile-web при ширине меньше 768 px.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-platform-version-must-match.desktop",
+        "component:web.benefit-card-platform-version-must-match.mobile-web"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft"
+    },
+    {
+      "item": 11,
+      "sourceRuleId": "component:web.benefit-card-secondary-surface-not-recommended",
+      "sourceRationale": "Все штатные Type вложенного [Promo] BackgroundPlate разрешены, но Type=Secondary не рекомендуется для BenefitCard.",
+      "action": "recommendation",
+      "destination": "context/guidance.json",
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 12,
+      "sourceRuleId": "component:web.benefit-card-skeleton-covers-entire-card",
+      "sourceRationale": "Skeleton доступен только при Background=True. Состояние загрузки включается через Skeleton вложенного [Promo] BackgroundPlate и охватывает всю BenefitCard: контент скрыт, взаимодействие заблокировано. При Background=False Skeleton не используй.",
+      "action": "recipe",
+      "destination": "context/recipe-rules.json",
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 13,
+      "sourceRuleId": "component:web.benefit-card-subtitle-content-limit",
+      "sourceRationale": "Subtitle должен содержать не более 120 символов и занимать не более трёх строк.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-subtitle-content-limit"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft"
+    },
+    {
+      "item": 14,
+      "sourceRuleId": "component:web.benefit-card-title-content-limit",
+      "sourceRationale": "Title должен содержать не более 60 символов и занимать не более двух строк.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-title-content-limit"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft"
+    },
+    {
+      "item": 15,
+      "sourceRuleId": "component:web.benefit-card-use-benefits-preset-for-groups",
+      "sourceRationale": "Для группы BenefitCard предпочтительно используй пресет 🔒 Benefits. Ручная группировка допустима, но требует проверки согласованности размеров и поведения карточек.",
+      "action": "landing-pattern",
+      "destination": "context/recipe-rules.json",
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 16,
+      "sourceRuleId": "component:web.benefit-card.axis-and-graphic-position-are-contextual",
+      "sourceRationale": "Все каталоговые сочетания CardAxis=Horizontal/Vertical и GraphicPosition=Left/Right разрешены. Выбирай их по контексту композиции.",
+      "action": "removed-by-owner",
+      "destination": null,
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 17,
+      "sourceRuleId": "component:web.benefit-card.background-controls-surface",
+      "sourceRationale": "Background=True создаёт отдельную карточку со своей поверхностью. Background=False можно использовать для нескольких BenefitCard на общей подложке или без дополнительной поверхности.",
+      "action": "parameter-description",
+      "destination": "context/guidance.json",
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 18,
+      "sourceRuleId": "component:web.benefit-card.background-plate-colors-use-tokens",
+      "sourceRationale": "Цвет заливки Colored и цвет обводки Border должны быть заданы библиотечными цветовыми токенами. Сейчас палитра не ограничена; сегментные ограничения ММБ, СБ и КИБ будут добавлены отдельным правилом позднее.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card.background-plate-colors-use-tokens"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "partial"
+    },
+    {
+      "item": 19,
+      "sourceRuleId": "component:web.benefit-card.background-plate-style-overrides",
+      "sourceRationale": "Вложенный [Promo] BackgroundPlate настраивай по его контракту: Type можно менять; для Type=Colored разрешено менять цвет заливки, для Type=Border — цвет обводки. Другие ручные изменения поверхности запрещены.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card.background-plate-style-overrides",
+        "component:web.benefit-card.background-plate-style-overrides.position"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "partial"
+    },
+    {
+      "item": 20,
+      "sourceRuleId": "component:web.benefit-card.compact-required-at-1024",
+      "sourceRationale": "Для [D] BenefitCard при ширине экрана 1024 px и меньше используй Compact=True. Для [M] BenefitCard Compact не обязателен. Compact также применяется, когда контент не помещается в стандартный формат.",
+      "action": "recipe",
+      "destination": "context/recipe-rules.json",
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 21,
+      "sourceRuleId": "component:web.benefit-card.compact-uses-secondary-title",
+      "sourceRationale": "При Compact=True вложенный ContentWrapper должен использовать Title=Secondary. При Compact=False разрешены Title=Primary и Title=Secondary.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card.compact-uses-secondary-title.compact-true",
+        "component:web.benefit-card.compact-uses-secondary-title.compact-false"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft"
+    },
+    {
+      "item": 22,
+      "sourceRuleId": "component:web.benefit-card.content-alignment-follows-lines",
+      "sourceRationale": "Если Title и Subtitle занимают по одной строке, выровняй контент по центру карточки. Если Subtitle скрыт, однострочный Title также выравнивается по центру. Если отображаемый Title или Subtitle переносится, выровняй контент по верхнему краю.",
+      "action": "removed-by-owner",
+      "destination": null,
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 23,
+      "sourceRuleId": "component:web.benefit-card.graphic-library-required",
+      "sourceRationale": "Графика BenefitCard должна быть взята из Corp :: Image Library. Для Presets=Image заменяй содержимое слоя ImageView.",
+      "action": "replaced-by-instance-swap-prohibition",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card-content-is-closed"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft"
+    },
+    {
+      "item": 24,
+      "sourceRuleId": "component:web.benefit-card.graphic-preset-is-contextual",
+      "sourceRationale": "Graphic допускает Presets=Image, Icon или IconView. Выбирай вариант по контексту содержимого карточки.",
+      "action": "removed-by-owner",
+      "destination": null,
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 25,
+      "sourceRuleId": "component:web.benefit-card.icon-uses-glyph-26",
+      "sourceRationale": "При Graphic.Presets=Icon используй только иконки из набора glyph-26.",
+      "action": "cross-component-policy",
+      "destination": "context/icon-policy-reference.json",
+      "currentRuleIds": [],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "outside-component"
+    },
+    {
+      "item": 26,
+      "sourceRuleId": "component:web.benefit-card.public-roots-only",
+      "sourceRationale": "Используй только публичные корни [D] BenefitCard и [M] BenefitCard. BottomContent, ContentWrapper и Graphic являются служебными частями и не используются отдельно.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card.public-roots-only"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "pending"
+    },
+    {
+      "item": 27,
+      "sourceRuleId": "component:web.benefit-card.text-alignment-protected",
+      "sourceRationale": "Не меняй вручную горизонтальное выравнивание текста внутри BenefitCard. Текстовые слои должны использовать штатное выравнивание LEFT.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card.text-alignment-protected"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft"
+    },
+    {
+      "item": 28,
+      "sourceRuleId": "component:web.benefit-card.vertical-resizing-policy",
+      "sourceRationale": "Для одиночной BenefitCard используй Vertical resizing=Hug. В группе равных по высоте карточек разрешён Fill. Stopper сохраняй в Fill; Fixed допустим, когда контент должен оставаться визуально цельным.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card.vertical-resizing-policy"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "compiled-draft",
+      "interpretation": "Одиночная карточка: Hug по высоте, как в исходной норме vertical resizing. Ширина зависит от композиции."
+    },
+    {
+      "item": 29,
+      "sourceRuleId": "component:web.benefit-card.visuals-follow-effective-baseline",
+      "sourceRationale": "Не меняй вручную внутренние отступы, интервалы, скругления, заливки, обводки, типографику, opacity и эффекты BenefitCard. Исключения: Type вложенного [Promo] BackgroundPlate, цвет заливки для Type=Colored и цвет обводки для Type=Border можно менять по правилам его компонентного контракта.",
+      "action": "component-rule",
+      "destination": "contract.manual.json",
+      "currentRuleIds": [
+        "component:web.benefit-card.visuals-follow-effective-baseline"
+      ],
+      "ownerDecision": "User classification 2026-10-09",
+      "executionState": "partial"
+    }
+  ],
+  "retiredCombinedRuleId": "component:web.benefit-card.title-and-graphic-required",
+  "history": "history/2026-10-09T10-03-07-820Z/BenefitCard-r3",
+  "wholeReady": false
+}

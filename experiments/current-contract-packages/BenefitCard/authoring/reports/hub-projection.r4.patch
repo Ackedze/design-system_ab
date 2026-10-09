@@ -1,0 +1,1009 @@
+diff --git a/docs/LINK-CHECK.md b/docs/LINK-CHECK.md
+index e690e32..8cbb9bf 100644
+--- a/docs/LINK-CHECK.md
++++ b/docs/LINK-CHECK.md
+@@ -2,9 +2,9 @@
+ 
+ Автопроверка: `npm run check-md-links`
+ 
+-- Проверено: **2822**
++- Проверено: **2831**
+ - Битых: **0**
+-- Пропущено (условные code-span имена): **1040**
++- Пропущено (условные code-span имена): **1038**
+ 
+ Битых нет.
+ 
+diff --git a/products/ab/components/benefit-card/cookbook/01-overview.md b/products/ab/components/benefit-card/cookbook/01-overview.md
+index 5734a2b..02679fb 100644
+--- a/products/ab/components/benefit-card/cookbook/01-overview.md
++++ b/products/ab/components/benefit-card/cookbook/01-overview.md
+@@ -4,38 +4,18 @@ layer: product
+ product: ab
+ platforms: [web]
+ targets: [figma]
+-status: verified
+-lastReviewed: 2026-07-29
++status: draft
++lastReviewed: 2026-10-09
+ ---
+ 
+ # BenefitCard cookbook
+ 
+-## Маршрут
++- [Выбрать платформу и конфигурацию](02-select-root-and-layout.md).
++- [Заполнить контент](03-compose-content.md).
++- [Настроить графику и поверхность](04-graphic-and-surface.md).
++- [Выбрать sizing, loading и действия по рецепту](05-sizing-loading-and-actions.md).
++- [Проверить результат](06-verify.md).
+ 
+-1. [`02-select-root-and-layout.md`](02-select-root-and-layout.md) — платформа, axis, position, Compact и Background.
+-2. [`03-compose-content.md`](03-compose-content.md) — Title, Subtitle и BottomContent.
+-3. [`04-graphic-and-surface.md`](04-graphic-and-surface.md) — graphic source и BackgroundPlate.
+-4. [`05-sizing-loading-and-actions.md`](05-sizing-loading-and-actions.md) — sizing, skeleton и interactions.
+-5. [`06-verify.md`](06-verify.md) — итоговый gate.
++Нормы: [instructions.md](../instructions.md). Native keys: [figma-keys.json](../figma-keys.json). Anatomy: [adapter.figma.md](../adapter.figma.md). Code handoff: [adapter.code.md](../adapter.code.md).
+ 
+-## Import keys
+-
+-| Root | componentKey | Default node |
+-|---|---|---|
+-| `[D] BenefitCard` | `61cba21130d5adfd36b798bb4a41f6ccd148c1aa` | `17:12763` |
+-| `[M] BenefitCard` | `88ade0c593a37cf9805f43be9eb82c84d07a56f6` | `17:12782` |
+-
+-Полный manifest: [`../figma-keys.json`](../figma-keys.json). Internal-part keys не импортируй отдельно.
+-
+-## Перед началом
+-
+-Нужны:
+-
+-- viewport/platform;
+-- standalone или group context;
+-- Title и optional Subtitle;
+-- graphic type и source из `Corp :: Image Library`;
+-- optional link/action;
+-- surface и loading state.
+-
+-Нормативные правила: [`../instructions.md`](../instructions.md). Figma anatomy: [`../adapter.figma.md`](../adapter.figma.md). Code handoff: [`../adapter.code.md`](../adapter.code.md).
++Перед сборкой нужны ширина viewport, одиночное или групповое размещение, Title, Graphic и опциональные Subtitle/Bottom. Code parity и новый live coverage не приняты.
+diff --git a/products/ab/components/benefit-card/cookbook/02-select-root-and-layout.md b/products/ab/components/benefit-card/cookbook/02-select-root-and-layout.md
+index a2d8b56..d48a6bf 100644
+--- a/products/ab/components/benefit-card/cookbook/02-select-root-and-layout.md
++++ b/products/ab/components/benefit-card/cookbook/02-select-root-and-layout.md
+@@ -4,44 +4,16 @@ layer: product
+ product: ab
+ platforms: [web]
+ targets: [figma]
+-status: verified
+-lastReviewed: 2026-07-29
++status: draft
++lastReviewed: 2026-10-09
+ ---
+ 
+ # Выбор root и layout
+ 
+-## 1. Платформа
++Viewport ≥768 px — `[D] BenefitCard`; меньше 768 px — `[M] BenefitCard`. Не выводи платформу по ширине самой карточки. Внутренние BottomContent, ContentWrapper и Graphic отдельно не размещай.
+ 
+-- viewport `>=768 px` → `[D] BenefitCard`;
+-- viewport `<768 px` → `[M] BenefitCard`.
++При Compact=True используй Content.Title=Secondary. При Compact=False допустимы Primary и Secondary. Выбор Compact по контексту находится в [рецепте](05-sizing-loading-and-actions.md).
+ 
+-Не используй один root как substitute другого.
++CardAxis, GraphicPosition и Background выбирают из публичного API. Перечень значений не является дополнительным правилом. Background=True включает поверхность; False убирает её. Предпочтение Benefits относится к сборке лендинга.
+ 
+-## 2. Compact
+-
+-- `[D]` при `<=1024 px` → обязательно `Compact=True`;
+-- `[D]` выше `1024 px` → по content fit;
+-- `[M]` → True или False по контексту;
+-- Compact=True → internal `ContentWrapper.Title=Secondary`.
+-
+-## 3. Axis и GraphicPosition
+-
+-Все четыре пары разрешены:
+-
+-```text
+-Horizontal + Left
+-Horizontal + Right
+-Vertical + Left
+-Vertical + Right
+-```
+-
+-Выбор определяется композицией, а не default variant.
+-
+-## 4. Background
+-
+-- `True` — самостоятельная карточка со своей поверхностью;
+-- `False` — карточка на shared surface или без дополнительной поверхности.
+-
+-## 5. Group
+-
+-Для нескольких карточек предпочитай `🔒 Benefits`. Этот preset не добавляй в public roots и не переносись в code как отдельный API.
++В проверке Editor явно укажи ViewportClass и CardPlacement. Нормы: [публичная граница](../instructions.md#rulecomponentsbenefit-cardpublic-roots-only), [Compact](../instructions.md#rulecomponentsbenefit-cardcompact-uses-secondary-title).
+diff --git a/products/ab/components/benefit-card/cookbook/03-compose-content.md b/products/ab/components/benefit-card/cookbook/03-compose-content.md
+index e168573..030bfba 100644
+--- a/products/ab/components/benefit-card/cookbook/03-compose-content.md
++++ b/products/ab/components/benefit-card/cookbook/03-compose-content.md
+@@ -4,44 +4,22 @@ layer: product
+ product: ab
+ platforms: [web]
+ targets: [figma]
+-status: verified
+-lastReviewed: 2026-07-29
++status: draft
++lastReviewed: 2026-10-09
+ ---
+ 
+ # Компоновка контента
+ 
+-## Закрытая модель
++Title и Graphic обязательны и видимы. Subtitle и Bottom опциональны. Instance swap вложенных элементов запрещён; исключение — Bottom.
+ 
+-```text
+-BenefitCard
+-  Graphic (required)
+-  Title (required)
+-  Subtitle (optional)
+-  BottomContent.Link (optional)
+-```
+-
+-Не добавляй произвольные элементы.
+-
+-## Text limits
+-
+-| Text | Символы | Строки |
++| Текст | Символы | Строки |
+ |---|---:|---:|
+ | Title | 60 | 2 |
+ | Subtitle | 120 | 3 |
+ | Link | 32 | 1 |
+ 
+-## BottomContent
+-
+-1. Включи internal BottomContent через root instance.
+-2. Установи `Presets=Link`.
+-3. Замени только текст Link.
+-4. Не оставляй `SwapMe`.
+-5. Не меняй другие Link properties.
+-
+-## Alignment
++Если Bottom включён, используй BottomContent.Presets=Link и замени только текст Link. SwapMe в готовом макете запрещён. Остальные настройки Link регулирует его контракт; dependency в r4 ещё открыт.
+ 
+-- Title и Subtitle однострочные → center;
+-- Subtitle скрыт, Title однострочный → center;
+-- Title или Subtitle переносится → top.
++Горизонтальное выравнивание видимого текста — LEFT. Ручной override запрещён. Правило выбора вертикального выравнивания по числу строк удалено решением владельца.
+ 
+-Title и Graphic всегда остаются видимыми.
++[Обязательный контент и лимиты](../instructions.md#обязательный-контент).
+diff --git a/products/ab/components/benefit-card/cookbook/04-graphic-and-surface.md b/products/ab/components/benefit-card/cookbook/04-graphic-and-surface.md
+index 530a066..0eb0fcd 100644
+--- a/products/ab/components/benefit-card/cookbook/04-graphic-and-surface.md
++++ b/products/ab/components/benefit-card/cookbook/04-graphic-and-surface.md
+@@ -4,34 +4,16 @@ layer: product
+ product: ab
+ platforms: [web]
+ targets: [figma]
+-status: verified
+-lastReviewed: 2026-07-29
++status: draft
++lastReviewed: 2026-10-09
+ ---
+ 
+-# Graphic и surface
++# Graphic и поверхность
+ 
+-## Graphic
++Вложенные Graphic и ImageView не заменяют через instance swap. В ImageView разрешено менять только Segment: Size=80, Crop=Center, остальные настройки по эталону. Проверку всех иконок выполняет отдельная сквозная политика; IconView следует своему контракту.
+ 
+-Выбери internal `Graphic.Presets`:
++У BackgroundPlate меняют только Type. Дальнейшая конфигурация — по [контракту BackgroundPlate](../../background-plate/cookbook/01-overview.md). Цвета используют библиотечные токены. Ручные fill/stroke исключения для Colored и Border сняты. Type=Secondary разрешён, но не рекомендуется.
+ 
+-- `Image` — ImageView из `Corp :: Image Library`; меняй только `Segment`;
+-- `Icon` — glyph только из `glyph-26`; size/color сохраняй;
+-- `IconView` — публичные настройки по контракту IconView.
++Изменение Type сравнивается с эталоном выбранной конфигурации. Неизвестный baseline или отсутствующий дочерний pin не означает PASS. Точная проверка библиотеки токенов и дочерняя continuity пока открыты.
+ 
+-Не импортируй Graphic отдельно и не заменяй его cross-family instance.
+-
+-## Promo BackgroundPlate
+-
+-Surface настраивается через вложенный `[Promo] BackgroundPlate` по его [cookbook](../../background-plate/cookbook/01-overview.md).
+-
+-Допустимо:
+-
+-- менять штатный Type;
+-- для Colored — tokenized fill;
+-- для Border — tokenized stroke.
+-
+-`Secondary` разрешён, но не рекомендуется. Raw color, radius, padding и effects запрещены.
+-
+-## Planned rule
+-
+-Дополнительные ограничения палитры ММБ/СБ/КИБ пока не заданы. Не придумывай их; применяй только после появления отдельного verified-правила.
++[Нормы вложенных компонентов](../instructions.md#настройки-вложенных-компонентов).
+diff --git a/products/ab/components/benefit-card/cookbook/05-sizing-loading-and-actions.md b/products/ab/components/benefit-card/cookbook/05-sizing-loading-and-actions.md
+index 1c90fe1..3085b43 100644
+--- a/products/ab/components/benefit-card/cookbook/05-sizing-loading-and-actions.md
++++ b/products/ab/components/benefit-card/cookbook/05-sizing-loading-and-actions.md
+@@ -4,41 +4,28 @@ layer: product
+ product: ab
+ platforms: [web]
+ targets: [figma]
+-status: verified
+-lastReviewed: 2026-07-29
++status: draft
++lastReviewed: 2026-10-09
+ ---
+ 
+-# Sizing, loading и actions
++# Рецепты: sizing, loading и действия
+ 
+-## Sizing
++## Одиночная карточка
+ 
+-| Контекст | BenefitCard vertical | Stopper vertical |
+-|---|---|---|
+-| Standalone | `Hug` | `Fill` |
+-| Equal-height group | `Fill` | `Fill` |
+-| Визуально цельный fixed content | По контексту | `Fixed` допустим |
++Hug по высоте — компонентная норма. Захваченные эталоны FIXED требуют отдельного исправления библиотеки.
+ 
+-Outer width/height определяет композиция. Внутренние размеры и gaps не меняй.
++## Сборка группы
+ 
+-## Loading
++Равновысокая группа использует Fill по высоте. Stopper обычно Fill; Fixed выбирают по целостности содержимого. Это рецепт группы, а не дополнительные проверки одиночного компонента. Предпочтение Benefits учитывают в паттерне лендинга.
+ 
+-Полный loading state:
++## Compact по контексту
+ 
+-```text
+-BenefitCard Background=True
+-  nested [Promo] BackgroundPlate Skeleton=True
+-  content hidden
+-  interaction blocked
+-```
++При desktop viewport ≤1024 px используют Compact=True; также включают его, если содержимое не помещается. Эти решения принимают при сборке экрана. Норма Title=Secondary при Compact=True остаётся в компонентном контракте.
+ 
+-При `Background=False` skeleton недоступен. Частичная загрузка Graphic/Content запрещена.
++## Рецепт loading
+ 
+-## Actions
++Полный skeleton собирают с Background=True: состояние задаёт контракт BackgroundPlate, содержимое скрыто, взаимодействие заблокировано. Частичную загрузку не используют. Это рецепт производства и интерактивный слой; локальная карточка не задаёт публичную ручную настройку Skeleton.
+ 
+-Возможны:
++## Интерактивный рецепт
+ 
+-- кликабельная карточка без BottomContent;
+-- некликабельная карточка с BottomContent.Link;
+-- кликабельная карточка и Link одновременно.
+-
+-В третьем случае whole-card action и Link обязаны вести в один сценарий. Зафиксируй target/action в handoff evidence.
++Карточка и Link могут быть кликабельны. Если активны оба, они выполняют одно действие и ведут в один сценарий. Фиксируй action/target в handoff и проверяй поведение в коде; статичный Figma snapshot не доказывает совпадение действий.
+diff --git a/products/ab/components/benefit-card/cookbook/06-verify.md b/products/ab/components/benefit-card/cookbook/06-verify.md
+index c8f8956..e3eb2c4 100644
+--- a/products/ab/components/benefit-card/cookbook/06-verify.md
++++ b/products/ab/components/benefit-card/cookbook/06-verify.md
+@@ -4,54 +4,18 @@ layer: product
+ product: ab
+ platforms: [web]
+ targets: [figma]
+-status: verified
+-lastReviewed: 2026-07-29
++status: draft
++lastReviewed: 2026-10-09
+ ---
+ 
+ # Проверка BenefitCard
+ 
+-## Boundary
++Проверь публичный D/M root по viewport, обязательные Title/Graphic, лимиты текста и допустимый Bottom=Link. У Compact=True должен быть Title=Secondary; у False допустимы Primary/Secondary.
+ 
+-- Root — `[D] BenefitCard` или `[M] BenefitCard`.
+-- Internal BottomContent/ContentWrapper/Graphic не используются отдельно.
+-- `🔒 Benefits` не записан как public component root.
++ImageView сохраняет Size=80/Crop=Center. Instance swap запрещён вне Bottom. У BackgroundPlate изменяется только Type; raw colors, ручные visual overrides и горизонтальное выравнивание текста вне LEFT запрещены. Для одиночной карточки высота Hug.
+ 
+-## Platform и variants
++Зависимости Link, IconView и BackgroundPlate, принадлежность токенов библиотеке и общая проверка иконок принимаются отдельно. Рецепты группы, интерактивности, загрузки и контекстного выбора Compact не входят в автоматическую проверку одиночной карточки.
+ 
+-- D/M соответствует viewport.
+-- `[D] <=1024 px` использует Compact=True.
+-- Compact=True использует Title=Secondary.
+-- CardAxis и GraphicPosition выбраны осознанно.
++В текущем r4 21 исходное правило, 37 IR, четыре неисполняемые нормы. 46 локальных counterfactual кейсов проверяют механизмы; это не live-приёмка. При mixed/clipped/truncated тексте число строк может остаться unknown. Не отмечай весь контракт Ready по одному зелёному отчёту.
+ 
+-## Content
+-
+-- Title и Graphic видимы.
+-- Title ≤60/2 строки; Subtitle ≤120/3; Link ≤32/1.
+-- Нет arbitrary content.
+-- BottomContent не содержит SwapMe.
+-- Alignment соответствует line count.
+-
+-## Graphic и surface
+-
+-- Graphic source — Corp :: Image Library.
+-- ImageView меняет только Segment.
+-- Icon использует glyph-26 без size/color override.
+-- IconView следует своему контракту.
+-- Surface следует Promo BackgroundPlate contract.
+-- Colored/Border colors токенизированы.
+-- Secondary surface отмечен warning.
+-
+-## Sizing, loading, interaction
+-
+-- Standalone Hug; equal-height group может Fill.
+-- Stopper Fill или обоснованный Fixed.
+-- Skeleton только whole-card при Background=True.
+-- Card и Link выполняют одно действие.
+-
+-## Visual baseline
+-
+-Нет ручных padding, gap, radius, typography, fill, stroke, opacity, effects, detach или cross-family swap.
+-
+-## Evidence
+-
+-Зафиксированы fileKey, root componentKey/node, platform, four root properties, content, graphic source, surface, sizing, loading и actions. Code import/props/callbacks помечены `[VERIFY]`, пока нет implementation source.
++Для live-приёмки сохрани fileKey, exact native variant, платформу, ожидаемый RuleID и отчёт каждого PASS/FAIL/UNKNOWN. Расхождения библиотечных эталонов Compact и Hug фиксируются отдельно. Code parity, release и publication требуют своего evidence.
+diff --git a/products/ab/components/benefit-card/instructions.md b/products/ab/components/benefit-card/instructions.md
+index fb4823d..fca7c33 100644
+--- a/products/ab/components/benefit-card/instructions.md
++++ b/products/ab/components/benefit-card/instructions.md
+@@ -4,135 +4,98 @@ layer: product
+ product: ab
+ platforms: [web]
+ targets: [figma, code]
+-status: verified
+-lastReviewed: 2026-07-29
++status: draft
++lastReviewed: 2026-10-09
+ ---
+ 
+ # BenefitCard
+ 
+-`BenefitCard` показывает отдельное преимущество, функцию или ценностное предложение через короткий текст и обязательную графику. Компонент относится к promo-слою AB, но может использоваться как самостоятельная карточка или как элемент группы преимуществ.
+-
+-Полный паттерн: [`../../patterns/benefit-card.md`](../../patterns/benefit-card.md). Точные Figma keys: [`figma-keys.json`](figma-keys.json).
++BenefitCard показывает преимущество коротким текстом и обязательной графикой. Актуальная классификация норм согласована владельцем 09.10.2026. Контракт r4 остаётся Draft до проверки нового пакета в Editor и закрытия зависимостей.
+ 
+ ## Публичная граница
+ 
+-Для генерации разрешены только:
++### rule:components.benefit-card.public-roots-only
++
++Используй только `[D] BenefitCard` на desktop при ширине viewport от 768 px и `[M] BenefitCard` на mobile-web при ширине меньше 768 px. Ширина карточки не заменяет ширину viewport. `BottomContent`, `ContentWrapper` и `Graphic` — внутренние части, отдельно их не размещают. Точные опубликованные ключи: [figma-keys.json](figma-keys.json).
++
++## Обязательный контент
++
++### rule:components.benefit-card.title-required
++
++Title обязателен и видим.
++
++### rule:components.benefit-card.graphic-required
++
++Graphic обязателен и видим.
+ 
+-- `[D] BenefitCard` — desktop при ширине `768 px` и больше;
+-- `[M] BenefitCard` — Mobile Web при ширине меньше `768 px`.
++### rule:components.benefit-card.content-is-closed
+ 
+-`[D]/[M] BottomContent`, `ContentWrapper` и `Graphic` — внутренние части. Не импортируй и не размещай их отдельно.
++Instance swap вложенных элементов запрещён. Единственное исключение — Bottom. Изменение публичного свойства вложенного компонента не является instance swap.
+ 
+-`🔒 Benefits` — Figma-only preset для группы карточек, а не третий public root BenefitCard.
++### rule:components.benefit-card.bottom-content-link-only
+ 
+-## Когда использовать
++Если Bottom включён, в готовом макете разрешён только `BottomContent.Presets=Link`. `SwapMe` — placeholder. У Link меняют только текст; остальные настройки определяет [контракт Link](../../../../core/web/components/link/cookbook.md).
+ 
+-Используй BenefitCard, чтобы:
++### rule:components.benefit-card.content-limits
+ 
+-- кратко показать преимущество продукта или сервиса;
+-- объяснить одну функцию;
+-- дополнить короткий текст небольшим изображением, иконкой или `IconView`;
+-- собрать несколько преимуществ в группу;
+-- сделать карточку точкой перехода в связанный сценарий.
++| Текст | Максимум символов | Максимум строк |
++|---|---:|---:|
++| Title | 60 | 2 |
++| Subtitle | 120 | 3 |
++| Link в Bottom | 32 | 1 |
+ 
+-Для группы карточек предпочитай preset `🔒 Benefits`. Ручная группа допустима, но требует проверки одинаковой высоты и responsive-поведения.
++Subtitle и Bottom опциональны. Ограничение Link требует собственного контракта Link и точной привязки его текстового слоя. В текущем Draft это открытая зависимость.
+ 
+-## Когда не использовать
++## Настройки вложенных компонентов
+ 
+-Не используй BenefitCard:
++### rule:components.benefit-card.image-view-segment-only
+ 
+-- без `Title` или `Graphic`;
+-- для длинного текста, сложной формы или произвольного контента;
+-- как отдельный `Graphic`, `ContentWrapper` или `BottomContent`;
+-- с графикой вне `Corp :: Image Library`;
+-- для частичного skeleton;
+-- с ручными padding, gap, radius, typography, fill, stroke, opacity или effects.
++В ImageView меняют только Segment. `Size=80`, `Crop=Center`; прочие настройки сохраняют по эталону. Сам ImageView не заменяют через instance swap.
+ 
+-## Модель контента
++### rule:components.benefit-card.compact-uses-secondary-title
+ 
+-| Часть | Требование |
+-|---|---|
+-| `Title` | Обязателен; до 60 символов и двух строк |
+-| `Subtitle` | Опционален; до 120 символов и трёх строк |
+-| `Graphic` | Обязателен; `Image`, `Icon` или `IconView` |
+-| `BottomContent` | Опционален; только `Presets=Link`, до 32 символов и одной строки |
++При `Compact=True` у Content используется `Title=Secondary`. При `Compact=False` допустимы `Primary` и `Secondary`. Выбор Compact по ширине ≤1024 px или по вместимости контента относится к [рецепту](cookbook/05-sizing-loading-and-actions.md).
+ 
+-Произвольный пятый слот не добавляй. `SwapMe` — служебный placeholder и не должен оставаться в готовом макете.
++### rule:components.benefit-card.background-plate-overrides
+ 
+-## Платформа и Compact
++У вложенного BackgroundPlate в контексте BenefitCard меняют только Type. Остальные настройки определяет [контракт BackgroundPlate](../background-plate/cookbook/01-overview.md); изменения Type проверяют по эталону выбранного Type. Снятые исключения для ручного fill у Colored и stroke у Border не применяются.
+ 
+-- `[D]` используется от `768 px`, `[M]` — ниже `768 px`.
+-- Для `[D] BenefitCard` при viewport `1024 px` и меньше обязательно `Compact=True`.
+-- Включай `Compact=True`, если контент не помещается в стандартный формат.
+-- Для `[M] BenefitCard` допустимы оба значения Compact.
+-- При `Compact=True` используй `ContentWrapper.Title=Secondary`.
+-- При `Compact=False` разрешены `Primary` и `Secondary`.
++### rule:components.benefit-card.color-tokens
+ 
+-## Композиция
++Для цветов обязательны токены библиотеки. Обязательность binding проверяется в r4; принадлежность разрешённой библиотеке требует каталога токенов BackgroundPlate. Raw color запрещён.
+ 
+-Все каталоговые сочетания разрешены:
++Публичные настройки IconView определяет отдельный контракт IconView. Размер, цвет и принадлежность glyph нужному набору относятся к общей проверке иконок; локальное правило BenefitCard не подменяет её.
+ 
+-- `CardAxis=Horizontal | Vertical`;
+-- `GraphicPosition=Left | Right`;
+-- `Background=True | False`;
+-- `Compact=True | False` с учётом правила desktop ≤1024 px.
++## Размер и внешний вид
+ 
+-Выбирай ось и позицию графики по контексту. Если видимые Title и Subtitle однострочные, центрируй контент; если Subtitle скрыт, однострочный Title также центрируется. При переносе Title или Subtitle выравнивай контент по верхнему краю.
++### rule:components.benefit-card.vertical-resizing-policy
+ 
+-## Графика
++Одиночная карточка использует Hug по высоте. Сборка равновысокой группы, Fill и Stopper относятся к рецепту группы.
+ 
+-- Источник графики — только `Corp :: Image Library`.
+-- При `Graphic.Presets=Image` заменяй содержимое `ImageView`; разрешён только override `Segment`.
+-- `Crop`, `Size` и остальные свойства ImageView сохраняй по effective baseline.
+-- При `Graphic.Presets=Icon` используй glyph из `glyph-26`; размер и цвет не меняй.
+-- При `Graphic.Presets=IconView` используй только публичные свойства по контракту IconView.
++### rule:components.benefit-card.text-alignment-protected
+ 
+-## Поверхность и loading
++Видимые текстовые слои используют горизонтальное выравнивание LEFT; ручные изменения запрещены. Правило выбора вертикального выравнивания по числу строк удалено.
+ 
+-`Background=True` создаёт самостоятельную карточку. `Background=False` разрешён на общей подложке и без дополнительной поверхности.
++### rule:components.benefit-card.visuals-follow-effective-baseline
+ 
+-Поверхность настраивается через вложенный `[Promo] BackgroundPlate`:
++Запрещены ручные изменения padding, gap, radius, typography, fill, stroke, opacity и effects относительно effective baseline выбранной конфигурации. Разрешённые публичные настройки дочерних компонентов проверяют по их контрактам. Пока точная дочерняя зависимость отсутствует, такой участок остаётся неполной проверкой.
+ 
+-- все штатные `Type` разрешены;
+-- `Type=Secondary` разрешён, но не рекомендуется;
+-- у `Colored` можно менять только токенизированный fill;
+-- у `Border` можно менять только токенизированный stroke;
+-- остальные настройки — по [`BackgroundPlate`](../background-plate/cookbook/01-overview.md).
++## Рекомендации и описание API
+ 
+-Skeleton разрешён только при `Background=True`, включается на вложенном BackgroundPlate и охватывает всю карточку: контент скрыт, взаимодействие заблокировано. Частичный skeleton запрещён.
++Type=Secondary у BackgroundPlate разрешён, но не рекомендуется. Это рекомендация, не нарушение.
+ 
+-## Sizing и взаимодействие
++Background=True включает собственную поверхность, False убирает её. Это описание параметра. Доступные CardAxis/GraphicPosition и варианты Graphic описывают API; сам перечень вариантов не является правилом.
+ 
+-- Одиночная BenefitCard: vertical resizing `Hug`.
+-- Равновысокая группа: vertical resizing `Fill`.
+-- `Stopper`: по умолчанию `Fill`; `Fixed` допустим, когда контент должен оставаться визуально цельным.
+-- Вся карточка может быть кликабельной.
+-- Карточка и `BottomContent.Link` могут быть активны одновременно только для одного и того же действия.
++## Рецепты и интерактивность
+ 
+-## Запрещено
++[Рецепт сборки](cookbook/05-sizing-loading-and-actions.md) хранит требования к полному skeleton, выбору Compact по контексту и группе карточек. Совпадение действий карточки и ссылки проверяют в интерактивном рецепте и коде. Предпочтение пресета Benefits относится к паттерну лендинга.
+ 
+-- скрывать Title или Graphic;
+-- использовать internal parts отдельно;
+-- оставлять `BottomContent.Presets=SwapMe`;
+-- менять у Link что-либо, кроме текста;
+-- использовать произвольную графику или icon не из `glyph-26`;
+-- менять ImageView Crop/Size;
+-- задавать raw colors;
+-- делать разные действия у карточки и ссылки;
+-- cross-family instance swap;
+-- вручную менять visual baseline.
++## Проверка и ограничения
+ 
+-## Lifecycle dependency
++[Порядок проверки](cookbook/06-verify.md). В r4 есть 21 исходное правило и 37 технических проверок; четыре нормы ожидают Link, IconView или admission gate внутренних частей. Native bindings закреплены для 32 вариантов. Локальные проверки не подтверждают полную live-приёмку или code parity.
+ 
+-Связанный продуктовый паттерн [`benefit-card.md`](../../patterns/benefit-card.md) пока имеет
+-`status: draft`. Verified-статус этого component package подтверждает описанные здесь границы и
+-исполняемую механику, но не повышает статус паттерна целиком. Правило паттерна, которое не повторено
+-в verified-файлах пакета, применяй с меткой `[VERIFY dependency]`.
++Библиотечные эталоны по высоте FIXED расходятся с нормой одиночной карточки Hug. У desktop Compact=True захвачен Title=Primary, хотя норма требует Secondary. Эти расхождения не отменяют принятые нормы и требуют отдельной правки библиотеки.
+ 
+ ## Evidence
+ 
+-- Curated source: `design-system_ab/JSONS/web/components/web-corp-promo/BenefitCard/README.md` и manual-секции соседних JSON-контрактов.
+-- Raw structure: `Web _ Сorp Promo Components -- BenefitCard.json`.
+-- Source SHA: `9043406327519a98adcc99b2c7cbd9c8f5dcb04d`.
+-- Live Figma checked: 2026-07-29, page `3:476`.
+-- Прямой Code Connect BenefitCard не найден; runtime существование Corp components подтверждено владельцем. Точные import/props остаются `[VERIFY]`.
++Решения владельца: 09.10.2026. Рабочий источник: current-contract-packages/BenefitCard/authoring/contract.manual.json, r4. Историческая проверка библиотеки 29.07.2026 сохраняется как происхождение; новая полная приёмка не заявлена. Code API и generation parity остаются по существующему evidence и требуют отдельной проверки.
+diff --git a/products/ab/patterns/benefit-card.md b/products/ab/patterns/benefit-card.md
+index 877d6ea..15ccb39 100644
+--- a/products/ab/patterns/benefit-card.md
++++ b/products/ab/patterns/benefit-card.md
+@@ -4,447 +4,30 @@ layer: product
+ product: ab
+ platforms: [web]
+ targets: []
+-status: verified
+-lastReviewed: 2026-07-20
++status: draft
++lastReviewed: 2026-10-09
+ ---
+ 
+-# Pattern: BenefitCard
++# BenefitCard: рецепты сборки
+ 
+-- documentType: pattern
+-- patternType: component
+-- component: BenefitCard
+-- patternId: ptrn:components.benefit-card
+-- patternKey: components.benefit-card
+-- productType: alfa-business
+-- platforms: desktop, mobileweb, adaptive
+-- locale: ru-RU
+-- owner: Editorial / Design System
+-- status: active
+-- updatedAt: 2026-07-20
+-- sourceType: component-guideline
+-- tags: benefit-card, benefits, promo, graphic, compact, responsive, web-corp-promo
+-- figmaLink: none
+-- relatedPatterns:
+-  - ptrn:media.images-and-formats
+-  - ptrn:components.background-plate
+-  - ptrn:components.link
+-- sections: 10
++Компонентные нормы и публичные границы описаны в [BenefitCard instructions](../components/benefit-card/instructions.md). Этот документ хранит контекст сборки и поведения.
+ 
+-## Section 1: Определение
++## Интерактивность
+ 
+-`BenefitCard` показывает преимущество, функцию или ключевое ценностное предложение с помощью короткого текста и графики.
++Карточка и Bottom.Link могут быть кликабельны. При одновременной активности они выполняют одно действие и ведут в один сценарий. Проверка относится к интерактивному рецепту и коду.
+ 
+-Публичные корни:
++## Производство и загрузка
+ 
+-- `[D] BenefitCard` для desktop при ширине `768 px` и больше;
+-- `[M] BenefitCard` для Mobile Web при ширине меньше `768 px`.
++Полный skeleton собирают с Background=True: состояние задаётся контрактом BackgroundPlate, контент скрыт, взаимодействие заблокировано. Частичную загрузку не используют.
+ 
+-`BottomContent`, `ContentWrapper` и `Graphic` являются служебными частями и не используются отдельно.
++## Compact по контексту
+ 
+-## Section 2: Когда использовать
++На desktop при viewport ≤1024 px используют Compact=True; также включают его при недостатке места. Проверка вместимости относится к экрану и рецепту. Title=Secondary при включённом Compact остаётся компонентной нормой.
+ 
+-Используйте BenefitCard, когда нужно:
++## Группа и лендинг
+ 
+-- кратко показать преимущество продукта или сервиса;
+-- объяснить отдельную функцию;
+-- собрать несколько ценностных предложений в группу карточек;
+-- дополнить короткий текст изображением, иконкой или `IconView`;
+-- сделать карточку точкой перехода в связанный сценарий.
++При сборке равновысокой группы используют Fill по высоте; Stopper выбирают по рецепту. Предпочтение пресета Benefits относится к паттерну лендинга. Одиночная карточка сохраняет Hug по высоте.
+ 
+-Для группы карточек предпочтительно использовать пресет `🔒 Benefits`.
++## Evidence
+ 
+-## Section 3: Когда не использовать
+-
+-Не используйте BenefitCard:
+-
+-- без `Title` или `Graphic`;
+-- для длинного текста, сложной формы или произвольной композиции;
+-- как самостоятельный `Graphic`, `ContentWrapper` или `BottomContent`;
+-- с графикой вне `Corp :: Image Library`;
+-- с произвольными визуальными настройками внутренних слоёв;
+-- для частичного skeleton отдельных областей карточки.
+-
+-## Section 4: Принципы
+-
+-1. `Title` и `Graphic` обязательны.
+-2. `Subtitle` и одна ссылка `BottomContent` опциональны.
+-3. Состав карточки закрыт для произвольных элементов.
+-4. Все каталоговые сочетания `CardAxis` и `GraphicPosition` разрешены и выбираются по контексту.
+-5. Для `[D] BenefitCard` при ширине `1024 px` и меньше обязателен `Compact=True`.
+-6. Для `[M] BenefitCard` `Compact` не обязателен.
+-7. При `Compact=True` используется `ContentWrapper.Title=Secondary`.
+-8. `Background=True` создаёт самостоятельную карточку; `Background=False` разрешён на общей подложке и без неё.
+-9. Skeleton доступен только при `Background=True` и охватывает всю карточку.
+-10. Внутренние визуальные свойства следуют effective baseline с явно описанными исключениями.
+-
+-## Section 5: Структура текста
+-
+-### Title
+-
+-- обязателен;
+-- не длиннее `60` символов;
+-- занимает не более двух строк;
+-- использует `Secondary` при `Compact=True`;
+-- при `Compact=False` может использовать `Primary` или `Secondary`.
+-
+-### Subtitle
+-
+-- опционален;
+-- не длиннее `120` символов;
+-- занимает не более трёх строк.
+-
+-### BottomContent.Link
+-
+-- опционален;
+-- доступен только через `Presets=Link`;
+-- содержит не более `32` символов;
+-- занимает одну строку;
+-- допускает изменение только текста.
+-
+-### Graphic
+-
+-- обязателен;
+-- поддерживает `Image`, `Icon` и `IconView`;
+-- использует графику только из `Corp :: Image Library`;
+-- для `Image` заменяется содержимое `ImageView`, где разрешено менять только `Segment`;
+-- для `Icon` выбирается glyph из `glyph-26`, а размер и цвет сохраняются по effective baseline;
+-- для `IconView` доступны все публичные настройки по контракту `IconView`.
+-
+-## Section 6: Правила
+-
+-### Rule 1: Используй публичный корень
+-
+-- ruleId: rule:components.benefit-card.public-roots-only
+-- severity: error
+-- appliesTo: component
+-- checkType: deterministic
+-- autofix: partial
+-
+-Используй `[D] BenefitCard` или `[M] BenefitCard`. Не используй служебные части отдельно.
+-
+-### Rule 2: Выбирай версию по платформе
+-
+-- ruleId: rule:components.benefit-card.platform-version-must-match
+-- severity: error
+-- appliesTo: component
+-- checkType: deterministic
+-- autofix: partial
+-
+-Используй `[D] BenefitCard` при ширине `768 px` и больше, `[M] BenefitCard` — при ширине меньше `768 px`.
+-
+-### Rule 3: Сохраняй обязательный контент
+-
+-- ruleId: rule:components.benefit-card.title-and-graphic-required
+-- severity: error
+-- appliesTo: component
+-- checkType: deterministic
+-- autofix: partial
+-
+-Не скрывай `Title` и `Graphic`. `Subtitle` и `BottomContent.Link` можно скрывать.
+-
+-### Rule 4: Включай Compact для desktop до 1024 px
+-
+-- ruleId: rule:components.benefit-card.compact-required-at-1024
+-- severity: error
+-- appliesTo: variant.Compact
+-- checkType: deterministic
+-- autofix: yes
+-
+-Для `[D] BenefitCard` при ширине `1024 px` и меньше используй `Compact=True`. Также включай Compact, когда контент не помещается в стандартный формат. Для `[M] BenefitCard` Compact не обязателен.
+-
+-### Rule 5: Используй Secondary в Compact
+-
+-- ruleId: rule:components.benefit-card.compact-uses-secondary-title
+-- severity: error
+-- appliesTo: variant.Title
+-- checkType: deterministic
+-- autofix: yes
+-
+-При `Compact=True` используй `ContentWrapper.Title=Secondary`. При `Compact=False` разрешены `Primary` и `Secondary`.
+-
+-### Rule 6: Ограничивай длину текста
+-
+-- ruleId: rule:components.benefit-card.content-limits
+-- severity: error
+-- appliesTo: text
+-- checkType: deterministic
+-- autofix: no
+-
+-Соблюдай лимиты: `Title` — 60 символов и две строки, `Subtitle` — 120 символов и три строки, `Link` — 32 символа и одна строка.
+-
+-### Rule 7: Используй графику из библиотеки
+-
+-- ruleId: rule:components.benefit-card.graphic-library-required
+-- severity: error
+-- appliesTo: component
+-- checkType: manual
+-- autofix: partial
+-
+-Бери изображения, иконки и `IconView` из `Corp :: Image Library`. Для `Icon` используй набор `glyph-26`.
+-
+-### Rule 8: Ограничивай настройки ImageView
+-
+-- ruleId: rule:components.benefit-card.image-view-segment-only
+-- severity: error
+-- appliesTo: component.ImageView
+-- checkType: deterministic
+-- autofix: partial
+-
+-В `ImageView` можно менять только `Segment`. `Crop`, `Size` и остальные свойства следуют effective baseline.
+-
+-### Rule 9: Сохраняй визуальные параметры Icon
+-
+-- ruleId: rule:components.benefit-card.icon-visuals-follow-baseline
+-- severity: error
+-- appliesTo: component.Icon
+-- checkType: deterministic
+-- autofix: partial
+-
+-Можно заменить glyph в пределах `glyph-26`. Размер, цвет и остальные визуальные свойства иконки менять нельзя.
+-
+-### Rule 10: Используй только Link
+-
+-- ruleId: rule:components.benefit-card.bottom-content-link-only
+-- severity: error
+-- appliesTo: component.BottomContent
+-- checkType: deterministic
+-- autofix: partial
+-
+-В готовом макете `BottomContent` допускает только `Presets=Link`. `SwapMe` является placeholder. У Link можно менять только текст.
+-
+-### Rule 11: Не добавляй произвольный контент
+-
+-- ruleId: rule:components.benefit-card.content-is-closed
+-- severity: error
+-- appliesTo: component
+-- checkType: deterministic
+-- autofix: partial
+-
+-Состав ограничен обязательными `Title` и `Graphic`, опциональным `Subtitle` и одной ссылкой `BottomContent`.
+-
+-### Rule 12: Выравнивай по количеству строк
+-
+-- ruleId: rule:components.benefit-card.content-alignment-follows-lines
+-- severity: error
+-- appliesTo: layout.alignment
+-- checkType: manual
+-- autofix: partial
+-
+-Центрируй контент, когда `Title` и `Subtitle` занимают по одной строке. При скрытом `Subtitle` центрируй однострочный `Title`. Если отображаемый текст переносится, выравнивай контент по верхнему краю.
+-
+-### Rule 13: Соблюдай вертикальный resizing
+-
+-- ruleId: rule:components.benefit-card.vertical-resizing-policy
+-- severity: error
+-- appliesTo: layout.sizing.vertical
+-- checkType: deterministic
+-- autofix: partial
+-
+-Одиночная карточка использует `Hug`. Для выравнивания карточек в группе разрешён `Fill`. `Stopper` использует `Fill`; `Fixed` допустим, когда контент должен оставаться визуально цельным.
+-
+-### Rule 14: Применяй skeleton ко всей карточке
+-
+-- ruleId: rule:components.benefit-card.skeleton-covers-entire-card
+-- severity: error
+-- appliesTo: variant.Skeleton
+-- checkType: deterministic
+-- autofix: partial
+-
+-Skeleton разрешён только при `Background=True`. Он скрывает весь контент и блокирует взаимодействие всей BenefitCard. Частичный skeleton и skeleton при `Background=False` запрещены.
+-
+-### Rule 15: Настраивай поверхность штатно
+-
+-- ruleId: rule:components.benefit-card.background-plate-overrides
+-- severity: error
+-- appliesTo: component.BackgroundPlate
+-- checkType: deterministic
+-- autofix: partial
+-
+-Разрешены все штатные `Type` вложенного `[Promo] BackgroundPlate`. Для `Colored` можно менять токенизированный цвет заливки, для `Border` — токенизированный цвет обводки. Остальные свойства следуют контракту BackgroundPlate.
+-
+-### Rule 16: Избегай Secondary
+-
+-- ruleId: rule:components.benefit-card.secondary-surface-not-recommended
+-- severity: warning
+-- appliesTo: variant.Type
+-- checkType: deterministic
+-- autofix: partial
+-
+-`Type=Secondary` разрешён, но не рекомендуется для BenefitCard.
+-
+-### Rule 17: Объединяй действия карточки и ссылки
+-
+-- ruleId: rule:components.benefit-card.card-and-link-actions-match
+-- severity: error
+-- appliesTo: interaction
+-- checkType: manual
+-- autofix: partial
+-
+-BenefitCard может быть целиком кликабельной и одновременно содержать `BottomContent.Link`, но оба элемента должны выполнять одно действие.
+-
+-### Rule 18: Сохраняй effective baseline
+-
+-- ruleId: rule:components.benefit-card.visuals-follow-effective-baseline
+-- severity: error
+-- appliesTo: component
+-- checkType: deterministic
+-- autofix: partial
+-
+-Не меняй внутренние отступы, интервалы, скругления, типографику, opacity и эффекты. Исключения перечислены в правилах `ImageView`, `IconView`, resizing и BackgroundPlate.
+-
+-### Rule 19: Используй Benefits для группы
+-
+-- ruleId: rule:components.benefit-card.use-benefits-preset-for-groups
+-- severity: warning
+-- appliesTo: composition
+-- checkType: manual
+-- autofix: partial
+-
+-Для группы карточек предпочтительно используй пресет `🔒 Benefits`. Ручная группировка допустима, но требует проверки размеров и поведения карточек.
+-
+-## Section 7: Шаблоны
+-
+-### Самостоятельная карточка
+-
+-```text
+-[D] BenefitCard
+-  Background=True
+-  Compact=False
+-  Graphic=Image
+-  Title
+-  Subtitle
+-```
+-
+-### Группа карточек
+-
+-```text
+-🔒 Benefits
+-  BenefitCard Background=False VerticalResizing=Fill
+-  BenefitCard Background=False VerticalResizing=Fill
+-  BenefitCard Background=False VerticalResizing=Fill
+-```
+-
+-### Compact desktop
+-
+-```text
+-[D] BenefitCard
+-  viewport=1024
+-  Compact=True
+-  ContentWrapper.Title=Secondary
+-```
+-
+-### Состояние загрузки
+-
+-```text
+-BenefitCard Background=True
+-  [Promo] BackgroundPlate Skeleton=True
+-  Content hidden
+-  Interaction blocked
+-```
+-
+-## Section 8: Примеры
+-
+-### Изображение
+-
+-```text
+-Graphic.Presets=Image
+-ImageView.Segment=MMB
+-Source=Corp :: Image Library
+-```
+-
+-### Иконка
+-
+-```text
+-Graphic.Presets=Icon
+-Glyph=glyph-26
+-Size and color=effective baseline
+-```
+-
+-### Кликабельная карточка со ссылкой
+-
+-```text
+-Card action=open-details
+-BottomContent.Link action=open-details
+-```
+-
+-## Section 9: Антипримеры
+-
+-### Служебная часть отдельно
+-
+-```text
+-[D] Graphic
+-```
+-
+-### Не компактная desktop-карточка при 1024 px
+-
+-```text
+-[D] BenefitCard Compact=False viewport=1024
+-```
+-
+-### Произвольный контент
+-
+-```text
+-BenefitCard
+-  Title
+-  Graphic
+-  Custom form
+-```
+-
+-### Частичный skeleton
+-
+-```text
+-Background=False
+-Graphic Skeleton=True
+-```
+-
+-### Разные действия
+-
+-```text
+-Card action=open-details
+-Link action=open-application
+-```
+-
+-## Section 10: Машинная обработка
+-
+-### Детерминированные проверки
+-
+-- Проверять публичный корень и платформенную версию.
+-- Проверять обязательные `Title` и `Graphic`.
+-- Проверять `Compact=True` у `[D]` при ширине до `1024 px`.
+-- Проверять `Title=Secondary` при `Compact=True`.
+-- Проверять длину и число строк текстов.
+-- Проверять отсутствие `SwapMe` и произвольного контента.
+-- Проверять `ImageView`: разрешён только override `Segment`.
+-- Проверять glyph из `glyph-26`, неизменные размер и цвет иконки.
+-- Проверять sizing BenefitCard и `Stopper`.
+-- Проверять skeleton всей карточки только при `Background=True`.
+-- Проверять токенизацию цветов `Colored` и `Border`.
+-- Показывать warning для `Type=Secondary`.
+-- Проверять визуальные свойства по effective baseline.
+-
+-### Словарные проверки
+-
+-- Проверять наличие графического источника `Corp :: Image Library` по metadata источника, когда она доступна.
+-
+-### LLM-проверки
+-
+-- Проверять уместность `CardAxis` и `GraphicPosition` в контексте композиции.
+-- Проверять выбор `Image`, `Icon` или `IconView` по смыслу контента.
+-- Проверять согласованность действия кликабельной карточки и ссылки.
+-- Проверять необходимость ручной группировки вместо `🔒 Benefits`.
+-- Проверять выбор будущей сегментной палитры после появления правил ММБ, СБ и КИБ.
+-
+-### Не проверяется автоматически
+-
+-- Фактическая навигация без интерактивного прототипа.
+-- Происхождение изображения без metadata библиотеки.
+-- Реальный viewport, если он не передан в контекст аудита.
+-- Смысловая уместность текста и графики.
+-
+-### Автоисправления
+-
+-- Включить `Compact=True` у `[D]` на ширине до `1024 px`.
+-- Установить `ContentWrapper.Title=Secondary` для Compact.
+-- Сбросить визуальные изменения к effective baseline.
+-- Заменить `SwapMe` на `Link` или скрыть `BottomContent`.
+-- Предложить собрать группу через `🔒 Benefits`.
++Классификация владельца 09.10.2026. Runtime handlers/action IDs и code parity этим документом не объявлены принятыми. Сборка: [cookbook](../components/benefit-card/cookbook/01-overview.md).

@@ -1,0 +1,1165 @@
+{
+  "status": "FAILED_LIVE_QUANTITY_COVERAGE_REFERENCE_PIN_STALE",
+  "reviewedAt": "2026-10-09T09:10:12.397282+03:00",
+  "component": "BenefitCard",
+  "revision": 2,
+  "archiveSha256": "1dcf8a49ec132fa6c1034a590cf26ac04582ed718fd4efe7f8f23b5d4610ff2f",
+  "sourceNorms": 30,
+  "compiledChecks": 2,
+  "contextOnlyNorms": 29,
+  "userRuns": 10,
+  "determinateCompliant": 0,
+  "violations": 0,
+  "humanReviewResults": 20,
+  "rootCause": "Все root/title/graphic identity bindings отвергнуты как reference-pin-stale. semanticTargets пусты; quantity assertion не исполняется.",
+  "observedIdentityDrift": "Pinned referenceHash отличается от актуального полного variantReference; expected nativeSource.ownerMainComponentId также отличается от captured ownerMainComponentId при совпадающем ownerComponentKey/sourceNodeId в базовых случаях.",
+  "requiredRepair": [
+    "Сверить независимый актуальный эталон и identity bindings Title/Graphic на desktop/mobile-web; учитывать перенос remote main в другой Figma документ без ослабления identity/lineage guards.",
+    "Воспроизвести исходные отчёты: hidden Title/Graphic должны дать нарушение, normal/reset — compliant; исходные unknown отчёты сохраняются.",
+    "29 context-only норм отдельно классифицировать и типизировать: исправление target identity само не включает их проверки."
+  ],
+  "EditorCompilerRuntimeChanged": false,
+  "packageChanged": false,
+  "runs": [
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-02-53-397Z.json",
+      "sha256": "9fee924a28a7a52efb242044908240f47d33288728323be5fe0323dca78f1cb6",
+      "selectedRoot": "13563:97347",
+      "selectedName": "[D] BenefitCard",
+      "platform": "desktop",
+      "componentKey": "f4bf880ba158305302c367965268c48643719697",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97347;17:14404",
+          "path": "[D] BenefitCard / GraphicContainer / [D] Graphic",
+          "visible": true
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97347;17:12766;17:12823",
+          "path": "[D] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": true
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12823",
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "11298:144306"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "12615:11223",
+            "sourceNodeId": "17:12823"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:14404",
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "11298:144321"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "12615:11284",
+            "sourceNodeId": "17:14404"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-03-14-611Z.json",
+      "sha256": "3290a334ab9a0f80dc57a02d8854365ad1395dfd662b4304858e8fe881064ed5",
+      "selectedRoot": "13563:97371",
+      "selectedName": "[D] BenefitCard",
+      "platform": "desktop",
+      "componentKey": "f4bf880ba158305302c367965268c48643719697",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97371;17:14404",
+          "path": "[D] BenefitCard / GraphicContainer / [D] Graphic",
+          "visible": true
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97371;17:12766;17:12823",
+          "path": "[D] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": false
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12823",
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "11298:144306"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "12615:11223",
+            "sourceNodeId": "17:12823"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:14404",
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "11298:144321"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "12615:11284",
+            "sourceNodeId": "17:14404"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-03-21-017Z.json",
+      "sha256": "791c6f5e350b452c9e06d9485096a0366d99dbbc8ef2888b991cb6d5025f6933",
+      "selectedRoot": "13563:97395",
+      "selectedName": "[D] BenefitCard",
+      "platform": "desktop",
+      "componentKey": "f4bf880ba158305302c367965268c48643719697",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97395;17:14404",
+          "path": "[D] BenefitCard / GraphicContainer / [D] Graphic",
+          "visible": true
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97395;17:12766;17:12823",
+          "path": "[D] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": true
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12823",
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "11298:144306"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "12615:11223",
+            "sourceNodeId": "17:12823"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:14404",
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "11298:144321"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "12615:11284",
+            "sourceNodeId": "17:14404"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-03-29-875Z.json",
+      "sha256": "d6cedb22a73c732d82c2cd9d5f1d87f11156ec708dd4e0261375a6a582fbf849",
+      "selectedRoot": "13563:97423",
+      "selectedName": "[D] BenefitCard",
+      "platform": "desktop",
+      "componentKey": "f4bf880ba158305302c367965268c48643719697",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97423;17:14404",
+          "path": "[D] BenefitCard / GraphicContainer / [D] Graphic",
+          "visible": true
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97423;17:12766;17:12823",
+          "path": "[D] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": true
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12823",
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "11298:144306"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "12615:11223",
+            "sourceNodeId": "17:12823"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:14404",
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "11298:144321"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "12615:11284",
+            "sourceNodeId": "17:14404"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-03-37-033Z.json",
+      "sha256": "b78c887c01cafa2ac680de046ef41935e7977ec315344f226d708a67003436d4",
+      "selectedRoot": "13563:97447",
+      "selectedName": "[D] BenefitCard",
+      "platform": "desktop",
+      "componentKey": "f4bf880ba158305302c367965268c48643719697",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97447;17:14404",
+          "path": "[D] BenefitCard / GraphicContainer / [D] Graphic",
+          "visible": false
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97447;17:12766;17:12823",
+          "path": "[D] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": true
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12823",
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "11298:144306"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "12615:11223",
+            "sourceNodeId": "17:12823"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:14404",
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "11298:144321"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "12615:11284",
+            "sourceNodeId": "17:14404"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-03-44-374Z.json",
+      "sha256": "5d12f456dc170755767e3cb2c063219b200238497545b7a54ca934ce507777ae",
+      "selectedRoot": "13563:97501",
+      "selectedName": "[M] BenefitCard",
+      "platform": "mobile-web",
+      "componentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97501;17:12784",
+          "path": "[M] BenefitCard / GraphicContainer / [M] Graphic",
+          "visible": true
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97501;17:12785;17:12855",
+          "path": "[M] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": true
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12855",
+            "ownerComponentKey": "c268ce79a17e465ecb808ea4ee01b0075eed23b8",
+            "ownerMainComponentId": "11259:15685"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "c268ce79a17e465ecb808ea4ee01b0075eed23b8",
+            "ownerMainComponentId": "12621:11249",
+            "sourceNodeId": "17:12855"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12784",
+            "ownerComponentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+            "ownerMainComponentId": "11259:15707"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+            "ownerMainComponentId": "12621:11306",
+            "sourceNodeId": "17:12784"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-03-51-417Z.json",
+      "sha256": "0a7f8f08adf310209aa6b6b0192e2ab7d54c3d502b563f5177ae57ec51beb6ac",
+      "selectedRoot": "13563:97525",
+      "selectedName": "[M] BenefitCard",
+      "platform": "mobile-web",
+      "componentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97525;17:12784",
+          "path": "[M] BenefitCard / GraphicContainer / [M] Graphic",
+          "visible": true
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97525;17:12785;17:12855",
+          "path": "[M] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": false
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12855",
+            "ownerComponentKey": "c268ce79a17e465ecb808ea4ee01b0075eed23b8",
+            "ownerMainComponentId": "11259:15685"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "c268ce79a17e465ecb808ea4ee01b0075eed23b8",
+            "ownerMainComponentId": "12621:11249",
+            "sourceNodeId": "17:12855"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12784",
+            "ownerComponentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+            "ownerMainComponentId": "11259:15707"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+            "ownerMainComponentId": "12621:11306",
+            "sourceNodeId": "17:12784"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-03-59-352Z.json",
+      "sha256": "2eb9da5b313371fcafbe1dc3c3134cef84f3c97342354e88367196f497f44dd5",
+      "selectedRoot": "13563:97577",
+      "selectedName": "[M] BenefitCard",
+      "platform": "mobile-web",
+      "componentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97577;17:12784",
+          "path": "[M] BenefitCard / GraphicContainer / [M] Graphic",
+          "visible": true
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97577;17:12785;17:12855",
+          "path": "[M] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": true
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12855",
+            "ownerComponentKey": "c268ce79a17e465ecb808ea4ee01b0075eed23b8",
+            "ownerMainComponentId": "11259:15685"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "c268ce79a17e465ecb808ea4ee01b0075eed23b8",
+            "ownerMainComponentId": "12621:11249",
+            "sourceNodeId": "17:12855"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12784",
+            "ownerComponentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+            "ownerMainComponentId": "11259:15707"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+            "ownerMainComponentId": "12621:11306",
+            "sourceNodeId": "17:12784"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-04-05-243Z.json",
+      "sha256": "146fa29c2d2bac47b601c0ba4354291f7487416e89ff8c7978a00dab5ec26678",
+      "selectedRoot": "13563:97601",
+      "selectedName": "[M] BenefitCard",
+      "platform": "mobile-web",
+      "componentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97601;17:12784",
+          "path": "[M] BenefitCard / GraphicContainer / [M] Graphic",
+          "visible": false
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97601;17:12785;17:12855",
+          "path": "[M] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": true
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12855",
+            "ownerComponentKey": "c268ce79a17e465ecb808ea4ee01b0075eed23b8",
+            "ownerMainComponentId": "11259:15685"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "c268ce79a17e465ecb808ea4ee01b0075eed23b8",
+            "ownerMainComponentId": "12621:11249",
+            "sourceNodeId": "17:12855"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "a29f664629d729cf3a89f18595767dd8702873e61e743e458ce597006b77e2ab",
+          "actualReferenceHash": "d0cc267035a684f81ff75dc556f7f0091915a7c882cb2ed538fcabdcebf0a650",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12784",
+            "ownerComponentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+            "ownerMainComponentId": "11259:15707"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "6561ac087a33424016baae244032f60fa2dd6cfc",
+            "ownerMainComponentId": "12621:11306",
+            "sourceNodeId": "17:12784"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "benefit-card.validation-report.2026-10-09T06-05-35-415Z.json",
+      "sha256": "25b52319a5095c64df03b13eefb326fb69878f2b7b7c18c73d0f36b6f55b7e4b",
+      "selectedRoot": "13563:97347",
+      "selectedName": "[D] BenefitCard",
+      "platform": "desktop",
+      "componentKey": "f4bf880ba158305302c367965268c48643719697",
+      "complete": false,
+      "notExecuted": 29,
+      "inconclusive": 2,
+      "visibility": [
+        {
+          "nodeId": "preview:2",
+          "figmaNodeId": "I13563:97347;17:14404",
+          "path": "[D] BenefitCard / GraphicContainer / [D] Graphic",
+          "visible": true
+        },
+        {
+          "nodeId": "preview:13",
+          "figmaNodeId": "I13563:97347;17:12766;17:12823",
+          "path": "[D] BenefitCard / ContentWrapper / Content / Content / Title / value",
+          "visible": true
+        }
+      ],
+      "identityLedger": {
+        "schemaVersion": "apollo.declared-target-identities.v1",
+        "manualSourceHash": "417dba3b3391c9a9b69552c4e75bbefdf2a79217408b70b5fc8fb67ee44cda2d",
+        "targets": [
+          {
+            "targetId": "target.root",
+            "semanticRole": "root",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.title",
+            "semanticRole": "title",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          },
+          {
+            "targetId": "target.graphic",
+            "semanticRole": "graphic",
+            "status": "unknown",
+            "reason": "reference-pin-stale"
+          }
+        ],
+        "referenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f"
+      },
+      "pinMismatches": [
+        {
+          "targetId": "target.root",
+          "role": "root",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": null,
+          "actualNativeSource": null
+        },
+        {
+          "targetId": "target.title",
+          "role": "title",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:12823",
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "11298:144306"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "b931b7203e9188ca4daa335b2bc8ec9cead5fbb4",
+            "ownerMainComponentId": "12615:11223",
+            "sourceNodeId": "17:12823"
+          }
+        },
+        {
+          "targetId": "target.graphic",
+          "role": "graphic",
+          "expectedReferenceHash": "5dbafb47dc4d1d1dff9b8b80f40a24e6cfd6f0c682a76b2aba15e96c4a43dc79",
+          "actualReferenceHash": "e2a7198d0e787992831ddf3e5cb86a9d7beeb13c953847d3aa409d911343dd8f",
+          "expectedNativeSource": {
+            "sourceNodeId": "17:14404",
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "11298:144321"
+          },
+          "actualNativeSource": {
+            "version": 1,
+            "ownerComponentKey": "f4bf880ba158305302c367965268c48643719697",
+            "ownerMainComponentId": "12615:11284",
+            "sourceNodeId": "17:14404"
+          }
+        }
+      ],
+      "evaluations": [
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.1",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.title.resolved",
+            "semanticTargets.title.visibilityKnown"
+          ]
+        },
+        {
+          "ruleId": "component:web.benefit-card.title-and-graphic-required.1.2",
+          "classification": "human-review",
+          "applicability": "unknown",
+          "factPaths": [
+            "semanticTargets.graphic.resolved",
+            "semanticTargets.graphic.visibilityKnown"
+          ]
+        }
+      ]
+    }
+  ]
+}

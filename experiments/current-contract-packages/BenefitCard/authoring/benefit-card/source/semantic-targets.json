@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "documentType": "generation-semantic-target-map",
+  "componentId": "BenefitCard",
+  "sourceContract": "contract.generated.json",
+  "profiles": [
+    {
+      "id": "desktop-landing-item",
+      "platform": "desktop",
+      "contractId": "benefit-card.desktop",
+      "publicRoot": "[D] BenefitCard",
+      "verification": {
+        "source": "contract.generated.json",
+        "liveInstanceVerified": false
+      },
+      "targets": [
+        {
+          "id": "variant.compact",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "Compact",
+          "values": { "true": "True", "false": "False" }
+        },
+        {
+          "id": "variant.background",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "Background",
+          "values": { "true": "True", "false": "False" }
+        },
+        {
+          "id": "variant.cardAxis",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "CardAxis",
+          "values": { "horizontal": "Horizontal", "vertical": "Vertical" }
+        },
+        {
+          "id": "variant.graphicPosition",
+          "kind": "variant-property",
+          "supported": true,
+          "property": "GraphicPosition",
+          "values": { "left": "Left", "right": "Right" }
+        },
+        {
+          "id": "content.titleStyle",
+          "kind": "unsupported",
+          "supported": false,
+          "reason": "В anatomy BenefitCard ContentWrapper экспортирован как FRAME, поэтому его Title property нельзя надёжно настроить через InstanceNode.setProperties."
+        },
+        {
+          "id": "content.title",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "ContentWrapper / Content / Content / Title / value",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.subtitle",
+          "kind": "text",
+          "supported": true,
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "ContentWrapper / Content / Content / Subtitle / value",
+              "nodeTypes": ["TEXT"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.graphicKind",
+          "kind": "instance-property",
+          "supported": true,
+          "property": "Presets",
+          "values": { "image": "Image", "icon": "Icon", "icon-view": "IconView" },
+          "selectors": [
+            {
+              "strategy": "path-suffix",
+              "path": "GraphicContainer / [D] Graphic",
+              "nodeTypes": ["INSTANCE"],
+              "occurrence": 0
+            }
+          ],
+          "writePolicy": "first"
+        },
+        {
+          "id": "content.graphic",
+          "kind": "unsupported",
+          "supported": false,
+          "reason": "Каталог не описывает стабильную операцию выбора или подмены конкретного graphic asset."
+        },
+        {
+          "id": "content.bottomAction",
+          "kind": "unsupported",
+          "supported": false,
+          "reason": "BottomContent представлен placeholder-веткой без подтверждённой публичной операции настройки action."
+        }
+      ]
+    }
+  ]
+}

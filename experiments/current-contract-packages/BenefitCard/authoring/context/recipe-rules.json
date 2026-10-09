@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "apollo.component-recipe-context.v1",
+  "componentId": "web.benefit-card",
+  "status": "draft",
+  "date": "2026-10-09",
+  "rules": [
+    {
+      "sourceRule": {
+        "id": "component:web.benefit-card-card-and-link-actions-match",
+        "targetId": "target.root",
+        "targetScope": "self",
+        "capability": "interaction",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "needs-confirmation"
+        },
+        "severity": "error",
+        "rationale": "Если кликабельны и вся BenefitCard, и BottomContent.Link, они должны вести в один сценарий и выполнять одно действие.",
+        "message": "Если кликабельны и вся BenefitCard, и BottomContent.Link, они должны вести в один сценарий и выполнять одно действие.",
+        "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "Подтверждённый контекст сценария и ручная/политическая проверка: interaction"
+          ]
+        }
+      },
+      "ownerLayer": "interactive-recipe"
+    },
+    {
+      "sourceRule": {
+        "id": "component:web.benefit-card-card-and-link-may-be-clickable",
+        "targetId": "target.root",
+        "targetScope": "self",
+        "capability": "interaction",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "needs-confirmation"
+        },
+        "severity": "info",
+        "rationale": "Вся BenefitCard может быть кликабельной. Одновременно разрешено использовать отдельную ссылку через BottomContent=Link, но карточка и ссылка должны выполнять одно действие.",
+        "message": "Вся BenefitCard может быть кликабельной. Одновременно разрешено использовать отдельную ссылку через BottomContent=Link, но карточка и ссылка должны выполнять одно действие.",
+        "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "Подтверждённый контекст сценария и ручная/политическая проверка: interaction"
+          ]
+        }
+      },
+      "ownerLayer": "interactive-recipe"
+    },
+    {
+      "sourceRule": {
+        "id": "component:web.benefit-card-skeleton-covers-entire-card",
+        "targetId": "target.root",
+        "targetScope": "self",
+        "capability": "variant.Skeleton",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "needs-confirmation"
+        },
+        "severity": "error",
+        "rationale": "Skeleton доступен только при Background=True. Состояние загрузки включается через Skeleton вложенного [Promo] BackgroundPlate и охватывает всю BenefitCard: контент скрыт, взаимодействие заблокировано. При Background=False Skeleton не используй.",
+        "message": "Skeleton доступен только при Background=True. Состояние загрузки включается через Skeleton вложенного [Promo] BackgroundPlate и охватывает всю BenefitCard: контент скрыт, взаимодействие заблокировано. При Background=False Skeleton не используй.",
+        "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "Типизированные факты состояния, доступности взаимодействия и идентичности действий."
+          ]
+        }
+      },
+      "ownerLayer": "production-recipe"
+    },
+    {
+      "sourceRule": {
+        "id": "component:web.benefit-card.compact-required-at-1024",
+        "targetId": "target.root",
+        "targetScope": "self",
+        "capability": "variant.Compact",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "needs-confirmation"
+        },
+        "severity": "error",
+        "rationale": "Для [D] BenefitCard при ширине экрана 1024 px и меньше используй Compact=True. Для [M] BenefitCard Compact не обязателен. Compact также применяется, когда контент не помещается в стандартный формат.",
+        "message": "Для [D] BenefitCard при ширине экрана 1024 px и меньше используй Compact=True. Для [M] BenefitCard Compact не обязателен. Compact также применяется, когда контент не помещается в стандартный формат.",
+        "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "Полный типизированный contour нормы и актуальный native capture: variant.Compact"
+          ]
+        }
+      },
+      "ownerLayer": "production-recipe"
+    },
+    {
+      "sourceRule": {
+        "id": "component:web.benefit-card-use-benefits-preset-for-groups",
+        "targetId": "target.root",
+        "targetScope": "self",
+        "capability": "composition",
+        "permission": "forbidden",
+        "controlPaths": [],
+        "constraints": [],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "needs-confirmation"
+        },
+        "severity": "warning",
+        "rationale": "Для группы BenefitCard предпочтительно используй пресет 🔒 Benefits. Ручная группировка допустима, но требует проверки согласованности размеров и поведения карточек.",
+        "message": "Для группы BenefitCard предпочтительно используй пресет 🔒 Benefits. Ручная группировка допустима, но требует проверки согласованности размеров и поведения карточек.",
+        "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "Подтверждённый контекст сценария и ручная/политическая проверка: composition"
+          ]
+        }
+      },
+      "ownerLayer": "landing-pattern"
+    }
+  ],
+  "groupSizing": {
+    "sourceRule": {
+      "id": "component:web.benefit-card.vertical-resizing-policy",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "layout.sizing.vertical",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "needs-confirmation"
+      },
+      "severity": "error",
+      "rationale": "Для одиночной BenefitCard используй Vertical resizing=Hug. В группе равных по высоте карточек разрешён Fill. Stopper сохраняй в Fill; Fixed допустим, когда контент должен оставаться визуально цельным.",
+      "message": "Для одиночной BenefitCard используй Vertical resizing=Hug. В группе равных по высоте карточек разрешён Fill. Stopper сохраняй в Fill; Fixed допустим, когда контент должен оставаться визуально цельным.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.benefit-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "context-only",
+        "missingFacts": [
+          "Полный текущий capture baseline и подтверждённая область владения; типизированная проверка всей нормы с её исключениями."
+        ]
+      }
+    },
+    "decision": "Одиночная карточка — Hug по высоте; сборка группы, Fill/Stopper и соседние высоты — рецепт/паттерн."
+  }
+}
