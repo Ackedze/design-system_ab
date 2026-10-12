@@ -1,0 +1,3 @@
+Line=Pseudo и возврат к Solid на том же LINK-07 приняты: Editor 0.2.100 / core 0.1.16, Link r3. Два exact Engine/Editor/details replay совпали; target rule `component:web-core.link.underline-domain.1.1` applicable/compliant с actual Pseudo и Solid. В каждом capture 8 resolved, violations/inconclusive=0, 3 context-only. Native variant key Underline изменился, но component set/source port, root configuration/layout/appearance, context и остальная native identity сохранены.
+
+Ранее подтверждённые hidden Addon/RESET и clean custom Label сохранены отдельным receipt. Link r3 остаётся Draft; ZIP/manual/compiled/нормы/код не изменялись. Line=None, icon ports, configured Label preserving cycle, контекстные правила и полная приёмка открыты.

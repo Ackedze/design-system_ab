@@ -1,0 +1,3 @@
+Три actual прогона Editor 0.2.100 / Link r3 приняты в указанной области: Addon=false, RESET на том же LINK-06 и публичный Label «Открыть подробные условия». Exact Engine/Editor/details replay совпал; все восемь targets resolved, violations/inconclusive=0, три context-only пункта сохранены.
+
+Четыре ложных missing-target сообщения исчезли. При RESET четыре цели снова видимы, источник/типографика/root layout/context сохранены. Link r3 ZIP/manual/compiled и Draft не менялись. Проверка BenefitCard hidden Title в новой версии, nested Line/icon, полный цикл с сохранением custom Label и общая готовность остаются открыты.

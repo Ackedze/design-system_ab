@@ -6,6 +6,8 @@
 
 Правила дальнейшей работы закреплены в [AGENTS.md](AGENTS.md).
 
+Общий подход к ручной и автоматической подготовке правил и тестов: [инструкция по контрактам](CONTRACT_AUTHORING_GUIDE.ru.md). Версия 0.1 собирает повторяемые способы заполнения; полный накопленный опыт исследуется по [отдельному заданию](reports/authoring-process-research/research-request.md).
+
 | Компонент | Версия | Статус compiled | Пакет | Область статуса |
 |---|---|---|---|---|
 | Button | r31 | Ready | [Button.component-contract.zip](Button.component-contract.zip) | Заявленная область Figma |

@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "apollo.contract-authoring-eval.v1",
+  "runId": "live-review-r3-2026-10-10T19-13-14Z",
+  "caseId": "link-r3-configured-label-negative-reset-input-difference",
+  "skill": {
+    "version": "0.1.3",
+    "retainedSnapshotFiles": [
+      {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/Link/reports/live-review-r3-2026-10-10T14-47-17Z/skill-snapshot/SKILL.md",
+        "sha256": "bc690dc358e77333f7fed420c44a3ac02a94fdc335a3f8520a648f8893135c9b",
+        "bytes": 7403
+      },
+      {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/Link/reports/live-review-r3-2026-10-10T14-47-17Z/skill-snapshot/references/implementation.md",
+        "sha256": "a293e922757e28557153f1b4ba51e97175ed108ace68b00f797a3cbca60d324a",
+        "bytes": 6771
+      },
+      {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/Link/reports/live-review-r3-2026-10-10T14-47-17Z/skill-snapshot/references/evals.md",
+        "sha256": "a9d05d49ea1e59f8bd5861b548973f4791c754f2913ebfc4170daf6b80564abf",
+        "bytes": 8974
+      },
+      {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/Link/reports/live-review-r3-2026-10-10T14-47-17Z/skill-snapshot/scripts/check_contract.cjs",
+        "sha256": "cae2d9455ca69ae09b7d4208efebd8d55a1f0fcfccb8e74078d2b64802a459aa",
+        "bytes": 5732
+      }
+    ]
+  },
+  "evidenceKind": "native-live user snapshots",
+  "review": {
+    "independent": false,
+    "reviewer": "same agent"
+  },
+  "criteria": [
+    {
+      "id": "exact-engine-editor-details-and-target-coverage",
+      "status": "PASS",
+      "evidence": [
+        "technical-replay.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "specific-negative-predicates-for-actual-input",
+      "status": "PASS",
+      "evidence": [
+        "technical-replay.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "requested-preserving-reset",
+      "status": "PARTIAL",
+      "evidence": [
+        "case.json",
+        "technical-replay.json"
+      ],
+      "gaps": [
+        "RESET preserving configured text NOT_PROVEN: third report has default Label, fourth re-enters custom text",
+        "requested 38-character Label NOT_RUN; actual 24-character text is contract-compliant"
+      ]
+    },
+    {
+      "id": "whole-component",
+      "status": "PARTIAL",
+      "evidence": [
+        "review.json"
+      ],
+      "gaps": [
+        "RESET preserving configured text NOT_PROVEN: third report has default Label, fourth re-enters custom text",
+        "requested 38-character Label NOT_RUN; actual 24-character text is contract-compliant",
+        "public icon swaps/height NOT_RUN; LINK-13 fixture not prepared",
+        "remaining untested facts, three context-only, four source conflicts, global icon contract and BenefitCard dependency integration",
+        "BenefitCard hidden Title D/M in new Editor; whole Source Reviewed/Ready, Apollo adoption/release open"
+      ]
+    }
+  ],
+  "overall": "PARTIAL",
+  "acceptedScope": [
+    "4 exact Engine/Editor/details replays, Editor/core parity, actual violations 0/2/0/0",
+    "custom 24-character public Label clean; fontSize 18 and tracking -0.36 correctly produce two distinct violations with native expected 16/-0.24",
+    "same physical instance/native identities and all eight targets resolve through custom/default/custom configurations; 0 inconclusive, 3 context-only each",
+    "final configured Label and native typography match the first clean capture"
+  ],
+  "gaps": [
+    "RESET preserving configured text NOT_PROVEN: third report has default Label, fourth re-enters custom text",
+    "requested 38-character Label NOT_RUN; actual 24-character text is contract-compliant",
+    "public icon swaps/height NOT_RUN; LINK-13 fixture not prepared",
+    "remaining untested facts, three context-only, four source conflicts, global icon contract and BenefitCard dependency integration",
+    "BenefitCard hidden Title D/M in new Editor; whole Source Reviewed/Ready, Apollo adoption/release open"
+  ],
+  "errors": [],
+  "learning": {
+    "skillChange": false,
+    "reason": "test input differs from requested singleton mutation and preserving RESET; no confirmed engine or authoring defect"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "apollo.contract-authoring-eval.v1",
+  "runId": "link-r2-reference-order-2026-10-10",
+  "caseId": "link-reference-order-mixed-case",
+  "skill": {
+    "version": "0.1.3",
+    "snapshot": "skill-snapshot/pins.json"
+  },
+  "evidenceKind": "actual installed Editor r1 captures, local r2 replay; counterfactual resets/UNKNOWN explicitly separate",
+  "review": {
+    "author": "current contract-authoring agent",
+    "reviewer": "same author; no independent reviewer",
+    "independent": false
+  },
+  "criteria": [
+    {
+      "id": "semantic-fidelity",
+      "status": "PASS",
+      "evidence": [
+        "candidate/diff.json",
+        "candidate/contract.manual.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "identity-and-pins",
+      "status": "PASS",
+      "evidence": [
+        "technical/reference-order-fix.r2.json",
+        "technical/editor-report-replay.r2.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "shared-core-roundtrip",
+      "status": "PASS",
+      "evidence": [
+        "technical/current-core/technical-report.json",
+        "technical/package-checks.r2.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "scoped-operator-regression",
+      "status": "PASS",
+      "evidence": [
+        "technical/operator-checks.r2.json",
+        "technical/editor-report-replay.r2.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "registry-sync",
+      "status": "PASS_AFTER_RECOVERY",
+      "evidence": [
+        "technical/registry-sync.r2.json",
+        "technical/ledger-range-recovery.r2.json",
+        "technical/registry-write-preflight.r2.cjs"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "installed-editor-r2-and-reset",
+      "status": "PARTIAL",
+      "evidence": [
+        "incident-before-fix.json"
+      ],
+      "gaps": [
+        "Installed Editor r2 NOT_RUN_USER_ONLY",
+        "User RESET for LINK-09 and LINK-12 NOT_RUN"
+      ]
+    },
+    {
+      "id": "full-source-and-live-admission",
+      "status": "PARTIAL",
+      "evidence": [
+        "candidate/questions.json",
+        "candidate/case-matrix.json"
+      ],
+      "gaps": [
+        "Four source conflicts and View mapping remain",
+        "Remaining intrinsic live cases pending",
+        "LINK-13 fixture not prepared"
+      ]
+    }
+  ],
+  "overall": "PARTIAL",
+  "acceptedScope": [
+    "Technical reference projection fix",
+    "Exact three r1 snapshot replay with r2",
+    "Local 32 operator cases",
+    "Current-source core compile and ZIP reopen",
+    "Registry recovered and repinned preserving Draft"
+  ],
+  "gaps": [
+    "Installed r2 and two RESET pending",
+    "Whole contract Draft",
+    "Independent review unavailable"
+  ],
+  "errors": [
+    {
+      "id": "registry.nan-range",
+      "status": "corrected-and-verified",
+      "evidence": "technical/ledger-range-recovery.r2.json"
+    }
+  ],
+  "learning": {
+    "skillChange": false,
+    "reason": "Producer collation and spreadsheet range-shape mistakes corrected in current authoring workflow; shared core/Editor unchanged"
+  }
+}

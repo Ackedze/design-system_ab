@@ -1,0 +1,120 @@
+const fs = require('node:fs'), path = require('node:path'), crypto = require('node:crypto'), assert = require('node:assert/strict');
+const read = name => JSON.parse(fs.readFileSync(path.join(__dirname, name)));
+const wire = value => JSON.parse(JSON.stringify(value));
+const pin = name => { const bytes = fs.readFileSync(path.join(__dirname, name)); return {path:name,sha256:crypto.createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length}; };
+for (const item of read('dependencies.json').files) assert.deepEqual(pin(item.path), item);
+const prior = '../live-review-r3-2026-10-10T14-47-17Z/';
+const core = require(prior + 'runtime/core-after.cjs'), editor = require(prior + 'runtime/editor-after.cjs');
+const manual = read(prior + 'package/manual.json'), compiled = read(prior + 'package/compiled.json'), preview = core.prepareAuthoringPreviewContract(compiled);
+assert.equal(core.stableHash(manual), 'a85dd33420356ff1e2ab0de4e6064ddeb1c6ea9cf943accbacef40ef396a7402');
+assert.equal(core.stableHash(compiled), '38c2a8bc107b51f5adcbc086430fb051af2a4e2fbe8f2161d76d87a8e88ad3a5');
+const contexts = ['component:web-core.link.view-token-mapping','component:web-core.link.underline-none-context','component:web-core.link.inline-link-addons'].sort();
+const ports = ['Left icon 24#493:25','Right icon 24#493:21'];
+const roles = ['left-icon','right-icon'];
+const expectedSources = ['493:8525','493:8878'];
+const states = [], cases = [];
+for (const [index, time] of ['07-00-25-744','07-00-47-535'].entries()) {
+  const file = 'inputs/link.validation-report.2026-10-11T' + time + 'Z.json', d = read(file), s = d.snapshot;
+  assert.equal(d.editorVersion, 'component-contract-editor@0.2.101');
+  assert.equal(d.run.manualRevision, 3);
+  assert.deepEqual(d.sources.manual, manual);
+  assert.deepEqual(d.sources.compiledContract, compiled);
+  assert.deepEqual(d.runtime.evaluatedContract, wire(preview));
+  assert.equal(d.run.manualSourceHash, core.stableHash(manual));
+  assert.equal(d.run.snapshotHash, core.stableHash(s));
+  assert.equal(d.run.engineSnapshotHash, core.validationSnapshotHash(s, preview));
+  assert.equal(d.run.evaluatedContractHash, core.stableHash(preview));
+  assert.equal(s.source.rootNodeId, '13666:68129');
+  assert.equal(s.source.representationId, 'core.web.link.figma.universal');
+  assert.equal(s.source.truncated, false);
+  assert.deepEqual(s.source.captureTopology, {version:1,complete:true,limitReached:false,issues:[]});
+  assert.deepEqual(d.run.capture.warnings, []);
+  assert.deepEqual(d.run.capture.unmatchedBaselineNodeIds, []);
+  assert.equal(s.nodes.length, 17);
+  const root = s.nodes.find(n => n.parentId === null);
+  assert.equal(root.component.properties.Size, 'M (16-24)');
+  assert.equal(root.component.properties['Left Addon#60204:0'], true);
+  assert.equal(root.component.properties['Right Addon#60204:4'], true);
+  assert.equal(root.component.properties['\u270e Label#493:29'], 'Label');
+  const label = s.nodes.find(n => n.type === 'TEXT' && n.name === 'Label');
+  assert.equal(label.text.characters, 'Label');
+  assert.equal(s.nodes.find(n => n.name === 'Underline').component.properties.Line, 'Solid');
+  const icons = ports.map((port, i) => {
+    assert.equal(root.component.propertyTypes[port], 'INSTANCE_SWAP');
+    const matches = s.nodes.filter(n => n.component?.propertyReferenceBindings?.mainComponent === port);
+    assert.equal(matches.length, 1);
+    const node = matches[0], source = node.component.sourceIdentity;
+    assert.equal(node.type, 'INSTANCE');
+    assert.equal(node.bounds.width, 24);
+    assert.equal(node.bounds.height, 24);
+    assert.equal(node.component.identity.mainComponentId, root.component.properties[port]);
+    assert.deepEqual(source, {version:1,ownerComponentKey:root.component.identity.componentKey,ownerMainComponentId:root.component.identity.mainComponentId,sourceNodeId:expectedSources[i]});
+    const policy = manual.rules.find(r => r.id === 'component:web-core.link.' + roles[i] + '-swap');
+    assert.equal(policy.permission, 'allowed');
+    assert(policy.controlPaths.some(c => c.kind === 'slot-api' && c.property === port && c.contentOwnership === 'external' && c.exclusive));
+    return {id:node.id,name:node.name,port,identity:node.component.identity,sourceIdentity:source,width:node.bounds.width,height:node.bounds.height};
+  });
+  const prepared = core.prepareValidationSnapshot(s, preview), targets = prepared.declaredTargetIdentitiesV1.targets;
+  assert.deepEqual(wire(prepared.declaredTargetIdentitiesV1), s.declaredTargetIdentitiesV1);
+  assert.equal(targets.length, 8);
+  if (index === 0) assert(targets.every(t => t.status === 'unknown' && t.reason === 'reference-pin-stale'));
+  else assert(targets.every(t => t.status === 'resolved' && t.present && t.effectiveVisible));
+  const engine = core.evaluateCompiledContract(s, preview);
+  assert.deepEqual(wire(engine), d.results.engine);
+  assert.deepEqual(wire(editor.evaluateCompiledContract(s, preview)), d.results.engine);
+  const args = [engine,{contract:compiled,issues:d.sources.compilerIssues},manual,s,{hiddenTargetCoverageVersion:1}];
+  const report = core.buildEditorValidationReport(...args);
+  assert.deepEqual(wire(report), d.results.editor);
+  assert.deepEqual(wire(editor.buildEditorValidationReport(...args)), d.results.editor);
+  assert.deepEqual(wire(core.buildEvaluationDetails(report, preview, d.anatomy)), d.results.details);
+  assert.deepEqual(report.scenarioCoverage, d.summary.scenarioCoverage);
+  assert.equal(report.scenarioCoverage.inconclusive, index === 0 ? 32 : 0);
+  assert.equal(report.scenarioCoverage.notExecuted, 3);
+  assert.deepEqual(report.evaluations.filter(e => e.classification === 'not-executed').map(e => e.ruleId).sort(), contexts);
+  assert.equal(report.evaluations.filter(e => e.classification === 'violation').length, 0);
+  const unknowns = report.evaluations.filter(e => e.classification === 'human-review');
+  assert.equal(unknowns.length, index === 0 ? 32 : 0);
+  if (index === 0) {
+    assert.equal(unknowns.filter(e => e.applicability === 'unknown' && e.trace.reason === 'selector evidence is unknown').length, 31);
+    const absent = unknowns.filter(e => e.trace.reason === 'comparison value is absent');
+    assert.equal(absent.length, 1);
+    assert.equal(absent[0].ruleId, 'component:web-core.link.size-domain.1.1');
+    assert.equal(absent[0].applicability, 'applicable');
+    assert.deepEqual(absent[0].trace.factPaths, ['configuredNativePropertiesV1.variantValues.p_60bb3338e0ad558c']);
+  }
+  cases.push({input:pin(file),generatedAt:d.generatedAt,instanceId:s.source.rootNodeId,icons,violations:0,inconclusive:unknowns.length,resolvedTargets:targets.filter(t => t.status === 'resolved').length,unknownTargets:targets.filter(t => t.status === 'unknown').length,targetReasons:targets.map(t => ({targetId:t.targetId,status:t.status,reason:t.reason})),notExecuted:3,expected:{violations:0,inconclusive:0,resolvedTargets:8},status:index === 0 ? 'FAIL_READING_ALLOWED_PUBLIC_SWAP' : 'PASS_RESET_SCOPED',exactEngineEditorDetailsReplay:true,frozenCoreAndEditorApiParity:true});
+  states.push({d,s,root,label});
+}
+const [swapped, reset] = states;
+assert.deepEqual(swapped.s.context, reset.s.context);
+assert.deepEqual(swapped.root.layout, reset.root.layout);
+assert.deepEqual(swapped.root.appearance, reset.root.appearance);
+assert.deepEqual(swapped.root.component.identity, reset.root.component.identity);
+assert.deepEqual(swapped.label.text, reset.label.text);
+const properties = wire(swapped.root.component.properties);
+for (const port of ports) {
+  assert.notEqual(properties[port], reset.root.component.properties[port]);
+  properties[port] = reset.root.component.properties[port];
+}
+assert.deepEqual(properties, reset.root.component.properties);
+for (let i = 0; i < ports.length; i++) {
+  assert.deepEqual(cases[0].icons[i].sourceIdentity, cases[1].icons[i].sourceIdentity);
+  assert.notEqual(cases[0].icons[i].identity.componentKey, cases[1].icons[i].identity.componentKey);
+}
+const bindingHash = manual.targets[0].identityBindingsV1.find(b => b.componentKey === reset.s.source.componentKey).configurationReferenceHash;
+assert.equal(core.configurationDeclaredTargetReferenceHash(reset.s.variantReference), bindingHash);
+assert.notEqual(core.configurationDeclaredTargetReferenceHash(swapped.s.variantReference), bindingHash);
+const resetWithOnlyChangedRootSwap = wire(reset.s.variantReference);
+const swappedWithRestoredRootSwap = wire(swapped.s.variantReference);
+for (const port of ports) {
+  resetWithOnlyChangedRootSwap.properties[port] = swapped.root.component.properties[port];
+  resetWithOnlyChangedRootSwap.nodeProperties[''].properties[port] = swapped.root.component.properties[port];
+  swappedWithRestoredRootSwap.properties[port] = reset.root.component.properties[port];
+  swappedWithRestoredRootSwap.nodeProperties[''].properties[port] = reset.root.component.properties[port];
+}
+assert.notEqual(core.configurationDeclaredTargetReferenceHash(resetWithOnlyChangedRootSwap), bindingHash);
+assert.notEqual(core.configurationDeclaredTargetReferenceHash(swappedWithRestoredRootSwap), bindingHash);
+const receipt = {schemaVersion:'link.installed-public-icon-swap-replay.v1',editorVersion:'0.2.101',replayedCoreVersion:'0.1.16',frozenEditorApiVersion:'0.2.100',captureImplementationRebuilt:false,revision:3,cases,exactCaptureCount:2,actualViolationSequence:[0,0],actualInconclusiveSequence:[32,0],actualResolvedTargetSequence:[0,8],samePhysicalInstance:true,publicPortsAndNativeAddressesPreserved:true,iconDimensions24:true,resetAccepted:'PASS_RESET_SCOPED',swapAccepted:false,diagnosis:{currentConfigurationHash:'excludes typed root TEXT/BOOLEAN; INSTANCE_SWAP values and selected asset subtree remain pinned',counterfactuals:{kind:'hash-only isolation; not native-live and not a fix',onlyRootSwapValuesChanged:'still differs from binding',swapRootValuesRestoredButSelectedSubtreesRetained:'still differs from binding'},effect:'all eight declared targets reference-pin-stale; 32 predicates human-review'},normativeChanges:false,productCodeChanges:false,wholeReady:false};
+if (fs.existsSync(path.join(__dirname, 'technical-replay.json'))) assert.deepEqual(read('technical-replay.json'), receipt);
+if (fs.existsSync(path.join(__dirname, 'seal.json'))) for (const item of read('seal.json').files) assert.deepEqual(pin(item.path), item);
+console.log(JSON.stringify(receipt));

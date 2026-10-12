@@ -1,0 +1,25 @@
+{
+  "observations": [
+    {
+      "id": "link.reference-pin-collation",
+      "causeConfirmed": true,
+      "evidence": "technical/editor-report-replay.r2.json",
+      "cause": "Same independent native reference differs only in mixed-case node array order and portable local IDs. Figma capture host differs from Editor runtime localeCompare. Pin guard correctly rejects stale producer output.",
+      "correction": "Canonicalize producer reference projection in shared-core runtime; retain raw captures; 18 normative rules unchanged.",
+      "prevention": "Actual Editor snapshot replay checks 8 resolved targets, baseline 0 and exact negative RuleIDs; stale/missing-fact guard checks remain."
+    },
+    {
+      "id": "registry.nan-range",
+      "causeConfirmed": true,
+      "evidence": "technical/ledger-range-recovery.r2.json",
+      "cause": "Ledger input arrays were mistaken for objects with rowIndex; undefined became NaN/null and omitted row bounds expanded updateCells to whole columns.",
+      "correction": "Exact previous revision 528 restored M1:O499 and repinned only M500:O503; 6036 surviving cells matched previous revision; 1509 affected cells verified after restoration.",
+      "prevention": "Finite integer indexes, bounded exact rectangle and saved pre-write CellData; executable preflight rejects undefined/NaN/null/string/negative, wrong rectangle and grid overflow.",
+      "regression": "technical/registry-write-preflight.r2.cjs"
+    }
+  ],
+  "skillChange": false,
+  "workflowChanged": "candidate/CONTRACT_AUTHORING_GUIDE.ru.md",
+  "independentReview": false,
+  "installedR2Pending": true
+}

@@ -1,0 +1,3 @@
+Line=None и RESET=Solid на том же LINK-08 приняты в Editor 0.2.100 / Link r3. Exact Engine/Editor/details replay совпал; actual domain check applicable/compliant. Все 8 targets resolved, violations/inconclusive=0, 3 context-only в обоих captures. None содержит 16 nodes и 0 children у Underline; Solid — 17 nodes и 1 child. Native component set/source port и остальные exact declared sources сохранены.
+
+С учётом предыдущего Pseudo/Solid receipt чтение всех трёх значений Line подтверждено. Условие применения None по цвету и контексту остаётся context-only. ZIP/manual/compiled/нормы/код/Draft не менялись; whole Ready, icon ports, остальные baseline negative cycles и dependencies открыты.
