@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "apollo.screen-version.v1-experimental",
+  "id": "screen-buttons-two-rows",
+  "revision": 1,
+  "parentHash": null,
+  "inputHash": "abc57333ed223870bbc97b82f02ddcc5cc80feccba40ac39d8bc22641269b0aa",
+  "page": {
+    "background": "#FFFFFF"
+  },
+  "spec": {
+    "schemaVersion": "apollo.screen-spec.v2-experimental",
+    "id": "screen-buttons-two-rows",
+    "platform": "desktop",
+    "viewport": {
+      "width": 1600,
+      "height": 900
+    },
+    "root": "corporate-content",
+    "nodes": [
+      {
+        "kind": "component",
+        "id": "corporate-content",
+        "mappingId": "arui-private.corporate-content.desktop",
+        "props": {},
+        "slots": {
+          "body": [
+            "button-rows"
+          ]
+        }
+      },
+      {
+        "kind": "stack",
+        "id": "button-rows",
+        "direction": "vertical",
+        "gap": 24,
+        "children": [
+          "buttons-row-1",
+          "buttons-row-2"
+        ]
+      },
+      {
+        "kind": "component",
+        "id": "buttons-row-1",
+        "mappingId": "arui-private.buttons-group.desktop",
+        "props": {
+          "size": "56"
+        },
+        "slots": {},
+        "actions": {
+          "port": "button-label",
+          "items": [
+            {
+              "id": "row-1-action-1",
+              "label": "Кнопка 1",
+              "behavior": "none"
+            },
+            {
+              "id": "row-1-action-2",
+              "label": "Кнопка 2",
+              "behavior": "none"
+            },
+            {
+              "id": "row-1-action-3",
+              "label": "Кнопка 3",
+              "behavior": "none"
+            },
+            {
+              "id": "row-1-action-4",
+              "label": "Кнопка 4",
+              "behavior": "none"
+            },
+            {
+              "id": "row-1-action-5",
+              "label": "Кнопка 5",
+              "behavior": "none"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "component",
+        "id": "buttons-row-2",
+        "mappingId": "arui-private.buttons-group.desktop",
+        "props": {
+          "size": "56"
+        },
+        "slots": {},
+        "actions": {
+          "port": "button-label",
+          "items": [
+            {
+              "id": "row-2-action-1",
+              "label": "Сохранит",
+              "behavior": "none"
+            },
+            {
+              "id": "row-2-action-2",
+              "label": "Отменить",
+              "behavior": "none"
+            }
+          ]
+        }
+      }
+    ],
+    "states": {
+      "initial": "default",
+      "values": [
+        "default"
+      ]
+    },
+    "events": [],
+    "transitions": [],
+    "unresolved": [],
+    "capabilityGaps": [
+      {
+        "code": "OVERFLOW_CROSS_ADAPTER_PARITY_UNCONFIRMED",
+        "message": "Все пять действий первой группы сохранены в заданном порядке. Текущий Figma profile предусматривает choice bg.size56.overflow.true: три inline-действия и два Cell в статичном overflow, с сохранением штатного SingleIcon trigger без action ID и полного default subtree списка. Порт overflow запрещён в props общего mapping; принятый cross-adapter профиль распределения и интерактивного overflow не предоставлен.",
+        "nodeId": "buttons-row-1"
+      },
+      {
+        "code": "OVERFLOW_DEPENDENCY_MANUALS_MISSING",
+        "message": "Для предоставленного native overflowRecipe отсутствуют полные authoring manuals OptionList, OptionListCell и внутреннего CellContent. Typed native bindings подтверждают конечные технические порты, но не заменяют нормы зависимостей.",
+        "nodeId": "buttons-row-1"
+      },
+      {
+        "code": "WHITE_BACKGROUND_FRONTEND_HOST_BINDING_MISSING",
+        "message": "Требование белого фона относится к поверхности страницы: в Figma его задаёт create_root собственного корневого frame, без изменения заливки CorporateContent. Общий ScreenSpec не имеет page/background semantic port, а frontend host binding белой поверхности не предоставлен.",
+        "nodeId": "corporate-content"
+      },
+      {
+        "code": "ACTUAL_NATIVE_SOURCE_CORRESPONDENCE_REQUIRED",
+        "message": "Перед любой native записью требуется фактическое подтверждение definition/main identity, pristine source correspondence, SLOT и точных физических TEXT references, актуальности версии и источника, а также загрузка фактических шрифтов. Эти native факты остаются UNKNOWN; декларативные bindings не заменяют обязательное подтверждение."
+      },
+      {
+        "code": "FINITE_PROFILE_NORM_COVERAGE",
+        "message": "Конечный interface-v7/MAP-02 не подтверждает полное покрытие норм CorporateContent, ButtonsGroup и зависимостей либо cross-adapter geometry и surface parity. Header/Footer остаются UNKNOWN и требуют отдельного native наблюдения; статичный overflow recipe не подтверждает Figma прототипное взаимодействие."
+      }
+    ]
+  },
+  "specHash": "5f2f235c43ffb1ab56c0cebe5bcafe842765af9d47e5c2261663e5ae017ad665",
+  "versionHash": "802c00014f9023159d846ec1e278466da08642f06ee949f033c661b02c5b8648"
+}

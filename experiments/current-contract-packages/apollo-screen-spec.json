@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "apollo.screen-spec.v2-experimental",
+  "id": "buttons-screen",
+  "platform": "desktop",
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "root": "corporate-content",
+  "nodes": [
+    {
+      "kind": "component",
+      "id": "corporate-content",
+      "mappingId": "arui-private.corporate-content.desktop",
+      "props": {},
+      "slots": {
+        "body": [
+          "button-rows"
+        ]
+      }
+    },
+    {
+      "kind": "stack",
+      "id": "button-rows",
+      "direction": "vertical",
+      "gap": 24,
+      "children": [
+        "first-group",
+        "second-group"
+      ]
+    },
+    {
+      "kind": "component",
+      "id": "first-group",
+      "mappingId": "arui-private.buttons-group.desktop",
+      "props": {
+        "size": "56"
+      },
+      "slots": {},
+      "actions": {
+        "port": "button-label",
+        "items": [
+          {
+            "id": "button-1",
+            "label": "Кнопка 1",
+            "behavior": "none"
+          },
+          {
+            "id": "button-2",
+            "label": "Кнопка 2",
+            "behavior": "none"
+          },
+          {
+            "id": "button-3",
+            "label": "Кнопка 3",
+            "behavior": "none"
+          },
+          {
+            "id": "button-4",
+            "label": "Кнопка 4",
+            "behavior": "none"
+          },
+          {
+            "id": "button-5",
+            "label": "Кнопка 5",
+            "behavior": "none"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "component",
+      "id": "second-group",
+      "mappingId": "arui-private.buttons-group.desktop",
+      "props": {
+        "size": "56"
+      },
+      "slots": {},
+      "actions": {
+        "port": "button-label",
+        "items": [
+          {
+            "id": "do-action",
+            "label": "Сделать",
+            "behavior": "none"
+          },
+          {
+            "id": "do-not-action",
+            "label": "Не сделать",
+            "behavior": "none"
+          }
+        ]
+      }
+    }
+  ],
+  "states": {
+    "initial": "default",
+    "values": [
+      "default"
+    ]
+  },
+  "events": [],
+  "transitions": [],
+  "unresolved": [],
+  "capabilityGaps": [
+    {
+      "code": "OVERFLOW_CROSS_ADAPTER_PARITY",
+      "message": "Все пять действий первой группы сохранены в заданном порядке. Конечный Figma-профиль size56 предусматривает Overflow=true: три текстовых действия inline, штатный trigger без action ID и два пункта статичного списка для Кнопка 4 и Кнопка 5. Semantic port overflow запрещён в props текущего mapping; публичный code prop для него и межадаптерное соответствие этого распределения не подтверждены.",
+      "nodeId": "first-group"
+    },
+    {
+      "code": "WHITE_BACKGROUND_HOST_BINDING",
+      "message": "Требуется белый фон экрана. В Figma белая поверхность собственного корневого frame задаётся подтверждённой операцией create_root. В общем ScreenSpec нет page/background semantic port, а frontend host binding белого фона не предоставлен; заливку CorporateContent изменять нельзя."
+    },
+    {
+      "code": "OVERFLOW_DEPENDENCY_MANUALS_MISSING",
+      "message": "Конечный provider предоставляет overflowRecipe и typed bindings OptionList, Cell и внутреннего plain CellContent, но их authoring manuals отсутствуют в CONTRACT_CONTEXT. Полные нормы этих зависимостей нельзя установить из технического recipe.",
+      "nodeId": "first-group"
+    },
+    {
+      "code": "ACTUAL_NATIVE_SOURCE_CORRESPONDENCE",
+      "message": "Соответствие фактических библиотечных definitions, pristine деревьев, SLOT и физических TEXT предоставленным конечным bindings остаётся UNKNOWN и обязательно должно быть установлено provider перед зависимой записью."
+    },
+    {
+      "code": "FULL_NORM_COVERAGE_UNKNOWN",
+      "message": "Конечный interface-v7/MAP-02 покрывает ограниченную desktop-композицию size56/default; полное покрытие manual-норм и зависимостей остаётся UNKNOWN. Статичный overflowRecipe не подтверждает интерактивность или cross-adapter parity."
+    }
+  ]
+}

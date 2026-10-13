@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "apollo.contract-authoring-eval.v1",
+  "runId": "live-review-r4-2026-10-12T18-33-59Z",
+  "caseId": "LINK_PUBLIC_ICON_SWAP_M_NATIVE",
+  "skill": {
+    "version": "0.1.4",
+    "snapshotPath": "skill-snapshot"
+  },
+  "evidenceKind": "owner-installed-native-captures-with-exact-replay",
+  "review": {
+    "author": "Contract Creation",
+    "reviewer": "same author",
+    "independent": false
+  },
+  "criteria": [
+    {
+      "id": "unchanged-contract-pins",
+      "status": "PASS",
+      "evidence": [
+        "package/manual.json",
+        "package/compiled.json",
+        "source-package.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "bindings-prerequisites",
+      "status": "PASS",
+      "scope": "same native M instance and two public ports",
+      "evidence": [
+        "review.json"
+      ],
+      "gaps": [
+        "other Size public ports remain outside this run"
+      ]
+    },
+    {
+      "id": "case-behavior",
+      "status": "PARTIAL",
+      "evidence": [
+        "review.json"
+      ],
+      "gaps": [
+        "height40 negative and height24 preserving RESET not performed"
+      ]
+    },
+    {
+      "id": "statuses-scope",
+      "status": "PASS",
+      "evidence": [
+        "SUMMARY.ru.md"
+      ],
+      "gaps": [
+        "three context-only rules and full Draft acceptance remain open"
+      ]
+    }
+  ],
+  "overall": "PARTIAL",
+  "acceptedScope": [
+    "installed public icon swap M",
+    "alternate external rocket Size20 with measured instance height24",
+    "same-asset restoration",
+    "both public icons RESET",
+    "four exact Engine/Editor/details replays"
+  ],
+  "gaps": [
+    "native height negative and RESET",
+    "full source/context/dependency acceptance",
+    "independent acceptance"
+  ],
+  "errors": [],
+  "testInputDifference": "Second report changes rocket asset Size 24 to 20; selected icon INSTANCE bounds.height stays 24 in every capture. No native height 40 capture exists.",
+  "learning": {
+    "skillChange": false,
+    "reason": "Mutation targeted asset variant rather than measured INSTANCE height; repeat exact existing test"
+  },
+  "wholeReady": false,
+  "pilotWrites": 0
+}
