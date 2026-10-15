@@ -1,0 +1,178 @@
+{
+  "component": "IconView",
+  "revision": 5,
+  "kind": "Manual test feasibility correction; no contract norm change",
+  "userEvidence": {
+    "date": "2026-10-14",
+    "quote": "невозможно изменить размеры верхнего и нижнего аддона БЕЗ детач компонента",
+    "classification": "Owner-reported native UI limitation"
+  },
+  "cause": "Author inferred native UI editability from internal nested VARIANT metadata without verifying an exposed control.",
+  "consequence": "Two requested negative native cases cannot be performed on the intact parent instance as described.",
+  "supersedesManualInstructions": {
+    "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r5-2026-10-14/next-cases.json",
+    "sha256": "fd37568c0885f6ae4dae212b0fc147ccf1e476f8d12c7fb4785b4c2d5eed2c1a",
+    "bytes": 2027
+  },
+  "cancelledCases": [
+    {
+      "id": "IV5-A02",
+      "status": "NOT_RUN_INFEASIBLE_NATIVE_UI",
+      "reason": "Nested addon Size is not exposed through parent API; no detach mutation requested."
+    },
+    {
+      "id": "IV5-A03",
+      "status": "NOT_RUN_INFEASIBLE_NATIVE_UI",
+      "reason": "Nested addon Size is not exposed through parent API; no detach mutation requested."
+    }
+  ],
+  "nativeApiEvidence": {
+    "capture": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r1-2026-10-13/native/64.capture.json",
+      "sha256": "425d636b333b72cffd8c7ba7bf5ba53008703ad547a67de7d0ab8c4e5f244ffe",
+      "bytes": 9991
+    },
+    "rootDefinitions": {
+      "✎ Text#16913:1": {
+        "type": "TEXT",
+        "defaultValue": "ЙО"
+      },
+      "Content#70244:63": {
+        "type": "BOOLEAN",
+        "defaultValue": true
+      },
+      "BottomAddon#70244:64": {
+        "type": "BOOLEAN",
+        "defaultValue": false
+      },
+      "Indicator#70244:65": {
+        "type": "BOOLEAN",
+        "defaultValue": false
+      },
+      "TopAddon#70244:66": {
+        "type": "BOOLEAN",
+        "defaultValue": false
+      },
+      "Border#70244:67": {
+        "type": "BOOLEAN",
+        "defaultValue": true
+      },
+      "BgColor#70274:0": {
+        "type": "BOOLEAN",
+        "defaultValue": true
+      },
+      "BgImg#70274:18": {
+        "type": "BOOLEAN",
+        "defaultValue": false
+      },
+      "Shape#88323:0": {
+        "type": "BOOLEAN",
+        "defaultValue": true
+      },
+      "Text#88381:18": {
+        "type": "BOOLEAN",
+        "defaultValue": false
+      },
+      "Size": {
+        "type": "VARIANT",
+        "defaultValue": "128",
+        "variantOptions": [
+          "16",
+          "20",
+          "24",
+          "32",
+          "40",
+          "48",
+          "56",
+          "64",
+          "72",
+          "80",
+          "128"
+        ]
+      }
+    },
+    "finding": "Root Size and TopAddon/BottomAddon booleans are exposed. No addon Size projection is exposed; an internal Size property does not establish user editability."
+  },
+  "retainedPredicateEvidence": {
+    "receipt": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r5-2026-10-14/controlled-replay.json",
+      "sha256": "0aa127197f59756fd672291132442fcb6a59358614c86a537f774b62b41c996b",
+      "bytes": 10993
+    },
+    "cases": 32,
+    "scope": "Engine-only prepared facts; not fresh native violation evidence."
+  },
+  "manualCases": [
+    {
+      "id": "IV5-A01",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=13840-68046",
+      "actions": "Use root controls only; validate the root instance. Do not resize or detach addons.",
+      "root": {
+        "Size": "64",
+        "Shape": true,
+        "Border": true,
+        "TopAddon": true,
+        "BottomAddon": true,
+        "Text": false,
+        "Content": true,
+        "Indicator": false
+      },
+      "observedLibraryDefaults": {
+        "topAddonSize": "24",
+        "bottomAddonSize": "24",
+        "instruction": "Read-only expectation, not a user-assigned parameter"
+      },
+      "expected": {
+        "violations": 0,
+        "unknown": 0,
+        "resolvedTargets": 12,
+        "compliantRules": [
+          "component:web-core.icon-view.top-addon-smaller.64.1.1",
+          "component:web-core.icon-view.bottom-addon-smaller.64.1.1"
+        ]
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    }
+  ],
+  "cleanup": {
+    "TopAddon": false,
+    "BottomAddon": false,
+    "additionalResetReport": "Not requested; no invalid size mutation was assigned."
+  },
+  "protection": "Before assigning a Figma mutation, establish how the user can make it on an intact instance: exposed root control, exposed nested control or verified permitted swap. Internal captured property presence alone is insufficient. If unavailable, preserve Engine-only proof and explicitly mark the native negative infeasible.",
+  "normDecision": "No fixed addon-size norm inferred and no new permission granted. Existing fixed-reference versus any-smaller-size clarification remains pending.",
+  "unchanged": {
+    "candidate": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView.r5.candidate.component-contract.zip",
+      "sha256": "c507f019651237bfa74c4f2b504fdae4b94edec0c75583d3e9b0e70e08daa69c",
+      "bytes": 596316
+    },
+    "manual": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r5-2026-10-14/contract.manual.json",
+      "sha256": "e76484441d22b17687ba17ea83cf39045884d3d552677692e685734e61564b31",
+      "bytes": 167768
+    },
+    "compiled": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r5-2026-10-14/component-contract.v2.json",
+      "sha256": "18e24ee5376e22e170983cbe3c1bd73e7fee0f6be7bd5049ea24efb092d0a66e",
+      "bytes": 402976
+    },
+    "candidateSeal": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r5-2026-10-14/seal.json",
+      "sha256": "8e37a3010ca3b2ea80d956d584c2cb3ae534997401f7f7c6d709ef2eb5d5fdbd",
+      "bytes": 56849
+    },
+    "sharedCodeBuildPilot": true,
+    "registryRules": true
+  },
+  "authorCheck": {
+    "sealedCandidateOutputsVerified": 28,
+    "nativeApiReadback": "PASS",
+    "cancelledNegativeCasesExcluded": "PASS",
+    "freshNativeAcceptance": false
+  },
+  "writerStatus": "CLOSED",
+  "closedAt": "2026-10-14T13:18:25.380497+00:00",
+  "Ready": false,
+  "independentReview": false
+}

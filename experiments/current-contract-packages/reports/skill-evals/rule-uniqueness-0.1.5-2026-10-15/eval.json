@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "apollo.contract-authoring-eval.v1",
+  "runId": "rule-uniqueness-0.1.5-2026-10-15",
+  "caseId": "AUTHORING-RULE-UNIQUENESS-001",
+  "skill": {
+    "version": "0.1.5"
+  },
+  "evidenceKind": "owner-policy + synthetic semantic self-review",
+  "review": {
+    "author": "ContractCreation",
+    "independent": false
+  },
+  "criteria": [
+    {
+      "id": "owner-requirement",
+      "status": "PASS",
+      "evidence": [
+        "case.json",
+        "candidate/SKILL.md",
+        "candidate/references/evals.md"
+      ]
+    },
+    {
+      "id": "semantic-uniqueness-and-preservation",
+      "status": "PASS",
+      "evidence": [
+        "semantic-cases.json",
+        "semantic-review.json"
+      ],
+      "scope": "8 manual self-review examples; no model forward run"
+    },
+    {
+      "id": "installation-and-existing-registry-preservation",
+      "status": "PASS",
+      "evidence": [
+        "install-readback.json",
+        "validation.json"
+      ]
+    }
+  ],
+  "overall": "PASS_SCOPED_INSTRUCTION_UPDATE_ONLY",
+  "acceptedScope": [
+    "explicit owner policy encoded at authoring and handoff gates",
+    "source N:1 preserved",
+    "distinct targets, conditions, independent obligations and IR facts retained",
+    "all three installed file pins match candidate"
+  ],
+  "gaps": [
+    "No independent forward model run; semantic examples reviewed by the author only"
+  ],
+  "errors": [],
+  "learning": {
+    "skillChange": true,
+    "reason": "Explicit owner requirement; no old duplicate-producing run or runtime defect claimed"
+  },
+  "Ready": false
+}

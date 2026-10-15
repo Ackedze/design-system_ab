@@ -1,0 +1,388 @@
+{
+  "status": "OFFLINE_PREPARED",
+  "component": "IconView",
+  "cases": [
+    {
+      "id": "IV-QA-01",
+      "title": "Контроль: оба аддона Circle",
+      "kind": "control",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r7-preparation",
+      "qaStatus": "QA_NOT_READY_WAIT_R7_PACKAGE",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": true,
+        "BottomAddon": true
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.top-addon-shape-circle.1.1",
+        "component:web-core.icon-view.top-addon-border-circle.1.1",
+        "component:web-core.icon-view.bottom-addon-shape-circle.1.1",
+        "component:web-core.icon-view.bottom-addon-border-circle.1.1"
+      ],
+      "norm": "В слотах TopAddon / BottomAddon у вложенного IconView всегда Form=Circle на Shape и Border; Form родителя не копируется.",
+      "expected": "Все четыре Circle-проверки compliant. Это ожидание будущего r7, не результат прогона.",
+      "mutations": [],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-02",
+      "title": "top-addon-shape: Rectangle",
+      "kind": "negative",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r7-preparation",
+      "qaStatus": "QA_NOT_READY_WAIT_R7_PACKAGE",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": true,
+        "BottomAddon": true
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.top-addon-shape-circle.1.1"
+      ],
+      "norm": "В слотах TopAddon / BottomAddon у вложенного IconView всегда Form=Circle на Shape и Border; Form родителя не копируется.",
+      "expected": "violation указанного RuleID; остальные Circle-части остаются Circle.",
+      "mutations": [
+        {
+          "op": "form",
+          "path": "Content / TopAddon / IconView / Content / Shape / Shape",
+          "value": "Rectangle"
+        }
+      ],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-03",
+      "title": "top-addon-border: Rectangle",
+      "kind": "negative",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r7-preparation",
+      "qaStatus": "QA_NOT_READY_WAIT_R7_PACKAGE",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": true,
+        "BottomAddon": true
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.top-addon-border-circle.1.1"
+      ],
+      "norm": "В слотах TopAddon / BottomAddon у вложенного IconView всегда Form=Circle на Shape и Border; Form родителя не копируется.",
+      "expected": "violation указанного RuleID; остальные Circle-части остаются Circle.",
+      "mutations": [
+        {
+          "op": "form",
+          "path": "Content / TopAddon / IconView / Content / ShapeContent / Border / Border",
+          "value": "Rectangle"
+        }
+      ],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-04",
+      "title": "bottom-addon-shape: Superellipse",
+      "kind": "negative",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r7-preparation",
+      "qaStatus": "QA_NOT_READY_WAIT_R7_PACKAGE",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": true,
+        "BottomAddon": true
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.bottom-addon-shape-circle.1.1"
+      ],
+      "norm": "В слотах TopAddon / BottomAddon у вложенного IconView всегда Form=Circle на Shape и Border; Form родителя не копируется.",
+      "expected": "violation указанного RuleID; остальные Circle-части остаются Circle.",
+      "mutations": [
+        {
+          "op": "form",
+          "path": "Content / BottomAddon / IconView / Content / Shape / Shape",
+          "value": "Superellipse"
+        }
+      ],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-05",
+      "title": "bottom-addon-border: Superellipse",
+      "kind": "negative",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r7-preparation",
+      "qaStatus": "QA_NOT_READY_WAIT_R7_PACKAGE",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": true,
+        "BottomAddon": true
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.bottom-addon-border-circle.1.1"
+      ],
+      "norm": "В слотах TopAddon / BottomAddon у вложенного IconView всегда Form=Circle на Shape и Border; Form родителя не копируется.",
+      "expected": "violation указанного RuleID; остальные Circle-части остаются Circle.",
+      "mutations": [
+        {
+          "op": "form",
+          "path": "Content / BottomAddon / IconView / Content / ShapeContent / Border / Border",
+          "value": "Superellipse"
+        }
+      ],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-06",
+      "title": "TopAddon выключен",
+      "kind": "inactive",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r7-preparation",
+      "qaStatus": "QA_NOT_READY_WAIT_R7_PACKAGE",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": false,
+        "BottomAddon": true
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.top-addon-shape-circle.1.1",
+        "component:web-core.icon-view.top-addon-border-circle.1.1",
+        "component:web-core.icon-view.bottom-addon-shape-circle.1.1",
+        "component:web-core.icon-view.bottom-addon-border-circle.1.1"
+      ],
+      "norm": "В слотах TopAddon / BottomAddon у вложенного IconView всегда Form=Circle на Shape и Border; Form родителя не копируется.",
+      "expected": "Правила выключенного аддона notApplicable; второго — compliant.",
+      "mutations": [],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-07",
+      "title": "BottomAddon выключен",
+      "kind": "inactive",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r7-preparation",
+      "qaStatus": "QA_NOT_READY_WAIT_R7_PACKAGE",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": true,
+        "BottomAddon": false
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.top-addon-shape-circle.1.1",
+        "component:web-core.icon-view.top-addon-border-circle.1.1",
+        "component:web-core.icon-view.bottom-addon-shape-circle.1.1",
+        "component:web-core.icon-view.bottom-addon-border-circle.1.1"
+      ],
+      "norm": "В слотах TopAddon / BottomAddon у вложенного IconView всегда Form=Circle на Shape и Border; Form родителя не копируется.",
+      "expected": "Правила выключенного аддона notApplicable; второго — compliant.",
+      "mutations": [],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-08",
+      "title": "Shape корня выключен, аддоны активны",
+      "kind": "condition",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r7-preparation",
+      "qaStatus": "QA_NOT_READY_WAIT_R7_PACKAGE",
+      "parameters": {
+        "Size": "64",
+        "Shape": false,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": true,
+        "BottomAddon": true
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.top-addon-shape-circle.1.1",
+        "component:web-core.icon-view.top-addon-border-circle.1.1",
+        "component:web-core.icon-view.bottom-addon-shape-circle.1.1",
+        "component:web-core.icon-view.bottom-addon-border-circle.1.1"
+      ],
+      "norm": "В слотах TopAddon / BottomAddon у вложенного IconView всегда Form=Circle на Shape и Border; Form родителя не копируется.",
+      "expected": "Circle-проверки активных аддонов остаются compliant при Shape=false корня.",
+      "mutations": [],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-09",
+      "title": "r6: чистый Size=64",
+      "kind": "control",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r6",
+      "qaStatus": "FIXTURE_READY_TO_BUILD_R6",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": false,
+        "BottomAddon": false
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.fixed-square.64.1.1",
+        "component:web-core.icon-view.fixed-square.64.1.2"
+      ],
+      "norm": "IconView сохраняет квадратные размеры выбранного Size.",
+      "expected": "Обе проверки размеров compliant; нет новых необъяснённых violations/UNKNOWN.",
+      "mutations": [],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-10",
+      "title": "r6: Indicator и TopAddon одновременно",
+      "kind": "negative",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r6",
+      "qaStatus": "FIXTURE_READY_TO_BUILD_R6",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": false,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": true,
+        "TopAddon": true,
+        "BottomAddon": false
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.indicator-excludes-top-addon.1.1"
+      ],
+      "norm": "На корне IconView нельзя одновременно включать Indicator и TopAddon. При Indicator=true значение TopAddon должно быть false.",
+      "expected": "violation указанного RuleID.",
+      "mutations": [],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-11",
+      "title": "r6: Border без Shape",
+      "kind": "negative",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r6",
+      "qaStatus": "FIXTURE_READY_TO_BUILD_R6",
+      "parameters": {
+        "Size": "64",
+        "Shape": false,
+        "Border": true,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": false,
+        "BottomAddon": false
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.border-requires-shape.1.1"
+      ],
+      "norm": "При Shape=false на корне IconView значение Border должно быть false. Shape=false и Border=true — ошибка.",
+      "expected": "violation указанного RuleID.",
+      "mutations": [],
+      "componentUrl": null
+    },
+    {
+      "id": "IV-QA-12",
+      "title": "r6: Shape Circle, Border Superellipse",
+      "kind": "negative",
+      "component": "IconView",
+      "variantKey": "c8ea702a762762a46a16758cd5617bbbdd841619",
+      "package": "r6",
+      "qaStatus": "FIXTURE_READY_TO_BUILD_R6",
+      "parameters": {
+        "Size": "64",
+        "Shape": true,
+        "Border": true,
+        "Content": true,
+        "Text": false,
+        "BgImg": false,
+        "BgColor": true,
+        "Indicator": false,
+        "TopAddon": false,
+        "BottomAddon": false
+      },
+      "ruleIds": [
+        "component:web-core.icon-view.shape-border-form-match.circle.1.1"
+      ],
+      "norm": "При Shape=True и Border=True Form у Shape и Border должен совпадать. Ветка Circle: Form у Border должен быть Circle.",
+      "expected": "violation правила согласованности Form.",
+      "mutations": [
+        {
+          "op": "form",
+          "path": "Content / Shape / Shape",
+          "value": "Circle"
+        }
+      ],
+      "componentUrl": null
+    }
+  ],
+  "freshNativeResults": 0,
+  "notRequiringRoutineRepeat": "R6 cases are optional reader-regression fixtures; accepted previous checks are retained.",
+  "Ready": false
+}

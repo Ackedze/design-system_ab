@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "apollo.skill-eval-registry.v1",
+  "skill": "apollo-contract-authoring",
+  "skillVersion": "0.1.5",
+  "policy": "Create a pinned run for every new contract and substantive update; revise skill for explicit owner requirements or demonstrated errors with before/after and relevant validation",
+  "cases": [
+    {
+      "caseId": "EVAL-PIN-001",
+      "kind": "regression",
+      "purpose": "Real core build inputs incl vendor/schema, complete and incomplete Draft, stale/duplicate pins",
+      "runner": "node --test .codex/skills/apollo-contract-authoring/scripts/check_contract.test.cjs",
+      "run": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/development-2026-10-10/EVAL-PIN-001",
+      "status": "VERIFIED_HELPER_ONLY"
+    },
+    {
+      "caseId": "APOLLO-AUTH-REPLAY-CC-001",
+      "kind": "real-package-replay",
+      "purpose": "Current CorporateContent ZIP retains existing manual/17 IR/full facts/statuses after core roundtrip",
+      "run": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/real-package-replay-001",
+      "status": "VERIFIED_CORE_REPLAY_ONLY",
+      "versions": ["0.1.1", "0.1.3"]
+    },
+    {
+      "caseId": "APOLLO-AUTH-FORWARD-001",
+      "kind": "forward",
+      "purpose": "Fill Draft from text/native types/scope and honestly retain manual editorial norm/singleton-order limits",
+      "rawInputs": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/forward-001/raw",
+      "request": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/forward-001/raw/request.md",
+      "run": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/forward-001",
+      "status": "VERIFIED_SYNTHETIC_AUTHORING_ONLY",
+      "authorSkillVersion": "0.1.1",
+      "reviewSkillVersion": "0.1.3",
+      "independentReview": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/forward-001/reviewer/general-review.json",
+      "runtimeCasesReplayed": 31,
+      "additionalReviewerCases": 4,
+      "productReady": false
+    },
+    {
+      "caseId": "FORWARD-AUTHOR-VERIFY-001",
+      "kind": "regression",
+      "purpose": "In-memory undefined fields and persisted JSON are compared in equivalent representations without dropping real data",
+      "evidence": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/forward-001/candidate/lessons.json",
+      "runner": "node .local/apollo-contract-authoring-evals/forward-001/reviewer/check.cjs (use a new output directory for a repeat run)",
+      "versionIntroduced": "0.1.2",
+      "status": "REGRESSION_REPRODUCED_FIX_VERIFIED"
+    },
+    {
+      "caseId": "GENERAL-EVAL-AUTHORITY-001",
+      "kind": "regression",
+      "purpose": "Draft inactive authority is verified against actual not-evaluable/UNKNOWN reason, distinct from missing-fact human-review",
+      "evidence": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/forward-001/reviewer/reviewer-lesson.json",
+      "versionIntroduced": "0.1.3",
+      "status": "REGRESSION_REPRODUCED_FIX_VERIFIED"
+    },
+    {
+      "caseId": "AUTHORING-EVIDENCE-REUSE-001",
+      "kind": "instruction-regression",
+      "purpose": "Reuse compatible shared text evidence, verify new bindings and normative differences, and avoid an unnecessary allowed-text manual repeat",
+      "request": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/evidence-reuse-0.1.4-2026-10-11/case.json",
+      "run": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/evidence-reuse-0.1.4-2026-10-11",
+      "versionIntroduced": "0.1.4",
+      "status": "VERIFIED_INSTRUCTION_AND_SCOPED_REGRESSIONS",
+      "validation": "/Users/alexkukhta/Desktop/workplace/.local/apollo-contract-authoring-evals/evidence-reuse-0.1.4-2026-10-11/eval.json",
+      "independentReview": false,
+      "productReady": false
+    },
+    {
+      "caseId": "AUTHORING-RULE-UNIQUENESS-001",
+      "kind": "owner-policy-and-semantic-review",
+      "purpose": "Prevent semantic duplicate active rules while retaining source N:1 coverage, independent obligations and distinct compiler checks",
+      "request": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/skill-evals/rule-uniqueness-0.1.5-2026-10-15/case.json",
+      "rawInputs": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/skill-evals/rule-uniqueness-0.1.5-2026-10-15/semantic-cases.json",
+      "run": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/skill-evals/rule-uniqueness-0.1.5-2026-10-15",
+      "versionIntroduced": "0.1.5",
+      "status": "VERIFIED_INSTRUCTION_AND_SELF_REVIEW_ONLY",
+      "validation": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/skill-evals/rule-uniqueness-0.1.5-2026-10-15/eval.json",
+      "independentReview": false,
+      "productReady": false
+    }
+  ]
+}

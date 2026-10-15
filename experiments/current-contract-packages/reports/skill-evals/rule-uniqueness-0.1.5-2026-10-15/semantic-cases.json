@@ -1,0 +1,108 @@
+{
+  "synthetic": true,
+  "caseId": "AUTHORING-RULE-UNIQUENESS-001",
+  "cases": [
+    {
+      "id": "same-meaning-different-ids",
+      "input": [
+        "A: root always forbids manual fill change",
+        "B: root always requires fill unchanged"
+      ],
+      "expected": {
+        "authoringRules": 1,
+        "sourceCrosswalk": {
+          "A": "R1",
+          "B": "R1"
+        }
+      }
+    },
+    {
+      "id": "broad-ban-and-covered-property",
+      "input": [
+        "A: root always forbids fill and stroke changes",
+        "B: root always forbids stroke change"
+      ],
+      "expected": {
+        "authoringRules": 1,
+        "coveredProperties": [
+          "fill",
+          "stroke"
+        ],
+        "sourceCrosswalk": {
+          "A": "R1",
+          "B": "R1"
+        }
+      }
+    },
+    {
+      "id": "different-targets",
+      "input": [
+        "A: TopAddon Form=Circle",
+        "B: BottomAddon Form=Circle"
+      ],
+      "expected": {
+        "authoringRules": 2,
+        "reason": "Independent targets"
+      }
+    },
+    {
+      "id": "different-conditions",
+      "input": [
+        "A: View=Primary requires Size=56",
+        "B: View=Secondary requires Size=48"
+      ],
+      "expected": {
+        "authoringRules": 2,
+        "reason": "Distinct conditions and normative values retained"
+      }
+    },
+    {
+      "id": "different-obligations-same-target",
+      "input": [
+        "A: root fill uses library token",
+        "B: root fill equals configured baseline"
+      ],
+      "expected": {
+        "authoringRules": 2,
+        "reason": "Binding presence and exact baseline equality are independent obligations"
+      }
+    },
+    {
+      "id": "dependency-norm",
+      "input": [
+        "Child contract C requires Button loading width invariant",
+        "Parent P uses pinned C",
+        "Candidate P2 repeats the same child invariant without a parent-specific restriction"
+      ],
+      "expected": {
+        "newParentRules": 0,
+        "childContractRetained": true,
+        "parentDependencyRetained": true
+      }
+    },
+    {
+      "id": "compiler-expansion",
+      "input": [
+        "One authoring rule: root Size=64 has width=64 and height=64",
+        "Compiler emits width IR and height IR"
+      ],
+      "expected": {
+        "authoringRules": 1,
+        "compiledChecks": 2,
+        "duplicateFinding": false
+      }
+    },
+    {
+      "id": "same-id-different-semantics",
+      "input": [
+        "R1: title is required",
+        "R1: graphic is required"
+      ],
+      "expected": {
+        "result": "FAIL_ID_COLLISION",
+        "obligationsRetained": 2,
+        "remedy": "Distinct stable IDs; do not merge unrelated norms"
+      }
+    }
+  ]
+}
