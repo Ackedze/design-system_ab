@@ -10,7 +10,7 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: active
-- updatedAt: 2026-10-16
+- updatedAt: 2026-10-20
 - sourceType: component-guideline
 - tags: backgroundplate, background, plate, container, level, overlay, adaptive, skeleton, web-corp
 - figmaLink: none
@@ -266,33 +266,7 @@ Adaptive: Level 2 остался без внешнего Level 1
 
 При перестроении страницы вложенность меняется. `Level 2` не должен оставаться самостоятельной подложкой.
 
-### Rule 6: Убирай внутренние 32 px в адаптивных конструкциях
-
-- ruleId: rule:components.background-plate.adaptive-remove-inner-32
-- severity: warning
-- appliesTo: screen
-- checkType: llm
-- autofix: no
-
-В адаптиве внутренние отступы `32 px` в подобных вложенных конструкциях необходимо убирать вручную.
-
-#### Правильно
-
-```text
-Adaptive: лишние внутренние 32 px у вложенной конструкции отключены вручную
-```
-
-#### Неправильно
-
-```text
-Adaptive: desktop-вложенность оставила внутренние 32 px и сжала контент
-```
-
-#### Почему
-
-В мобильной ширине desktop-отступы внутри вложенных подложек перегружают экран и ломают полезную ширину контента.
-
-### Rule 7: Не меняй скругления вручную
+### Rule 6: Не меняй скругления вручную
 
 - ruleId: rule:components.background-plate.radius-fixed-by-component
 - severity: error
@@ -320,7 +294,7 @@ Adaptive: desktop-вложенность оставила внутренние 3
 
 Скругления задают уровень поверхности и визуальную иерархию подложек. Ручное изменение radius ломает соответствие component baseline и должно фиксироваться как нарушение, а не как допустимая композиционная настройка.
 
-### Rule 8: Настраивай auto-layout Slot по контексту
+### Rule 7: Настраивай auto-layout Slot по контексту
 
 - ruleId: rule:components.background-plate.slot-auto-layout-by-context
 - severity: info
@@ -330,7 +304,7 @@ Adaptive: desktop-вложенность оставила внутренние 3
 
 Axis, gap и alignment внутри `Slot` определяются контекстом композиции и вложенным контентом. Их отличие от standalone-компонента не является ошибкой и не требует сброса.
 
-### Rule 9: Настраивай Clip content по контексту
+### Rule 8: Настраивай Clip content по контексту
 
 - ruleId: rule:components.background-plate.slot-clipping-by-context
 - severity: info
@@ -342,7 +316,7 @@ Axis, gap и alignment внутри `Slot` определяются контек
 
 Не рекомендуйте сброс только из-за отличия `clipsContent` от standalone-компонента.
 
-### Rule 10: Настраивай толщину Border по контексту
+### Rule 9: Настраивай толщину Border по контексту
 
 - ruleId: rule:components.background-plate.border-stroke-weight-by-context
 - severity: info
@@ -354,7 +328,7 @@ Axis, gap и alignment внутри `Slot` определяются контек
 
 Цвет обводки может меняться, но должен оставаться привязанным к цветовому токену дизайн-системы.
 
-### Rule 11: Оставляй обводку Border внутри компонента
+### Rule 10: Оставляй обводку Border внутри компонента
 
 - ruleId: rule:components.background-plate.border-stroke-align-inside
 - severity: error
@@ -378,7 +352,7 @@ Type=Border
 strokeAlign=CENTER | OUTSIDE
 ```
 
-### Rule 12: Не добавляй заливку в Border
+### Rule 11: Не добавляй заливку в Border
 
 - ruleId: rule:components.background-plate.border-no-fill
 - severity: error
@@ -403,7 +377,7 @@ Type=Border
 fill=<raw color | color token>
 ```
 
-### Rule 13: Используй Colored только с заливкой
+### Rule 12: Используй Colored только с заливкой
 
 - ruleId: rule:components.background-plate.colored-fill-only
 - severity: error
@@ -429,7 +403,7 @@ fill=<raw color | none>
 stroke=<raw color | color token>
 ```
 
-### Rule 14: Не меняй paint у Primary и Secondary вручную
+### Rule 13: Не меняй paint у Primary и Secondary вручную
 
 - ruleId: rule:components.background-plate.primary-secondary-paint-fixed
 - severity: error
@@ -453,7 +427,7 @@ Type=Secondary
 stroke=<добавленная вручную обводка>
 ```
 
-### Rule 15: Не меняй opacity вручную
+### Rule 14: Не меняй opacity вручную
 
 - ruleId: rule:components.background-plate.opacity-fixed
 - severity: error
@@ -463,7 +437,7 @@ stroke=<добавленная вручную обводка>
 
 Opacity BackgroundPlate должен совпадать с effective baseline текущего варианта. Ручное изменение запрещено даже через opacity token.
 
-### Rule 16: Используй blur по контексту
+### Rule 15: Используй blur по контексту
 
 - ruleId: rule:components.background-plate.blur-by-context
 - severity: info
@@ -474,7 +448,7 @@ Opacity BackgroundPlate должен совпадать с effective baseline т
 `Layer blur` и `Background blur` разрешены как контекстные эффекты. Само наличие blur не является нарушением и не требует сброса к standalone-компоненту.
 
 
-### Rule 17: Не меняй blend mode вручную
+### Rule 16: Не меняй blend mode вручную
 
 - ruleId: rule:components.background-plate.blend-mode-fixed
 - severity: error

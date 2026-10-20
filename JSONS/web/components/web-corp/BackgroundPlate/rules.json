@@ -1082,7 +1082,7 @@
         "severity": "warning",
         "source": "pattern-link",
         "patternRuleId": "rule:components.background-plate.adaptive-remove-inner-32",
-        "appliesTo": "component.layout",
+        "appliesTo": "screen.composition",
         "checkType": "llm",
         "matchKind": "composition_rule",
         "conditions": {
@@ -1092,7 +1092,13 @@
             "innerPadding": 32
           }
         },
-        "ruleText": "В адаптиве внутренние отступы 32 px во вложенных BackgroundPlate-конструкциях нужно убирать вручную, если они перешли из desktop-композиции и сжимают контент."
+        "ruleText": "В адаптиве внутренние отступы 32 px во вложенных BackgroundPlate-конструкциях нужно убирать вручную, если они перешли из desktop-композиции и сжимают контент.",
+        "authority": {
+          "status": "deprecated",
+          "provenance": "owner-decision-2026-10-20",
+          "revision": 2
+        },
+        "patternPath": "patterns/p_adaptive-alfa-business.md"
       }
     ],
     "executionPolicy": {
@@ -1107,7 +1113,8 @@
         "component:web-corp.background-plate.border-has-no-visible-fill",
         "component:web-corp.background-plate.colored-uses-fill-without-stroke",
         "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
-        "component:web-corp.background-plate.opacity-is-fixed"
+        "component:web-corp.background-plate.opacity-is-fixed",
+        "component:web-corp.background-plate.blend-mode-is-fixed"
       ],
       "compositionRules": [],
       "delegatedRules": [
@@ -1117,6 +1124,12 @@
             "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
             "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
             "component:web-corp.background-plate.opacity-is-fixed"
+          ]
+        },
+        {
+          "sourceRuleId": "component:web-corp.background-plate.adaptive-remove-inner-32-padding",
+          "targetRuleIds": [
+            "rule:components.background-plate.adaptive-remove-inner-32"
           ]
         }
       ],
@@ -1156,21 +1169,7 @@
       ],
       "contextOnlyRules": [
         {
-          "sourceRuleId": "component:web-corp.background-plate.blend-mode-is-fixed",
-          "missingFacts": [
-            "appearance.blendMode",
-            "baseline.effective.appearance.blendMode"
-          ]
-        },
-        {
           "sourceRuleId": "component:web-corp.background-plate.adaptive-level-2-becomes-level-1-without-outer",
-          "missingFacts": [
-            "responsive.source-composition",
-            "responsive.target-composition"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.background-plate.adaptive-remove-inner-32-padding",
           "missingFacts": [
             "responsive.source-composition",
             "responsive.target-composition"
@@ -1178,13 +1177,6 @@
         }
       ],
       "coverageGaps": [
-        {
-          "sourceRuleId": "component:web-corp.background-plate.blend-mode-is-fixed",
-          "missingFacts": [
-            "appearance.blendMode",
-            "baseline.effective.appearance.blendMode"
-          ]
-        },
         {
           "sourceRuleId": "component:web-corp.background-plate.adaptive-level-2-becomes-level-1-without-outer",
           "missingFacts": [

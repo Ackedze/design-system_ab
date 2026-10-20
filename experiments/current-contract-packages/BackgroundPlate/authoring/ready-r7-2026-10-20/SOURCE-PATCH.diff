@@ -1,0 +1,694 @@
+--- /Users/alexkukhta/Desktop/workplace/shared/design-system_ab/patterns/p_background-plate.md
++++ /Users/alexkukhta/Desktop/workplace/shared/design-system_ab/patterns/p_background-plate.md
+@@ -10,7 +10,7 @@
+ - locale: ru-RU
+ - owner: Editorial / Design System
+ - status: active
+-- updatedAt: 2026-10-16
++- updatedAt: 2026-10-20
+ - sourceType: component-guideline
+ - tags: backgroundplate, background, plate, container, level, overlay, adaptive, skeleton, web-corp
+ - figmaLink: none
+@@ -266,33 +266,7 @@
+ 
+ При перестроении страницы вложенность меняется. `Level 2` не должен оставаться самостоятельной подложкой.
+ 
+-### Rule 6: Убирай внутренние 32 px в адаптивных конструкциях
+-
+-- ruleId: rule:components.background-plate.adaptive-remove-inner-32
+-- severity: warning
+-- appliesTo: screen
+-- checkType: llm
+-- autofix: no
+-
+-В адаптиве внутренние отступы `32 px` в подобных вложенных конструкциях необходимо убирать вручную.
+-
+-#### Правильно
+-
+-```text
+-Adaptive: лишние внутренние 32 px у вложенной конструкции отключены вручную
+-```
+-
+-#### Неправильно
+-
+-```text
+-Adaptive: desktop-вложенность оставила внутренние 32 px и сжала контент
+-```
+-
+-#### Почему
+-
+-В мобильной ширине desktop-отступы внутри вложенных подложек перегружают экран и ломают полезную ширину контента.
+-
+-### Rule 7: Не меняй скругления вручную
++### Rule 6: Не меняй скругления вручную
+ 
+ - ruleId: rule:components.background-plate.radius-fixed-by-component
+ - severity: error
+@@ -320,7 +294,7 @@
+ 
+ Скругления задают уровень поверхности и визуальную иерархию подложек. Ручное изменение radius ломает соответствие component baseline и должно фиксироваться как нарушение, а не как допустимая композиционная настройка.
+ 
+-### Rule 8: Настраивай auto-layout Slot по контексту
++### Rule 7: Настраивай auto-layout Slot по контексту
+ 
+ - ruleId: rule:components.background-plate.slot-auto-layout-by-context
+ - severity: info
+@@ -330,7 +304,7 @@
+ 
+ Axis, gap и alignment внутри `Slot` определяются контекстом композиции и вложенным контентом. Их отличие от standalone-компонента не является ошибкой и не требует сброса.
+ 
+-### Rule 9: Настраивай Clip content по контексту
++### Rule 8: Настраивай Clip content по контексту
+ 
+ - ruleId: rule:components.background-plate.slot-clipping-by-context
+ - severity: info
+@@ -342,7 +316,7 @@
+ 
+ Не рекомендуйте сброс только из-за отличия `clipsContent` от standalone-компонента.
+ 
+-### Rule 10: Настраивай толщину Border по контексту
++### Rule 9: Настраивай толщину Border по контексту
+ 
+ - ruleId: rule:components.background-plate.border-stroke-weight-by-context
+ - severity: info
+@@ -354,7 +328,7 @@
+ 
+ Цвет обводки может меняться, но должен оставаться привязанным к цветовому токену дизайн-системы.
+ 
+-### Rule 11: Оставляй обводку Border внутри компонента
++### Rule 10: Оставляй обводку Border внутри компонента
+ 
+ - ruleId: rule:components.background-plate.border-stroke-align-inside
+ - severity: error
+@@ -378,7 +352,7 @@
+ strokeAlign=CENTER | OUTSIDE
+ ```
+ 
+-### Rule 12: Не добавляй заливку в Border
++### Rule 11: Не добавляй заливку в Border
+ 
+ - ruleId: rule:components.background-plate.border-no-fill
+ - severity: error
+@@ -403,7 +377,7 @@
+ fill=<raw color | color token>
+ ```
+ 
+-### Rule 13: Используй Colored только с заливкой
++### Rule 12: Используй Colored только с заливкой
+ 
+ - ruleId: rule:components.background-plate.colored-fill-only
+ - severity: error
+@@ -429,7 +403,7 @@
+ stroke=<raw color | color token>
+ ```
+ 
+-### Rule 14: Не меняй paint у Primary и Secondary вручную
++### Rule 13: Не меняй paint у Primary и Secondary вручную
+ 
+ - ruleId: rule:components.background-plate.primary-secondary-paint-fixed
+ - severity: error
+@@ -453,7 +427,7 @@
+ stroke=<добавленная вручную обводка>
+ ```
+ 
+-### Rule 15: Не меняй opacity вручную
++### Rule 14: Не меняй opacity вручную
+ 
+ - ruleId: rule:components.background-plate.opacity-fixed
+ - severity: error
+@@ -463,7 +437,7 @@
+ 
+ Opacity BackgroundPlate должен совпадать с effective baseline текущего варианта. Ручное изменение запрещено даже через opacity token.
+ 
+-### Rule 16: Используй blur по контексту
++### Rule 15: Используй blur по контексту
+ 
+ - ruleId: rule:components.background-plate.blur-by-context
+ - severity: info
+@@ -474,7 +448,7 @@
+ `Layer blur` и `Background blur` разрешены как контекстные эффекты. Само наличие blur не является нарушением и не требует сброса к standalone-компоненту.
+ 
+ 
+-### Rule 17: Не меняй blend mode вручную
++### Rule 16: Не меняй blend mode вручную
+ 
+ - ruleId: rule:components.background-plate.blend-mode-fixed
+ - severity: error
+--- /Users/alexkukhta/Desktop/workplace/shared/design-system_ab/patterns/p_adaptive-alfa-business.md
++++ /Users/alexkukhta/Desktop/workplace/shared/design-system_ab/patterns/p_adaptive-alfa-business.md
+@@ -9,7 +9,7 @@
+ - locale: ru-RU
+ - owner: Design System / Editorial / Product Design
+ - status: active
+-- updatedAt: 2026-06-03
++- updatedAt: 2026-10-20
+ - sourceType: design-guideline
+ - tags: adaptive, breakpoints, mobileweb, desktop, layout, page, header, footer, alfa-business
+ - figmaLink: https://www.figma.com/design/qP4EHdkLAtXh1EQOTPvmX0/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0----%D0%90%D0%B4%D0%B0%D0%BF%D1%82%D0%B8%D0%B2-%D0%B2-%D0%90%D0%BB%D1%8C%D1%84%D0%B0-%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81?m=auto&t=yxdKGIY4gfsWChEc-7
+@@ -440,6 +440,32 @@
+ 
+ Footer исключён из актуального паттерна страницы.
+ 
++### Rule 14: Убирай внутренние 32 px в адаптивных конструкциях
++
++- ruleId: rule:components.background-plate.adaptive-remove-inner-32
++- severity: warning
++- appliesTo: screen
++- checkType: llm
++- autofix: no
++
++В адаптиве внутренние отступы 32 px во вложенных BackgroundPlate-конструкциях нужно убирать вручную, если они перешли из desktop-композиции и сжимают контент.
++
++#### Правильно
++
++```text
++Adaptive: лишние внутренние 32 px у вложенной конструкции отключены вручную
++```
++
++#### Неправильно
++
++```text
++Adaptive: desktop-вложенность оставила внутренние 32 px и сжала контент
++```
++
++#### Почему
++
++В мобильной ширине desktop-отступы внутри вложенных подложек перегружают экран и ломают полезную ширину контента.
++
+ ## Section 7: Шаблоны
+ 
+ ### Проверка базовых размеров
+--- /Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json
++++ /Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json
+@@ -1082,7 +1082,7 @@
+         "severity": "warning",
+         "source": "pattern-link",
+         "patternRuleId": "rule:components.background-plate.adaptive-remove-inner-32",
+-        "appliesTo": "component.layout",
++        "appliesTo": "screen.composition",
+         "checkType": "llm",
+         "matchKind": "composition_rule",
+         "conditions": {
+@@ -1092,7 +1092,13 @@
+             "innerPadding": 32
+           }
+         },
+-        "ruleText": "В адаптиве внутренние отступы 32 px во вложенных BackgroundPlate-конструкциях нужно убирать вручную, если они перешли из desktop-композиции и сжимают контент."
++        "ruleText": "В адаптиве внутренние отступы 32 px во вложенных BackgroundPlate-конструкциях нужно убирать вручную, если они перешли из desktop-композиции и сжимают контент.",
++        "authority": {
++          "status": "deprecated",
++          "provenance": "owner-decision-2026-10-20",
++          "revision": 2
++        },
++        "patternPath": "patterns/p_adaptive-alfa-business.md"
+       }
+     ],
+     "executionPolicy": {
+@@ -1107,7 +1113,8 @@
+         "component:web-corp.background-plate.border-has-no-visible-fill",
+         "component:web-corp.background-plate.colored-uses-fill-without-stroke",
+         "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
+-        "component:web-corp.background-plate.opacity-is-fixed"
++        "component:web-corp.background-plate.opacity-is-fixed",
++        "component:web-corp.background-plate.blend-mode-is-fixed"
+       ],
+       "compositionRules": [],
+       "delegatedRules": [
+@@ -1118,6 +1125,12 @@
+             "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
+             "component:web-corp.background-plate.opacity-is-fixed"
+           ]
++        },
++        {
++          "sourceRuleId": "component:web-corp.background-plate.adaptive-remove-inner-32-padding",
++          "targetRuleIds": [
++            "rule:components.background-plate.adaptive-remove-inner-32"
++          ]
+         }
+       ],
+       "policyRules": [
+@@ -1156,41 +1169,20 @@
+       ],
+       "contextOnlyRules": [
+         {
+-          "sourceRuleId": "component:web-corp.background-plate.blend-mode-is-fixed",
++          "sourceRuleId": "component:web-corp.background-plate.adaptive-level-2-becomes-level-1-without-outer",
+           "missingFacts": [
+-            "appearance.blendMode",
+-            "baseline.effective.appearance.blendMode"
+-          ]
+-        },
++            "responsive.source-composition",
++            "responsive.target-composition"
++          ]
++        }
++      ],
++      "coverageGaps": [
+         {
+           "sourceRuleId": "component:web-corp.background-plate.adaptive-level-2-becomes-level-1-without-outer",
+           "missingFacts": [
+             "responsive.source-composition",
+             "responsive.target-composition"
+           ]
+-        },
+-        {
+-          "sourceRuleId": "component:web-corp.background-plate.adaptive-remove-inner-32-padding",
+-          "missingFacts": [
+-            "responsive.source-composition",
+-            "responsive.target-composition"
+-          ]
+-        }
+-      ],
+-      "coverageGaps": [
+-        {
+-          "sourceRuleId": "component:web-corp.background-plate.blend-mode-is-fixed",
+-          "missingFacts": [
+-            "appearance.blendMode",
+-            "baseline.effective.appearance.blendMode"
+-          ]
+-        },
+-        {
+-          "sourceRuleId": "component:web-corp.background-plate.adaptive-level-2-becomes-level-1-without-outer",
+-          "missingFacts": [
+-            "responsive.source-composition",
+-            "responsive.target-composition"
+-          ]
+         }
+       ]
+     }
+--- /Users/alexkukhta/Desktop/workplace/ds-ai-hub/products/ab/patterns/background-plate.md
++++ /Users/alexkukhta/Desktop/workplace/ds-ai-hub/products/ab/patterns/background-plate.md
+@@ -435,33 +435,7 @@
+ 
+ При перестроении страницы вложенность меняется. `Level 2` не должен оставаться самостоятельной подложкой.
+ 
+-### Rule 11: Убирай внутренние 32 px в адаптивных конструкциях
+-
+-- ruleId: rule:components.background-plate.adaptive-remove-inner-32
+-- severity: warning
+-- appliesTo: screen
+-- checkType: llm
+-- autofix: no
+-
+-В адаптиве внутренние отступы `32 px` в подобных вложенных конструкциях необходимо убирать вручную.
+-
+-#### Правильно
+-
+-```text
+-Adaptive: лишние внутренние 32 px у вложенной конструкции отключены вручную
+-```
+-
+-#### Неправильно
+-
+-```text
+-Adaptive: desktop-вложенность оставила внутренние 32 px и сжала контент
+-```
+-
+-#### Почему
+-
+-В мобильной ширине desktop-отступы внутри вложенных подложек перегружают экран и ломают полезную ширину контента.
+-
+-### Rule 12: Используй Skeleton-вариант компонента
++### Rule 11: Используй Skeleton-вариант компонента
+ 
+ - ruleId: rule:components.background-plate.skeleton-variant
+ - severity: error
+@@ -487,7 +461,7 @@
+ 
+ Встроенный skeleton сохраняет структуру, скругления, фон и размеры компонента.
+ 
+-### Rule 13: Настраивай padding по контексту
++### Rule 12: Настраивай padding по контексту
+ 
+ - ruleId: rule:components.background-plate.padding-is-designer-controlled
+ - severity: info
+@@ -517,7 +491,7 @@
+ 
+ Значения `32` и `24` дают генератору предсказуемую отправную точку. Padding адаптируется под сценарий; корректность определяется композицией и применимым pattern, а не самим наличием token binding.
+ 
+-### Rule 14: Не меняй скругления вручную
++### Rule 13: Не меняй скругления вручную
+ 
+ - ruleId: rule:components.background-plate.radius-fixed-by-component
+ - severity: error
+@@ -545,7 +519,7 @@
+ 
+ Скругления задают уровень поверхности и визуальную иерархию подложек. Ручное изменение radius ломает соответствие component baseline и должно фиксироваться как нарушение, а не как допустимая композиционная настройка.
+ 
+-### Rule 15: Настраивай auto-layout Slot по контексту
++### Rule 14: Настраивай auto-layout Slot по контексту
+ 
+ - ruleId: rule:components.background-plate.slot-auto-layout-by-context
+ - severity: info
+@@ -557,7 +531,7 @@
+ 
+ Padding проверяется отдельно по контексту и применимому pattern.
+ 
+-### Rule 16: Настраивай Clip content по контексту
++### Rule 15: Настраивай Clip content по контексту
+ 
+ - ruleId: rule:components.background-plate.slot-clipping-by-context
+ - severity: info
+@@ -569,7 +543,7 @@
+ 
+ Не рекомендуйте сброс только из-за отличия `clipsContent` от standalone-компонента.
+ 
+-### Rule 17: Настраивай толщину Border по контексту
++### Rule 16: Настраивай толщину Border по контексту
+ 
+ - ruleId: rule:components.background-plate.border-stroke-weight-by-context
+ - severity: info
+@@ -581,7 +555,7 @@
+ 
+ Цвет обводки может меняться, но должен оставаться привязанным к цветовому токену дизайн-системы.
+ 
+-### Rule 18: Настраивай обводку Border по контексту
++### Rule 17: Настраивай обводку Border по контексту
+ 
+ - ruleId: rule:components.background-plate.border-stroke-is-designer-controlled
+ - severity: info
+@@ -607,7 +581,7 @@
+ visible fill
+ ```
+ 
+-### Rule 19: Не добавляй заливку в Border
++### Rule 18: Не добавляй заливку в Border
+ 
+ - ruleId: rule:components.background-plate.border-no-fill
+ - severity: error
+@@ -632,7 +606,7 @@
+ fill=<raw color | color token>
+ ```
+ 
+-### Rule 20: Используй Colored только с заливкой
++### Rule 19: Используй Colored только с заливкой
+ 
+ - ruleId: rule:components.background-plate.colored-fill-only
+ - severity: error
+@@ -658,7 +632,7 @@
+ stroke=<raw color | color token>
+ ```
+ 
+-### Rule 21: Не меняй paint у Primary и Secondary вручную
++### Rule 20: Не меняй paint у Primary и Secondary вручную
+ 
+ - ruleId: rule:components.background-plate.primary-secondary-paint-fixed
+ - severity: error
+@@ -682,7 +656,7 @@
+ stroke=<добавленная вручную обводка>
+ ```
+ 
+-### Rule 22: Не меняй opacity вручную
++### Rule 21: Не меняй opacity вручную
+ 
+ - ruleId: rule:components.background-plate.opacity-fixed
+ - severity: error
+@@ -692,7 +666,7 @@
+ 
+ Opacity BackgroundPlate должен совпадать с effective baseline текущего варианта. Ручное изменение запрещено даже через opacity token.
+ 
+-### Rule 23: Не добавляй тени
++### Rule 22: Не добавляй тени
+ 
+ - ruleId: rule:components.background-plate.no-manual-shadows
+ - severity: error
+@@ -702,7 +676,7 @@
+ 
+ Не добавляйте к BackgroundPlate или его внутренним surface-слоям `Drop shadow` и `Inner shadow`. Запрет действует для raw effects и effect styles.
+ 
+-### Rule 24: Используй blur по контексту
++### Rule 23: Используй blur по контексту
+ 
+ - ruleId: rule:components.background-plate.blur-by-context
+ - severity: info
+@@ -714,7 +688,7 @@
+ 
+ Не применяйте к blur правило, запрещающее `Drop shadow` и `Inner shadow`.
+ 
+-### Rule 25: Не меняй blend mode вручную
++### Rule 24: Не меняй blend mode вручную
+ 
+ - ruleId: rule:components.background-plate.blend-mode-fixed
+ - severity: error
+@@ -724,7 +698,7 @@
+ 
+ Blend mode BackgroundPlate и его внутренних surface-слоёв должен совпадать с effective baseline текущего варианта. Ручное изменение запрещено.
+ 
+-### Rule 26: Используй Promo Radius для BackgroundPlateSlot на promo-странице
++### Rule 25: Используй Promo Radius для BackgroundPlateSlot на promo-странице
+ 
+ - ruleId: rule:components.background-plate.promo-slot-radius-collection
+ - severity: error
+@@ -757,7 +731,7 @@
+ 
+ Promo radius является отдельным variable context. Ручное воспроизведение значений или обычная collection разрывают системное управление уровнями и адаптивом.
+ 
+-### Rule 27: Используй только публичные корни
++### Rule 26: Используй только публичные корни
+ 
+ - ruleId: rule:components.background-plate.public-roots-only
+ - severity: error
+@@ -767,7 +741,7 @@
+ 
+ Самостоятельно размещай только `[D|M] BackgroundPlate`, `[D|M] BackgroundPlateSlot` и опубликованные Promo roots. `Style Level 1` и `Style Level 2` являются служебными частями и не используются отдельно.
+ 
+-### Rule 28: Выбирай версию для канала страницы
++### Rule 27: Выбирай версию для канала страницы
+ 
+ - ruleId: rule:components.background-plate.platform-version-must-match
+ - severity: error
+--- /Users/alexkukhta/Desktop/workplace/ds-ai-hub/products/ab/patterns/adaptive-alfa-business.md
++++ /Users/alexkukhta/Desktop/workplace/ds-ai-hub/products/ab/patterns/adaptive-alfa-business.md
+@@ -5,7 +5,7 @@
+ platforms: [web]
+ targets: []
+ status: verified
+-lastReviewed: 2026-06-03
++lastReviewed: 2026-10-20
+ ---
+ 
+ # Pattern: Адаптив в Альфа-Бизнес
+@@ -19,7 +19,7 @@
+ - locale: ru-RU
+ - owner: Design System / Editorial / Product Design
+ - status: active
+-- updatedAt: 2026-06-03
++- updatedAt: 2026-10-20
+ - sourceType: design-guideline
+ - tags: adaptive, breakpoints, mobileweb, desktop, layout, page, header, footer, alfa-business
+ - figmaLink: https://www.figma.com/design/qP4EHdkLAtXh1EQOTPvmX0/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0----%D0%90%D0%B4%D0%B0%D0%BF%D1%82%D0%B8%D0%B2-%D0%B2-%D0%90%D0%BB%D1%8C%D1%84%D0%B0-%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81?m=auto&t=yxdKGIY4gfsWChEc-7
+@@ -450,6 +450,32 @@
+ 
+ Footer исключён из актуального паттерна страницы.
+ 
++### Rule 14: Убирай внутренние 32 px в адаптивных конструкциях
++
++- ruleId: rule:components.background-plate.adaptive-remove-inner-32
++- severity: warning
++- appliesTo: screen
++- checkType: llm
++- autofix: no
++
++В адаптиве внутренние отступы 32 px во вложенных BackgroundPlate-конструкциях нужно убирать вручную, если они перешли из desktop-композиции и сжимают контент.
++
++#### Правильно
++
++```text
++Adaptive: лишние внутренние 32 px у вложенной конструкции отключены вручную
++```
++
++#### Неправильно
++
++```text
++Adaptive: desktop-вложенность оставила внутренние 32 px и сжала контент
++```
++
++#### Почему
++
++В мобильной ширине desktop-отступы внутри вложенных подложек перегружают экран и ломают полезную ширину контента.
++
+ ## Section 7: Шаблоны
+ 
+ ### Проверка базовых размеров
+--- /Users/alexkukhta/Desktop/workplace/shared/design-system_ab/apollo/rule-crosswalk.json
++++ /Users/alexkukhta/Desktop/workplace/shared/design-system_ab/apollo/rule-crosswalk.json
+@@ -49,6 +49,9 @@
+     },
+     "benefitCardPattern": {
+       "path": "products/ab/patterns/benefit-card.md"
++    },
++    "adaptiveAlfaBusinessPattern": {
++      "path": "products/ab/patterns/adaptive-alfa-business.md"
+     }
+   },
+   "entries": [
+@@ -2864,7 +2867,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.radius-fixed-by-component",
+-          "heading": "Rule 8: Не меняй скругления вручную"
++          "heading": "Rule 13: Не меняй скругления вручную"
+         }
+       ],
+       "review": {
+@@ -2883,7 +2886,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.padding-is-designer-controlled",
+-          "heading": "Rule 7: Настраивай padding по контексту"
++          "heading": "Rule 12: Настраивай padding по контексту"
+         }
+       ],
+       "review": {
+@@ -2902,7 +2905,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.slot-auto-layout-by-context",
+-          "heading": "Rule 9: Настраивай auto-layout Slot по контексту"
++          "heading": "Rule 14: Настраивай auto-layout Slot по контексту"
+         }
+       ],
+       "review": {
+@@ -2921,7 +2924,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.slot-clipping-by-context",
+-          "heading": "Rule 10: Настраивай Clip content по контексту"
++          "heading": "Rule 15: Настраивай Clip content по контексту"
+         }
+       ],
+       "review": {
+@@ -2940,7 +2943,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.no-secondary-for-level-2",
+-          "heading": "Rule 2: Не используй Secondary для Level 2"
++          "heading": "Rule 7: Не используй Secondary для Level 2"
+         }
+       ],
+       "review": {
+@@ -2959,13 +2962,13 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.colored-fill-only",
+-          "heading": "Rule 14: Используй Colored только с заливкой"
++          "heading": "Rule 19: Используй Colored только с заливкой"
+         },
+         {
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.border-stroke-is-designer-controlled",
+-          "heading": "Rule 12: Настраивай обводку Border по контексту"
++          "heading": "Rule 17: Настраивай обводку Border по контексту"
+         }
+       ],
+       "review": {
+@@ -2984,7 +2987,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.border-no-fill",
+-          "heading": "Rule 13: Не добавляй заливку в Border"
++          "heading": "Rule 18: Не добавляй заливку в Border"
+         }
+       ],
+       "review": {
+@@ -3003,7 +3006,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.colored-fill-only",
+-          "heading": "Rule 14: Используй Colored только с заливкой"
++          "heading": "Rule 19: Используй Colored только с заливкой"
+         }
+       ],
+       "review": {
+@@ -3022,7 +3025,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.primary-secondary-paint-fixed",
+-          "heading": "Rule 15: Не меняй paint у Primary и Secondary вручную"
++          "heading": "Rule 20: Не меняй paint у Primary и Secondary вручную"
+         }
+       ],
+       "review": {
+@@ -3041,7 +3044,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.opacity-fixed",
+-          "heading": "Rule 16: Не меняй opacity вручную"
++          "heading": "Rule 21: Не меняй opacity вручную"
+         }
+       ],
+       "review": {
+@@ -3060,7 +3063,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.blur-by-context",
+-          "heading": "Rule 17: Используй blur по контексту"
++          "heading": "Rule 23: Используй blur по контексту"
+         }
+       ],
+       "review": {
+@@ -3079,7 +3082,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.blend-mode-fixed",
+-          "heading": "Rule 18: Не меняй blend mode вручную"
++          "heading": "Rule 24: Не меняй blend mode вручную"
+         }
+       ],
+       "review": {
+@@ -3098,7 +3101,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.border-stroke-weight-by-context",
+-          "heading": "Rule 11: Настраивай толщину Border по контексту"
++          "heading": "Rule 16: Настраивай толщину Border по контексту"
+         }
+       ],
+       "review": {
+@@ -3117,7 +3120,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.border-stroke-is-designer-controlled",
+-          "heading": "Rule 12: Настраивай обводку Border по контексту"
++          "heading": "Rule 17: Настраивай обводку Border по контексту"
+         }
+       ],
+       "review": {
+@@ -3136,7 +3139,7 @@
+           "kind": "named-rule",
+           "document": "backgroundPlatePattern",
+           "ruleId": "rule:components.background-plate.adaptive-level-adjustment",
+-          "heading": "Rule 5: Настраивай адаптивные вложенные подложки вручную"
++          "heading": "Rule 10: Настраивай адаптивные вложенные подложки вручную"
+         }
+       ],
+       "review": {
+@@ -3149,19 +3152,19 @@
+       "apolloRuleId": "component:web-corp.background-plate.adaptive-remove-inner-32-padding",
+       "apolloSource": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+       "relation": "semantic-support",
+-      "enforcementScope": "BackgroundPlate component scope",
+-      "hubEvidence": [
+-        {
+-          "kind": "named-rule",
+-          "document": "backgroundPlatePattern",
++      "enforcementScope": "Adaptive page composition; retired in local BackgroundPlate contract",
++      "hubEvidence": [
++        {
++          "kind": "named-rule",
++          "document": "adaptiveAlfaBusinessPattern",
+           "ruleId": "rule:components.background-plate.adaptive-remove-inner-32",
+-          "heading": "Rule 6: Убирай внутренние 32 px в адаптивных конструкциях"
++          "heading": "Rule 14: Убирай внутренние 32 px в адаптивных конструкциях"
+         }
+       ],
+       "review": {
+         "status": "draft",
+-        "reviewedAt": "2026-10-16",
+-        "basis": "Owner scope decisions; staged source/human correspondence. Shared application and runtime acceptance pending."
++        "reviewedAt": "2026-10-20",
++        "basis": "Owner-approved routing; private exact text/ID candidate. Shared apply and Hub integration tracked separately."
+       }
+     },
+     {

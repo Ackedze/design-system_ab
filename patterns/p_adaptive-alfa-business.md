@@ -9,7 +9,7 @@
 - locale: ru-RU
 - owner: Design System / Editorial / Product Design
 - status: active
-- updatedAt: 2026-06-03
+- updatedAt: 2026-10-20
 - sourceType: design-guideline
 - tags: adaptive, breakpoints, mobileweb, desktop, layout, page, header, footer, alfa-business
 - figmaLink: https://www.figma.com/design/qP4EHdkLAtXh1EQOTPvmX0/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0----%D0%90%D0%B4%D0%B0%D0%BF%D1%82%D0%B8%D0%B2-%D0%B2-%D0%90%D0%BB%D1%8C%D1%84%D0%B0-%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81?m=auto&t=yxdKGIY4gfsWChEc-7
@@ -439,6 +439,32 @@ Mobile Web должен использовать мобильную навига
 #### Почему
 
 Footer исключён из актуального паттерна страницы.
+
+### Rule 14: Убирай внутренние 32 px в адаптивных конструкциях
+
+- ruleId: rule:components.background-plate.adaptive-remove-inner-32
+- severity: warning
+- appliesTo: screen
+- checkType: llm
+- autofix: no
+
+В адаптиве внутренние отступы 32 px во вложенных BackgroundPlate-конструкциях нужно убирать вручную, если они перешли из desktop-композиции и сжимают контент.
+
+#### Правильно
+
+```text
+Adaptive: лишние внутренние 32 px у вложенной конструкции отключены вручную
+```
+
+#### Неправильно
+
+```text
+Adaptive: desktop-вложенность оставила внутренние 32 px и сжала контент
+```
+
+#### Почему
+
+В мобильной ширине desktop-отступы внутри вложенных подложек перегружают экран и ломают полезную ширину контента.
 
 ## Section 7: Шаблоны
 
