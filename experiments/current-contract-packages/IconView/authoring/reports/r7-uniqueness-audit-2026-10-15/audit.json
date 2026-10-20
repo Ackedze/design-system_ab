@@ -1,0 +1,79 @@
+{
+  "status": "UNIQUENESS_AUDIT_COMPLETE_PROPOSAL_ONLY",
+  "input": {
+    "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r7-preparation-2026-10-15/contract.manual.json",
+    "sha256": "11d56860da0b048abb4076a28a4f1b0310cf8e40ef7f1391b60b5b904004dc6a",
+    "bytes": 200620
+  },
+  "counts": {
+    "manual": 58,
+    "active": 56,
+    "deprecated": 2,
+    "RuleIdCollisions": 0,
+    "exactDuplicateGroups": 1,
+    "partialOverlapGroups": 1
+  },
+  "findings": [
+    {
+      "id": "IV-R7-UNIQUE-001",
+      "status": "CONFIRMED_AUTHORING_POLICY_DUPLICATE",
+      "rules": [
+        "component:web-core.icon-view.component-properties-are-first-class",
+        "component:web-core.icon-view.public-properties-are-component-settings"
+      ],
+      "evidence": "All fields except id/rationale/sourceRefs equal; controlPaths and sourceRefs also equal. Same allowed root property policy.",
+      "proposal": {
+        "keepRuleId": "component:web-core.icon-view.component-properties-are-first-class",
+        "retireActiveRuleId": "component:web-core.icon-view.public-properties-are-component-settings",
+        "sourceCrosswalk": "N:1 with both original source IDs and formulations",
+        "retain": "11 typed native property paths and layer-vs-component classification",
+        "sourceCaveat": "Generic classification source covers family parts too. Recheck coverage when merging; do not silently expand root allowlist or discard classification scope."
+      }
+    },
+    {
+      "id": "IV-R7-UNIQUE-002",
+      "status": "CONFIRMED_PARTIAL_NORM_OVERLAP",
+      "rule": "component:web-core.icon-view.addons-smaller-and-circle",
+      "coveredBy": [
+        "component:web-core.icon-view.bottom-addon-smaller.128",
+        "component:web-core.icon-view.bottom-addon-smaller.40",
+        "component:web-core.icon-view.bottom-addon-smaller.48",
+        "component:web-core.icon-view.bottom-addon-smaller.56",
+        "component:web-core.icon-view.bottom-addon-smaller.64",
+        "component:web-core.icon-view.bottom-addon-smaller.72",
+        "component:web-core.icon-view.bottom-addon-smaller.80",
+        "component:web-core.icon-view.top-addon-smaller.128",
+        "component:web-core.icon-view.top-addon-smaller.40",
+        "component:web-core.icon-view.top-addon-smaller.48",
+        "component:web-core.icon-view.top-addon-smaller.56",
+        "component:web-core.icon-view.top-addon-smaller.64",
+        "component:web-core.icon-view.top-addon-smaller.72",
+        "component:web-core.icon-view.top-addon-smaller.80",
+        "component:web-core.icon-view.bottom-addon-border-circle",
+        "component:web-core.icon-view.bottom-addon-shape-circle",
+        "component:web-core.icon-view.top-addon-border-circle",
+        "component:web-core.icon-view.top-addon-shape-circle"
+      ],
+      "proposal": "Retain size/Circle only in scoped executable rules; retain Indicator-in-TopAddon residual clauses as unresolved. Preserve original source/crosswalk. No invented swap path.",
+      "residualClauses": [
+        "Indicator allowed as TopAddon replacement",
+        "Replacement preserves original addon slot Size",
+        "Do not keep mini IconView Indicator=true instead of badge replacement"
+      ],
+      "scopeNote": "Ordinary IconView Circle proof does not establish Indicator swap/type/geometry."
+    }
+  ],
+  "distinctChecksRetained": [
+    "11 fixed-square Size conditions",
+    "14 addon-size target/root Size conditions",
+    "3 Form-match root Shape Form conditions",
+    "4 independent native addon Circle targets",
+    "binding presence vs library membership vs color customization permission"
+  ],
+  "wordingImprovement": "Each Circle Rationale should name its own Top/Bottom + Shape/Border target; same wording alone does not make these four rules duplicate.",
+  "appliedContractChanges": 0,
+  "coreCompile": 0,
+  "zipWrites": 0,
+  "registryApply": 0,
+  "Ready": false
+}

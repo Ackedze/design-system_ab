@@ -1,0 +1,41 @@
+{
+  "status": "PREPARATION_DIAGNOSTICS_PRESERVED",
+  "date": "2026-10-16",
+  "facts": [
+    {
+      "operation": "deep read-only preflight using getNodeByIdAsync",
+      "cellId": "69",
+      "outcome": "terminated after no response",
+      "canvasWriteInstructions": 0
+    },
+    {
+      "operation": "bounded read-only preflight using getNodeByIdAsync",
+      "cellId": "76",
+      "outcome": "terminated after no response",
+      "canvasWriteInstructions": 0
+    },
+    {
+      "operation": "minimal Plugin API and page-list diagnostics",
+      "outcome": "success; target file and Laboratory page present",
+      "canvasWriteInstructions": 0
+    },
+    {
+      "operation": "read-only direct page traversal with full node output",
+      "outcome": "return exceeded 20480-byte limit; 125906 bytes; no canvas edits committed",
+      "debugUUID": "2e98e8da-2b3b-4179-b54d-336305e3ac5c",
+      "canvasWriteInstructions": 0
+    },
+    {
+      "operation": "direct page traversal with compact structural fingerprints",
+      "outcome": "PASS; 173 protected nodes, 20 historical case roots",
+      "evidence": "preflight.json"
+    }
+  ],
+  "cause": "Root cause of async lookup stalls not established; direct traversal succeeds. Oversized output was caused by returning full protected-node facts.",
+  "consequence": "Preparation delayed; no native fixture creation admitted by failed preflights.",
+  "repair": "Resolve known page through root.children, capture structural fingerprint and compact case facts; composition requires successful saved preflight.",
+  "protection": "Inspect completed result, physically parse evidence, and gate subsequent writes on success; bounded return size.",
+  "responsible": "Contract Creation",
+  "EditorValidation": "NOT_RUN_USER_ONLY",
+  "sharedWrites": 0
+}

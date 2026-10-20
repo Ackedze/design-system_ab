@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "componentId": "web-corp.background-plate",
+  "date": "2026-10-16",
+  "status": "OWNER_DECISIONS_ACCEPTED_SHARED_SYNC_PENDING",
+  "source": "Владелец: десять аннотаций и два уточнения в Apollo CB :: Contract Creation",
+  "supersedes": "../non-executable-routing-2026-10-16/severity-restoration.patch.json",
+  "clarifications": {
+    "pageAssembly": "Все четыре",
+    "publicAuxiliary": "В метаданные паспорта"
+  },
+  "decisions": [
+    {
+      "annotation": 1,
+      "action": "move",
+      "destination": "page-surface-assembly",
+      "sourceSuffixes": ["level-2-requires-level-1", "slot-content-levels", "root-surface-requires-level-0", "background-color-by-surface-context"],
+      "ruleIds": ["rule:components.background-plate.level-2-over-level-1", "rule:components.background-plate.slot-content-levels", "rule:components.background-plate.root-surface-level-0", "rule:components.background-plate.background-color-by-page"],
+      "norm": "Все четыре требования переходят в правила сборки страницы и модальной поверхности. Уровни, подложка Level1, порядок, покрытие, содержимое Slot и карта page/modal × gray/white проверяются в полном контексте композиции.",
+      "severity": "error"
+    },
+    {
+      "annotation": 2,
+      "action": "delete",
+      "destination": null,
+      "sourceSuffixes": ["single-background-color-per-page"],
+      "ruleIds": ["rule:components.background-plate.single-background-color-per-page"],
+      "norm": "Требование единого BackgroundColor удалено из активных норм. Не создавать заменяющее правило сравнения всех подложек страницы."
+    },
+    {
+      "annotation": 3,
+      "action": "delegate-membership",
+      "destination": "global-design-system-usage",
+      "sourceSuffixes": ["colored-and-border-use-color-tokens"],
+      "ruleIds": ["rule:system.library-tokens-only"],
+      "norm": "Использовать опубликованные токены разрешённых библиотек дизайн-системы. Кастомные и локальные токены запрещены. Четыре существующие проверки наличия color binding остаются в компоненте; принадлежность библиотеке проверяет одно общее правило.",
+      "severity": "error",
+      "evidenceRequirement": "Canonical token key и принятый registry библиотеки; имя, RGB или remote=true недостаточны."
+    },
+    {
+      "annotation": 4,
+      "action": "delete",
+      "destination": null,
+      "sourceSuffixes": ["manual-shadows-are-prohibited"],
+      "ruleIds": ["rule:components.background-plate.no-manual-shadows"],
+      "norm": "Специальный запрет Drop shadow и Inner shadow удалён. Отменить предлагаемую реализацию этого запрета; не переносить его скрыто в другой маршрут."
+    },
+    {
+      "annotation": 5,
+      "action": "keep",
+      "destination": "component",
+      "sourceSuffixes": ["blend-mode-is-fixed"],
+      "ruleIds": ["rule:components.background-plate.blend-mode-fixed"],
+      "norm": "Blend mode корня и внутренних surface-слоёв должен совпадать с effective baseline.",
+      "severity": "error",
+      "execution": "Неисполняемо до поддержки actual и baseline blendMode в capture. Серьёзность нормы не понижается из-за отсутствия reader."
+    },
+    {
+      "annotation": 6,
+      "action": "move",
+      "destination": "surface-usage-pattern",
+      "sourceSuffixes": ["border-is-not-clickable"],
+      "ruleIds": ["rule:components.background-plate.border-not-clickable"],
+      "norm": "Type=Border не может быть кликабельным всей поверхностью. Кликабельный вложенный Link или Button не нарушает эту норму.",
+      "severity": "error",
+      "execution": "Фактический code mapping и поведение; статичный Figma snapshot не доказывает обработчик всей поверхности."
+    },
+    {
+      "annotation": 7,
+      "action": "move",
+      "destination": "loading-state-pattern",
+      "sourceSuffixes": ["skeleton-is-component-property"],
+      "ruleIds": ["rule:components.background-plate.skeleton-variant"],
+      "norm": "Для обычной загрузки BackgroundPlate использовать штатный Skeleton. Сложное исключение должно быть явно описано в применимом паттерне. Публичный Skeleton API и два разрешения переключения состояния остаются в паспорте.",
+      "severity": "error"
+    },
+    {
+      "annotation": 8,
+      "action": "passport",
+      "destination": "passport-public-boundary",
+      "sourceSuffixes": ["public-roots-only"],
+      "ruleIds": ["rule:components.background-plate.public-roots-only"],
+      "norm": "Публичные и служебные части определяются метаданными паспорта по canonical key. Использовать существующий publicRepresentationBoundaryVersion=1 с шестью публичными representations; восемь Style Level sets являются auxiliary. Отдельного пользовательского правила нет."
+    },
+    {
+      "annotation": 9,
+      "action": "move",
+      "destination": "global-design-system-usage",
+      "sourceSuffixes": ["platform-version-must-match"],
+      "ruleIds": ["rule:system.component-channel-match"],
+      "norm": "Версия компонента desktop/mobile-web должна соответствовать каналу, выбранному в интерфейсе плагина.",
+      "severity": "error",
+      "evidenceRequirement": "Expected channel получен независимо из переключателя UI; actual platform доказана canonical identity компонента. Не выводить expected channel из самого проверяемого компонента."
+    },
+    {
+      "annotation": 10,
+      "action": "move",
+      "destination": "landing-pages-pattern",
+      "sourceSuffixes": ["promo-slot-radius-collection"],
+      "ruleIds": ["rule:components.background-plate.promo-slot-radius-collection"],
+      "norm": "Для BackgroundPlateSlot на promo-странице использовать [Promo] BackgroundPlate Radius. Нормативный владелец — паттерн лендингов; паспорт содержит ссылку без второго активного правила.",
+      "severity": "error"
+    }
+  ],
+  "unchanged": ["Рекомендация adaptive-remove-inner-32-padding сохраняет warning", "Принятые 23 IR, native keys, bindings и generation profiles сохраняются", "Границы пилота генерации не расширяются"],
+  "sharedApplication": {
+    "status": "NOT_APPLIED",
+    "reason": "Общие Apollo inputs требуют окна General; текущий mcp-correspondence287 не открыл shared writes. Hub checkout содержит чужие незавершённые изменения.",
+    "requires": ["General: один writer и точная область записи", "Изолированный Hub checkout", "Синхронизация Правила / Леджер / Predicate с чтением после записи"]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "status": "ADMISSION_REQUIREMENT_UNSATISFIED",
+  "before": {
+    "phase": "before-old-recompile-admission-probe",
+    "at": "2026-10-17T19:36:34.479Z",
+    "mode": "HISTORICAL_FROZEN_308_ONLY",
+    "baselineInputsExact": 165,
+    "frozenDataExact": 11,
+    "toolchainExact": 5,
+    "currentAcceptance": false
+  },
+  "after": {
+    "phase": "after-old-recompile-admission-probe",
+    "at": "2026-10-17T19:36:34.722Z",
+    "mode": "HISTORICAL_FROZEN_308_ONLY",
+    "baselineInputsExact": 165,
+    "frozenDataExact": 11,
+    "toolchainExact": 5,
+    "currentAcceptance": false
+  },
+  "kind": "actual frozen old Editor compiler/evaluator only; UI/controller not executed",
+  "issues": [
+    {
+      "level": "error",
+      "code": "COMPONENT_DEPENDENCY",
+      "path": "/componentDependencies/0",
+      "message": "Unknown dependency binding kind."
+    },
+    {
+      "level": "error",
+      "code": "COMPONENT_DEPENDENCY",
+      "path": "/componentDependencies/0",
+      "message": "Duplicate nested subject."
+    },
+    {
+      "level": "error",
+      "code": "COMPONENT_DEPENDENCY",
+      "path": "/componentDependencies/0",
+      "message": "Unknown dependency binding kind."
+    }
+  ],
+  "derivedPolicy": {
+    "dependencyCompletionVersion": 1,
+    "engine": "apollo-predicate-engine",
+    "unknownPolicy": "fail-closed",
+    "compiledIsSourceOfTruth": false,
+    "gradientPaintFactsVersion": 1,
+    "ruleScopeFactsVersion": 1
+  },
+  "outcome": {
+    "rootEvaluation": "DID_NOT_REFUSE",
+    "dependencyRuns": [
+      {
+        "dependencyId": "button",
+        "bindingId": "desktop-child",
+        "componentId": "fixture.button",
+        "revision": 7,
+        "compiledHash": "098471ef284e9458aa0898cfda387f3b3616f3f774d2114ad0f13e9b478dd49f",
+        "nodeId": "member-0",
+        "status": "executed",
+        "snapshotHash": "2a378cc7065888ed2a3d55559d4b0ed1b5117362e32c57fbd3fe57381158794a",
+        "evaluations": 1
+      },
+      {
+        "dependencyId": "button",
+        "bindingId": "mobile-child",
+        "componentId": "fixture.button",
+        "revision": 7,
+        "compiledHash": "098471ef284e9458aa0898cfda387f3b3616f3f774d2114ad0f13e9b478dd49f",
+        "status": "not-executed",
+        "reason": "dependency-owner-identity-mismatch"
+      }
+    ],
+    "classifications": {
+      "human-review": 2,
+      "not-applicable": 1,
+      "compliant": 1
+    }
+  },
+  "conclusion": "Old compiled root refuses version2; old authoring recompile emits a contract despite unknown-kind issues. Capture admission cannot be guaranteed by this proposed contract change alone.",
+  "requiredBeforeSharedRollout": "Review and implement a legitimate authoring minimum-reader admission boundary or explicitly restrict adoption to a verified updated Editor path; no green release claim.",
+  "currentAcceptance": false,
+  "Ready": false
+}

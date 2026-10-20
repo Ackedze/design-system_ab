@@ -9,7 +9,7 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: active
-- updatedAt: 2026-07-20
+- updatedAt: 2026-10-16
 - sourceType: design-guideline
 - tags: landing, promo, alfa-business, promo-main-block, benefits, content, footer, modal, mobileweb, editorial
 - figmaLink: none
@@ -761,6 +761,28 @@ Viewport 768 px -> Compact=false во всех блоках
 #### Почему
 
 Compact-вид уменьшает типографику, отступы и плотность блоков для узких разрешений.
+
+### Rule 25: Используй Promo Radius для BackgroundPlateSlot на лендинге
+
+- ruleId: rule:components.background-plate.promo-slot-radius-collection
+- severity: error
+- appliesTo: screen
+- checkType: manual
+- autofix: no
+
+На promo-странице BackgroundPlateSlot должен использовать collection [Promo] BackgroundPlate Radius. Обычная BackgroundPlate Radius и ручной corner radius для этого сценария запрещены.
+
+#### Правильно
+
+BackgroundPlateSlot на promo-странице связан с [Promo] BackgroundPlate Radius.
+
+#### Неправильно
+
+Обычная radius collection или ручной corner radius вместо promo collection.
+
+#### Почему
+
+Это требование к сборке лендинга. Паспорт компонента содержит ссылку, а не второй активный запрет.
 
 ## Section 7: Шаблоны
 

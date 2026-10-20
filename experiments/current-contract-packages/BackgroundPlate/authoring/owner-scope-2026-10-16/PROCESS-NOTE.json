@@ -1,0 +1,21 @@
+{
+  "status": "PRIVATE_CORRECTION_VERIFIED_GENERAL_CLOSURE_PENDING",
+  "firstFailure": {
+    "path": "/Users/alexkukhta/Desktop/workplace/.local/apollo-general-2026-10-16/backgroundplate-window289/FIRST-INTAKE-FAILURE.json",
+    "sha256": "b255214daad349ec14f03ba980147650cd58105acfefe8ae564b134c093a423d",
+    "bytes": 841
+  },
+  "fact": "The initial PREPARED request was sent before completion of its source patch. Intake rejected a stale private pin before any grant.",
+  "cause": "Contract Creation extended the private patch after sending the initial request; revision2 followed separately. Preparation order error, not a guard defect or changed sealed/shared source.",
+  "consequence": "No source/Hub/rootZIP/manifest/core/dist/restart writes. Decision bookkeeping in Sheets had already completed before the broader freeze message; readback preserved.",
+  "repair": "Preserve the initial request and first failure. Issue a distinct CLOSED request after all payload files are complete and their exact pins are read back.",
+  "protection": "Finish payload, pin/readback, close/seal, then relay. After closure use a new revision/directory.",
+  "responsible": "Contract Creation; independent closure by General",
+  "verification": "Private source patch dry-run and direct pins pass; fresh General intake NOT_RUN.",
+  "centralJournal": "docs/APOLLO_PROCESS_LESSONS.md update awaits an authorized shared window.",
+  "helperChecks": [
+    "Normalize IR comparison through JSON serialization.",
+    "Source coverage JSON must have an object root.",
+    "Six public set admissions and eight auxiliary rejections verified; combined catalog UI choice deduplication is a separate limitation."
+  ]
+}

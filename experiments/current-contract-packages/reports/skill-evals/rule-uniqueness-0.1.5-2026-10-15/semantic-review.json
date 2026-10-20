@@ -1,0 +1,78 @@
+{
+  "reviewKind": "manual semantic self-review",
+  "independent": false,
+  "modelForwardRun": false,
+  "decisions": [
+    {
+      "id": "same-meaning-different-ids",
+      "decision": "MERGE",
+      "activeNorms": [
+        "root: forbid manual fill change"
+      ],
+      "crosswalk": {
+        "A": "R1",
+        "B": "R1"
+      },
+      "reason": "Equivalent requirement, target and condition"
+    },
+    {
+      "id": "broad-ban-and-covered-property",
+      "decision": "MERGE_COVERED_OBLIGATION",
+      "activeNorms": [
+        "root: forbid fill and stroke changes"
+      ],
+      "crosswalk": {
+        "A": "R1",
+        "B": "R1"
+      },
+      "reason": "Separate stroke ban adds no obligation"
+    },
+    {
+      "id": "different-targets",
+      "decision": "KEEP_BOTH",
+      "activeNorms": [
+        "TopAddon Form=Circle",
+        "BottomAddon Form=Circle"
+      ],
+      "reason": "Two independently checked targets"
+    },
+    {
+      "id": "different-conditions",
+      "decision": "KEEP_BOTH",
+      "activeNorms": [
+        "Primary: Size=56",
+        "Secondary: Size=48"
+      ],
+      "reason": "Both conditional domains retained"
+    },
+    {
+      "id": "different-obligations-same-target",
+      "decision": "KEEP_BOTH",
+      "activeNorms": [
+        "fill has library token binding",
+        "fill equals configured baseline"
+      ],
+      "reason": "A wrong token can satisfy binding and violate baseline; unbound baseline value can satisfy equality and violate binding"
+    },
+    {
+      "id": "dependency-norm",
+      "decision": "USE_CHILD_DEPENDENCY",
+      "newParentRules": 0,
+      "childContractRetained": true,
+      "reason": "No additional host restriction was supplied"
+    },
+    {
+      "id": "compiler-expansion",
+      "decision": "KEEP_DISTINCT_IR",
+      "authoringRules": 1,
+      "compiledChecks": 2,
+      "reason": "width and height inspect different facts"
+    },
+    {
+      "id": "same-id-different-semantics",
+      "decision": "FAIL_ID_COLLISION",
+      "obligationsRetained": 2,
+      "reason": "Rename with preserved crosswalk; do not discard title or graphic requirement"
+    }
+  ]
+}

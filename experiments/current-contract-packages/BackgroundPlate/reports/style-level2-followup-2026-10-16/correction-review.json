@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-16",
+  "status": "SCOPED_CORRECTION_VERIFIED_NOT_GLOBAL_PROCESS_CLOSURE",
+  "fact": "Assistant presented new test-step IDs21-25 as instance names while the board has exactly20 cases. Links reused actual board instances01,10,03; proposed configurations were not native prepared states.",
+  "evidence": [
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/reports/style-level2-followup-2026-10-16/plan.json",
+      "sha256": "9531891ea85a30059d075a02d12e9d897ed176ebcfe1da33790ec97f15202c3e",
+      "bytes": 15791
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r2-native-qa-2026-10-16/case-map.json",
+      "sha256": "c2fafedc2ee948a7cacfe669d71da1e2eeb5de786926abdb37b1f2bb1e418805",
+      "bytes": 36936
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/reports/style-level2-followup-2026-10-16/plan.corrected.json",
+      "sha256": "5a19c6b1b843498be5668487e667df27cab5294ae51dcc599d05008b7977463c",
+      "bytes": 7613
+    }
+  ],
+  "cause": "Test-step numbering was conflated with physical board case labels; the message did not maintain a separate explicit boardCaseId.",
+  "impact": "Owner could search for nonexistent cases and mistake planned parameter states for prepared board states. No wrong report acceptance or contract/native mutation occurred.",
+  "fix": "Use actual board labels01,10,03. Separate internal stepId from boardCaseId. Mark every manual setup explicitly and assign only the first three controls until target/applicability proof is received.",
+  "protection": "Before issuing user test instructions, require each boardCaseId to exist in the saved/fresh board mapping and match both native INSTANCE nodeId and componentUrl. New board labels require actual creation/readback before assignment.",
+  "checks": [
+    {
+      "case": "corrected-six-step-mapping",
+      "expected": "PASS",
+      "actual": "PASS"
+    },
+    {
+      "case": "old-plan-with-fictitious-board-labels",
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "errors": [
+        "missing-or-unknown-boardCaseId",
+        "missing-or-unknown-boardCaseId",
+        "missing-or-unknown-boardCaseId",
+        "missing-or-unknown-boardCaseId",
+        "missing-or-unknown-boardCaseId",
+        "missing-or-unknown-boardCaseId"
+      ]
+    },
+    {
+      "case": "nonexistent-board-case21",
+      "expected": "REJECT",
+      "actual": "REJECT"
+    },
+    {
+      "case": "existing-case-with-wrong-instance-link",
+      "expected": "REJECT",
+      "actual": "REJECT"
+    }
+  ],
+  "responsible": "Contract Creation",
+  "journalIntegration": "Pending coordinated documentation window; shared docs/skills are held under UI-DEFAULT-FIGMA-280. Original plan and closed artifacts preserved.",
+  "wholeReady": false
+}

@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "backgroundplate.manual-test-plan.v1",
+  "date": "2026-10-16",
+  "status": "READY_FOR_USER_CONFIGURATION_ON_EXISTING_INSTANCES",
+  "authority": "Direct owner request to continue remaining BackgroundPlate checks. Existing user manual Editor workflow retained.",
+  "packageRevision": 2,
+  "manualSourceHash": "c3aab9b3080f0983983a226c67bb4617b59f1e7d56f130df081f7ab0ff8aa9e3",
+  "scope": "Six manual Editor reports on three existing, previously proven component roots; no new Figma nodes or agent native/model calls. Parameters and token-detach actions are performed by the owner.",
+  "sharedHold": "MCP-SCOPE-277 native/shared/build/registry/consumer/config/install/publication hold retained. This plan and read-only file analysis only; root publication remains pending.",
+  "cases": [
+    {
+      "id": "BP-QA-21",
+      "componentNodeId": "14024:68799",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68799",
+      "sourceCase": "BP-QA-01",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Colored",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "Reset instance overrides, set the root Position and nested Style properties. Select the whole BackgroundPlate for Editor validation.",
+      "expectedViolations": [],
+      "requiredCompliantIds": [
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.fill.1.1",
+        "component:web-corp.background-plate.colored-uses-fill-without-stroke.surface.1.1",
+        "component:web-corp.background-plate.colored-uses-fill-without-stroke.surface.1.2"
+      ],
+      "state": "EXISTING_INSTANCE_USER_MANUAL_CONFIGURATION_REQUIRED",
+      "editorValidation": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "BP-QA-22",
+      "componentNodeId": "14024:68857",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68857",
+      "sourceCase": "BP-QA-10-RESET",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Border",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "Reset instance overrides and set the root Position and nested Style properties. Select the whole BackgroundPlate.",
+      "expectedViolations": [],
+      "requiredCompliantIds": [
+        "component:web-corp.background-plate.border-has-no-visible-fill.surface.1.1",
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.stroke.1.1"
+      ],
+      "state": "EXISTING_INSTANCE_USER_MANUAL_CONFIGURATION_REQUIRED",
+      "editorValidation": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "BP-QA-23",
+      "componentNodeId": "14019:103933",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14019-103933",
+      "sourceCase": "BP-QA-03",
+      "parameters": {
+        "root.Position": "Level 2 (inner)",
+        "nestedStyle.Type": "Primary",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "Reset instance overrides and set root Position=Level 2 (inner). Verify nested Style Level 2 parameters. Select the whole BackgroundPlate.",
+      "expectedViolations": [],
+      "requiredCompliantIds": [
+        "component:web-corp.background-plate.no-secondary-for-level-2.1.1"
+      ],
+      "state": "EXISTING_INSTANCE_USER_MANUAL_CONFIGURATION_REQUIRED",
+      "editorValidation": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "BP-QA-24",
+      "componentNodeId": "14024:68799",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68799",
+      "sourceCase": "BP-QA-21",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Colored",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "On the same instance as BP-QA-21, detach only the nested Style Fill color token, preserving RGB and visible Fill. Do not detach the component. Select the whole BackgroundPlate.",
+      "expectedViolations": [
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.fill.1.1"
+      ],
+      "requiredCompliantIds": [],
+      "state": "EXISTING_INSTANCE_USER_MANUAL_CONFIGURATION_REQUIRED",
+      "editorValidation": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "BP-QA-25",
+      "componentNodeId": "14024:68857",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68857",
+      "sourceCase": "BP-QA-22",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Border",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "On the same instance as BP-QA-22, detach only the nested Style Stroke color token, preserving visible Stroke and its RGB. Select the whole BackgroundPlate.",
+      "expectedViolations": [
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.stroke.1.1"
+      ],
+      "requiredCompliantIds": [],
+      "state": "EXISTING_INSTANCE_USER_MANUAL_CONFIGURATION_REQUIRED",
+      "editorValidation": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "BP-QA-25-RESET",
+      "componentNodeId": "14024:68857",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68857",
+      "sourceCase": "BP-QA-25",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Border",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "Reset overrides on the same whole instance and restore Position=Level 1 (outer), nested Type=Border, Skeleton=False, BackgroundColor=base-bg-alt (gray). Select the whole BackgroundPlate.",
+      "expectedViolations": [],
+      "requiredCompliantIds": [
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.stroke.1.1"
+      ],
+      "state": "EXISTING_INSTANCE_USER_MANUAL_CONFIGURATION_REQUIRED",
+      "editorValidation": "NOT_RUN_USER_ONLY"
+    }
+  ],
+  "mechanismReuse": [
+    {
+      "surfaceRuleId": "component:web-corp.background-plate.border-has-no-visible-fill.surface.1.1",
+      "provedSlotRuleId": "component:web-corp.background-plate.border-has-no-visible-fill.slot.1.1",
+      "assertExactEqual": true,
+      "remainingDifference": "Semantic target/selector and family applicability require native Style proof; synthetic results are reused separately."
+    },
+    {
+      "surfaceRuleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.fill.1.1",
+      "provedSlotRuleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens.slot.fill.1.1",
+      "assertExactEqual": true,
+      "remainingDifference": "Semantic target/selector and family applicability require native Style proof; synthetic results are reused separately."
+    },
+    {
+      "surfaceRuleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.stroke.1.1",
+      "provedSlotRuleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens.slot.stroke.1.1",
+      "assertExactEqual": true,
+      "remainingDifference": "Semantic target/selector and family applicability require native Style proof; synthetic results are reused separately."
+    },
+    {
+      "surfaceRuleId": "component:web-corp.background-plate.colored-uses-fill-without-stroke.surface.1.1",
+      "provedSlotRuleId": "component:web-corp.background-plate.colored-uses-fill-without-stroke.slot.1.1",
+      "assertExactEqual": true,
+      "remainingDifference": "Semantic target/selector and family applicability require native Style proof; synthetic results are reused separately."
+    },
+    {
+      "surfaceRuleId": "component:web-corp.background-plate.colored-uses-fill-without-stroke.surface.1.2",
+      "provedSlotRuleId": "component:web-corp.background-plate.colored-uses-fill-without-stroke.slot.1.2",
+      "assertExactEqual": true,
+      "remainingDifference": "Semantic target/selector and family applicability require native Style proof; synthetic results are reused separately."
+    }
+  ],
+  "nativeApiEvidence": [
+    {
+      "name": "[D] Style Level 2",
+      "setKey": "c8735f4834a8b43fd2ab821ffc0a6e72a57c4b5b",
+      "TypeDomain": [
+        "Primary",
+        "Colored",
+        "Border"
+      ]
+    },
+    {
+      "name": "[M] Style Level 2",
+      "setKey": "74f025a02889239c3f6eed60d74ba85f292bdcb0",
+      "TypeDomain": [
+        "Primary",
+        "Colored",
+        "Border"
+      ]
+    },
+    {
+      "name": "[M][Promo] Style Level 2",
+      "setKey": "b33f77cc56c5feffb4f24a5912d74e3af927140e",
+      "TypeDomain": [
+        "Primary",
+        "Colored",
+        "Border"
+      ]
+    },
+    {
+      "name": "[D][Promo] Style Level 2",
+      "setKey": "a5a4240097211b28195291a593c567e9d7c62bd3",
+      "TypeDomain": [
+        "Primary",
+        "Colored",
+        "Border"
+      ]
+    }
+  ],
+  "level2Secondary": {
+    "nativeNegative": "NOT_FEASIBLE_THROUGH_CAPTURED_NATIVE_API",
+    "counterfactualSyntheticReused": [
+      {
+        "name": "level2-allowed-primary",
+        "status": "PASS",
+        "scope": "synthetic-only",
+        "expected": {
+          "component:web-corp.background-plate.no-secondary-for-level-2.1.1": "compliant"
+        },
+        "actual": {
+          "component:web-corp.background-plate.no-secondary-for-level-2.1.1": [
+            "compliant"
+          ]
+        },
+        "notes": null
+      },
+      {
+        "name": "level2-secondary-counterfactual",
+        "status": "PASS",
+        "scope": "synthetic-only",
+        "expected": {
+          "component:web-corp.background-plate.no-secondary-for-level-2.1.1": "violation"
+        },
+        "actual": {
+          "component:web-corp.background-plate.no-secondary-for-level-2.1.1": [
+            "violation"
+          ]
+        },
+        "notes": "Counterfactual typed-property fixture; native UI has no Secondary variant for Style Level2. No impossible manual mutation is prescribed."
+      },
+      {
+        "name": "level1-secondary-inactive",
+        "status": "PASS",
+        "scope": "synthetic-only",
+        "expected": {
+          "component:web-corp.background-plate.no-secondary-for-level-2.1.1": "not-applicable"
+        },
+        "actual": {
+          "component:web-corp.background-plate.no-secondary-for-level-2.1.1": [
+            "not-applicable"
+          ]
+        },
+        "notes": null
+      }
+    ],
+    "freshManualNeeded": "Active Level2 Primary proof; existing Level1 reports cover inactive Position condition. No impossible Secondary mutation is prescribed.",
+    "scope": "Captured API evidence; no fresh Figma API call or new native PASS claimed."
+  },
+  "omittedDuplicateNegatives": {
+    "cases": [
+      "Style Colored missing Fill",
+      "Style Colored forbidden Stroke",
+      "Style Border forbidden Fill"
+    ],
+    "status": "REUSED_MECHANISM_NOT_FRESH_NATIVE_PASS",
+    "basis": "Each actual IR assert equals the corresponding Slot assert. Slot positive/violation/RESET is accepted on the exact R2 manual and Editor0.2.104. New Style positive controls, fill/stroke token negatives and one RESET qualify the changed target and conditions. If any Style target or condition is UNKNOWN, stop and retain that failure before considering further cases."
+  },
+  "inputPins": [
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r2-native-bindings-2026-10-16/contract.manual.json",
+      "sha256": "ef0e905ae859a21a304427b5a334c47a63413c9eb218248feab86c844c62f562",
+      "bytes": 87730
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r2-native-bindings-2026-10-16/component-contract.v2.json",
+      "sha256": "6e710b13ff6876d28179d14b8d27c46ae0e4d218f0b9bdf4d1ea577d1e6c0396",
+      "bytes": 148783
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r2-native-bindings-2026-10-16/synthetic-results.json",
+      "sha256": "58717dc7b7e9ba73d8cbca885855545edcab4d895941cd97c2b2a0c469ed69d7",
+      "bytes": 84794
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r2-native-bindings-2026-10-16/BackgroundPlate.r2.candidate.component-contract.zip",
+      "sha256": "de129e61887dd715e80c234e3bf6d7f02486cb44382fee7bf434c9f7f422555f",
+      "bytes": 834800
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/reports/live-review-r2-fill-tokens-2026-10-16T05-52/eval.json",
+      "sha256": "a1bcd71c3078da17cc11ea2bfca3b9af7d586142230e38de9d2b0311b0211900",
+      "bytes": 9099
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/reports/live-review-r2-border-skeleton-2026-10-16T07-30/eval.json",
+      "sha256": "38e71ffd6e9f79e15cd48b3cbda3b26a7b1fccbc592caa69011db07d10e3c173",
+      "bytes": 26372
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r1-2026-10-15/native-api-1.json",
+      "sha256": "1cda394672e8d2b40d7724e74301da1b487a237d2c8a70c4a7f1efa34ffeec48",
+      "bytes": 14722
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r1-2026-10-15/native-api-2.json",
+      "sha256": "341c5ae7cfe5b0144c637162d67e7746a2345e18acba18dd1a77d6b63cc30971",
+      "bytes": 14794
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r1-2026-10-15/native-api-3.json",
+      "sha256": "fa2979d756fc8d359b4f6e07a331b233c9c140f069a50f1d86a8f70adb4f5d4a",
+      "bytes": 10382
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/background-plate.validation-report.2026-10-16T04-33-04-737Z.json",
+      "sha256": "9741e945d9827bb1e58fd824a2167668d9f4a2646fb77efd3fb47f90e4e9e32b",
+      "bytes": 1060452
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/reports/background-plate.validation-report.2026-10-16T05-49-16-031Z.json",
+      "sha256": "7f19315e8435af01c3e6b8fa9eeb23311e3bcfa534586af9eada3b9babe3e3e4",
+      "bytes": 1060452
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/background-plate.validation-report.2026-10-16T04-33-22-573Z.json",
+      "sha256": "e2e94b1a87b1aaf326c2fce7cd8bae0a27c20bc71a9d34fd5dbd8f316992f52c",
+      "bytes": 1062126
+    }
+  ],
+  "completionGate": "Do not claim active coverage before actual reports show the six previously inactive RuleIDs as compliant/violation with resolved target.surface. Unexpected findings are retained. Whole contract remains Draft with fourteen non-executable records and case19 excluded.",
+  "wholeReady": false,
+  "writes": "This new private plan only; shared files, contract packages, closed receipts, native state and pilot unchanged."
+}

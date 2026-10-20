@@ -1,0 +1,22 @@
+--- a/src/ui.html
++++ b/src/ui.html
+@@ -16,7 +16,7 @@
+       <div class="header-status" aria-live="polite">
+         <span class="status-dot" id="statusDot"></span>
+         <span id="statusText">Ждёт импорт</span>
+-          <span class="build-version">v0.2.104</span>
++          <span class="build-version">v0.2.105</span>
+       </div>
+       <div class="header-actions">
+         <input id="fileInput" type="file" accept=".json,.zip,application/json,application/zip" multiple hidden />
+--- a/tests/dependency-usage.test.js
++++ b/tests/dependency-usage.test.js
+@@ -93,7 +93,7 @@
+  const download=core.buildValidationReportDownload({manual:f.manual,compiled:r.compiled,evaluatedContract:r.contract,snapshot:f.parent,anatomy:[],
+   engineResult:r.engine,result:report,capture:null,trigger:'selected-instance',generatedAt:'2026-10-12T00:00:00Z'});
+  const saved=JSON.parse(download.json);
+- assert.equal(saved.editorVersion,'component-contract-editor@0.2.104');
++ assert.equal(saved.editorVersion,`component-contract-editor@${require('../package.json').version}`);
+  assert.equal(saved.sources.compiledContract.package.sourceExportVersion,'component-contract-editor@0.2.104');
+  assert.deepEqual(clone(core.evaluateCompiledContract(saved.snapshot,saved.runtime.evaluatedContract)),saved.results.engine);
+  assert.deepEqual(saved.snapshot.editorDependencyUsageV1,undefined);

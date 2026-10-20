@@ -1,0 +1,179 @@
+{
+  "date": "2026-10-16",
+  "status": "LINK_IDENTITIES_VERIFIED_ASSIGNMENT_STATES_REJECTED",
+  "request": "Owner asks whether the QA links match cases and expectations.",
+  "links": [
+    {
+      "boardCaseId": "BP-QA-01",
+      "nodeId": "14024:68799",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68799",
+      "linkIdentity": "PASS_CURRENT_NATIVE",
+      "actualParameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Primary",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "styleFillBindings": [
+        {}
+      ],
+      "styleStrokeBindings": []
+    },
+    {
+      "boardCaseId": "BP-QA-10",
+      "nodeId": "14024:68857",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68857",
+      "linkIdentity": "PASS_CURRENT_NATIVE",
+      "actualParameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Primary",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "styleFillBindings": [
+        {
+          "color": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:8e2800951104c0afbc2ed28e5331d61aa4214a9a/3541:172"
+          }
+        }
+      ],
+      "styleStrokeBindings": []
+    },
+    {
+      "boardCaseId": "BP-QA-03",
+      "nodeId": "14019:103933",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14019-103933",
+      "linkIdentity": "PASS_CURRENT_NATIVE",
+      "actualParameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Primary",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "styleFillBindings": [
+        {
+          "color": {
+            "type": "VARIABLE_ALIAS",
+            "id": "VariableID:8e2800951104c0afbc2ed28e5331d61aa4214a9a/3541:172"
+          }
+        }
+      ],
+      "styleStrokeBindings": []
+    }
+  ],
+  "reportAssessment": {
+    "report": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/background-plate.validation-report.2026-10-16T08-23-03-977Z.json",
+      "sha256": "badf829e66b4d2bc8014b9f73ad6b769cc493258662c09711873b90502beb89a",
+      "bytes": 1059162
+    },
+    "manualRevision": 2,
+    "rootNodeId": "14024:68799",
+    "actualType": "Primary",
+    "actualViolationIds": [
+      "component:web-corp.background-plate.primary-secondary-paint-is-fixed.surface.1.1"
+    ],
+    "violations": 1,
+    "inconclusive": 0,
+    "verdict": "Correct detection of a Primary fixed-fill override caused by missing token; not acceptance of a Colored control or new Colored token branch."
+  },
+  "incident": {
+    "fact": "The corrected assignment reused existing board cases01,10,03 for new states, but none of the three currently matches the proposed Colored,Border,Level2 states. Identity-only correction did not establish state alignment.",
+    "cause": "The agent substituted manual reconfiguration of old fixtures for prepared scenarios and relied on historical states. The guard checked IDs/URLs but did not require current property and paint state qualification before calling them controls. Cause of the actual Fill-token change on case01 is not attributed.",
+    "consequence": "Owner encountered a valid negative in an instance described as a zero-violation control. No new Style branch is accepted from this report.",
+    "correction": "Withdraw the additional six-step assignment. Preserve original20-case board/history. Future dedicated states require matching board labels, direct INSTANCE links, actual properties/paint bindings and expected verdict before assignment.",
+    "protection": "Check BOTH identity and current state. A link/ID PASS must not admit an expected-control assignment when Type,Position,token binding or required native evidence differs. Explicit manual setup is not represented as a prepared board scenario.",
+    "responsible": "Contract Creation",
+    "verification": "Current read-only native audit rejects all three proposed control states while proving each link identity; exact current report confirms the correct Primary violation.",
+    "sharedDocumentation": "Pending coordinated documentation window; no shared skill/guide/source edits under UI-DEFAULT-FIGMA-280."
+  },
+  "checks": [
+    {
+      "case": "three-current-node-links-match-board-label-and-native-INSTANCE",
+      "expected": "PASS",
+      "actual": "PASS"
+    },
+    {
+      "case": "right-link-but-wrong-Style-Type-and-Position-control-states",
+      "expected": "REJECT_ALL_THREE",
+      "actual": "REJECT_ALL_THREE",
+      "differences": [
+        {
+          "boardCaseId": "BP-QA-01",
+          "stateQualification": "REJECT_NOT_CONFIGURED_AS_PROPOSED",
+          "differences": {
+            "nestedStyle.Type": {
+              "planned": "Colored",
+              "actual": "Primary"
+            }
+          }
+        },
+        {
+          "boardCaseId": "BP-QA-10",
+          "stateQualification": "REJECT_NOT_CONFIGURED_AS_PROPOSED",
+          "differences": {
+            "nestedStyle.Type": {
+              "planned": "Border",
+              "actual": "Primary"
+            }
+          }
+        },
+        {
+          "boardCaseId": "BP-QA-03",
+          "stateQualification": "REJECT_NOT_CONFIGURED_AS_PROPOSED",
+          "differences": {
+            "root.Position": {
+              "planned": "Level 2 (inner)",
+              "actual": "Level 1 (outer)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "case": "new-report-Primary-missing-token",
+      "expectedRuleId": "component:web-corp.background-plate.primary-secondary-paint-is-fixed.surface.1.1",
+      "expectedViolations": 1,
+      "actualViolations": 1,
+      "actual": "PASS_CORRECT_PRODUCT_DETECTION_NOT_COLORED_CONTROL"
+    }
+  ],
+  "inputPins": [
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/reports/link-state-audit-2026-10-16T08-23/native-readback.json",
+      "sha256": "c56005670b5c3575b6bc410647d24d7370d1bfaaf454a4ba233fb8e65313314b",
+      "bytes": 9070
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/reports/style-level2-followup-2026-10-16/plan.corrected.json",
+      "sha256": "5a19c6b1b843498be5668487e667df27cab5294ae51dcc599d05008b7977463c",
+      "bytes": 7613
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r2-native-qa-2026-10-16/case-map.json",
+      "sha256": "c2fafedc2ee948a7cacfe669d71da1e2eeb5de786926abdb37b1f2bb1e418805",
+      "bytes": 36936
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r2-native-bindings-2026-10-16/contract.manual.json",
+      "sha256": "ef0e905ae859a21a304427b5a334c47a63413c9eb218248feab86c844c62f562",
+      "bytes": 87730
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r2-native-bindings-2026-10-16/component-contract.v2.json",
+      "sha256": "6e710b13ff6876d28179d14b8d27c46ae0e4d218f0b9bdf4d1ea577d1e6c0396",
+      "bytes": 148783
+    }
+  ],
+  "scope": {
+    "agentNativeReadCalls": 1,
+    "canvasMutations": 0,
+    "modelOrGenerationRuns": 0,
+    "sharedWrites": 0,
+    "coreBuildRegistryContractConfigPublicationChanges": 0,
+    "noFreshEditorPassClaimedForCases10Or03": true
+  },
+  "next": "Prepare dedicated new fixtures after a coordinated native write window; read back actual variant/property/paint state before assigning. Existing accepted reports remain historical evidence; do not overwrite old plans or receipts.",
+  "wholeReady": false
+}

@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "backgroundplate.manual-test-plan.v2",
+  "date": "2026-10-16",
+  "status": "CORRECTED_ASSIGNMENT_USING_ACTUAL_BOARD_LABELS",
+  "supersedesUserAssignment": {
+    "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/reports/style-level2-followup-2026-10-16/plan.json",
+    "sha256": "9531891ea85a30059d075a02d12e9d897ed176ebcfe1da33790ec97f15202c3e",
+    "bytes": 15791
+  },
+  "board": {
+    "sectionId": "14018:68787",
+    "caseCount": 20,
+    "map": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BackgroundPlate/authoring/candidates/r2-native-qa-2026-10-16/case-map.json",
+      "sha256": "c2fafedc2ee948a7cacfe669d71da1e2eeb5de786926abdb37b1f2bb1e418805",
+      "bytes": 36936
+    },
+    "freshNativeInspection": false,
+    "evidence": "Closed board mapping and owner observation; no new board cases were created."
+  },
+  "packageRevision": 2,
+  "manualSourceHash": "c3aab9b3080f0983983a226c67bb4617b59f1e7d56f130df081f7ab0ff8aa9e3",
+  "steps": [
+    {
+      "stepId": "CONTROL_STYLE_COLORED",
+      "boardCaseId": "BP-QA-01",
+      "componentNodeId": "14024:68799",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68799",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Colored",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "Reset instance overrides, set the root Position and nested Style properties. Select the whole BackgroundPlate for Editor validation.",
+      "expectedViolations": [],
+      "requiredCompliantIds": [
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.fill.1.1",
+        "component:web-corp.background-plate.colored-uses-fill-without-stroke.surface.1.1",
+        "component:web-corp.background-plate.colored-uses-fill-without-stroke.surface.1.2"
+      ],
+      "state": "USER_MANUAL_CONFIGURATION_REQUIRED",
+      "assignment": "RUN_CONTROLS_FIRST"
+    },
+    {
+      "stepId": "CONTROL_STYLE_BORDER",
+      "boardCaseId": "BP-QA-10",
+      "componentNodeId": "14024:68857",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68857",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Border",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "Reset instance overrides and set the root Position and nested Style properties. Select the whole BackgroundPlate.",
+      "expectedViolations": [],
+      "requiredCompliantIds": [
+        "component:web-corp.background-plate.border-has-no-visible-fill.surface.1.1",
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.stroke.1.1"
+      ],
+      "state": "USER_MANUAL_CONFIGURATION_REQUIRED",
+      "assignment": "RUN_CONTROLS_FIRST"
+    },
+    {
+      "stepId": "CONTROL_LEVEL2_PRIMARY",
+      "boardCaseId": "BP-QA-03",
+      "componentNodeId": "14019:103933",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14019-103933",
+      "parameters": {
+        "root.Position": "Level 2 (inner)",
+        "nestedStyle.Type": "Primary",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "Reset instance overrides and set root Position=Level 2 (inner). Verify nested Style Level 2 parameters. Select the whole BackgroundPlate.",
+      "expectedViolations": [],
+      "requiredCompliantIds": [
+        "component:web-corp.background-plate.no-secondary-for-level-2.1.1"
+      ],
+      "state": "USER_MANUAL_CONFIGURATION_REQUIRED",
+      "assignment": "RUN_CONTROLS_FIRST"
+    },
+    {
+      "stepId": "DETACH_STYLE_FILL_TOKEN",
+      "boardCaseId": "BP-QA-01",
+      "componentNodeId": "14024:68799",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68799",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Colored",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "On the same instance as BP-QA-21, detach only the nested Style Fill color token, preserving RGB and visible Fill. Do not detach the component. Select the whole BackgroundPlate.",
+      "expectedViolations": [
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.fill.1.1"
+      ],
+      "requiredCompliantIds": [],
+      "state": "USER_MANUAL_CONFIGURATION_REQUIRED",
+      "assignment": "DEFERRED_UNTIL_CONTROLS_PROVE_TARGET_AND_CONDITION"
+    },
+    {
+      "stepId": "DETACH_STYLE_STROKE_TOKEN",
+      "boardCaseId": "BP-QA-10",
+      "componentNodeId": "14024:68857",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68857",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Border",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "On the same instance as BP-QA-22, detach only the nested Style Stroke color token, preserving visible Stroke and its RGB. Select the whole BackgroundPlate.",
+      "expectedViolations": [
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.stroke.1.1"
+      ],
+      "requiredCompliantIds": [],
+      "state": "USER_MANUAL_CONFIGURATION_REQUIRED",
+      "assignment": "DEFERRED_UNTIL_CONTROLS_PROVE_TARGET_AND_CONDITION"
+    },
+    {
+      "stepId": "RESET_STYLE_STROKE_TOKEN",
+      "boardCaseId": "BP-QA-10",
+      "componentNodeId": "14024:68857",
+      "componentUrl": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/?node-id=14024-68857",
+      "parameters": {
+        "root.Position": "Level 1 (outer)",
+        "nestedStyle.Type": "Border",
+        "Skeleton": "False",
+        "BackgroundColor": "base-bg-alt (gray)"
+      },
+      "action": "Reset overrides on the same whole instance and restore Position=Level 1 (outer), nested Type=Border, Skeleton=False, BackgroundColor=base-bg-alt (gray). Select the whole BackgroundPlate.",
+      "expectedViolations": [],
+      "requiredCompliantIds": [
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.stroke.1.1"
+      ],
+      "state": "USER_MANUAL_CONFIGURATION_REQUIRED",
+      "assignment": "DEFERRED_UNTIL_CONTROLS_PROVE_TARGET_AND_CONDITION"
+    }
+  ],
+  "currentUserBlock": [
+    "CONTROL_STYLE_COLORED",
+    "CONTROL_STYLE_BORDER",
+    "CONTROL_LEVEL2_PRIMARY"
+  ],
+  "laterSteps": [
+    "DETACH_STYLE_FILL_TOKEN",
+    "DETACH_STYLE_STROKE_TOKEN",
+    "RESET_STYLE_STROKE_TOKEN"
+  ],
+  "setup": "For each control, reset overrides on the referenced existing instance, then apply the listed root/nested Style parameters. Select the whole BackgroundPlate for Editor validation. Native mutations are not pre-applied.",
+  "expectationScope": "Expected results apply only after the listed manual setup. Existing board labels and current properties are not claimed to match the proposed configuration. New nested Style states still need actual installed Editor proof.",
+  "stopCondition": "If any control has a violation, UNKNOWN, unresolved target.surface or inactive intended rule, stop before negative steps and retain that report.",
+  "sharedHold": "UI-DEFAULT-FIGMA-280 retained; no agent native/model/shared/build/config/contract/registry/publication actions.",
+  "wholeReady": false
+}

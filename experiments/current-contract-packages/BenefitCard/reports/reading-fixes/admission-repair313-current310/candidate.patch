@@ -1,0 +1,806 @@
+--- a/projects/Apollo-v3/apps/apollo-v4/src/contract-profile.js
++++ b/projects/Apollo-v3/apps/apollo-v4/src/contract-profile.js
+@@ -12,7 +12,7 @@
+   textContentFactsVersion: [1],
+   nativeTargetPropertyFactsVersion: [1],
+   representationEvidenceVersion: [1],
+-  crossRepresentationBindingsVersion: [1],
++  crossRepresentationBindingsVersion: [1, 2],
+   rootTargetAliasesVersion: [1],
+   occurrenceAddressVersion: [1],
+   directChildDependenciesVersion: [1],
+@@ -105,7 +105,7 @@
+   try { declaredIdentity.assertNativeRuleFactPolicies(contract); } catch (error) { reject(error.message); }
+   const representationShape=representation.contractRepresentationShape(contract),representationFlags=representation.representationFeatureFlags(representationShape);
+   const representationErrors=representation.representationEvidenceErrors(representationShape);
+-  if(representationErrors.length || representationFlags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1) || representationFlags.bindings!==(contract.runtimePolicy.crossRepresentationBindingsVersion===1))reject('Unsupported representation evidence/bindings: '+representationErrors.join('; '));
++  if(representationErrors.length || representationFlags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1) || contract.runtimePolicy.crossRepresentationBindingsVersion!==representationFlags.bindingVersion)reject('Unsupported representation evidence/bindings: '+representationErrors.join('; '));
+   for(const binding of contract.facts.dependencyBindings || []) if(binding.identityLock !== undefined
+     && (binding.identityLock !== true || contract.runtimePolicy?.assetIdentityLockVersion !== 1 || !Array.isArray(binding.portNames) || !binding.portNames.length
+       || binding.portNames.some(p=>typeof p!=='string'||!p.trim()||p.includes('#')) || new Set(binding.portNames).size!==binding.portNames.length
+--- a/projects/Apollo-v3/docs/ARCHITECTURE_BACKLOG.md
++++ b/projects/Apollo-v3/docs/ARCHITECTURE_BACKLOG.md
+@@ -1,6 +1,40 @@
+ # Apollo Architecture Backlog
+ 
+ ## Apollo v4: совместимость с ComponentContract Editor
++
++### CC-COMPAT-SCOPED-FIXED-DEPENDENCY-01 — зависимости по Figma representation и authoring admission
++
++Review313 / private repair314: optional edit facts не блокируют исправление Draft;
++owned-code collection принимает совместимые mixed capabilities по canonical
++derived bindingVersion. Runtime guards, closed producer/registry profiles и
++граница совместной установки UI/Core сохранены; shared adoption ожидает приёмки.
++
++Core 0.1.19 / Editor 0.2.106 candidate. Новый opt-in `fixed-nested-scoped` требует
++непустые уникальные `representationIds` и `crossRepresentationBindingsVersion=2`.
++Один точный child pin может иметь непересекающиеся D/M bindings через FRAME.
++Off-scope становится notApplicable только после независимого доказательства
++единственного actual host representation; stale/foreign/ambiguous/missing capture
++сохраняют UNKNOWN. Старый unscoped route и direct-child не расширяются.
++
++Editor проверяет compiler errors до preview/capture, повторного запроса и evaluation.
++Неизвестная manual schema отклоняется при импорте. Compiled-only evidence остаётся
++read-only; запуск и экспорт восстановленного без исходного manual пакета запрещены.
++Ошибочный авторский Draft можно сохранить с validation=false без исторического
++projection stamp, но после reopen он по-прежнему не допускается к исполнению.
++
++Совместимость: старый compiled Core/Editor/V4 reader отклоняет feature version2;
++старый Editor может повторно скомпилировать ошибочный источник, поэтому universal
++old-authoring refusal не заявляется. Поддержка scoped-пакета требует установки
++проверенной пары нового UI + core Editor 0.2.106; одиночная замена core недостаточна.
++
++Private проверки: actual bundled UI/controller с controlled mocks, ZIP/reopen,
++legacy compiler/runtime equality и fail-closed cases. Shared integration, полный
++validate, текущие V4 consumers/config/runtime и native acceptance имеют отдельные
++гейты; статус — **PRIVATE_VERIFIED / SHARED_ACCEPTANCE_PENDING**.
++Generation pilot и Ready не расширяются. Закрытие: точная совместная сборка UI/core,
++полный validate и paired consumer verification; затем отдельный native тест пакета.
++Парная запись: [CC-COMPAT-SCOPED-FIXED-DEPENDENCY-01](../../ComponentContractEditor/docs/BACKLOG.ru.md).
++
+ 
+ ### CC-BLEND-MODE-001 — blend mode и effective baseline
+ 
+--- a/projects/Apollo-v3/packages/component-contract-core/package.json
++++ b/projects/Apollo-v3/packages/component-contract-core/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "@apollo/component-contract-core",
+-  "version": "0.1.18",
++  "version": "0.1.19",
+   "private": true,
+   "main": "dist/core.cjs",
+   "exports": {
+--- a/projects/Apollo-v3/packages/component-contract-core/src/compiler.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/compiler.ts
+@@ -1023,7 +1023,7 @@
+   if (contract.runtimePolicy.instanceMainComponentAliasesVersion === 1) contract.package.sourceExportVersion = 'component-contract-editor@0.2.90';
+   const representationFlags=representationFeatureFlags(manualRepresentationShape(manual));
+   if(representationFlags.evidence)contract.runtimePolicy.representationEvidenceVersion=1;
+-  if(representationFlags.bindings)contract.runtimePolicy.crossRepresentationBindingsVersion=1;
++  if(representationFlags.bindingVersion)contract.runtimePolicy.crossRepresentationBindingsVersion=representationFlags.bindingVersion;
+   if(representationFlags.evidence||representationFlags.bindings)contract.package.sourceExportVersion='component-contract-editor@0.2.91';
+   if ([1,2,3].includes(manual.metadata.declaredTargetIdentityVersion || 0)) {
+     contract.runtimePolicy.declaredTargetIdentityVersion = manual.metadata.declaredTargetIdentityVersion;
+--- a/projects/Apollo-v3/packages/component-contract-core/src/component-dependencies.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/component-dependencies.ts
+@@ -15,7 +15,7 @@
+ const hash = (v: unknown) => typeof v === 'string' && /^[a-f0-9]{64}$/.test(v);
+ const pathValid = (v: unknown) => typeof v === 'string' && !v.split(' / ').some(p => p === '..' || p === '.' || p.includes('*') || (!p && v !== ''));
+ 
+-export function validateComponentDependencies(manual: ManualSource): ValidationIssue[] {
++export function validateComponentDependencies(manual: Pick<ManualSource,'component'|'targets'|'representations'|'componentDependencies'>): ValidationIssue[] {
+   const issues: ValidationIssue[] = [], ids = new Set<string>();
+   const fail = (index: number, message: string) => issues.push({level:'error',code:'COMPONENT_DEPENDENCY',path:`/componentDependencies/${index}`,message});
+   if (manual.componentDependencies === undefined) return issues;
+@@ -30,7 +30,7 @@
+     for (const b of d.bindings) {
+       if (!b || !/^[a-z][a-z0-9-]*$/.test(b.id) || bindings.has(b.id)) { fail(i,'Binding id must be unique and path-safe.'); continue; }
+       bindings.add(b.id);
+-      const subject = JSON.stringify([b.targetRole,b.relativePath,...(b.kind==='direct-child' && Array.isArray(b.representationIds)?b.representationIds.slice().sort():[])]);
++      const subject = JSON.stringify([b.targetRole,b.relativePath,...((b.kind==='direct-child'||b.kind==='fixed-nested-scoped') && Array.isArray(b.representationIds)?b.representationIds.slice().sort():[])]);
+       if (subjects.has(subject)) fail(i,'Duplicate nested subject.');
+       subjects.add(subject);
+       if (manual.targets.filter(t=>t.semanticRole===b.targetRole && t.resolution==='resolved').length!==1) fail(i,`Unresolved target: ${b.targetRole}.`);
+@@ -45,7 +45,15 @@
+         if(['childPath','activeVariant','ownerComponentSetKeys'].some(k=>Object.prototype.hasOwnProperty.call(b,k)))fail(i,'Direct binding cannot contain legacy fixed-nested fields.');
+         continue;
+       }
+-      if(b.kind!==undefined && b.kind!=='fixed-nested'){fail(i,'Unknown dependency binding kind.');continue;}
++      if(b.kind!==undefined && b.kind!=='fixed-nested' && b.kind!=='fixed-nested-scoped'){fail(i,'Unknown dependency binding kind.');continue;}
++      if(b.kind==='fixed-nested-scoped'){
++        if(!Array.isArray(b.representationIds)||!b.representationIds.length||new Set(b.representationIds).size!==b.representationIds.length
++          || b.representationIds.some(id=>!manual.representations.some(r=>r.kind==='figma'&&r.id===id&&r.status!=='deprecated')))fail(i,'Scoped fixed binding requires explicit unique active Figma representations.');
++      }else if(Object.prototype.hasOwnProperty.call(b,'representationIds'))fail(i,'Representation scope requires fixed-nested-scoped.');
++      if(d.bindings.some(other=>other!==b&&other.kind!=='direct-child'&&other.targetRole===b.targetRole&&other.relativePath===b.relativePath
++        && (b.kind==='fixed-nested-scoped'||other.kind==='fixed-nested-scoped')
++        && (b.kind!=='fixed-nested-scoped'||other.kind!=='fixed-nested-scoped'
++          || Array.isArray(b.representationIds)&&Array.isArray(other.representationIds)&&b.representationIds.some(id=>other.representationIds!.includes(id)))))fail(i,'Fixed nested bindings may not overlap in the same representation.');
+       if (!pathValid(b.relativePath) || !pathValid(b.childPath) || !b.childPath) fail(i,'Use exact relative owner/child paths.');
+       if (!Array.isArray(b.ownerComponentSetKeys) || !b.ownerComponentSetKeys.length || b.ownerComponentSetKeys.some(k=>!k)) fail(i,'Owner component set keys are required.');
+       if (!b.activeVariant?.property || !Array.isArray(b.activeVariant.values) || !b.activeVariant.values.length || b.activeVariant.values.some(v=>typeof v!=='string'||!v)) fail(i,'Declare the typed owner VARIANT activation.');
+@@ -64,10 +72,12 @@
+   const revision = contract.package.manualRevision ?? (revisions.length === 1 ? revisions[0] : undefined);
+   if (revision !== pin.revision || contract.package.manualSourceHash !== pin.manualSourceHash || stableHash(contract) !== pin.compiledHash) return 'dependency-pin-mismatch';
+   if (contract.runtimePolicy?.engine !== 'apollo-predicate-engine' || contract.runtimePolicy?.unknownPolicy !== 'fail-closed') return 'dependency-runtime-unsupported';
+-  for(const field of ['occurrenceAddressVersion','directChildDependenciesVersion','memberCollectionsVersion','dependencySubjectConditionsVersion','rootTargetAliasesVersion','assetIdentityLockVersion','instanceMainComponentAliasesVersion','representationEvidenceVersion','crossRepresentationBindingsVersion'] as const)
++  for(const field of ['occurrenceAddressVersion','directChildDependenciesVersion','memberCollectionsVersion','dependencySubjectConditionsVersion','rootTargetAliasesVersion','assetIdentityLockVersion','instanceMainComponentAliasesVersion','representationEvidenceVersion'] as const)
+     if(contract.runtimePolicy[field]!==undefined && contract.runtimePolicy[field]!==1)return 'dependency-runtime-unsupported';
++  if(contract.runtimePolicy.crossRepresentationBindingsVersion!==undefined&&!([1,2] as number[]).includes(contract.runtimePolicy.crossRepresentationBindingsVersion))return 'dependency-runtime-unsupported';
+   const shape=contractRepresentationShape(contract),flags=representationFeatureFlags(shape);
+-  if(representationEvidenceErrors(shape).length || flags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1) || flags.bindings!==(contract.runtimePolicy.crossRepresentationBindingsVersion===1))return 'dependency-representation-unsupported';
++  if(representationEvidenceErrors(shape).length || flags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1) || contract.runtimePolicy.crossRepresentationBindingsVersion!==flags.bindingVersion
++    || flags.scopedDependencies&&validateComponentDependencies({component:contract.facts.component,targets:contract.facts.targets,representations:contract.facts.representations,componentDependencies:contract.componentDependencies}).length)return 'dependency-representation-unsupported';
+   return undefined;
+ }
+ 
+@@ -117,6 +127,22 @@
+   const paths = snapshotPaths(snapshot), ref = snapshot.variantReference;
+   const comparison = ref && compareInstanceBoundaries(snapshot,ref);
+   if (root.length!==1 || !paths || snapshot.source?.truncated || !ref?.complete || !comparison?.complete) return unknown('dependency-topology-unavailable');
++  if(b.kind==='fixed-nested-scoped'){
++    if(hostContract?.runtimePolicy.crossRepresentationBindingsVersion!==2)return unknown('scoped-dependency-version-unavailable');
++    if(!Array.isArray(b.representationIds)||!b.representationIds.length||new Set(b.representationIds).size!==b.representationIds.length
++      || b.representationIds.some(id=>!hostContract.facts.representations.some(r=>r.id===id&&r.kind==='figma'&&r.status!=='deprecated')))return unknown('dependency-binding-scope-unavailable');
++    const identity=record(record(root[0].component).identity),original=ref.nodeProperties['']?.identity;
++    if(root[0].type!=='INSTANCE'||!original||!identity.componentKey||!identity.mainComponentId
++      || identity.componentKey!==original.componentKey||identity.componentSetKey!==original.componentSetKey||identity.mainComponentId!==original.mainComponentId
++      || ref.componentKey!==identity.componentKey||(ref.componentSetKey||'')!==(identity.componentSetKey||'')
++      || snapshot.source?.componentKey!==identity.componentKey||(snapshot.source?.componentSetKey||'')!==(identity.componentSetKey||'')
++      || ((root[0].unknownFacts||[]) as string[]).some(p=>p==='component'||p==='component.identity'||p.startsWith('component.identity.')))
++      return unknown('dependency-host-identity-unproven');
++    const reps=hostContract.facts.representations.filter(r=>matchesCaptureRepresentation(r,identity.componentKey,identity.componentSetKey||''));
++    if(reps.length!==1||!['universal',snapshot.context.platform].includes(reps[0].platform)
++      || snapshot.context.unknownFacts?.some(p=>['platform','context.platform','environment.platform'].includes(p)))return unknown('dependency-representation-unresolved');
++    if(!b.representationIds.includes(reps[0].id))return {status:'inactive',reason:'binding-outside-representation'};
++  }
+   const availability = record(record(root[0].variantAvailability).targets)[b.targetRole];
+   if (availability?.present === false) return {status:'inactive',reason:'target-absent-in-variant'};
+   const targets = snapshot.nodes.filter(n=>record(n.semantic).role===b.targetRole);
+--- a/projects/Apollo-v3/packages/component-contract-core/src/importer.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/importer.ts
+@@ -489,6 +489,10 @@
+   const allParsed = parseFiles(files);
+   const dependencyEntries=allParsed.filter(p=>/(^|\/)dependencies\//.test(p.name));
+   const parsed = allParsed.filter(p=>!dependencyEntries.includes(p));
++  for (const entry of parsed) if (entry.data.documentType === 'component-contract-manual'
++    && entry.data.schemaVersion !== MANUAL_SCHEMA_VERSION && entry.data.schemaVersion !== LEGACY_MANUAL_SCHEMA_VERSION) {
++    throw new Error(`Unsupported manual source schema: ${stringValue(entry.data.schemaVersion, 'unknown')}.`);
++  }
+   const folder = packageFolder(files);
+   const candidates = contractCandidates(parsed);
+   const boundaryEntries = parsed.filter(entry =>
+--- a/projects/Apollo-v3/packages/component-contract-core/src/owned-code-collection.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/owned-code-collection.ts
+@@ -2,7 +2,7 @@
+ import { prepareValidationSnapshot } from './runtime';
+ import { resolveDirectChildBinding, dependencyPinIssue } from './component-dependencies';
+ import { resolveComponentProperty } from './component-property-identity';
+-import { representationEvidenceErrors, contractRepresentationShape } from './representation-evidence';
++import { representationEvidenceErrors, contractRepresentationShape, representationFeatureFlags } from './representation-evidence';
+ import { stableHash } from './stable';
+ const rec=(v:unknown):Record<string,any>=>v&&typeof v==='object'?v as Record<string,any>:{};
+ function fail(reason:string):never{throw new Error('OWNED_CODE_COLLECTION_UNPROVEN: '+reason);}
+@@ -10,7 +10,8 @@
+  * The native owner child order determines the visible collection index. Business
+  * events remain separate scenario inputs; labels never select handlers. */
+ export function projectOwnedCodeCollection(contract:CompiledContract,input:PreviewSnapshot,representationId:string){
+-  if(contract.runtimePolicy.crossRepresentationBindingsVersion!==1||representationEvidenceErrors(contractRepresentationShape(contract)).length)fail('schema');
++  const shape=contractRepresentationShape(contract),flags=representationFeatureFlags(shape);
++  if(!flags.bindings||contract.runtimePolicy.crossRepresentationBindingsVersion!==flags.bindingVersion||representationEvidenceErrors(shape).length)fail('schema');
+   const declarations=contract.facts.semanticApi.flatMap(api=>api.bindings.filter(b=>b.representationId===representationId&&b.ownedOccurrence).map(binding=>({api,binding})));
+   if(!declarations.length)fail('missing declarations');
+   const snapshot=prepareValidationSnapshot(input,contract),items=new Map<string,{node:Record<string,any>;bindings:SemanticApiBinding[]}>();
+--- a/projects/Apollo-v3/packages/component-contract-core/src/representation-evidence.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/representation-evidence.ts
+@@ -67,7 +67,11 @@
+   }
+   return errors;
+ }
+-export function representationFeatureFlags(s:Shape){return {evidence:s.representations.some(r=>r.codeEvidence!==undefined),bindings:s.semanticApi.some(p=>p.bindings.some(b=>b.codeTransform!==undefined||b.ownedOccurrence!==undefined||b.nativeSlotBinding!==undefined))};}
++export function representationFeatureFlags(s:Shape){
++  const scopedDependencies=s.dependencies.some(d=>d.bindings?.some(b=>b.kind==='fixed-nested-scoped'));
++  const bindings=scopedDependencies||s.semanticApi.some(p=>p.bindings.some(b=>b.codeTransform!==undefined||b.ownedOccurrence!==undefined||b.nativeSlotBinding!==undefined));
++  return {evidence:s.representations.some(r=>r.codeEvidence!==undefined),bindings,scopedDependencies,bindingVersion:scopedDependencies?2 as const:bindings?1 as const:undefined};
++}
+ /** Receipt scope excludes claim/receipt metadata to avoid self-referential hashes;
+  * norms, source locators, bindings, profiles, anatomy and dependency pins remain. */
+ export function representationScopeHash(manual:ManualSource,facts:unknown):string{
+--- a/projects/Apollo-v3/packages/component-contract-core/src/rule-scope-facts.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/rule-scope-facts.ts
+@@ -39,7 +39,7 @@
+     for (const dependency of contract.componentDependencies || []) {
+       if (dependency.issue || dependencyPinIssue(dependency, dependency.contract)) { ownershipUnknown = true; continue; }
+       for (const binding of dependency.bindings) {
+-        const resolved = resolveFixedNestedBinding(snapshot, dependency, binding);
++        const resolved = resolveFixedNestedBinding(snapshot, dependency, binding, false, contract);
+         if (resolved.status === 'inactive') continue;
+         if (resolved.status !== 'active' || !resolved.nodeId || !resolved.identityValid
+           || !validatedDependencyCapture(snapshot, resolved.nodeId, dependency.contract!).snapshot) {
+--- a/projects/Apollo-v3/packages/component-contract-core/src/runtime.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/runtime.ts
+@@ -17,7 +17,7 @@
+ import { materializeInstanceContentReferences } from './instance-content-reference';
+ import { materializeTargetResolution, TARGET_RESOLUTION_SCHEMA } from './target-resolution';
+ import { materializeGradientPaintEvidence } from './gradient-paint-facts';
+-import { dependencyPinIssue, resolveFixedNestedBinding, validatedDependencyCapture, COMPONENT_DEPENDENCY_DEPTH_LIMIT } from './component-dependencies';
++import { dependencyPinIssue, resolveFixedNestedBinding, validatedDependencyCapture, COMPONENT_DEPENDENCY_DEPTH_LIMIT, validateComponentDependencies } from './component-dependencies';
+ import { stableHash } from './stable';
+ import { materializeRuleScopeFacts } from './rule-scope-facts';
+ import { materializeDependencyComposition } from './dependency-composition';
+@@ -43,7 +43,8 @@
+   assertConfiguredPropertyContract(contract);
+   const shape=contractRepresentationShape(contract),flags=representationFeatureFlags(shape);
+   if(flags.evidence||flags.bindings||contract.runtimePolicy.representationEvidenceVersion!==undefined||contract.runtimePolicy.crossRepresentationBindingsVersion!==undefined){
+-    if((contract.runtimePolicy.representationEvidenceVersion!==undefined&&contract.runtimePolicy.representationEvidenceVersion!==1)||(contract.runtimePolicy.crossRepresentationBindingsVersion!==undefined&&contract.runtimePolicy.crossRepresentationBindingsVersion!==1)||representationEvidenceErrors(shape).length||flags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1)||flags.bindings!==(contract.runtimePolicy.crossRepresentationBindingsVersion===1))throw new Error('REPRESENTATION_RUNTIME_UNSUPPORTED');
++    if((contract.runtimePolicy.representationEvidenceVersion!==undefined&&contract.runtimePolicy.representationEvidenceVersion!==1)||contract.runtimePolicy.crossRepresentationBindingsVersion!==flags.bindingVersion||representationEvidenceErrors(shape).length||flags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1))throw new Error('REPRESENTATION_RUNTIME_UNSUPPORTED');
++    if(flags.scopedDependencies&&validateComponentDependencies({component:contract.facts.component,targets:contract.facts.targets,representations:contract.facts.representations,componentDependencies:contract.componentDependencies}).length)throw new Error('COMPONENT_DEPENDENCY_RUNTIME_UNSUPPORTED');
+   }
+   const snapshot = JSON.parse(JSON.stringify(source)) as PreviewSnapshot & { snapshotHash?: string };
+   delete snapshot.snapshotHash;
+--- a/projects/Apollo-v3/packages/component-contract-core/src/types.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/types.ts
+@@ -453,13 +453,14 @@
+ };
+ 
+ export type FixedNestedBinding = {
+-  kind?: 'fixed-nested';
++  kind?: 'fixed-nested' | 'fixed-nested-scoped';
+   id: string;
+   targetRole: string;
+   relativePath: string;
+   ownerComponentSetKeys: string[];
+   activeVariant: { property: string; values: string[] };
+   childPath: string;
++  representationIds?: string[];
+ };
+ 
+ /** A component-owned direct occurrence. Empty legacy childPath is never reinterpreted. */
+@@ -766,7 +767,7 @@
+     declaredTargetIdentityVersion?: 1 | 2 | 3;
+     declaredTargetConfigurationVersion?: 1 | 2;
+     representationEvidenceVersion?: 1;
+-    crossRepresentationBindingsVersion?: 1;
++    crossRepresentationBindingsVersion?: 1 | 2;
+     rootTargetAliasesVersion?: 1;
+     dependencySubjectConditionsVersion?: 1;
+     assetIdentityLockVersion?: 1;
+--- a/projects/Apollo-v3/packages/component-contract-core/tests/code-passport.test.js
++++ b/projects/Apollo-v3/packages/component-contract-core/tests/code-passport.test.js
+@@ -44,3 +44,38 @@
+  for(const mutate of [n=>n.propertyType='TEXT',n=>n.propertyIdentity='Body',n=>n.targetId='missing',n=>n.contentPolicy='replace',n=>n.version=2,n=>n.proof='layer-name']){const m=clone(f.manual);mutate(m.semanticApi[0].bindings[1].nativeSlotBinding);assert.ok(errors(m).length);}
+  const m=clone(f.manual);m.rules.at(-1).controlPaths=[];assert.ok(errors(m).length);
+ });
++
++function mixedScenario(){
++ const f=ownBindings(scenario());
++ const childPath=Object.entries(f.snapshot.variantReference.nodeProperties).find(([p,v])=>p&&v.identity?.componentSetKey==='button-set')[0];
++ f.manual.componentDependencies[0].bindings.push({kind:'fixed-nested-scoped',id:'scoped-extra',targetRole:'root',relativePath:'',ownerComponentSetKeys:['group-set'],activeVariant:{property:'Background',values:['True']},childPath,representationIds:['desktop']});
++ f.snapshot.nodes[0].component.properties.Background='True';f.snapshot.nodes[0].component.propertyTypes.Background='VARIANT';
++ f.snapshot.variantReference=core.captureVariantReference(clone(f.snapshot),'group-variant','group-set');
++ const compiled=core.compileManualSource(f.manual,f.evidence,[f.childContract]);assert.equal(compiled.issues.filter(i=>i.level==='error').length,0);
++ return {f,contract:compiled.contract};
++}
++test('owned fields preserve four projected values when combined with scoped dependencies',()=>{
++ const plain=ownBindings(scenario()),legacy=core.compileManualSource(plain.manual,plain.evidence,[plain.childContract]).contract;
++ const before=core.projectOwnedCodeCollection(legacy,plain.snapshot,'code'),{f,contract}=mixedScenario();
++ assert.equal(legacy.runtimePolicy.crossRepresentationBindingsVersion,1);assert.equal(contract.runtimePolicy.crossRepresentationBindingsVersion,2);
++ const after=core.projectOwnedCodeCollection(contract,f.snapshot,'code');assert.equal(after.elements.length,4);
++ assert.deepEqual(after.elements,before.elements);assert.equal(after.primaryFirst,before.primaryFirst);
++ f.snapshot.nodes[2].visible=false;assert.deepEqual(core.projectOwnedCodeCollection(contract,f.snapshot,'code').elements.map(e=>e.targetId),['target-0','target-2','target-3']);
++ f.snapshot.nodes[0].childIds=['member-0','member-3','member-2','member-1'];
++ assert.deepEqual(core.projectOwnedCodeCollection(contract,f.snapshot,'code').elements.map(e=>e.targetId),['target-0','target-3','target-2']);
++});
++test('mixed owned projection rejects absent, mismatched, future and malformed capabilities',()=>{
++ const {f,contract}=mixedScenario();
++ for(const version of [undefined,0,1,3]){const bad=clone(contract);bad.runtimePolicy.crossRepresentationBindingsVersion=version;assert.throws(()=>core.projectOwnedCodeCollection(bad,f.snapshot,'code'),/OWNED_CODE_COLLECTION_UNPROVEN: schema/);}
++ for(const scope of [undefined,[],['missing'],['desktop','desktop']]){const bad=clone(contract);bad.componentDependencies[0].bindings.at(-1).representationIds=scope;assert.throws(()=>core.projectOwnedCodeCollection(bad,f.snapshot,'code'),/COMPONENT_DEPENDENCY_RUNTIME_UNSUPPORTED/);}
++ const plain=ownBindings(scenario()),bad=core.compileManualSource(plain.manual,plain.evidence,[plain.childContract]).contract;
++ bad.runtimePolicy.crossRepresentationBindingsVersion=2;assert.throws(()=>core.projectOwnedCodeCollection(bad,plain.snapshot,'code'),/OWNED_CODE_COLLECTION_UNPROVEN: schema/);
++ const malformed=clone(contract);malformed.facts.semanticApi[0].bindings[0].ownedOccurrence.version=2;
++ assert.throws(()=>core.projectOwnedCodeCollection(malformed,f.snapshot,'code'),/OWNED_CODE_COLLECTION_UNPROVEN: schema/);
++});
++test('mixed owned projection retains identity, visibility, typed capture and native ordering refusals',()=>{
++ const {f,contract}=mixedScenario();
++ for(const change of [s=>delete s.nodes[2].component.sourceIdentity,s=>s.nodes[2].component.identity.componentSetKey='foreign',s=>s.nodes[3].unknownFacts.push('visible'),s=>s.nodes[0].childIds.push('member-0'),s=>s.nodes[1].component.propertyTypes['Label#1:1']='VARIANT']){
++  const snapshot=clone(f.snapshot);change(snapshot);assert.throws(()=>core.projectOwnedCodeCollection(contract,snapshot,'code'),/OWNED_CODE_COLLECTION_UNPROVEN/);
++ }
++});
+--- a/projects/ComponentContractEditor/docs/BACKLOG.ru.md
++++ b/projects/ComponentContractEditor/docs/BACKLOG.ru.md
+@@ -3772,3 +3772,38 @@
+ 
+ 
+ **Source choice и черновик библиотеки, 13.10.2026:** владелец выбрал точный Link r5: 4 Size и порты20px. В исходной Corp Promo библиотеке обновлены только Link instances17:12838/17:12843 внутри D/M BottomContent; восемь прежних typed настроек, layout и Label typography сохранены. Native readback подтверждает10 полей/4 Size. Независимый pristine reference в Workshop совпал с configurationReferenceHash r5 `03e123c8e49794fafbd515175a102a28409297f46bd948087909ab7a111ce444`. Публикация не выполнялась; fresh parent native D/M baseline/negative/RESET ещё NOT_RUN_USER_ONLY. Сравнение этого pin в другом file context расходится по локальным ID неактивных INSTANCE_SWAP портов; переносимость в другие файлы не принята, guard не обходится. Editor0.2.104/core0.1.17 и ZIP r7/r5 неизменны; v4 HELD_UNTIL_CONTRACT_ACCEPTANCE. Evidence: `shared/design-system_ab/experiments/current-contract-packages/BenefitCard/reports/source-upgrade-r5-2026-10-13/HANDOFF.json`.
++
++
++### CC-COMPAT-SCOPED-FIXED-DEPENDENCY-01 — зависимости по Figma representation и authoring admission
++
++Review313: ошибочный Draft после снимка сохраняет доступ к паспорту и форме
++dependencyDomain; подсказки используют снимок только при успешной admission.
++Исполнение ошибочного источника остаётся запрещено. Mixed owned-code/scoped
++проекция использует каноническую derived bindingVersion, сохраняя строгие отказы.
++Обе регрессии воспроизведены до исправления; private repair314 ожидает приёмки.
++
++Core 0.1.19 / Editor 0.2.106 candidate. Новый opt-in `fixed-nested-scoped` требует
++непустые уникальные `representationIds` и `crossRepresentationBindingsVersion=2`.
++Один точный child pin может иметь непересекающиеся D/M bindings через FRAME.
++Off-scope становится notApplicable только после независимого доказательства
++единственного actual host representation; stale/foreign/ambiguous/missing capture
++сохраняют UNKNOWN. Старый unscoped route и direct-child не расширяются.
++
++Editor проверяет compiler errors до preview/capture, повторного запроса и evaluation.
++Неизвестная manual schema отклоняется при импорте. Compiled-only evidence остаётся
++read-only; запуск и экспорт восстановленного без исходного manual пакета запрещены.
++Ошибочный авторский Draft можно сохранить с validation=false без исторического
++projection stamp, но после reopen он по-прежнему не допускается к исполнению.
++
++Совместимость: старый compiled Core/Editor/V4 reader отклоняет feature version2;
++старый Editor может повторно скомпилировать ошибочный источник, поэтому universal
++old-authoring refusal не заявляется. Поддержка scoped-пакета требует установки
++проверенной пары нового UI + core Editor 0.2.106; одиночная замена core недостаточна.
++
++Private проверки: actual bundled UI/controller с controlled mocks, ZIP/reopen,
++legacy compiler/runtime equality и fail-closed cases. Shared integration, полный
++validate, текущие V4 consumers/config/runtime и native acceptance имеют отдельные
++гейты; статус — **PRIVATE_VERIFIED / SHARED_ACCEPTANCE_PENDING**.
++Generation pilot и Ready не расширяются. Закрытие: точная совместная сборка UI/core,
++полный validate и paired consumer verification; затем отдельный native тест пакета.
++Парная запись: [CC-COMPAT-SCOPED-FIXED-DEPENDENCY-01](../../Apollo-v3/docs/ARCHITECTURE_BACKLOG.md).
+--- a/projects/ComponentContractEditor/package-lock.json
++++ b/projects/ComponentContractEditor/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "component-contract-editor",
+-  "version": "0.2.105",
++  "version": "0.2.106",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "component-contract-editor",
+-      "version": "0.2.105",
++      "version": "0.2.106",
+       "devDependencies": {
+         "@figma/plugin-typings": "^1.82.0",
+         "esbuild": "^0.24.0",
+--- a/projects/ComponentContractEditor/package.json
++++ b/projects/ComponentContractEditor/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "component-contract-editor",
+-  "version": "0.2.105",
++  "version": "0.2.106",
+   "private": true,
+   "description": "Visual authoring MVP for the manual layer of Apollo ComponentContract v2.",
+   "scripts": {
+@@ -19,7 +19,8 @@
+     "test:dependency-import": "node tests/dependency-import.browser.cjs",
+     "test:existing-rule-edit": "node tests/existing-rule-edit.browser.cjs",
+     "test:asset-identity-lock": "node tests/asset-identity-lock.browser.cjs",
+-    "validate": "npm run typecheck && npm test"
++    "validate": "npm run typecheck && npm test",
++    "test:authoring-admission": "node tests/authoring-admission.browser.cjs"
+   },
+   "devDependencies": {
+     "@figma/plugin-typings": "^1.82.0",
+--- a/projects/ComponentContractEditor/src/ui.html
++++ b/projects/ComponentContractEditor/src/ui.html
+@@ -16,7 +16,7 @@
+       <div class="header-status" aria-live="polite">
+         <span class="status-dot" id="statusDot"></span>
+         <span id="statusText">Ждёт импорт</span>
+-          <span class="build-version">v0.2.105</span>
++          <span class="build-version">v0.2.106</span>
+       </div>
+       <div class="header-actions">
+         <input id="fileInput" type="file" accept=".json,.zip,application/json,application/zip" multiple hidden />
+--- a/projects/ComponentContractEditor/src/ui.ts
++++ b/projects/ComponentContractEditor/src/ui.ts
+@@ -790,6 +790,18 @@
+   return value as T;
+ }
+ 
++function optionalAuthoringSnapshot(): PreviewSnapshot | undefined {
++  if (!workspace || !snapshot) return;
++  try {
++    const compiled = compileManualSource(workspace.manual, workspace.variantEvidence, workspace.dependencyContracts);
++    if (compiled.issues.some(issue => issue.level === 'error')) return;
++    return prepareValidationSnapshot(snapshot, compiled.contract);
++  } catch (error) {
++    toast(`Подсказки снимка недоступны: ${error instanceof Error ? error.message : String(error)}`, 'warning');
++    return;
++  }
++}
++
+ function openContractSettings(): void {
+   if (!workspace) return;
+   const manual = workspace.manual;
+@@ -817,7 +829,7 @@
+   decisionsInput.value = prettyJson(manual.decisions);
+   componentDependenciesInput.value = prettyJson(manual.componentDependencies || []);
+   directDependencyForm = renderDirectDependencyForm(element('directDependencyForm'), manual, workspace.dependencyContracts || [], componentDependenciesInput,
+-    (message,error) => toast(message,error ? 'error' : undefined), snapshot ? prepareValidationSnapshot(snapshot,compileManualSource(manual,workspace.variantEvidence,workspace.dependencyContracts).contract) : undefined);
++    (message,error) => toast(message,error ? 'error' : undefined), optionalAuthoringSnapshot());
+   variantTextTargetsInput.value = prettyJson(manual.targets.filter(t => t.variantContinuity).map(t => ({ targetId: t.id, anchorTargetId: t.variantContinuity!.anchorTargetId })));
+   generationProfilesInput.value = prettyJson(manual.generation.profiles);
+   generationInstructionsInput.value = manual.generation.instructions.join('\n');
+@@ -2392,8 +2404,8 @@
+     const declaredPorts=workspace?createDeclaredDependencyPortOptions(workspace.manual,workspace.dependencyContracts || []):()=>[];
+     if(workspace){
+       const candidates:Array<{targetRole:string;relativePath:string}>=workspace.manual.targets.filter(t=>t.resolution==='resolved').map(t=>({targetRole:t.semanticRole,relativePath:''}));
+-      if(snapshot){const compiled=compileManualSource(workspace.manual,workspace.variantEvidence,workspace.dependencyContracts).contract;
+-        const prepared=prepareValidationSnapshot(snapshot,compiled),paths=snapshotPaths(prepared);
++      const prepared=optionalAuthoringSnapshot();if(prepared){
++        const paths=snapshotPaths(prepared);
+         if(paths)for(const target of workspace.manual.targets.filter(t=>t.resolution==='resolved')){
+           const nodes=prepared.nodes.filter(n=>(n.semantic as any)?.role===target.semanticRole);if(nodes.length!==1)continue;
+           const prefix=paths.get(String(nodes[0].id))!;
+@@ -3541,6 +3553,28 @@
+   });
+ }
+ 
++function assertAuthoringSource(): void {
++  if (workspace?.manual.source.kind === 'component-contract-v2') {
++    throw new Error('Нужен authoring ZIP с исходным contract.manual.json. Compiled JSON доступен только как read-only evidence; восстановить все правила из него нельзя.');
++  }
++}
++
++function compileForExecution() {
++  if (!workspace) return null;
++  try {
++    assertAuthoringSource();
++    const result = compileManualSource(workspace.manual, workspace.variantEvidence, workspace.dependencyContracts);
++    const errors = result.issues.filter(issue => issue.level === 'error');
++    if (errors.length) throw new Error(`Контракт содержит ошибки компиляции (${errors.length}). Исправьте источник перед проверкой: ${errors[0].message}`);
++    return result;
++  } catch (error) {
++    clearTestPresentation();
++    setStatus('Контракт требует исправлений', 'warning');
++    toast(error instanceof Error ? error.message : String(error), 'error');
++    return null;
++  }
++}
++
+ function runTest(): void {
+   if (!workspace || !snapshot) return;
+   if (!validationProductSelect.value) {
+@@ -3549,7 +3583,8 @@
+   }
+   try {
+     clearTestPresentation();
+-    const compiled = compileManualSource(workspace.manual, workspace.variantEvidence, workspace.dependencyContracts);
++    const compiled = compileForExecution();
++    if (!compiled) return;
+     const authoringContract = prepareAuthoringPreviewContract(compiled.contract);
+     const sourceSnapshot=validationSnapshot(snapshot);
+     const mode = requestedValidationMode;
+@@ -3618,10 +3653,12 @@
+     toast('Сначала выберите Product проверки.', 'warning');
+     return;
+   }
++  const result = compileForExecution();
++  if (!result) return;
+   clearPreviewTimeout();
+   pendingPreviewRequest = '';
+   clearTestPresentation();
+-  const compiled = compileManualSource(workspace.manual, workspace.variantEvidence, workspace.dependencyContracts).contract;
++  const compiled = result.contract;
+   const requestId = nextRequestId('selection-test');
+   pendingSelectionTestRequest = requestId;
+   requestedValidationMode = selectedValidationMode();
+@@ -3649,6 +3686,8 @@
+ 
+ function renderLivePreview(): void {
+   if (!workspace) return;
++  const result = compileForExecution();
++  if (!result) return;
+   clearTestPresentation();
+   const variant = matchingVariant();
+   activeVariant = variant;
+@@ -3667,7 +3706,7 @@
+   componentStage.hidden = true;
+   previewLoading.hidden = false;
+   setStatus('Рендерим preview', 'busy');
+-  const compiled = compileManualSource(workspace.manual, workspace.variantEvidence, workspace.dependencyContracts).contract;
++  const compiled = result.contract;
+   post({
+     type: 'render-preview',
+     requestId,
+@@ -3827,6 +3866,7 @@
+ 
+ function exportBundle(): void {
+   if (!workspace) return;
++  assertAuthoringSource();
+   const bundle = buildExportBundle(workspace.manual, workspace.variantEvidence, workspace.dependencyContracts,
+     workspace.compiledInput?.package && (workspace.compiledInput.package as any).manualSourceHash === stableHash(workspace.manual)
+       ? {projection: workspace.compiledInput as any} : {});
+@@ -3963,7 +4003,9 @@
+       toast('Во время снимка выбран другой instance. Задайте его ожидания и повторите проверку.', 'warning');
+       return;
+     }
+-    const currentManualSourceHash = compileManualSource(workspace.manual, workspace.variantEvidence, workspace.dependencyContracts).contract.package.manualSourceHash;
++    const currentCompiled = compileForExecution();
++    if (!currentCompiled) { renderHeader(); return; }
++    const currentManualSourceHash = currentCompiled.contract.package.manualSourceHash;
+     if (message.manualSourceHash !== currentManualSourceHash) {
+       toast('Manual source изменился во время снимка. Проверка перезапущена на актуальной ревизии.', 'warning');
+       requestSelectionTest(selectionTestIntent);
+@@ -3991,7 +4033,9 @@
+     renderRuleCards();
+     renderHeader();
+     if(selectionTestIntent==='before'){
+-      const compiled=compileManualSource(workspace.manual,workspace.variantEvidence,workspace.dependencyContracts).contract;
++      const result=compileForExecution();
++      if(!result)return;
++      const compiled=result.contract;
+       const before=prepareValidationSnapshot(validationSnapshot(snapshot),compiled);
+       const root=before.nodes.find(n=>before.selection.includes(String(n.id))) as any;
+       const usable=before.transitionCapture?.complete&&(compiled.facts.transitions||[]).some(t=>root?.dependencyCompositionV1?.[t.transition.dependencyId]?.active===t.transition.from);
+--- a/projects/ComponentContractEditor/src/version.ts
++++ b/projects/ComponentContractEditor/src/version.ts
+@@ -1,2 +1,2 @@
+ // Application/report version is independent of the compiled artifact's producer.
+-export const EDITOR_VERSION = 'component-contract-editor@0.2.105';
++export const EDITOR_VERSION = 'component-contract-editor@0.2.106';
+--- a/projects/ComponentContractEditor/tests/authoring-admission.browser.cjs
++++ b/projects/ComponentContractEditor/tests/authoring-admission.browser.cjs
+@@ -0,0 +1,155 @@
++const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),vm=require('node:vm');
++const crypto=require('node:crypto'),os=require('node:os');
++const {scopedScenario,clone}=require('./helpers/scoped-fixed');
++const root=process.env.ARTIFACTS_DIR||fs.mkdtempSync(path.join(os.tmpdir(),'editor-admission-'));
++const E=path.resolve(__dirname,'..'),phase='candidate';
++const pin=p=>{const b=fs.readFileSync(p);return {path:p,sha256:crypto.createHash('sha256').update(b).digest('hex'),bytes:b.length};};
++process.env.TMPDIR=root+'/workspace/tmp';fs.mkdirSync(process.env.TMPDIR,{recursive:true});
++(async()=>{
++ const self=pin(__filename),f=scopedScenario(),core=f.core,checks=[];
++ f.manual.component.componentKey='desktop-set';
++ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
++ const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{}),downloadsPath:root+'/workspace/downloads',
++  args:['--disable-background-networking','--disk-cache-dir='+root+'/workspace/browser-cache']});
++ try{
++  function controller(){
++   const sent=[],stats={captureEntered:0,showUI:0};
++   const figma={skipInvisibleInstanceChildren:true,showUI(){stats.showUI++;},on(){},
++    currentPage:{selection:[{id:'root',type:'INSTANCE',async getMainComponentAsync(){stats.captureEntered++;throw new Error('MOCK_CAPTURE_ENTRY');}}]},
++    clientStorage:{async getAsync(){return null;},async setAsync(){}},ui:{postMessage(m){sent.push(m);}}};
++   vm.runInNewContext(fs.readFileSync(E+'/dist/code.js','utf8'),{figma,__html__:'controlled-ui',console,setTimeout,clearTimeout,TextEncoder,TextDecoder},{filename:'actual-controller-'+phase+'.js'});
++   return {figma,sent,stats};
++  }
++  async function pageFor(){
++   const page=await browser.newPage({acceptDownloads:true}),errors=[];page.on('pageerror',e=>errors.push(e.message));
++   await page.addInitScript(()=>{window.__out=[];window.parent.postMessage=m=>window.__out.push(m.pluginMessage);});
++   await page.goto('file://'+E+'/dist/ui.html');
++   const host=controller();
++   await host.figma.ui.onmessage({type:'ready'});
++   assert.equal(host.stats.showUI,1);
++   for(const message of host.sent)await page.evaluate(m=>window.dispatchEvent(new MessageEvent('message',{data:{pluginMessage:m}})),message);
++   return {page,errors,host};
++  }
++  function zipFor(manual){return core.buildAuthoringZip(core.buildExportBundle(manual,f.evidence,[f.childContract]));}
++  async function upload(page,zip){
++   await page.locator('#fileInput').setInputFiles({name:'generic.component-contract.zip',mimeType:'application/zip',buffer:Buffer.from(zip)});
++   await page.waitForFunction(()=>document.querySelector('#componentName').textContent==='fixture.group');
++   await page.waitForFunction(()=>document.querySelector('#fileInput').value==='');
++  }
++  async function readyToTest(page){
++   await page.locator('#validationModeButton').click();
++   await page.evaluate(()=>{const s=document.querySelector('#validationProductSelect');s.value='ab';s.dispatchEvent(new Event('change'));});
++   await page.evaluate(()=>window.__out=[]);
++  }
++  async function messages(page,type){return page.evaluate(t=>window.__out.filter(m=>m.type===t),type);}
++  async function exported(page,label){
++   await page.locator('#authoringModeButton').click();
++   const download=page.waitForEvent('download');await page.locator('#exportButton').click();const d=await download;
++   const target=root+'/workspace/downloads/'+phase+'-'+label+'.zip';fs.mkdirSync(path.dirname(target),{recursive:true});await d.saveAs(target);
++   return {zip:fs.readFileSync(target),pin:pin(target)};
++  }
++  const invalid=clone(f.manual);invalid.componentDependencies[0].bindings[0].representationIds=[];
++  if(phase==='candidate'){
++   const unknown=await pageFor(),future=clone(f.manual);future.schemaVersion='apollo.component-contract-manual.future';
++   const files=[{name:'contract.manual.json',text:JSON.stringify(future)}];
++   assert.throws(()=>core.importWorkspace(files),/Unsupported manual source schema/);
++   await unknown.page.locator('#fileInput').setInputFiles({name:'future.manual.json',mimeType:'application/json',buffer:Buffer.from(files[0].text)});
++   await unknown.page.waitForFunction(()=>document.body.textContent.includes('Unsupported manual source schema'));
++   assert.equal((await messages(unknown.page,'render-preview')).length,0);assert.equal((await messages(unknown.page,'test-selection')).length,0);
++   assert.equal(await unknown.page.locator('#exportButton').isDisabled(),true);assert.deepEqual(unknown.errors,[]);
++   checks.push({name:'actual importer rejects unknown manual schema without reconstructing an empty source',status:'PASS'});await unknown.page.close();
++   const readonly=await pageFor(),compiled=core.compileManualSource(f.manual,f.evidence,[f.childContract]).contract;
++   assert.equal(core.importWorkspace([{name:'compiled.json',text:JSON.stringify(compiled)}]).manual.source.kind,'component-contract-v2');
++   await readonly.page.locator('#fileInput').setInputFiles({name:'compiled.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(compiled))});
++   await readonly.page.waitForFunction(()=>document.querySelector('#fileInput').value==='');
++   await readyToTest(readonly.page);await readonly.page.locator('#testSelectionButton').click();
++   assert.equal((await messages(readonly.page,'test-selection')).length,0);assert.equal(readonly.host.stats.captureEntered,0);
++   await readonly.page.locator('#authoringModeButton').click();const downloads=[];readonly.page.on('download',d=>downloads.push(d));await readonly.page.locator('#exportButton').click();
++   await readonly.page.waitForFunction(()=>document.body.textContent.includes('Нужен authoring ZIP'));
++   assert.equal(downloads.length,0);assert.deepEqual(readonly.errors,[]);
++   checks.push({name:'compiled-only evidence stays readable but cannot execute or export reconstructed empty rules',status:'PASS'});await readonly.page.close();
++  }
++  const bad=await pageFor();await upload(bad.page,zipFor(invalid));
++  const previews=await messages(bad.page,'render-preview');await readyToTest(bad.page);await bad.page.locator('#testSelectionButton').click();
++  const requests=await messages(bad.page,'test-selection');
++  {
++   assert.equal(previews.length,0);assert.equal(requests.length,0);assert.equal(bad.host.stats.captureEntered,0);
++   assert.match(await bad.page.locator('body').textContent(),/Контракт содержит ошибки компиляции/);
++   checks.push({name:'actual file import and test-selection reject invalid source before preview/capture',status:'PASS',captureEntered:0});
++   await bad.page.locator('#authoringModeButton').click();
++   const rejectedDownloads=[];bad.page.on('download',d=>rejectedDownloads.push(d));await bad.page.locator('#exportButton').click();
++   await bad.page.waitForFunction(()=>document.body.textContent.includes('EXPORT_PROJECTION_SOURCE_INVALID'));
++   assert.equal(rejectedDownloads.length,0);
++   checks.push({name:'actual UI refuses preserving an invalid imported projection during export',status:'PASS'});
++   const recovery=await pageFor(),badFiles=(await core.readZip(zipFor(invalid))).map(e=>({name:e.name,text:core.zipEntryText(e)})),session=core.createEditorSession(core.importWorkspace(badFiles),{workspaceMode:'authoring',validationProduct:'ab',scenarioProperties:{},activeModes:{}});
++   await recovery.page.evaluate(s=>window.dispatchEvent(new MessageEvent('message',{data:{pluginMessage:{type:'session-restored',session:s}}})),session);
++   const save=await exported(recovery.page,'invalid-draft'),files=(await core.readZip(save.zip)).map(e=>({name:e.name,text:core.zipEntryText(e)}));
++   const validation=JSON.parse(files.find(x=>x.name==='validation-report.json').text);assert.equal(validation.valid,false);
++   const reopened=core.importWorkspace(files),result=core.compileManualSource(reopened.manual,reopened.variantEvidence,reopened.dependencyContracts);
++   assert.ok(result.issues.some(i=>i.level==='error'));assert.deepEqual(reopened.manual,invalid);
++   const again=await pageFor();await upload(again.page,save.zip);await readyToTest(again.page);await again.page.locator('#testSelectionButton').click();
++   assert.equal((await messages(again.page,'test-selection')).length,0);
++   checks.push({name:'invalid Draft UI export preserves source and errors; reopen still blocks execution',status:'PASS',download:save.pin,validationValid:false});
++   assert.deepEqual(recovery.errors,[]);await recovery.page.close();
++   await again.page.close();
++   const good=await pageFor(),validZip=zipFor(f.manual);await upload(good.page,validZip);await readyToTest(good.page);await good.page.locator('#testSelectionButton').click();
++   const accepted=await messages(good.page,'test-selection');assert.equal(accepted.length,1);
++   await good.host.figma.ui.onmessage(accepted[0]);assert.equal(good.host.stats.captureEntered,1);
++   const message={type:'selection-test-result',requestId:accepted[0].requestId,componentKey:f.snapshot.source.componentKey,manualSourceHash:accepted[0].manualSourceHash,
++    anatomy:[],snapshot:f.snapshot,imageDataUrl:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6zwoAAAAASUVORK5CYII=',width:100,height:40,matchedBaselineNodes:3,unmatchedBaselineNodeIds:[],warnings:[]};
++   await good.page.evaluate(m=>window.dispatchEvent(new MessageEvent('message',{data:{pluginMessage:m}})),message);
++   await good.page.waitForFunction(()=>!document.querySelector('#downloadReportButton').disabled);
++   const reportDownload=good.page.waitForEvent('download');await good.page.locator('#downloadReportButton').click();const d=await reportDownload;
++   const reportPath=root+'/workspace/downloads/candidate-validation-report.json';await d.saveAs(reportPath);const report=JSON.parse(fs.readFileSync(reportPath));
++   assert.equal(report.editorVersion,'component-contract-editor@0.2.106');
++   assert.equal(report.runtime.evaluatedContract.runtimePolicy.crossRepresentationBindingsVersion,2);
++   assert.equal(report.results.engine.dependencyRuns.filter(r=>r.status==='executed').length,1);
++   assert.ok(report.results.engine.evaluations.every(e=>['compliant','not-applicable'].includes(e.classification)));
++   checks.push({name:'supported scoped authoring source reaches actual controller and UI evaluates controlled snapshot with real Core',status:'PASS',captureKind:'controller entry is mocked; snapshot is synthetic',report:pin(reportPath)});
++   const goodExport=await exported(good.page,'valid'),opened=core.importWorkspace((await core.readZip(goodExport.zip)).map(e=>({name:e.name,text:core.zipEntryText(e)})));
++   const built=core.buildExportBundle(opened.manual,opened.variantEvidence,opened.dependencyContracts);assert.equal(built.validation.valid,true);assert.deepEqual(opened.manual,f.manual);
++   assert.equal(built.compiled.runtimePolicy.crossRepresentationBindingsVersion,2);
++   checks.push({name:'actual UI supported export/reopen preserves scoped source and exact compiler output',status:'PASS',download:goodExport.pin});
++   await good.page.locator('#contractSettingsButton').click();
++   await good.page.locator('#componentDependenciesInput').evaluate(e=>{for(let p=e.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;});
++   await good.page.locator('#componentDependenciesInput').fill(JSON.stringify(invalid.componentDependencies));
++   await good.page.locator('#saveContractButton').click();
++   await good.page.evaluate(()=>window.__out=[]);
++   await good.page.locator('#contractSettingsButton').click();
++   assert.equal(await good.page.locator('#contractDialog').evaluate(e=>e.open),true);
++   assert.deepEqual(JSON.parse(await good.page.locator('#componentDependenciesInput').inputValue()),invalid.componentDependencies);
++   await good.page.locator('#cancelContractButton').click();
++   await good.page.locator('#constraintType').evaluate(e=>{e.value='dependencyDomain';e.dispatchEvent(new Event('change'));});
++   assert.equal(await good.page.locator('#dependencySubjectChoices').count(),1);
++   assert.equal((await messages(good.page,'render-preview')).length,0);
++   assert.equal((await messages(good.page,'test-selection')).length,0);
++   await readyToTest(good.page);await good.page.locator('#testSelectionButton').click();
++   assert.equal((await messages(good.page,'test-selection')).length,0);assert.deepEqual(good.errors,[]);
++   checks.push({name:'invalid Draft after valid capture stays editable in Passport and dependency constraints while execution stays blocked',status:'PASS'});
++   await good.page.locator('#authoringModeButton').click();await good.page.locator('#contractSettingsButton').click();
++   await good.page.locator('#componentDependenciesInput').evaluate(e=>{for(let p=e.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;});
++   await good.page.locator('#componentDependenciesInput').fill(JSON.stringify(f.manual.componentDependencies));
++   await good.page.locator('#saveContractButton').click();
++   await readyToTest(good.page);await good.page.locator('#testSelectionButton').click();
++   const repairedRequest=(await messages(good.page,'test-selection'));assert.equal(repairedRequest.length,1);
++   await good.page.evaluate(m=>window.dispatchEvent(new MessageEvent('message',{data:{pluginMessage:m}})),{...message,requestId:repairedRequest[0].requestId,manualSourceHash:repairedRequest[0].manualSourceHash});
++   await good.page.waitForFunction(()=>!document.querySelector('#downloadReportButton').disabled);
++   const repairedExport=await exported(good.page,'repaired-draft');
++   const repaired=core.importWorkspace((await core.readZip(repairedExport.zip)).map(e=>({name:e.name,text:core.zipEntryText(e)})));
++   assert.deepEqual(repaired.manual.componentDependencies,f.manual.componentDependencies);
++   assert.equal(core.buildExportBundle(repaired.manual,repaired.variantEvidence,repaired.dependencyContracts).validation.valid,true);
++   checks.push({name:'Passport repair restores supported capture/evaluation and valid source export without losing dependencies',status:'PASS',download:repairedExport.pin});
++   await readyToTest(good.page);await good.page.locator('#testSelectionButton').click();const pending=(await messages(good.page,'test-selection'))[0];assert.ok(pending);
++   await upload(good.page,zipFor(invalid));await good.page.evaluate(m=>window.dispatchEvent(new MessageEvent('message',{data:{pluginMessage:m}})),{...message,requestId:pending.requestId,manualSourceHash:pending.manualSourceHash});
++   assert.equal(await good.page.locator('#downloadReportButton').isDisabled(),true);
++   assert.match(await good.page.locator('body').textContent(),/Контракт содержит ошибки компиляции/);
++   checks.push({name:'source invalidated during capture is rejected again before evaluation',status:'PASS'});
++   assert.deepEqual(good.errors,[]);await good.page.close();
++  }
++  assert.deepEqual(bad.errors,[]);await bad.page.close();
++ }finally{await browser.close();}
++ assert.deepEqual(pin(__filename),self);
++ const attempt=process.argv[3]||'01';assert.match(attempt,/^\d{2}$/);
++ fs.writeFileSync(root+'/UI-ADMISSION-'+phase+'-'+attempt+'.json',JSON.stringify({test:self,checks,mode:'actual bundled UI in installed headless Chrome; actual bundled controller in Node VM with controlled Figma API; no native/model calls',updatedEditorBoundary:phase==='candidate'?'Core v2 support + execution/source preflight must ship as one verified Editor build':'UNSAFE historical path retained',Ready:false},null,2)+'\n',{flag:'wx'});
++ console.log(JSON.stringify({passed:checks.length}));
++})().catch(error=>{const report=JSON.stringify({phase,error:error.stack})+'\n',p=root+'/FIRST-UI-ADMISSION-FAILURE.json';if(!fs.existsSync(p))fs.writeFileSync(p,report);fs.writeFileSync(root+'/UI-FAILURE-'+phase+'-'+Date.now()+'.json',report,{flag:'wx'});console.error(error.stack);process.exitCode=1;});
+--- a/projects/ComponentContractEditor/tests/helpers/scoped-fixed.js
++++ b/projects/ComponentContractEditor/tests/helpers/scoped-fixed.js
+@@ -0,0 +1,40 @@
++const {core,clone,scenario}=require('./direct-group');
++// Derived only from the existing invented direct-group fixture.
++function scopedScenario(platform='desktop',background='True'){
++ const f=scenario(1);
++ f.childManual.component.platform='universal';f.childManual.component.platforms=['universal'];
++ f.childManual.representations[0].platform='universal';f.childManual.rules[0].applicability.platforms=['universal'];
++ const childContract=core.compileManualSource(f.childManual,f.childEvidence).contract;
++ function snapshotFor(p,bg){
++  const s=clone(f.snapshot),root=s.nodes[0],member=s.nodes[1],prefix=p==='desktop'?'desktop':'mobile';
++  const identity={componentKey:prefix+'-'+bg,componentSetKey:prefix+'-set',mainComponentId:prefix+'-main-'+bg};
++  root.component.identity=identity;root.component.properties={Background:bg};root.component.propertyTypes={Background:'VARIANT'};root.semantic.role='root';root.childIds=['frame'];
++  const frame={id:'frame',parentId:'root',childIds:[member.id],order:1,name:prefix+' frame',type:'FRAME',visible:true,unknownFacts:[],semantic:{path:'Group / '+prefix+' frame'},appearance:{opacity:1},resolvedModes:{},component:{properties:{},propertyTypes:{},propertyReferences:[],propertyReferenceBindings:{}}};
++  member.parentId=frame.id;member.order=2;member.semantic.path=frame.semantic.path+' / Button';
++  member.component.sourceIdentity.ownerComponentKey=identity.componentKey;member.component.sourceIdentity.ownerMainComponentId=identity.mainComponentId;
++  s.nodes=[root,frame,member];s.context.platform=p;s.source.componentKey=identity.componentKey;s.source.componentSetKey=identity.componentSetKey;
++  const child=s.componentDependencyCaptures[0].snapshot;child.context.platform=p;
++  child.variantReference=core.captureVariantReference(clone(child),child.source.componentKey,child.source.componentSetKey);
++  s.variantReference=core.captureVariantReference(clone(s),identity.componentKey,identity.componentSetKey);
++  // The synthetic independent master is frozen before any test mutation.
++  return core.materializeEffectiveBaseline(s,clone(s)).snapshot;
++ }
++ const captures=['desktop','mobile-web'].flatMap(p=>['True','False'].map(b=>snapshotFor(p,b))),structures={},variants=[];
++ for(const s of captures){const shape=s.variantReference.nodes,structureId=core.stableHash(shape);structures[structureId]=shape;variants.push({componentKey:s.source.componentKey,componentSetKey:s.source.componentSetKey,structureId,properties:clone(s.nodes[0].component.properties)});}
++ const evidence={schemaVersion:'apollo.variant-anatomy.v1',sourceHash:'synthetic-scoped-fixed',structures,variants};
++ const manual=clone(f.manual);manual.component.platforms=['desktop','mobile-web'];manual.targets=[manual.targets[0]];
++ manual.representations=['desktop','mobile-web'].map(p=>({id:p,kind:'figma',platform:p,status:'verified',locator:{componentSetKey:p==='desktop'?'desktop-set':'mobile-set'}}));
++ manual.rules[0].applicability.platforms=['desktop','mobile-web'];manual.rules[0].targetScope='self-and-descendants';manual.rules[0].boundaryPolicy='component-owned@1';
++ manual.rules[0].permission='forbidden';manual.rules[0].constraints=[{type:'propertyForbidden'}];
++ manual.metadata.dependencyCompletionVersion=1;
++ const bindings=manual.representations.map(rep=>{const s=captures.find(s=>s.context.platform===rep.platform&&s.nodes[0].component.properties.Background==='True');
++  const childPath=Object.entries(s.variantReference.nodeProperties).find(([,v])=>v.identity?.componentSetKey==='button-set')[0];
++  return {kind:'fixed-nested-scoped',id:rep.id==='desktop'?'desktop-child':'mobile-child',targetRole:'root',relativePath:'',ownerComponentSetKeys:[rep.locator.componentSetKey],activeVariant:{property:'Background',values:['True']},childPath,representationIds:[rep.id]};});
++ manual.componentDependencies=[{id:'button',componentId:childContract.package.componentId,revision:7,manualSourceHash:childContract.package.manualSourceHash,compiledHash:core.stableHash(childContract),bindings}];
++ const snapshot=captures.find(s=>s.context.platform===platform&&s.nodes[0].component.properties.Background===background);
++ const compile=()=>core.compileManualSource(manual,evidence,[childContract]);
++ const run=()=>{const compiled=compile(),contract=core.prepareAuthoringPreviewContract(compiled.contract),prepared=core.prepareValidationSnapshot(snapshot,contract),engine=core.evaluateCompiledContract(snapshot,contract);return {compiled,contract,prepared,engine};};
++ const sync=()=>{const host=snapshot.nodes.find(n=>n.id==='member-0'),actual=snapshot.componentDependencyCaptures[0].snapshot.nodes[0];for(const k of ['appearance','visible','resolvedModes'])host[k]=clone(actual[k]);};
++ return {core,clone,manual,evidence,childContract,snapshot,compile,run,sync};
++}
++module.exports={scopedScenario,clone,core};
+--- a/projects/ComponentContractEditor/tests/scoped-fixed-nested.test.js
++++ b/projects/ComponentContractEditor/tests/scoped-fixed-nested.test.js
+@@ -0,0 +1,57 @@
++const test=require('node:test'),assert=require('node:assert/strict');
++const {scopedScenario,clone,core}=require('./helpers/scoped-fixed');
++
++for(const platform of ['desktop','mobile-web']){
++ test('scoped fixed dependency executes once through FRAME: '+platform,()=>{
++  const f=scopedScenario(platform),r=f.run();assert.equal(r.compiled.issues.filter(i=>i.level==='error').length,0);
++  assert.equal(r.contract.runtimePolicy.crossRepresentationBindingsVersion,2);
++  assert.equal(r.engine.dependencyRuns.filter(x=>x.status==='executed').length,1);
++  assert.equal(r.engine.dependencyRuns.filter(x=>x.reason==='binding-outside-representation').length,1);
++  assert.ok(r.engine.evaluations.every(e=>['compliant','not-applicable'].includes(e.classification)));
++ });
++ test('captured child owns its violation without duplicate parent error: '+platform,()=>{
++  const f=scopedScenario(platform);f.snapshot.componentDependencyCaptures[0].snapshot.nodes[0].appearance.opacity=.4;f.sync();
++  const result=f.run().engine.evaluations,failures=result.filter(e=>e.classification==='violation');
++  assert.equal(failures.length,1);assert.ok(failures[0].dependency);assert.equal(failures[0].focusNodeId,'member-0');
++  assert.ok(result.some(e=>!e.dependency&&e.subjectNodeId==='root'&&e.classification==='compliant'));
++ });
++ test('inactive owner variant does not execute children: '+platform,()=>{
++  const r=scopedScenario(platform,'False').run();assert.ok(r.engine.dependencyRuns.every(x=>x.status==='not-applicable'));
++ });
++}
++for(const [name,change]of [
++ ['empty',b=>b.representationIds=[]],['missing',b=>delete b.representationIds],['unknown',b=>b.representationIds=['unknown']],
++ ['duplicate',b=>b.representationIds=['desktop','desktop']],['overlap',b=>b.representationIds=['desktop','mobile-web']],
++ ['unversioned scope',b=>b.kind='fixed-nested'],
++])test('rejects invalid scope '+name,()=>{const f=scopedScenario();change(f.manual.componentDependencies[0].bindings[0]);assert.ok(f.compile().issues.some(i=>i.level==='error'&&i.code==='COMPONENT_DEPENDENCY'));});
++test('rejects overlap between unscoped and scoped bindings',()=>{
++ const f=scopedScenario(),b=clone(f.manual.componentDependencies[0].bindings[0]);b.id='legacy';b.kind='fixed-nested';delete b.representationIds;
++ f.manual.componentDependencies[0].bindings.push(b);assert.ok(f.compile().issues.some(i=>i.message==='Fixed nested bindings may not overlap in the same representation.'));
++});
++for(const [name,change]of [
++ ['stale actual root',s=>s.nodes[0].component.identity.componentKey='stale'],['stale source',s=>s.source.componentKey='stale'],
++ ['missing independent root',s=>delete s.variantReference],['wrong channel',s=>s.context.platform='mobile-web'],
++])test('unproven root stays UNKNOWN, not inactive: '+name,()=>{
++ const f=scopedScenario(),c=f.compile().contract;change(f.snapshot);const s=core.prepareValidationSnapshot(f.snapshot,c),d=c.componentDependencies[0];
++ assert.equal(core.resolveFixedNestedBinding(s,d,d.bindings[1],false,c).status,'unknown');
++});
++for(const version of [undefined,1,3])test('root refuses unsupported scoped feature '+version,()=>{
++ const f=scopedScenario(),c=f.compile().contract;c.runtimePolicy.crossRepresentationBindingsVersion=version;
++ assert.throws(()=>core.evaluateCompiledContract(f.snapshot,c),/REPRESENTATION_RUNTIME_UNSUPPORTED/);
++});
++for(const [name,change]of [
++ ['missing capture',f=>f.snapshot.componentDependencyCaptures=[]],
++ ['foreign child',f=>f.snapshot.nodes.find(n=>n.id==='member-0').component.identity.componentSetKey='foreign'],
++ ['stale capture',f=>f.snapshot.componentDependencyCaptures[0].snapshot.nodes[0].appearance.opacity=.3],
++])test('child capture proof fails closed: '+name,()=>{
++ const f=scopedScenario();change(f);assert.ok(f.run().engine.dependencyRuns.some(x=>x.bindingId==='desktop-child'&&x.status==='not-executed'));
++});
++test('unknown manual schema is refused by the importer',()=>{
++ const f=scopedScenario();f.manual.schemaVersion='apollo.component-contract-manual.future';
++ assert.throws(()=>core.importWorkspace([{name:'contract.manual.json',text:JSON.stringify(f.manual)}]),/Unsupported manual source schema/);
++});
++test('unknown dependency feature retains the legacy unsupported-runtime diagnostic',()=>{
++ const f=scopedScenario(),child=clone(f.childContract);child.runtimePolicy.crossRepresentationBindingsVersion=3;
++ const dependency=clone(f.manual.componentDependencies[0]);dependency.compiledHash=core.stableHash(child);
++ assert.equal(core.dependencyPinIssue(dependency,child),'dependency-runtime-unsupported');
++});

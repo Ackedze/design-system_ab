@@ -1,0 +1,52 @@
+{
+  "status": "PROPOSED_NOT_AUTHORIZED",
+  "request": "Coordinate separate bounded source writer after private306 closure",
+  "smallestChange": "Optional representationIds on existing fixed-nested binding; exact platform filtering before owner resolution; intermediate FRAME traversal already works.",
+  "writerRequested": "01a0f77a-11c9-7c10-bd21-e3e5d100feae",
+  "sourceScopeCandidates": [
+    "projects/Apollo-v3/packages/component-contract-core/src/types.ts",
+    "projects/Apollo-v3/packages/component-contract-core/src/component-dependencies.ts",
+    "projects/Apollo-v3/packages/component-contract-core/src/compiler.ts",
+    "projects/Apollo-v3/packages/component-contract-core/src/validator.ts",
+    "projects/Apollo-v3/packages/component-contract-core/src/runtime.ts",
+    "projects/Apollo-v3/packages/component-contract-core/src/dependency-facts.ts",
+    "projects/Apollo-v3/packages/component-contract-core/src/dependency-composition.ts",
+    "projects/Apollo-v3/packages/component-contract-core/src/rule-scope-facts.ts",
+    "projects/ComponentContractEditor/src/core/dependency-usage.ts"
+  ],
+  "implementationRequirements": [
+    "Legacy unscoped fixed-nested semantics remain exact. direct-child guard unchanged.",
+    "Validator: declared unique Figma representationIds, nonempty when present, reject nonexistent/deprecated IDs and overlapping same-subject scoped bindings; disjoint D/M subjects accepted.",
+    "Resolver: prove unique actual host representation before returning out-of-representation inactive; unresolved/stale/ambiguous topology remains UNKNOWN.",
+    "Explicit feature admission/version in compiled runtimePolicy and all dependency/consumer validators; older readers must refuse new semantics rather than ignore a field.",
+    "Inspect compiler, native capture planning, runtime composition, ownership boundary, Editor usage and all other callers before selecting final edit set.",
+    "Keep child key/source lineage/capture correspondence/visibility/fail-closed checks; hidden foreign/missing child must not be silently accepted."
+  ],
+  "regressionCases": [
+    "Combined D/M scoped fixed-nested positive",
+    "Historical unscoped fixed-nested exact regression",
+    "Duplicate/overlapping representation sets rejected",
+    "Empty/invalid/non-Figma/deprecated representation IDs rejected",
+    "Unknown/ambiguous/stale representation stays UNKNOWN",
+    "Out-of-representation inactive only with exact host proof",
+    "Inactive Background variant",
+    "Missing/foreign/hidden child and unavailable independent capture",
+    "Core/Editor compile/export/reopen with new feature and actual capture planner",
+    "Older/unknown feature versions refused before dependent execution"
+  ],
+  "consumerImpact": {
+    "sharedCore": "New schema/resolver runtime feature; generic backwards compatibility required",
+    "Editor": "Reads shared core through bundled core and plugin capture; build/configured tests required",
+    "ApolloV4": "Uses same shared source/dist and current configured authority. General must coordinate affected source/build pins, dependent consumer/config refresh and runtime acceptance separately.",
+    "proxy": "May need accepted artifact refresh because current checking/generation reader inputs pin shared build; no restart or adoption by contract author under306.",
+    "activePilot": "Scope, modes, permissions and component set remain unchanged; no generation/model/native acceptance run requested.",
+    "contracts": "Only new BenefitCard candidate may use feature after accepted source handoff; Link/IconView/BG source ZIPs and all historical seals stay exact."
+  },
+  "buildOutputs": "Resolve exact configured build inventory with General before build; no build is authorized by this proposal.",
+  "evidence": {
+    "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BenefitCard/authoring/completion-candidate-2026-10-17/checks/existing-fixed-nested-probe.json",
+    "sha256": "53126134a665a98057aa89f5e174d349543f07425dda9461731cca0416016c74",
+    "bytes": 3715
+  },
+  "Ready": false
+}

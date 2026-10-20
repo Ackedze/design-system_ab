@@ -1,0 +1,427 @@
+{
+  "status": "ANALYSIS_COMPLETE_ROUTES_PROPOSED_NOT_APPLIED",
+  "componentId": "web-corp.background-plate",
+  "date": "2026-10-16",
+  "revisionAnalyzed": 2,
+  "manualSourceHash": "c3aab9b3080f0983983a226c67bb4617b59f1e7d56f130df081f7ab0ff8aa9e3",
+  "groups": {
+    "composition-context": 7,
+    "editor-reading": 4,
+    "interactive-code": 1,
+    "recipe-review": 2
+  },
+  "records": [
+    {
+      "index": 1,
+      "sourceRuleId": "component:web-corp.background-plate.level-2-requires-level-1",
+      "id": "level-2-requires-level-1",
+      "group": "composition-context",
+      "route": "Композиционный валидатор",
+      "action": "Подключить проверку общей Auto Layout-ветки, абсолютной Level1-подложки, порядка и покрытия Level2. Переиспользовать существующий generic co-located-underlay; адаптировать к новому contract capture.",
+      "tests": [
+        "Правильная абсолютная Level1-подложка перед AUTO-веткой Level2 → PASS",
+        "Полный контекст без подложки / неверный порядок / недостаточное покрытие → нарушение",
+        "Неполный граф или неоднозначная подложка → UNKNOWN"
+      ],
+      "reuse": "services/apollo-proxy/src/predicate-engine/contour-rules.js:670; snapshot-adapter.js:1318; исторический P06. Не новая приёмка Editor.",
+      "note": "BP-QA-23 проверял Type домен Level2 и не доказывает правильность композиции. Для этой нормы нужен отдельный валидный композиционный fixture.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "BackgroundPlate с Position=Level 2 (inner) должен находиться в Auto-ветке контента поверх абсолютной подложки BackgroundPlate Level 1 внутри общего Auto Layout. Подложка располагается перед веткой контента и покрывает область Level 2. Самостоятельный Level 2 запрещён без исключений.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "host.autoLayoutBranches",
+          "host.absoluteUnderlay",
+          "host.coverageBounds",
+          "host.sourceOrder"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.level-2-requires-level-1",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 2,
+      "sourceRuleId": "component:web-corp.background-plate.slot-content-levels",
+      "id": "slot-content-levels",
+      "group": "composition-context",
+      "route": "Композиционный валидатор Slot",
+      "action": "Проверять уровни identity-proven вложенных BackgroundPlate в полном captured Slot. Обычный контент разрешён, обязательную Level2-обёртку не вводить.",
+      "tests": [
+        "Обычный контент напрямую в Slot → PASS",
+        "Допустимый Level2 в корректной композиции → PASS",
+        "Вложенный Level0/Level1 → нарушение",
+        "Недоступный или обрезанный Slot → UNKNOWN"
+      ],
+      "reuse": "Существующий native SLOT reader и source fact-domain contour; требуется проверить совместимость владельцев/полноты.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "В Slot BackgroundPlateSlot можно размещать любой обычный контент напрямую; обязательная обёртка Level-2 не требуется. Из BackgroundPlate-уровней внутри Slot допустим только Level-2 (inner). Вложенные Level-0 (base) и Level-1 (outer) запрещены.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "externalSlot.contentSurfaceLevels"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.slot-content-levels",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 3,
+      "sourceRuleId": "component:web-corp.background-plate.root-surface-requires-level-0",
+      "id": "root-surface-requires-level-0",
+      "group": "composition-context",
+      "route": "Проверка главной поверхности",
+      "action": "Требовать доказанную главную поверхность и её назначенный mode BackgroundPlate Level=Level0. Не назначать Level0 самому экземпляру.",
+      "tests": [
+        "Level0 на доказанной главной поверхности → PASS",
+        "Полный контекст с неверным mode → нарушение",
+        "Неизвестна главная поверхность или collection identity → UNKNOWN"
+      ],
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "Level-0 (base) должен быть назначен главной поверхности, на которой располагается BackgroundPlateSlot. Он задаёт исходный variable context, благодаря которому первый вложенный BackgroundPlate автоматически получает Level-1 (outer). Отсутствие Level-0 на главной поверхности нарушает вычисление уровней. Самому экземпляру BackgroundPlate Level-0 не назначается.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "host.mainSurface.variableLevel"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.root-surface-requires-level-0",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 4,
+      "sourceRuleId": "component:web-corp.background-plate.background-color-by-surface-context",
+      "id": "background-color-by-surface-context",
+      "group": "composition-context",
+      "route": "Контекст page/modal + gray/white",
+      "action": "Исполнять существующую четырёхзначную карту по явно заданному контексту поверхности. Не выводить page/modal из имени слоя или RGB.",
+      "tests": [
+        "Четыре правильных сочетания page/modal × gray/white → PASS",
+        "Известный контекст и неправильный BackgroundColor → нарушение",
+        "Контекст отсутствует → UNKNOWN"
+      ],
+      "reuse": "Generic context-map документирован и реализован в прежнем Predicate; требуется bridge нового contract reader.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "BackgroundColor выбирается по контексту поверхности. Для страниц используй base-bg-alt (gray) на серой поверхности и base-bg (white) на белой поверхности. Для модальных сущностей используй modal-bg-alt (gray) на серой поверхности и modal-bg (white) на белой поверхности. Часть имени до скобок соответствует цветовому токену поверхности; значение в скобках уточняет визуальный фон gray/white.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "host.surfaceKind",
+          "host.surfaceColor"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.background-color-by-surface-context",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 5,
+      "sourceRuleId": "component:web-corp.background-plate.single-background-color-per-page",
+      "id": "single-background-color-per-page",
+      "group": "composition-context",
+      "route": "Проверка группы одного surface context",
+      "action": "Сравнивать BackgroundColor в доказанном общем фоне страницы. Модальные сущности и лабораторные матрицы не смешивать автоматически в одну группу.",
+      "tests": [
+        "Одинаковый BackgroundColor внутри одного scope → PASS",
+        "Разные значения в доказанном общем scope → нарушение",
+        "Разные явно независимые surface contexts → отдельные группы",
+        "Неполный список участников → UNKNOWN"
+      ],
+      "reuse": "Generic uniform-allowed-collection как основа, без нового BackgroundPlate runtime branch.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "Значение BackgroundColor определяется один раз для всех BackgroundPlate на странице. Если фон основной страницы один и тот же, все подложки должны использовать один BackgroundColor.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "host.pageBackgroundColor",
+          "host.allBackgroundPlates"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.single-background-color-per-page",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 6,
+      "sourceRuleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens",
+      "id": "colored-and-border-use-color-tokens",
+      "group": "editor-reading",
+      "route": "Общий контроль принадлежности токена библиотеке",
+      "action": "Сохранить четыре принятые binding-проверки. Отдельно доказать published key/type/collection каждого активного цвета по принятому allowlist. Присутствие токена, remote=true, совпадение имени или RGB не доказывают доверенную библиотеку.",
+      "tests": [
+        "Разрешённый библиотечный color token → PASS",
+        "Чужой/локальный токен при сохранённой привязке → нарушение membership",
+        "Не удалось получить identity/catalog → UNKNOWN",
+        "Несколько paint/gradient stops с одним чужим цветом → нарушение"
+      ],
+      "reuse": "Basic binding mechanism уже принят; новый ручной detach/RESET без изменения binding не нужен. TypedConstraint.tokenIds сравнивает массив точно через partialMatch, это не allowlist-membership.",
+      "note": "Осталась часть исходной нормы о библиотеке, а не дубль четырёх IR о наличии binding. Политика состава allowlist должна иметь принятую authority.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "Для Type=Colored цвет заливки должен быть задан через цветовой токен дизайн-системы. Для Type=Border через цветовой токен задаётся цвет обводки, а видимая заливка запрещена отдельным правилом. Конкретный цвет может отличаться по смыслу поверхности, но raw fill или raw stroke без требуемого token binding являются нарушением.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "colorToken.approvedLibraryMembership"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens",
+      "existingCompiledRuleIds": [
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.slot.fill.1.1",
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.slot.stroke.1.1",
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.fill.1.1",
+        "component:web-corp.background-plate.colored-and-border-use-color-tokens.surface.stroke.1.1"
+      ]
+    },
+    {
+      "index": 7,
+      "sourceRuleId": "component:web-corp.background-plate.manual-shadows-are-prohibited",
+      "id": "manual-shadows-are-prohibited",
+      "group": "editor-reading",
+      "route": "Editor/core: типы эффектов",
+      "action": "Использовать уже захваченные effect types. Добавить generic typed presence/count или поддерживаемое исключение по типу для DROP_SHADOW и INNER_SHADOW на root и собственных surface. Blur не запрещать. Не анализировать чужой Slot-контент как внутреннюю поверхность.",
+      "tests": [
+        "Нет теней / только разрешённый blur → PASS",
+        "Raw Drop shadow / Inner shadow → нарушение",
+        "Тень через effect style → нарушение",
+        "Blur вместе с тенью → нарушение только запрета теней",
+        "Неполные effects → UNKNOWN"
+      ],
+      "reuse": "appearance.effects и appearance.effectDetailsV1 уже захвачены. Текущий typed compiler не фильтрует элементы массива эффектов.",
+      "question": "Исходник не уточняет скрытый shadow effect. До реализации не вводить молча разрешение скрытых теней; согласовать семантику visibility.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "К BackgroundPlate и его внутренним surface-слоям нельзя вручную добавлять Drop shadow или Inner shadow. Запрет действует и для raw effects, и для подключённого effect style.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "appearance.visibleShadowTypes"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.manual-shadows-are-prohibited",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 8,
+      "sourceRuleId": "component:web-corp.background-plate.blend-mode-is-fixed",
+      "id": "blend-mode-is-fixed",
+      "group": "editor-reading",
+      "route": "Editor/core: actual и baseline blendMode",
+      "action": "Добавить blendMode в actual и независимый effective baseline capture, затем переиспользовать baseline-сравнение. Выпустить новые capture/reference pins без подмены эталона текущим override.",
+      "tests": [
+        "Исходный blend mode root/surface → PASS",
+        "Изменение root/surface → точное нарушение",
+        "Same-instance восстановление → PASS",
+        "Missing/stale baseline → UNKNOWN"
+      ],
+      "reuse": "Оператор baseline уже принят; пробел в capture поля. appearanceFacts сейчас не выдаёт node.blendMode.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "Blend mode BackgroundPlate и его внутренних surface-слоёв не изменяется вручную. Значение должно совпадать с effective baseline конкретного слоя и варианта компонента.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "appearance.blendMode",
+          "baseline.effective.appearance.blendMode"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.blend-mode-is-fixed",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 9,
+      "sourceRuleId": "component:web-corp.background-plate.border-is-not-clickable",
+      "id": "border-is-not-clickable",
+      "group": "interactive-code",
+      "route": "Code mapping и проверка поведения",
+      "action": "Проверять кликабельность всей поверхности Border по фактическому API/handler/DOM после подготовки code representation. Интерактивность вложенного Link/Button сама по себе не делает кликабельной всю поверхность.",
+      "tests": [
+        "Border без surface click handler → PASS",
+        "Border с обработчиком на всю поверхность → нарушение",
+        "Primary/Secondary/Colored не запрещать этой нормой",
+        "Отсутствует code mapping → UNKNOWN"
+      ],
+      "note": "В r2 нет code representation; статичный снимок Figma не является доказательством поведения.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "Вся поверхность BackgroundPlate может быть кликабельной для Type=Primary, Type=Secondary и Type=Colored. Type=Border используется как декоративный элемент и не может быть кликабельным.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "interaction.surfaceClickHandler"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.border-is-not-clickable",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 10,
+      "sourceRuleId": "component:web-corp.background-plate.skeleton-is-component-property",
+      "id": "skeleton-is-component-property",
+      "group": "recipe-review",
+      "route": "Рецепт загрузки и семантическая проверка",
+      "action": "Штатный Skeleton=True оставить разрешённым и уже проверенным. Ручные placeholders оценивать по намерению сценария; сложное исключение подтверждать правилом паттерна, а не видом прямоугольников.",
+      "tests": [
+        "Штатный Skeleton=True → разрешён",
+        "Ручной простой skeleton вместо доступного API → review/нарушение при доказанном намерении",
+        "Сложная композиция с явным pattern evidence → разрешена по этому evidence",
+        "Намерение/исключение неизвестны → ручная проверка"
+      ],
+      "note": "Маршрут рецепта предлагается; исходная обязательная норма и source-связь сохраняются до явного решения владельца.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "Skeleton=True — штатное состояние загрузки BackgroundPlate или расположенного внутри контента. Для обычной загрузки используй component property вместо ручных placeholder-слоёв. Более сложная skeleton-композиция допустима только при наличии явного правила или сценария в паттерне; без такого подтверждения не придумывай исключение. Само переключение Skeleton=False → True является разрешённым изменением состояния, а не нарушением.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "manualPlaceholder.intent",
+          "explicitPattern.exception"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.skeleton-is-component-property",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 11,
+      "sourceRuleId": "component:web-corp.background-plate.public-roots-only",
+      "id": "public-roots-only",
+      "group": "editor-reading",
+      "route": "Admission standalone частей",
+      "action": "До исполнения контракта различать публичный root и служебный Style по canonical identity и owner chain. Для отдельно размещённого Style должен быть понятный результат, а не отсутствие подходящего пакета.",
+      "tests": [
+        "Публичный BackgroundPlate/Slot → PASS",
+        "Style Level1/Level2 как standalone, включая обёртку-frame → нарушение",
+        "Тот же Style внутри публичного root → разрешён",
+        "Неизвестная identity/ownership → UNKNOWN"
+      ],
+      "reuse": "Generic public-root уже есть в прежнем Predicate; общий admission gap уже записан в парных backlog Editor/V4.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "Самостоятельно размещай только публичные корни BackgroundPlate и BackgroundPlateSlot соответствующей платформы. Style Level 1 и Style Level 2 являются служебными частями и не используются отдельно.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "placement.publicRootIdentity"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.public-roots-only",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 12,
+      "sourceRuleId": "component:web-corp.background-plate.platform-version-must-match",
+      "id": "platform-version-must-match",
+      "group": "composition-context",
+      "route": "Независимый expected platform",
+      "action": "Сравнивать опубликованную platform компонента с явно выбранным каналом экрана/задачи. Context platform, автоматически выведенный из самого выбранного компонента, не является независимым ожиданием.",
+      "tests": [
+        "D + expected desktop / M + expected mobile-web → PASS",
+        "D/M не соответствует независимо заданному каналу → нарушение",
+        "Ожидаемый канал отсутствует → UNKNOWN"
+      ],
+      "reuse": "Generic platform-match; нужна provenance ожидаемого канала в новом reader.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "Используй [D] BackgroundPlate и [D] BackgroundPlateSlot на desktop, а [M] BackgroundPlate и [M] BackgroundPlateSlot — на mobile-web.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "placement.requestedPlatform"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.platform-version-must-match",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 13,
+      "sourceRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
+      "id": "promo-slot-radius-collection",
+      "group": "composition-context",
+      "route": "Promo context и identity radius collection",
+      "action": "В доказанном promo-сценарии проверять published collection key [Promo] BackgroundPlate Radius у radius bindings. Числовое равенство радиуса и обычная collection не заменяют правильную Promo collection.",
+      "tests": [
+        "Promo + требуемая collection → PASS",
+        "Promo + обычная collection с тем же числом / raw radius → нарушение",
+        "Обычный доказанный non-promo контекст → N/A этой нормы",
+        "Неизвестен promo context или identity collection → UNKNOWN"
+      ],
+      "reuse": "В текущем capture уже есть hostVariableUsageV1 с collectionKey; требуется проверить связь именно radius binding, scope и доверенную collection. Это не текущий исполняемый constraint.",
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "На promo-странице BackgroundPlateSlot должен использовать collection [Promo] BackgroundPlate Radius. Обычная BackgroundPlate Radius и ручной corner radius для этого сценария запрещены.",
+      "sourceSeverity": "error",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "host.isPromoPage",
+          "radius.boundCollection"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
+      "existingCompiledRuleIds": []
+    },
+    {
+      "index": 14,
+      "sourceRuleId": "component:web-corp.background-plate.adaptive-remove-inner-32-padding",
+      "id": "adaptive-remove-inner-32-padding",
+      "group": "recipe-review",
+      "route": "Рекомендация адаптивного рецепта",
+      "action": "Сохранить warning и условие сжатия контента после desktop-композиции. Не превращать рекомендацию в глобальный запрет padding=32 и не назначать её всем mobile экземплярам.",
+      "tests": [
+        "32 px без доказанного сжатия → не ошибка по одному числу",
+        "Унаследованные 32 px с доказанным сжатием → рекомендация",
+        "Контекст адаптива неизвестен → ручная оценка"
+      ],
+      "status": "PROPOSED_ROUTE_NOT_APPLIED",
+      "sourceText": "В адаптиве внутренние отступы 32 px во вложенных BackgroundPlate-конструкциях нужно убирать вручную, если они перешли из desktop-композиции и сжимают контент.",
+      "sourceSeverity": "warning",
+      "currentManualSeverity": "warning",
+      "currentExecution": {
+        "route": "context-only",
+        "missingFacts": [
+          "host.adaptiveComposition",
+          "host.contentCompression"
+        ]
+      },
+      "canonicalSourcePath": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/JSONS/web/components/web-corp/BackgroundPlate/rules.json",
+      "manualRuleId": "component:web-corp.background-plate.adaptive-remove-inner-32-padding",
+      "existingCompiledRuleIds": []
+    }
+  ],
+  "invariants": [
+    "Preserve all source norms, severities and crosswalk links",
+    "No duplicate active norm for one obligation/target/condition",
+    "Binding presence and approved-library membership remain distinct obligations",
+    "Unknown scope, identity or facts is not PASS, known absence or notApplicable",
+    "Proposed routes do not change execution.route or normative ownership yet",
+    "No current pilot/native/model/source/build/config/registry change"
+  ],
+  "readiness": "Draft remains Draft"
+}

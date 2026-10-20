@@ -1,0 +1,195 @@
+--- a/projects/Apollo-v3/packages/component-contract-core/src/figma-capture.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/figma-capture.ts
+@@ -138,6 +138,7 @@
+   if ('strokeAlign' in node) appearance.strokeAlign = String(node.strokeAlign);
+   if ('dashPattern' in node) appearance.dashPattern = node.dashPattern.slice();
+   if ('opacity' in node) appearance.opacity = finite(node.opacity) ?? 1;
++  if ('blendMode' in node && typeof node.blendMode === 'string') appearance.blendMode = node.blendMode;
+   if ('effects' in node) {
+     appearance.effects = node.effects.map((effect) => ({ type: effect.type, visible: effect.visible !== false })) as JsonValue;
+     const details = captureEffectDetails(node.effects, 'effectStyleId' in node ? node.effectStyleId : undefined);
+--- a/projects/Apollo-v3/packages/component-contract-core/src/compiler.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/compiler.ts
+@@ -414,13 +414,13 @@
+       selectRoot: false,
+       // These assertions still apply when capture cannot supply a reference.
+       // Let the interpreter report unknown instead of an empty selector.
+-      baselineApplicabilityFact: constraint.baselineSource === 'library-text' ? 'text.characters' : /^(bounds\.(width|height)|appearance.effectDetailsV1|layout\.(gridStyleId|clipsContent))$/.test(fact) ? undefined
++      baselineApplicabilityFact: constraint.baselineSource === 'library-text' ? 'text.characters' : /^(bounds\.(width|height)|appearance\.(effectDetailsV1|blendMode)|layout\.(gridStyleId|clipsContent))$/.test(fact) ? undefined
+         : /^appearance\.(fill|stroke)$/.test(fact) ? `paintEvidenceV1.${fact.split('.')[1]}` : baselineFact,
+       expression: {
+         predicate: 'matches-effective-baseline',
+         actual: { fact: constraint.textNormalization === 'trim' ? 'libraryTextV1.actualTrimmedCharacters' : fact },
+         expected: { fact: baselineFact },
+-        ...(constraint.baselineSource === 'library-text' || /^(bounds\.(width|height)|appearance\.(fill|stroke|effectDetailsV1)|layout\.(gridStyleId|clipsContent))$/.test(fact) ? { missingPolicy: 'unknown' } : {}),
++        ...(constraint.baselineSource === 'library-text' || /^(bounds\.(width|height)|appearance\.(fill|stroke|effectDetailsV1|blendMode)|layout\.(gridStyleId|clipsContent))$/.test(fact) ? { missingPolicy: 'unknown' } : {}),
+       },
+     };
+   }
+--- a/projects/Apollo-v3/packages/component-contract-core/tests/blend-mode.test.js
++++ b/projects/Apollo-v3/packages/component-contract-core/tests/blend-mode.test.js
+@@ -0,0 +1,47 @@
++const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
++const C=path.resolve(__dirname,'..'),core=require('../dist/core.cjs'),captureApi=require('../dist/capture.cjs');
++function fixture(core){
++  const f=require(path.join(C,'tests/helpers/declared-target.cjs')).fixture(core);
++  const original=f.manual.rules[0];
++  f.manual.rules=[['root','root'],['child','title.target']].map(([name,targetId])=>({...structuredClone(original),
++    id:'synthetic.blend-'+name,targetId,capability:'appearance.blendMode',permission:'forbidden',
++    constraints:[{type:'propertyForbidden',fact:'appearance.blendMode'}],status:'reviewed'}));
++  for(const n of f.snapshot.nodes)n.appearance={blendMode:n.id==='root'?'PASS_THROUGH':'NORMAL'};
++  const reference=structuredClone(f.snapshot);
++  f.snapshot=core.materializeEffectiveBaseline(f.snapshot,reference,true).snapshot;
++  const compile=()=>core.compileManualSource(f.manual,f.evidence);
++  return {f,reference,run:()=>{const compiled=compile();assert(!compiled.issues.some(i=>i.level==='error'));return core.evaluateCompiledContract(f.snapshot,compiled.contract);}};
++}
++function verdict(result,name){const rows=result.evaluations.filter(e=>e.ruleId==='synthetic.blend-'+name+'.1.1');assert.equal(rows.length,1);return rows[0].classification;}
++async function capture(captureApi){
++  const main={id:'synthetic-main',key:'synthetic-variant',parent:{type:'COMPONENT_SET',key:'synthetic-set',componentPropertyDefinitions:{}}};
++  const page={type:'PAGE',id:'page'};let reference,temporary;
++  const make=(id,actual)=>({id,type:'INSTANCE',name:'Plate',parent:page,visible:true,width:100,height:56,opacity:1,
++    blendMode:actual?'MULTIPLY':'PASS_THROUGH',children:[],resolvedVariableModes:{},componentProperties:{},
++    getMainComponentAsync:async()=>main,exportAsync:async()=>new Uint8Array([1]),remove(){this.removed=true;}});
++  main.createInstance=()=>reference=make('reference',false);
++  const subject=make('actual',true);
++  global.figma={mixed:Symbol('mixed'),fileKey:'synthetic-file',root:{name:'Synthetic'},currentPage:page,
++    base64Encode:b=>Buffer.from(b).toString('base64'),
++    createPage(){return temporary={id:'temporary',type:'PAGE',appendChild(n){n.parent=this;},remove(){this.removed=true;}};}};
++  try{const result=await captureApi.captureInstanceAudit(subject,{componentKey:'synthetic-set',acceptedComponentKeys:[],allowedComponentProperties:[],platform:'desktop',manualSourceHash:'synthetic'});
++    assert.equal(reference.removed,true);assert.equal(temporary.removed,true);assert.equal(subject.removed,undefined);return result;
++  }finally{delete global.figma;}
++}
++
++test('blend mode capture retains independent actual and reference values',async()=>{
++ const result=await capture(captureApi);assert.equal(result.snapshot.nodes[0].appearance.blendMode,'MULTIPLY');
++ assert.equal(result.snapshot.nodes[0].baseline.effective.appearance.blendMode,'PASS_THROUGH');
++});
++for(const [name,mutate,root,child,truth] of [
++ ['pristine',()=>{},'compliant','compliant'],
++ ['root override',s=>s.nodes[0].appearance.blendMode='MULTIPLY','violation','compliant'],
++ ['nested override',s=>s.nodes[2].appearance.blendMode='SCREEN','compliant','violation'],
++ ['root reset',s=>{s.nodes[0].appearance.blendMode='MULTIPLY';s.nodes[0].appearance.blendMode='PASS_THROUGH';},'compliant','compliant'],
++ ['nested reset',s=>{s.nodes[2].appearance.blendMode='SCREEN';s.nodes[2].appearance.blendMode='NORMAL';},'compliant','compliant'],
++ ['missing baseline',s=>delete s.nodes[0].baseline.effective.appearance.blendMode,'human-review','compliant','unknown'],
++ ['missing actual',s=>delete s.nodes[0].appearance.blendMode,'human-review','compliant','unknown']
++])test('blend mode '+name,()=>{const x=fixture(core);mutate(x.f.snapshot);const r=x.run();
++ assert.equal(verdict(r,'root'),root);assert.equal(verdict(r,'child'),child);
++ if(truth)assert.equal(r.evaluations.find(e=>e.ruleId==='synthetic.blend-root.1.1').trace.truth,truth);
++});
+--- a/projects/Apollo-v3/packages/component-contract-core/package.json
++++ b/projects/Apollo-v3/packages/component-contract-core/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "@apollo/component-contract-core",
+-  "version": "0.1.17",
++  "version": "0.1.18",
+   "private": true,
+   "main": "dist/core.cjs",
+   "exports": {
+--- a/projects/ComponentContractEditor/package.json
++++ b/projects/ComponentContractEditor/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "component-contract-editor",
+-  "version": "0.2.104",
++  "version": "0.2.105",
+   "private": true,
+   "description": "Visual authoring MVP for the manual layer of Apollo ComponentContract v2.",
+   "scripts": {
+--- a/projects/ComponentContractEditor/package-lock.json
++++ b/projects/ComponentContractEditor/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "component-contract-editor",
+-  "version": "0.2.103",
++  "version": "0.2.105",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "component-contract-editor",
+-      "version": "0.2.103",
++      "version": "0.2.105",
+       "devDependencies": {
+         "@figma/plugin-typings": "^1.82.0",
+         "esbuild": "^0.24.0",
+--- a/projects/ComponentContractEditor/src/version.ts
++++ b/projects/ComponentContractEditor/src/version.ts
+@@ -1,2 +1,2 @@
+ // Application/report version is independent of the compiled artifact's producer.
+-export const EDITOR_VERSION = 'component-contract-editor@0.2.104';
++export const EDITOR_VERSION = 'component-contract-editor@0.2.105';
+--- a/projects/ComponentContractEditor/docs/BACKLOG.ru.md
++++ b/projects/ComponentContractEditor/docs/BACKLOG.ru.md
+@@ -1,4 +1,21 @@
+ # ComponentContract Editor — Backlog
++
++## CC-BLEND-MODE-001 — blend mode и effective baseline
++
++16.10.2026. **SHARED_IMPLEMENTATION / CONSUMER_AND_NATIVE_PENDING**. Editor **0.2.105**, core **0.1.18**.
++Общий capture сохраняет `appearance.blendMode` проверяемого узла и независимо
++созданного effective baseline. `propertyForbidden` использует существующий
++`matches-effective-baseline`; отсутствие actual или baseline даёт UNKNOWN /
++human-review, без пустого selector и ложного compliant. Специальных условий
++по имени BackgroundPlate, новых predicates и UI controls нет.
++Изменение общих source/build pins переводит прежние зависимые receipts в historical.
++Configured core/Editor/Apollo gates фиксируются в отдельной закрытой передаче;
++они не заменяют свежую consumer/runtime приёмку General и native проверку Editor.
++Критерий закрытия: принятые source/build/config pins, свежий actual consumer/reader,
++native нарушения blend mode корня и вложенной поверхности, missing facts → UNKNOWN.
++Границы generation pilot, нормы, schema/API и Draft/Ready gates сохранены.
++Парная запись: [CC-BLEND-MODE-001 в Apollo v4](../../Apollo-v3/docs/ARCHITECTURE_BACKLOG.md#cc-blend-mode-001--blend-mode-и-effective-baseline).
++
+ 
+ ## EDITOR-ICONVIEW-ADDON-PART-IDENTITY-001 — цепочка владельцев повторяющихся вложенных целей
+ 
+--- a/projects/Apollo-v3/docs/ARCHITECTURE_BACKLOG.md
++++ b/projects/Apollo-v3/docs/ARCHITECTURE_BACKLOG.md
+@@ -1,6 +1,25 @@
+ # Apollo Architecture Backlog
+ 
+ ## Apollo v4: совместимость с ComponentContract Editor
++
++### CC-BLEND-MODE-001 — blend mode и effective baseline
++
++16.10.2026. **SHARED_IMPLEMENTATION / CONSUMER_AND_NATIVE_PENDING**. Editor **0.2.105**, core **0.1.18**.
++Общий capture сохраняет `appearance.blendMode` проверяемого узла и независимо
++созданного effective baseline. `propertyForbidden` использует существующий
++`matches-effective-baseline`; отсутствие actual или baseline даёт UNKNOWN /
++human-review, без пустого selector и ложного compliant. Специальных условий
++по имени BackgroundPlate, новых predicates и UI controls нет.
++Изменение общих source/build pins переводит прежние зависимые receipts в historical.
++Configured core/Editor/Apollo gates фиксируются в отдельной закрытой передаче;
++они не заменяют свежую consumer/runtime приёмку General и native проверку Editor.
++Критерий закрытия: принятые source/build/config pins, свежий actual consumer/reader,
++native нарушения blend mode корня и вложенной поверхности, missing facts → UNKNOWN.
++Границы generation pilot, нормы, schema/API и Draft/Ready gates сохранены.
++Влияние на Apollo/Proxy: пересобрать использующие общий core bundles и принять
++новый consumer/config/runtime; прохождение Editor tests эту приёмку не закрывает.
++Парная запись: [CC-BLEND-MODE-001 в Editor](../../ComponentContractEditor/docs/BACKLOG.ru.md#cc-blend-mode-001--blend-mode-и-effective-baseline).
++
+ 
+ ### V4-ICONVIEW-ADDON-PART-IDENTITY-001 — цепочка владельцев повторяющихся вложенных целей
+ 
+--- a/projects/ComponentContractEditor/src/ui.html
++++ b/projects/ComponentContractEditor/src/ui.html
+@@ -16,7 +16,7 @@
+       <div class="header-status" aria-live="polite">
+         <span class="status-dot" id="statusDot"></span>
+         <span id="statusText">Ждёт импорт</span>
+-          <span class="build-version">v0.2.104</span>
++          <span class="build-version">v0.2.105</span>
+       </div>
+       <div class="header-actions">
+         <input id="fileInput" type="file" accept=".json,.zip,application/json,application/zip" multiple hidden />
+--- a/projects/ComponentContractEditor/tests/dependency-usage.test.js
++++ b/projects/ComponentContractEditor/tests/dependency-usage.test.js
+@@ -93,7 +93,7 @@
+  const download=core.buildValidationReportDownload({manual:f.manual,compiled:r.compiled,evaluatedContract:r.contract,snapshot:f.parent,anatomy:[],
+   engineResult:r.engine,result:report,capture:null,trigger:'selected-instance',generatedAt:'2026-10-12T00:00:00Z'});
+  const saved=JSON.parse(download.json);
+- assert.equal(saved.editorVersion,'component-contract-editor@0.2.104');
++ assert.equal(saved.editorVersion,`component-contract-editor@${require('../package.json').version}`);
+  assert.equal(saved.sources.compiledContract.package.sourceExportVersion,'component-contract-editor@0.2.104');
+  assert.deepEqual(clone(core.evaluateCompiledContract(saved.snapshot,saved.runtime.evaluatedContract)),saved.results.engine);
+  assert.deepEqual(saved.snapshot.editorDependencyUsageV1,undefined);

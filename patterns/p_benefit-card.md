@@ -10,7 +10,7 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: active
-- updatedAt: 2026-07-20
+- updatedAt: 2026-10-19
 - sourceType: component-guideline
 - tags: benefit-card, benefits, promo, graphic, compact, responsive, web-corp-promo
 - figmaLink: none
@@ -89,7 +89,7 @@
 - доступен только через `Presets=Link`;
 - содержит не более `32` символов;
 - занимает одну строку;
-- допускает изменение только текста.
+- на mobile-web использует только `Size=14–20` (`S (14-20)` или `S (14-20) (Size-20 icons)`), на desktop — только `Size=16–24` (`M (16-24)`); остальные настройки регулируются контрактом Link.
 
 ### Graphic
 
@@ -200,7 +200,7 @@
 - checkType: deterministic
 - autofix: partial
 
-В готовом макете `BottomContent` допускает только `Presets=Link`. `SwapMe` является placeholder. У Link можно менять только текст.
+В готовом макете `BottomContent` допускает только `Presets=Link`. `SwapMe` является placeholder. У Link на mobile-web допустим только `Size=14–20`, а на desktop — только `Size=16–24`; остальные настройки регулируются его компонентным контрактом.
 
 ### Rule 11: Не добавляй произвольный контент
 

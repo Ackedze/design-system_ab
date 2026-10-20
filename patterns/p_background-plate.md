@@ -10,7 +10,7 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: active
-- updatedAt: 2026-07-10
+- updatedAt: 2026-10-16
 - sourceType: component-guideline
 - tags: backgroundplate, background, plate, container, level, overlay, adaptive, skeleton, web-corp
 - figmaLink: none
@@ -33,7 +33,6 @@
 - выделить основной смысловой блок на странице;
 - показать вложенный блок поверх основного блока;
 - собрать фон под таблицей, формой, реквизитами или связанным контентом;
-- сохранить единый фон подложек на странице;
 - показать loading-состояние через `Skeleton=True`;
 - использовать промо-подложку через `[D][Promo]` или `[M][Promo] BackgroundPlate`.
 
@@ -53,7 +52,6 @@
 
 - нужен только визуальный цвет фона без смыслового блока;
 - вложенная подложка `Level 2` размещается без внешней `Level 1`;
-- фон подложек на одной странице выбирается по-разному без причины;
 - `Border` используется как кликабельная карточка;
 - адаптивная версия оставляет лишние вложенные отступы и уровни без ручной настройки.
 
@@ -68,7 +66,6 @@
 5. Обычный контент может располагаться непосредственно в слоте `Level 1`; `Level 2` не является обязательной обёрткой.
 6. Внутрь слота нельзя добавлять `BackgroundPlate` с `Level 0` или `Level 1`; для дополнительной вложенной поверхности используется `Level 2`.
 7. `BackgroundColor` выбирается по фону основной страницы.
-8. Значение `BackgroundColor` определяется один раз для всех подложек на странице.
 9. Если компонент расположен на сером фоне, используется `base-bg-alt (gray)`.
 10. Если компонент расположен на белом фоне, используется `base-bg (white)`.
 11. Для `Level 2` не существует стиля `Secondary`.
@@ -86,7 +83,6 @@
 23. `Type=Colored` используется только с токенизированной заливкой и без видимой обводки.
 24. Paint у `Primary` и `Secondary` полностью определяется компонентом и не меняется вручную.
 25. Opacity компонента не меняется вручную.
-26. К BackgroundPlate нельзя добавлять Drop shadow или Inner shadow.
 27. Layer blur и Background blur разрешены и выбираются по контексту.
 28. Blend mode компонента не меняется вручную.
 
@@ -114,7 +110,7 @@ Skeleton: False | True
 
 У `Primary` и `Secondary` заливка и обводка определяются effective baseline выбранного уровня, `Type` и `BackgroundColor`. Ручные изменения paint запрещены, включая изменения через другие токены.
 
-Opacity всех типов BackgroundPlate определяется effective baseline и не меняется вручную. Ручные Drop shadow и Inner shadow запрещены. Layer blur и Background blur при этом разрешены и могут использоваться по контексту.
+Opacity всех типов BackgroundPlate определяется effective baseline и не меняется вручную. Layer blur и Background blur при этом разрешены и могут использоваться по контексту.
 
 Blend mode BackgroundPlate и внутренних surface-слоёв всегда сохраняется из effective baseline компонента.
 
@@ -130,35 +126,9 @@ Blend mode BackgroundPlate и внутренних surface-слоёв всегд
 
 ## Section 6: Правила
 
-### Rule 1: Назначай Level 0 главной поверхности
+Сборка уровней и выбор page/modal BackgroundColor описаны в [паттерне поверхностей](p_surface-composition.md). Общие токены и канал — в [правилах дизайн-системы](p_design-system-usage.md); загрузка — в [паттерне загрузки](p_loading-states.md); Promo Radius — в [паттерне лендингов](p_landing-pages.md). Public/auxiliary определяется паспортом по canonical key.
 
-- ruleId: rule:components.background-plate.root-surface-level-0
-- severity: error
-- appliesTo: screen
-- checkType: llm
-- autofix: partial
-
-Назначьте mode `BackgroundPlate Level = Level-0 (base)` главной поверхности страницы или модальной сущности до размещения `BackgroundPlate`.
-
-#### Правильно
-
-```text
-Главная поверхность: BackgroundPlate Level=Level-0 (base)
-  BackgroundPlate -> Level-1 (outer) автоматически
-```
-
-#### Неправильно
-
-```text
-Главная поверхность без BackgroundPlate Level=Level-0 (base)
-  BackgroundPlate не получает Level-1 автоматически
-```
-
-#### Почему
-
-`Level-0` задаёт начальный variable context. Его назначают родительской поверхности, а не самому экземпляру `BackgroundPlate`.
-
-### Rule 2: Используй Level 1 как внешний слой
+### Rule 1: Используй Level 1 как внешний слой
 
 - ruleId: rule:components.background-plate.level-1-outer
 - severity: error
@@ -185,128 +155,7 @@ BackgroundPlate Position=Level 1 (outer)
 
 `Level 1` задаёт внешний слой композиции. Если начинать с `Level 2`, вложенность подложек становится неверной.
 
-### Rule 3: Размещай Level 2 только поверх Level 1
-
-- ruleId: rule:components.background-plate.level-2-over-level-1
-- severity: error
-- appliesTo: component
-- checkType: llm
-- autofix: no
-
-`Level 2` — внутренний слой наложения. Он всегда располагается только поверх `Level 1`.
-
-#### Правильно
-
-```text
-BackgroundPlate Level 1
-  BackgroundPlate Level 2
-```
-
-#### Неправильно
-
-```text
-BackgroundPlate Level 2
-без родительского BackgroundPlate Level 1
-```
-
-#### Почему
-
-`Level 2` нужен только для вложения внутрь `Level 1` и никогда не используется как самостоятельный блок. Исключений для отдельных компонентов нет.
-
-### Rule 4: Не требуй Level 2 для обычного контента слота
-
-- ruleId: rule:components.background-plate.slot-content-levels
-- severity: error
-- appliesTo: component
-- checkType: deterministic
-- autofix: partial
-
-Внутри слота `Level 1` обычный контент может лежать напрямую. `Level 2` является опциональной вложенной поверхностью. Вложенные `BackgroundPlate` с `Level 0` или `Level 1` запрещены.
-
-#### Правильно
-
-```text
-BackgroundPlate Level 1
-  Slot
-    Любой обычный контент
-```
-
-```text
-BackgroundPlate Level 1
-  Slot
-    BackgroundPlate Level 2
-      Вложенный контент
-```
-
-#### Неправильно
-
-```text
-BackgroundPlate Level 1
-  Slot
-    BackgroundPlate Level 1
-```
-
-#### Почему
-
-`Level 2` нужен только для дополнительной вложенной поверхности. Обычному контенту дополнительный уровень не требуется, а повторный `Level 1` ломает иерархию поверхностей.
-
-### Rule 5: Выбирай BackgroundColor по фону страницы
-
-- ruleId: rule:components.background-plate.background-color-by-page
-- severity: error
-- appliesTo: screen
-- checkType: deterministic
-- autofix: partial
-
-Если компонент расположен на сером фоне, используйте `base-bg-alt (gray)`. Если компонент расположен на белом фоне, используйте `base-bg (white)`.
-
-#### Правильно
-
-```text
-Страница на сером фоне -> BackgroundColor=base-bg-alt (gray)
-Страница на белом фоне -> BackgroundColor=base-bg (white)
-```
-
-#### Неправильно
-
-```text
-Серый фон страницы -> BackgroundColor=base-bg (white)
-Белый фон страницы -> BackgroundColor=base-bg-alt (gray)
-```
-
-#### Почему
-
-Подложка должна соответствовать фону страницы и сохранять ожидаемую глубину наложения.
-
-### Rule 6: Используй один BackgroundColor для всех подложек страницы
-
-- ruleId: rule:components.background-plate.single-background-color-per-page
-- severity: error
-- appliesTo: screen
-- checkType: deterministic
-- autofix: partial
-
-Значение `BackgroundColor` определяется один раз для всех подложек на странице. Какой фон у основной страницы, такой вариант должен быть у всех `BackgroundPlate`.
-
-#### Правильно
-
-```text
-Все BackgroundPlate на странице: BackgroundColor=base-bg-alt (gray)
-```
-
-#### Неправильно
-
-```text
-Один BackgroundPlate: base-bg-alt (gray)
-Другой BackgroundPlate: base-bg (white)
-без смены контекста страницы
-```
-
-#### Почему
-
-Разные базовые фоны на одной странице создают случайную визуальную иерархию.
-
-### Rule 7: Не используй Secondary для Level 2
+### Rule 2: Не используй Secondary для Level 2
 
 - ruleId: rule:components.background-plate.no-secondary-for-level-2
 - severity: error
@@ -334,12 +183,12 @@ Type=Secondary
 
 `Secondary` доступен для `Level 1`, но не для внутреннего уровня наложения.
 
-### Rule 8: Не делай Border кликабельным
+### Rule 3: Не делай Border кликабельным
 
 - ruleId: rule:components.background-plate.border-not-clickable
 - severity: error
-- appliesTo: component
-- checkType: llm
+- appliesTo: flow
+- checkType: manual
 - autofix: no
 
 `Primary`, `Secondary` и `Colored` могут быть кликабельны целиком. `Border` используется как декоративный элемент и не может быть кликабельным.
@@ -362,7 +211,9 @@ clickable=true
 
 `Border` не должен выглядеть как декоративная подложка и одновременно работать как интерактивная карточка.
 
-### Rule 9: Включай кликабельность только в коде компонента
+Нормативный владелец — паттерн использования. Проверка по фактическому code mapping и поведению; интерактивный вложенный Link или Button допустим. Static Figma snapshot не доказывает кликабельность всей поверхности.
+
+### Rule 4: Включай кликабельность только в коде компонента
 
 - ruleId: rule:components.background-plate.clickable-in-code-only
 - severity: warning
@@ -370,7 +221,7 @@ clickable=true
 - checkType: manual
 - autofix: no
 
-Кликабельность всей поверхности `BackgroundPlate` допустима для `Primary`, `Secondary` и `Colored` и активируется только в коде компонента. В макете не заменяйте это ручными hover/click слоями. `Border` не может быть кликабельным.
+Кликабельность всей поверхности `BackgroundPlate` активируется через предусмотренную реализацию в коде компонента. В макете не заменяйте это ручными hover/click слоями.
 
 #### Правильно
 
@@ -388,7 +239,7 @@ clickable=true
 
 Интерактивность должна соответствовать реализации компонента, а не декоративным слоям в макете.
 
-### Rule 10: Настраивай адаптивные вложенные подложки вручную
+### Rule 5: Настраивай адаптивные вложенные подложки вручную
 
 - ruleId: rule:components.background-plate.adaptive-level-adjustment
 - severity: error
@@ -415,7 +266,7 @@ Adaptive: Level 2 остался без внешнего Level 1
 
 При перестроении страницы вложенность меняется. `Level 2` не должен оставаться самостоятельной подложкой.
 
-### Rule 11: Убирай внутренние 32 px в адаптивных конструкциях
+### Rule 6: Убирай внутренние 32 px в адаптивных конструкциях
 
 - ruleId: rule:components.background-plate.adaptive-remove-inner-32
 - severity: warning
@@ -441,33 +292,7 @@ Adaptive: desktop-вложенность оставила внутренние 3
 
 В мобильной ширине desktop-отступы внутри вложенных подложек перегружают экран и ломают полезную ширину контента.
 
-### Rule 12: Используй Skeleton-вариант компонента
-
-- ruleId: rule:components.background-plate.skeleton-variant
-- severity: error
-- appliesTo: component
-- checkType: deterministic
-- autofix: partial
-
-Загрузочное состояние `BackgroundPlate` собирается через вариант `Skeleton=True`, а не через ручные placeholder-слои.
-
-#### Правильно
-
-```text
-BackgroundPlate Skeleton=True
-```
-
-#### Неправильно
-
-```text
-BackgroundPlate скрыт, вместо него добавлены ручные серые прямоугольники
-```
-
-#### Почему
-
-Встроенный skeleton сохраняет структуру, скругления, фон и размеры компонента.
-
-### Rule 13: Не меняй скругления вручную
+### Rule 7: Не меняй скругления вручную
 
 - ruleId: rule:components.background-plate.radius-fixed-by-component
 - severity: error
@@ -495,7 +320,7 @@ BackgroundPlate скрыт, вместо него добавлены ручны�
 
 Скругления задают уровень поверхности и визуальную иерархию подложек. Ручное изменение radius ломает соответствие component baseline и должно фиксироваться как нарушение, а не как допустимая композиционная настройка.
 
-### Rule 14: Настраивай auto-layout Slot по контексту
+### Rule 8: Настраивай auto-layout Slot по контексту
 
 - ruleId: rule:components.background-plate.slot-auto-layout-by-context
 - severity: info
@@ -505,7 +330,7 @@ BackgroundPlate скрыт, вместо него добавлены ручны�
 
 Axis, gap и alignment внутри `Slot` определяются контекстом композиции и вложенным контентом. Их отличие от standalone-компонента не является ошибкой и не требует сброса.
 
-### Rule 15: Настраивай Clip content по контексту
+### Rule 9: Настраивай Clip content по контексту
 
 - ruleId: rule:components.background-plate.slot-clipping-by-context
 - severity: info
@@ -517,7 +342,7 @@ Axis, gap и alignment внутри `Slot` определяются контек
 
 Не рекомендуйте сброс только из-за отличия `clipsContent` от standalone-компонента.
 
-### Rule 16: Настраивай толщину Border по контексту
+### Rule 10: Настраивай толщину Border по контексту
 
 - ruleId: rule:components.background-plate.border-stroke-weight-by-context
 - severity: info
@@ -529,7 +354,7 @@ Axis, gap и alignment внутри `Slot` определяются контек
 
 Цвет обводки может меняться, но должен оставаться привязанным к цветовому токену дизайн-системы.
 
-### Rule 17: Оставляй обводку Border внутри компонента
+### Rule 11: Оставляй обводку Border внутри компонента
 
 - ruleId: rule:components.background-plate.border-stroke-align-inside
 - severity: error
@@ -553,7 +378,7 @@ Type=Border
 strokeAlign=CENTER | OUTSIDE
 ```
 
-### Rule 18: Не добавляй заливку в Border
+### Rule 12: Не добавляй заливку в Border
 
 - ruleId: rule:components.background-plate.border-no-fill
 - severity: error
@@ -578,7 +403,7 @@ Type=Border
 fill=<raw color | color token>
 ```
 
-### Rule 19: Используй Colored только с заливкой
+### Rule 13: Используй Colored только с заливкой
 
 - ruleId: rule:components.background-plate.colored-fill-only
 - severity: error
@@ -604,7 +429,7 @@ fill=<raw color | none>
 stroke=<raw color | color token>
 ```
 
-### Rule 20: Не меняй paint у Primary и Secondary вручную
+### Rule 14: Не меняй paint у Primary и Secondary вручную
 
 - ruleId: rule:components.background-plate.primary-secondary-paint-fixed
 - severity: error
@@ -628,7 +453,7 @@ Type=Secondary
 stroke=<добавленная вручную обводка>
 ```
 
-### Rule 21: Не меняй opacity вручную
+### Rule 15: Не меняй opacity вручную
 
 - ruleId: rule:components.background-plate.opacity-fixed
 - severity: error
@@ -638,17 +463,7 @@ stroke=<добавленная вручную обводка>
 
 Opacity BackgroundPlate должен совпадать с effective baseline текущего варианта. Ручное изменение запрещено даже через opacity token.
 
-### Rule 22: Не добавляй тени
-
-- ruleId: rule:components.background-plate.no-manual-shadows
-- severity: error
-- appliesTo: component
-- checkType: deterministic
-- autofix: yes
-
-Не добавляйте к BackgroundPlate или его внутренним surface-слоям `Drop shadow` и `Inner shadow`. Запрет действует для raw effects и effect styles.
-
-### Rule 23: Используй blur по контексту
+### Rule 16: Используй blur по контексту
 
 - ruleId: rule:components.background-plate.blur-by-context
 - severity: info
@@ -658,9 +473,8 @@ Opacity BackgroundPlate должен совпадать с effective baseline т
 
 `Layer blur` и `Background blur` разрешены как контекстные эффекты. Само наличие blur не является нарушением и не требует сброса к standalone-компоненту.
 
-Не применяйте к blur правило, запрещающее `Drop shadow` и `Inner shadow`.
 
-### Rule 24: Не меняй blend mode вручную
+### Rule 17: Не меняй blend mode вручную
 
 - ruleId: rule:components.background-plate.blend-mode-fixed
 - severity: error
@@ -669,36 +483,6 @@ Opacity BackgroundPlate должен совпадать с effective baseline т
 - autofix: yes
 
 Blend mode BackgroundPlate и его внутренних surface-слоёв должен совпадать с effective baseline текущего варианта. Ручное изменение запрещено.
-
-### Rule 25: Проверяй Promo Radius для BackgroundPlateSlot на promo-странице
-
-- ruleId: rule:components.background-plate.promo-slot-radius-collection
-- severity: human-review
-- appliesTo: component
-- checkType: llm
-- autofix: no
-
-На promo-странице `[D|M] BackgroundPlateSlot` должен использовать collection `[Promo] BackgroundPlate Radius`. До появления полного evidence по collection, platform и variant правило проверяется агентом и не создаёт автоматическую ошибку.
-
-### Rule 26: Используй только публичные корни
-
-- ruleId: rule:components.background-plate.public-roots-only
-- severity: error
-- appliesTo: component
-- checkType: deterministic
-- autofix: partial
-
-Самостоятельно размещай только `[D|M] BackgroundPlate`, `[D|M] BackgroundPlateSlot` и опубликованные Promo roots. `Style Level 1` и `Style Level 2` являются служебными частями и не используются отдельно.
-
-### Rule 27: Выбирай версию для канала страницы
-
-- ruleId: rule:components.background-plate.platform-version-must-match
-- severity: error
-- appliesTo: component
-- checkType: deterministic
-- autofix: yes
-
-Используй `[D]` BackgroundPlate и BackgroundPlateSlot на desktop, а `[M]` — на mobile-web. Версия компонента должна совпадать с выбранным каналом страницы.
 
 ## Section 7: Шаблоны
 
@@ -797,14 +581,6 @@ BackgroundPlate Position=Level 2 (inner)
 размещён как самостоятельный блок страницы
 ```
 
-### Антипример 2: смешанные фоны на странице
-
-```text
-BackgroundPlate A: base-bg-alt (gray)
-BackgroundPlate B: base-bg (white)
-на одной странице без смены фонового контекста
-```
-
 ### Антипример 3: Secondary для Level 2
 
 ```text
@@ -840,14 +616,7 @@ padding-left: 16 px вручную без Spacing token
 ### Детерминированные проверки
 
 - Проверять, что компонент относится к `[D] BackgroundPlate`, `[M] BackgroundPlate`, `[D] BackgroundPlateSlot`, `[M] BackgroundPlateSlot` или их `[Promo]` вариантам.
-- Проверять, что служебные `Style Level 1/2` не размещены самостоятельно.
-- Проверять совпадение версии `[D]/[M]` с выбранным каналом desktop/mobile-web.
-- Проверять, что `Position=Level 2 (inner)` не используется как самостоятельная подложка без `Level 1`.
-- Проверять соответствие `BackgroundColor` фону страницы: `base-bg-alt (gray)` для серого фона, `base-bg (white)` для белого фона.
-- Проверять, что все `BackgroundPlate` на странице используют один `BackgroundColor`, если не найден отдельный фоновой контекст.
 - Проверять запрет `Type=Secondary` для `Position=Level 2 (inner)`.
-- Проверять, что `Type=Border` не помечен как clickable.
-- Проверять, что loading-состояние использует `Skeleton=True`.
 - Проверять, что `layout.padding.*` у `BackgroundPlate` и `BackgroundPlateSlot` задан через токены `Spacing`.
 - Проверять, что значения `layout.padding.*` входят в набор `0`, `1`, `2`, `4`, `6`, `8`, `12`, `16`, `20`, `24`, `32`, `40`, `48`, `56`, `64`, `72`, `80`, `96`, `128`, `256`.
 - Проверять, что `radius` и `cornerRadius` у `BackgroundPlate`, `BackgroundPlateSlot` и вложенных `Style Level` совпадают с effective baseline текущего варианта компонента. Любое ручное изменение скруглений считать нарушением.
@@ -880,6 +649,4 @@ padding-left: 16 px вручную без Spacing token
 ### Автоисправления
 
 - Заменить `Type=Secondary` на допустимый тип для `Level 2`, если целевой стиль очевиден.
-- Выставить единый `BackgroundColor` на странице, если фон страницы распознан однозначно.
-- Включить `Skeleton=True` вместо ручных placeholder-слоёв, если loading-состояние однозначно распознано.
 - Привязать ручное значение padding к соответствующему токену `Spacing`, если значение точно совпадает со spacing-шкалой.

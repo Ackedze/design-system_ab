@@ -1,0 +1,33 @@
+const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict');
+const {spawnSync}=require('node:child_process');
+const W='/Users/alexkukhta/Desktop/workplace',C=path.join(W,'projects/Apollo-v3/packages/component-contract-core'),R=__dirname;
+assert(!fs.existsSync(path.join(R,'SEAL.json')),'Closed packet: check in a new directory.');
+const ts=require(require.resolve('typescript',{paths:[C]}));
+const changes=JSON.parse(fs.readFileSync(path.join(R,'SOURCE-MANIFEST.json'))).changes;
+const replacements=new Map(changes.map(c=>[c.target,fs.readFileSync(c.candidate.path,'utf8')]));
+const config=ts.readConfigFile(path.join(C,'tsconfig.json'),ts.sys.readFile);
+const parsed=ts.parseJsonConfigFileContent(config.config,ts.sys,C);
+const host=ts.createCompilerHost(parsed.options),readFile=host.readFile.bind(host);
+host.readFile=file=>replacements.has(file)?replacements.get(file):readFile(file);
+const program=ts.createProgram(parsed.fileNames,{...parsed.options,noEmit:true},host);
+const diagnostics=ts.getPreEmitDiagnostics(program);
+fs.writeFileSync(path.join(R,'type-check.log'),ts.formatDiagnosticsWithColorAndContext(diagnostics,{getCanonicalFileName:f=>f,getCurrentDirectory:()=>C,getNewLine:()=>os.EOL}));
+assert.equal(diagnostics.length,0,'TypeScript diagnostics; see type-check.log');
+const temp=fs.mkdtempSync('/private/tmp/backgroundplate-core-regression-');
+try{
+ fs.cpSync(path.join(C,'tests'),path.join(temp,'tests'),{recursive:true});
+ fs.cpSync(path.join(C,'src'),path.join(temp,'src'),{recursive:true});
+ for(const change of changes)fs.copyFileSync(change.candidate.path,path.join(temp,path.relative(C,change.target)));
+ fs.cpSync(path.join(R,'candidate'),path.join(temp,'dist'),{recursive:true});
+ const nodeModules=path.dirname(path.dirname(path.dirname(require.resolve('typescript',{paths:[C]}))));
+ fs.symlinkSync(nodeModules,path.join(temp,'node_modules'),'dir');
+ const tests=fs.readdirSync(path.join(temp,'tests')).filter(n=>n.endsWith('.test.js')).map(n=>path.join(temp,'tests',n));
+ const result=spawnSync(process.execPath,['--test',...tests],{cwd:temp,encoding:'utf8',maxBuffer:16*1024*1024});
+ fs.writeFileSync(path.join(R,'core-regression.log'),result.stdout+result.stderr);
+ assert.equal(result.status,0,'Core regression failure; see core-regression.log');
+ const total=Number(result.stdout.match(/# tests (\d+)/)?.[1]);
+ const failed=Number(result.stdout.match(/# fail (\d+)/)?.[1]);
+ assert(total>0&&failed===0);
+ fs.writeFileSync(path.join(R,'regression-check.json'),JSON.stringify({status:'PASS_PRIVATE_CORE',typeCheck:'PASS',coreTests:total,failed,sharedSourceDistWrites:0,native:'NOT_RUN',ApolloConsumer:'NOT_VERIFIED'})+'\n');
+ console.log(JSON.stringify({typeCheck:'PASS',coreTests:total,failed,temporaryTreeRemoved:true}));
+}finally{fs.rmSync(temp,{recursive:true,force:true});}

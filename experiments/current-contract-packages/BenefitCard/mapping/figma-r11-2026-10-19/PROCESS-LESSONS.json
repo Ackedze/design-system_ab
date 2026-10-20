@@ -1,0 +1,44 @@
+{
+  "applied": [
+    "AP-PROC-004: explicit writesClosed and seal only after checks and final declared input readback",
+    "AP-PROC-018: preserve22 typed ports, exact string VARIANT domains, physical TEXT gap, all capability denials and full RuleIDs",
+    "AP-PROC-025: single private r11 delta from immutable r10, actual data-only readset; existing canonical Editor opener, existing adapter and scoped predicate checks; no broad runtime preflight or new consumer chain",
+    "AP-PROC-016/025: historical r7 and r10 exact root ZIP pins retained; no restore/delete/publication by this role"
+  ],
+  "preparationFailure": {
+    "evidence": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BenefitCard/mapping/figma-r11-2026-10-19/PREPARATION-FIRST-FAILURE.json",
+      "sha256": "d07f85784d3959f37d850da02fcf76a0a111eb98bb3fa11c6bf959cdf5a1a6c8",
+      "bytes": 394
+    },
+    "cause": "Norm handoff root ZIP field was assumed as zip instead of actual rootZip. No builder/checker or shared writes ran before this failure.",
+    "fix": "Read actual schema; use rootZip.",
+    "guard": "Exact rootZip pin and accepted canonical hashes asserted by builder/checker.",
+    "verification": "Builder and7 scoped check groups pass.",
+    "owner": "Mapping"
+  },
+  "checkerFailures": {
+    "evidence": [
+      {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BenefitCard/mapping/figma-r11-2026-10-19/CHECK-FIRST-FAILURE.json",
+        "sha256": "65d5744bcbde900ba143e94b73aaf6d1356f790c364623a104e100f12ea92149",
+        "bytes": 1046
+      },
+      {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/BenefitCard/mapping/figma-r11-2026-10-19/CHECK-LATER-FAILURE.json",
+        "sha256": "65d5744bcbde900ba143e94b73aaf6d1356f790c364623a104e100f12ea92149",
+        "bytes": 1046
+      }
+    ],
+    "cause": "In-memory canonical compiled scope includes optional undefined channel/product fields; serialized JSON omits them. structuredClone also preserves undefined and did not correct the comparison.",
+    "consequence": "Checker stopped before false PASS; no shared inputs changed.",
+    "fix": "Compare the complete persisted IR to JSON serialization of the complete canonical IR, preserving every serializable field.",
+    "guard": "Exact compiled semantic hash plus full serialized IR equality and actual predicate platform matrix; no norm/domain/authority guard relaxed.",
+    "verification": "7 scoped groups PASS,12 predicate cases match exact accepted r11 norm receipt;8 foreign-platform inactive assertions pass.",
+    "owner": "Mapping"
+  },
+  "sharedJournalChanged": false,
+  "historicalSealsChanged": false,
+  "newRuntimeChain": false,
+  "Ready": false
+}

@@ -1,0 +1,16 @@
+{
+  "status": "PRIVATE_REVIEW_ASSERTION_ERROR_BEFORE_OUTPUT",
+  "date": "2026-10-16",
+  "firstFailure": {
+    "toolChunk": "5baff2",
+    "exitCode": 1,
+    "exception": "KeyError: 'semanticApi'",
+    "outputWritten": false
+  },
+  "cause": "Reviewer indexed semanticApi on every captured node, although it is present on the root and absent on nested Style.",
+  "impact": "No report result, contract, source, native state or final receipt was modified; no success relay occurred.",
+  "repair": "Compare key presence and values for optional fields rather than assuming root-only facts exist on every node. Keep exact comparison of actual appearance, source, layout, bounds, reference and root semantic API.",
+  "protection": "All assertions must pass before writing the final eval; independently parse it and verify physical pins before reporting completion.",
+  "responsible": "Contract Creation",
+  "verification": "PASS: five report checks and scoped RESET comparisons; final eval parsed and SHA/bytes verified; all nine physical input pins match. Closed QA plan and actuation pins also verified. No premature success relay."
+}

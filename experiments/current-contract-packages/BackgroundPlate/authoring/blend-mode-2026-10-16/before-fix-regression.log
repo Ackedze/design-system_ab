@@ -1,0 +1,111 @@
+TAP version 13
+# Subtest: blend mode capture retains independent actual and reference values
+not ok 1 - blend mode capture retains independent actual and reference values
+  ---
+  duration_ms: 8.09175
+  location: '/private/tmp/backgroundplate-before-fix-fsch2iad/tests/blend-mode.test.js:32:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - 'MULTIPLY'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'MULTIPLY'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/backgroundplate-before-fix-fsch2iad/tests/blend-mode.test.js:33:48)
+    async Test.run (node:internal/test_runner/test:980:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: blend mode pristine
+ok 2 - blend mode pristine
+  ---
+  duration_ms: 33.946125
+  ...
+# Subtest: blend mode root override
+ok 3 - blend mode root override
+  ---
+  duration_ms: 6.379125
+  ...
+# Subtest: blend mode nested override
+ok 4 - blend mode nested override
+  ---
+  duration_ms: 5.409875
+  ...
+# Subtest: blend mode root reset
+ok 5 - blend mode root reset
+  ---
+  duration_ms: 3.202583
+  ...
+# Subtest: blend mode nested reset
+ok 6 - blend mode nested reset
+  ---
+  duration_ms: 4.9105
+  ...
+# Subtest: blend mode missing baseline
+not ok 7 - blend mode missing baseline
+  ---
+  duration_ms: 3.639208
+  location: '/private/tmp/backgroundplate-before-fix-fsch2iad/tests/blend-mode.test.js:44:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'not-applicable'
+    - 'human-review'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'human-review'
+  actual: 'not-applicable'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/backgroundplate-before-fix-fsch2iad/tests/blend-mode.test.js:45:9)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:979:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:677:18)
+    Test.postRun (node:internal/test_runner/test:1090:19)
+    Test.run (node:internal/test_runner/test:1018:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:677:7)
+  ...
+# Subtest: blend mode missing actual
+not ok 8 - blend mode missing actual
+  ---
+  duration_ms: 3.329
+  location: '/private/tmp/backgroundplate-before-fix-fsch2iad/tests/blend-mode.test.js:44:3'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'violation'
+    - 'human-review'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'human-review'
+  actual: 'violation'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/private/tmp/backgroundplate-before-fix-fsch2iad/tests/blend-mode.test.js:45:9)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:979:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:677:18)
+    Test.postRun (node:internal/test_runner/test:1090:19)
+    Test.run (node:internal/test_runner/test:1018:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:677:7)
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 5
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 140.032917

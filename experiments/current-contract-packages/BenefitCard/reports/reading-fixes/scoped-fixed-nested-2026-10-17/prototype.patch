@@ -1,0 +1,179 @@
+--- a/projects/Apollo-v3/apps/apollo-v4/src/contract-profile.js
++++ b/projects/Apollo-v3/apps/apollo-v4/src/contract-profile.js
+@@ -12,7 +12,7 @@
+   textContentFactsVersion: [1],
+   nativeTargetPropertyFactsVersion: [1],
+   representationEvidenceVersion: [1],
+-  crossRepresentationBindingsVersion: [1],
++  crossRepresentationBindingsVersion: [1, 2],
+   rootTargetAliasesVersion: [1],
+   occurrenceAddressVersion: [1],
+   directChildDependenciesVersion: [1],
+@@ -105,7 +105,7 @@
+   try { declaredIdentity.assertNativeRuleFactPolicies(contract); } catch (error) { reject(error.message); }
+   const representationShape=representation.contractRepresentationShape(contract),representationFlags=representation.representationFeatureFlags(representationShape);
+   const representationErrors=representation.representationEvidenceErrors(representationShape);
+-  if(representationErrors.length || representationFlags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1) || representationFlags.bindings!==(contract.runtimePolicy.crossRepresentationBindingsVersion===1))reject('Unsupported representation evidence/bindings: '+representationErrors.join('; '));
++  if(representationErrors.length || representationFlags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1) || contract.runtimePolicy.crossRepresentationBindingsVersion!==representationFlags.bindingVersion)reject('Unsupported representation evidence/bindings: '+representationErrors.join('; '));
+   for(const binding of contract.facts.dependencyBindings || []) if(binding.identityLock !== undefined
+     && (binding.identityLock !== true || contract.runtimePolicy?.assetIdentityLockVersion !== 1 || !Array.isArray(binding.portNames) || !binding.portNames.length
+       || binding.portNames.some(p=>typeof p!=='string'||!p.trim()||p.includes('#')) || new Set(binding.portNames).size!==binding.portNames.length
+--- a/projects/Apollo-v3/packages/component-contract-core/src/compiler.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/compiler.ts
+@@ -1023,7 +1023,7 @@
+   if (contract.runtimePolicy.instanceMainComponentAliasesVersion === 1) contract.package.sourceExportVersion = 'component-contract-editor@0.2.90';
+   const representationFlags=representationFeatureFlags(manualRepresentationShape(manual));
+   if(representationFlags.evidence)contract.runtimePolicy.representationEvidenceVersion=1;
+-  if(representationFlags.bindings)contract.runtimePolicy.crossRepresentationBindingsVersion=1;
++  if(representationFlags.bindingVersion)contract.runtimePolicy.crossRepresentationBindingsVersion=representationFlags.bindingVersion;
+   if(representationFlags.evidence||representationFlags.bindings)contract.package.sourceExportVersion='component-contract-editor@0.2.91';
+   if ([1,2,3].includes(manual.metadata.declaredTargetIdentityVersion || 0)) {
+     contract.runtimePolicy.declaredTargetIdentityVersion = manual.metadata.declaredTargetIdentityVersion;
+--- a/projects/Apollo-v3/packages/component-contract-core/src/component-dependencies.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/component-dependencies.ts
+@@ -15,7 +15,7 @@
+ const hash = (v: unknown) => typeof v === 'string' && /^[a-f0-9]{64}$/.test(v);
+ const pathValid = (v: unknown) => typeof v === 'string' && !v.split(' / ').some(p => p === '..' || p === '.' || p.includes('*') || (!p && v !== ''));
+ 
+-export function validateComponentDependencies(manual: ManualSource): ValidationIssue[] {
++export function validateComponentDependencies(manual: Pick<ManualSource,'component'|'targets'|'representations'|'componentDependencies'>): ValidationIssue[] {
+   const issues: ValidationIssue[] = [], ids = new Set<string>();
+   const fail = (index: number, message: string) => issues.push({level:'error',code:'COMPONENT_DEPENDENCY',path:`/componentDependencies/${index}`,message});
+   if (manual.componentDependencies === undefined) return issues;
+@@ -30,7 +30,7 @@
+     for (const b of d.bindings) {
+       if (!b || !/^[a-z][a-z0-9-]*$/.test(b.id) || bindings.has(b.id)) { fail(i,'Binding id must be unique and path-safe.'); continue; }
+       bindings.add(b.id);
+-      const subject = JSON.stringify([b.targetRole,b.relativePath,...(b.kind==='direct-child' && Array.isArray(b.representationIds)?b.representationIds.slice().sort():[])]);
++      const subject = JSON.stringify([b.targetRole,b.relativePath,...((b.kind==='direct-child'||b.kind==='fixed-nested-scoped') && Array.isArray(b.representationIds)?b.representationIds.slice().sort():[])]);
+       if (subjects.has(subject)) fail(i,'Duplicate nested subject.');
+       subjects.add(subject);
+       if (manual.targets.filter(t=>t.semanticRole===b.targetRole && t.resolution==='resolved').length!==1) fail(i,`Unresolved target: ${b.targetRole}.`);
+@@ -45,7 +45,15 @@
+         if(['childPath','activeVariant','ownerComponentSetKeys'].some(k=>Object.prototype.hasOwnProperty.call(b,k)))fail(i,'Direct binding cannot contain legacy fixed-nested fields.');
+         continue;
+       }
+-      if(b.kind!==undefined && b.kind!=='fixed-nested'){fail(i,'Unknown dependency binding kind.');continue;}
++      if(b.kind!==undefined && b.kind!=='fixed-nested' && b.kind!=='fixed-nested-scoped'){fail(i,'Unknown dependency binding kind.');continue;}
++      if(b.kind==='fixed-nested-scoped'){
++        if(!Array.isArray(b.representationIds)||!b.representationIds.length||new Set(b.representationIds).size!==b.representationIds.length
++          || b.representationIds.some(id=>!manual.representations.some(r=>r.kind==='figma'&&r.id===id&&r.status!=='deprecated')))fail(i,'Scoped fixed binding requires explicit unique active Figma representations.');
++      }else if(Object.prototype.hasOwnProperty.call(b,'representationIds'))fail(i,'Representation scope requires fixed-nested-scoped.');
++      if(d.bindings.some(other=>other!==b&&other.kind!=='direct-child'&&other.targetRole===b.targetRole&&other.relativePath===b.relativePath
++        && (b.kind==='fixed-nested-scoped'||other.kind==='fixed-nested-scoped')
++        && (b.kind!=='fixed-nested-scoped'||other.kind!=='fixed-nested-scoped'
++          || Array.isArray(b.representationIds)&&Array.isArray(other.representationIds)&&b.representationIds.some(id=>other.representationIds!.includes(id)))))fail(i,'Fixed nested bindings may not overlap in the same representation.');
+       if (!pathValid(b.relativePath) || !pathValid(b.childPath) || !b.childPath) fail(i,'Use exact relative owner/child paths.');
+       if (!Array.isArray(b.ownerComponentSetKeys) || !b.ownerComponentSetKeys.length || b.ownerComponentSetKeys.some(k=>!k)) fail(i,'Owner component set keys are required.');
+       if (!b.activeVariant?.property || !Array.isArray(b.activeVariant.values) || !b.activeVariant.values.length || b.activeVariant.values.some(v=>typeof v!=='string'||!v)) fail(i,'Declare the typed owner VARIANT activation.');
+@@ -64,10 +72,11 @@
+   const revision = contract.package.manualRevision ?? (revisions.length === 1 ? revisions[0] : undefined);
+   if (revision !== pin.revision || contract.package.manualSourceHash !== pin.manualSourceHash || stableHash(contract) !== pin.compiledHash) return 'dependency-pin-mismatch';
+   if (contract.runtimePolicy?.engine !== 'apollo-predicate-engine' || contract.runtimePolicy?.unknownPolicy !== 'fail-closed') return 'dependency-runtime-unsupported';
+-  for(const field of ['occurrenceAddressVersion','directChildDependenciesVersion','memberCollectionsVersion','dependencySubjectConditionsVersion','rootTargetAliasesVersion','assetIdentityLockVersion','instanceMainComponentAliasesVersion','representationEvidenceVersion','crossRepresentationBindingsVersion'] as const)
++  for(const field of ['occurrenceAddressVersion','directChildDependenciesVersion','memberCollectionsVersion','dependencySubjectConditionsVersion','rootTargetAliasesVersion','assetIdentityLockVersion','instanceMainComponentAliasesVersion','representationEvidenceVersion'] as const)
+     if(contract.runtimePolicy[field]!==undefined && contract.runtimePolicy[field]!==1)return 'dependency-runtime-unsupported';
+   const shape=contractRepresentationShape(contract),flags=representationFeatureFlags(shape);
+-  if(representationEvidenceErrors(shape).length || flags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1) || flags.bindings!==(contract.runtimePolicy.crossRepresentationBindingsVersion===1))return 'dependency-representation-unsupported';
++  if(representationEvidenceErrors(shape).length || flags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1) || contract.runtimePolicy.crossRepresentationBindingsVersion!==flags.bindingVersion
++    || flags.scopedDependencies&&validateComponentDependencies({component:contract.facts.component,targets:contract.facts.targets,representations:contract.facts.representations,componentDependencies:contract.componentDependencies}).length)return 'dependency-representation-unsupported';
+   return undefined;
+ }
+ 
+@@ -117,6 +126,22 @@
+   const paths = snapshotPaths(snapshot), ref = snapshot.variantReference;
+   const comparison = ref && compareInstanceBoundaries(snapshot,ref);
+   if (root.length!==1 || !paths || snapshot.source?.truncated || !ref?.complete || !comparison?.complete) return unknown('dependency-topology-unavailable');
++  if(b.kind==='fixed-nested-scoped'){
++    if(hostContract?.runtimePolicy.crossRepresentationBindingsVersion!==2)return unknown('scoped-dependency-version-unavailable');
++    if(!Array.isArray(b.representationIds)||!b.representationIds.length||new Set(b.representationIds).size!==b.representationIds.length
++      || b.representationIds.some(id=>!hostContract.facts.representations.some(r=>r.id===id&&r.kind==='figma'&&r.status!=='deprecated')))return unknown('dependency-binding-scope-unavailable');
++    const identity=record(record(root[0].component).identity),original=ref.nodeProperties['']?.identity;
++    if(root[0].type!=='INSTANCE'||!original||!identity.componentKey||!identity.mainComponentId
++      || identity.componentKey!==original.componentKey||identity.componentSetKey!==original.componentSetKey||identity.mainComponentId!==original.mainComponentId
++      || ref.componentKey!==identity.componentKey||(ref.componentSetKey||'')!==(identity.componentSetKey||'')
++      || snapshot.source?.componentKey!==identity.componentKey||(snapshot.source?.componentSetKey||'')!==(identity.componentSetKey||'')
++      || ((root[0].unknownFacts||[]) as string[]).some(p=>p==='component'||p==='component.identity'||p.startsWith('component.identity.')))
++      return unknown('dependency-host-identity-unproven');
++    const reps=hostContract.facts.representations.filter(r=>matchesCaptureRepresentation(r,identity.componentKey,identity.componentSetKey||''));
++    if(reps.length!==1||!['universal',snapshot.context.platform].includes(reps[0].platform)
++      || snapshot.context.unknownFacts?.some(p=>['platform','context.platform','environment.platform'].includes(p)))return unknown('dependency-representation-unresolved');
++    if(!b.representationIds.includes(reps[0].id))return {status:'inactive',reason:'binding-outside-representation'};
++  }
+   const availability = record(record(root[0].variantAvailability).targets)[b.targetRole];
+   if (availability?.present === false) return {status:'inactive',reason:'target-absent-in-variant'};
+   const targets = snapshot.nodes.filter(n=>record(n.semantic).role===b.targetRole);
+--- a/projects/Apollo-v3/packages/component-contract-core/src/representation-evidence.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/representation-evidence.ts
+@@ -67,7 +67,11 @@
+   }
+   return errors;
+ }
+-export function representationFeatureFlags(s:Shape){return {evidence:s.representations.some(r=>r.codeEvidence!==undefined),bindings:s.semanticApi.some(p=>p.bindings.some(b=>b.codeTransform!==undefined||b.ownedOccurrence!==undefined||b.nativeSlotBinding!==undefined))};}
++export function representationFeatureFlags(s:Shape){
++  const scopedDependencies=s.dependencies.some(d=>d.bindings?.some(b=>b.kind==='fixed-nested-scoped'));
++  const bindings=scopedDependencies||s.semanticApi.some(p=>p.bindings.some(b=>b.codeTransform!==undefined||b.ownedOccurrence!==undefined||b.nativeSlotBinding!==undefined));
++  return {evidence:s.representations.some(r=>r.codeEvidence!==undefined),bindings,scopedDependencies,bindingVersion:scopedDependencies?2 as const:bindings?1 as const:undefined};
++}
+ /** Receipt scope excludes claim/receipt metadata to avoid self-referential hashes;
+  * norms, source locators, bindings, profiles, anatomy and dependency pins remain. */
+ export function representationScopeHash(manual:ManualSource,facts:unknown):string{
+--- a/projects/Apollo-v3/packages/component-contract-core/src/rule-scope-facts.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/rule-scope-facts.ts
+@@ -39,7 +39,7 @@
+     for (const dependency of contract.componentDependencies || []) {
+       if (dependency.issue || dependencyPinIssue(dependency, dependency.contract)) { ownershipUnknown = true; continue; }
+       for (const binding of dependency.bindings) {
+-        const resolved = resolveFixedNestedBinding(snapshot, dependency, binding);
++        const resolved = resolveFixedNestedBinding(snapshot, dependency, binding, false, contract);
+         if (resolved.status === 'inactive') continue;
+         if (resolved.status !== 'active' || !resolved.nodeId || !resolved.identityValid
+           || !validatedDependencyCapture(snapshot, resolved.nodeId, dependency.contract!).snapshot) {
+--- a/projects/Apollo-v3/packages/component-contract-core/src/runtime.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/runtime.ts
+@@ -17,7 +17,7 @@
+ import { materializeInstanceContentReferences } from './instance-content-reference';
+ import { materializeTargetResolution, TARGET_RESOLUTION_SCHEMA } from './target-resolution';
+ import { materializeGradientPaintEvidence } from './gradient-paint-facts';
+-import { dependencyPinIssue, resolveFixedNestedBinding, validatedDependencyCapture, COMPONENT_DEPENDENCY_DEPTH_LIMIT } from './component-dependencies';
++import { dependencyPinIssue, resolveFixedNestedBinding, validatedDependencyCapture, COMPONENT_DEPENDENCY_DEPTH_LIMIT, validateComponentDependencies } from './component-dependencies';
+ import { stableHash } from './stable';
+ import { materializeRuleScopeFacts } from './rule-scope-facts';
+ import { materializeDependencyComposition } from './dependency-composition';
+@@ -43,7 +43,8 @@
+   assertConfiguredPropertyContract(contract);
+   const shape=contractRepresentationShape(contract),flags=representationFeatureFlags(shape);
+   if(flags.evidence||flags.bindings||contract.runtimePolicy.representationEvidenceVersion!==undefined||contract.runtimePolicy.crossRepresentationBindingsVersion!==undefined){
+-    if((contract.runtimePolicy.representationEvidenceVersion!==undefined&&contract.runtimePolicy.representationEvidenceVersion!==1)||(contract.runtimePolicy.crossRepresentationBindingsVersion!==undefined&&contract.runtimePolicy.crossRepresentationBindingsVersion!==1)||representationEvidenceErrors(shape).length||flags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1)||flags.bindings!==(contract.runtimePolicy.crossRepresentationBindingsVersion===1))throw new Error('REPRESENTATION_RUNTIME_UNSUPPORTED');
++    if((contract.runtimePolicy.representationEvidenceVersion!==undefined&&contract.runtimePolicy.representationEvidenceVersion!==1)||contract.runtimePolicy.crossRepresentationBindingsVersion!==flags.bindingVersion||representationEvidenceErrors(shape).length||flags.evidence!==(contract.runtimePolicy.representationEvidenceVersion===1))throw new Error('REPRESENTATION_RUNTIME_UNSUPPORTED');
++    if(flags.scopedDependencies&&validateComponentDependencies({component:contract.facts.component,targets:contract.facts.targets,representations:contract.facts.representations,componentDependencies:contract.componentDependencies}).length)throw new Error('COMPONENT_DEPENDENCY_RUNTIME_UNSUPPORTED');
+   }
+   const snapshot = JSON.parse(JSON.stringify(source)) as PreviewSnapshot & { snapshotHash?: string };
+   delete snapshot.snapshotHash;
+--- a/projects/Apollo-v3/packages/component-contract-core/src/types.ts
++++ b/projects/Apollo-v3/packages/component-contract-core/src/types.ts
+@@ -453,13 +453,14 @@
+ };
+ 
+ export type FixedNestedBinding = {
+-  kind?: 'fixed-nested';
++  kind?: 'fixed-nested' | 'fixed-nested-scoped';
+   id: string;
+   targetRole: string;
+   relativePath: string;
+   ownerComponentSetKeys: string[];
+   activeVariant: { property: string; values: string[] };
+   childPath: string;
++  representationIds?: string[];
+ };
+ 
+ /** A component-owned direct occurrence. Empty legacy childPath is never reinterpreted. */
+@@ -766,7 +767,7 @@
+     declaredTargetIdentityVersion?: 1 | 2 | 3;
+     declaredTargetConfigurationVersion?: 1 | 2;
+     representationEvidenceVersion?: 1;
+-    crossRepresentationBindingsVersion?: 1;
++    crossRepresentationBindingsVersion?: 1 | 2;
+     rootTargetAliasesVersion?: 1;
+     dependencySubjectConditionsVersion?: 1;
+     assetIdentityLockVersion?: 1;

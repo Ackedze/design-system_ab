@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web-corp.background-plate",
-    "status": "ready",
+    "status": "draft",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-10"
+      "updatedAt": "2026-10-16"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -420,30 +420,11 @@
         },
         "levelPolicy": {
           "property": "surfaceLevel",
-          "rootSurfaceContext": {
-            "requiredMode": "Level-0 (base)",
-            "applyTo": "Главная поверхность страницы или модальной сущности, содержащая BackgroundPlate.",
-            "applyDirectlyToBackgroundPlate": false,
-            "purpose": "Задать исходный variable context, от которого первый вложенный BackgroundPlate автоматически получает Level-1 (outer)."
-          },
           "componentValues": [
             "Level-1 (outer)",
             "Level-2 (inner)"
           ],
-          "selectionRules": [
-            "Сначала назначь Level-0 (base) главной поверхности страницы или модальной сущности.",
-            "Не назначай Level-0 непосредственно экземпляру BackgroundPlate.",
-            "Первый BackgroundPlate внутри поверхности с Level-0 должен автоматически получить Level-1 (outer).",
-            "Для вложенной поверхности используй Level-2 (inner) только внутри Level-1 (outer)."
-          ],
-          "requiredComposition": {
-            "Level-2 (inner)": {
-              "requiredParent": "Level-1 (outer)",
-              "directParentRequired": true,
-              "allowStandalone": false,
-              "allowContractExceptions": false
-            }
-          }
+          "patternRef": "ptrn:layout.surface-composition"
         },
         "typePolicy": {
           "property": "variant.Type",
@@ -476,8 +457,7 @@
               "role": "outlined-surface",
               "useWhen": "Нужна подложка без цветной заливки, но с обводкой.",
               "restrictions": [
-                "Цвет обводки должен быть задан через цветовой токен дизайн-системы.",
-                "Не использовать компонент как кликабельную поверхность."
+                "Цвет обводки должен быть задан через цветовой токен дизайн-системы."
               ]
             }
           ],
@@ -501,25 +481,11 @@
               "useWhen": "Загружается сам компонент или контент, расположенный внутри него."
             }
           ],
-          "preferredLoadingImplementation": "Для обычного состояния загрузки включай штатный component property Skeleton=True вместо ручной сборки placeholder-слоёв.",
-          "complexLoadingException": {
-            "allowed": true,
-            "condition": "Сложная skeleton-композиция явно описана отдельным правилом или сценарием в паттерне.",
-            "fallback": "Если подтверждающего паттерна нет, используй штатный Skeleton=True и не придумывай сложную структуру загрузки."
-          }
+          "patternRef": "ptrn:ux.loading-states"
         },
         "interactionPolicy": {
-          "wholeSurfaceMayBeClickable": true,
-          "clickableTypes": [
-            "Primary",
-            "Secondary",
-            "Colored"
-          ],
-          "nonClickableTypes": [
-            "Border"
-          ],
-          "implementation": "Кликабельность применяется ко всей поверхности компонента через предусмотренное состояние в коде. Не имитируй интерактивность ручными hover/click слоями в макете.",
-          "rule": "Primary, Secondary и Colored могут быть полностью кликабельными. Border остаётся декоративной поверхностью и не может быть кликабельным."
+          "patternRuleRef": "rule:components.background-plate.border-not-clickable",
+          "verificationTarget": "code-behavior"
         },
         "borderPolicy": {
           "appliesWhen": {
@@ -592,15 +558,6 @@
           "appliesToAllTypes": true,
           "generationRule": "Не изменяй opacity BackgroundPlate или его внутренних surface-слоёв вручную. Используй effective baseline компонента."
         },
-        "shadowPolicy": {
-          "customizable": false,
-          "appliesToAllTypes": true,
-          "disallowedEffectTypes": [
-            "DROP_SHADOW",
-            "INNER_SHADOW"
-          ],
-          "generationRule": "Не добавляй Drop shadow или Inner shadow к BackgroundPlate и его внутренним surface-слоям."
-        },
         "blurPolicy": {
           "customizable": true,
           "appliesToAllTypes": true,
@@ -609,7 +566,7 @@
             "BACKGROUND_BLUR"
           ],
           "controlledBy": "context",
-          "generationRule": "Layer blur и Background blur можно использовать, когда это требуется контекстом композиции. Не трактуй blur как запрещённую тень."
+          "generationRule": "Layer blur и Background blur разрешены по контексту композиции."
         },
         "blendModePolicy": {
           "customizable": false,
@@ -687,20 +644,9 @@
             },
             "generationRule": "Настраивай направление, gap и alignment Slot по структуре вложенного контента и контексту экрана. Ширину Slot устанавливай в Fill, высоту — в Hug. Не восстанавливай standalone axis, gap или alignment после осознанной настройки."
           },
-          "allowedNestedBackgroundPlateLevels": [
-            "Level-2 (inner)"
-          ],
-          "nestedLevel2Placement": {
-            "requiredHostLevel": "Level-1 (outer)",
-            "directParentRequired": true
-          },
-          "disallowedNestedBackgroundPlateLevels": [
-            "Level-0 (base)",
-            "Level-1 (outer)"
-          ],
-          "generationRule": "Размещай обычный контент непосредственно в Slot Level-1. Добавляй BackgroundPlate Level-2 только когда нужна дополнительная вложенная поверхность. Не вкладывай BackgroundPlate Level-0 или Level-1 внутрь Slot."
+          "compositionPatternRef": "ptrn:layout.surface-composition"
         },
-        "modePolicy": "Для генерации сначала назначь Level-0 (base) главной поверхности страницы или модальной сущности. Не назначай Level-0 непосредственно BackgroundPlate: вложенный в этот контекст компонент должен автоматически стать Level-1 (outer). Для вложенной поверхности используй Level-2 (inner) внутри Level-1 и синхронно устанавливай соответствующие modes BackgroundPlate Radius и BackgroundPlate Level. Затем выбери mode BackgroundPlate Color по фактическому контексту page/modal и тону grey/white. Type и Skeleton настраивай через component variants. Не воспроизводи эти состояния ручными fill, radius или вложенными Style Level."
+        "modePolicy": "Выбор контекста поверхности: ptrn:layout.surface-composition. API, collections и native modes сохраняются в этом паспорте."
       },
       "internalOnlyComponents": [
         "[D] Style Level 1",
@@ -745,7 +691,9 @@
               "Level 1 (outer)",
               "Level 2 (inner)"
             ]
-          }
+          },
+          "exposure": "public",
+          "standaloneAllowed": true
         },
         {
           "name": "[D] BackgroundPlateSlot",
@@ -766,7 +714,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "public",
+          "standaloneAllowed": true
         },
         {
           "name": "[D] Style Level 1",
@@ -793,7 +743,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "auxiliary",
+          "standaloneAllowed": false
         },
         {
           "name": "[D] Style Level 2",
@@ -819,7 +771,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "auxiliary",
+          "standaloneAllowed": false
         },
         {
           "name": "[D][Promo] BackgroundPlate",
@@ -834,7 +788,9 @@
               "Level 1 (outer)",
               "Level 2 (inner)"
             ]
-          }
+          },
+          "exposure": "public",
+          "standaloneAllowed": true
         },
         {
           "name": "[D][Promo] Style Level 1",
@@ -861,7 +817,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "auxiliary",
+          "standaloneAllowed": false
         },
         {
           "name": "[D][Promo] Style Level 2",
@@ -887,7 +845,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "auxiliary",
+          "standaloneAllowed": false
         },
         {
           "name": "[M] BackgroundPlate",
@@ -902,7 +862,9 @@
               "Level 1 (outer)",
               "Level 2 (inner)"
             ]
-          }
+          },
+          "exposure": "public",
+          "standaloneAllowed": true
         },
         {
           "name": "[M] BackgroundPlateSlot",
@@ -923,7 +885,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "public",
+          "standaloneAllowed": true
         },
         {
           "name": "[M] Style Level 1",
@@ -950,7 +914,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "auxiliary",
+          "standaloneAllowed": false
         },
         {
           "name": "[M] Style Level 2",
@@ -976,7 +942,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "auxiliary",
+          "standaloneAllowed": false
         },
         {
           "name": "[M][Promo] BackgroundPlate",
@@ -991,7 +959,9 @@
               "Level 1 (outer)",
               "Level 2 (inner)"
             ]
-          }
+          },
+          "exposure": "public",
+          "standaloneAllowed": true
         },
         {
           "name": "[M][Promo] Style Level 1",
@@ -1018,7 +988,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "auxiliary",
+          "standaloneAllowed": false
         },
         {
           "name": "[M][Promo] Style Level 2",
@@ -1044,7 +1016,9 @@
               "False",
               "True"
             ]
-          }
+          },
+          "exposure": "auxiliary",
+          "standaloneAllowed": false
         }
       ],
       "codeExports": [

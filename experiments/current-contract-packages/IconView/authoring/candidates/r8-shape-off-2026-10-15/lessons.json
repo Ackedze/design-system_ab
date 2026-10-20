@@ -1,0 +1,59 @@
+[
+  {
+    "fact": "IV-QA-08 was presented as valid despite Shape=false with active addons; owner corrected the missing norm.",
+    "cause": "Test-plan assumption; absence of an executable prohibition was treated as a permissible state. The owner norm was not represented in r7.",
+    "consequence": "Zero violations in report08 must not be accepted as a positive normative result. No whole Ready was claimed.",
+    "correction": "Keep raw report unchanged, exclude old positive oracle, add one owner-based conditional rule with three independent boolean checks.",
+    "protection": "Check proposed positive parameter combinations against normative restrictions; explicitly distinguish unsupported/missing norm from permission. Validate the rejected combination now yields two violations and clean Shape=false yields zero.",
+    "responsible": "Contract Creation",
+    "verification": "PASS_R8: report08 replay now2 violations; clean Shape=false synthetic0; Indicator synthetic1; first7 observed snapshots retain prior results.",
+    "journalSync": "Deferred to General final handoff; shared journal not written within C272."
+  },
+  {
+    "status": "VERIFIED_LOCAL_TEST_ORACLE_CORRECTION",
+    "firstFailure": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r8-shape-off-2026-10-15/FAILURE-1792074260251.json",
+      "sha256": "74e05b0a663643b27511179a378eb4ef3aceae1659a4bacf436ece659b83fd70",
+      "bytes": 302
+    },
+    "originalScript": {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r8-shape-off-2026-10-15/build.before-unknown-oracle.cjs",
+      "sha256": "b2671380b9e6f62438169b80d305042fcd94a96cd870cdc8949d023498330d3e",
+      "bytes": 8305
+    },
+    "actualCause": "Deleting native Indicator from synthetic root prevents independent root correspondence. All three selectors become UNKNOWN; previous expected single missing actual was incorrect.",
+    "evidence": {
+      "kind": "SYNTHETIC_MISSING_FACT_UNKNOWN",
+      "fact": "semanticApi.indicator",
+      "rootIdentity": {
+        "targetId": "target.root",
+        "semanticRole": "root",
+        "status": "unknown",
+        "reason": "independent-correspondence-unavailable"
+      },
+      "violations": [],
+      "unknown": [
+        {
+          "ruleId": "component:web-core.icon-view.shape-false-disables-addons-and-indicator.1.1",
+          "classification": "human-review",
+          "reason": "selector evidence is unknown"
+        },
+        {
+          "ruleId": "component:web-core.icon-view.shape-false-disables-addons-and-indicator.1.2",
+          "classification": "human-review",
+          "reason": "selector evidence is unknown"
+        },
+        {
+          "ruleId": "component:web-core.icon-view.shape-false-disables-addons-and-indicator.1.3",
+          "classification": "human-review",
+          "reason": "selector evidence is unknown"
+        }
+      ]
+    },
+    "correction": "Assert rootIdentity.status=unknown and reason=independent-correspondence-unavailable, all3 human-review traces=selector evidence is unknown, no violation/not-evaluable. Shape missing remains3; TopAddon and BottomAddon missing remain1.",
+    "coreOrNormChanged": false,
+    "regression": "All8 immutable snapshot replays and10 synthetic cases PASS.",
+    "responsible": "Contract Creation",
+    "journalSync": "General final handoff requested"
+  }
+]

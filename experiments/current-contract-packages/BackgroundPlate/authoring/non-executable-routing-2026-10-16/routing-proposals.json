@@ -1,0 +1,223 @@
+[
+  {
+    "index": 1,
+    "sourceRuleId": "component:web-corp.background-plate.level-2-requires-level-1",
+    "id": "level-2-requires-level-1",
+    "group": "composition-context",
+    "route": "Композиционный валидатор",
+    "action": "Подключить проверку общей Auto Layout-ветки, абсолютной Level1-подложки, порядка и покрытия Level2. Переиспользовать существующий generic co-located-underlay; адаптировать к новому contract capture.",
+    "tests": [
+      "Правильная абсолютная Level1-подложка перед AUTO-веткой Level2 → PASS",
+      "Полный контекст без подложки / неверный порядок / недостаточное покрытие → нарушение",
+      "Неполный граф или неоднозначная подложка → UNKNOWN"
+    ],
+    "reuse": "services/apollo-proxy/src/predicate-engine/contour-rules.js:670; snapshot-adapter.js:1318; исторический P06. Не новая приёмка Editor.",
+    "note": "BP-QA-23 проверял Type домен Level2 и не доказывает правильность композиции. Для этой нормы нужен отдельный валидный композиционный fixture.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 2,
+    "sourceRuleId": "component:web-corp.background-plate.slot-content-levels",
+    "id": "slot-content-levels",
+    "group": "composition-context",
+    "route": "Композиционный валидатор Slot",
+    "action": "Проверять уровни identity-proven вложенных BackgroundPlate в полном captured Slot. Обычный контент разрешён, обязательную Level2-обёртку не вводить.",
+    "tests": [
+      "Обычный контент напрямую в Slot → PASS",
+      "Допустимый Level2 в корректной композиции → PASS",
+      "Вложенный Level0/Level1 → нарушение",
+      "Недоступный или обрезанный Slot → UNKNOWN"
+    ],
+    "reuse": "Существующий native SLOT reader и source fact-domain contour; требуется проверить совместимость владельцев/полноты.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 3,
+    "sourceRuleId": "component:web-corp.background-plate.root-surface-requires-level-0",
+    "id": "root-surface-requires-level-0",
+    "group": "composition-context",
+    "route": "Проверка главной поверхности",
+    "action": "Требовать доказанную главную поверхность и её назначенный mode BackgroundPlate Level=Level0. Не назначать Level0 самому экземпляру.",
+    "tests": [
+      "Level0 на доказанной главной поверхности → PASS",
+      "Полный контекст с неверным mode → нарушение",
+      "Неизвестна главная поверхность или collection identity → UNKNOWN"
+    ],
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 4,
+    "sourceRuleId": "component:web-corp.background-plate.background-color-by-surface-context",
+    "id": "background-color-by-surface-context",
+    "group": "composition-context",
+    "route": "Контекст page/modal + gray/white",
+    "action": "Исполнять существующую четырёхзначную карту по явно заданному контексту поверхности. Не выводить page/modal из имени слоя или RGB.",
+    "tests": [
+      "Четыре правильных сочетания page/modal × gray/white → PASS",
+      "Известный контекст и неправильный BackgroundColor → нарушение",
+      "Контекст отсутствует → UNKNOWN"
+    ],
+    "reuse": "Generic context-map документирован и реализован в прежнем Predicate; требуется bridge нового contract reader.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 5,
+    "sourceRuleId": "component:web-corp.background-plate.single-background-color-per-page",
+    "id": "single-background-color-per-page",
+    "group": "composition-context",
+    "route": "Проверка группы одного surface context",
+    "action": "Сравнивать BackgroundColor в доказанном общем фоне страницы. Модальные сущности и лабораторные матрицы не смешивать автоматически в одну группу.",
+    "tests": [
+      "Одинаковый BackgroundColor внутри одного scope → PASS",
+      "Разные значения в доказанном общем scope → нарушение",
+      "Разные явно независимые surface contexts → отдельные группы",
+      "Неполный список участников → UNKNOWN"
+    ],
+    "reuse": "Generic uniform-allowed-collection как основа, без нового BackgroundPlate runtime branch.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 6,
+    "sourceRuleId": "component:web-corp.background-plate.colored-and-border-use-color-tokens",
+    "id": "colored-and-border-use-color-tokens",
+    "group": "editor-reading",
+    "route": "Общий контроль принадлежности токена библиотеке",
+    "action": "Сохранить четыре принятые binding-проверки. Отдельно доказать published key/type/collection каждого активного цвета по принятому allowlist. Присутствие токена, remote=true, совпадение имени или RGB не доказывают доверенную библиотеку.",
+    "tests": [
+      "Разрешённый библиотечный color token → PASS",
+      "Чужой/локальный токен при сохранённой привязке → нарушение membership",
+      "Не удалось получить identity/catalog → UNKNOWN",
+      "Несколько paint/gradient stops с одним чужим цветом → нарушение"
+    ],
+    "reuse": "Basic binding mechanism уже принят; новый ручной detach/RESET без изменения binding не нужен. TypedConstraint.tokenIds сравнивает массив точно через partialMatch, это не allowlist-membership.",
+    "note": "Осталась часть исходной нормы о библиотеке, а не дубль четырёх IR о наличии binding. Политика состава allowlist должна иметь принятую authority.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 7,
+    "sourceRuleId": "component:web-corp.background-plate.manual-shadows-are-prohibited",
+    "id": "manual-shadows-are-prohibited",
+    "group": "editor-reading",
+    "route": "Editor/core: типы эффектов",
+    "action": "Использовать уже захваченные effect types. Добавить generic typed presence/count или поддерживаемое исключение по типу для DROP_SHADOW и INNER_SHADOW на root и собственных surface. Blur не запрещать. Не анализировать чужой Slot-контент как внутреннюю поверхность.",
+    "tests": [
+      "Нет теней / только разрешённый blur → PASS",
+      "Raw Drop shadow / Inner shadow → нарушение",
+      "Тень через effect style → нарушение",
+      "Blur вместе с тенью → нарушение только запрета теней",
+      "Неполные effects → UNKNOWN"
+    ],
+    "reuse": "appearance.effects и appearance.effectDetailsV1 уже захвачены. Текущий typed compiler не фильтрует элементы массива эффектов.",
+    "question": "Исходник не уточняет скрытый shadow effect. До реализации не вводить молча разрешение скрытых теней; согласовать семантику visibility.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 8,
+    "sourceRuleId": "component:web-corp.background-plate.blend-mode-is-fixed",
+    "id": "blend-mode-is-fixed",
+    "group": "editor-reading",
+    "route": "Editor/core: actual и baseline blendMode",
+    "action": "Добавить blendMode в actual и независимый effective baseline capture, затем переиспользовать baseline-сравнение. Выпустить новые capture/reference pins без подмены эталона текущим override.",
+    "tests": [
+      "Исходный blend mode root/surface → PASS",
+      "Изменение root/surface → точное нарушение",
+      "Same-instance восстановление → PASS",
+      "Missing/stale baseline → UNKNOWN"
+    ],
+    "reuse": "Оператор baseline уже принят; пробел в capture поля. appearanceFacts сейчас не выдаёт node.blendMode.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 9,
+    "sourceRuleId": "component:web-corp.background-plate.border-is-not-clickable",
+    "id": "border-is-not-clickable",
+    "group": "interactive-code",
+    "route": "Code mapping и проверка поведения",
+    "action": "Проверять кликабельность всей поверхности Border по фактическому API/handler/DOM после подготовки code representation. Интерактивность вложенного Link/Button сама по себе не делает кликабельной всю поверхность.",
+    "tests": [
+      "Border без surface click handler → PASS",
+      "Border с обработчиком на всю поверхность → нарушение",
+      "Primary/Secondary/Colored не запрещать этой нормой",
+      "Отсутствует code mapping → UNKNOWN"
+    ],
+    "note": "В r2 нет code representation; статичный снимок Figma не является доказательством поведения.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 10,
+    "sourceRuleId": "component:web-corp.background-plate.skeleton-is-component-property",
+    "id": "skeleton-is-component-property",
+    "group": "recipe-review",
+    "route": "Рецепт загрузки и семантическая проверка",
+    "action": "Штатный Skeleton=True оставить разрешённым и уже проверенным. Ручные placeholders оценивать по намерению сценария; сложное исключение подтверждать правилом паттерна, а не видом прямоугольников.",
+    "tests": [
+      "Штатный Skeleton=True → разрешён",
+      "Ручной простой skeleton вместо доступного API → review/нарушение при доказанном намерении",
+      "Сложная композиция с явным pattern evidence → разрешена по этому evidence",
+      "Намерение/исключение неизвестны → ручная проверка"
+    ],
+    "note": "Маршрут рецепта предлагается; исходная обязательная норма и source-связь сохраняются до явного решения владельца.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 11,
+    "sourceRuleId": "component:web-corp.background-plate.public-roots-only",
+    "id": "public-roots-only",
+    "group": "editor-reading",
+    "route": "Admission standalone частей",
+    "action": "До исполнения контракта различать публичный root и служебный Style по canonical identity и owner chain. Для отдельно размещённого Style должен быть понятный результат, а не отсутствие подходящего пакета.",
+    "tests": [
+      "Публичный BackgroundPlate/Slot → PASS",
+      "Style Level1/Level2 как standalone, включая обёртку-frame → нарушение",
+      "Тот же Style внутри публичного root → разрешён",
+      "Неизвестная identity/ownership → UNKNOWN"
+    ],
+    "reuse": "Generic public-root уже есть в прежнем Predicate; общий admission gap уже записан в парных backlog Editor/V4.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 12,
+    "sourceRuleId": "component:web-corp.background-plate.platform-version-must-match",
+    "id": "platform-version-must-match",
+    "group": "composition-context",
+    "route": "Независимый expected platform",
+    "action": "Сравнивать опубликованную platform компонента с явно выбранным каналом экрана/задачи. Context platform, автоматически выведенный из самого выбранного компонента, не является независимым ожиданием.",
+    "tests": [
+      "D + expected desktop / M + expected mobile-web → PASS",
+      "D/M не соответствует независимо заданному каналу → нарушение",
+      "Ожидаемый канал отсутствует → UNKNOWN"
+    ],
+    "reuse": "Generic platform-match; нужна provenance ожидаемого канала в новом reader.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 13,
+    "sourceRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
+    "id": "promo-slot-radius-collection",
+    "group": "composition-context",
+    "route": "Promo context и identity radius collection",
+    "action": "В доказанном promo-сценарии проверять published collection key [Promo] BackgroundPlate Radius у radius bindings. Числовое равенство радиуса и обычная collection не заменяют правильную Promo collection.",
+    "tests": [
+      "Promo + требуемая collection → PASS",
+      "Promo + обычная collection с тем же числом / raw radius → нарушение",
+      "Обычный доказанный non-promo контекст → N/A этой нормы",
+      "Неизвестен promo context или identity collection → UNKNOWN"
+    ],
+    "reuse": "В текущем capture уже есть hostVariableUsageV1 с collectionKey; требуется проверить связь именно radius binding, scope и доверенную collection. Это не текущий исполняемый constraint.",
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  },
+  {
+    "index": 14,
+    "sourceRuleId": "component:web-corp.background-plate.adaptive-remove-inner-32-padding",
+    "id": "adaptive-remove-inner-32-padding",
+    "group": "recipe-review",
+    "route": "Рекомендация адаптивного рецепта",
+    "action": "Сохранить warning и условие сжатия контента после desktop-композиции. Не превращать рекомендацию в глобальный запрет padding=32 и не назначать её всем mobile экземплярам.",
+    "tests": [
+      "32 px без доказанного сжатия → не ошибка по одному числу",
+      "Унаследованные 32 px с доказанным сжатием → рекомендация",
+      "Контекст адаптива неизвестен → ручная оценка"
+    ],
+    "status": "PROPOSED_ROUTE_NOT_APPLIED"
+  }
+]

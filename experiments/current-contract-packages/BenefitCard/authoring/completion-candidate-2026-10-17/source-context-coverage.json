@@ -1,0 +1,1476 @@
+{
+  "baseSourceCoverage": {
+    "revision": 7,
+    "manualHash": "d705795a7889fcd939aa013204f51bd59bf0567ff6ee7d753df47fc44ba72eba",
+    "compiledHash": "3db2d3d834074d986109aac7f2b3dd505ba916e4aa8244f9fe5d55e3825eb3b8",
+    "status": "Draft",
+    "entries": [
+      {
+        "sourceRuleId": "component:web.benefit-card.title-required",
+        "norm": "Title обязателен и должен быть видимым.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "quantity",
+            "targetRoles": [
+              "title"
+            ],
+            "min": 1,
+            "visibleOnly": true
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.title-required.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.graphic-required",
+        "norm": "Graphic обязателен и должен быть видимым.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "quantity",
+            "targetRoles": [
+              "graphic"
+            ],
+            "min": 1,
+            "visibleOnly": true
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.graphic-required.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-content-is-closed",
+        "norm": "Запрещён instance swap любых элементов BenefitCard, включая Graphic. Единственное исключение — Bottom; его содержимое дополнительно проверяется по контракту Link.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "layoutConstraint",
+            "fact": "nativeTargetPropertiesV1.swapCountExcept_t_583854c91080d2e391656acf9f4c1d99e75f025b827bc45a75d174c92a7b4d57",
+            "min": 0,
+            "max": 0
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-content-is-closed.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-bottom-content-link-only",
+        "norm": "В готовом макете BottomContent допускает только Presets=Link. Presets=SwapMe является служебным placeholder.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "context": {
+            "semanticApi.BottomEnabled": true
+          }
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyDomain",
+            "fact": "nativeTargetPropertiesV1.t_583854c91080d2e391656acf9f4c1d99e75f025b827bc45a75d174c92a7b4d57.properties.Presets",
+            "values": [
+              "Link"
+            ]
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-bottom-content-link-only.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-image-view-segment-only",
+        "norm": "У ImageView разрешено менять только Segment. Size=80, Crop=Center; Grid и остальные настройки сохраняются по эталону. Instance swap ImageView запрещён.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "context": {
+            "semanticApi.GraphicPreset": "Image"
+          }
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyDomain",
+            "fact": "nativeTargetPropertiesV1.t_3b8aea1d2c1531601170b243b4b02c380bee095acc30b62ea565ab34011e3512.properties.Size",
+            "values": [
+              "80"
+            ]
+          },
+          {
+            "type": "propertyDomain",
+            "fact": "nativeTargetPropertiesV1.t_3b8aea1d2c1531601170b243b4b02c380bee095acc30b62ea565ab34011e3512.properties.Crop",
+            "values": [
+              "Center"
+            ]
+          },
+          {
+            "type": "propertyDomain",
+            "fact": "nativeTargetPropertiesV1.t_3b8aea1d2c1531601170b243b4b02c380bee095acc30b62ea565ab34011e3512.properties.Grid#3978:54",
+            "values": [
+              true
+            ]
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-image-view-segment-only.1.1",
+          "component:web.benefit-card-image-view-segment-only.1.2",
+          "component:web.benefit-card-image-view-segment-only.1.3"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-title-content-limit",
+        "norm": "Title должен содержать не более 60 символов и занимать не более двух строк.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.title",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "layoutConstraint",
+            "fact": "textContentV1.characterCount",
+            "min": 0,
+            "max": 60
+          },
+          {
+            "type": "layoutConstraint",
+            "fact": "textContentV1.lineCount",
+            "min": 0,
+            "max": 2
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-title-content-limit.1.1",
+          "component:web.benefit-card-title-content-limit.1.2"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-subtitle-content-limit",
+        "norm": "Subtitle должен содержать не более 120 символов и занимать не более трёх строк.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.subtitle",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "layoutConstraint",
+            "fact": "textContentV1.characterCount",
+            "min": 0,
+            "max": 120
+          },
+          {
+            "type": "layoutConstraint",
+            "fact": "textContentV1.lineCount",
+            "min": 0,
+            "max": 3
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-subtitle-content-limit.1.1",
+          "component:web.benefit-card-subtitle-content-limit.1.2"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-platform-version-must-match.desktop",
+        "norm": "Используй [D] BenefitCard на desktop при ширине 768 px и больше, а [M] BenefitCard — на mobile-web при ширине меньше 768 px.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyDomain",
+            "fact": "expectedInput.ViewportClass",
+            "values": [
+              "desktop"
+            ]
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-platform-version-must-match.desktop.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-platform-version-must-match.mobile-web",
+        "norm": "Используй [D] BenefitCard на desktop при ширине 768 px и больше, а [M] BenefitCard — на mobile-web при ширине меньше 768 px.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyDomain",
+            "fact": "expectedInput.ViewportClass",
+            "values": [
+              "mobile-web"
+            ]
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-platform-version-must-match.mobile-web.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.compact-uses-secondary-title.compact-true",
+        "norm": "При Compact=True вложенный ContentWrapper должен использовать Title=Secondary. При Compact=False разрешены Title=Primary и Title=Secondary.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": {
+            "Compact": [
+              "True"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyDomain",
+            "fact": "nativeTargetPropertiesV1.t_1a4b27828f7d08960447c8e486bd8862a72f2b2165fa703934bfdb30c38a6445.properties.Title",
+            "values": [
+              "Secondary"
+            ]
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.compact-uses-secondary-title.compact-true.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.compact-uses-secondary-title.compact-false",
+        "norm": "При Compact=True вложенный ContentWrapper должен использовать Title=Secondary. При Compact=False разрешены Title=Primary и Title=Secondary.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": {
+            "Compact": [
+              "False"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyDomain",
+            "fact": "nativeTargetPropertiesV1.t_1a4b27828f7d08960447c8e486bd8862a72f2b2165fa703934bfdb30c38a6445.properties.Title",
+            "values": [
+              "Primary",
+              "Secondary"
+            ]
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.compact-uses-secondary-title.compact-false.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.vertical-resizing-policy",
+        "norm": "Одиночная BenefitCard использует Hug по высоте. Правила Fill, Stopper и выравнивания карточек в группе относятся к рецепту сборки группы.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "context": {
+            "expectedInput.CardPlacement": "single"
+          }
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "layoutConstraint",
+            "fact": "layout.sizingVertical",
+            "value": "HUG"
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.vertical-resizing-policy.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.text-alignment-protected",
+        "norm": "Не меняй вручную горизонтальное выравнивание текста внутри BenefitCard. Текстовые слои должны использовать штатное выравнивание LEFT.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self-and-descendants",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "layoutConstraint",
+            "fact": "text.textAlignHorizontal",
+            "value": "LEFT"
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.text-alignment-protected.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.background-plate-style-overrides",
+        "norm": "У BackgroundPlate разрешено менять только Type. Остальные настройки и допустимые значения Type регулируются отдельным контрактом BackgroundPlate. Parent BenefitCard не даёт разрешения на ручное изменение заливки или обводки.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.surface",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": {
+            "Background": [
+              "True"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "conditionSubject": "component-root"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyForbidden",
+            "fact": "component.properties.BackgroundColor"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "component.properties.Skeleton"
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.background-plate-style-overrides.1.1",
+          "component:web.benefit-card.background-plate-style-overrides.1.2"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.background-plate-colors-use-tokens",
+        "norm": "Цвет заливки Colored и цвет обводки Border должны быть заданы библиотечными цветовыми токенами. Сейчас палитра не ограничена; сегментные ограничения ММБ, СБ и КИБ будут добавлены отдельным правилом позднее.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.surface",
+        "targetScope": "self-and-descendants",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": {
+            "Background": [
+              "True"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "conditionSubject": "component-root"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "tokenBinding",
+            "fact": "paintBindingsV1.fill",
+            "bindingRequired": true
+          },
+          {
+            "type": "tokenBinding",
+            "fact": "paintBindingsV1.stroke",
+            "bindingRequired": true
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.background-plate-colors-use-tokens.1.1",
+          "component:web.benefit-card.background-plate-colors-use-tokens.1.2"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.visuals-follow-effective-baseline",
+        "norm": "Запрещены ручные изменения внутренних отступов, интервалов, скруглений, заливок, обводок, типографики, opacity и эффектов BenefitCard относительно выбранного эталона. Type BackgroundPlate разрешён; настройка подложки далее регулируется её контрактом. Дочерние публичные настройки применяются по соответствующим контрактам.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self-and-descendants",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyForbidden",
+            "fact": "layout.padding.top"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "layout.padding.right"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "layout.padding.bottom"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "layout.padding.left"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "layout.itemSpacing"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "appearance.radius"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "appearance.fill"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "appearance.stroke"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "appearance.strokeWeight"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "appearance.opacity"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "appearance.effects"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "text.fontSize"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "text.fontName"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "text.lineHeight"
+          },
+          {
+            "type": "propertyForbidden",
+            "fact": "text.letterSpacing"
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.1",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.10",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.11",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.12",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.13",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.14",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.15",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.2",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.3",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.4",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.5",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.6",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.7",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.8",
+          "component:web.benefit-card.visuals-follow-effective-baseline.1.9"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-bottom-link-text-only",
+        "norm": "У BottomContent.Link разрешено менять только текст. Остальные свойства Link должны соответствовать effective baseline.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "context": {
+            "semanticApi.BottomEnabled": true
+          },
+          "activeDependency": "link"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyDomain",
+            "fact": "editorDependencyUsageV1.bottom-link.nonTextChanged",
+            "values": [
+              false
+            ]
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-bottom-link-text-only.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-icon-view-public-settings-allowed",
+        "norm": "При Graphic.Presets=IconView разрешено использовать все публичные настройки компонента IconView по его контракту.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "context": {
+            "semanticApi.GraphicPreset": "IconView"
+          }
+        },
+        "controlPaths": [],
+        "constraints": [],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "Принятый контракт IconView и точный dependency pin."
+          ]
+        },
+        "compiledRuleIds": [],
+        "deferred": [
+          {
+            "id": "component:web.benefit-card-icon-view-public-settings-allowed",
+            "sourceRuleId": "component:web.benefit-card-icon-view-public-settings-allowed",
+            "reason": "Missing runtime facts: Принятый контракт IconView и точный dependency pin.."
+          }
+        ]
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-link-content-limit",
+        "norm": "Текст BottomContent.Link должен содержать не более 32 символов.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "context": {
+            "semanticApi.BottomEnabled": true
+          },
+          "activeDependency": "link"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "layoutConstraint",
+            "fact": "editorDependencyUsageV1.bottom-link.characterCount",
+            "min": 0,
+            "max": 32
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-link-content-limit.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card-link-line-limit",
+        "norm": "Текст BottomContent.Link должен занимать не более одной строки.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "context": {
+            "semanticApi.BottomEnabled": true
+          },
+          "activeDependency": "link"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "layoutConstraint",
+            "fact": "editorDependencyUsageV1.bottom-link.lineCount",
+            "min": 0,
+            "max": 1
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card-link-line-limit.1.1"
+        ],
+        "deferred": []
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.public-roots-only",
+        "norm": "Используй только публичные корни [D] BenefitCard и [M] BenefitCard. BottomContent, ContentWrapper и Graphic являются служебными частями и не используются отдельно.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.root",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed"
+        },
+        "controlPaths": [],
+        "constraints": [],
+        "execution": {
+          "route": "context-only",
+          "missingFacts": [
+            "Runtime admission gate для public roots и отдельная проверка standalone служебных компонентов."
+          ]
+        },
+        "compiledRuleIds": [],
+        "deferred": [
+          {
+            "id": "component:web.benefit-card.public-roots-only",
+            "sourceRuleId": "component:web.benefit-card.public-roots-only",
+            "reason": "Missing runtime facts: Runtime admission gate для public roots и отдельная проверка standalone служебных компонентов.."
+          }
+        ]
+      },
+      {
+        "sourceRuleId": "component:web.benefit-card.background-plate-style-overrides.position",
+        "norm": "У BackgroundPlate разрешено менять только Type. Остальные настройки и допустимые значения Type регулируются отдельным контрактом BackgroundPlate. Parent BenefitCard не даёт разрешения на ручное изменение заливки или обводки.",
+        "sourceRefs": [
+          "source.rules",
+          "source.hub"
+        ],
+        "targetId": "target.surface-owner",
+        "targetScope": "self",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web.benefit-card"
+        },
+        "applicability": {
+          "variants": {
+            "Background": [
+              "True"
+            ]
+          },
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web"
+          ],
+          "scopeStatus": "confirmed",
+          "conditionSubject": "component-root"
+        },
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyForbidden",
+            "fact": "component.properties.Position"
+          }
+        ],
+        "execution": {
+          "route": "auto"
+        },
+        "compiledRuleIds": [
+          "component:web.benefit-card.background-plate-style-overrides.position.1.1"
+        ],
+        "deferred": []
+      }
+    ],
+    "contextArtifacts": [
+      "context/recipe-rules.json",
+      "context/guidance.json",
+      "context/dependency-requirements.json"
+    ],
+    "nativeLive": "NOT_RUN_USER_ONLY",
+    "childAuthority": "Draft preserved",
+    "v4Integration": "HELD_UNTIL_CONTRACT_ACCEPTANCE"
+  },
+  "unchangedContextArtifacts": {
+    "context/recipe-rules.json": {
+      "schemaVersion": "apollo.component-recipe-context.v1",
+      "componentId": "web.benefit-card",
+      "status": "draft",
+      "date": "2026-10-09",
+      "rules": [
+        {
+          "sourceRule": {
+            "id": "component:web.benefit-card-card-and-link-actions-match",
+            "targetId": "target.root",
+            "targetScope": "self",
+            "capability": "interaction",
+            "permission": "forbidden",
+            "controlPaths": [],
+            "constraints": [],
+            "applicability": {
+              "variants": "all",
+              "modes": "all",
+              "platforms": [
+                "desktop",
+                "mobile-web"
+              ],
+              "scopeStatus": "needs-confirmation"
+            },
+            "severity": "error",
+            "rationale": "Если кликабельны и вся BenefitCard, и BottomContent.Link, они должны вести в один сценарий и выполнять одно действие.",
+            "message": "Если кликабельны и вся BenefitCard, и BottomContent.Link, они должны вести в один сценарий и выполнять одно действие.",
+            "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+            "status": "draft",
+            "owner": "design-system-authors",
+            "ownership": {
+              "kind": "component",
+              "ownerId": "web.benefit-card"
+            },
+            "sourceRefs": [
+              "source.rules",
+              "source.hub"
+            ],
+            "execution": {
+              "route": "context-only",
+              "missingFacts": [
+                "Подтверждённый контекст сценария и ручная/политическая проверка: interaction"
+              ]
+            }
+          },
+          "ownerLayer": "interactive-recipe"
+        },
+        {
+          "sourceRule": {
+            "id": "component:web.benefit-card-card-and-link-may-be-clickable",
+            "targetId": "target.root",
+            "targetScope": "self",
+            "capability": "interaction",
+            "permission": "forbidden",
+            "controlPaths": [],
+            "constraints": [],
+            "applicability": {
+              "variants": "all",
+              "modes": "all",
+              "platforms": [
+                "desktop",
+                "mobile-web"
+              ],
+              "scopeStatus": "needs-confirmation"
+            },
+            "severity": "info",
+            "rationale": "Вся BenefitCard может быть кликабельной. Одновременно разрешено использовать отдельную ссылку через BottomContent=Link, но карточка и ссылка должны выполнять одно действие.",
+            "message": "Вся BenefitCard может быть кликабельной. Одновременно разрешено использовать отдельную ссылку через BottomContent=Link, но карточка и ссылка должны выполнять одно действие.",
+            "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+            "status": "draft",
+            "owner": "design-system-authors",
+            "ownership": {
+              "kind": "component",
+              "ownerId": "web.benefit-card"
+            },
+            "sourceRefs": [
+              "source.rules",
+              "source.hub"
+            ],
+            "execution": {
+              "route": "context-only",
+              "missingFacts": [
+                "Подтверждённый контекст сценария и ручная/политическая проверка: interaction"
+              ]
+            }
+          },
+          "ownerLayer": "interactive-recipe"
+        },
+        {
+          "sourceRule": {
+            "id": "component:web.benefit-card-skeleton-covers-entire-card",
+            "targetId": "target.root",
+            "targetScope": "self",
+            "capability": "variant.Skeleton",
+            "permission": "forbidden",
+            "controlPaths": [],
+            "constraints": [],
+            "applicability": {
+              "variants": "all",
+              "modes": "all",
+              "platforms": [
+                "desktop",
+                "mobile-web"
+              ],
+              "scopeStatus": "needs-confirmation"
+            },
+            "severity": "error",
+            "rationale": "Skeleton доступен только при Background=True. Состояние загрузки включается через Skeleton вложенного [Promo] BackgroundPlate и охватывает всю BenefitCard: контент скрыт, взаимодействие заблокировано. При Background=False Skeleton не используй.",
+            "message": "Skeleton доступен только при Background=True. Состояние загрузки включается через Skeleton вложенного [Promo] BackgroundPlate и охватывает всю BenefitCard: контент скрыт, взаимодействие заблокировано. При Background=False Skeleton не используй.",
+            "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+            "status": "draft",
+            "owner": "design-system-authors",
+            "ownership": {
+              "kind": "component",
+              "ownerId": "web.benefit-card"
+            },
+            "sourceRefs": [
+              "source.rules",
+              "source.hub"
+            ],
+            "execution": {
+              "route": "context-only",
+              "missingFacts": [
+                "Типизированные факты состояния, доступности взаимодействия и идентичности действий."
+              ]
+            }
+          },
+          "ownerLayer": "production-recipe"
+        },
+        {
+          "sourceRule": {
+            "id": "component:web.benefit-card.compact-required-at-1024",
+            "targetId": "target.root",
+            "targetScope": "self",
+            "capability": "variant.Compact",
+            "permission": "forbidden",
+            "controlPaths": [],
+            "constraints": [],
+            "applicability": {
+              "variants": "all",
+              "modes": "all",
+              "platforms": [
+                "desktop",
+                "mobile-web"
+              ],
+              "scopeStatus": "needs-confirmation"
+            },
+            "severity": "error",
+            "rationale": "Для [D] BenefitCard при ширине экрана 1024 px и меньше используй Compact=True. Для [M] BenefitCard Compact не обязателен. Compact также применяется, когда контент не помещается в стандартный формат.",
+            "message": "Для [D] BenefitCard при ширине экрана 1024 px и меньше используй Compact=True. Для [M] BenefitCard Compact не обязателен. Compact также применяется, когда контент не помещается в стандартный формат.",
+            "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+            "status": "draft",
+            "owner": "design-system-authors",
+            "ownership": {
+              "kind": "component",
+              "ownerId": "web.benefit-card"
+            },
+            "sourceRefs": [
+              "source.rules",
+              "source.hub"
+            ],
+            "execution": {
+              "route": "context-only",
+              "missingFacts": [
+                "Полный типизированный contour нормы и актуальный native capture: variant.Compact"
+              ]
+            }
+          },
+          "ownerLayer": "production-recipe"
+        },
+        {
+          "sourceRule": {
+            "id": "component:web.benefit-card-use-benefits-preset-for-groups",
+            "targetId": "target.root",
+            "targetScope": "self",
+            "capability": "composition",
+            "permission": "forbidden",
+            "controlPaths": [],
+            "constraints": [],
+            "applicability": {
+              "variants": "all",
+              "modes": "all",
+              "platforms": [
+                "desktop",
+                "mobile-web"
+              ],
+              "scopeStatus": "needs-confirmation"
+            },
+            "severity": "warning",
+            "rationale": "Для группы BenefitCard предпочтительно используй пресет 🔒 Benefits. Ручная группировка допустима, но требует проверки согласованности размеров и поведения карточек.",
+            "message": "Для группы BenefitCard предпочтительно используй пресет 🔒 Benefits. Ручная группировка допустима, но требует проверки согласованности размеров и поведения карточек.",
+            "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+            "status": "draft",
+            "owner": "design-system-authors",
+            "ownership": {
+              "kind": "component",
+              "ownerId": "web.benefit-card"
+            },
+            "sourceRefs": [
+              "source.rules",
+              "source.hub"
+            ],
+            "execution": {
+              "route": "context-only",
+              "missingFacts": [
+                "Подтверждённый контекст сценария и ручная/политическая проверка: composition"
+              ]
+            }
+          },
+          "ownerLayer": "landing-pattern"
+        }
+      ],
+      "groupSizing": {
+        "sourceRule": {
+          "id": "component:web.benefit-card.vertical-resizing-policy",
+          "targetId": "target.root",
+          "targetScope": "self",
+          "capability": "layout.sizing.vertical",
+          "permission": "forbidden",
+          "controlPaths": [],
+          "constraints": [],
+          "applicability": {
+            "variants": "all",
+            "modes": "all",
+            "platforms": [
+              "desktop",
+              "mobile-web"
+            ],
+            "scopeStatus": "needs-confirmation"
+          },
+          "severity": "error",
+          "rationale": "Для одиночной BenefitCard используй Vertical resizing=Hug. В группе равных по высоте карточек разрешён Fill. Stopper сохраняй в Fill; Fixed допустим, когда контент должен оставаться визуально цельным.",
+          "message": "Для одиночной BenefitCard используй Vertical resizing=Hug. В группе равных по высоте карточек разрешён Fill. Stopper сохраняй в Fill; Fixed допустим, когда контент должен оставаться визуально цельным.",
+          "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+          "status": "draft",
+          "owner": "design-system-authors",
+          "ownership": {
+            "kind": "component",
+            "ownerId": "web.benefit-card"
+          },
+          "sourceRefs": [
+            "source.rules",
+            "source.hub"
+          ],
+          "execution": {
+            "route": "context-only",
+            "missingFacts": [
+              "Полный текущий capture baseline и подтверждённая область владения; типизированная проверка всей нормы с её исключениями."
+            ]
+          }
+        },
+        "decision": "Одиночная карточка — Hug по высоте; сборка группы, Fill/Stopper и соседние высоты — рецепт/паттерн."
+      }
+    },
+    "context/guidance.json": {
+      "schemaVersion": "apollo.component-guidance.v1",
+      "componentId": "web.benefit-card",
+      "date": "2026-10-09",
+      "recommendations": [
+        {
+          "sourceRule": {
+            "id": "component:web.benefit-card-secondary-surface-not-recommended",
+            "targetId": "target.root",
+            "targetScope": "self",
+            "capability": "variant.Type",
+            "permission": "forbidden",
+            "controlPaths": [],
+            "constraints": [],
+            "applicability": {
+              "variants": "all",
+              "modes": "all",
+              "platforms": [
+                "desktop",
+                "mobile-web"
+              ],
+              "scopeStatus": "needs-confirmation"
+            },
+            "severity": "info",
+            "rationale": "Все штатные Type вложенного [Promo] BackgroundPlate разрешены, но Type=Secondary не рекомендуется для BenefitCard.",
+            "message": "Все штатные Type вложенного [Promo] BackgroundPlate разрешены, но Type=Secondary не рекомендуется для BenefitCard.",
+            "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+            "status": "draft",
+            "owner": "design-system-authors",
+            "ownership": {
+              "kind": "component",
+              "ownerId": "web.benefit-card"
+            },
+            "sourceRefs": [
+              "source.rules",
+              "source.hub"
+            ],
+            "execution": {
+              "route": "context-only",
+              "missingFacts": [
+                "Подтверждённый контекст сценария и ручная/политическая проверка: variant.Type"
+              ]
+            }
+          },
+          "severity": "recommendation",
+          "enforced": false
+        }
+      ],
+      "parameterDescriptions": [
+        {
+          "sourceRule": {
+            "id": "component:web.benefit-card.background-controls-surface",
+            "targetId": "target.root",
+            "targetScope": "self",
+            "capability": "variant.Background",
+            "permission": "forbidden",
+            "controlPaths": [],
+            "constraints": [],
+            "applicability": {
+              "variants": "all",
+              "modes": "all",
+              "platforms": [
+                "desktop",
+                "mobile-web"
+              ],
+              "scopeStatus": "needs-confirmation"
+            },
+            "severity": "info",
+            "rationale": "Background=True создаёт отдельную карточку со своей поверхностью. Background=False можно использовать для нескольких BenefitCard на общей подложке или без дополнительной поверхности.",
+            "message": "Background=True создаёт отдельную карточку со своей поверхностью. Background=False можно использовать для нескольких BenefitCard на общей подложке или без дополнительной поверхности.",
+            "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+            "status": "draft",
+            "owner": "design-system-authors",
+            "ownership": {
+              "kind": "component",
+              "ownerId": "web.benefit-card"
+            },
+            "sourceRefs": [
+              "source.rules",
+              "source.hub"
+            ],
+            "execution": {
+              "route": "context-only",
+              "missingFacts": [
+                "Подтверждённый контекст сценария и ручная/политическая проверка: variant.Background"
+              ]
+            }
+          },
+          "parameter": "Background",
+          "enforced": false
+        }
+      ]
+    },
+    "context/dependency-requirements.json": {
+      "schemaVersion": "apollo.component-dependency-requirements.v1",
+      "componentId": "web.benefit-card",
+      "status": "unresolved",
+      "requirements": [
+        {
+          "component": "Link",
+          "rules": [
+            "component:web.benefit-card-bottom-link-text-only",
+            "component:web.benefit-card-link-content-limit",
+            "component:web.benefit-card-link-line-limit"
+          ],
+          "status": "exact-draft-pin-prepared",
+          "componentId": "core.web.link",
+          "revision": 5,
+          "manualSourceHash": "64c8a686fd38e00bca17950dbd5b63a649463aed2c2187768b8ec0cab2df33ae",
+          "compiledHash": "f6a41a225009f9ef40b2453948af6f14f33fe91515ddd78560b9d0a02f1ec952",
+          "ready": false,
+          "parentUsageExecution": "editor-local-predicate",
+          "editorVersion": "0.2.104",
+          "v4Integration": "HELD_UNTIL_CONTRACT_ACCEPTANCE"
+        },
+        {
+          "component": "IconView",
+          "rules": [
+            "icon-view-public-settings-allowed"
+          ],
+          "status": "accepted-contract-required"
+        },
+        {
+          "component": "BackgroundPlate",
+          "rules": [
+            "background-plate-style-overrides",
+            "background-plate-colors-use-tokens"
+          ],
+          "status": "accepted-contract-required",
+          "parentEditable": [
+            "Type"
+          ]
+        },
+        {
+          "policy": "policy:web.icons",
+          "artifact": "context/icon-policy-reference.json",
+          "status": "cross-component-check-required"
+        },
+        {
+          "policy": "token-library-membership",
+          "status": "background-plate-catalog-required",
+          "detail": "Обязательность paint binding исполняется; принадлежность токена разрешённой библиотеке требует точного allowlist дочернего контракта."
+        }
+      ]
+    }
+  },
+  "candidateRouteChanges": [
+    {
+      "ruleId": "component:web.benefit-card.visuals-follow-effective-baseline",
+      "fields": [
+        "boundaryPolicy"
+      ],
+      "before": {
+        "boundaryPolicy": null
+      },
+      "after": {
+        "boundaryPolicy": "component-owned@1"
+      }
+    },
+    {
+      "ruleId": "component:web.benefit-card-icon-view-public-settings-allowed",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "draft"
+      },
+      "after": {
+        "status": "deprecated"
+      }
+    },
+    {
+      "ruleId": "component:web.benefit-card.public-roots-only",
+      "fields": [
+        "status"
+      ],
+      "before": {
+        "status": "draft"
+      },
+      "after": {
+        "status": "deprecated"
+      }
+    }
+  ],
+  "note": "No source norm removed. Public admission retained by explicit passport/import boundary; IconView intrinsic settings delegated. Context/recipe/global policies stay separate and unresolved where originally unresolved.",
+  "Ready": false
+}

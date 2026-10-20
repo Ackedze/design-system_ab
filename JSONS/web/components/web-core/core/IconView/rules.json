@@ -126,12 +126,12 @@
           "scope": "layer-property",
           "treatAsViolation": false
         },
-        "ruleText": "В IconView разрешено менять токен или цвет обводки Border, заливки Shape/BgColor и самой иконки Content/PaintMe. Эти paint overrides являются публичными настройками IconView и сами по себе не нарушают effective baseline. Компонент-хост может ограничить их только отдельным active contextual rule.",
+        "ruleText": "В IconView разрешено менять цвет Border, Shape/BgColor и Content/PaintMe только через библиотечные токены дизайн-системы. Произвольные RGB-значения, кастомные и локальные токены этим разрешением не допускаются. Дополнительные ограничения компонента-хоста задаются отдельной active contextual нормой.",
         "ruleKind": "design-rule",
         "authority": {
           "status": "active",
           "provenance": "design-system-author",
-          "revision": 1
+          "revision": 2
         }
       },
       {
@@ -328,6 +328,111 @@
           ]
         },
         "ruleText": "IconView предоставляет семантический слот Content, но допустимые замены определяет компонент-хост. Замена не становится ошибкой или разрешением без точного active host rule."
+      },
+      {
+        "ruleId": "component:web-core.icon-view.border-requires-shape",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.configuration",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-core.icon-view",
+          "layers": [
+            "IconView"
+          ]
+        },
+        "ruleText": "При Shape=false на корне IconView значение Border должно быть false. Shape=false и Border=true — ошибка.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-core.icon-view.indicator-excludes-top-addon",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.configuration",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-core.icon-view",
+          "layers": [
+            "IconView"
+          ]
+        },
+        "ruleText": "На корне IconView нельзя одновременно включать Indicator и TopAddon. При Indicator=true значение TopAddon должно быть false.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-core.icon-view.shape-false-disables-addons-and-indicator",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.configuration",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-core.icon-view",
+          "layers": [
+            "IconView"
+          ]
+        },
+        "ruleText": "При Shape=false на корне IconView значения TopAddon, BottomAddon и Indicator должны быть false.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-core.icon-view.text-library-style",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "text.style",
+        "checkType": "deterministic",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-core.icon-view",
+          "layers": [
+            "IconView"
+          ]
+        },
+        "ruleText": "При Text=true типографика выбирается через библиотечный Text Style из закреплённого каталога Web _ Typography. Разрешено менять библиотечный стиль; detach и стиль вне каталога запрещены.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
+      },
+      {
+        "ruleId": "component:web-core.icon-view.top-addon-indicator-replacement",
+        "severity": "error",
+        "source": "component-contract",
+        "appliesTo": "component.swap",
+        "checkType": "policy",
+        "matchKind": "exact_component_rule",
+        "target": {
+          "component": "web-core.icon-view",
+          "layers": [
+            "TopAddon"
+          ]
+        },
+        "ruleText": "Для числового индикатора количества разрешён swap вложенного IconView в TopAddon на Indicator Size=24. Разрешение не распространяется на другие компоненты или размеры. Сборка и настройка числового значения описываются рецептом.",
+        "ruleKind": "design-rule",
+        "authority": {
+          "status": "active",
+          "provenance": "design-system-author",
+          "revision": 1
+        }
       }
     ],
     "executionPolicy": {

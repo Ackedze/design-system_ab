@@ -1,0 +1,140 @@
+{
+  "status": "NOT_RUN_USER_ONLY; do not start until prerequisite gates close",
+  "format": "Компонент | Параметры | Ожидаем",
+  "cases": [
+    {
+      "case": "BC8-LINK-desktop",
+      "componentId": "13608:100973",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=13608-100973",
+      "parameters": {
+        "platform": "desktop",
+        "CardPlacement": "single",
+        "Bottom": true,
+        "Bottom.Presets": "Link",
+        "Link.Label": "Подробнее"
+      },
+      "expected": {
+        "mustPass": [
+          "component:web.benefit-card-bottom-link-text-only.1.1",
+          "component:web.benefit-card-link-content-limit.1.1",
+          "component:web.benefit-card-link-line-limit.1.1"
+        ],
+        "mustNotHave": "Link dependency reference/usage UNKNOWN"
+      },
+      "prerequisite": "Published D/M BottomContent update and Workshop update; independently accepted candidate"
+    },
+    {
+      "case": "BC8-LINK-USAGE-desktop",
+      "componentId": "13608:100973",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=13608-100973",
+      "parameters": {
+        "sameAs": "BC8-LINK-desktop",
+        "Link.RightAddon": "toggle relative to pristine BottomContent.Link"
+      },
+      "expected": {
+        "violation": "component:web.benefit-card-bottom-link-text-only.1.1",
+        "scope": "Intrinsic Link configuration may be valid, parent permits text only."
+      },
+      "restore": "Restore RightAddon after evidence; no standalone RESET run required if the next valid scenario proves the binding."
+    },
+    {
+      "case": "BC8-LINK-mobile-web",
+      "componentId": "13608:101030",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=13608-101030",
+      "parameters": {
+        "platform": "mobile-web",
+        "CardPlacement": "single",
+        "Bottom": true,
+        "Bottom.Presets": "Link",
+        "Link.Label": "Подробнее"
+      },
+      "expected": {
+        "mustPass": [
+          "component:web.benefit-card-bottom-link-text-only.1.1",
+          "component:web.benefit-card-link-content-limit.1.1",
+          "component:web.benefit-card-link-line-limit.1.1"
+        ],
+        "mustNotHave": "Link dependency reference/usage UNKNOWN"
+      },
+      "prerequisite": "Published D/M BottomContent update and Workshop update; independently accepted candidate"
+    },
+    {
+      "case": "BC8-LINK-USAGE-mobile-web",
+      "componentId": "13608:101030",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=13608-101030",
+      "parameters": {
+        "sameAs": "BC8-LINK-mobile-web",
+        "Link.RightAddon": "toggle relative to pristine BottomContent.Link"
+      },
+      "expected": {
+        "violation": "component:web.benefit-card-bottom-link-text-only.1.1",
+        "scope": "Intrinsic Link configuration may be valid, parent permits text only."
+      },
+      "restore": "Restore RightAddon after evidence; no standalone RESET run required if the next valid scenario proves the binding."
+    },
+    {
+      "case": "BC8-ICON-DELEGATION-desktop",
+      "componentId": "13608:100973",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=13608-100973",
+      "parameters": {
+        "Graphic.Presets": "IconView",
+        "IconView.Shape": true,
+        "IconView.BgColor": "toggle using public Boolean; keep library color tokens"
+      },
+      "expected": {
+        "mustNotHave": "Parent visuals-follow-effective-baseline violation inside valid IconView dependency",
+        "dependency": "icon-view/graphic-icon-view active; exact child capture required"
+      },
+      "prerequisite": "Accepted r8 candidate and valid independent Graphic IconView branch capture"
+    },
+    {
+      "case": "BC8-BG-DELEGATION-desktop",
+      "componentId": "13608:100973",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=13608-100973",
+      "parameters": {
+        "Background": "True (VARIANT string)",
+        "BackgroundPlate.Type": "Secondary"
+      },
+      "expected": {
+        "mustNotHave": "Parent appearance violation for legal Type change",
+        "dependency": "BackgroundPlate r6 active with exact platform binding"
+      },
+      "status": "HELD: combined D/M binding schema must be corrected first"
+    },
+    {
+      "case": "BC8-ICON-DELEGATION-mobile-web",
+      "componentId": "13608:101030",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=13608-101030",
+      "parameters": {
+        "Graphic.Presets": "IconView",
+        "IconView.Shape": true,
+        "IconView.BgColor": "toggle using public Boolean; keep library color tokens"
+      },
+      "expected": {
+        "mustNotHave": "Parent visuals-follow-effective-baseline violation inside valid IconView dependency",
+        "dependency": "icon-view/graphic-icon-view active; exact child capture required"
+      },
+      "prerequisite": "Accepted r8 candidate and valid independent Graphic IconView branch capture"
+    },
+    {
+      "case": "BC8-BG-DELEGATION-mobile-web",
+      "componentId": "13608:101030",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=13608-101030",
+      "parameters": {
+        "Background": "True (VARIANT string)",
+        "BackgroundPlate.Type": "Secondary"
+      },
+      "expected": {
+        "mustNotHave": "Parent appearance violation for legal Type change",
+        "dependency": "BackgroundPlate r6 active with exact platform binding"
+      },
+      "status": "HELD: combined D/M binding schema must be corrected first"
+    }
+  ],
+  "newIntrinsicMechanismRetests": "Not requested. Reuse accepted Link/IconView/BackgroundPlate mechanism evidence with exact pins; these cases test only new parent dependency and usage bindings.",
+  "additionalConditionalNegative": {
+    "IconView": "Shape=false, Border=true => component:web-core.icon-view.border-requires-shape.1.1; only after valid active child capture.",
+    "BackgroundPlate": "Change root blendMode => component:web-corp.background-plate.blend-mode-is-fixed.root.1.1; only after valid platform binding and r6 native acceptance."
+  },
+  "Ready": false
+}

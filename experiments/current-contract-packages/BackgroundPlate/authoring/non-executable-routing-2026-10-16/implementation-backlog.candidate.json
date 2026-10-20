@@ -1,0 +1,134 @@
+{
+  "status": "REVIEWABLE_PRIVATE_PLAN_NO_SHARED_DISPATCH",
+  "date": "2026-10-16",
+  "newModelNativeGenerationCalls": 0,
+  "sharedWrites": [],
+  "tasks": [
+    {
+      "id": "BP-AUTHORING-SEVERITY-RESTORE",
+      "priority": "P0",
+      "proposedWriter": "Contract Creation",
+      "scope": "Новый private contract candidate; exact source severity, compile/roundtrip/export; корневой пакет и manifests только в согласованном shared окне.",
+      "basis": "PROCESS-NOTE.json; severity-restoration.patch.json",
+      "acceptance": [
+        "13 error норм восстановлены, adaptive warning сохранён",
+        "Выполнен core compile и fullfacts ZIP roundtrip на принятом immutable наборе",
+        "Ни одна норма, applicability, target или route не потеряны",
+        "Старые native receipts сохранены; source/hash correspondence явно оформлено"
+      ],
+      "status": "PATCH_PREPARED_NOT_APPLIED"
+    },
+    {
+      "id": "BP-EDITOR-EFFECT-TYPES",
+      "priority": "P1",
+      "proposedWriter": "DesignCheck / shared core writer",
+      "scope": "Generic effect type facts/typed check и необходимые Editor controls; паритет чтения Apollo v4.",
+      "basis": "routing-plan.json#manual-shadows-are-prohibited",
+      "acceptance": [
+        "DROP_SHADOW и INNER_SHADOW обнаруживаются на root/owned surface, raw и effect-style",
+        "Blur не запрещён этим правилом",
+        "Неполные данные остаются UNKNOWN",
+        "Проверены отсутствие смысловых дублей и границы Slot-контента"
+      ],
+      "dependency": "Согласовать visibility скрытых эффектов; согласованный shared writer/source/build consumer window",
+      "status": "BACKLOG_CANDIDATE_NOT_DISPATCHED"
+    },
+    {
+      "id": "BP-EDITOR-BLEND-MODE",
+      "priority": "P1",
+      "proposedWriter": "DesignCheck / shared core writer",
+      "scope": "Actual + independent baseline blendMode в capture/reference и Editor property selector; паритет Apollo v4.",
+      "basis": "routing-plan.json#blend-mode-is-fixed",
+      "acceptance": [
+        "Root/surface negative и restoration дают точный RuleID",
+        "Принятые capture/reference pins обновлены, старые guards не ослаблены",
+        "Missing/stale baseline не даёт PASS",
+        "Прочие принятые эффекты/токены/геометрия не регрессируют"
+      ],
+      "dependency": "Согласованный shared writer/source/build consumer window",
+      "status": "BACKLOG_CANDIDATE_NOT_DISPATCHED"
+    },
+    {
+      "id": "COLOR-TOKEN-LIBRARY-MEMBERSHIP",
+      "priority": "P1",
+      "proposedWriter": "DesignCheck + authority owner",
+      "scope": "Дополнить уже существующий общий token-library allowlist gap; не плодить отдельный механизм BackgroundPlate.",
+      "existingBacklog": "projects/ComponentContractEditor/docs/BACKLOG.ru.md и projects/Apollo-v3/docs/ARCHITECTURE_BACKLOG.md: CC-COMPAT-NATIVE-CARD-FACTS-03 / full token-library allowlist",
+      "acceptance": [
+        "Принят канонический allowlist published color keys/type/collections",
+        "Чужой/локальный token с тем же именем и RGB отклоняется",
+        "Unresolved identity/catalog -> UNKNOWN",
+        "Проверены все активные paints/gradient stops; basic binding checks сохраняются"
+      ],
+      "status": "EXISTING_BACKLOG_REFINEMENT_CANDIDATE"
+    },
+    {
+      "id": "PUBLIC-ROOT-ADMISSION",
+      "priority": "P1",
+      "proposedWriter": "DesignCheck + mapping/admission writer",
+      "scope": "Дополнить уже существующий internal standalone admission gap, reuse generic public-root.",
+      "existingBacklog": "projects/ComponentContractEditor/docs/BACKLOG.ru.md и projects/Apollo-v3/docs/ARCHITECTURE_BACKLOG.md: CC-COMPAT-NATIVE-CARD-FACTS-03 / admission gate internal standalone parts",
+      "acceptance": [
+        "Служебная часть распознана по identity до выбора пакета",
+        "Standalone Style под frame-обёрткой всё равно ошибка",
+        "Внутренняя Style в доказанном public root допустима",
+        "Owner/identity неизвестны -> UNKNOWN"
+      ],
+      "status": "EXISTING_BACKLOG_REFINEMENT_CANDIDATE"
+    },
+    {
+      "id": "BACKGROUNDPLATE-COMPOSITION-CONTEXT",
+      "priority": "P2",
+      "proposedWriter": "Contract/context reader writer",
+      "scope": "7 норм композиции, независимый scope/канал, полные Slot/host/group proofs. Отдельный аудит композиции; не раздувать selected-instance capture до произвольной страницы.",
+      "basis": "routing-plan.json#composition-context",
+      "acceptance": [
+        "Каждая из 7 норм имеет явный producer/required inputs/scope",
+        "Reuse generic underlay/public/platform/context/group operators после semantic parity",
+        "Нет layer-name/RGB/platform-self-inference shortcuts",
+        "Неполный граф/канал/collection оставляет UNKNOWN",
+        "Новые контекстные fixtures имеют проверенные ID/параметры/полную среду"
+      ],
+      "status": "CONTEXT_READER_PLAN_ONLY"
+    },
+    {
+      "id": "BACKGROUNDPLATE-CODE-MAPPING",
+      "priority": "P2",
+      "proposedWriter": "Frontend mapping role",
+      "scope": "Arui-Private code representation BackgroundPlate, затем проверка surface click handler для Border.",
+      "acceptance": [
+        "Доказаны public import/props/render correspondence",
+        "Surface interaction отделена от вложенных Link/Button",
+        "Border surface click запрещён по действующей норме",
+        "Нет push arui-private и нет изменения пилотного набора"
+      ],
+      "status": "DEPENDENT_CONTRACT_MAPPING_PLANNED_NOT_STARTED"
+    },
+    {
+      "id": "BACKGROUNDPLATE-RECIPE-ROUTING",
+      "priority": "P2",
+      "proposedWriter": "Norm owner + recipe author",
+      "scope": "Skeleton intent/complex loading и adaptive padding recommendation.",
+      "acceptance": [
+        "Исходные source RuleID и полные нормы сохранены",
+        "Маршрут рецепта применяется только после явного решения по владению",
+        "Skeleton API остаётся разрешённым",
+        "32px не становится универсальным запрещённым значением"
+      ],
+      "status": "PROPOSED_OWNER_SCOPE_DECISION_NOT_APPLIED"
+    },
+    {
+      "id": "BACKGROUNDPLATE-WORKING-PACKAGE-SYNC",
+      "priority": "P2",
+      "proposedWriter": "Contract Creation in General window",
+      "scope": "После принятия следующего candidate согласовать актуальный ZIP, history, manifest/draft-manifest и статусы. Сейчас корневой manifest всё ещё указывает r1, native-tested r2 сохранён private candidate.",
+      "acceptance": [
+        "Выбран один текущий working revision с exact manual/compiled/ZIP pins",
+        "Исторические seals не перепривязаны",
+        "Code mapping/состав неисполняемых правил/Reviewed/Ready gates подтверждены отдельно",
+        "BenefitCard dependency pin/closure обновляется только после принятия зависимого контракта"
+      ],
+      "status": "KNOWN_PUBLICATION_BOUNDARY_NOT_PERFORMED"
+    }
+  ]
+}

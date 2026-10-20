@@ -1,0 +1,25 @@
+[
+  {
+    "fact": "First read-only metadata return40386bytes exceeded Figma20480byte limit; no canvas edits requested or committed.",
+    "evidence": "native-discovery-attempt1.failure.json",
+    "cause": "All14sets and146variant metadata returned in one payload.",
+    "fix": "API chunks5/5/4; native-facts template returns NEEDS_SPLIT over19000 bytes, then smaller bounded read.",
+    "verification": "All14sets and146variants captured successfully; preserve oversized response and split receipts.",
+    "responsible": "Contract Creation",
+    "sharedProductCodeChanged": false
+  },
+  {
+    "fact": "Read helper failed on nullable main-component parent in3read-only capture batches.",
+    "evidence": [
+      "native-facts-04.json",
+      "native-facts-05.json",
+      "native-facts-08.json",
+      "native-facts.request.before-parent-guard.js"
+    ],
+    "cause": "Helper assumed every resolved main component has a non-null parent.",
+    "fix": "Guard parent access and explicitly mark unavailable parent; no fabricated set identity.",
+    "verification": "Affected public batches passed retries; internal batch split passed; all146variants captured,18unavailable-parent observations preserved.",
+    "responsible": "Contract Creation",
+    "sharedProductCodeChanged": false
+  }
+]

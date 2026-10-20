@@ -1,0 +1,47 @@
+{
+  "status": "VERIFIED_LOCAL_TEST_ORACLE_CORRECTION",
+  "firstFailure": {
+    "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r8-shape-off-2026-10-15/FAILURE-1792074260251.json",
+    "sha256": "74e05b0a663643b27511179a378eb4ef3aceae1659a4bacf436ece659b83fd70",
+    "bytes": 302
+  },
+  "originalScript": {
+    "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/IconView/authoring/candidates/r8-shape-off-2026-10-15/build.before-unknown-oracle.cjs",
+    "sha256": "b2671380b9e6f62438169b80d305042fcd94a96cd870cdc8949d023498330d3e",
+    "bytes": 8305
+  },
+  "actualCause": "Deleting native Indicator from synthetic root prevents independent root correspondence. All three selectors become UNKNOWN; previous expected single missing actual was incorrect.",
+  "evidence": {
+    "kind": "SYNTHETIC_MISSING_FACT_UNKNOWN",
+    "fact": "semanticApi.indicator",
+    "rootIdentity": {
+      "targetId": "target.root",
+      "semanticRole": "root",
+      "status": "unknown",
+      "reason": "independent-correspondence-unavailable"
+    },
+    "violations": [],
+    "unknown": [
+      {
+        "ruleId": "component:web-core.icon-view.shape-false-disables-addons-and-indicator.1.1",
+        "classification": "human-review",
+        "reason": "selector evidence is unknown"
+      },
+      {
+        "ruleId": "component:web-core.icon-view.shape-false-disables-addons-and-indicator.1.2",
+        "classification": "human-review",
+        "reason": "selector evidence is unknown"
+      },
+      {
+        "ruleId": "component:web-core.icon-view.shape-false-disables-addons-and-indicator.1.3",
+        "classification": "human-review",
+        "reason": "selector evidence is unknown"
+      }
+    ]
+  },
+  "correction": "Assert rootIdentity.status=unknown and reason=independent-correspondence-unavailable, all3 human-review traces=selector evidence is unknown, no violation/not-evaluable. Shape missing remains3; TopAddon and BottomAddon missing remain1.",
+  "coreOrNormChanged": false,
+  "regression": "All8 immutable snapshot replays and10 synthetic cases PASS.",
+  "responsible": "Contract Creation",
+  "journalSync": "General final handoff requested"
+}
