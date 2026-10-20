@@ -29,7 +29,7 @@ synthetic и retained-native replay; fresh installed r4 и independent review
 
 ## Начало работы
 
-Актуальный вход — ZIP из корня этой папки, указанный в [manifest.json](manifest.json). Проверь revision и SHA. README и прежние authoring-папки могут отставать от ZIP; при расхождении сначала установи актуальный источник. Для изменений используй `<Component>/authoring`, сохраняя согласованность manual, facts, compiled и ZIP по [AGENTS.md](AGENTS.md).
+Текущие manual и необходимые факты находятся в основных папках компонентов `design-system_ab/JSONS/web/components/...`; их точные пути, revision и SHA задаёт [индекс исходников](../../JSONS/indexes/component-contracts.index.json). ZIP из [manifest.json](manifest.json) — производный установочный пакет. Для изменений редактируй canonical manual и факты, затем пересобирай и согласуй ZIP/индексы по [AGENTS.md](AGENTS.md). Старые authoring-папки и compiled projection сохраняются как историческое происхождение. Закреплённая родителем прежняя версия хранится отдельно в `contract-versions/rN` и не подменяется текущей.
 
 Переиспользуй способ проверки и структуру шаблона. Домены, размеры, лимиты, component keys, привязки D/M и исключения получай из источников нового компонента. Например, наличие лимита текста у BenefitCard не вводит такой же лимит у другой карточки или у всех Link.
 

@@ -21,7 +21,8 @@
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
-- `<Component>/authoring` — рабочие исходники; `<Component>/reports` — результаты проверок.
+- [Индекс исходников](../../JSONS/indexes/component-contracts.index.json) выбирает manual и факты в `JSONS/web/components/<library>/<component>`; мобильные версии — в `mobile-web`. ZIP — производная поставка.
+- Прежние `<Component>/authoring` и reports сохранены как историческое происхождение; новые правки manual выполняются в основных папках компонентов.
 - `<Component>/mobile-web` — отдельный пакет мобильной платформы, когда он существует.
 - [draft-manifest.json](draft-manifest.json) — производный список Draft из основного индекса.
 - [history](history/) — неизменяемые прежние пакеты и evidence; старые пути остаются историческим происхождением.
