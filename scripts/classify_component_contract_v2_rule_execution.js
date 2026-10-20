@@ -99,8 +99,8 @@ function main() {
   }, null, 2));
 }
 
-function classifyPackage(indexEntry, readySourcePaths) {
-  const contractPath = path.join(EXPERIMENT_ROOT, indexEntry.contractPath);
+function classifyPackage(indexEntry, readySourcePaths, outputRoot = EXPERIMENT_ROOT) {
+  const contractPath = path.join(outputRoot, indexEntry.contractPath);
   const contract = readJson(contractPath);
   const contractRulesSourceFiles = (contract.package?.sourceFiles || [])
     .filter((source) => path.posix.basename(source.file) === 'rules.json');
@@ -141,7 +141,7 @@ function classifyPackage(indexEntry, readySourcePaths) {
     family: contract.package.family,
     library: contract.package.library,
     sourcePath,
-    contractPath: normalizePath(path.relative(EXPERIMENT_ROOT, contractPath)),
+    contractPath: normalizePath(path.relative(outputRoot, contractPath)),
     contractRulesSourceFile: contractRulesSourceFiles[0].file,
     inventoryStatus,
     migrationEligibility: migrationEligible
@@ -327,9 +327,9 @@ function waveEntry(entry) {
   };
 }
 
-function writePackagePolicy(entry) {
+function writePackagePolicy(entry, outputRoot = EXPERIMENT_ROOT) {
   const target = path.join(
-    EXPERIMENT_ROOT,
+    outputRoot,
     path.dirname(entry.contractPath),
     '..',
     'execution-policy.json',
@@ -398,4 +398,6 @@ function writeText(filePath, value) {
   fs.writeFileSync(filePath, value, 'utf8');
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = { classifyPackage, waveEntry, writePackagePolicy };

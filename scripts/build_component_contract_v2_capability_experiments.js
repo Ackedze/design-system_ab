@@ -154,10 +154,6 @@ const PACKAGE_PROFILE_OVERRIDES = {
   },
 };
 
-const SUPPLEMENTAL_PACKAGE_PROFILES = readJson(
-  path.join(EXPERIMENT_ROOT, 'supplemental-packages.json'),
-).packages;
-
 const BASELINE_RULE_SUFFIXES = new Set([
   'layer-properties-use-effective-baseline',
   'geometry-follows-effective-baseline',
@@ -229,7 +225,7 @@ function main() {
   }, null, 2));
 }
 
-function buildPackageExperiment(profile) {
+function buildPackageExperiment(profile, outputRoot = EXPERIMENT_ROOT) {
   const sourceDir = path.join(
     REPO_ROOT,
     'JSONS/web/components',
@@ -237,15 +233,15 @@ function buildPackageExperiment(profile) {
     profile.sourceName,
   );
   const targetDir = path.join(
-    EXPERIMENT_ROOT,
+    outputRoot,
     profile.sourceLibrary,
     profile.targetName,
   );
   const compiledDir = path.join(targetDir, 'compiled');
   ensurePackage(sourceDir);
   fs.mkdirSync(compiledDir, { recursive: true });
-  removeGeneratedDirectory(path.join(targetDir, 'source'));
-  removeGeneratedDirectory(path.join(targetDir, 'schemas'));
+  removeGeneratedDirectory(path.join(targetDir, 'source'), outputRoot);
+  removeGeneratedDirectory(path.join(targetDir, 'schemas'), outputRoot);
 
   const generatedContract = readJson(path.join(sourceDir, 'contract.generated.json'));
   const compositionDocument = readJson(path.join(sourceDir, 'composition-contract.json'));
@@ -336,7 +332,7 @@ function buildPackageExperiment(profile) {
     contract,
     coverage,
     contractPath: path.relative(
-      EXPERIMENT_ROOT,
+      outputRoot,
       path.join(compiledDir, 'component-contract.v2.json'),
     ),
   };
@@ -377,6 +373,9 @@ function buildContractOwnership(compositionDocument, profile) {
 }
 
 function readInventoryProfiles() {
+  const supplementalProfiles = readJson(
+    path.join(EXPERIMENT_ROOT, 'supplemental-packages.json'),
+  ).packages;
   const inventory = readJson(INVENTORY_PATH);
   const inventoryProfiles = inventory.packages.map((entry) => {
     const override = PACKAGE_PROFILE_OVERRIDES[`${entry.library}/${entry.name}`] || {};
@@ -390,7 +389,7 @@ function readInventoryProfiles() {
   });
   const existingIds = new Set(inventoryProfiles.map((profile) => profile.packageId));
   return inventoryProfiles.concat(
-    SUPPLEMENTAL_PACKAGE_PROFILES.filter((profile) => !existingIds.has(profile.packageId)),
+    supplementalProfiles.filter((profile) => !existingIds.has(profile.packageId)),
   );
 }
 
@@ -1935,8 +1934,8 @@ function ensurePackage(sourceDir) {
   }
 }
 
-function removeGeneratedDirectory(directory) {
-  if (!directory.startsWith(`${EXPERIMENT_ROOT}${path.sep}`)) {
+function removeGeneratedDirectory(directory, outputRoot = EXPERIMENT_ROOT) {
+  if (!directory.startsWith(`${outputRoot}${path.sep}`)) {
     throw new Error(`Refusing to remove a non-experiment directory: ${directory}`);
   }
   fs.rmSync(directory, { recursive: true, force: true });
@@ -1961,4 +1960,6 @@ function uniqueSorted(values) {
   );
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = { buildPackageExperiment };

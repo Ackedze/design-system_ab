@@ -1,0 +1,381 @@
+{
+  "schemaVersion": "apollo.contract-coverage-map.v1",
+  "scope": "local-figma-checking",
+  "wholeReady": false,
+  "frontendReady": false,
+  "generationReady": false,
+  "rules": [
+    {
+      "sourceRuleId": "component:web-core.link.component-properties-are-first-class",
+      "fullNorm": "Публичные variant/component properties редактируются через API Link; их производные изменения не являются ручной правкой слоя.",
+      "sourceRefs": [
+        "athena.link.rules",
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.root",
+      "status": "reviewed",
+      "compiledRuleIds": [],
+      "route": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.layer-properties-use-effective-baseline",
+      "fullNorm": "Внутренний автолейаут и визуальные свойства сохраняют независимый эталон выбранного Size и вложенного состояния. Публичные текст, BOOL аддонов, icon swap и Line не блокируются. Цвет/view проверяется отдельным правилом; незавершённая матрица цвета не выдаётся за полный baseline.",
+      "sourceRefs": [
+        "athena.link.rules",
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.root",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.layer-properties-use-effective-baseline.1.1",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.10",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.11",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.12",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.13",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.14",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.15",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.2",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.3",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.4",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.5",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.6",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.7",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.8",
+        "component:web-core.link.layer-properties-use-effective-baseline.1.9"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.size-domain",
+      "fullNorm": "Выбор Size ограничен четырьмя опубликованными вариантами; Custom в текущем нативном API отсутствует.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.root",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.size-domain.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.label-content",
+      "fullNorm": "Текст Link меняется через публичное поле Label. Глобального лимита 32 символа у Link нет.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.label",
+      "status": "reviewed",
+      "compiledRuleIds": [],
+      "route": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.label-typography",
+      "fullNorm": "Типографика Label соответствует выбранному Size; текстовое содержимое меняется через Label.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.label",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.label-typography.1.1",
+        "component:web-core.link.label-typography.1.2",
+        "component:web-core.link.label-typography.1.3",
+        "component:web-core.link.label-typography.1.4",
+        "component:web-core.link.label-typography.1.5",
+        "component:web-core.link.label-typography.1.6",
+        "component:web-core.link.label-typography.1.7",
+        "component:web-core.link.label-typography.1.8",
+        "component:web-core.link.label-typography.1.9"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.underline-domain",
+      "fullNorm": "Тип подчёркивания задаётся вложенным Line: Solid, Pseudo или None.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.underline",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.underline-domain.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.left-addon-visibility",
+      "fullNorm": "Видимость аддона определяется публичным BOOLEAN Link; прямой override видимости не заменяет этот параметр.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.left-addon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.left-addon-visibility.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.right-addon-visibility",
+      "fullNorm": "Видимость аддона определяется публичным BOOLEAN Link; прямой override видимости не заменяет этот параметр.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.right-addon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.right-addon-visibility.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.left-icon-height",
+      "fullNorm": "Высота видимой иконки не превышает line-height выбранного размера Link.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.left-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.left-icon-height.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.right-icon-height",
+      "fullNorm": "Высота видимой иконки не превышает line-height выбранного размера Link.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.right-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.right-icon-height.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.view-token-mapping",
+      "fullNorm": "View выбирается из default/primary/secondary через цветовой токен; произвольный цвет не является новым View. Точные token IDs и единая окраска Label/Underline/addons требуют подтверждения.",
+      "sourceRefs": [
+        "hub.link.guidelines",
+        "hub.link.bridge"
+      ],
+      "targetId": "target.label",
+      "status": "deprecated",
+      "compiledRuleIds": [],
+      "route": {
+        "technicalRuleId": "component:web-core.link.view-token-mapping",
+        "patternRuleId": "rule:components.link.context-color",
+        "route": "pattern",
+        "normPreserved": true,
+        "note": "Allowed4colors/context remains in link pattern. Code View mapping is not a new intrinsic Figma predicate."
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.inline-link-addons",
+      "fullNorm": "Встроенная в абзац ссылка оформляется по контексту текста; аддоны используются у отдельной ссылки.",
+      "sourceRefs": [
+        "hub.link.guidelines"
+      ],
+      "targetId": "target.root",
+      "status": "deprecated",
+      "compiledRuleIds": [],
+      "route": {
+        "technicalRuleId": "component:web-core.link.inline-link-addons",
+        "route": "external-context-obligation",
+        "norm": "Встроенная в абзац ссылка оформляется по контексту текста; аддоны используются у отдельной ссылки.",
+        "normPreserved": true,
+        "note": "Full inline/addon norm is preserved as a host composition obligation. No exact existing pattern owner has been established; p_link.md external-inline covers only the external-link arrow and is not an equivalent mapping.",
+        "acceptance": "OUTSIDE_LOCAL_FIGMA_READY",
+        "patternRuleId": null
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.destination-label",
+      "fullNorm": "Текст однозначно объясняет назначение ссылки; проверяется редакционной политикой и контекстом назначения.",
+      "sourceRefs": [
+        "hub.link.guidelines"
+      ],
+      "targetId": "target.label",
+      "status": "reviewed",
+      "compiledRuleIds": [],
+      "route": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.left-icon-swap",
+      "fullNorm": "Иконка выбирается через публичный swap-порт соответствующей стороны и размера; содержимое выбранного asset проверяется сквозным контрактом иконок.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.left-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [],
+      "route": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.right-icon-swap",
+      "fullNorm": "Иконка выбирается через публичный swap-порт соответствующей стороны и размера; содержимое выбранного asset проверяется сквозным контрактом иконок.",
+      "sourceRefs": [
+        "hub.link.adapter.figma"
+      ],
+      "targetId": "target.right-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [],
+      "route": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.root-fill-baseline",
+      "fullNorm": "Поверхности корня Link и контейнера Content не перекрашиваются вручную. Выбор View относится к содержимому ссылки.",
+      "sourceRefs": [
+        "athena.link.rules"
+      ],
+      "targetId": "target.root",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.root-fill-baseline.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.content-fill-baseline",
+      "fullNorm": "Поверхности корня Link и контейнера Content не перекрашиваются вручную. Выбор View относится к содержимому ссылки.",
+      "sourceRefs": [
+        "athena.link.rules"
+      ],
+      "targetId": "target.content",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.content-fill-baseline.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.left-icon-native-size.16",
+      "fullNorm": "Размер выбранной левой иконки соответствует публичному слоту 16 dp выбранного Size Link. Масштабирование контейнера не заменяет выбор нужного размера asset.",
+      "sourceRefs": [
+        "hub.link.bridge.addon-size",
+        "hub.link.cookbook.matching-swap"
+      ],
+      "targetId": "target.left-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.left-icon-native-size.16.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.left-icon-native-size.20",
+      "fullNorm": "Размер выбранной левой иконки соответствует публичному слоту 20 dp выбранного Size Link. Масштабирование контейнера не заменяет выбор нужного размера asset.",
+      "sourceRefs": [
+        "hub.link.bridge.addon-size",
+        "hub.link.cookbook.matching-swap"
+      ],
+      "targetId": "target.left-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.left-icon-native-size.20.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.left-icon-native-size.24",
+      "fullNorm": "Размер выбранной левой иконки соответствует публичному слоту 24 dp выбранного Size Link. Масштабирование контейнера не заменяет выбор нужного размера asset.",
+      "sourceRefs": [
+        "hub.link.bridge.addon-size",
+        "hub.link.cookbook.matching-swap"
+      ],
+      "targetId": "target.left-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.left-icon-native-size.24.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.right-icon-native-size.16",
+      "fullNorm": "Размер выбранной правой иконки соответствует публичному слоту 16 dp выбранного Size Link. Масштабирование контейнера не заменяет выбор нужного размера asset.",
+      "sourceRefs": [
+        "hub.link.bridge.addon-size",
+        "hub.link.cookbook.matching-swap"
+      ],
+      "targetId": "target.right-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.right-icon-native-size.16.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.right-icon-native-size.20",
+      "fullNorm": "Размер выбранной правой иконки соответствует публичному слоту 20 dp выбранного Size Link. Масштабирование контейнера не заменяет выбор нужного размера asset.",
+      "sourceRefs": [
+        "hub.link.bridge.addon-size",
+        "hub.link.cookbook.matching-swap"
+      ],
+      "targetId": "target.right-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.right-icon-native-size.20.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    },
+    {
+      "sourceRuleId": "component:web-core.link.right-icon-native-size.24",
+      "fullNorm": "Размер выбранной правой иконки соответствует публичному слоту 24 dp выбранного Size Link. Масштабирование контейнера не заменяет выбор нужного размера asset.",
+      "sourceRefs": [
+        "hub.link.bridge.addon-size",
+        "hub.link.cookbook.matching-swap"
+      ],
+      "targetId": "target.right-icon",
+      "status": "reviewed",
+      "compiledRuleIds": [
+        "component:web-core.link.right-icon-native-size.24.1.1"
+      ],
+      "route": {
+        "route": "predicate"
+      }
+    }
+  ]
+}

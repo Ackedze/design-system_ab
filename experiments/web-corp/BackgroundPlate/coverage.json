@@ -1,15 +1,15 @@
 {
   "schemaVersion": "apollo.rule-coverage.v1",
   "summary": {
-    "sourceRules": 30,
-    "deterministicSourceRules": 24,
-    "executableDeterministicSourceRules": 22,
+    "sourceRules": 19,
+    "deterministicSourceRules": 17,
+    "executableDeterministicSourceRules": 17,
     "promotedManualOrAdvisorySourceRules": 0,
-    "executable": 22,
-    "advisory": 6,
+    "executable": 17,
+    "advisory": 2,
     "manual": 0,
-    "unsupported": 2,
-    "deterministicCoverageRatio": 0.9167
+    "unsupported": 0,
+    "deterministicCoverageRatio": 1
   },
   "rules": [
     {
@@ -47,7 +47,10 @@
       "status": "advisory",
       "targetRuleIds": [],
       "reason": "Source checkType is llm.",
-      "structuredFields": [],
+      "structuredFields": [
+        "authority",
+        "patternPath"
+      ],
       "candidateCapabilities": {
         "selectors": [
           "ancestry",
@@ -56,42 +59,13 @@
         ],
         "facts": [
           "component.identity",
-          "layout.properties"
+          "node.bounds",
+          "page.context"
         ],
         "operators": [
           "author-structured-assertion"
         ],
         "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.background-color-by-surface-context",
-      "sourceCheckType": "deterministic",
-      "status": "executable",
-      "targetRuleIds": [
-        "rule-ir:web-corp.background-plate.background-color-by-surface-context"
-      ],
-      "reason": "Structured source fields map to typed RuleIR capabilities.",
-      "structuredFields": [
-        "authority",
-        "requiredMapping"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity",
-          "node.bounds",
-          "page.context"
-        ],
-        "operators": [
-          "valueByContext"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
       }
     },
     {
@@ -206,35 +180,6 @@
         ],
         "operators": [
           "paintStateEquals"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.border-is-not-clickable",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "targetRuleIds": [],
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "allowedClickableTypes",
-        "authority",
-        "disallowedBehavior"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "prototype.reactions"
-        ],
-        "operators": [
-          "author-structured-assertion"
         ],
         "remediations": [
           "rule-defined-remediation"
@@ -418,68 +363,6 @@
       }
     },
     {
-      "sourceRuleId": "component:web-corp.background-plate.level-2-requires-level-1",
-      "sourceCheckType": "deterministic",
-      "status": "executable",
-      "targetRuleIds": [
-        "rule-ir:web-corp.background-plate.level-2-requires-level-1"
-      ],
-      "reason": "Structured source fields map to typed RuleIR capabilities.",
-      "structuredFields": [
-        "authority",
-        "predicateContour",
-        "requiredComposition"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "ancestry",
-          "component.identity",
-          "node.documentOrder",
-          "semanticRole"
-        ],
-        "operators": [
-          "compositionPolicy"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.manual-shadows-are-prohibited",
-      "sourceCheckType": "deterministic",
-      "status": "executable",
-      "targetRuleIds": [
-        "rule-ir:web-corp.background-plate.manual-shadows-are-prohibited"
-      ],
-      "reason": "Structured source fields map to typed RuleIR capabilities.",
-      "structuredFields": [
-        "authority",
-        "classification",
-        "disallowedEffectTypes"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity",
-          "effects"
-        ],
-        "operators": [
-          "noneMatch"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
       "sourceRuleId": "component:web-corp.background-plate.no-secondary-for-level-2",
       "sourceCheckType": "deterministic",
       "status": "executable",
@@ -571,31 +454,6 @@
       }
     },
     {
-      "sourceRuleId": "component:web-corp.background-plate.platform-version-must-match",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "authority",
-        "predicateContour"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "sourceRuleId": "component:web-corp.background-plate.primary-secondary-paint-is-fixed",
       "sourceCheckType": "deterministic",
       "status": "executable",
@@ -629,59 +487,6 @@
       }
     },
     {
-      "sourceRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "targetRuleIds": [],
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "authority",
-        "requiredRadiusCollection"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.public-roots-only",
-      "sourceCheckType": "deterministic",
-      "status": "executable",
-      "targetRuleIds": [
-        "rule-ir:web-corp.background-plate.public-roots-only"
-      ],
-      "reason": "Structured source fields map to typed RuleIR capabilities.",
-      "structuredFields": [
-        "allowedComponents",
-        "authority",
-        "predicateContour"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "allMatch",
-          "oneOf"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "sourceRuleId": "component:web-corp.background-plate.radius-is-fixed-by-component-baseline",
       "sourceCheckType": "deterministic",
       "status": "executable",
@@ -710,93 +515,6 @@
         ],
         "remediations": [
           "restore-effective-baseline"
-        ]
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.root-surface-requires-level-0",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "targetRuleIds": [],
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "authority",
-        "classification"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "node.bounds",
-          "page.context"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.single-background-color-per-page",
-      "sourceCheckType": "deterministic",
-      "status": "executable",
-      "targetRuleIds": [
-        "rule-ir:web-corp.background-plate.single-background-color-per-page"
-      ],
-      "reason": "Structured source fields map to typed RuleIR capabilities.",
-      "structuredFields": [
-        "authority",
-        "requiredComposition"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity",
-          "node.bounds",
-          "page.context"
-        ],
-        "operators": [
-          "allEqual"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.skeleton-is-component-property",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "targetRuleIds": [],
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "authority",
-        "classification"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "variant.properties"
-        ],
-        "operators": [
-          "classifyDiffDomain"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
         ]
       }
     },
@@ -852,38 +570,6 @@
           "classificationPolicy"
         ],
         "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.slot-content-levels",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "targetRuleIds": [],
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "allowedComposition",
-        "authority",
-        "disallowedNestedBackgroundPlateLevels",
-        "predicateContour"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "ancestry",
-          "component.identity",
-          "node.documentOrder",
-          "semanticRole"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
       }
     }
   ]

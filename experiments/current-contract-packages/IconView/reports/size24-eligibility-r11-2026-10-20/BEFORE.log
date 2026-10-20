@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: native replacement keeps the original family and permits only the declared foreign configuration
+ok 1 - native replacement keeps the original family and permits only the declared foreign configuration
+  ---
+  duration_ms: 40.251458
+  ...
+# Subtest: native replacement remains UNKNOWN with missing VARIANT
+ok 2 - native replacement remains UNKNOWN with missing VARIANT
+  ---
+  duration_ms: 3.893084
+  ...
+# Subtest: native replacement remains UNKNOWN with wrong native type
+ok 3 - native replacement remains UNKNOWN with wrong native type
+  ---
+  duration_ms: 3.847333
+  ...
+# Subtest: native replacement remains UNKNOWN with missing independent capture
+ok 4 - native replacement remains UNKNOWN with missing independent capture
+  ---
+  duration_ms: 4.455208
+  ...
+# Subtest: native replacement remains UNKNOWN with wrong source address
+ok 5 - native replacement remains UNKNOWN with wrong source address
+  ---
+  duration_ms: 3.876292
+  ...
+# Subtest: native replacement rejects same-rule duplicate before Ready
+ok 6 - native replacement rejects same-rule duplicate before Ready
+  ---
+  duration_ms: 3.227791
+  ...
+# Subtest: native replacement rejects another-rule duplicate before Ready
+ok 7 - native replacement rejects another-rule duplicate before Ready
+  ---
+  duration_ms: 2.27
+  ...
+# Subtest: native replacement rejects array properties before Ready
+ok 8 - native replacement rejects array properties before Ready
+  ---
+  duration_ms: 2.009917
+  ...
+# Subtest: native replacement rejects null properties before Ready
+ok 9 - native replacement rejects null properties before Ready
+  ---
+  duration_ms: 1.91825
+  ...
+# Subtest: an ineligible published variant keeps unrelated component-owned checks executable
+not ok 10 - an ineligible published variant keeps unrelated component-owned checks executable
+  ---
+  duration_ms: 9.774875
+  location: '/Users/alexkukhta/Desktop/workplace/projects/Apollo/packages/component-contract-core/tests/native-instance-replacements.test.js:104:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'human-review'
+    - 'compliant'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'compliant'
+  actual: 'human-review'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/alexkukhta/Desktop/workplace/projects/Apollo/packages/component-contract-core/tests/native-instance-replacements.test.js:112:10)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:979:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:677:18)
+    Test.postRun (node:internal/test_runner/test:1090:19)
+    Test.run (node:internal/test_runner/test:1018:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:677:7)
+  ...
+# Subtest: a scoped eligible replacement still checks original, allowed and forbidden configurations
+ok 11 - a scoped eligible replacement still checks original, allowed and forbidden configurations
+  ---
+  duration_ms: 6.457333
+  ...
+# Subtest: ineligible replacement cannot establish local ownership with forged published identity
+ok 12 - ineligible replacement cannot establish local ownership with forged published identity
+  ---
+  duration_ms: 4.143542
+  ...
+# Subtest: ineligible replacement cannot establish local ownership with missing published capture
+ok 13 - ineligible replacement cannot establish local ownership with missing published capture
+  ---
+  duration_ms: 3.876875
+  ...
+# Subtest: ineligible replacement cannot establish local ownership with missing source variant
+ok 14 - ineligible replacement cannot establish local ownership with missing source variant
+  ---
+  duration_ms: 3.425541
+  ...
+# Subtest: ineligible replacement cannot establish local ownership with editable actual value contradicts source
+ok 15 - ineligible replacement cannot establish local ownership with editable actual value contradicts source
+  ---
+  duration_ms: 3.957292
+  ...
+# Subtest: ineligible replacement cannot establish local ownership with wrong selector native type
+ok 16 - ineligible replacement cannot establish local ownership with wrong selector native type
+  ---
+  duration_ms: 4.404375
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 15
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 165.482292

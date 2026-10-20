@@ -22,8 +22,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/agent-context.json",
-        "bytes": 24817,
-        "sha256": "cba54fd08571230482fafe30e41dd62fafee29b9cedfe4065d8d3b41b9daf5c7"
+        "bytes": 25000,
+        "sha256": "e27693b529af6bc7359097eb477710f808128c2a4ebf72c632a318ccb9ab1f1b"
       },
       {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/audit-mapping.json",
@@ -42,8 +42,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/contract.overrides.json",
-        "bytes": 44116,
-        "sha256": "7c50ed62ebd0aa3bb3e4f7276bd575d7d3bfd3ccd2c1b251f94a8f14baeaec9b"
+        "bytes": 40403,
+        "sha256": "64506f138eca14a772e5819965ad1471c40cdb800c710a53d8a0ce4141bed659"
       },
       {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/examples.json",
@@ -52,8 +52,8 @@
       },
       {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "bytes": 76355,
-        "sha256": "416e2a1596bea64b3f095fe898f5a753f6f4ca11857d31d2f82ad77cff8330a8"
+        "bytes": 48898,
+        "sha256": "f28f5e861f524b3d5ceb3f3a612a020a5dfc4fb8b4d6ea0c763212bf9acb0434"
       }
     ]
   },
@@ -69,7 +69,6 @@
       "visibility"
     ],
     "facts": [
-      "ancestry",
       "baseline.effective",
       "blendMode",
       "component-api.contract",
@@ -77,15 +76,12 @@
       "diff.property",
       "effects",
       "layout.properties",
-      "node.bounds",
       "node.documentOrder",
       "node.visibility",
       "opacity",
       "ownership.owner",
-      "page.context",
       "paint.fill",
       "paint.stroke",
-      "semanticRole",
       "style.text",
       "target.componentKey",
       "target.variant.properties",
@@ -94,19 +90,15 @@
       "variant.properties"
     ],
     "operators": [
-      "allEqual",
       "allMatch",
       "allowedPropertiesByVariant",
       "boundToTokenByVariant",
       "classificationPolicy",
       "componentApiValid",
-      "compositionPolicy",
       "matchesEffectiveBaseline",
-      "noneMatch",
       "notMatches",
       "oneOf",
-      "paintStateEquals",
-      "valueByContext"
+      "paintStateEquals"
     ],
     "remediations": [
       "restore-effective-baseline",
@@ -2328,83 +2320,6 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.background-plate.background-color-by-surface-context",
-      "source": {
-        "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "sourceRuleIds": [
-          "component:web-corp.background-plate.background-color-by-surface-context"
-        ],
-        "patternRuleId": "rule:components.background-plate.background-color-by-page"
-      },
-      "severity": "error",
-      "enforcement": "enforced",
-      "select": {
-        "host": "host.package",
-        "targets": "tree.package"
-      },
-      "when": {
-        "op": "all",
-        "clauses": {
-          "components": [
-            "[D] BackgroundPlate",
-            "[M] BackgroundPlate",
-            "[D] Style Level 1",
-            "[M] Style Level 1",
-            "[D] Style Level 2",
-            "[M] Style Level 2"
-          ]
-        }
-      },
-      "assert": {
-        "op": "valueByContext",
-        "mapping": {
-          "pageSurface": {
-            "gray": "base-bg-alt (gray)",
-            "white": "base-bg (white)"
-          },
-          "modalSurface": {
-            "gray": "modal-bg-alt (gray)",
-            "white": "modal-bg (white)"
-          }
-        }
-      },
-      "verdict": {
-        "pass": "expected",
-        "fail": "violation",
-        "unknown": "unknown"
-      },
-      "evidence": [
-        "component.identity",
-        "node.bounds",
-        "page.context"
-      ],
-      "remediation": {
-        "kind": "rule-defined-remediation",
-        "specification": "Выберите BackgroundColor, соответствующий контексту и тону родительской поверхности: base-bg* для страницы или modal-bg* для модальной сущности."
-      },
-      "presentation": {
-        "message": "BackgroundColor выбирается по контексту поверхности. Для страниц используй base-bg-alt (gray) на серой поверхности и base-bg (white) на белой поверхности. Для модальных сущностей используй modal-bg-alt (gray) на серой поверхности и modal-bg (white) на белой поверхности. Часть имени до скобок соответствует цветовому токену поверхности; значение в скобках уточняет визуальный фон gray/white.",
-        "group": "screen.composition"
-      },
-      "capabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity",
-          "node.bounds",
-          "page.context"
-        ],
-        "operators": [
-          "valueByContext"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
       "id": "rule-ir:web-corp.background-plate.background-plate-view-is-alias",
       "source": {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
@@ -2558,7 +2473,7 @@
       ],
       "remediation": null,
       "presentation": {
-        "message": "Layer blur и Background blur разрешены для BackgroundPlate как контекстные кастомизации. Само наличие blur не является нарушением и не должно обрабатываться правилом запрета Drop shadow или Inner shadow.",
+        "message": "Layer blur и Background blur разрешены для BackgroundPlate как контекстные кастомизации. Само наличие blur не является нарушением.",
         "group": "effects.LAYER_BLUR|effects.BACKGROUND_BLUR|effectStyle"
       },
       "capabilities": {
@@ -2834,7 +2749,7 @@
         "specification": "Для Colored привяжите fill к цветовому токену. Для Border удалите fill и привяжите stroke к цветовому токену."
       },
       "presentation": {
-        "message": "Для Type=Colored цвет заливки должен быть задан через цветовой токен дизайн-системы. Для Type=Border через цветовой токен задаётся цвет обводки, а видимая заливка запрещена отдельным правилом. Конкретный цвет может отличаться по смыслу поверхности, но raw fill или raw stroke без требуемого token binding являются нарушением.",
+        "message": "Для Type=Colored fill должен иметь color token binding. Для Type=Border stroke должен иметь color token binding; запрет видимого fill задан отдельным правилом. Принадлежность токена разрешённой библиотеке дизайн-системы проверяется общим правилом rule:system.library-tokens-only.",
         "group": "fill|stroke|variant.BackgroundColor"
       },
       "capabilities": {
@@ -3090,150 +3005,6 @@
           "matchesEffectiveBaseline"
         ],
         "remediations": []
-      }
-    },
-    {
-      "id": "rule-ir:web-corp.background-plate.level-2-requires-level-1",
-      "source": {
-        "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "sourceRuleIds": [
-          "component:web-corp.background-plate.level-2-requires-level-1"
-        ],
-        "patternRuleId": "rule:components.background-plate.level-2-over-level-1"
-      },
-      "severity": "error",
-      "enforcement": "enforced",
-      "select": {
-        "host": "host.package",
-        "targets": "tree.package"
-      },
-      "when": {
-        "op": "all",
-        "clauses": {
-          "components": [
-            "[D] BackgroundPlate",
-            "[M] BackgroundPlate",
-            "[D][Promo] BackgroundPlate",
-            "[M][Promo] BackgroundPlate"
-          ],
-          "variant": {
-            "Position": "Level 2 (inner)"
-          }
-        }
-      },
-      "assert": {
-        "op": "compositionPolicy",
-        "requiredUnderlay": {
-          "component": "BackgroundPlate",
-          "variant": {
-            "Position": "Level 1 (outer)"
-          },
-          "positioning": "ABSOLUTE"
-        },
-        "sharedAutoLayoutHostRequired": true,
-        "contentPositioning": "AUTO",
-        "underlayBeforeContent": true,
-        "underlayContainsLevel2": true,
-        "directParentRequired": false,
-        "allowStandalone": false,
-        "allowContractExceptions": false
-      },
-      "verdict": {
-        "pass": "expected",
-        "fail": "violation",
-        "unknown": "unknown"
-      },
-      "evidence": [
-        "ancestry",
-        "component.identity",
-        "node.documentOrder",
-        "semanticRole"
-      ],
-      "remediation": {
-        "kind": "rule-defined-remediation",
-        "specification": "Добавьте в общий Auto Layout абсолютную подложку BackgroundPlate Level 1 и расположите после неё Auto-ветку контента с Level 2 либо измените самостоятельную поверхность на Level 1."
-      },
-      "presentation": {
-        "message": "BackgroundPlate с Position=Level 2 (inner) должен находиться в Auto-ветке контента поверх абсолютной подложки BackgroundPlate Level 1 внутри общего Auto Layout. Подложка располагается перед веткой контента и покрывает область Level 2. Самостоятельный Level 2 запрещён без исключений.",
-        "group": "component.composition"
-      },
-      "capabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "ancestry",
-          "component.identity",
-          "node.documentOrder",
-          "semanticRole"
-        ],
-        "operators": [
-          "compositionPolicy"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
-      "id": "rule-ir:web-corp.background-plate.manual-shadows-are-prohibited",
-      "source": {
-        "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "sourceRuleIds": [
-          "component:web-corp.background-plate.manual-shadows-are-prohibited"
-        ],
-        "patternRuleId": "rule:components.background-plate.no-manual-shadows"
-      },
-      "severity": "error",
-      "enforcement": "enforced",
-      "select": {
-        "host": "host.package",
-        "targets": "tree.package"
-      },
-      "when": {
-        "op": "evidenceComplete"
-      },
-      "assert": {
-        "op": "noneMatch",
-        "fact": "effects.type",
-        "values": [
-          "DROP_SHADOW",
-          "INNER_SHADOW"
-        ]
-      },
-      "verdict": {
-        "pass": "expected",
-        "fail": "violation",
-        "unknown": "unknown"
-      },
-      "evidence": [
-        "component.identity",
-        "effects"
-      ],
-      "remediation": {
-        "kind": "rule-defined-remediation",
-        "specification": "Удалите вручную добавленные Drop shadow и Inner shadow."
-      },
-      "presentation": {
-        "message": "К BackgroundPlate и его внутренним surface-слоям нельзя вручную добавлять Drop shadow или Inner shadow. Запрет действует и для raw effects, и для подключённого effect style.",
-        "group": "effects|effects.shadow|effectStyle"
-      },
-      "capabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity",
-          "effects"
-        ],
-        "operators": [
-          "noneMatch"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
       }
     },
     {
@@ -3514,67 +3285,6 @@
       }
     },
     {
-      "id": "rule-ir:web-corp.background-plate.public-roots-only",
-      "source": {
-        "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "sourceRuleIds": [
-          "component:web-corp.background-plate.public-roots-only"
-        ],
-        "patternRuleId": "rule:components.background-plate.public-roots-only"
-      },
-      "severity": "error",
-      "enforcement": "enforced",
-      "select": {
-        "host": "host.package",
-        "targets": "tree.package"
-      },
-      "when": {
-        "op": "evidenceComplete"
-      },
-      "assert": {
-        "op": "allMatch",
-        "predicate": {
-          "op": "oneOf",
-          "fact": "target.componentName",
-          "values": [
-            "[D] BackgroundPlate",
-            "[M] BackgroundPlate",
-            "[D] BackgroundPlateSlot",
-            "[M] BackgroundPlateSlot",
-            "[D][Promo] BackgroundPlate",
-            "[M][Promo] BackgroundPlate"
-          ]
-        }
-      },
-      "verdict": {
-        "pass": "expected",
-        "fail": "violation",
-        "unknown": "unknown"
-      },
-      "evidence": [
-        "component.identity"
-      ],
-      "remediation": null,
-      "presentation": {
-        "message": "Самостоятельно размещай только публичные корни BackgroundPlate и BackgroundPlateSlot соответствующей платформы. Style Level 1 и Style Level 2 являются служебными частями и не используются отдельно.",
-        "group": "component"
-      },
-      "capabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "allMatch",
-          "oneOf"
-        ],
-        "remediations": []
-      }
-    },
-    {
       "id": "rule-ir:web-corp.background-plate.radius-is-fixed-by-component-baseline",
       "source": {
         "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
@@ -3663,74 +3373,6 @@
         ],
         "remediations": [
           "restore-effective-baseline"
-        ]
-      }
-    },
-    {
-      "id": "rule-ir:web-corp.background-plate.single-background-color-per-page",
-      "source": {
-        "file": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-        "sourceRuleIds": [
-          "component:web-corp.background-plate.single-background-color-per-page"
-        ],
-        "patternRuleId": "rule:components.background-plate.single-background-color-per-page"
-      },
-      "severity": "error",
-      "enforcement": "enforced",
-      "select": {
-        "host": "host.package",
-        "targets": "tree.package"
-      },
-      "when": {
-        "op": "all",
-        "clauses": {
-          "components": [
-            "[D] BackgroundPlate",
-            "[M] BackgroundPlate",
-            "[D][Promo] BackgroundPlate",
-            "[M][Promo] BackgroundPlate"
-          ],
-          "scope": "same-page-background-context"
-        }
-      },
-      "assert": {
-        "op": "allEqual",
-        "fact": "variant.BackgroundColor",
-        "scope": "page"
-      },
-      "verdict": {
-        "pass": "expected",
-        "fail": "violation",
-        "unknown": "unknown"
-      },
-      "evidence": [
-        "component.identity",
-        "node.bounds",
-        "page.context"
-      ],
-      "remediation": {
-        "kind": "rule-defined-remediation",
-        "specification": "Приведите BackgroundColor всех BackgroundPlate в одном surface context к единому значению, соответствующему родительскому фону."
-      },
-      "presentation": {
-        "message": "Значение BackgroundColor определяется один раз для всех BackgroundPlate на странице. Если фон основной страницы один и тот же, все подложки должны использовать один BackgroundColor.",
-        "group": "screen.composition"
-      },
-      "capabilities": {
-        "selectors": [
-          "component-identity",
-          "self-and-descendants"
-        ],
-        "facts": [
-          "component.identity",
-          "node.bounds",
-          "page.context"
-        ],
-        "operators": [
-          "allEqual"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
         ]
       }
     },
@@ -3905,107 +3547,9 @@
       "sourceCheckType": "llm",
       "status": "advisory",
       "reason": "Source checkType is llm.",
-      "structuredFields": [],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "layout.properties"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.border-is-not-clickable",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "allowedClickableTypes",
-        "authority",
-        "disallowedBehavior"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "prototype.reactions"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.platform-version-must-match",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
       "structuredFields": [
         "authority",
-        "predicateContour"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.promo-slot-radius-collection",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "authority",
-        "requiredRadiusCollection"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": []
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.root-surface-requires-level-0",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "authority",
-        "classification"
+        "patternPath"
       ],
       "candidateCapabilities": {
         "selectors": [
@@ -4021,81 +3565,21 @@
         "operators": [
           "author-structured-assertion"
         ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.skeleton-is-component-property",
-      "sourceCheckType": "llm",
-      "status": "advisory",
-      "reason": "Source checkType is llm.",
-      "structuredFields": [
-        "authority",
-        "classification"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "component.identity",
-          "variant.properties"
-        ],
-        "operators": [
-          "classifyDiffDomain"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
-      }
-    },
-    {
-      "sourceRuleId": "component:web-corp.background-plate.slot-content-levels",
-      "sourceCheckType": "deterministic",
-      "status": "unsupported",
-      "reason": "The source declares a deterministic rule but contains no structured assertion parameters.",
-      "structuredFields": [
-        "allowedComposition",
-        "authority",
-        "disallowedNestedBackgroundPlateLevels",
-        "predicateContour"
-      ],
-      "candidateCapabilities": {
-        "selectors": [
-          "ancestry",
-          "component-identity",
-          "semantic-role"
-        ],
-        "facts": [
-          "ancestry",
-          "component.identity",
-          "node.documentOrder",
-          "semanticRole"
-        ],
-        "operators": [
-          "author-structured-assertion"
-        ],
-        "remediations": [
-          "rule-defined-remediation"
-        ]
+        "remediations": []
       }
     }
   ],
   "coverage": {
     "summary": {
-      "sourceRules": 30,
-      "deterministicSourceRules": 24,
-      "executableDeterministicSourceRules": 22,
+      "sourceRules": 19,
+      "deterministicSourceRules": 17,
+      "executableDeterministicSourceRules": 17,
       "promotedManualOrAdvisorySourceRules": 0,
-      "executable": 22,
-      "advisory": 6,
+      "executable": 17,
+      "advisory": 2,
       "manual": 0,
-      "unsupported": 2,
-      "deterministicCoverageRatio": 0.9167
+      "unsupported": 0,
+      "deterministicCoverageRatio": 1
     },
     "report": "../coverage.json"
   }
