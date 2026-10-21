@@ -12,10 +12,10 @@
 | CorporateContent.mobile-web | r8 | Ready | [ZIP](CorporateContent/mobile-web/CorporateContent.mobile-web.component-contract.zip) |
 | ButtonsGroup | r60 | Ready | [ZIP](ButtonsGroup/ButtonsGroup.component-contract.zip) |
 | ButtonsGroup.mobile-web | r3 | Draft | [ZIP](ButtonsGroup/mobile-web/ButtonsGroup.mobile-web.component-contract.zip) |
-| BenefitCard | r15 | Draft | [ZIP](BenefitCard/BenefitCard.r15.candidate.component-contract.zip) |
+| BenefitCard | r16 | Draft | [ZIP](BenefitCard/BenefitCard.r16.candidate.component-contract.zip) |
 | BenefitsBlock | r4 | Draft | [ZIP](BenefitsBlock/BenefitsBlock.component-contract.zip) |
 | PromoCard | r3 | Draft | [ZIP](PromoCard/PromoCard.component-contract.zip) |
-| Link | r7 | Ready | [ZIP](Link/Link.r7.component-contract.zip) |
+| Link | r8 | Ready | [ZIP](Link/Link.r8.candidate.component-contract.zip) |
 | IconView | r11 | Ready | [ZIP](IconView/IconView.r11.candidate.component-contract.zip) |
 | BackgroundPlate | r7 | Ready | [ZIP](BackgroundPlate/BackgroundPlate.r7.component-contract.zip) |
 

@@ -1,0 +1,52 @@
+{
+  "removedFromComponent": [
+    {
+      "id": "component:web.benefit-card.vertical-resizing-policy",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "layout.sizingVertical",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "layoutConstraint",
+          "fact": "layout.sizingVertical",
+          "value": "HUG"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "context": {
+          "expectedInput.CardPlacement": "single"
+        }
+      },
+      "severity": "error",
+      "rationale": "Одиночная BenefitCard использует Hug по высоте. Правила Fill, Stopper и выравнивания карточек в группе относятся к рецепту сборки группы.",
+      "message": "Одиночная карточка: Hug по высоте.",
+      "remediationMessage": "Проверьте норму по существующим правилам и контексту.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.benefit-card"
+      },
+      "sourceRefs": [
+        "source.rules",
+        "source.hub"
+      ],
+      "execution": {
+        "route": "auto"
+      }
+    }
+  ],
+  "reason": "Owner21.10.2026: only meaningful in a recipe; CardPlacement removed from validationContext.",
+  "route": "recipe",
+  "recipeImplementation": "not part of component checking or current task",
+  "ruleIdPreservedForHistory": true
+}
