@@ -1,4 +1,8 @@
-# PaymentMaskedNumber r2 · Draft
+# PaymentMaskedNumber r3 · Draft для проверки обновления
+
+r3 подготовлен для ручного Git → Proxy → Apollo теста. В сообщение ошибки маски
+добавлен маркер `[PMN r3 · проверка обновления]`; нормы r2 сохранены. Push и
+установка оставлены владельцу: [порядок проверки](reports/manual-git-update-r3-2026-10-22/README.ru.md).
 
 Один public root для desktop/mobile-web и его общего представления `universal`.
 В r2 исправлена только область применения четырёх правил: r1 ошибочно пропускал
