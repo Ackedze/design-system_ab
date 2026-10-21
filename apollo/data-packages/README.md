@@ -1,6 +1,14 @@
-# Снимок данных для проверки PaymentMaskedNumber r1
+# Контрактные данные Apollo
 
-Текущий подготовленный snapshot: [contracts.tgz](./470c0724eedb5652850331c0783ca89c63c84ddb7c4b505a4a9b834f7340b883/contracts.tgz), dataId `470c0724eedb5652850331c0783ca89c63c84ddb7c4b505a4a9b834f7340b883`. SHA-256 закреплён рядом в `SHA256SUMS`. Один архив сохраняет точные исходные bytes без копирования 128 тысяч строк исторических JSON в diff.
+Актуальный подготовленный снимок выбирает [current.json](current.json).
+Сейчас это PaymentMaskedNumber **r3** для ручного теста обновления: dataId
+`5b6b99154c70963e5576b0dd98e248ce11b53c13e1dc01db93b0463b95c8df6a`.
+Рабочая папка — `shared/design-system_ab`, ветка `main`.
+Push и установку выполняет владелец по [инструкции](../../experiments/current-contract-packages/PaymentMaskedNumber/reports/manual-git-update-r3-2026-10-22/README.ru.md).
+
+## Исторический снимок и приёмка r1
+
+Исторический snapshot r1: [contracts.tgz](./470c0724eedb5652850331c0783ca89c63c84ddb7c4b505a4a9b834f7340b883/contracts.tgz), dataId `470c0724eedb5652850331c0783ca89c63c84ddb7c4b505a4a9b834f7340b883`. SHA-256 закреплён рядом в `SHA256SUMS`. Один архив сохраняет точные исходные bytes без копирования 128 тысяч строк исторических JSON в diff.
 
 - 12 контрактов: прежние 11 entries и generation pins сохранены точно; добавлен только PaymentMaskedNumber r1.
 - Режим нового контракта — `authoring-preview`, Draft. Checking доступен; Ready и публикация не заявлены.

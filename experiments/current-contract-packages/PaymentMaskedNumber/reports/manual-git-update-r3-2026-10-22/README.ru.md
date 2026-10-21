@@ -1,6 +1,6 @@
 # Ручная проверка Git → Proxy → Apollo: PaymentMaskedNumber r3
 
-Подготовлен локальный commit в checkout `/Users/alexkukhta/Desktop/workplace/.local/design-system-ab-main`.
+Подготовленные локальные коммиты находятся в `/Users/alexkukhta/Desktop/workplace/shared/design-system_ab`, ветка `main`.
 Он содержит authoring ZIP, новый immutable `contracts.tgz` и обновлённый `apollo/data-packages/current.json`.
 Push и установка оставлены владельцу. Сейчас в прокси r2; r3 — подготовленный Draft для проверки доставки.
 
@@ -13,7 +13,7 @@ Push и установка оставлены владельцу. Сейчас �
 2. Отправь подготовленный commit из указанного checkout:
 
    ```sh
-   git -C /Users/alexkukhta/Desktop/workplace/.local/design-system-ab-main push origin main
+   git -C /Users/alexkukhta/Desktop/workplace/shared/design-system_ab push origin main
    ```
 
 3. В миниаппе Apollo Proxy нажми **Проверить обновления**. Ожидается **Доступно обновление знаний**.
