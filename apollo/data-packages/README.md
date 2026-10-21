@@ -8,17 +8,22 @@
 - Профиль `checking-ask-figma-mcp`; frontend отключён как в исходном snapshot.
 - Формат номера Major/Minor пока не исполняется; это согласованный пробел Draft.
 
-## Обновление через Proxy
+## Обновление напрямую из Git
 
-Один push этой папки НЕ активирует данные. Прежний `apollo/knowledge/channels/stable.json` имеет schema `apollo.knowledge-channel.v1` и не заменяется.
+В `current.json` объявлены совместимый runtime, путь снимка, SHA-256, размер и dataId. Файлы хранятся в этом репозитории; отдельный хост или publisher не нужны. Прежний `apollo/knowledge/channels/stable.json` не используется и не меняется.
 
-1. Запушить main checkout с Draft и snapshot.
-2. Проверить SHA-256, распаковать `contracts.tgz` в новую локальную папку. В корне окажется `manifest.json` с указанным dataId. Штатным `build-data-release.js` установленного Proxy собрать полный release из этой папки, принятого knowledge и неизменного runtime. Runtime не пересобирать.
-3. Полный release содержит knowledge/Hub; хранить его на согласованном **приватном** HTTPS-хосте, не добавлять в публичный Git-репозиторий.
-4. Разместить неизменяемый `apollo-data-<releaseId>.tgz`, затем modern descriptor `apollo.proxy-data-channel.v1` со ссылкой и integrity. Сначала архив, затем descriptor.
-5. Указать URL descriptor через `portable:configure -- --data-url HTTPS_URL` либо `APOLLO_DATA_DESCRIPTOR_URL` в настройках установленного Proxy.
-6. В миниаппе выполнить «Обновить знания». Проверить dataId `470c0724eedb5652850331c0783ca89c63c84ddb7c4b505a4a9b834f7340b883`, 12 checking contracts и PaymentMaskedNumber r1, после чего запустить лабораторные кейсы.
+1. Подготовить новый снимок, обновить `current.json` и запушить в `main`.
+2. Proxy разрешает точный commit `main` и читает индекс и архив из одного commit через GitHub API. Неизменный dataId — no-op без скачивания архива. Единица обновления сейчас — весь `contracts.tgz`, а не бинарный diff отдельных компонентов.
+3. После скачивания Proxy проверяет размер, SHA-256, runtime, dataId и фактический reader. Служебные AppleDouble `._*` из исторического снимка исключаются при извлечении.
+4. Новый контрактный снимок соединяется **локально** с уже установленными знаниями Hub штатным сборщиком. Ни приватные knowledge, ни SDK, ни настройки в Git не отправляются. Локальный архив создаётся с `COPYFILE_DISABLE=1`.
+5. Существующий installer атомарно переключает данные и сохраняет предыдущую версию для отката. Миниапп дожидается завершения активной работы и перезапускает только сервер. Приложение, плагин и engine не пересобираются.
 
-Приватный HTTPS-адрес пока не выбран. Локальный полный release подготовлен отдельно, не активирован; descriptor с `example.invalid` — только шаблон и не является опубликованным каналом. Настройки работающего Proxy не менялись. При несовпадении runtimeId обновление должно остановиться, не обходить guard.
+Настройка источника в существующем поле `APOLLO_DATA_DESCRIPTOR_URL`:
+`https://raw.githubusercontent.com/Ackedze/design-system_ab/main/apollo/data-packages/current.json`.
+Название настройки сохранено для совместимости миниаппа; это адрес файла Git.
+
+Требуется Git updater из `apollo-proxy/scripts/git-data-cli.js`, установленный как `scripts/data-release-cli.js` поверх принятого portable Proxy. Он использует уже поставленные modern builder/readers. Наличие только этого скрипта в обычном checkout Proxy 1.3.1 не заменяет установленную portable поставку 1.4.0. Runtime `6c6…` остаётся прежним; меняется только updater CLI.
+
+Приёмка: работающий API/reader видит dataId выше и 12 checking contracts, откат возвращает 11, повторное обновление — 12; unchanged check не скачивает архив. Зелёный индикатор до завершения перезапуска сам по себе активацию не подтверждает. Draft остаётся Draft.
 
 Тесткейсы: [условия и ссылки](../../experiments/current-contract-packages/PaymentMaskedNumber/reports/lab-and-data-update-r1-2026-10-21/README.md).
