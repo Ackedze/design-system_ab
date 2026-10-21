@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "apollo.agent-frontend-mapping.v1",
+  "target": "frontend",
+  "status": "PARTIAL_SOURCE_API_CANDIDATE_NOT_DISTRIBUTION_ADMITTED",
+  "accepted": false,
+  "Ready": false,
+  "ruleLinksFile": "rule-links.json",
+  "context": {
+    "contracts": {
+      "PaymentMaskedNumber": {
+        "revision": 4,
+        "archive": {
+          "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/PaymentMaskedNumber/reports/mapping-r4-2026-10-22/fixtures/PaymentMaskedNumber.r4.component-contract.zip",
+          "sha256": "59329b3247a116acc5900b02f8c70cb7448a817222d496056ccba330cccf52dc",
+          "bytes": 43335
+        },
+        "manual": {
+          "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/PaymentMaskedNumber/reports/mapping-r4-2026-10-22/contract.manual.json",
+          "sha256": "fa5bb589797162f815df8fe6ec3cf69ec670adfbe6875bc3a551e2dcabb6f0e2",
+          "bytes": 13963
+        }
+      }
+    },
+    "package": {
+      "name": "arui-private",
+      "version": "80.7.1",
+      "sourcePackage": {
+        "path": "/Users/alexkukhta/Desktop/workplace/arui-private/package.json",
+        "sha256": "f7a63bfdce23d238ed1b6511255a376a65608f64ce371f85795f43c0bc0f6ede",
+        "bytes": 10212
+      }
+    },
+    "distribution": {
+      "installedModuleLink": "/Users/alexkukhta/Desktop/workplace/arui-private/tools/code-connect/frontend-host/node_modules/arui-private",
+      "physicalRoot": "/Users/alexkukhta/Desktop/workplace/arui-private/tools/code-connect/frontend-host/.work/source/dist",
+      "missingInputs": [
+        "/Users/alexkukhta/Desktop/workplace/arui-private/tools/code-connect/frontend-host/.work/source/dist/esm/payment-masked-number/index.js",
+        "/Users/alexkukhta/Desktop/workplace/arui-private/tools/code-connect/frontend-host/.work/source/dist/esm/payment-masked-number/index.d.ts",
+        "/Users/alexkukhta/Desktop/workplace/arui-private/tools/code-connect/frontend-host/.work/source/dist/cjs/payment-masked-number/index.js",
+        "/Users/alexkukhta/Desktop/workplace/arui-private/tools/code-connect/frontend-host/.work/source/dist/cjs/payment-masked-number/index.d.ts"
+      ]
+    },
+    "browser": {
+      "executed": false
+    }
+  },
+  "bindings": [
+    {
+      "mappingId": "arui-private.payment-masked-number.universal",
+      "componentId": "web-corp.payment-masked-number",
+      "representationId": "web-corp.payment-masked-number.code.arui-private.universal",
+      "sourceRepresentationId": "web-corp.payment-masked-number.figma.universal",
+      "declaredInContract": false,
+      "representationStatus": "external-draft-proposal",
+      "platform": "universal",
+      "import": {
+        "module": "arui-private/payment-masked-number",
+        "export": "PaymentMaskedNumber"
+      },
+      "contract": {
+        "archive": {
+          "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/PaymentMaskedNumber/reports/mapping-r4-2026-10-22/fixtures/PaymentMaskedNumber.r4.component-contract.zip",
+          "sha256": "59329b3247a116acc5900b02f8c70cb7448a817222d496056ccba330cccf52dc",
+          "bytes": 43335
+        },
+        "manual": {
+          "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/PaymentMaskedNumber/reports/mapping-r4-2026-10-22/contract.manual.json",
+          "sha256": "fa5bb589797162f815df8fe6ec3cf69ec670adfbe6875bc3a551e2dcabb6f0e2",
+          "bytes": 13963,
+          "semanticHash": "76e4d385674d79e3078a7faffa9f32846b8ec467b47411bf0df104cd5734c3f4"
+        },
+        "revision": 4,
+        "compiledHash": "04a53ab4a2e1cc1ca95f10a5f5bd8220cd7f4f60908117d82da71e37d837dde7",
+        "sourceStatus": "draft"
+      },
+      "ports": [
+        {
+          "logical": "maskNumber",
+          "codePath": "props.hideNumber",
+          "targetId": "target.major",
+          "domain": [
+            "False",
+            "True"
+          ],
+          "transform": {
+            "id": "enum-map",
+            "entries": [
+              {
+                "from": "False",
+                "to": false
+              },
+              {
+                "from": "True",
+                "to": true
+              }
+            ]
+          },
+          "RuleIDs": [
+            "component:web-corp.payment-masked-number.mask-format"
+          ]
+        }
+      ],
+      "requiredPublicInputs": {
+        "props.type": [
+          "card",
+          "account"
+        ],
+        "props.number": "Caller-supplied full raw number; never reconstruct from masked Major/Minor."
+      },
+      "unmappedSemanticPorts": [
+        "major",
+        "minor",
+        "addonVisible",
+        "addonPreset"
+      ],
+      "rightAddon": {
+        "codePath": "props.rightAddon",
+        "type": "React.ReactNode",
+        "composition": "Caller-owned; no Figma-preset-to-component renderer is invented. Not props.children.",
+        "absence": "omit rightAddon for hidden addon"
+      },
+      "behavior": "No required callback or fabricated loading/disabled/error props. HTML event props are caller context.",
+      "helper": {
+        "file": "bindings.ts",
+        "export": "mapMaskNumber",
+        "scope": "Pure enum-to-boolean only"
+      },
+      "runtimeAdmission": false,
+      "normVerdicts": "UNKNOWN",
+      "Ready": false
+    }
+  ]
+}

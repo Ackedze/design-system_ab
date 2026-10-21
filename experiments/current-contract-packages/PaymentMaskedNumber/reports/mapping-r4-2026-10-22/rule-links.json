@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "apollo.agent-rule-links.v1",
+  "links": [
+    {
+      "RuleID": "component:web-corp.payment-masked-number.parts-share-color-token",
+      "source": {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/PaymentMaskedNumber/reports/mapping-r4-2026-10-22/contract.manual.json",
+        "sha256": "fa5bb589797162f815df8fe6ec3cf69ec670adfbe6875bc3a551e2dcabb6f0e2",
+        "bytes": 13963,
+        "pointer": "/rules/0"
+      },
+      "rule": {
+        "id": "component:web-corp.payment-masked-number.parts-share-color-token",
+        "targetId": "target.root",
+        "targetScope": "self",
+        "capability": "parts-share-color-token",
+        "permission": "constrained",
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "quantity",
+            "targetRoles": [
+              "major-text",
+              "minor-text"
+            ],
+            "visibleOnly": true,
+            "min": 2,
+            "max": 2
+          },
+          {
+            "type": "bindingConsistency",
+            "bindingKind": "fill-token",
+            "bindingReference": "shared",
+            "targetRoles": [
+              "major-text",
+              "minor-text"
+            ],
+            "visibleOnly": true
+          }
+        ],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web",
+            "universal"
+          ],
+          "products": [],
+          "channels": [],
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "Major и Minor используют один общий цветовой токен; разные токены и raw-цвет запрещены.",
+        "message": "Major и Minor используют один общий цветовой токен; разные токены и raw-цвет запрещены.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.payment-masked-number"
+        },
+        "sourceRefs": [
+          "rules.json#component:web-corp.payment-masked-number.parts-share-color-token",
+          "products/ab/patterns/payment-masked-number.md"
+        ],
+        "execution": {
+          "route": "predicate"
+        }
+      }
+    },
+    {
+      "RuleID": "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+      "source": {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/PaymentMaskedNumber/reports/mapping-r4-2026-10-22/contract.manual.json",
+        "sha256": "fa5bb589797162f815df8fe6ec3cf69ec670adfbe6875bc3a551e2dcabb6f0e2",
+        "bytes": 13963,
+        "pointer": "/rules/1"
+      },
+      "rule": {
+        "id": "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+        "targetId": "target.root",
+        "targetScope": "self",
+        "capability": "text.style",
+        "permission": "constrained",
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "bindingConsistency",
+            "bindingKind": "text-style",
+            "bindingReference": "selected-variant",
+            "targetRoles": [
+              "major-text",
+              "minor-text"
+            ],
+            "visibleOnly": true
+          }
+        ],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web",
+            "universal"
+          ],
+          "products": [],
+          "channels": [],
+          "scopeStatus": "confirmed"
+        },
+        "severity": "error",
+        "rationale": "Major и Minor сохраняют опубликованные текстовые стили своей effective-baseline пары; detach и ручная типографика запрещены.",
+        "message": "Major и Minor сохраняют опубликованные текстовые стили своей effective-baseline пары; detach и ручная типографика запрещены.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.payment-masked-number"
+        },
+        "sourceRefs": [
+          "rules.json#component:web-corp.payment-masked-number.typography-follows-effective-pair",
+          "products/ab/patterns/payment-masked-number.md",
+          "rules.json#component:web-corp.payment-masked-number.text-style-binding-required"
+        ],
+        "execution": {
+          "route": "predicate"
+        }
+      }
+    },
+    {
+      "RuleID": "component:web-corp.payment-masked-number.mask-format",
+      "source": {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/PaymentMaskedNumber/reports/mapping-r4-2026-10-22/contract.manual.json",
+        "sha256": "fa5bb589797162f815df8fe6ec3cf69ec670adfbe6875bc3a551e2dcabb6f0e2",
+        "bytes": 13963,
+        "pointer": "/rules/2"
+      },
+      "rule": {
+        "id": "component:web-corp.payment-masked-number.mask-format",
+        "targetId": "target.major-text",
+        "targetScope": "self",
+        "capability": "text.characters",
+        "permission": "constrained",
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "propertyDomain",
+            "fact": "text.characters",
+            "values": [
+              "·· "
+            ]
+          }
+        ],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web",
+            "universal"
+          ],
+          "products": [],
+          "channels": [],
+          "scopeStatus": "confirmed",
+          "conditionSubject": "component-root",
+          "context": {
+            "semanticApi.maskNumber": "True"
+          }
+        },
+        "severity": "error",
+        "rationale": "При Mask Number=True Major содержит два U+00B7 и тонкий пробел U+2009.",
+        "message": "При Mask Number=True Major содержит два U+00B7 и тонкий пробел U+2009.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.payment-masked-number"
+        },
+        "sourceRefs": [
+          "rules.json#component:web-corp.payment-masked-number.mask-format",
+          "products/ab/patterns/payment-masked-number.md"
+        ],
+        "execution": {
+          "route": "predicate"
+        }
+      }
+    },
+    {
+      "RuleID": "component:web-corp.payment-masked-number.addon-geometry",
+      "source": {
+        "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/PaymentMaskedNumber/reports/mapping-r4-2026-10-22/contract.manual.json",
+        "sha256": "fa5bb589797162f815df8fe6ec3cf69ec670adfbe6875bc3a551e2dcabb6f0e2",
+        "bytes": 13963,
+        "pointer": "/rules/3"
+      },
+      "rule": {
+        "id": "component:web-corp.payment-masked-number.addon-geometry",
+        "targetId": "target.addon",
+        "targetScope": "self",
+        "capability": "bounds.height",
+        "permission": "constrained",
+        "controlPaths": [],
+        "constraints": [
+          {
+            "type": "layoutConstraint",
+            "fact": "layout.padding.left",
+            "operator": "equals",
+            "value": 6
+          },
+          {
+            "type": "layoutConstraint",
+            "fact": "bounds.height",
+            "operator": "at-most-line-height",
+            "targetRole": "major-text"
+          }
+        ],
+        "applicability": {
+          "variants": "all",
+          "modes": "all",
+          "platforms": [
+            "desktop",
+            "mobile-web",
+            "universal"
+          ],
+          "products": [],
+          "channels": [],
+          "scopeStatus": "confirmed",
+          "conditionSubject": "component-root",
+          "context": {
+            "semanticApi.addonVisible": true
+          }
+        },
+        "severity": "error",
+        "rationale": "Отступ до Addon — 6 px; высота Addon не превышает line-height номера.",
+        "message": "Отступ до Addon — 6 px; высота Addon не превышает line-height номера.",
+        "status": "draft",
+        "owner": "design-system-authors",
+        "ownership": {
+          "kind": "component",
+          "ownerId": "web-corp.payment-masked-number"
+        },
+        "sourceRefs": [
+          "rules.json#component:web-corp.payment-masked-number.addon-geometry",
+          "products/ab/patterns/payment-masked-number.md"
+        ],
+        "execution": {
+          "route": "predicate"
+        }
+      }
+    }
+  ]
+}
