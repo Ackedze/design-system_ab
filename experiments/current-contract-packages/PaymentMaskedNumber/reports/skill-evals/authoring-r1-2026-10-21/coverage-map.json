@@ -1,0 +1,144 @@
+{
+  "componentId": "web-corp.payment-masked-number",
+  "revision": 1,
+  "sourceRules": 12,
+  "entries": [
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.public-root-only",
+      "sourceNorm": "Самостоятельно разрешено использовать только PaymentMaskedNumber. Major, Minor, RightAddon и SwapMe являются внутренними частями семейства.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.public-root-only",
+      "route": "metadata",
+      "manualRuleId": null,
+      "gap": null,
+      "compiledRuleIds": [],
+      "target": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.unmasked-major-format",
+      "sourceNorm": "При Mask Number=False Major содержит начало номера счёта или карты со штатной группировкой через математический пробел U+205F.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.number-format",
+      "route": "unresolved",
+      "manualRuleId": null,
+      "gap": "FORMAT_PATTERN_UNSUPPORTED_CURRENT_CORE",
+      "compiledRuleIds": [],
+      "target": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.mask-format",
+      "sourceNorm": "При Mask Number=True Major содержит два интерпункта U+00B7 и тонкий пробел U+2009.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.mask-format",
+      "route": "predicate-draft",
+      "manualRuleId": "component:web-corp.payment-masked-number.mask-format",
+      "gap": null,
+      "compiledRuleIds": [
+        "component:web-corp.payment-masked-number.mask-format.1.1"
+      ],
+      "target": "target.major-text"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.minor-last-four-digits",
+      "sourceNorm": "Minor содержит ровно последние четыре цифры номера счёта или карты.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.number-format",
+      "route": "unresolved",
+      "manualRuleId": null,
+      "gap": "FORMAT_PATTERN_UNSUPPORTED_CURRENT_CORE",
+      "compiledRuleIds": [],
+      "target": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.parts-share-color-token",
+      "sourceNorm": "Major и Minor можно синхронно перекрасить в любой подходящий цветовой токен. Обе части должны использовать один и тот же token binding; raw-цвет и разные токены запрещены.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.parts-share-color-token",
+      "route": "predicate-draft",
+      "manualRuleId": "component:web-corp.payment-masked-number.parts-share-color-token",
+      "gap": "TOKEN_LIBRARY_MEMBERSHIP_REMAINS_GLOBAL_POLICY",
+      "compiledRuleIds": [
+        "component:web-corp.payment-masked-number.parts-share-color-token.1.1",
+        "component:web-corp.payment-masked-number.parts-share-color-token.1.2"
+      ],
+      "target": "target.root"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.addon-uses-final-component",
+      "sourceNorm": "Addon по умолчанию скрыт. Если Addon показан, служебный SwapMe должен быть заменён подходящим сценарию компонентом; список допустимых swap-компонентов этим контрактом не ограничивается.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.addon-uses-final-component",
+      "route": "context-only",
+      "manualRuleId": null,
+      "gap": "CUSTOM_SLOT_CONTENT_IDENTITY_CHECK_NOT_AUTHORED",
+      "compiledRuleIds": [],
+      "target": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.addon-geometry",
+      "sourceNorm": "Между номером и Addon сохраняется отступ 6 px, а высота Addon не превышает line-height текстовой части номера.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.addon-geometry",
+      "route": "predicate-draft",
+      "manualRuleId": "component:web-corp.payment-masked-number.addon-geometry",
+      "gap": "GAP_CHECK_USES_LIBRARY_ADDON_PADDING_NOT_ARBITRARY_CONTENT_DISTANCE",
+      "compiledRuleIds": [
+        "component:web-corp.payment-masked-number.addon-geometry.1.1",
+        "component:web-corp.payment-masked-number.addon-geometry.1.2"
+      ],
+      "target": "target.addon"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+      "sourceNorm": "Major и Minor сохраняют свои text styles из effective baseline как согласованную пару; независимое ручное изменение типографики одной из частей запрещено.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.typography-pair",
+      "route": "predicate-draft",
+      "manualRuleId": "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+      "gap": null,
+      "compiledRuleIds": [
+        "component:web-corp.payment-masked-number.typography-follows-effective-pair.1.1"
+      ],
+      "target": "target.root"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.text-style-binding-required",
+      "sourceNorm": "Major и Minor используют опубликованные Figma Text Styles дизайн-системы; raw fontSize, lineHeight, fontWeight и другие ручные параметры без text style запрещены.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.typography-pair",
+      "route": "merged",
+      "manualRuleId": "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+      "gap": null,
+      "compiledRuleIds": [
+        "component:web-corp.payment-masked-number.typography-follows-effective-pair.1.1"
+      ],
+      "target": "target.root"
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.narrow-overflow-preserves-last-four",
+      "sourceNorm": "В узком контейнере начало номера сокращается штатным ellipsis, компонент остаётся в одну строку, а последние четыре цифры Minor сохраняются видимыми.",
+      "sourceHumanRuleId": "rule:components.payment-masked-number.narrow-overflow",
+      "route": "context-only",
+      "manualRuleId": null,
+      "gap": "NARROW_CONTAINER_ELLIPSIS_FACTS_UNAVAILABLE",
+      "compiledRuleIds": [],
+      "target": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.interaction-and-states-are-contextual",
+      "sourceNorm": "У PaymentMaskedNumber нет собственных loading, disabled и error состояний. Кликабельность root и Addon зависит от продуктового контекста и не является обязательной или запрещённой сама по себе.",
+      "sourceHumanRuleId": null,
+      "route": "metadata",
+      "manualRuleId": null,
+      "gap": null,
+      "compiledRuleIds": [],
+      "target": null
+    },
+    {
+      "sourceRuleId": "component:web-corp.payment-masked-number.lifecycle-context-is-informational",
+      "sourceNorm": "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule.",
+      "sourceHumanRuleId": null,
+      "route": "metadata",
+      "manualRuleId": null,
+      "gap": null,
+      "compiledRuleIds": [],
+      "target": null
+    }
+  ],
+  "normDecision": {
+    "addonGapPx": 6,
+    "formatGapAccepted": true
+  },
+  "inheritedMechanisms": "Existing typed bindingConsistency, finite propertyDomain and layoutConstraint; no new runtime."
+}

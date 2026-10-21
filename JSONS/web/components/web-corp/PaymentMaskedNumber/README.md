@@ -42,7 +42,7 @@ PaymentMaskedNumber отображает номер банковского сч�
 - Mask Number=True использует `·· ` и сохраняет последние четыре цифры.
 - Major и Minor могут использовать любой общий color token; разные токены и raw-цвет являются error.
 - Addon скрыт по умолчанию; при показе SwapMe заменяется подходящим контексту компонентом.
-- Gap до Addon равен 4 px, высота Addon не превышает line-height номера.
+- Gap до Addon равен 6 px, высота Addon не превышает line-height номера.
 - Major и Minor сохраняют effective-baseline text styles как пару; raw typography запрещена.
 - В узком контейнере используется одна строка и ellipsis с сохранением последних четырёх цифр.
 - Собственных loading, disabled и error состояний нет; кликабельность определяется контекстом.
@@ -71,3 +71,10 @@ Figma: [Мастерская — AI, PaymentMaskedNumber](https://www.figma.com/
 | `12711:62080` | Отдельно вставлен внутренний Major | `public-root-only` |
 
 Context-only правила Addon, geometry, overflow и interaction не входят в автоматическое ожидание этой fixture и проверяются отдельно вручную.
+
+## Текущий Draft · 21.10.2026
+
+Новый manual r1 и ZIP находятся в current-contract-packages/PaymentMaskedNumber.
+Отступ Addon изменён владельцем на 6 px. Старые Ready/fixture receipts относятся
+к прежнему контуру и не принимают новый Draft автоматически. Проверка формата
+Major/Minor пока имеет явный gap; core/runtime в этой задаче не изменялись.

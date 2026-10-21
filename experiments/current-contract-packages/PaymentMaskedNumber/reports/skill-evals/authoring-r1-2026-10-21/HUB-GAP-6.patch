@@ -1,0 +1,65 @@
+--- a/products/ab/components/payment-masked-number/instructions.md
++++ b/products/ab/components/payment-masked-number/instructions.md
+@@ -82,7 +82,7 @@
+ контекста. Сам `PaymentMaskedNumber` и содержимое Addon могут быть кликабельными, если это требуется
+ сценарием.
+ 
+-Между номером и Addon сохраняй штатный отступ `4 px`. Высота Addon не должна превышать line-height текстовой части номера. Изменение отступа или использование более высокого Addon — ошибка.
++Между номером и Addon сохраняй штатный отступ `6 px`. Высота Addon не должна превышать line-height текстовой части номера. Изменение отступа или использование более высокого Addon — ошибка.
+ 
+ ## Типографика
+ 
+--- a/products/ab/components/payment-masked-number/adapter.figma.md
++++ b/products/ab/components/payment-masked-number/adapter.figma.md
+@@ -26,7 +26,7 @@
+   `Presets=StatusBadge`.
+ - Для штатного содержимого выбери нужный `Presets`; для произвольного компонента сначала установи
+   `Presets=SwapMe`, затем замени вложенную заглушку библиотечным компонентом текущего сценария.
+-- Сохраняй штатные text styles, расстояние `4 px` до Addon и однострочный overflow с видимым
++- Сохраняй штатные text styles, расстояние `6 px` до Addon и однострочный overflow с видимым
+   `Minor`.
+ 
+ Пошаговая сборка и проверки находятся в [`cookbook/`](cookbook/01-overview.md), продуктовые правила
+--- a/products/ab/patterns/payment-masked-number.md
++++ b/products/ab/patterns/payment-masked-number.md
+@@ -170,12 +170,12 @@
+ - checkType: manual
+ - autofix: partial
+ 
+-Между номером и Addon должен оставаться отступ `4 px`. Высота Addon не должна превышать line-height текстовой части номера.
+-
+-### Правильно
+-
+-```text
+-gap = 4 px
++Между номером и Addon должен оставаться отступ `6 px`. Высота Addon не должна превышать line-height текстовой части номера.
++
++### Правильно
++
++```text
++gap = 6 px
+ Addon.height <= number.lineHeight
+ ```
+ 
+--- a/products/ab/components/payment-masked-number/cookbook/03-compose-addon-and-overflow.md
++++ b/products/ab/components/payment-masked-number/cookbook/03-compose-addon-and-overflow.md
+@@ -27,7 +27,7 @@
+ 2. Для произвольного контекстного компонента выбери `Presets=SwapMe`, затем замени вложенный
+    `SwapMe` библиотечным инстансом. Не оставляй заглушку в финальном макете.
+ 
+-В обоих случаях сохраняй штатный gap `4 px`; высота Addon не превышает line-height номера.
++В обоих случаях сохраняй штатный gap `6 px`; высота Addon не превышает line-height номера.
+ 
+ ## Узкий контейнер
+ 
+--- a/products/ab/components/payment-masked-number/cookbook/04-verify.md
++++ b/products/ab/components/payment-masked-number/cookbook/04-verify.md
+@@ -16,7 +16,7 @@
+ - Маска включена через `Major.Mask Number=True` и сохраняет `Minor`.
+ - `Major` и `Minor` используют один contextual color token binding и штатные text styles.
+ - Если Addon видим, выбран штатный `Presets` либо установлен `Presets=SwapMe` и вложенная заглушка
+-  заменена библиотечным инстансом; gap равен `4 px`, высота не больше line-height номера.
++  заменена библиотечным инстансом; gap равен `6 px`, высота не больше line-height номера.
+ - Номер остаётся в одну строку; при overflow сокращается начало, а `Minor` остаётся видимым.
+ - На уровне компонента не добавлены вымышленные loading, disabled или error states.
+ - Runtime import и props не придуманы: code target остаётся `missing` / `draft`.

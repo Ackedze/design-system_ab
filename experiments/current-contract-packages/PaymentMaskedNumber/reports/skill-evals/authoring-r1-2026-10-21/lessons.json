@@ -1,0 +1,22 @@
+[
+  {
+    "id": "index-pin-refresh-before-collector",
+    "fact": "First collection validation refused STALE_CONTRACT_SOURCE after adding the source-index entry.",
+    "cause": "Authoring changed the index but omitted its hash/bytes refresh in manifest.authoringIndex. Correct source-root resolution; no foreign contract drift.",
+    "expectedBefore": {
+      "file": "../../JSONS/indexes/component-contracts.index.json",
+      "sha256": "703790108ca181a0f73a63e336fda781fa5f64cd812daa2ec16a8efc27c1985c",
+      "bytes": 17089
+    },
+    "actualIndex": {
+      "file": "../../JSONS/indexes/component-contracts.index.json",
+      "sha256": "1611e2e9cb6041cd1737e12fa8301d73cf68f9d867aa20390e55ba9f98ea3e65",
+      "bytes": 18091
+    },
+    "impact": "Collector stopped before derived writes; no runtime consumers or published state changed.",
+    "fix": "Refresh exactly the new index hash/bytes in the mutable new manifest, then rerun unchanged collector/check.",
+    "prevention": "Existing collection guard must pass before seal/commit; final pins include the source index and manifest.",
+    "owner": "Contract Creation",
+    "result": "PASS: unchanged collector and --check both accepted all15packages after exact index pin refresh."
+  }
+]
