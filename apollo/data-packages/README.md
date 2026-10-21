@@ -1,10 +1,10 @@
 # Контрактные данные Apollo
 
 Актуальный подготовленный снимок выбирает [current.json](current.json).
-Сейчас это PaymentMaskedNumber **r3** для ручного теста обновления: dataId
-`5b6b99154c70963e5576b0dd98e248ce11b53c13e1dc01db93b0463b95c8df6a`.
+Сейчас это PaymentMaskedNumber **r4** без тестового маркера сообщения: dataId
+`4726ca79eb6bb35dd9bcc153793d35b8359b51d81990643656466f2c5e3c593e`.
 Рабочая папка — `shared/design-system_ab`, ветка `main`.
-Push и установку выполняет владелец по [инструкции](../../experiments/current-contract-packages/PaymentMaskedNumber/reports/manual-git-update-r3-2026-10-22/README.ru.md).
+Ручной цикл r3 через Git подтверждён владельцем. Для установки r4 владелец пушит `main`, затем нажимает «Проверить обновления → Обновить» в миниаппе Proxy.
 
 ## Исторический снимок и приёмка r1
 

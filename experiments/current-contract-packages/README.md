@@ -18,7 +18,7 @@
 | Link | r8 | Ready | [ZIP](Link/Link.r8.candidate.component-contract.zip) |
 | IconView | r11 | Ready | [ZIP](IconView/IconView.r11.candidate.component-contract.zip) |
 | BackgroundPlate | r7 | Ready | [ZIP](BackgroundPlate/BackgroundPlate.r7.component-contract.zip) |
-| PaymentMaskedNumber | r3 | Draft | [ZIP](PaymentMaskedNumber/PaymentMaskedNumber.r3.manual-update-test.component-contract.zip) |
+| PaymentMaskedNumber | r4 | Draft | [ZIP](PaymentMaskedNumber/PaymentMaskedNumber.r4.draft.component-contract.zip) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
