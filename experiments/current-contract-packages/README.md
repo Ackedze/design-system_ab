@@ -19,7 +19,7 @@
 | IconView | r11 | 2026-10-20T20:14:08.002Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/IconView/packages/IconView.r11.candidate.component-contract.zip>) |
 | BackgroundPlate | r7 | 2026-10-20T11:41:14.000Z | Ready | [ZIP](<../../JSONS/web/components/web-corp/BackgroundPlate/packages/BackgroundPlate.r7.component-contract.zip>) |
 | PaymentMaskedNumber | r4 | 2026-10-21T12:23:12.203Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/PaymentMaskedNumber/packages/PaymentMaskedNumber.r4.draft.component-contract.zip>) |
-| Indicator | r1 | 2026-10-22T21:21:30.964Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Indicator/packages/Indicator.r1.draft.component-contract.zip>) |
+| Indicator | r2 | 2026-10-22T21:46:36.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Indicator/packages/Indicator.r2.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 

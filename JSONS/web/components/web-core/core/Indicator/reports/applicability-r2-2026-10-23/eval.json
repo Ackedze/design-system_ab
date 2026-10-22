@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "apollo.contract-authoring-eval.v1",
+  "runId": "applicability-r2-2026-10-23",
+  "caseId": "indicator-r2-native-applicability-regression",
+  "skill": {
+    "version": "0.1.5",
+    "reusedExactSnapshot": {
+      "file": "JSONS/web/components/web-core/core/Indicator/reports/authoring-r1-2026-10-23/skill-snapshot/SKILL.md",
+      "sha256": "4f8d2e78a152adc49e1a20cba58d9cdd369391551d102fe0ce979eb1ed54dee6",
+      "bytes": 9089
+    }
+  },
+  "evidenceKind": "retained-native-snapshot-replay",
+  "review": {
+    "author": "Contract Creation",
+    "reviewer": "same author",
+    "independent": false
+  },
+  "criteria": [
+    {
+      "id": "source-semantics-and-uniqueness",
+      "status": "PASS",
+      "evidence": [
+        "coverage-map.json",
+        "technical.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "original-native-trial",
+      "status": "FAIL",
+      "evidence": [
+        "before.json",
+        "owner-report.json.gz"
+      ],
+      "gaps": [
+        "IND-06 missed; 86 UNKNOWN in original r1"
+      ]
+    },
+    {
+      "id": "corrected-snapshot-replay",
+      "status": "PASS",
+      "evidence": [
+        "replay.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "compile-export-full-facts-reopen",
+      "status": "PASS",
+      "evidence": [
+        "technical.json",
+        "validation.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "data-reader-and-preservation",
+      "status": "PASS",
+      "evidence": [
+        "data-package.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "registry-synchronization",
+      "status": "PASS",
+      "evidence": [
+        "sheet-sync.json",
+        "sheet-final-readback.json"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "fresh-installed-r2-native",
+      "status": "NOT_RUN",
+      "evidence": [],
+      "gaps": [
+        "Owner publishes Git data and repeats existing board."
+      ]
+    }
+  ],
+  "overall": "PARTIAL",
+  "acceptedScope": [
+    "Data-only correction of host applicability and six Size8 structures",
+    "All eight saved native snapshots match exact expected RuleIDs and have complete execution",
+    "Incomplete-reference UNKNOWN retained",
+    "Existing core compile/ZIP/reopen/portable reader",
+    "Other 12 contracts, generation mappings and runtime unchanged"
+  ],
+  "gaps": [
+    "Fresh installed r2 Apollo test pending",
+    "Full collection compiler was not rerun: accepted portable input has no scripts/contract-catalog.cjs. Changed package compiled and reopened exactly; all 16 package repository integrity passed.",
+    "No new numeric format/max or style-detach identity norm introduced"
+  ],
+  "runtimePinsVerified": 31,
+  "wholeReady": false,
+  "workingInstallPerformed": false,
+  "pushPerformed": false,
+  "writesClosed": true,
+  "learning": {
+    "skillChange": false,
+    "reason": "Concrete authoring omissions corrected using existing supported fields; narrow replay guards saved in correct-and-replay.cjs, central process lesson relay to General."
+  }
+}
