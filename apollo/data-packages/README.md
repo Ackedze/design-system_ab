@@ -1,10 +1,20 @@
 # Контрактные данные Apollo
 
 Актуальный подготовленный снимок выбирает [current.json](current.json).
-Сейчас это PaymentMaskedNumber **r4** без тестового маркера сообщения: dataId
-`4726ca79eb6bb35dd9bcc153793d35b8359b51d81990643656466f2c5e3c593e`.
+Сейчас это PaymentMaskedNumber **r4 с Figma mapping**, dataId
+`e08462d1600c7efe85d0dd2fc93a0edcb5e3cf50d0d44fae337c4c934c8938ce`.
 Рабочая папка — `shared/design-system_ab`, ветка `main`.
-Ручной цикл r3 через Git подтверждён владельцем. Для установки r4 владелец пушит `main`, затем нажимает «Проверить обновления → Обновить» в миниаппе Proxy.
+Новый пакет сохраняет все 12 контрактов и прежний runtime, добавляя Figma connection
+для PaymentMaskedNumber. Frontend capability остаётся отключённой.
+
+Рабочий mapping лежит рядом с manual и facts компонента:
+[figma-mapping.json](../../JSONS/web/components/web-corp/PaymentMaskedNumber/mapping/figma-mapping.json).
+Исходники редактируются в каталоге компонента; immutable `contracts.tgz` формируется
+сборщиком для доставки. Файл в `reports` остаётся историческим evidence.
+
+После push в `main` установка выполняется через **Проверить обновления → Обновить**
+в миниаппе Proxy. Код приложения, плагина и engine не пересобирается.
+Проверки и границы: [отчёт](../../experiments/current-contract-packages/PaymentMaskedNumber/reports/proxy-figma-mapping-r4-2026-10-22/README.ru.md).
 
 ## Исторический снимок и приёмка r1
 
