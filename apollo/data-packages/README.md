@@ -1,11 +1,12 @@
 # Контрактные данные Apollo
 
 Актуальный подготовленный снимок выбирает [current.json](current.json).
-Сейчас это PaymentMaskedNumber **r4 с Figma mapping**, dataId
-`e08462d1600c7efe85d0dd2fc93a0edcb5e3cf50d0d44fae337c4c934c8938ce`.
+Сейчас это **Indicator r1 Draft для проверки**, dataId
+`8d3248d2735c6819906c914a0d75981dda85850a9a86b58d344099c060c8b3f3`.
 Рабочая папка — `shared/design-system_ab`, ветка `main`.
-Новый пакет сохраняет все 12 контрактов и прежний runtime, добавляя Figma connection
-для PaymentMaskedNumber. Frontend capability остаётся отключённой.
+Новый пакет сохраняет прежние 12 контрактов, их generation mappings и runtime,
+добавляя Indicator для проверки (всего 13). Indicator Figma-generation mapping не
+заявлен. PaymentMaskedNumber r4 mapping сохранён. Frontend остаётся отключённым.
 
 Рабочий mapping лежит рядом с manual и facts компонента:
 [figma-mapping.json](../../JSONS/web/components/web-corp/PaymentMaskedNumber/mapping/figma-mapping.json).

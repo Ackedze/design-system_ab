@@ -1,0 +1,484 @@
+{
+  "schemaVersion": "apollo.component-contract.manual.v2-experimental",
+  "documentType": "component-contract-manual",
+  "component": {
+    "componentId": "web-core.indicator",
+    "familyId": "web-core.indicator",
+    "contractId": "web-core.indicator",
+    "family": "Indicator",
+    "layer": "core",
+    "library": "Web _ Core",
+    "platform": "universal",
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "lifecycle": "active",
+    "componentKey": "6c245f34c082dc7cf2e0f8476b50ace910420768"
+  },
+  "semantics": {
+    "purpose": "Отображение индикатора или счётчика через публичный Indicator.",
+    "useWhen": [
+      "Использовать опубликованные варианты Indicator и штатный текстовый параметр."
+    ],
+    "doNotUseWhen": [],
+    "relatedComponentIds": [
+      "web-core.icon-view"
+    ],
+    "keywords": [
+      "indicator",
+      "индикатор",
+      "счётчик"
+    ]
+  },
+  "representations": [
+    {
+      "id": "web-core.indicator.figma.universal",
+      "kind": "figma",
+      "platform": "universal",
+      "status": "draft",
+      "locator": {
+        "fileKey": "lGWq8DtnUcSkRasagBuwq6",
+        "nodeId": "387:2751",
+        "componentKey": "6c245f34c082dc7cf2e0f8476b50ace910420768",
+        "name": "Indicator"
+      }
+    }
+  ],
+  "semanticApi": [
+    {
+      "id": "size",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "8",
+        "16",
+        "20",
+        "24",
+        "32",
+        "40"
+      ],
+      "defaultValue": "40",
+      "description": "Штатный VARIANT Size.",
+      "bindings": [
+        {
+          "representationId": "web-core.indicator.figma.universal",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "view",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "Red",
+        "Gray",
+        "White"
+      ],
+      "defaultValue": "Red",
+      "description": "Штатный VARIANT View.",
+      "bindings": [
+        {
+          "representationId": "web-core.indicator.figma.universal",
+          "path": "component.properties.View",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "border",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "False",
+        "True"
+      ],
+      "defaultValue": "False",
+      "description": "Штатный VARIANT Border.",
+      "bindings": [
+        {
+          "representationId": "web-core.indicator.figma.universal",
+          "path": "component.properties.Border",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "value",
+      "kind": "content",
+      "valueType": "string",
+      "defaultValue": "1",
+      "description": "Штатный TEXT ✎ Value; новый числовой формат или предел не вводится.",
+      "bindings": [
+        {
+          "representationId": "web-core.indicator.figma.universal",
+          "path": "component.properties.✎ Value#387:0",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "id": "athena-rules",
+      "kind": "guideline",
+      "path": "rules.json",
+      "status": "verified",
+      "projection": "source"
+    },
+    {
+      "id": "figma-library",
+      "kind": "figma",
+      "path": "https://www.figma.com/design/lGWq8DtnUcSkRasagBuwq6/Web----Core?node-id=387-2751",
+      "status": "verified",
+      "projection": "source"
+    }
+  ],
+  "examples": [],
+  "decisions": [
+    {
+      "id": "existing-engine-only",
+      "status": "accepted",
+      "summary": "Первый Draft только на существующих проверках.",
+      "rationale": "Прямое поручение владельца: без доработок движка, сразу подготовить к ручному тесту.",
+      "sourceRefs": [
+        "owner:2026-10-22"
+      ]
+    },
+    {
+      "id": "scope-no-invented-number-limit",
+      "status": "accepted",
+      "summary": "Не вводить новые правила числового значения.",
+      "rationale": "В исходных Indicator rules есть только политика публичных параметров и effective baseline.",
+      "sourceRefs": [
+        "rules.json"
+      ]
+    },
+    {
+      "id": "baseline-source-split",
+      "status": "accepted",
+      "summary": "Одна исходная baseline-норма раскрыта в непересекающиеся проверки оформления/layout и типографики Count.",
+      "rationale": "Текстовые факты не применяются к frame/root; для Size=8 Count отсутствует по опубликованному варианту.",
+      "sourceRefs": [
+        "rules.json#component:web-core.indicator.layer-properties-use-effective-baseline"
+      ]
+    }
+  ],
+  "generation": {
+    "profiles": [],
+    "instructions": [
+      "Только публичный Indicator из Web _ Core.",
+      "Size/View/Border — штатные VARIANT, Value — штатный TEXT.",
+      "Не вводить отсутствующие в исходниках предел счётчика, формат 99+ или контекст выбора цвета.",
+      "Draft для проверки; генерационный mapping в этом выпуске не заявлен."
+    ]
+  },
+  "source": {
+    "kind": "athena-package",
+    "importedFiles": [
+      "agent-context.json",
+      "audit-mapping.json",
+      "composition-contract.json",
+      "contract.generated.json",
+      "contract.overrides.json",
+      "rules.json",
+      "Web _ Core -- Indicator.json"
+    ],
+    "sourceHash": "b9ef2b85b5bc374aaf6cd92bd95ad2fa6fe7bf479dd1841fc65bf91449c81420",
+    "importedAt": "2026-10-22T21:21:30.959Z"
+  },
+  "targets": [
+    {
+      "id": "target.root",
+      "semanticRole": "root",
+      "label": "Indicator",
+      "lineage": [
+        "web-core.indicator"
+      ],
+      "nameHint": "Indicator",
+      "pathHint": "Indicator",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "web-core.indicator.figma.universal",
+          "nameHint": "Indicator",
+          "pathHint": "Indicator"
+        }
+      ]
+    },
+    {
+      "id": "target.count",
+      "semanticRole": "count",
+      "label": "Count",
+      "lineage": [
+        "web-core.indicator",
+        "Count"
+      ],
+      "nameHint": "Count",
+      "pathHint": "Indicator / Count",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "web-core.indicator.figma.universal",
+          "nameHint": "Count",
+          "pathHint": "Indicator / Count"
+        }
+      ]
+    }
+  ],
+  "controlPorts": [],
+  "rules": [
+    {
+      "id": "component:web-core.indicator.component-properties-are-first-class",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component-properties",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "Size"
+        },
+        {
+          "kind": "host-property",
+          "property": "View"
+        },
+        {
+          "kind": "host-property",
+          "property": "Border"
+        },
+        {
+          "kind": "host-property",
+          "property": "✎ Value#387:0"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "rationale": "Size, View, Border и текст ✎ Value меняются штатными параметрами Indicator.",
+      "message": "Size, View, Border и текст ✎ Value меняются штатными параметрами Indicator.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-core.indicator"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-core.indicator.component-properties-are-first-class"
+      ],
+      "execution": {
+        "route": "policy-only"
+      }
+    },
+    {
+      "id": "component:web-core.indicator.layer-properties-use-effective-baseline",
+      "targetId": "target.root",
+      "targetScope": "self-and-descendants",
+      "capability": "component.baseline",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.mode"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.top"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.right"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.bottom"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.left"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.itemSpacing"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.primaryAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.counterAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.sizingHorizontal"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.sizingVertical"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.fill"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.stroke"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.opacity"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.radius"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Сохраняйте оформление и внутренний Auto Layout выбранного варианта Indicator.",
+      "message": "Сохраняйте оформление и внутренний Auto Layout выбранного варианта Indicator.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-core.indicator"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-core.indicator.layer-properties-use-effective-baseline"
+      ],
+      "execution": {
+        "route": "predicate"
+      },
+      "remediationIntent": "restore-effective-baseline",
+      "propertyApplicability": {
+        "layout.itemSpacing": "flow-gap-either@1",
+        "layout.padding.top": "auto-layout-padding-either@1",
+        "layout.padding.right": "auto-layout-padding-either@1",
+        "layout.padding.bottom": "auto-layout-padding-either@1",
+        "layout.padding.left": "auto-layout-padding-either@1",
+        "layout.primaryAxisAlignItems": "flow-alignment-either@1",
+        "layout.counterAxisAlignItems": "flow-alignment-either@1"
+      }
+    },
+    {
+      "id": "component:web-core.indicator.count-typography-baseline",
+      "targetId": "target.count",
+      "targetScope": "self",
+      "capability": "text.typography",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "text.fontName"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.fontSize"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.lineHeight"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.letterSpacing"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.case"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.decoration"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.textAutoResize"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.textAlignHorizontal"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.textAlignVertical"
+        }
+      ],
+      "applicability": {
+        "variants": {
+          "Size": [
+            "16",
+            "20",
+            "24",
+            "32",
+            "40"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "products": [],
+        "channels": [],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Типографика Count соответствует выбранному Size Indicator; текст меняется через ✎ Value.",
+      "message": "Типографика Count соответствует выбранному Size Indicator; текст меняется через ✎ Value.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-core.indicator"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-core.indicator.layer-properties-use-effective-baseline"
+      ],
+      "execution": {
+        "route": "predicate"
+      },
+      "remediationIntent": "restore-effective-baseline"
+    }
+  ],
+  "metadata": {
+    "ruleOwnershipVersion": 1,
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "revision": 1,
+    "createdAt": "2026-10-22T21:21:30.964Z",
+    "updatedAt": "2026-10-22T21:21:30.964Z",
+    "publicRepresentationBoundaryVersion": 1
+  }
+}
