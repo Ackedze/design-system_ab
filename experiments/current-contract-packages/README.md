@@ -1,31 +1,33 @@
 # Контракты компонентов
 
-Актуальные ZIP хранятся в папках компонентов. Единственный список текущих пакетов — [manifest.json](manifest.json); прошлые версии из `history` автоматически не подбираются.
+Актуальные ZIP хранятся рядом с manual в `JSONS/web/components/.../packages`. Единственный список текущих пакетов — [manifest.json](manifest.json); прошлые версии из `history` автоматически не подбираются.
 
-| Компонент | Версия | Статус | Пакет |
-| --- | --- | --- | --- |
-| Button | r31 | Ready | [ZIP](Button/Button.component-contract.zip) |
-| Spinner | r8 | Ready | [ZIP](Spinner/Spinner.component-contract.zip) |
-| Amount | r5 | Ready | [ZIP](Amount/Amount.component-contract.zip) |
-| AmountStyles | r10 | Ready | [ZIP](AmountStyles/AmountStyles.component-contract.zip) |
-| CorporateContent | r13 | Ready | [ZIP](CorporateContent/CorporateContent.component-contract.zip) |
-| CorporateContent.mobile-web | r8 | Ready | [ZIP](CorporateContent/mobile-web/CorporateContent.mobile-web.component-contract.zip) |
-| ButtonsGroup | r60 | Ready | [ZIP](ButtonsGroup/ButtonsGroup.component-contract.zip) |
-| ButtonsGroup.mobile-web | r3 | Draft | [ZIP](ButtonsGroup/mobile-web/ButtonsGroup.mobile-web.component-contract.zip) |
-| BenefitCard | r16 | Draft | [ZIP](BenefitCard/BenefitCard.r16.candidate.component-contract.zip) |
-| BenefitsBlock | r4 | Draft | [ZIP](BenefitsBlock/BenefitsBlock.component-contract.zip) |
-| PromoCard | r3 | Draft | [ZIP](PromoCard/PromoCard.component-contract.zip) |
-| Link | r8 | Ready | [ZIP](Link/Link.r8.candidate.component-contract.zip) |
-| IconView | r11 | Ready | [ZIP](IconView/IconView.r11.candidate.component-contract.zip) |
-| BackgroundPlate | r7 | Ready | [ZIP](BackgroundPlate/BackgroundPlate.r7.component-contract.zip) |
-| PaymentMaskedNumber | r4 | Draft | [ZIP](PaymentMaskedNumber/PaymentMaskedNumber.r4.draft.component-contract.zip) |
+| Компонент | Версия | Изменён manual | Статус | Пакет |
+| --- | --- | --- | --- | --- |
+| Button | r31 | 2026-09-29T12:00:00.000Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/Button/packages/Button.component-contract.zip>) |
+| Spinner | r8 | 2026-09-27T11:05:00.000Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/Spinner/packages/Spinner.component-contract.zip>) |
+| Amount | r5 | 2026-09-29 | Ready | [ZIP](<../../JSONS/web/components/web-core/core/Amount/packages/Amount.component-contract.zip>) |
+| AmountStyles | r10 | 2026-09-30 | Ready | [ZIP](<../../JSONS/web/components/web-corp/AmountStyles/packages/AmountStyles.component-contract.zip>) |
+| CorporateContent | r13 | 2026-10-05T19:54:22.102Z | Ready | [ZIP](<../../JSONS/web/components/web-corp/CorporateContent/packages/CorporateContent.component-contract.zip>) |
+| CorporateContent.mobile-web | r8 | 2026-10-05T19:54:22.102Z | Ready | [ZIP](<../../JSONS/web/components/web-corp/CorporateContent/mobile-web/packages/CorporateContent.mobile-web.component-contract.zip>) |
+| ButtonsGroup | r60 | 2026-10-09T06:55:36.591Z | Ready | [ZIP](<../../JSONS/web/components/web-corp/ButtonGroup%20%5BD%5D/packages/ButtonsGroup.component-contract.zip>) |
+| ButtonsGroup.mobile-web | r3 | 2026-10-09T06:55:36.591Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/ButtonGroup%20%5BD%5D/mobile-web/packages/ButtonsGroup.mobile-web.component-contract.zip>) |
+| BenefitCard | r16 | 2026-10-20T21:20:30.429Z | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/BenefitCard/packages/BenefitCard.r16.candidate.component-contract.zip>) |
+| BenefitsBlock | r4 | 2026-10-08T17:46:31.559536+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/BenefitsBlock/packages/BenefitsBlock.component-contract.zip>) |
+| PromoCard | r3 | 2026-10-07T13:01:12.597Z | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/PromoCard/packages/PromoCard.component-contract.zip>) |
+| Link | r8 | 2026-10-20T21:20:30.319Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/Link/packages/Link.r8.candidate.component-contract.zip>) |
+| IconView | r11 | 2026-10-20T20:14:08.002Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/IconView/packages/IconView.r11.candidate.component-contract.zip>) |
+| BackgroundPlate | r7 | 2026-10-20T11:41:14.000Z | Ready | [ZIP](<../../JSONS/web/components/web-corp/BackgroundPlate/packages/BackgroundPlate.r7.component-contract.zip>) |
+| PaymentMaskedNumber | r4 | 2026-10-21T12:23:12.203Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/PaymentMaskedNumber/packages/PaymentMaskedNumber.r4.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
 - [Индекс исходников](../../JSONS/indexes/component-contracts.index.json) выбирает manual и факты в `JSONS/web/components/<library>/<component>`; мобильные версии — в `mobile-web`. ZIP — производная поставка.
-- Прежние `<Component>/authoring` и reports сохранены как историческое происхождение; новые правки manual выполняются в основных папках компонентов.
+- Прежние `<Component>/authoring`, reports и точные ZIP по старым адресам сохранены как историческое происхождение и frozen compatibility inputs; они не выбираются текущим manifest. Новые правки выполняются в основных папках компонентов.
 - `<Component>/mobile-web` — отдельный пакет мобильной платформы, когда он существует.
+- Дата берётся из `metadata.updatedAt` manual. Revision и hashes определяют точную версию; перенос, экспорт и сохранение без изменений не меняют дату.
 - [draft-manifest.json](draft-manifest.json) — производный список Draft из основного индекса.
 - [history](history/) — неизменяемые прежние пакеты и evidence; старые пути остаются историческим происхождением.
 - [AGENTS.md](AGENTS.md) и [инструкция авторинга](CONTRACT_AUTHORING_GUIDE.ru.md) — порядок работы.
-- `node ../../scripts/collect_current_contract_packages.js --check` проверяет текущие архивы и индексы; без `--check` обновляет только производные список Draft и эту страницу.
+- `node ../../scripts/validate_current_contract_packages.cjs` проверяет целостность репозитория без Apollo build.
+- `APOLLO_ROOT=/absolute/path/to/accepted/Apollo node ../../scripts/collect_current_contract_packages.js --check` проверяет ZIP, исходники и compiled projection принятой сборкой; без `--check` обновляет только производные список Draft и эту страницу.

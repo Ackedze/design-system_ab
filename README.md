@@ -2,6 +2,13 @@
 
 Репозиторий общих данных дизайн-системы.
 
+Текущие manual/facts, component-owned mappings и ZIP контрактов расположены
+в `JSONS/web/components/<library>/<component>`; отдельная mobile-web версия —
+во вложенной папке. [Source index](JSONS/indexes/component-contracts.index.json)
+закрепляет источники и ссылки на один общий mapping seed, [коллекция ZIP](experiments/current-contract-packages/README.md)
+показывает revision и дату изменения manual. [Порядок работы](experiments/current-contract-packages/CONTRACT_AUTHORING_GUIDE.ru.md#рабочие-файлы-компонента-и-даты)
+отделяет исходники от неизменяемых исторических receipts и производной поставки Proxy.
+
 Репозиторий является bootstrap-источником Apollo и хранит Web, token, style, icon, logotype и component-contract artifacts. Runtime читает `main/JSONS` через GitHub Pages: `https://ackedze.github.io/design-system_ab/JSONS/`. Это основной публичный delivery endpoint; `raw.githubusercontent.com` не используется из-за rate limits при массовой загрузке каталогов. Android/iOS ABM-каталоги вынесены в `Ackedze/desing-system_abm`; `JSONS/referenceSourcesMVP.json` подключает их raw manifest через `catalogManifests`. Новые ABM-файлы нельзя добавлять обратно в `JSONS/abm` или `JSONS/indexes/abm`.
 
 - `JSONS` — опубликованные каталоги компонентов, токенов, стилей, indexes и runtime-конфиги Apollo.

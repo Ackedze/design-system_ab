@@ -4,8 +4,26 @@ on:
   pull_request:
     paths:
       - "JSONS/web/components/**"
+      - "JSONS/indexes/component-contracts.index.json"
+      - "apollo/data-packages/**"
+      - "experiments/current-contract-packages/manifest.json"
+      - "experiments/current-contract-packages/draft-manifest.json"
+      - "scripts/**"
       - "patterns/**"
       - ".claude/skills/corp-component-authoring/**"
+      - ".github/workflows/component-package-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "JSONS/web/components/**"
+      - "JSONS/indexes/component-contracts.index.json"
+      - "apollo/data-packages/**"
+      - "experiments/current-contract-packages/manifest.json"
+      - "experiments/current-contract-packages/draft-manifest.json"
+      - "scripts/**"
+      - "patterns/**"
+      - ".claude/skills/corp-component-authoring/**"
+      - ".github/workflows/component-package-validation.yml"
 
 permissions:
   contents: read
@@ -18,8 +36,17 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-
-      - name: Validate changed component packages
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test repository integrity guards
+        run: node --test scripts/tests/component-package-integrity.test.js scripts/tests/legacy-component-scope.test.js
+      - name: Validate current contract source and archive pins
+        run: node scripts/validate_current_contract_packages.cjs
+      - name: Validate changed legacy component documents
+        env:
+          BASE_REF: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
         run: |
           node .claude/skills/corp-component-authoring/scripts/validate-component-package.mjs \
-            --changed-from "origin/${{ github.base_ref }}"
+            --changed-from "$BASE_REF"

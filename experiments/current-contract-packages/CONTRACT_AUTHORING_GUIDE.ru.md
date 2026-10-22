@@ -1,5 +1,35 @@
 # Подготовка и проверка контрактов компонентов
 
+## Рабочие файлы компонента и даты
+
+Canonical manual/facts и текущий ZIP находятся в одной папке:
+`JSONS/web/components/<library>/<component>/contract.manual.json`,
+`variant-evidence.json`, `packages/<existing-basename>.zip`.
+Отдельный mobile-web контракт использует вложенную папку `mobile-web`.
+Component-owned mappings размещаются в `mapping/`; примеры, тесты и новые
+отчёты остаются у компонента. Общие adapter/policy входы не дублируются по
+компонентам. Закрытые исторические reports, receipts и seals сохраняют свои
+адреса и pins; старые ZIP могут оставаться exact frozen compatibility copies.
+
+Текущие manual/facts выбирает `JSONS/indexes/component-contracts.index.json`;
+текущие ZIP — существующий `manifest.json` с `archivePathBase: design-system_ab`.
+Имена архивов, componentId/contractId и платформы при переносе не меняются.
+Snapshot в `apollo/data-packages` — отдельная производная поставка для Proxy;
+попадание файлов в Git не означает установку или повышение Draft/Ready.
+
+`metadata.createdAt` — создание manual, `metadata.updatedAt` — его последняя
+реальная правка. При изменении содержания повышается revision и один раз
+записывается UTC `new Date().toISOString()`. No-op, импорт/экспорт, перенос,
+перепаковка и изменение только mapping не меняют revision/date manual.
+Точную версию определяют revision и hashes, дата помогает читать историю.
+Прежние даты сохраняются с исходной точностью; время Git/mtime не подменяет
+неизвестную дату авторского изменения. README коллекции выводит дату из manual.
+
+CI выполняет standalone проверку paths/bytes/SHA/index/dates без сборки Apollo.
+Полная локальная сверка compiled projection требует принятого Apollo root:
+`APOLLO_ROOT=/absolute/path/to/accepted/Apollo node scripts/collect_current_contract_packages.js --check`
+из корня DS. Это явная dev invocation, не персональный default в runtime.
+
 ## Разрешённый публичный swap: привязка и внешний asset
 
 Подтверждённый общий механизм в core 0.1.17 / Editor 0.2.103 использует explicit

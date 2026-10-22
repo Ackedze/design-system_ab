@@ -408,6 +408,12 @@ function findChangedPackageDirs(rootDir, baseRef) {
       continue;
     }
     const packageDir = path.join(rootDir, path.dirname(relativePath));
+    // Component support files and manual-first mobile sources are not legacy eight-document packages.
+    const directories = relativePath.split('/').slice(3, -1);
+    if (directories.some((part) => ['mapping', 'packages', 'tests', 'reports', 'history', 'contract-versions'].includes(part))) continue;
+    if (fs.existsSync(path.join(packageDir, 'contract.manual.json')) &&
+        !fs.existsSync(path.join(packageDir, 'composition-contract.json')) &&
+        !fs.existsSync(path.join(packageDir, 'contract.generated.json'))) continue;
     if (isDirectory(packageDir)) {
       packageDirs.push(packageDir);
     }

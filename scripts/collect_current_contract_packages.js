@@ -1,16 +1,19 @@
 // Verify the current manifest; never reconstruct it from older source directories.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const repo=path.resolve(__dirname,'..'),destination=path.join(repo,'experiments/current-contract-packages');
-const core=require(path.resolve(repo,'../../projects/Apollo/packages/component-contract-core/dist/core.cjs'));
-const {readContractCatalog}=require(path.resolve(repo,'../../projects/Apollo/scripts/contract-catalog.cjs'));
-function renderReadme(manifest){
- const rows=['# Контракты компонентов','','Актуальные ZIP хранятся в папках компонентов. Единственный список текущих пакетов — [manifest.json](manifest.json); прошлые версии из `history` автоматически не подбираются.','','| Компонент | Версия | Статус | Пакет |','| --- | --- | --- | --- |'];
- for(const e of manifest.packages)rows.push(`| ${e.name} | r${e.revision} | ${e.status[0].toUpperCase()+e.status.slice(1)} | [ZIP](${e.file}) |`);
+function renderReadme(manifest,catalog){
+ const rows=['# Контракты компонентов','','Актуальные ZIP хранятся рядом с manual в `JSONS/web/components/.../packages`. Единственный список текущих пакетов — [manifest.json](manifest.json); прошлые версии из `history` автоматически не подбираются.','','| Компонент | Версия | Изменён manual | Статус | Пакет |','| --- | --- | --- | --- | --- |'];
+ for(const e of manifest.packages){
+  const source=catalog.sources.current.find(r=>r.entry.contractId===e.contractId),link=encodeURI(path.relative(catalog.root,path.join(catalog.archiveRoot,e.file)).split(path.sep).join('/'));
+  rows.push(`| ${e.name} | r${e.revision} | ${source.manual.metadata.updatedAt} | ${e.status[0].toUpperCase()+e.status.slice(1)} | [ZIP](<${link}>) |`);
+ }
  rows.push('','Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.','','- [Индекс исходников](../../JSONS/indexes/component-contracts.index.json) выбирает manual и факты в `JSONS/web/components/<library>/<component>`; мобильные версии — в `mobile-web`. ZIP — производная поставка.',
- '- Прежние `<Component>/authoring` и reports сохранены как историческое происхождение; новые правки manual выполняются в основных папках компонентов.','- `<Component>/mobile-web` — отдельный пакет мобильной платформы, когда он существует.','- [draft-manifest.json](draft-manifest.json) — производный список Draft из основного индекса.','- [history](history/) — неизменяемые прежние пакеты и evidence; старые пути остаются историческим происхождением.','- [AGENTS.md](AGENTS.md) и [инструкция авторинга](CONTRACT_AUTHORING_GUIDE.ru.md) — порядок работы.','- `node ../../scripts/collect_current_contract_packages.js --check` проверяет текущие архивы и индексы; без `--check` обновляет только производные список Draft и эту страницу.','');
+ '- Прежние `<Component>/authoring`, reports и точные ZIP по старым адресам сохранены как историческое происхождение и frozen compatibility inputs; они не выбираются текущим manifest. Новые правки выполняются в основных папках компонентов.','- `<Component>/mobile-web` — отдельный пакет мобильной платформы, когда он существует.','- Дата берётся из `metadata.updatedAt` manual. Revision и hashes определяют точную версию; перенос, экспорт и сохранение без изменений не меняют дату.','- [draft-manifest.json](draft-manifest.json) — производный список Draft из основного индекса.','- [history](history/) — неизменяемые прежние пакеты и evidence; старые пути остаются историческим происхождением.','- [AGENTS.md](AGENTS.md) и [инструкция авторинга](CONTRACT_AUTHORING_GUIDE.ru.md) — порядок работы.','- `node ../../scripts/validate_current_contract_packages.cjs` проверяет целостность репозитория без Apollo build.','- `APOLLO_ROOT=/absolute/path/to/accepted/Apollo node ../../scripts/collect_current_contract_packages.js --check` проверяет ZIP, исходники и compiled projection принятой сборкой; без `--check` обновляет только производные список Draft и эту страницу.','');
  return rows.join('\n');
 }
-async function collect(checkOnly=false,{root=destination}={}){
+async function collect(checkOnly=false,{root=destination,apolloRoot=process.env.APOLLO_ROOT||path.resolve(repo,'../../projects/Apollo')}={}){
+ const core=require(path.join(apolloRoot,'packages/component-contract-core/dist/core.cjs'));
+ const {readContractCatalog}=require(path.join(apolloRoot,'scripts/contract-catalog.cjs'));
  const catalog=readContractCatalog(root),manifest=catalog.manifest;
  assert(manifest,'A current package manifest is required.');
  for(let i=0;i<manifest.packages.length;i++){
@@ -27,7 +30,8 @@ async function collect(checkOnly=false,{root=destination}={}){
  catalog.assertCurrent();
  const draftFile=path.join(root,'draft-manifest.json'),draft=JSON.parse(fs.readFileSync(draftFile,'utf8'));
  const expected=Object.assign({},draft,{updatedAt:manifest.updatedAt,authoringIndex:manifest.authoringIndex,packages:manifest.packages.filter(p=>p.status!=='ready')});
- const readme=renderReadme(manifest);
+ if(manifest.archivePathBase!==undefined)expected.archivePathBase=manifest.archivePathBase;else delete expected.archivePathBase;
+ const readme=renderReadme(manifest,catalog);
  if(checkOnly){assert.deepEqual(draft,expected,'Draft index differs from current manifest.');assert.equal(fs.readFileSync(path.join(root,'README.md'),'utf8'),readme,'README differs from current manifest.');}
  else{
   fs.writeFileSync(draftFile+'.next',JSON.stringify(expected,null,2)+'\n');fs.renameSync(draftFile+'.next',draftFile);
