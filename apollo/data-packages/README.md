@@ -1,10 +1,10 @@
 # Контрактные данные Apollo
 
 Актуальный подготовленный снимок выбирает [current.json](current.json).
-Сейчас это **Switch r1 Draft для проверки**, dataId
-`d329d4e0beb1eeb523db4e2b187f922737f781bc31a46f625ae9598a0c7d1870`.
+Сейчас это **Status Core r1 Draft для проверки**, dataId
+`537a7f283a68484551d14c20c3797a622f9c370705776804e74e3d14837ca39f`.
 Рабочая папка — `shared/design-system_ab`, ветка `main`.
-Новый пакет добавляет Switch: 12 публичных представлений, 40 вариантов и 32 IR. Остальные 13 контрактов, generation mappings и runtime сохранены (всего 14). Switch Figma-generation mapping не заявлен. PaymentMaskedNumber r4 mapping сохранён. Frontend остаётся отключённым.
+Новый пакет добавляет Status: один активный публичный корень, 24 варианта и 23 IR. Остальные 14 контрактов, generation mappings и runtime сохранены (всего 15). Проверки внешнего SLOT/Addon содержимого — явный пробел Draft. Status Figma-generation mapping не заявлен; PaymentMaskedNumber r4 mapping сохранён, frontend отключён.
 
 Рабочий mapping лежит рядом с manual и facts компонента:
 [figma-mapping.json](../../JSONS/web/components/web-corp/PaymentMaskedNumber/mapping/figma-mapping.json).

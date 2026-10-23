@@ -1,0 +1,509 @@
+{
+  "schemaVersion": "apollo.component-contract.manual.v2-experimental",
+  "documentType": "component-contract-manual",
+  "component": {
+    "componentId": "web-core.status",
+    "familyId": "web-core.status",
+    "contractId": "web-core.status",
+    "family": "Status",
+    "layer": "core",
+    "library": "Web _ Core",
+    "platform": "universal",
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "lifecycle": "active",
+    "componentKey": "349af184bee87341370ef007d5e8189c51bd31ff"
+  },
+  "semantics": {
+    "purpose": "Публичный Status Web Core размеров20/24/32/40.",
+    "useWhen": [
+      "Актуальный Status из Web Core."
+    ],
+    "doNotUseWhen": [
+      "Устаревший 🔄 Status не является публичным представлением этого контракта."
+    ],
+    "relatedComponentIds": [],
+    "keywords": [
+      "status",
+      "статус"
+    ]
+  },
+  "representations": [
+    {
+      "id": "web-core.status.figma.universal",
+      "kind": "figma",
+      "platform": "universal",
+      "surface": "status",
+      "status": "draft",
+      "locator": {
+        "fileKey": "lGWq8DtnUcSkRasagBuwq6",
+        "nodeId": "34498:5764",
+        "componentKey": "349af184bee87341370ef007d5e8189c51bd31ff",
+        "name": "Status"
+      }
+    }
+  ],
+  "semanticApi": [
+    {
+      "id": "size",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "20",
+        "24",
+        "32",
+        "40"
+      ],
+      "bindings": [
+        {
+          "representationId": "web-core.status.figma.universal",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "shape",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "Rectangular",
+        "Rounded"
+      ],
+      "bindings": [
+        {
+          "representationId": "web-core.status.figma.universal",
+          "path": "component.properties.Shape",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "leftaddon",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "True",
+        "False"
+      ],
+      "bindings": [
+        {
+          "representationId": "web-core.status.figma.universal",
+          "path": "component.properties.LeftAddon",
+          "transform": "identity"
+        }
+      ]
+    },
+    {
+      "id": "rightaddon",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "False",
+        "True"
+      ],
+      "bindings": [
+        {
+          "representationId": "web-core.status.figma.universal",
+          "path": "component.properties.RightAddon",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "id": "source-rules",
+      "kind": "guideline",
+      "path": "rules.json",
+      "status": "verified",
+      "projection": "source"
+    }
+  ],
+  "examples": [],
+  "decisions": [
+    {
+      "id": "active-public-root-only",
+      "status": "accepted",
+      "summary": "Один активный публичный Status; deprecated/scheduled и служебные части исключены из публичных корней.",
+      "rationale": "Канонический каталог различает active/main и part; native owner349af184 подтверждён.",
+      "sourceRefs": [
+        "contract.generated.json",
+        "native-source.json"
+      ]
+    },
+    {
+      "id": "same-family-owned-parts",
+      "status": "accepted",
+      "summary": "Label и Addon — внутренние части Status, отдельный self-dependency не создаётся.",
+      "rationale": "Вхождения и exact keys сохранены в native/anatomy evidence; собственные нормы внешних swap assets отдельно не заявлены.",
+      "sourceRefs": [
+        "composition-contract.json",
+        "native-source.json"
+      ]
+    }
+  ],
+  "generation": {
+    "profiles": [],
+    "instructions": [
+      "Draft предназначен для первой проверки Apollo без изменения движка.",
+      "Проверять активный Status; Label/Addon не являются самостоятельными публичными корнями.",
+      "Генерационный mapping не заявлен."
+    ]
+  },
+  "source": {
+    "kind": "athena-package",
+    "importedFiles": [
+      "agent-context.json",
+      "audit-mapping.json",
+      "composition-contract.json",
+      "contract.overrides.json",
+      "rules.json",
+      "variant-anatomy.source.json"
+    ],
+    "sourceHash": "afe338b3b9ca31981914fdabac41ccd25327f1492c3c756b78b9a94cc1c46121",
+    "importedAt": "2026-10-23T02:57:05.171Z"
+  },
+  "targets": [
+    {
+      "id": "target.root",
+      "semanticRole": "root",
+      "label": "Status",
+      "lineage": [
+        "Status"
+      ],
+      "nameHint": "Status",
+      "pathHint": "Status",
+      "resolution": "resolved"
+    },
+    {
+      "id": "target.label-owner",
+      "semanticRole": "label-owner",
+      "label": "Label",
+      "lineage": [
+        "Status",
+        "Label"
+      ],
+      "nameHint": "Label",
+      "pathHint": "Status / Label",
+      "resolution": "resolved"
+    },
+    {
+      "id": "target.label-text",
+      "semanticRole": "label-text",
+      "label": "Label",
+      "lineage": [
+        "Status",
+        "Label",
+        "Label"
+      ],
+      "nameHint": "Label",
+      "pathHint": "Status / Label / Label",
+      "resolution": "resolved"
+    },
+    {
+      "id": "target.addon",
+      "semanticRole": "addon",
+      "label": "Addon",
+      "lineage": [
+        "Status",
+        "Addon"
+      ],
+      "nameHint": "Addon",
+      "pathHint": "Status / Addon",
+      "resolution": "resolved"
+    }
+  ],
+  "controlPorts": [],
+  "rules": [
+    {
+      "id": "component:web-core.status.component-properties-are-first-class",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component-properties",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "Size"
+        },
+        {
+          "kind": "host-property",
+          "property": "Shape"
+        },
+        {
+          "kind": "host-property",
+          "property": "LeftAddon"
+        },
+        {
+          "kind": "host-property",
+          "property": "RightAddon"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.label-owner",
+          "property": "✎ Label#34569:0"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.label-owner",
+          "property": "Uppercase"
+        },
+        {
+          "kind": "nested-property",
+          "target": "target.label-owner",
+          "property": "✎ Label#34498:0"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "rationale": "Размер, Shape и наличие аддонов меняются штатными параметрами Status; текст и Uppercase — параметрами вложенного Label.",
+      "message": "Размер, Shape и наличие аддонов меняются штатными параметрами Status; текст и Uppercase — параметрами вложенного Label.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-core.status"
+      },
+      "execution": {
+        "route": "policy-only"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-core.status.component-properties-are-first-class"
+      ]
+    },
+    {
+      "id": "component:web-core.status.layer-properties-use-effective-baseline",
+      "targetId": "target.root",
+      "targetScope": "self-and-descendants",
+      "capability": "component.baseline",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.mode"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.top"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.right"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.bottom"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.left"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.itemSpacing"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.primaryAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.counterAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.sizingHorizontal"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.sizingVertical"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.fill"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.stroke"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.opacity"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.radius"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Оформление и Auto Layout Status сохраняют эталон выбранного Size, Shape и вложенного состояния.",
+      "message": "Оформление и Auto Layout Status сохраняют эталон выбранного Size, Shape и вложенного состояния.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-core.status"
+      },
+      "execution": {
+        "route": "predicate"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-core.status.layer-properties-use-effective-baseline"
+      ],
+      "remediationIntent": "restore-effective-baseline",
+      "propertyApplicability": {
+        "layout.itemSpacing": "flow-gap-either@1",
+        "layout.padding.top": "auto-layout-padding-either@1",
+        "layout.padding.right": "auto-layout-padding-either@1",
+        "layout.padding.bottom": "auto-layout-padding-either@1",
+        "layout.padding.left": "auto-layout-padding-either@1",
+        "layout.primaryAxisAlignItems": "flow-alignment-either@1",
+        "layout.counterAxisAlignItems": "flow-alignment-either@1"
+      }
+    },
+    {
+      "id": "component:web-core.status.label-typography-baseline",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "text.typography",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "text.fontName",
+          "targetRoles": [
+            "label-text"
+          ],
+          "visibleOnly": true
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.fontSize",
+          "targetRoles": [
+            "label-text"
+          ],
+          "visibleOnly": true
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.lineHeight",
+          "targetRoles": [
+            "label-text"
+          ],
+          "visibleOnly": true
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.letterSpacing",
+          "targetRoles": [
+            "label-text"
+          ],
+          "visibleOnly": true
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.case",
+          "targetRoles": [
+            "label-text"
+          ],
+          "visibleOnly": true
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.decoration",
+          "targetRoles": [
+            "label-text"
+          ],
+          "visibleOnly": true
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.textAutoResize",
+          "targetRoles": [
+            "label-text"
+          ],
+          "visibleOnly": true
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.textAlignHorizontal",
+          "targetRoles": [
+            "label-text"
+          ],
+          "visibleOnly": true
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "text.textAlignVertical",
+          "targetRoles": [
+            "label-text"
+          ],
+          "visibleOnly": true
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Типографика вложенного Label сохраняет эталон выбранного Size и Uppercase; содержание текста меняется параметром Label.",
+      "message": "Типографика вложенного Label сохраняет эталон выбранного Size и Uppercase; содержание текста меняется параметром Label.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-core.status"
+      },
+      "execution": {
+        "route": "predicate"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-core.status.layer-properties-use-effective-baseline"
+      ],
+      "remediationIntent": "restore-effective-baseline"
+    }
+  ],
+  "metadata": {
+    "ruleOwnershipVersion": 1,
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "revision": 1,
+    "createdAt": "2026-10-23T02:57:05.175Z",
+    "updatedAt": "2026-10-23T02:57:05.175Z",
+    "publicRepresentationBoundaryVersion": 1
+  }
+}
