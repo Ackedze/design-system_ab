@@ -1,10 +1,10 @@
 # Контрактные данные Apollo
 
 Актуальный подготовленный снимок выбирает [current.json](current.json).
-Сейчас это **Status Core r1 Draft для проверки**, dataId
-`537a7f283a68484551d14c20c3797a622f9c370705776804e74e3d14837ca39f`.
+Сейчас это **Status Core r2 Draft для проверки**, dataId
+`69b9795b089da663699ed5a27a97dc6969b61f137f44152a895fbbc954800109`.
 Рабочая папка — `shared/design-system_ab`, ветка `main`.
-Новый пакет добавляет Status: один активный публичный корень, 24 варианта и 23 IR. Остальные 14 контрактов, generation mappings и runtime сохранены (всего 15). Проверки внешнего SLOT/Addon содержимого — явный пробел Draft. Status Figma-generation mapping не заявлен; PaymentMaskedNumber r4 mapping сохранён, frontend отключён.
+Новый пакет обновляет только Status: один активный публичный корень, 24 варианта и 70 IR по собственным native-целям. Остальные 14 контрактов, generation mappings и runtime сохранены (всего 15). Содержимое native SLOT произвольно по решению владельца; baseline Status его не проверяет. На сохранённых восьми captures UNKNOWN36→0; свежая выбранная область r2 ещё не принята. Status Figma-generation mapping не заявлен; PaymentMaskedNumber r4 mapping сохранён, frontend отключён.
 
 Рабочий mapping лежит рядом с manual и facts компонента:
 [figma-mapping.json](../../JSONS/web/components/web-corp/PaymentMaskedNumber/mapping/figma-mapping.json).

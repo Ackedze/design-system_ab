@@ -111,6 +111,23 @@
           "transform": "identity"
         }
       ]
+    },
+    {
+      "id": "uppercase",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "True",
+        "False"
+      ],
+      "bindings": [
+        {
+          "representationId": "web-core.status.figma.universal",
+          "targetId": "target.label-owner",
+          "path": "component.properties.Uppercase",
+          "transform": "identity"
+        }
+      ]
     }
   ],
   "documentation": [
@@ -118,6 +135,13 @@
       "id": "source-rules",
       "kind": "guideline",
       "path": "rules.json",
+      "status": "verified",
+      "projection": "source"
+    },
+    {
+      "id": "owner-slot-content",
+      "kind": "guideline",
+      "path": "owner-decisions.json",
       "status": "verified",
       "projection": "source"
     }
@@ -143,6 +167,15 @@
         "composition-contract.json",
         "native-source.json"
       ]
+    },
+    {
+      "id": "native-slot-open-content",
+      "status": "accepted",
+      "summary": "Внутрь узла native SLOT можно помещать любой объект. Status владеет контейнером SLOT, но не его содержимым; содержимое не сравнивается с библиотечным placeholder.",
+      "rationale": "Решение владельца; переиспользован подход CorporateContent. Baseline ограничен собственными native-целями, включая контейнер SLOT; произвольный payload не входит в него.",
+      "sourceRefs": [
+        "owner-decisions.json#native-slot-open-content"
+      ]
     }
   ],
   "generation": {
@@ -161,7 +194,8 @@
       "composition-contract.json",
       "contract.overrides.json",
       "rules.json",
-      "variant-anatomy.source.json"
+      "variant-anatomy.source.json",
+      "owner-decisions.json"
     ],
     "sourceHash": "afe338b3b9ca31981914fdabac41ccd25327f1492c3c756b78b9a94cc1c46121",
     "importedAt": "2026-10-23T02:57:05.171Z"
@@ -201,7 +235,11 @@
       ],
       "nameHint": "Label",
       "pathHint": "Status / Label / Label",
-      "resolution": "resolved"
+      "resolution": "resolved",
+      "variantContinuity": {
+        "kind": "same-family-text",
+        "anchorTargetId": "target.label-owner"
+      }
     },
     {
       "id": "target.addon",
@@ -213,6 +251,19 @@
       ],
       "nameHint": "Addon",
       "pathHint": "Status / Addon",
+      "resolution": "resolved"
+    },
+    {
+      "id": "target.slot",
+      "semanticRole": "slot",
+      "label": "slot",
+      "lineage": [
+        "Status",
+        "Addon",
+        "Slot"
+      ],
+      "nameHint": "Slot",
+      "pathHint": "Status / Addon / Slot",
       "resolution": "resolved"
     }
   ],
@@ -287,66 +338,169 @@
     {
       "id": "component:web-core.status.layer-properties-use-effective-baseline",
       "targetId": "target.root",
-      "targetScope": "self-and-descendants",
+      "targetScope": "self",
       "capability": "component.baseline",
-      "permission": "forbidden",
+      "permission": "constrained",
       "controlPaths": [],
       "constraints": [
         {
           "type": "propertyForbidden",
-          "fact": "layout.mode"
+          "fact": "layout.mode",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.padding.top"
+          "fact": "layout.padding.top",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.padding.right"
+          "fact": "layout.padding.right",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.padding.bottom"
+          "fact": "layout.padding.bottom",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.padding.left"
+          "fact": "layout.padding.left",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.itemSpacing"
+          "fact": "layout.itemSpacing",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.primaryAxisAlignItems"
+          "fact": "layout.primaryAxisAlignItems",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.counterAxisAlignItems"
+          "fact": "layout.counterAxisAlignItems",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.sizingHorizontal"
+          "fact": "layout.sizingHorizontal",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot",
+            "label-text"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "layout.sizingVertical"
+          "fact": "layout.sizingVertical",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot",
+            "label-text"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "appearance.fill"
+          "fact": "appearance.fill",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot",
+            "label-text"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "appearance.stroke"
+          "fact": "appearance.stroke",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot",
+            "label-text"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "appearance.opacity"
+          "fact": "appearance.opacity",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot",
+            "label-text"
+          ],
+          "visibleOnly": true
         },
         {
           "type": "propertyForbidden",
-          "fact": "appearance.radius"
+          "fact": "appearance.radius",
+          "targetRoles": [
+            "root",
+            "label-owner",
+            "addon",
+            "slot"
+          ],
+          "visibleOnly": true
         }
       ],
       "applicability": {
@@ -360,8 +514,8 @@
         "scopeStatus": "confirmed"
       },
       "severity": "error",
-      "rationale": "Оформление и Auto Layout Status сохраняют эталон выбранного Size, Shape и вложенного состояния.",
-      "message": "Оформление и Auto Layout Status сохраняют эталон выбранного Size, Shape и вложенного состояния.",
+      "rationale": "Оформление и Auto Layout собственных слоёв Status, Label, Addon и контейнера SLOT сохраняют независимый эталон. Содержимое native SLOT настраивается произвольно.",
+      "message": "Оформление и Auto Layout собственных слоёв Status, Label, Addon и контейнера SLOT сохраняют независимый эталон. Содержимое native SLOT настраивается произвольно.",
       "status": "draft",
       "owner": "design-system-authors",
       "ownership": {
@@ -372,18 +526,10 @@
         "route": "predicate"
       },
       "sourceRefs": [
-        "rules.json#component:web-core.status.layer-properties-use-effective-baseline"
+        "rules.json#component:web-core.status.layer-properties-use-effective-baseline",
+        "owner-decisions.json#native-slot-open-content"
       ],
-      "remediationIntent": "restore-effective-baseline",
-      "propertyApplicability": {
-        "layout.itemSpacing": "flow-gap-either@1",
-        "layout.padding.top": "auto-layout-padding-either@1",
-        "layout.padding.right": "auto-layout-padding-either@1",
-        "layout.padding.bottom": "auto-layout-padding-either@1",
-        "layout.padding.left": "auto-layout-padding-either@1",
-        "layout.primaryAxisAlignItems": "flow-alignment-either@1",
-        "layout.counterAxisAlignItems": "flow-alignment-either@1"
-      }
+      "remediationIntent": "restore-effective-baseline"
     },
     {
       "id": "component:web-core.status.label-typography-baseline",
@@ -492,6 +638,54 @@
         "rules.json#component:web-core.status.layer-properties-use-effective-baseline"
       ],
       "remediationIntent": "restore-effective-baseline"
+    },
+    {
+      "id": "component:web-core.status.slot-content",
+      "targetId": "target.slot",
+      "targetScope": "self",
+      "capability": "composition.content",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "slot-api",
+          "target": "target.slot",
+          "property": "Slot#146150:64",
+          "contentOwnership": "external"
+        },
+        {
+          "kind": "slot-api",
+          "target": "target.slot",
+          "property": "Slot#146150:59",
+          "contentOwnership": "external"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "rationale": "Внутрь узла native SLOT можно помещать любой объект. Status владеет контейнером SLOT, но не его содержимым; содержимое не сравнивается с библиотечным placeholder.",
+      "message": "Внутрь узла native SLOT можно помещать любой объект. Status владеет контейнером SLOT, но не его содержимым; содержимое не сравнивается с библиотечным placeholder.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-core.status"
+      },
+      "execution": {
+        "route": "policy-only"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-core.status.component-properties-are-first-class",
+        "owner-decisions.json#native-slot-open-content"
+      ]
     }
   ],
   "metadata": {
@@ -501,9 +695,9 @@
       "manual": "design-system-authors",
       "runtime": "apollo-runtime"
     },
-    "revision": 1,
+    "revision": 2,
     "createdAt": "2026-10-23T02:57:05.175Z",
-    "updatedAt": "2026-10-23T02:57:05.175Z",
+    "updatedAt": "2026-10-23T08:50:27.496Z",
     "publicRepresentationBoundaryVersion": 1
   }
 }
