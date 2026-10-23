@@ -2,13 +2,15 @@
 
 [Manual](<../contract.manual.json>) — r4, `payment-masked-number.universal`.
 
-Физические файлы перечислены ниже. `mappingArtifacts` в индексе исходников закрепляет их хеши, происхождение и область применения; это учёт сохранённых данных, без допуска в runtime.
+- **[Текущий финальный Figma mapping](<figma-mapping.current.json>)** — данные компонента с полным замыканием нормативных зависимостей.
 
-- [figma-generic](<figma-mapping.json>) — существующий самостоятельный файл текущего контракта; прежний provenance сохранён.
-- [payment-masked-number.frontend-mapping.json](<r4-2026-10-22/payment-masked-number.frontend-mapping.json>) — `frontend` r4; кандидат для текущего контракта. [Provenance](<r4-2026-10-22/FINAL-SEAL.json>).
+Источник: принятый пакет `68179d13bb84c26cba5e8c9faaa170b4a1e6c3758cd9d907223a525a86a441bc`; [общий native JSON](<../../CorporateContent/mapping/shared/native.json>). Точные источник, selector и хеши закреплены в [индексе](<../../../../../indexes/component-contracts.index.json>).
 
-[Исторический shared seed](<../../../../../../apollo/data-packages/e08462d1600c7efe85d0dd2fc93a0edcb5e3cf50d0d44fae337c4c934c8938ce/contracts.tgz>) (`e08462d1600c7efe85d0dd2fc93a0edcb5e3cf50d0d44fae337c4c934c8938ce`) сохранён одной копией. Это прежний prepared snapshot, не текущие runtime pins.
+Это финальная версия данных выбранного пакета для текущего manual. Исходные внутренние поля Candidate/Draft/Ready и capability gaps сохранены; завершённость переноса не повышает готовность всего контракта и не меняет runtime. Пинованные shared/ ссылки внутри JSON разрешаются относительно исходного пакета данных.
 
-Точные копии по прежним sealed адресам сохранены для совместимости. Исходные абсолютные пути в JSON являются provenance; они не переписаны при переносе. Относительные rule-links лежат рядом. Общие файлы хранятся одной копией со ссылками от всех владельцев.
+## История и кандидаты
 
-Ревизии, даты manual, Draft/Ready, frontend accepted=false и ограничения source/distribution/native/browser сохраняются. Наличие файла не означает рабочий frontend adapter или новую runtime adoption.
+- [payment-masked-number.frontend-mapping.json](<history/r4-2026-10-22/payment-masked-number.frontend-mapping.json>) — `frontend` r4; `current-contract-candidate`. [Provenance](<history/r4-2026-10-22/FINAL-SEAL.json>).
+- [figma-mapping.json](<history/r4-before-effective-2026-10-23/figma-mapping.json>) — `figma-generic` r4; `superseded-evidence`. [Provenance](<../../../../../../experiments/current-contract-packages/PaymentMaskedNumber/reports/proxy-figma-mapping-r4-2026-10-22/FINAL-SEAL.json>).
+
+Прежние producer inputs и seals в .local/experiments сохранены без изменений. Старые canonical receipts относятся к прежнему размещению и не перепривязаны. Frontend-кандидаты остаются в history: в принятом переносимом профиле frontend отключён.

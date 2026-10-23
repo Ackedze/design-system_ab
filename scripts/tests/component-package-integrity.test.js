@@ -1,5 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),os=require('node:os'),crypto=require('node:crypto');
 const {validate}=require('../validate_current_contract_packages.cjs'),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const {projectComponentMapping}=require('../component-figma-mapping.cjs'),cp=require('node:child_process');
 function fixture(t){
  const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'component-integrity-')));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
  function put(file,value){const bytes=Buffer.isBuffer(value)?value:Buffer.from(JSON.stringify(value)+'\n'),target=path.join(root,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,bytes);return{path:file,sha256:sha(bytes),bytes:bytes.length};}
@@ -97,4 +98,39 @@ test('relocation refuses foreign owners, invented admission, stale provenance an
   if(kind==='location')Object.assign(artifact,f.put('elsewhere/mapping.json',{bindings:[{componentId:entry.componentId}]}));
   f.publish();assert.throws(()=>validate(f.root),kind);
  }
+});
+function acceptedFixture(t,{legacy=false}={}){
+ const f=fixture(t),first=f.index.entries[0],child=f.index.entries[1];child.componentId='sibling-owner';f.manifest.packages[1].componentId=child.componentId;
+ const manuals=[first,child].map(entry=>{const manual=JSON.parse(fs.readFileSync(path.join(f.root,entry.manual.path)));manual.component.componentId=entry.componentId;entry.manual=f.put(entry.manual.path,manual);return{pin:{path:'shared/'+entry.componentId+'.json',sha256:entry.manual.sha256,bytes:entry.manual.bytes},manual};});
+ const dependency=(entry,pins)=>({componentId:entry.componentId,revision:3,manualSemanticHash:entry.manualSourceHash,compiledSemanticHash:'c'.repeat(64),dependencyPins:pins});
+ const source={semantic:{schemaVersion:'apollo.agent-figma-semantic-mapping.v1',Ready:false,mappings:[first,child].map((e,i)=>({mappingId:'map'+i,componentId:e.componentId,platform:'desktop',choices:['choice'+i]}))},typed:{schemaVersion:'apollo.agent-figma-typed-native-binding-input.v1',Ready:false,portCount:2,nativeSLOTCount:1,bindings:manuals.map((m,i)=>({mappingId:'map'+i,port:'body',type:i?'TEXT':'SLOT',normativeSource:{...m.pin,pointer:'/rules/0',RuleIDs:['rule'+i]}}))},profiles:{choices:[{id:'choice0'},{id:'choice1'}],profiles:[{choiceId:'choice0'},{mappingId:'map1',sourceChoices:['choice1']}],sourceDependencies:[dependency(first,[{componentId:child.componentId,revision:3,manualSourceHash:child.manualSourceHash,compiledHash:'c'.repeat(64)}]),dependency(child,[])],actualPartDefinitions:[]},targets:{profiles:[{choiceId:'choice0',targets:[]},{choiceId:'choice1',targets:[]}]},manuals,ruleLinks:{links:manuals.map((m,i)=>({RuleID:'rule'+i,rule:{ownership:{ownerId:m.manual.component.componentId}},source:{...m.pin,pointer:'/rules/0'}})).concat([{RuleID:'common',rule:{ownership:{ownerId:'common-policy'}},source:{path:'shared/common.json'}}])},denials:[{mappingId:'map0',port:'body',gap:'SYNTHETIC_KEEP_DENIAL'}]};
+ const stage=path.join(f.root,'seed-stage');fs.mkdirSync(stage);
+ const seedManifest={id:'b'.repeat(64),generation:{},contracts:[]},native={writesClosed:true,Ready:false,mappings:[{id:'legacy-choice'}],genericMapping:legacy?projectComponentMapping(source,child.componentId):source};
+ const docs={native,semantic:source.semantic,mappings:[],ruleLinks:source.ruleLinks};
+ for(const [key,value]of Object.entries(docs)){const file='generation/'+key+'.json',bytes=Buffer.from(JSON.stringify(value)+'\n');fs.mkdirSync(path.join(stage,'generation'),{recursive:true});fs.writeFileSync(path.join(stage,file),bytes);seedManifest.generation[key]={file,sha256:sha(bytes),bytes:bytes.length};}
+ if(legacy){const file='components/parent.json';fs.mkdirSync(path.join(stage,'components'));fs.writeFileSync(path.join(stage,file),JSON.stringify({manual:manuals[0].manual}));seedManifest.contracts=[{componentId:first.componentId,revision:3,manualSourceHash:first.manualSourceHash,file}];}
+ fs.writeFileSync(path.join(stage,'manifest.json'),JSON.stringify(seedManifest));const archive=path.join(f.root,'seed.tgz');cp.execFileSync('tar',['-czf',archive,'-C',stage,'.']);
+ const seed=f.put('apollo/data-packages/'+seedManifest.id+'/contracts.tgz',fs.readFileSync(archive));
+ f.index.mappingSeed={...seed,dataId:seedManifest.id,generation:{}};
+ for(const [key,ref]of Object.entries(seedManifest.generation)){const local=f.put(path.posix.dirname(first.manual.path)+'/mapping/shared/'+key+'.json',fs.readFileSync(path.join(stage,ref.file)));f.index.mappingSeed.generation[key]={...ref,path:local.path};}
+ const projected=projectComponentMapping(source,first.componentId),file=path.posix.dirname(first.manual.path)+'/mapping/figma-mapping.current.json';
+ const pin=legacy?f.index.mappingSeed.generation.native:f.put(file,projected);
+ first.mappings=[{kind:legacy?'figma-legacy':'figma-generic',path:pin.path,sha256:pin.sha256,bytes:pin.bytes,source:{dataId:seedManifest.id,artifact:'native',projection:legacy?'legacy-shared':'component',...(legacy?{mappingIds:['map0']}:{})}}];
+ f.publish();return{...f,first,child,source,projected};
+}
+test('component projection preserves ownerless authority links, both profile shapes and dependency closure',t=>{
+ const f=acceptedFixture(t),before=JSON.stringify(f.source),parent=projectComponentMapping(f.source,f.first.componentId),child=projectComponentMapping(f.source,f.child.componentId);
+ assert.equal(parent.manuals.length,2);assert.equal(parent.profiles.sourceDependencies.length,2);assert.equal(parent.ruleLinks.links.length,2);assert.equal(parent.denials.length,1);
+ assert.equal(child.profiles.profiles[0].mappingId,'map1');assert.equal(parent.typed.portCount,1);assert.equal(parent.typed.nativeSLOTCount,1);assert.equal(JSON.stringify(f.source),before);
+ f.source.profiles.sourceDependencies.pop();assert.throws(()=>projectComponentMapping(f.source,f.first.componentId),/Stale mapping dependency/);
+});
+test('effective component files must match the accepted archive, even after repinning altered output',t=>{
+ const f=acceptedFixture(t);assert.equal(validate(f.root).records.length,2);
+ const mapping=f.first.mappings[0];f.projected.semantic.mappings[0].inventedProp=true;Object.assign(mapping,f.put(mapping.path,f.projected));f.publish();assert.throws(()=>validate(f.root),/accepted component projection/);
+ delete f.projected.semantic.mappings[0].inventedProp;Object.assign(mapping,f.put(mapping.path,f.projected));f.publish();
+ const ref=f.index.mappingSeed.generation.native;const bytes=Buffer.from(JSON.stringify({invented:true}));Object.assign(ref,{sha256:sha(bytes),bytes:bytes.length});fs.writeFileSync(path.join(f.root,ref.path),bytes);f.publish();assert.throws(()=>validate(f.root),/artifact pin mismatch/);
+});
+test('legacy references retain one exact shared wrapper and reject selection of another owner',t=>{
+ const f=acceptedFixture(t,{legacy:true});assert.equal(validate(f.root).records.length,2);
+ f.first.mappings[0].source.mappingIds=['map1'];f.publish();assert.throws(()=>validate(f.root),/Legacy mapping IDs differ/);
 });

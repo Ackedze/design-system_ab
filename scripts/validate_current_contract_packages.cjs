@@ -1,5 +1,6 @@
 // Standalone repository integrity check. Semantic compilation is a separate Apollo integration gate.
-const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),cp=require('node:child_process');
+const {projectComponentMapping}=require('./component-figma-mapping.cjs');
 const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 function validate(root=path.resolve(__dirname,'..')){
  root=fs.realpathSync(root);const pins=[];
@@ -23,7 +24,22 @@ function validate(root=path.resolve(__dirname,'..')){
   const seed=index.mappingSeed;assert(/^[a-f0-9]{64}$/.test(seed.dataId),'Invalid mapping seed identity');
   assert.equal(seed.path,`apollo/data-packages/${seed.dataId}/contracts.tgz`);read(seed.path,seed);
  }
- const mappingIds=new Set(),sources=index.entries.concat(index.dependencySources);
+ const mappingIds=new Set(),sources=index.entries.concat(index.dependencySources);let acceptedSource;
+ function acceptedMappingSource(){
+  if(acceptedSource)return acceptedSource;
+  const seed=index.mappingSeed;assert(seed?.generation?.native?.path,'Missing accepted mapping source');
+  const member=file=>{
+   assert(typeof file==='string'&&!path.isAbsolute(file)&&!file.includes('\\')&&!file.split('/').some(s=>!s||s==='.'||s==='..'||/[<>:"|?*\x00-\x1f\x7f]/.test(s)),'Unsafe archive member');
+   return cp.execFileSync('tar',['-xzOf',path.join(root,seed.path),'./'+file],{maxBuffer:64*1024*1024});
+  };
+  const manifest=JSON.parse(member('manifest.json')),data={};assert.equal(manifest.id,seed.dataId,'Mapping source package identity mismatch');
+  assert.deepEqual(Object.keys(seed.generation).sort(),Object.keys(manifest.generation).sort(),'Mapping source artifacts differ');
+  for(const [key,pin]of Object.entries(seed.generation)){
+   const {path:local,...original}=pin;assert.deepEqual(original,manifest.generation[key],'Mapping source artifact pin mismatch');
+   const bytes=read(local,pin);assert.deepEqual(bytes,member(pin.file),'Mapping source bytes differ from accepted package');data[key]=JSON.parse(bytes);
+  }
+  acceptedSource={...data,manifest,member};return acceptedSource;
+ }
  // Relocation evidence is separate from runtime mappings; never infer admission from its presence.
  function hasProducerPin(value,pin){
   if(!value||typeof value!=='object')return false;
@@ -41,23 +57,44 @@ function validate(root=path.resolve(__dirname,'..')){
    for(const id of entry.mappingSeedRecords.mappingIds){assert(typeof id==='string'&&id&&!mappingIds.has(id),'Duplicate mapping identity');mappingIds.add(id);}
   }
   for(const pin of entry.mappings||[]){
-   assert.equal(pin.kind,'figma-generic');assert.equal(path.posix.dirname(pin.path),path.posix.join(path.posix.dirname(entry.manual.path),'mapping'));
-   const mapping=JSON.parse(read(pin.path,pin));assert(Array.isArray(mapping.semantic?.mappings)&&mapping.semantic.mappings.length>0,'Empty mapping');
-   for(const row of mapping.semantic.mappings)assert.equal(row.componentId,entry.componentId,'Foreign mapping owner');
-   assert.deepEqual(mapping.manuals?.find(r=>r.manual?.component?.contractId===entry.contractId)?.manual,manual,'Mapping manual differs from canonical source');
+   assert(['figma-generic','figma-legacy'].includes(pin.kind),'Unknown current mapping kind');
+   const mapping=JSON.parse(read(pin.path,pin));
+   if(pin.kind==='figma-generic'){
+    assert.equal(path.posix.dirname(pin.path),path.posix.join(path.posix.dirname(entry.manual.path),'mapping'));
+    assert(Array.isArray(mapping.semantic?.mappings)&&mapping.semantic.mappings.length>0,'Empty mapping');
+    for(const row of mapping.semantic.mappings)assert.equal(row.componentId,entry.componentId,'Foreign mapping owner');
+    assert.deepEqual(mapping.manuals?.find(r=>r.manual?.component?.contractId===entry.contractId)?.manual,manual,'Mapping manual differs from canonical source');
+   }
+   if(pin.source||pin.kind==='figma-legacy'){
+    assert.equal(pin.source?.dataId,index.mappingSeed?.dataId,'Current mapping source identity mismatch');assert.equal(pin.source.artifact,'native');
+    const source=acceptedMappingSource();
+    if(pin.kind==='figma-generic'){
+     assert.equal(pin.source.projection,'component');
+     assert.deepEqual(mapping,projectComponentMapping(source.native.genericMapping,entry.componentId),'Current mapping differs from accepted component projection');
+    }else{
+     assert.equal(pin.source.projection,'legacy-shared');assert.equal(pin.path,index.mappingSeed.generation.native.path,'Legacy wrapper must remain one shared copy');
+     assert.deepEqual(mapping,source.native,'Legacy wrapper changed');
+     const ids=source.semantic.mappings.filter(m=>m.componentId===entry.componentId).map(m=>m.mappingId);
+     assert(ids.length>0&&!ids.some(id=>source.native.genericMapping.semantic.mappings.some(m=>m.mappingId===id)),'Legacy mapping selection invalid');
+     assert.deepEqual(pin.source.mappingIds,ids,'Legacy mapping IDs differ');
+     const contract=source.manifest.contracts.find(c=>c.componentId===entry.componentId);assert(contract&&contract.revision===entry.revision&&contract.manualSourceHash===entry.manualSourceHash,'Legacy contract source stale');
+     assert.deepEqual(JSON.parse(source.member(contract.file)).manual,manual,'Legacy manual differs from canonical source');
+    }
+   }
    if(pin.provenance)read(pin.provenance.path,pin.provenance);
   }
   for(const pin of entry.mappingArtifacts||[]){
    assert(['figma-generic','frontend','figma-semantic','figma-typed','figma-targets'].includes(pin.kind),'Unknown mapping artifact kind');
    assert.equal(pin.runtimeAdoption,false,'Relocated evidence cannot admit runtime mappings');
-   assert(['current-contract-candidate','historical-contract','retained-shared-evidence'].includes(pin.relationship),'Unknown mapping artifact relationship');
+   assert(['current-contract-candidate','historical-contract','retained-shared-evidence','superseded-evidence'].includes(pin.relationship),'Unknown mapping artifact relationship');
    assert(Array.isArray(pin.owners)&&pin.owners.includes(entry.componentId)&&new Set(pin.owners).size===pin.owners.length,'Wrong mapping artifact owners');
    assert(pin.owners.every(id=>sources.some(e=>e.componentId===id)),'Unknown mapping artifact owner');
    assert(sources.some(e=>pin.owners.includes(e.componentId)&&pin.path.startsWith(path.posix.dirname(e.manual.path)+'/mapping/')),'Mapping artifact outside owner folders');
    if(pin.relationship==='retained-shared-evidence')assert.equal(pin.sourceRevision,null);
    else{
     assert(Number.isInteger(pin.sourceRevision)&&pin.sourceRevision>0,'Missing mapping source revision');
-    if(pin.relationship==='historical-contract')assert(pin.sourceRevision<entry.revision&&pin.path.includes('/mapping/history/'),'Historical mapping must stay historical');
+    if(pin.relationship==='superseded-evidence')assert(pin.sourceRevision<=entry.revision&&pin.path.includes('/mapping/history/'),'Superseded mapping must stay in history');
+    else if(pin.relationship==='historical-contract')assert(pin.sourceRevision<entry.revision&&pin.path.includes('/mapping/history/'),'Historical mapping must stay historical');
     else assert.equal(pin.sourceRevision,entry.revision,'Candidate revision differs from canonical source');
    }
    assert(typeof pin.originPath==='string'&&pin.originPath,'Missing mapping artifact origin');
