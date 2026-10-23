@@ -22,7 +22,7 @@
 | Indicator | r2 | 2026-10-22T21:46:36.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Indicator/packages/Indicator.r2.draft.component-contract.zip>) |
 | Switch | r1 | 2026-10-22T22:21:47.096Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Switch/packages/Switch.r1.draft.component-contract.zip>) |
 | Status | r2 | 2026-10-23T08:50:27.496Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Status/packages/Status.r2.draft.component-contract.zip>) |
-| Status & Property | r1 | 2026-10-23T12:19:05.893Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/Status%20&%20Property/packages/StatusProperty.r1.draft.component-contract.zip>) |
+| Status & Property | r2 | 2026-10-23T16:10:22.142Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/Status%20&%20Property/packages/StatusProperty.r2.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
