@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-22"
+      "updatedAt": "2026-10-24"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -157,28 +157,22 @@
       "PropertyPreset": {
         "purpose": "Показывает характеристику или свойство объекта.",
         "shape": "Rectangular",
-        "Color=Custom": "Разрешает изменить токенизированные цвет текста и заливку при сохранении взаимного контраста."
+        "Color=Custom": "Разрешает менять цвета текста и поверхности через библиотечные токены; проверки контраста в этом контракте нет."
       }
-    },
-    "surfaceStylePolicy": {
-      "greySurface": "Contrast",
-      "whiteSurface": "Muted"
     },
     "contentPolicy": {
       "StatusPreset": {
-        "maximumCharacters": 20,
         "maximumWords": 2,
         "lineWrapAllowed": false,
         "overflow": "ellipsis",
-        "fullTextTooltipAllowed": true,
-        "labelRequired": true
+        "labelRequired": true,
+        "maximumVisibleCharacters": 20
       },
       "PropertyPreset": {
-        "maximumCharacters": 20,
         "lineWrapAllowed": false,
         "overflow": "ellipsis",
-        "fullTextTooltipAllowed": true,
-        "labelRequired": true
+        "labelRequired": true,
+        "maximumVisibleCharacters": 20
       },
       "platformCase": {
         "desktop": "Uppercase=True",
@@ -198,27 +192,8 @@
       "layoutSizingVertical": "HUG",
       "manualStretchAllowed": false
     },
-    "groupingPolicy": {
-      "StatusPreset": {
-        "maximumPerObject": 1
-      },
-      "PropertyPreset": {
-        "multipleAllowed": true,
-        "maximumVisible": 2
-      },
-      "mixedStatusAndPropertyAllowed": false,
-      "propertySpacing": "Не регламентирован текущим контрактом; не выводи фиксированное значение."
-    },
     "behaviorPolicy": {
-      "hoverAllowed": true,
-      "tooltipAllowed": true,
-      "tooltipPurpose": "Поясняет значение статуса или свойства.",
-      "tooltipView": "Определяется контекстом без дополнительных ограничений.",
       "clickAllowed": false
-    },
-    "platformPolicy": {
-      "desktop": "Используй [D] при ширине 768 px и больше.",
-      "mobile-web": "Используй [M] при ширине меньше 768 px."
     },
     "nestedStatusPolicy": {
       "directCoreStatusUsageAllowed": false,
@@ -241,7 +216,34 @@
         "effects"
       ],
       "baseline": "effective baseline",
-      "exception": "Для PropertyPreset с Color=Custom разрешены только токенизированные изменения fill текста и поверхности."
-    }
+      "exception": "PropertyPreset Color=Custom допускает смену связанных с токенами цветов текста и поверхности.",
+      "contractOwner": "web-core.status"
+    },
+    "patternReferences": [
+      {
+        "path": "../../../../../../patterns/p_status-property-usage.md",
+        "scope": "reference-only"
+      },
+      {
+        "path": "../../../../../../patterns/p_color-selection.md",
+        "scope": "reference-only"
+      },
+      {
+        "path": "../../../../../../patterns/p_status-model.md",
+        "scope": "reference-only"
+      },
+      {
+        "path": "../../../../../../patterns/p_tooltip_hint.md",
+        "scope": "reference-only"
+      },
+      {
+        "path": "../../../../../../patterns/p_adaptive-alfa-business.md",
+        "scope": "reference-only"
+      },
+      {
+        "path": "../../../../../../patterns/p_design-system-usage.md",
+        "scope": "reference-only"
+      }
+    ]
   }
 }

@@ -269,6 +269,8 @@
 
 ### Rule 7: Выбирай цвет по смыслу статуса
 
+Для StatusPreset выбирай Type по смыслу состояния и тексту, а не ради желаемого цвета. Значения Type и их семантика перечислены в паспорте компонента.
+
 - ruleId: rule:ux.status-model.semantic-color
 - severity: warning
 - appliesTo: component

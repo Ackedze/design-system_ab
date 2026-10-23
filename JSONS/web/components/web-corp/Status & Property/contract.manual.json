@@ -219,6 +219,33 @@
           "transform": "identity"
         }
       ]
+    },
+    {
+      "id": "color",
+      "kind": "variant",
+      "valueType": "enum",
+      "domain": [
+        "Blue",
+        "Custom",
+        "Green",
+        "Grey",
+        "Indigo",
+        "Orange",
+        "Red"
+      ],
+      "description": "Штатный Color доступен только PropertyPreset.",
+      "bindings": [
+        {
+          "representationId": "web-corp.status-property.figma.desktop.property",
+          "path": "component.properties.Color",
+          "transform": "identity"
+        },
+        {
+          "representationId": "web-corp.status-property.figma.mobile-web.property",
+          "path": "component.properties.Color",
+          "transform": "identity"
+        }
+      ]
     }
   ],
   "documentation": [
@@ -235,6 +262,48 @@
       "path": "reports/authoring-r1-2026-10-23/coverage-map.json",
       "status": "verified",
       "projection": "source"
+    },
+    {
+      "id": "pattern-usage",
+      "kind": "pattern",
+      "path": "../../../../../patterns/p_status-property-usage.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "pattern-colors",
+      "kind": "pattern",
+      "path": "../../../../../patterns/p_color-selection.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "pattern-status-model",
+      "kind": "pattern",
+      "path": "../../../../../patterns/p_status-model.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "pattern-tooltip",
+      "kind": "pattern",
+      "path": "../../../../../patterns/p_tooltip_hint.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "pattern-adaptive",
+      "kind": "pattern",
+      "path": "../../../../../patterns/p_adaptive-alfa-business.md",
+      "status": "draft",
+      "projection": "reference-only"
+    },
+    {
+      "id": "pattern-shared-library-and-channel",
+      "kind": "pattern",
+      "path": "../../../../../patterns/p_design-system-usage.md",
+      "status": "draft",
+      "projection": "reference-only"
     }
   ],
   "examples": [],
@@ -250,20 +319,41 @@
     },
     {
       "id": "custom-color-dependency-gap",
-      "status": "proposed",
-      "summary": "Color=Custom не подключает запрещающий перекраску Core Status r2. Локальные нормы пресета сохраняются; собственные проверки вложенного Status для Custom не приняты.",
-      "rationale": "Corp допускает токены произвольных цветов; Core Status r2 запрещает изменение эталонной заливки. Без изменения норм или движка не объявляем полное покрытие Custom.",
+      "status": "accepted",
+      "summary": "Core Status r3 не даёт отдельной приёмки произвольных Custom fills. Смена связанных с библиотечными токенами цветов разрешена пресетом; совместная проверка этого исключения остаётся явным техническим gap.",
+      "rationale": "Проверенный стандартный baseline не доказывает весь разрешённый Custom. Нормы не меняются, guards не обходятся.",
       "sourceRefs": [
-        "rules.json#component:web-corp.status-property.custom-color-uses-contrasting-tokens"
+        "rules.json#component:web-corp.status-property.custom-color-token-binding",
+        "owner-decisions.2026-10-24.json"
+      ]
+    },
+    {
+      "id": "owner-routing-2026-10-24",
+      "status": "accepted",
+      "summary": "Разделить локальные нормы компонента, общий Core Status и паттерны использования. Контраст и Tooltip исключены из компонентных норм.",
+      "rationale": "Решение владельца в этой сессии: пункты4–6 уточнены, предложения по остальным пунктам приняты. Не создавать дубли и не расширять движок. Неподдержанные измерения текста и поведения остаются явными пробелами.",
+      "sourceRefs": [
+        "owner-decisions.2026-10-24.json"
+      ],
+      "retiredRuleIds": [
+        "component:web-corp.status-property.layer-properties-use-effective-baseline",
+        "component:web-corp.status-property.style-follows-surface",
+        "component:web-corp.status-property.status-type-has-fixed-semantics",
+        "component:web-corp.status-property.custom-color-uses-contrasting-tokens",
+        "component:web-corp.status-property.maximum-two-properties",
+        "component:web-corp.status-property.maximum-one-status-per-object",
+        "component:web-corp.status-property.status-and-property-are-mutually-exclusive",
+        "component:web-corp.status-property.platform-version-must-match",
+        "component:web-corp.status-property.hover-and-tooltip-are-allowed"
       ]
     }
   ],
   "generation": {
     "profiles": [],
     "instructions": [
-      "Draft для первого испытания Apollo; не Ready.",
-      "Core Status r2 остаётся Draft: связь и exact pins сохранены в dependency-inventory.json; runtime-встраивание отложено, так как существующий движок требует Ready дочерний контракт. Собственные нормы вложенного Status не объявлены принятыми.",
-      "Семантика, состав группы, контраст Custom,20 отображаемых символов/ellipsis и максимум2слова не объявлены локально исполняемыми."
+      "Draft r3 для проверки Figma; не Ready.",
+      "Core Status r3 отдельно проверяет доказанные вложенные части. Его независимая native-приёмка стандартных пресетов сохранена. Runtime-встраивание Draft в зависимость не включается; Custom требует отдельной приёмки разрешённых цветов.",
+      "Выбор поверхности, смысл Type, сборка группы, Tooltip и ширина экрана относятся к внешним паттернам. Локально не закрыты два слова и20 отображаемых символов/ellipsis."
     ]
   },
   "source": {
@@ -1192,45 +1282,6 @@
       ]
     },
     {
-      "id": "component:web-corp.status-property.layer-properties-use-effective-baseline",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
-      "controlPaths": [],
-      "constraints": [],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "warning",
-      "rationale": "Внутренние layout, оформление и типографика Status требуют независимого baseline выбранного Type/Color, Style и Size. Для Property Color=Custom разрешена смена цветовых токенов; общий fill lock к этому исключению неприменим. Native Shape/Size/Uppercase проверяются отдельными собственными нормами пресета.",
-      "message": "Внутренние layout, оформление и типографика Status требуют независимого baseline выбранного Type/Color, Style и Size. Для Property Color=Custom разрешена смена цветовых токенов; общий fill lock к этому исключению неприменим. Native Shape/Size/Uppercase проверяются отдельными собственными нормами пресета.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "ownership": {
-        "kind": "component",
-        "ownerId": "web-corp.status-property"
-      },
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "dependency.web-core.status.ready"
-        ]
-      },
-      "sourceRefs": [
-        "rules.json#component:web-corp.status-property.layer-properties-use-effective-baseline",
-        "rules.json#component:web-corp.status-property.fill-follows-effective-baseline",
-        "rules.json#component:web-corp.status-property.shape-is-fixed-by-preset",
-        "rules.json#component:web-corp.status-property.case-is-fixed-by-platform"
-      ]
-    },
-    {
       "id": "component:web-corp.status-property.lifecycle-context-is-informational",
       "targetId": "target.root",
       "targetScope": "self",
@@ -1297,115 +1348,6 @@
       ]
     },
     {
-      "id": "component:web-corp.status-property.style-follows-surface",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
-      "controlPaths": [],
-      "constraints": [],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "error",
-      "rationale": "Style определяется цветом поверхности: на сером фоне используй Style=Contrast, на белом фоне — Style=Muted. Обратное сочетание нарушает компонентный контракт.",
-      "message": "Style определяется цветом поверхности: на сером фоне используй Style=Contrast, на белом фоне — Style=Muted. Обратное сочетание нарушает компонентный контракт.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "ownership": {
-        "kind": "component",
-        "ownerId": "web-corp.status-property"
-      },
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "context.surface"
-        ]
-      },
-      "sourceRefs": [
-        "rules.json#component:web-corp.status-property.style-follows-surface"
-      ]
-    },
-    {
-      "id": "component:web-corp.status-property.status-type-has-fixed-semantics",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
-      "controlPaths": [],
-      "constraints": [],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "error",
-      "rationale": "Type у StatusPreset выбирается по смыслу состояния. Не используй тип только из-за желаемого цвета: текст статуса и семантика Type должны совпадать.",
-      "message": "Type у StatusPreset выбирается по смыслу состояния. Не используй тип только из-за желаемого цвета: текст статуса и семантика Type должны совпадать.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "ownership": {
-        "kind": "component",
-        "ownerId": "web-corp.status-property"
-      },
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "text.semantic-role",
-          "status.semantic-type"
-        ]
-      },
-      "sourceRefs": [
-        "rules.json#component:web-corp.status-property.status-type-has-fixed-semantics"
-      ]
-    },
-    {
-      "id": "component:web-corp.status-property.custom-color-uses-contrasting-tokens",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
-      "controlPaths": [],
-      "constraints": [],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "error",
-      "rationale": "Color=Custom у PropertyPreset разрешает менять цвет текста и заливки. Пока допустимы любые цветовые токены без ограничения коллекции. Оба цвета должны быть назначены через токены, быть комплементарными и обеспечивать достаточный взаимный контраст. Raw color без token binding или неконтрастная пара являются нарушением.",
-      "message": "Color=Custom у PropertyPreset разрешает менять цвет текста и заливки. Пока допустимы любые цветовые токены без ограничения коллекции. Оба цвета должны быть назначены через токены, быть комплементарными и обеспечивать достаточный взаимный контраст. Raw color без token binding или неконтрастная пара являются нарушением.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "ownership": {
-        "kind": "component",
-        "ownerId": "web-corp.status-property"
-      },
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "appearance.contrast-ratio"
-        ]
-      },
-      "sourceRefs": [
-        "rules.json#component:web-corp.status-property.custom-color-uses-contrasting-tokens"
-      ]
-    },
-    {
       "id": "component:web-corp.status-property.size-is-context-controlled",
       "targetId": "target.root",
       "targetScope": "self",
@@ -1456,8 +1398,8 @@
         "scopeStatus": "confirmed"
       },
       "severity": "error",
-      "rationale": "PropertyPreset показывает до 20 символов в одной строке. Более длинное значение должно обрезаться многоточием; полное значение можно вынести в Tooltip. Перенос текста запрещён.",
-      "message": "PropertyPreset показывает до 20 символов в одной строке. Более длинное значение должно обрезаться многоточием; полное значение можно вынести в Tooltip. Перенос текста запрещён.",
+      "rationale": "PropertyPreset показывает до 20 видимых символов в одной строке. Более длинное значение обрезается многоточием; перенос текста запрещён.",
+      "message": "PropertyPreset показывает до 20 видимых символов в одной строке. Более длинное значение обрезается многоточием; перенос текста запрещён.",
       "status": "draft",
       "owner": "design-system-authors",
       "ownership": {
@@ -1467,7 +1409,7 @@
       "execution": {
         "route": "context-only",
         "missingFacts": [
-          "text.max-lines",
+          "text.rendered-character-count",
           "text.overflow"
         ]
       },
@@ -1493,8 +1435,8 @@
         "scopeStatus": "confirmed"
       },
       "severity": "error",
-      "rationale": "Текст StatusPreset должен состоять максимум из двух слов и занимать одну строку. Показывай до 20 символов; переполнение обрезай многоточием, полное значение можно вынести в Tooltip. Ограничение по двум словам и запрет переноса обязательны.",
-      "message": "Текст StatusPreset должен состоять максимум из двух слов и занимать одну строку. Показывай до 20 символов; переполнение обрезай многоточием, полное значение можно вынести в Tooltip. Ограничение по двум словам и запрет переноса обязательны.",
+      "rationale": "Текст StatusPreset состоит максимум из двух слов и занимает одну строку. Показывай до 20 видимых символов; переполнение обрезай многоточием.",
+      "message": "Текст StatusPreset состоит максимум из двух слов и занимает одну строку. Показывай до 20 видимых символов; переполнение обрезай многоточием.",
       "status": "draft",
       "owner": "design-system-authors",
       "ownership": {
@@ -1505,120 +1447,12 @@
         "route": "context-only",
         "missingFacts": [
           "text.word-count",
-          "text.max-lines",
+          "text.rendered-character-count",
           "text.overflow"
         ]
       },
       "sourceRefs": [
         "rules.json#component:web-corp.status-property.status-text-limit"
-      ]
-    },
-    {
-      "id": "component:web-corp.status-property.maximum-two-properties",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
-      "controlPaths": [],
-      "constraints": [],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "error",
-      "rationale": "В одной композиции можно размещать несколько PropertyPreset, но одновременно должно быть видно не больше двух. Третий и последующие PropertyPreset являются нарушением.",
-      "message": "В одной композиции можно размещать несколько PropertyPreset, но одновременно должно быть видно не больше двух. Третий и последующие PropertyPreset являются нарушением.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "ownership": {
-        "kind": "component",
-        "ownerId": "web-corp.status-property"
-      },
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "composition.object-owner"
-        ]
-      },
-      "sourceRefs": [
-        "rules.json#component:web-corp.status-property.maximum-two-properties"
-      ]
-    },
-    {
-      "id": "component:web-corp.status-property.maximum-one-status-per-object",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
-      "controlPaths": [],
-      "constraints": [],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "error",
-      "rationale": "У одного объекта может быть только один StatusPreset. Несколько одновременных статусов для одного объекта являются нарушением.",
-      "message": "У одного объекта может быть только один StatusPreset. Несколько одновременных статусов для одного объекта являются нарушением.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "ownership": {
-        "kind": "component",
-        "ownerId": "web-corp.status-property"
-      },
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "composition.object-owner"
-        ]
-      },
-      "sourceRefs": [
-        "rules.json#component:web-corp.status-property.maximum-one-status-per-object"
-      ]
-    },
-    {
-      "id": "component:web-corp.status-property.status-and-property-are-mutually-exclusive",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
-      "controlPaths": [],
-      "constraints": [],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "error",
-      "rationale": "Не размещай StatusPreset и PropertyPreset вместе для одного объекта или в одной группе. Используй либо один StatusPreset, либо до двух PropertyPreset.",
-      "message": "Не размещай StatusPreset и PropertyPreset вместе для одного объекта или в одной группе. Используй либо один StatusPreset, либо до двух PropertyPreset.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "ownership": {
-        "kind": "component",
-        "ownerId": "web-corp.status-property"
-      },
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "composition.object-owner"
-        ]
-      },
-      "sourceRefs": [
-        "rules.json#component:web-corp.status-property.status-and-property-are-mutually-exclusive"
       ]
     },
     {
@@ -1688,39 +1522,6 @@
       ]
     },
     {
-      "id": "component:web-corp.status-property.hover-and-tooltip-are-allowed",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "allowed",
-      "controlPaths": [],
-      "constraints": [],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "info",
-      "rationale": "StatusPreset и PropertyPreset могут реагировать на hover и показывать Tooltip, чтобы пояснить значение статуса или свойства. Ограничений на View Tooltip в этом контракте нет. Наличие hover или поясняющего Tooltip само по себе не является нарушением.",
-      "message": "StatusPreset и PropertyPreset могут реагировать на hover и показывать Tooltip, чтобы пояснить значение статуса или свойства. Ограничений на View Tooltip в этом контракте нет. Наличие hover или поясняющего Tooltip само по себе не является нарушением.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "ownership": {
-        "kind": "component",
-        "ownerId": "web-corp.status-property"
-      },
-      "execution": {
-        "route": "policy-only"
-      },
-      "sourceRefs": [
-        "rules.json#component:web-corp.status-property.hover-and-tooltip-are-allowed"
-      ]
-    },
-    {
       "id": "component:web-corp.status-property.click-is-forbidden",
       "targetId": "target.root",
       "targetScope": "self",
@@ -1738,8 +1539,8 @@
         "scopeStatus": "confirmed"
       },
       "severity": "error",
-      "rationale": "StatusPreset и PropertyPreset являются информационными элементами и пока не могут выполнять действие по клику. Hover и поясняющий Tooltip разрешены, клик — запрещён.",
-      "message": "StatusPreset и PropertyPreset являются информационными элементами и пока не могут выполнять действие по клику. Hover и поясняющий Tooltip разрешены, клик — запрещён.",
+      "rationale": "StatusPreset и PropertyPreset — неинтерактивные информационные элементы: действие по клику запрещено. Нормативная политика паспорта; проверка поведения относится к фронту. Figma-проекция не заявляет проверку interaction.reactions.",
+      "message": "StatusPreset и PropertyPreset — неинтерактивные информационные элементы: действие по клику запрещено.",
       "status": "draft",
       "owner": "design-system-authors",
       "ownership": {
@@ -1747,49 +1548,11 @@
         "ownerId": "web-corp.status-property"
       },
       "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "interaction.reactions"
-        ]
+        "route": "policy-only"
       },
       "sourceRefs": [
-        "rules.json#component:web-corp.status-property.click-is-forbidden"
-      ]
-    },
-    {
-      "id": "component:web-corp.status-property.platform-version-must-match",
-      "targetId": "target.root",
-      "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
-      "controlPaths": [],
-      "constraints": [],
-      "applicability": {
-        "variants": "all",
-        "modes": "all",
-        "platforms": [
-          "desktop",
-          "mobile-web"
-        ],
-        "scopeStatus": "confirmed"
-      },
-      "severity": "error",
-      "rationale": "Используй [D] StatusPreset/PropertyPreset при ширине 768 px и больше, [M] — ниже 768 px в mobile-web. Смешивать платформенные версии нельзя.",
-      "message": "Используй [D] StatusPreset/PropertyPreset при ширине 768 px и больше, [M] — ниже 768 px в mobile-web. Смешивать платформенные версии нельзя.",
-      "status": "draft",
-      "owner": "design-system-authors",
-      "ownership": {
-        "kind": "component",
-        "ownerId": "web-corp.status-property"
-      },
-      "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "component.platform-generation"
-        ]
-      },
-      "sourceRefs": [
-        "rules.json#component:web-corp.status-property.platform-version-must-match"
+        "rules.json#component:web-corp.status-property.click-is-forbidden",
+        "owner-decisions.2026-10-24.json#interaction-scope"
       ]
     },
     {
@@ -1857,6 +1620,143 @@
       "sourceRefs": [
         "rules.json#component:web-corp.status-property.left-addon-is-configurable"
       ]
+    },
+    {
+      "id": "component:web-corp.status-property.label-single-line",
+      "targetId": "target.label-text",
+      "targetScope": "self",
+      "capability": "text.content",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "layoutConstraint",
+          "fact": "bounds.height",
+          "operator": "at-most-line-height",
+          "targetRole": "label-text"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "Label StatusPreset и PropertyPreset занимает не более одной строки по независимому line-height выбранного пресета.",
+      "message": "Текст статуса или свойства должен занимать одну строку.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.status-property"
+      },
+      "execution": {
+        "route": "predicate"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-corp.status-property.property-text-limit",
+        "rules.json#component:web-corp.status-property.status-text-limit"
+      ]
+    },
+    {
+      "id": "component:web-corp.status-property.custom-color-token-binding.text",
+      "targetId": "target.label-text",
+      "targetScope": "self",
+      "capability": "appearance.fill",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "tokenBinding",
+          "fact": "paintBindingsV1.fill",
+          "bindingRequired": true
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "contextDomains": {
+          "semanticApi.preset": [
+            "property"
+          ],
+          "semanticApi.color": [
+            "Custom"
+          ]
+        }
+      },
+      "severity": "error",
+      "rationale": "PropertyPreset Color=Custom: цвет текста задаётся через токен. Коллекция внутри разрешённой библиотеки не ограничивается; принадлежность библиотеке проверяет общее правило rule:system.library-tokens-only.",
+      "message": "Назначьте цвет текста через библиотечный токен.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.status-property"
+      },
+      "execution": {
+        "route": "predicate"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-corp.status-property.custom-color-token-binding"
+      ]
+    },
+    {
+      "id": "component:web-corp.status-property.custom-color-token-binding.surface",
+      "targetId": "target.status",
+      "targetScope": "self",
+      "capability": "appearance.fill",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "tokenBinding",
+          "fact": "paintBindingsV1.fill",
+          "bindingRequired": true
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "contextDomains": {
+          "semanticApi.preset": [
+            "property"
+          ],
+          "semanticApi.color": [
+            "Custom"
+          ]
+        }
+      },
+      "severity": "error",
+      "rationale": "PropertyPreset Color=Custom: цвет поверхности задаётся через токен. Коллекция внутри разрешённой библиотеки не ограничивается; принадлежность библиотеке проверяет общее правило rule:system.library-tokens-only.",
+      "message": "Назначьте цвет поверхности через библиотечный токен.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-corp.status-property"
+      },
+      "execution": {
+        "route": "predicate"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-corp.status-property.custom-color-token-binding"
+      ]
     }
   ],
   "metadata": {
@@ -1866,9 +1766,9 @@
       "manual": "design-system-authors",
       "runtime": "apollo-runtime"
     },
-    "revision": 2,
+    "revision": 3,
     "createdAt": "2026-10-23T12:19:05.893Z",
-    "updatedAt": "2026-10-23T16:10:22.142Z",
+    "updatedAt": "2026-10-23T21:11:55.688177Z",
     "publicRepresentationBoundaryVersion": 1
   }
 }

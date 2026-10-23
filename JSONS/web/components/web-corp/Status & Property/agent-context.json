@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-27"
+      "updatedAt": "2026-10-24"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -193,11 +193,28 @@
   "manual": {
     "patternReferences": [
       {
-        "patternId": "ptrn:ux.status-model",
-        "patternKey": "ux.status-model",
-        "file": "shared/design-system_ab/patterns/p_status-model.md",
-        "sourceType": "editorial-guideline",
-        "updatedAt": "2026-04-26"
+        "file": "../../../../../../patterns/p_status-property-usage.md",
+        "scope": "reference-only"
+      },
+      {
+        "file": "../../../../../../patterns/p_color-selection.md",
+        "scope": "reference-only"
+      },
+      {
+        "file": "../../../../../../patterns/p_status-model.md",
+        "scope": "reference-only"
+      },
+      {
+        "file": "../../../../../../patterns/p_tooltip_hint.md",
+        "scope": "reference-only"
+      },
+      {
+        "file": "../../../../../../patterns/p_adaptive-alfa-business.md",
+        "scope": "reference-only"
+      },
+      {
+        "file": "../../../../../../patterns/p_design-system-usage.md",
+        "scope": "reference-only"
       }
     ],
     "summary": {
@@ -206,68 +223,62 @@
       "purpose": "StatusPreset показывает состояние объекта или процесса, PropertyPreset — характеристику или свойство объекта. Оба preset-компонента разрешено использовать самостоятельно на desktop и mobile-web."
     },
     "usageGuidance": [
-      "Используй StatusPreset для состояния объекта или процесса, PropertyPreset — для характеристики или свойства объекта.",
-      "StatusPreset имеет фиксированную форму Rounded, PropertyPreset — Rectangular.",
-      "Выбирай Type StatusPreset по смыслу состояния, а не по желаемому цвету.",
-      "Approved означает успешный результат; Attention — частичный успех или повышенное внимание; Error / Risk — ошибку, негативный результат или критичный риск; Action — ожидаемое действие пользователя; Processing — процесс банка или системы; Neutral — нейтральное состояние.",
-      "На серой поверхности используй Style=Contrast, на белой — Style=Muted.",
-      "Можно менять штатные Type или Color, Style, Size и текст Label. Size=20/24/32/40 выбирается по контексту и размеру окружающих элементов.",
-      "Desktop-версии используют Uppercase=True, mobile-web — Uppercase=False. Регистр нельзя менять вручную.",
-      "PropertyPreset показывает до 20 символов без переноса; переполнение уходит в многоточие, полное значение можно показать в Tooltip.",
-      "StatusPreset ограничен двумя словами и одной строкой; после 20 видимых символов используй многоточие, полное значение можно показать в Tooltip.",
-      "Label обязателен. Нельзя оставлять только LeftAddon без текста.",
-      "Оба preset-компонента должны сохранять Hug по ширине и высоте; растягивать их вручную нельзя.",
-      "У одного объекта может быть только один StatusPreset. В одной композиции можно показывать не больше двух PropertyPreset.",
-      "StatusPreset и PropertyPreset нельзя использовать вместе: выбирай один StatusPreset либо до двух PropertyPreset.",
-      "Фиксированный интервал между двумя PropertyPreset пока не определён; не придумывай нормативное значение.",
-      "Цвета Green, Orange, Red, Blue, Grey и Indigo у PropertyPreset выбираются свободно и не имеют фиксированной статусной семантики.",
-      "StatusPreset и PropertyPreset могут реагировать на hover и показывать Tooltip.",
-      "Tooltip используется для пояснения значения статуса или свойства; дополнительных ограничений на View нет.",
-      "StatusPreset и PropertyPreset пока не могут выполнять действие по клику.",
-      "Используй [D] при ширине 768 px и больше, [M] — ниже 768 px для mobile-web.",
-      "Всегда используй готовый StatusPreset или PropertyPreset; не собирай статус или свойство прямым использованием core Status.",
-      "LeftAddon вложенного Status можно включать. Его содержимое и ограничения должны соответствовать отдельному контракту компонента Status.",
-      "Не меняй вручную форму, radius, layout, типографику, stroke, opacity, эффекты и штатные заливки вложенного Status.",
-      "Color=Custom разрешён только у PropertyPreset. Пока допустимы любые цветовые токены: цвет текста и заливки должны быть назначены через токены, быть комплементарными и сохранять достаточный взаимный контраст.",
-      "Для текста StatusPreset дополнительно применяй правила паттерна Статусная модель."
+      "StatusPreset использует Rounded, PropertyPreset — Rectangular.",
+      "Size вложенного Status должен совпадать с Size пресета.",
+      "Desktop: Uppercase=True.",
+      "Mobile-web: Uppercase=False.",
+      "Пресет содержит один видимый Label.",
+      "Label не может быть пустым.",
+      "Корень пресета использует Hug по обеим осям.",
+      "Визуальные свойства корня пресета сохраняют независимый эталон выбранного варианта.",
+      "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer.",
+      "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule.",
+      "StatusPreset и PropertyPreset являются самостоятельными публичными Figma-компонентами. Их можно использовать отдельно или как вложенные части других компонентов. Значок блокировки в названии не запрещает самостоятельное использование preset-компонента.",
+      "Size=20/24/32/40 выбирается дизайнером по контексту и размеру окружающих элементов. Переключение между штатными Size является разрешённым изменением параметра компонента и само по себе не считается нарушением.",
+      "PropertyPreset показывает до 20 видимых символов в одной строке. Более длинное значение обрезается многоточием; перенос текста запрещён.",
+      "Текст StatusPreset состоит максимум из двух слов и занимает одну строку. Показывай до 20 видимых символов; переполнение обрезай многоточием.",
+      "Текущий контракт не задаёт фиксированный интервал между двумя PropertyPreset. Не придумывай нормативное значение и не объявляй itemSpacing нарушением без отдельного правила или effective baseline родительской композиции.",
+      "Штатные Color у PropertyPreset выбираются свободно по визуальному контексту и не имеют фиксированной статусной семантики. Не переноси значения Type из StatusPreset на PropertyPreset и не объявляй выбор цвета Property нарушением без отдельного правила.",
+      "StatusPreset и PropertyPreset — неинтерактивные информационные элементы: действие по клику запрещено.",
+      "Для отображения статуса или свойства всегда используй готовый StatusPreset или PropertyPreset. Не собирай такую сущность прямым самостоятельным использованием вложенного core-компонента Status.",
+      "LeftAddon вложенного Status можно включать и настраивать. Само изменение LeftAddon является разрешённой настройкой preset-компонента; допустимое содержимое и правила аддона определяются отдельным контрактом компонента Status.",
+      "Label StatusPreset и PropertyPreset занимает не более одной строки по независимому line-height выбранного пресета.",
+      "PropertyPreset Color=Custom: цвет текста задаётся через токен. Коллекция внутри разрешённой библиотеки не ограничивается; принадлежность библиотеке проверяет общее правило rule:system.library-tokens-only.",
+      "PropertyPreset Color=Custom: цвет поверхности задаётся через токен. Коллекция внутри разрешённой библиотеки не ограничивается; принадлежность библиотеке проверяет общее правило rule:system.library-tokens-only."
     ],
     "ruleHighlights": [
-      "component:web-corp.status-property.presets-are-public-components",
-      "component:web-corp.status-property.style-follows-surface",
-      "component:web-corp.status-property.status-type-has-fixed-semantics",
       "component:web-corp.status-property.shape-is-fixed-by-preset",
-      "component:web-corp.status-property.fill-follows-effective-baseline",
-      "component:web-corp.status-property.custom-color-uses-contrasting-tokens",
+      "component:web-corp.status-property.nested-status-size-matches-preset",
+      "component:web-corp.status-property.case-is-fixed-by-platform.desktop",
+      "component:web-corp.status-property.case-is-fixed-by-platform.mobile-web",
+      "component:web-corp.status-property.label-is-required",
+      "component:web-corp.status-property.label-is-required.nonempty",
+      "component:web-corp.status-property.hug-sizing-is-fixed",
+      "component:web-corp.status-property.preset-root-visuals-follow-effective-baseline",
+      "component:web-corp.status-property.component-properties-are-first-class",
+      "component:web-corp.status-property.lifecycle-context-is-informational",
+      "component:web-corp.status-property.presets-are-public-components",
       "component:web-corp.status-property.size-is-context-controlled",
-      "component:web-corp.status-property.case-is-fixed-by-platform",
       "component:web-corp.status-property.property-text-limit",
+      "component:web-corp.status-property.status-text-limit",
+      "component:web-corp.status-property.property-spacing-is-not-specified",
       "component:web-corp.status-property.property-colors-are-context-controlled",
-      "component:web-corp.status-property.hover-and-tooltip-are-allowed",
       "component:web-corp.status-property.click-is-forbidden",
-      "component:web-corp.status-property.platform-version-must-match",
       "component:web-corp.status-property.use-preset-instead-of-core-status",
       "component:web-corp.status-property.left-addon-is-configurable",
-      "component:web-corp.status-property.status-text-limit",
-      "component:web-corp.status-property.label-is-required",
-      "component:web-corp.status-property.hug-sizing-is-fixed",
-      "component:web-corp.status-property.maximum-two-properties",
-      "component:web-corp.status-property.maximum-one-status-per-object",
-      "component:web-corp.status-property.status-and-property-are-mutually-exclusive",
-      "component:web-corp.status-property.property-spacing-is-not-specified"
+      "component:web-corp.status-property.label-single-line",
+      "component:web-corp.status-property.custom-color-token-binding.text",
+      "component:web-corp.status-property.custom-color-token-binding.surface"
     ],
     "auditInterpretation": {
-      "componentProperties": [
-        "variant.*"
+      "localContract": "Локальные ограничения пресета и его Label. Внутренний baseline — Core Status с доказанным контекстом родителя.",
+      "customColor": "Токены обязательны; принадлежность библиотеке проверяется общим правилом. Контраст не проверяется этим контрактом.",
+      "context": "Style по поверхности, смысл Type, группировка, Tooltip и выбор цветов — внешние паттерны.",
+      "remainingGaps": [
+        "max2words",
+        "visible20characters/ellipsis"
       ],
-      "layerProperties": [
-        "fill",
-        "stroke",
-        "styles.text",
-        "layout.*",
-        "radius",
-        "opacity"
-      ],
-      "baselinePolicy": "Сравнивай изменения layer с effective baseline текущего состояния компонента, если доступен host composition context."
+      "frontendBehaviorCheck": "No click remains a policy; Figma does not claim reaction verification."
     }
   }
 }

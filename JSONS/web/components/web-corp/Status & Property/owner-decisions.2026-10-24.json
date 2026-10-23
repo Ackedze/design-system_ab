@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "apollo.component-rule-routing.v1",
+  "ownerDecisionDate": "2026-10-24",
+  "componentId": "web-corp.status-property",
+  "revision": 3,
+  "rules": {
+    "component:web-corp.status-property.layer-properties-use-effective-baseline": {
+      "kind": "dependency",
+      "target": "web-core.status",
+      "note": "Общий внутренний baseline проверяет Core Status; отдельная копия нормы пресета удалена. Исключение Custom сохраняется."
+    },
+    "component:web-corp.status-property.style-follows-surface": {
+      "kind": "pattern",
+      "target": "rule:components.status-property.style-follows-surface",
+      "file": "patterns/p_status-property-usage.md"
+    },
+    "component:web-corp.status-property.status-type-has-fixed-semantics": {
+      "kind": "pattern",
+      "target": "rule:ux.status-model.semantic-color",
+      "file": "patterns/p_status-model.md"
+    },
+    "component:web-corp.status-property.maximum-two-properties": {
+      "kind": "pattern",
+      "target": "rule:components.status-property.allowed-composition",
+      "file": "patterns/p_status-property-usage.md"
+    },
+    "component:web-corp.status-property.maximum-one-status-per-object": {
+      "kind": "pattern",
+      "target": "rule:components.status-property.allowed-composition",
+      "file": "patterns/p_status-property-usage.md"
+    },
+    "component:web-corp.status-property.status-and-property-are-mutually-exclusive": {
+      "kind": "pattern",
+      "target": "rule:components.status-property.allowed-composition",
+      "file": "patterns/p_status-property-usage.md"
+    },
+    "component:web-corp.status-property.platform-version-must-match": {
+      "kind": "shared-policy",
+      "target": "rule:system.component-channel-match",
+      "file": "patterns/p_design-system-usage.md",
+      "breakpoint": "rule:layout.adaptive-alfa-business.breakpoints"
+    },
+    "component:web-corp.status-property.hover-and-tooltip-are-allowed": {
+      "kind": "pattern",
+      "target": "ptrn:controls.tooltip-hint",
+      "file": "patterns/p_tooltip_hint.md"
+    },
+    "component:web-corp.status-property.custom-color-uses-contrasting-tokens": {
+      "kind": "split",
+      "target": "custom-color-token-binding",
+      "contrast": "removed from component; future ptrn:design.color-selection; no numeric threshold introduced"
+    },
+    "component:web-corp.status-property.fill-follows-effective-baseline": {
+      "kind": "dependency",
+      "target": "web-core.status",
+      "note": "Исходный fill lock входил в общий baseline. Убран вместе с дублем, проверка принадлежит Core Status с исключением Custom."
+    }
+  },
+  "remainingLocalGaps": [
+    "rendered20characters/ellipsis",
+    "status2words"
+  ],
+  "contrastIsNotComponentRequirement": true,
+  "tooltipIsNotComponentRequirement": true,
+  "interaction-scope": {
+    "componentNorm": "No click/action",
+    "figma": "policy-only, no live interaction assertion",
+    "frontend": "behavior verification pending"
+  }
+}
