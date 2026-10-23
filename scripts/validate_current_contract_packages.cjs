@@ -23,8 +23,14 @@ function validate(root=path.resolve(__dirname,'..')){
   const seed=index.mappingSeed;assert(/^[a-f0-9]{64}$/.test(seed.dataId),'Invalid mapping seed identity');
   assert.equal(seed.path,`apollo/data-packages/${seed.dataId}/contracts.tgz`);read(seed.path,seed);
  }
- const mappingIds=new Set();
- const records=index.entries.concat(index.dependencySources).map(entry=>{
+ const mappingIds=new Set(),sources=index.entries.concat(index.dependencySources);
+ // Relocation evidence is separate from runtime mappings; never infer admission from its presence.
+ function hasProducerPin(value,pin){
+  if(!value||typeof value!=='object')return false;
+  if(value.sha256===pin.sha256&&value.bytes===pin.bytes&&path.posix.basename(value.path||value.file||'')===path.posix.basename(pin.originPath))return true;
+  return Object.values(value).some(v=>hasProducerPin(v,pin));
+ }
+ const records=sources.map(entry=>{
   for(const pin of [entry.manual,entry.facts])assert(pin?.path?.startsWith('JSONS/web/components/'),'Source outside component tree');
   const manual=JSON.parse(read(entry.manual.path,entry.manual));JSON.parse(read(entry.facts.path,entry.facts));
   assert.equal(manual.component?.contractId,entry.contractId);assert.equal(manual.component?.componentId,entry.componentId);assert.equal(manual.metadata?.revision,entry.revision);
@@ -40,6 +46,35 @@ function validate(root=path.resolve(__dirname,'..')){
    for(const row of mapping.semantic.mappings)assert.equal(row.componentId,entry.componentId,'Foreign mapping owner');
    assert.deepEqual(mapping.manuals?.find(r=>r.manual?.component?.contractId===entry.contractId)?.manual,manual,'Mapping manual differs from canonical source');
    if(pin.provenance)read(pin.provenance.path,pin.provenance);
+  }
+  for(const pin of entry.mappingArtifacts||[]){
+   assert(['figma-generic','frontend','figma-semantic','figma-typed','figma-targets'].includes(pin.kind),'Unknown mapping artifact kind');
+   assert.equal(pin.runtimeAdoption,false,'Relocated evidence cannot admit runtime mappings');
+   assert(['current-contract-candidate','historical-contract','retained-shared-evidence'].includes(pin.relationship),'Unknown mapping artifact relationship');
+   assert(Array.isArray(pin.owners)&&pin.owners.includes(entry.componentId)&&new Set(pin.owners).size===pin.owners.length,'Wrong mapping artifact owners');
+   assert(pin.owners.every(id=>sources.some(e=>e.componentId===id)),'Unknown mapping artifact owner');
+   assert(sources.some(e=>pin.owners.includes(e.componentId)&&pin.path.startsWith(path.posix.dirname(e.manual.path)+'/mapping/')),'Mapping artifact outside owner folders');
+   if(pin.relationship==='retained-shared-evidence')assert.equal(pin.sourceRevision,null);
+   else{
+    assert(Number.isInteger(pin.sourceRevision)&&pin.sourceRevision>0,'Missing mapping source revision');
+    if(pin.relationship==='historical-contract')assert(pin.sourceRevision<entry.revision&&pin.path.includes('/mapping/history/'),'Historical mapping must stay historical');
+    else assert.equal(pin.sourceRevision,entry.revision,'Candidate revision differs from canonical source');
+   }
+   assert(typeof pin.originPath==='string'&&pin.originPath,'Missing mapping artifact origin');
+   const mapping=JSON.parse(read(pin.path,pin));
+   const rows=pin.kind==='figma-generic'?mapping.semantic?.mappings:pin.kind==='frontend'?mapping.bindings:pin.kind==='figma-semantic'?mapping.mappings:pin.kind==='figma-typed'?mapping.bindings:mapping.profiles;
+   assert(Array.isArray(rows)&&rows.length>0,'Empty mapping artifact');
+   if(['figma-generic','frontend','figma-semantic'].includes(pin.kind)){
+    for(const row of rows)assert(pin.owners.includes(row.componentId),'Foreign mapping artifact owner');
+    assert(pin.owners.every(id=>rows.some(row=>row.componentId===id)),'Mapping artifact owner has no binding');
+   }
+   if(pin.kind==='figma-generic'&&pin.sourceRevision!==null){
+    const sourceManual=mapping.manuals?.find(r=>r.manual?.component?.contractId===entry.contractId)?.manual;
+    assert.equal(sourceManual?.metadata?.revision,pin.sourceRevision,'Mapping source revision mismatch');
+    if(pin.relationship==='current-contract-candidate')assert.deepEqual(sourceManual,manual,'Mapping candidate manual differs from canonical source');
+   }
+   const proof=JSON.parse(read(pin.provenance?.path,pin.provenance));assert(hasProducerPin(proof,pin),'Missing exact producer mapping pin');
+   for(const companion of pin.companions||[]){assert.equal(path.posix.dirname(companion.path),path.posix.dirname(pin.path),'Mapping companion outside bundle');read(companion.path,companion);}
   }
   return{entry,manual};
  });

@@ -54,3 +54,47 @@ test('standalone mapping is pinned to its owner/source/provenance; shared seed r
  entry.mappingSeedRecords.dataId='c'.repeat(64);f.publish();assert.throws(()=>validate(f.root),/Mapping seed mismatch/);
  entry.mappingSeedRecords.dataId=id;f.publish();fs.appendFileSync(path.join(f.root,seed.path),' ');assert.throws(()=>validate(f.root),/Stale repository file/);
 });
+function retainedArtifact(f,entry,{kind='frontend',relationship='current-contract-candidate',revision=3,owners=[entry.componentId],mapping={bindings:[{componentId:entry.componentId}]},folder='r3'}={}){
+ const dir=path.posix.dirname(entry.manual.path)+'/mapping/'+folder,file=dir+'/mapping.json';
+ const pin=f.put(file,mapping),originPath='/historical/closed/mapping.json';
+ const provenance=f.put(dir+'/SEAL.json',{writesClosed:true,files:[{...pin,path:originPath}]});
+ const artifact={...pin,kind,owners,sourceRevision:revision,relationship,runtimeAdoption:false,originPath,provenance,companions:[]};
+ entry.mappingArtifacts=[artifact];return artifact;
+}
+test('retained current candidates and historical files keep exact producer provenance without runtime admission',t=>{
+ const f=fixture(t),entry=f.index.entries[0],manual=JSON.parse(fs.readFileSync(path.join(f.root,entry.manual.path)));
+ retainedArtifact(f,entry,{kind:'figma-generic',mapping:{semantic:{mappings:[{componentId:entry.componentId}]},manuals:[{manual}]}});
+ f.publish();assert.equal(validate(f.root).records.length,2);assert.equal(entry.mappingArtifacts[0].runtimeAdoption,false);
+ const old=JSON.parse(JSON.stringify(manual));old.metadata.revision=2;
+ retainedArtifact(f,entry,{kind:'figma-generic',relationship:'historical-contract',revision:2,folder:'history/r2',mapping:{semantic:{mappings:[{componentId:entry.componentId}]},manuals:[{manual:old}]}});
+ f.publish();assert.equal(validate(f.root).records.length,2);assert.equal(validate(f.root).records[0].manual.metadata.revision,3);
+});
+test('a shared mapping is stored once and referenced by both actual owners',t=>{
+ const f=fixture(t),first=f.index.entries[0],second=f.index.entries[1];second.componentId='sibling-owner';f.manifest.packages[1].componentId=second.componentId;
+ const manual=JSON.parse(fs.readFileSync(path.join(f.root,second.manual.path)));manual.component.componentId=second.componentId;second.manual=f.put(second.manual.path,manual);
+ const owners=[first.componentId,second.componentId],artifact=retainedArtifact(f,first,{relationship:'retained-shared-evidence',revision:null,owners,mapping:{bindings:owners.map(componentId=>({componentId}))}});
+ second.mappingArtifacts=[artifact];f.publish();assert.equal(validate(f.root).records.length,2);
+ assert.equal(first.mappingArtifacts[0].path,second.mappingArtifacts[0].path);
+});
+test('relocation refuses foreign owners, invented admission, stale provenance and false revision labels',t=>{
+ for(const kind of ['foreign','unbound-owner','admission','proof','missing-pin','historical','revision','manual','companion','location']){
+  const f=fixture(t),entry=f.index.entries[0],artifact=retainedArtifact(f,entry);
+  if(kind==='foreign')Object.assign(artifact,f.put(artifact.path,{bindings:[{componentId:'foreign'}]}));
+  if(kind==='unbound-owner'){
+   const other=f.index.entries[1];other.componentId='known-but-unbound';f.manifest.packages[1].componentId=other.componentId;
+   const manual=JSON.parse(fs.readFileSync(path.join(f.root,other.manual.path)));manual.component.componentId=other.componentId;other.manual=f.put(other.manual.path,manual);artifact.owners.push(other.componentId);
+  }
+  if(kind==='admission')artifact.runtimeAdoption=true;
+  if(kind==='proof')fs.appendFileSync(path.join(f.root,artifact.provenance.path),' ');
+  if(kind==='missing-pin')artifact.provenance=f.put(artifact.provenance.path,{writesClosed:true,files:[]});
+  if(kind==='historical')artifact.relationship='historical-contract';
+  if(kind==='revision')artifact.sourceRevision=4;
+  if(kind==='manual'){
+   const manual=JSON.parse(fs.readFileSync(path.join(f.root,entry.manual.path)));manual.metadata.updatedAt='2026-10-02';
+   retainedArtifact(f,entry,{kind:'figma-generic',mapping:{semantic:{mappings:[{componentId:entry.componentId}]},manuals:[{manual}]}});
+  }
+  if(kind==='companion')artifact.companions=[f.put('elsewhere/support.json',{})];
+  if(kind==='location')Object.assign(artifact,f.put('elsewhere/mapping.json',{bindings:[{componentId:entry.componentId}]}));
+  f.publish();assert.throws(()=>validate(f.root),kind);
+ }
+});
