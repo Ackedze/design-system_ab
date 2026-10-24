@@ -12,6 +12,19 @@
 Эти правила действуют для любого AI-агента, который добавляет, изменяет или удаляет правила, паттерны и
 машиночитаемые контракты в `design-system_ab`.
 
+## Навыки для документации и контрактов
+
+Перед работой выбери и прочитай репозиторный `SKILL.md`:
+
+- `.codex/skills/corp-component-authoring/` — аудит, анкетирование и документация
+  компонента; вопросник находится в `references/questionnaire.md`.
+- `.codex/skills/redpol-md-format/` — авторинг и форматирование паттернов AB.
+- `.codex/skills/apollo-contract-authoring/` — Draft manual, Core compile,
+  ZIP/reopen и eval; для helper явно укажи свой checkout Apollo в `APOLLO_ROOT`.
+
+`.agents/skills/` и `.claude/skills/` ссылаются на эти же каталоги; не создавай
+расходящиеся копии. Новым участникам — [инструкция старта](DESIGNER_AGENT_START.md).
+
 ## Леджер и ds-ai-hub
 
 Таблица учёта: [«Машиночитаемые компоненты»](https://docs.google.com/spreadsheets/d/1u3Y7lhO3udXAhGlf7hOk2_zYkWZ0-vgtd6KjtbnxLnk/edit),

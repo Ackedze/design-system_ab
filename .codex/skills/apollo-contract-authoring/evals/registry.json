@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "apollo.skill-eval-registry.v1",
+  "skill": "apollo-contract-authoring",
+  "skillVersion": "0.1.6",
+  "policy": "Create a pinned run for every new contract and substantive update; revise skill for explicit owner requirements or demonstrated errors with before/after and relevant validation",
+  "cases": [
+    {
+      "caseId": "EVAL-PIN-001",
+      "kind": "regression",
+      "purpose": "Real core build inputs incl vendor/schema, complete and incomplete Draft, stale/duplicate pins",
+      "runner": "APOLLO_ROOT=/path/to/Apollo node --test .codex/skills/apollo-contract-authoring/scripts/check_contract.test.cjs",
+      "historicalStatus": "VERIFIED_HELPER_ONLY",
+      "status": "HISTORICAL_EVIDENCE_NOT_DISTRIBUTED",
+      "omittedEvidenceFields": [
+        "run"
+      ]
+    },
+    {
+      "caseId": "APOLLO-AUTH-REPLAY-CC-001",
+      "kind": "real-package-replay",
+      "purpose": "Current CorporateContent ZIP retains existing manual/17 IR/full facts/statuses after core roundtrip",
+      "versions": [
+        "0.1.1",
+        "0.1.3"
+      ],
+      "historicalStatus": "VERIFIED_CORE_REPLAY_ONLY",
+      "status": "HISTORICAL_EVIDENCE_NOT_DISTRIBUTED",
+      "omittedEvidenceFields": [
+        "run"
+      ]
+    },
+    {
+      "caseId": "APOLLO-AUTH-FORWARD-001",
+      "kind": "forward",
+      "purpose": "Fill Draft from text/native types/scope and honestly retain manual editorial norm/singleton-order limits",
+      "authorSkillVersion": "0.1.1",
+      "reviewSkillVersion": "0.1.3",
+      "runtimeCasesReplayed": 31,
+      "additionalReviewerCases": 4,
+      "productReady": false,
+      "historicalStatus": "VERIFIED_SYNTHETIC_AUTHORING_ONLY",
+      "status": "HISTORICAL_EVIDENCE_NOT_DISTRIBUTED",
+      "omittedEvidenceFields": [
+        "run",
+        "rawInputs",
+        "request",
+        "independentReview"
+      ]
+    },
+    {
+      "caseId": "FORWARD-AUTHOR-VERIFY-001",
+      "kind": "regression",
+      "purpose": "In-memory undefined fields and persisted JSON are compared in equivalent representations without dropping real data",
+      "versionIntroduced": "0.1.2",
+      "historicalStatus": "REGRESSION_REPRODUCED_FIX_VERIFIED",
+      "status": "HISTORICAL_EVIDENCE_NOT_DISTRIBUTED",
+      "omittedEvidenceFields": [
+        "evidence"
+      ]
+    },
+    {
+      "caseId": "GENERAL-EVAL-AUTHORITY-001",
+      "kind": "regression",
+      "purpose": "Draft inactive authority is verified against actual not-evaluable/UNKNOWN reason, distinct from missing-fact human-review",
+      "versionIntroduced": "0.1.3",
+      "historicalStatus": "REGRESSION_REPRODUCED_FIX_VERIFIED",
+      "status": "HISTORICAL_EVIDENCE_NOT_DISTRIBUTED",
+      "omittedEvidenceFields": [
+        "evidence"
+      ]
+    },
+    {
+      "caseId": "AUTHORING-EVIDENCE-REUSE-001",
+      "kind": "instruction-regression",
+      "purpose": "Reuse compatible shared text evidence, verify new bindings and normative differences, and avoid an unnecessary allowed-text manual repeat",
+      "versionIntroduced": "0.1.4",
+      "independentReview": false,
+      "productReady": false,
+      "historicalStatus": "VERIFIED_INSTRUCTION_AND_SCOPED_REGRESSIONS",
+      "status": "HISTORICAL_EVIDENCE_NOT_DISTRIBUTED",
+      "omittedEvidenceFields": [
+        "run",
+        "request",
+        "validation"
+      ]
+    },
+    {
+      "caseId": "AUTHORING-RULE-UNIQUENESS-001",
+      "kind": "owner-policy-and-semantic-review",
+      "purpose": "Prevent semantic duplicate active rules while retaining source N:1 coverage, independent obligations and distinct compiler checks",
+      "versionIntroduced": "0.1.5",
+      "independentReview": false,
+      "productReady": false,
+      "historicalStatus": "VERIFIED_INSTRUCTION_AND_SELF_REVIEW_ONLY",
+      "status": "HISTORICAL_EVIDENCE_NOT_DISTRIBUTED",
+      "omittedEvidenceFields": [
+        "run",
+        "rawInputs",
+        "request",
+        "validation"
+      ]
+    },
+    {
+      "caseId": "REPOSITORY-PORTABILITY-001",
+      "kind": "regression",
+      "purpose": "Explicit Apollo checkout; no owner workspace or Editor dependency; fail closed without APOLLO_ROOT",
+      "runner": "APOLLO_ROOT=/path/to/Apollo node --test .codex/skills/apollo-contract-authoring/scripts/check_contract.test.cjs",
+      "versionIntroduced": "0.1.6",
+      "status": "VERIFIED_HELPER_AND_REPOSITORY_DISTRIBUTION_ONLY",
+      "productReady": false,
+      "evidence": "evals/repository-portability-0.1.6.json"
+    }
+  ],
+  "distributionNote": "Historical evidence is not bundled. Original receipts remain unchanged; no prior PASS is asserted as a fresh run of this repository version."
+}

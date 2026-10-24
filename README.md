@@ -2,6 +2,12 @@
 
 Репозиторий общих данных дизайн-системы.
 
+Для дизайнеров и их агентов: [инструкция старта](DESIGNER_AGENT_START.md).
+Навыки анкетирования и документации компонентов (`corp-component-authoring`),
+паттернов (`redpol-md-format`) и контрактов (`apollo-contract-authoring`) входят
+в репозиторий: один источник в `.codex/skills/`, ссылки для Codex в
+`.agents/skills/` и для Claude в `.claude/skills/`.
+
 Текущие manual/facts, component-owned mappings и ZIP контрактов расположены
 в `JSONS/web/components/<library>/<component>`; отдельная mobile-web версия —
 во вложенной папке. [Source index](JSONS/indexes/component-contracts.index.json)
