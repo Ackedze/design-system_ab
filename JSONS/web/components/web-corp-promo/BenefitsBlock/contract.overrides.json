@@ -3,7 +3,7 @@
   "documentType": "component-contract-overrides",
   "metadata": {
     "componentKey": "web.benefits-block",
-    "status": "ready",
+    "status": "draft",
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
       "generated": "athena-cli",
@@ -186,15 +186,8 @@
       "Primary": "preserve baseline; no color override"
     },
     "loadingPolicy": {
-      "allowedWhenBackgroundFalse": true,
-      "scope": "entire BenefitsBlock",
-      "covers": [
-        "Title",
-        "ContentPresets",
-        "Image",
-        "ButtonGroup"
-      ],
-      "actionsBlocked": true
+      "rootLoadingState": false,
+      "nestedComponents": "inherit their own loading contracts"
     },
     "sizing": {
       "horizontal": "Fill",
@@ -231,8 +224,9 @@
       }
     },
     "interactionPolicy": {
-      "containerAction": false,
-      "actionsSource": "ButtonGroup only"
+      "zeroButtons": "container action allowed",
+      "oneButton": "container action allowed only when it is identical to the button action",
+      "twoButtons": "container action forbidden"
     },
     "segmentPolicy": {
       "imageAndColoredSurfaceMustMatch": true

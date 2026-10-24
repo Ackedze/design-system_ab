@@ -58,6 +58,15 @@
     },
     "statusPropertyUsagePattern": {
       "path": "products/ab/patterns/status-property-usage.md"
+    },
+    "designSystemUsagePattern": {
+      "path": "products/ab/patterns/design-system-usage.md"
+    },
+    "loadingStatesPattern": {
+      "path": "products/ab/patterns/loading-states.md"
+    },
+    "surfaceCompositionPattern": {
+      "path": "products/ab/patterns/surface-composition.md"
     }
   },
   "entries": [
@@ -1251,14 +1260,14 @@
         {
           "kind": "named-rule",
           "document": "contentCardWrapperPattern",
-          "ruleId": "rule:components.content-card-wrapper.entity-collection-context",
-          "heading": "Rule 2: Используй компонент для однородного набора сущностей"
+          "ruleId": "rule:components.content-card-wrapper.homogeneous-items",
+          "heading": "Rule 1: Используй одинаковую структуру для однотипных сущностей"
         }
       ],
       "review": {
         "status": "verified",
-        "reviewedAt": "2026-10-20",
-        "basis": "Applicable to a homogeneous collection on any page type, as stated in current Rule 2; usage remains contextual."
+        "reviewedAt": "2026-10-24",
+        "basis": "Техническое правило и актуальная owner-reviewed норма хаба одинаково ограничивают компонент однородным набором сущностей."
       }
     },
     {
@@ -2880,20 +2889,21 @@
     {
       "apolloRuleId": "component:web-corp.background-plate.padding-is-designer-controlled",
       "apolloSource": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-      "relation": "semantic-support",
+      "relation": "conflict",
       "enforcementScope": "BackgroundPlate component scope",
       "hubEvidence": [
         {
           "kind": "named-rule",
           "document": "backgroundPlatePattern",
-          "ruleId": "rule:components.background-plate.padding-is-designer-controlled",
-          "heading": "Rule 13: Настраивай padding по контексту"
+          "ruleId": "rule:components.background-plate.padding-uses-spacing-tokens",
+          "heading": "Rule 13: Задавай padding через токены Spacing",
+          "note": "Хаб требует token binding; техническое правило допускает его отсутствие."
         }
       ],
       "review": {
-        "status": "draft",
-        "reviewedAt": "2026-10-16",
-        "basis": "Owner scope decisions; staged source/human correspondence. Shared application and runtime acceptance pending."
+        "status": "conflict",
+        "reviewedAt": "2026-10-24",
+        "basis": "Источники расходятся: Apollo считает отсутствие token binding допустимой кастомизацией, human-правило хаба требует Spacing token. Требуется решение владельца."
       }
     },
     {
@@ -2963,19 +2973,25 @@
           "kind": "named-rule",
           "document": "backgroundPlatePattern",
           "ruleId": "rule:components.background-plate.colored-fill-only",
-          "heading": "Rule 20: Используй Colored только с заливкой"
+          "heading": "Rule 21: Используй Colored только с заливкой"
         },
         {
           "kind": "named-rule",
           "document": "backgroundPlatePattern",
-          "ruleId": "rule:components.background-plate.border-stroke-is-designer-controlled",
-          "heading": "Rule 18: Настраивай обводку Border по контексту"
+          "ruleId": "rule:components.background-plate.border-stroke-weight-by-context",
+          "heading": "Rule 18: Настраивай толщину Border по контексту"
+        },
+        {
+          "kind": "named-rule",
+          "document": "designSystemUsagePattern",
+          "ruleId": "rule:system.library-tokens-only",
+          "heading": "Rule 1: Используй токены разрешённых библиотек"
         }
       ],
       "review": {
         "status": "draft",
-        "reviewedAt": "2026-10-16",
-        "basis": "Owner scope decisions; staged source/human correspondence. Shared application and runtime acceptance pending."
+        "reviewedAt": "2026-10-24",
+        "basis": "Human-источники совместно подтверждают тип paint и принадлежность токена; обязательность binding остаётся технической частью component contract."
       }
     },
     {
@@ -3114,20 +3130,27 @@
     {
       "apolloRuleId": "component:web-corp.background-plate.border-stroke-is-designer-controlled",
       "apolloSource": "JSONS/web/components/web-corp/BackgroundPlate/rules.json",
-      "relation": "semantic-support",
+      "relation": "conflict",
       "enforcementScope": "BackgroundPlate component scope",
       "hubEvidence": [
         {
           "kind": "named-rule",
           "document": "backgroundPlatePattern",
-          "ruleId": "rule:components.background-plate.border-stroke-is-designer-controlled",
-          "heading": "Rule 18: Настраивай обводку Border по контексту"
+          "ruleId": "rule:components.background-plate.border-stroke-weight-by-context",
+          "heading": "Rule 18: Настраивай толщину Border по контексту"
+        },
+        {
+          "kind": "named-rule",
+          "document": "backgroundPlatePattern",
+          "ruleId": "rule:components.background-plate.border-stroke-align-inside",
+          "heading": "Rule 19: Оставляй обводку Border внутри компонента",
+          "note": "Хаб фиксирует strokeAlign=Inside, техническое правило объявляет положение дизайнерским."
         }
       ],
       "review": {
-        "status": "draft",
-        "reviewedAt": "2026-10-16",
-        "basis": "Owner scope decisions; staged source/human correspondence. Shared application and runtime acceptance pending."
+        "status": "conflict",
+        "reviewedAt": "2026-10-24",
+        "basis": "Толщина и цвет согласованы как контекстные, но источники расходятся по положению обводки. Требуется решение владельца."
       }
     },
     {

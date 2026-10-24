@@ -3,7 +3,7 @@
   "documentType": "component-examples",
   "metadata": {
     "componentKey": "web.benefits-block",
-    "status": "ready",
+    "status": "draft",
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
       "generated": "athena-cli",
@@ -217,35 +217,33 @@
         "expectedAgent": "Потребовать сократить Title до двух строк, даже если символьный лимит не превышен."
       },
       {
-        "exampleId": "benefits-block-loading-without-background",
-        "title": "Loading на общей поверхности",
+        "exampleId": "benefits-block-single-button-same-container-action",
+        "title": "Одна кнопка и совпадающее действие контейнера",
         "inputState": {
           "root": "[D] BenefitsBlock",
-          "Background": "False",
-          "wholeBlockLoading": true,
-          "actionsBlocked": true
+          "buttonCount": 1,
+          "buttonAction": "open-details",
+          "containerAction": "open-details"
         },
         "expectedAudit": {
           "category": "none"
         },
-        "expectedAgent": "Считать loading допустимым при Background=False."
+        "expectedAgent": "Разрешить действие контейнера, потому что оно совпадает с действием единственной кнопки."
       },
       {
-        "exampleId": "benefits-block-partial-loading",
-        "title": "Loading включён только для изображения",
+        "exampleId": "benefits-block-two-buttons-container-action",
+        "title": "Две кнопки и отдельное действие контейнера",
         "inputState": {
           "root": "[M] BenefitsBlock",
-          "loadingParts": [
-            "Image"
-          ],
-          "actionsBlocked": false
+          "buttonCount": 2,
+          "containerAction": "open-details"
         },
         "expectedAudit": {
           "category": "component-property",
           "severity": "error",
-          "ruleId": "component:web.benefits-block.loading-covers-whole-block"
+          "ruleId": "component:web.benefits-block.container-action-follows-button-count"
         },
-        "expectedAgent": "Потребовать loading всего блока и блокировку действий."
+        "expectedAgent": "Удалить действие контейнера: при двух CTA интерактивность доступна только через кнопки."
       },
       {
         "exampleId": "benefits-block-image-overflow-standard-height",

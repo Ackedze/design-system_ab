@@ -3,7 +3,7 @@
   "documentType": "composition-contract",
   "metadata": {
     "componentKey": "web.benefits-block",
-    "status": "ready",
+    "status": "draft",
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
       "generated": "athena-cli",
@@ -697,9 +697,8 @@
         "Primary": "no color overrides"
       },
       "loading": {
-        "allowedWhenBackgroundFalse": true,
-        "scope": "whole block",
-        "actionsBlocked": true
+        "rootLoadingState": false,
+        "nestedComponents": "inherit their own loading contracts"
       },
       "rootSizing": {
         "horizontal": "Fill",
@@ -716,8 +715,9 @@
         "swapWithinLibraryAllowed": true
       },
       "interaction": {
-        "containerClickable": false,
-        "actionsSource": "ButtonGroup"
+        "zeroButtons": "container action allowed",
+        "oneButton": "container action allowed only when identical to the button action",
+        "twoButtons": "container action forbidden"
       },
       "segmentSync": {
         "imageSegmentMatchesColoredFillSegment": true
