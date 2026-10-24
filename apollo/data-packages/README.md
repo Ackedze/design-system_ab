@@ -1,19 +1,29 @@
 # Контрактные данные Apollo
 
 Актуальный подготовленный снимок выбирает [current.json](current.json).
-Сейчас это **Status Core r2 Draft для проверки**, dataId
-`69b9795b089da663699ed5a27a97dc6969b61f137f44152a895fbbc954800109`.
-Рабочая папка — `shared/design-system_ab`, ветка `main`.
-Новый пакет обновляет только Status: один активный публичный корень, 24 варианта и 70 IR по собственным native-целям. Остальные 14 контрактов, generation mappings и runtime сохранены (всего 15). Содержимое native SLOT произвольно по решению владельца; baseline Status его не проверяет. На сохранённых восьми captures UNKNOWN36→0; свежая выбранная область r2 ещё не принята. Status Figma-generation mapping не заявлен; PaymentMaskedNumber r4 mapping сохранён, frontend отключён.
+В нём **20 контрактов для проверки**: прежние 16 сохранены, добавлены
+**StatusBadge r1, Checkbox r1, Radio r1 и IconButton r1** в режиме Draft
+(`authoring-preview`). Рабочая папка — `shared/design-system_ab`, ветка `main`.
 
-Рабочий mapping лежит рядом с manual и facts компонента:
-[figma-mapping.json](../../JSONS/web/components/web-corp/PaymentMaskedNumber/mapping/figma-mapping.json).
-Исходники редактируются в каталоге компонента; immutable `contracts.tgz` формируется
-сборщиком для доставки. Файл в `reports` остаётся историческим evidence.
+DataId: `ccead9500c50bf36fbd1624a326ca9030094c6ee526dbd5bc3a6d70b3850c437`.
+Runtime `28075c51948766147443475a6c181ca396a7a0fbe474a820e80b37a7abe45b0d` остаётся прежним.
+[Архив и размер/SHA](current.json), [отчёт поставки](ccead9500c50bf36fbd1624a326ca9030094c6ee526dbd5bc3a6d70b3850c437/delivery.json).
 
-После push в `main` установка выполняется через **Проверить обновления → Обновить**
-в миниаппе Proxy. Код приложения, плагина и engine не пересобирается.
-Проверки и границы: [отчёт](../../experiments/current-contract-packages/PaymentMaskedNumber/reports/proxy-figma-mapping-r4-2026-10-22/README.ru.md).
+Штатный importer собрал только четыре новых ZIP в пустом временном каталоге.
+Они добавлены к прежнему снимку без повторного переписывания исторического
+generation provenance. Сохранены все 16 checking-записей, их catalog,
+generation payloads и skills. Полные readers, повторное открытие архива
+и штатная portable-проекция прошли. Код Proxy, плагина и Core не менялся.
+
+Обновление штатными `updateFromGit` / builder / installer проверено в отдельном
+временном хранилище с локальными ответами Git: 16 → 20, повтор — без скачивания
+снимка. Это не проверка опубликованного remote: push и обновление работающего
+Proxy выполняет владелец. Новые контракты остаются Draft до проверки Figma.
+
+После push в `main`: **Проверить обновления знаний → Обновить** в миниаппе Proxy.
+Ожидаемый результат — четыре новых контракта в каталоге проверки, все r1 Draft.
+Прежние исторические snapshots и материалы приёмки ниже сохранены как история;
+их версии и числа контрактов не описывают текущий `current.json`.
 
 ## Исторический снимок и приёмка r1
 
