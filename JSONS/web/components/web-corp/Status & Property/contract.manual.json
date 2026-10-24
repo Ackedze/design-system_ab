@@ -346,14 +346,27 @@
         "component:web-corp.status-property.platform-version-must-match",
         "component:web-corp.status-property.hover-and-tooltip-are-allowed"
       ]
+    },
+    {
+      "id": "source-text-limit-2026-10-24",
+      "status": "accepted",
+      "summary": "Больше20 символов исходной строки — ошибка; обрезка/ellipsis не проверяются. Статус дополнительно содержит максимум2слова.",
+      "rationale": "Прямое уточнение владельца; общий лимит длины не дублируется по preset/platform.",
+      "sourceRefs": [
+        "owner-text-decisions.2026-10-24.json"
+      ],
+      "retiredRuleIds": [
+        "component:web-corp.status-property.property-text-limit"
+      ]
     }
   ],
   "generation": {
     "profiles": [],
     "instructions": [
-      "Draft r3 для проверки Figma; не Ready.",
-      "Core Status r3 отдельно проверяет доказанные вложенные части. Его независимая native-приёмка стандартных пресетов сохранена. Runtime-встраивание Draft в зависимость не включается; Custom требует отдельной приёмки разрешённых цветов.",
-      "Выбор поверхности, смысл Type, сборка группы, Tooltip и ширина экрана относятся к внешним паттернам. Локально не закрыты два слова и20 отображаемых символов/ellipsis."
+      "Draft r4 для проверки Figma; не Ready.",
+      "Core Status r3 отдельно проверяет доказанные вложенные части; native Custom integration ещё не принята.",
+      "Label обоих пресетов: не более20 исходных Unicode code points; StatusPreset дополнительно максимум2слова. Обрезка и многоточие не проверяются. Однострочность сохранена отдельной уникальной нормой.",
+      "Выбор поверхности, смысл Type, сборка группы, Tooltip и ширина экрана — внешние паттерны."
     ]
   },
   "source": {
@@ -1381,13 +1394,20 @@
       ]
     },
     {
-      "id": "component:web-corp.status-property.property-text-limit",
-      "targetId": "target.root",
+      "id": "component:web-corp.status-property.label-character-limit",
+      "targetId": "target.label-text",
       "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
+      "capability": "text.content",
+      "permission": "constrained",
       "controlPaths": [],
-      "constraints": [],
+      "constraints": [
+        {
+          "type": "layoutConstraint",
+          "fact": "textContentV1.characterCount",
+          "min": 0,
+          "max": 20
+        }
+      ],
       "applicability": {
         "variants": "all",
         "modes": "all",
@@ -1398,8 +1418,8 @@
         "scopeStatus": "confirmed"
       },
       "severity": "error",
-      "rationale": "PropertyPreset показывает до 20 видимых символов в одной строке. Более длинное значение обрезается многоточием; перенос текста запрещён.",
-      "message": "PropertyPreset показывает до 20 видимых символов в одной строке. Более длинное значение обрезается многоточием; перенос текста запрещён.",
+      "rationale": "Текст Label в StatusPreset и PropertyPreset содержит не более 20 символов исходной строки.",
+      "message": "Сократите текст до 20 символов.",
       "status": "draft",
       "owner": "design-system-authors",
       "ownership": {
@@ -1407,24 +1427,28 @@
         "ownerId": "web-corp.status-property"
       },
       "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "text.rendered-character-count",
-          "text.overflow"
-        ]
+        "route": "predicate"
       },
       "sourceRefs": [
-        "rules.json#component:web-corp.status-property.property-text-limit"
+        "rules.json#component:web-corp.status-property.label-character-limit",
+        "owner-text-decisions.2026-10-24.json"
       ]
     },
     {
       "id": "component:web-corp.status-property.status-text-limit",
-      "targetId": "target.root",
+      "targetId": "target.label-text",
       "targetScope": "self",
-      "capability": "component.policy",
-      "permission": "forbidden",
+      "capability": "text.content",
+      "permission": "constrained",
       "controlPaths": [],
-      "constraints": [],
+      "constraints": [
+        {
+          "type": "layoutConstraint",
+          "fact": "textContentV1.wordCount",
+          "min": 0,
+          "max": 2
+        }
+      ],
       "applicability": {
         "variants": "all",
         "modes": "all",
@@ -1432,11 +1456,17 @@
           "desktop",
           "mobile-web"
         ],
-        "scopeStatus": "confirmed"
+        "scopeStatus": "confirmed",
+        "conditionSubject": "component-root",
+        "contextDomains": {
+          "semanticApi.preset": [
+            "status"
+          ]
+        }
       },
       "severity": "error",
-      "rationale": "Текст StatusPreset состоит максимум из двух слов и занимает одну строку. Показывай до 20 видимых символов; переполнение обрезай многоточием.",
-      "message": "Текст StatusPreset состоит максимум из двух слов и занимает одну строку. Показывай до 20 видимых символов; переполнение обрезай многоточием.",
+      "rationale": "Текст StatusPreset содержит максимум два слова.",
+      "message": "Сократите текст статуса до двух слов.",
       "status": "draft",
       "owner": "design-system-authors",
       "ownership": {
@@ -1444,15 +1474,11 @@
         "ownerId": "web-corp.status-property"
       },
       "execution": {
-        "route": "context-only",
-        "missingFacts": [
-          "text.word-count",
-          "text.rendered-character-count",
-          "text.overflow"
-        ]
+        "route": "predicate"
       },
       "sourceRefs": [
-        "rules.json#component:web-corp.status-property.status-text-limit"
+        "rules.json#component:web-corp.status-property.status-text-limit",
+        "owner-text-decisions.2026-10-24.json"
       ]
     },
     {
@@ -1766,9 +1792,9 @@
       "manual": "design-system-authors",
       "runtime": "apollo-runtime"
     },
-    "revision": 3,
+    "revision": 4,
     "createdAt": "2026-10-23T12:19:05.893Z",
-    "updatedAt": "2026-10-23T21:11:55.688177Z",
+    "updatedAt": "2026-10-24T06:20:56.140839+00:00",
     "publicRepresentationBoundaryVersion": 1
   }
 }

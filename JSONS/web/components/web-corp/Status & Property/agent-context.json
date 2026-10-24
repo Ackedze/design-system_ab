@@ -235,11 +235,11 @@
       "Lifecycle status компонента является контекстом для агента. Не считай его дизайн-нарушением, если не найден отдельный pattern или exact design rule.",
       "StatusPreset и PropertyPreset являются самостоятельными публичными Figma-компонентами. Их можно использовать отдельно или как вложенные части других компонентов. Значок блокировки в названии не запрещает самостоятельное использование preset-компонента.",
       "Size=20/24/32/40 выбирается дизайнером по контексту и размеру окружающих элементов. Переключение между штатными Size является разрешённым изменением параметра компонента и само по себе не считается нарушением.",
-      "PropertyPreset показывает до 20 видимых символов в одной строке. Более длинное значение обрезается многоточием; перенос текста запрещён.",
-      "Текст StatusPreset состоит максимум из двух слов и занимает одну строку. Показывай до 20 видимых символов; переполнение обрезай многоточием.",
+      "Текст Label в StatusPreset и PropertyPreset содержит не более 20 символов исходной строки.",
+      "Текст StatusPreset содержит максимум два слова.",
       "Текущий контракт не задаёт фиксированный интервал между двумя PropertyPreset. Не придумывай нормативное значение и не объявляй itemSpacing нарушением без отдельного правила или effective baseline родительской композиции.",
       "Штатные Color у PropertyPreset выбираются свободно по визуальному контексту и не имеют фиксированной статусной семантики. Не переноси значения Type из StatusPreset на PropertyPreset и не объявляй выбор цвета Property нарушением без отдельного правила.",
-      "StatusPreset и PropertyPreset — неинтерактивные информационные элементы: действие по клику запрещено.",
+      "StatusPreset и PropertyPreset — неинтерактивные информационные элементы: действие по клику запрещено. Нормативная политика паспорта; проверка поведения относится к фронту. Figma-проекция не заявляет проверку interaction.reactions.",
       "Для отображения статуса или свойства всегда используй готовый StatusPreset или PropertyPreset. Не собирай такую сущность прямым самостоятельным использованием вложенного core-компонента Status.",
       "LeftAddon вложенного Status можно включать и настраивать. Само изменение LeftAddon является разрешённой настройкой preset-компонента; допустимое содержимое и правила аддона определяются отдельным контрактом компонента Status.",
       "Label StatusPreset и PropertyPreset занимает не более одной строки по независимому line-height выбранного пресета.",
@@ -259,7 +259,7 @@
       "component:web-corp.status-property.lifecycle-context-is-informational",
       "component:web-corp.status-property.presets-are-public-components",
       "component:web-corp.status-property.size-is-context-controlled",
-      "component:web-corp.status-property.property-text-limit",
+      "component:web-corp.status-property.label-character-limit",
       "component:web-corp.status-property.status-text-limit",
       "component:web-corp.status-property.property-spacing-is-not-specified",
       "component:web-corp.status-property.property-colors-are-context-controlled",
@@ -274,11 +274,9 @@
       "localContract": "Локальные ограничения пресета и его Label. Внутренний baseline — Core Status с доказанным контекстом родителя.",
       "customColor": "Токены обязательны; принадлежность библиотеке проверяется общим правилом. Контраст не проверяется этим контрактом.",
       "context": "Style по поверхности, смысл Type, группировка, Tooltip и выбор цветов — внешние паттерны.",
-      "remainingGaps": [
-        "max2words",
-        "visible20characters/ellipsis"
-      ],
-      "frontendBehaviorCheck": "No click remains a policy; Figma does not claim reaction verification."
+      "remainingGaps": [],
+      "frontendBehaviorCheck": "No click remains a policy; Figma does not claim reaction verification.",
+      "text": "Больше20 исходных code points — ошибка. Status: максимум2слова. Обрезка не проверяется."
     }
   }
 }
