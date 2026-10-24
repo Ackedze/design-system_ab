@@ -2,7 +2,7 @@
 name: ab-generate-custom-landing
 description: Создаёт и точечно изменяет лендинги Альфа-Бизнеса в Figma по пользовательскому брифу, знаниям ds-ai-hub и Promo-компонентам. Уточняет существенные неоднозначности, подбирает библиотечные ассеты и выдаёт отчёт о расходе токенов, источниках и гэпах.
 metadata:
-  version: "0.2.3"
+  version: "0.2.4"
 ---
 
 # Лендинг Альфа-Бизнеса по брифу
@@ -18,8 +18,10 @@ metadata:
 2. Найди checkout `ds-ai-hub`, прочитай его `AGENTS.md`, `README.md`,
    `products/ab/manifest.json`. Рабочий источник — этот хаб. Главный паттерн —
    `products/ab/patterns/landing-pages.md` («Правила проектирования лендингов»).
-   Перед сборкой отдельной страницы прочитай также
-   `products/ab/patterns/draft-layout.md` и правила CorporateContent.
+   Для выбора стилизации по подтверждённому сегменту прочитай
+   `products/ab/patterns/business-segment-styles.md`; учитывай его область
+   применимости и нерешённые соответствия. Перед сборкой отдельной страницы
+   прочитай также `products/ab/patterns/draft-layout.md` и правила CorporateContent.
    Нормы не копируются в навык. Технические каталоги `design-system_ab`
    используй только по ссылкам хаба для keys, токенов, контрактов и ассетов.
 3. До Plugin API вызова прочитай установленный `figma-use`, а для полной
