@@ -9,12 +9,14 @@
 
 | Решение | Начальный маршрут в ds-ai-hub |
 |---|---|
+| Черновой каркас, сетка и области | `products/ab/patterns/draft-layout.md`, `products/ab/components/corporate-content/` |
 | Структура и цель лендинга | `products/ab/patterns/landing-pages.md` |
 | Первый экран | `products/ab/components/promo-main-block/` |
 | Бенефиты и ёмкость | `products/ab/components/benefits/`, `benefit-card/` |
 | Содержательные секции | `benefits-block/`, другие компоненты выбранного паттерна |
 | Форма/FAQ/файлы | Сначала допустимость и место по landing-pages, затем компонентные маршруты |
-| Фон/контейнер | `products/ab/components/background-plate/`, выбранный page host |
+| Фон страницы | CorporateContent и mode `BackgroundPlate Color`; не палитра hero |
+| Поверхность отдельного блока | `products/ab/components/background-plate/` и контракт блока |
 | Цвета и типографика | `core/common/tokens/`, `core/web/tokens/`, `manifest.sources.figmaTokens/figmaStyles` |
 | Иконки | `core/web/assets/assets_glyph-26.json`; инструкции IconView по его маршруту |
 | Иллюстрации | `products/ab/patterns/images_format.md`; указанные им каталоги Corp Image Library |
@@ -50,6 +52,21 @@ boundary именно выбранного семейства. Сверь акт
 - Сегмент и viewport определяются запросом/ответами и допустимым профилем,
   а не темой туров, произвольной палитрой или жёстким default из навыка.
 
+## Обязательный каркас отдельной страницы
+
+Сначала создай один CorporateContent и проверь, что всё содержимое страницы
+попадает в его Body, SwapMe удалён, root сохраняет Fill/Hug и штатные bindings.
+Grid & Cols mode задаётся на внешнем корне; вложенные системные узлы его
+наследуют. Колонки, Content и Gutter бери из переменных; не путай ширину
+viewport с шириной контентной области. Для Content/Isle используй Section
+по его контракту; простая вертикальная композиция может оставаться в Body.
+
+Фон CorporateContent определяется разрешённым page mode, по умолчанию grey.
+Внешний каркас прозрачен. `promo-classic` и `Appearance=Dark` главного блока
+не задают цвет всей страницы. Host, containment, grid и page background
+проверяются до детализации; отсутствие CorporateContent не является
+допустимой экономией чернового прогона.
+
 ## Во время сборки
 
 Один owned root, Auto Layout для связанного содержимого. Импортированные
@@ -62,6 +79,11 @@ instances сохраняются; компонентная геометрия и
 transfer, используй существующий library source image → поддержанный export/
 download/upload. Cross-file imageHash без проверки blob и рендера недостаточен.
 Не оставляй редакционную Grid, default asset или пустую картинку вместо результата.
+Различай три уровня: Fill/Hug/Fixed узла, constraints Scale/Center внутри
+родителя и scaleMode Fit/Fill/Crop растровой заливки. Scale у Image не делает
+его внешний ImageView резиновым. Сверяй размеры с текущим baseline; не меняй
+кадрирование всех картинок автоматически и не объявляй фиксированную область
+собственным дефектом агента без сравнения с исходным компонентом.
 
 После каждого блока возвращай IDs и компактные facts, проверяй bounds и
 скриншот. Лимит ответа MCP проверяй в UTF-8 bytes; большие readback дели на
