@@ -3,7 +3,7 @@
   "documentType": "component-agent-context",
   "metadata": {
     "componentKey": "web.benefits-block",
-    "status": "ready",
+    "status": "draft",
     "applicability": {
       "channels": [
         "b2b"
@@ -13,7 +13,7 @@
         "mobile-web"
       ],
       "source": "path-policy",
-      "updatedAt": "2026-07-27"
+      "updatedAt": "2026-10-24"
     },
     "ownershipSchema": "apollo.artifact-ownership.v2",
     "owners": {
@@ -211,14 +211,13 @@
       "RightAddon должен быть скрыт; TitleAddon допускается только как StatusBadge.",
       "ImageView использует Crop=Center и Segment по сегменту лендинга. Отдельное требование к фиксированному Size отменено владельцем 2026-10-06.",
       "Colored разрешает token-bound fill, Primary сохраняет baseline без цветовых overrides.",
-      "Loading допустим при Background=False.",
+      "У BenefitsBlock нет собственного loading-состояния; loading вложенных компонентов регулируют их контракты.",
       "Root использует Fill/Hug; HeightCustom меняет только высоту BackgroundPlate.",
       "Количество List/Steps определяется вложенным компонентом.",
       "Для Steps рекомендуется 3 шага; если шагов больше 3, верни warning.",
       "Title ограничен 60 символами/2 строками, Text — 240 символами/4 строками; label наследует Button contract.",
       "Изображение бери только из Corp :: Image Library; swap внутри библиотеки разрешён при Crop=Center и Segment лендинга.",
-      "Loading охватывает весь блок и блокирует действия; Background=False не запрещает loading.",
-      "Контейнер BenefitsBlock некликабелен; действия доступны только через ButtonGroup.",
+      "Интерактивность контейнера зависит от числа CTA: 0 — действие допустимо; 1 — только при совпадении с кнопкой; 2 — действие контейнера запрещено.",
       "Для Colored Segment изображения и сегмент token-bound fill должны совпадать.",
       "Image overflow за BackgroundPlate разрешён только при HeightCustom=False, без перекрытия контента и выхода за root.",
       "Один BenefitsBlock на промо-странице рекомендуется, но несколько блоков не являются нарушением.",
@@ -244,13 +243,11 @@
       "component:web.benefits-block.title-addon-status-badge-only",
       "component:web.benefits-block.image-view-settings",
       "component:web.benefits-block.surface-color-overrides",
-      "component:web.benefits-block.loading-allowed-without-background",
       "component:web.benefits-block.root-sizing-and-height-scope",
       "component:web.benefits-block.list-and-steps-count-owned-by-nested-component",
       "component:web.benefits-block.text-limits",
       "component:web.benefits-block.image-source-and-swap",
-      "component:web.benefits-block.loading-covers-whole-block",
-      "component:web.benefits-block.container-is-not-clickable",
+      "component:web.benefits-block.container-action-follows-button-count",
       "component:web.benefits-block.segment-matches-colored-surface",
       "component:web.benefits-block.image-overflow-by-height-custom",
       "component:web.benefits-block.layout-is-component-owned",

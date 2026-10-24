@@ -35,6 +35,11 @@ ROUTING = {
         "categories": ["background", "container", "surface"],
         "aliases": ["фоновая подложка", "уровень фона", "background plate"],
     },
+    "p_color-selection.md": {
+        "components": ["Status & Property"],
+        "categories": ["color", "tokens", "semantics"],
+        "aliases": ["выбор цвета", "цветовой токен", "семантический цвет", "color selection"],
+    },
     "p_benefit-card.md": {
         "components": ["BenefitCard", "Benefits", "BenefitsBlock"],
         "categories": ["benefits", "promo", "card"],
@@ -133,6 +138,11 @@ ROUTING = {
         "categories": ["input", "fields", "controls"],
         "aliases": ["поле ввода", "поля ввода", "инпут", "лейбл поля", "валидация поля"],
     },
+    "p_design-system-usage.md": {
+        "components": [],
+        "categories": ["design-system", "tokens", "platform"],
+        "aliases": ["правила дизайн-системы", "токены библиотеки", "версия компонента"],
+    },
     "p_interruption-scenario.md": {
         "components": ["ScenarioModel", "Modal", "PopupSheet"],
         "categories": ["interruption", "unsaved-changes", "confirmation"],
@@ -152,6 +162,11 @@ ROUTING = {
         "components": ["Link", "PseudoLink"],
         "categories": ["link", "navigation", "legal"],
         "aliases": ["ссылка", "псевдоссылка", "внешняя ссылка", "юридическая ссылка"],
+    },
+    "p_loading-states.md": {
+        "components": ["BackgroundPlate"],
+        "categories": ["loading", "skeleton", "states"],
+        "aliases": ["состояние загрузки", "скелетон", "loading state"],
     },
     "p_promo-card.md": {
         "components": ["PromoCard", "BentoGrid"],
@@ -173,6 +188,16 @@ ROUTING = {
         "components": ["Status", "StatusPreset", "StatusBadge", "Status & Property"],
         "categories": ["status", "semantics", "ux-writing"],
         "aliases": ["статус", "статусная модель", "семантика статуса", "цвет статуса"],
+    },
+    "p_status-property-usage.md": {
+        "components": ["Status & Property"],
+        "categories": ["status", "property", "surface"],
+        "aliases": ["status property", "статус и свойства", "оформление статуса"],
+    },
+    "p_surface-composition.md": {
+        "components": ["BackgroundPlate", "BackgroundPlateSlot"],
+        "categories": ["surface", "layout", "composition"],
+        "aliases": ["композиция поверхностей", "уровни backgroundplate", "surface composition"],
     },
     "p_status-screen.md": {
         "components": ["StatusScreen", "ResultScreen", "CorporateSystemMessage"],

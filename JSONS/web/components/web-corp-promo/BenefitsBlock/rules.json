@@ -13,7 +13,7 @@
     "migratedFrom": 1,
     "ownershipMigrationRevision": 2,
     "ruleAuthorityMigrationRevision": 1,
-    "updatedAt": "2026-10-06"
+    "updatedAt": "2026-10-24"
   },
   "generated": {
     "rules": [
@@ -385,19 +385,6 @@
         }
       },
       {
-        "ruleId": "component:web.benefits-block.loading-allowed-without-background",
-        "severity": "info",
-        "source": "owner-confirmed",
-        "appliesTo": "variant.Background|state.loading",
-        "checkType": "manual",
-        "matchKind": "composition_rule",
-        "classification": {
-          "Background=False": "loading allowed",
-          "doNotTreatAsViolation": true
-        },
-        "ruleText": "Loading допустим при Background=False; отсутствие собственной BackgroundPlate не делает loading нарушением."
-      },
-      {
         "ruleId": "component:web.benefits-block.root-sizing-and-height-scope",
         "severity": "error",
         "source": "owner-confirmed",
@@ -494,39 +481,19 @@
         }
       },
       {
-        "ruleId": "component:web.benefits-block.loading-covers-whole-block",
+        "ruleId": "component:web.benefits-block.container-action-follows-button-count",
         "severity": "error",
         "source": "owner-confirmed",
-        "appliesTo": "state.loading|interaction.*",
+        "appliesTo": "interaction.container|nested.ButtonGroup.buttonCount|interaction.actionIdentity",
         "checkType": "llm",
         "matchKind": "composition_rule",
         "conditions": {
-          "scope": "whole BenefitsBlock",
-          "covers": [
-            "Title",
-            "ContentPresets",
-            "Image",
-            "ButtonGroup"
-          ],
-          "actionsBlocked": true,
-          "allowedWhenBackgroundFalse": true
+          "zeroButtons": "container action allowed",
+          "oneButton": "container action allowed only when it is identical to the button action",
+          "twoButtons": "container action forbidden"
         },
-        "remediation": "Синхронизируйте loading для всего блока и заблокируйте действия; Background=False не требует отключать loading.",
-        "ruleText": "Loading охватывает весь BenefitsBlock и блокирует действия. Он допустим и при Background=False; частичный loading запрещён."
-      },
-      {
-        "ruleId": "component:web.benefits-block.container-is-not-clickable",
-        "severity": "error",
-        "source": "owner-confirmed",
-        "appliesTo": "interaction.container|nested.ButtonGroup",
-        "checkType": "deterministic",
-        "matchKind": "composition_rule",
-        "conditions": {
-          "containerAction": false,
-          "actionsSource": "ButtonGroup only"
-        },
-        "remediation": "Удалите действие с контейнера и перенесите допустимые действия в ButtonGroup.",
-        "ruleText": "Контейнер BenefitsBlock некликабелен; действия доступны только через ButtonGroup."
+        "remediation": "Согласуйте действие контейнера с количеством CTA: при одной кнопке оставьте только совпадающее действие, при двух удалите действие контейнера.",
+        "ruleText": "Без кнопок весь BenefitsBlock может быть кликабельным; с одной кнопкой действие контейнера допустимо только при полном совпадении; с двумя кнопками собственное действие контейнера запрещено."
       },
       {
         "ruleId": "component:web.benefits-block.segment-matches-colored-surface",

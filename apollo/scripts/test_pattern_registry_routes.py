@@ -52,8 +52,11 @@ def main() -> int:
         raise SystemExit("Every accepted document must retain its title and URL")
 
     routes = registry.get("routes", [])
-    if len(routes) != 34:
-        raise SystemExit(f"Expected 34 routes, got {len(routes)}")
+    pattern_files = {path.name for path in (ROOT / "patterns").glob("p_*.md")}
+    if len(routes) != len(pattern_files):
+        raise SystemExit(
+            f"Expected {len(pattern_files)} routes from active pattern files, got {len(routes)}"
+        )
 
     component_routes: dict[str, list[str]] = {}
     rule_routes: dict[str, str] = {}
@@ -76,7 +79,6 @@ def main() -> int:
                 raise SystemExit(f"Duplicate ruleId: {rule_id}")
             rule_routes[rule_id] = source_file
 
-    pattern_files = {path.name for path in (ROOT / "patterns").glob("p_*.md")}
     if source_files != pattern_files:
         raise SystemExit(
             "Pattern source coverage mismatch: "
@@ -86,9 +88,9 @@ def main() -> int:
 
     for component, expected_file in EXPECTED_COMPONENT_ROUTES.items():
         actual_files = component_routes.get(component, [])
-        if actual_files != [expected_file]:
+        if expected_file not in actual_files:
             raise SystemExit(
-                f"Unexpected source for {component}: expected {expected_file}, got {actual_files}"
+                f"Missing canonical source for {component}: expected {expected_file}, got {actual_files}"
             )
 
     required_rule = "rule:controls.buttons-and-button-groups.primary-left"
