@@ -23,6 +23,10 @@
 | Switch | r1 | 2026-10-22T22:21:47.096Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Switch/packages/Switch.r1.draft.component-contract.zip>) |
 | Status | r3 | 2026-10-23T20:24:43.172Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Status/packages/Status.r3.draft.component-contract.zip>) |
 | Status & Property | r4 | 2026-10-24T06:20:56.140839+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-corp/Status%20&%20Property/packages/StatusProperty.r4.draft.component-contract.zip>) |
+| StatusBadge | r1 | 2026-10-24T11:05:14.629Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/StatusBadge/packages/StatusBadge.r1.draft.component-contract.zip>) |
+| Checkbox | r1 | 2026-10-24T11:05:14.629Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Checkbox/packages/Checkbox.r1.draft.component-contract.zip>) |
+| Radio | r1 | 2026-10-24T11:05:14.629Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Radio/packages/Radio.r1.draft.component-contract.zip>) |
+| IconButton | r1 | 2026-10-24T11:05:14.629Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/IconButton/packages/IconButton.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 

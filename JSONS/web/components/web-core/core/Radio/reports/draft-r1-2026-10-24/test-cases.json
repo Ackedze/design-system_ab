@@ -1,0 +1,62 @@
+{
+  "componentId": "web-core.radio",
+  "status": "NOT_RUN_USER_ONLY",
+  "instancesCreated": false,
+  "cases": [
+    {
+      "id": "radio-01",
+      "parameters": {
+        "representation": "RadioLabel_24",
+        "Hint": "False",
+        "DisabledLabel": "False"
+      },
+      "mutation": "Штатные параметры и независимый библиотечный эталон без ручных правок.",
+      "expectation": "Нет нарушений локальных норм; неполнота evidence учитывается отдельно.",
+      "ruleIds": [
+        "component:web-core.radio.component-properties-are-first-class",
+        "component:web-core.radio.layer-properties-use-effective-baseline",
+        "component:web-core.radio.label-typography-baseline"
+      ]
+    },
+    {
+      "id": "radio-02",
+      "parameters": "Тот же выбранный вариант",
+      "mutation": "Изменить заливку целевого внутреннего слоя вручную, без смены View/State.",
+      "expectation": "violation по сравнению appearance.fill с текущим baseline.",
+      "ruleIds": [
+        "component:web-core.radio.layer-properties-use-effective-baseline"
+      ]
+    },
+    {
+      "id": "radio-03",
+      "parameters": "Тот же вариант",
+      "mutation": "Восстановить целевую правку; сохранять разрешённые public properties.",
+      "expectation": "Целевое нарушение исчезает.",
+      "ruleIds": [
+        "component:web-core.radio.layer-properties-use-effective-baseline"
+      ]
+    },
+    {
+      "id": "radio-04",
+      "parameters": "Другой разрешённый вариант / inverted / состояние",
+      "mutation": "Изменить только штатные параметры; новый независимый эталон.",
+      "expectation": "Не считать штатную смену варианта нарушением.",
+      "ruleIds": [
+        "component:web-core.radio.layer-properties-use-effective-baseline"
+      ]
+    },
+    {
+      "id": "radio-05",
+      "parameters": {
+        "representation": "RadioLabel_20",
+        "CompactLabel": "True",
+        "Hint": "False"
+      },
+      "mutation": "Сначала изменить текст Label, затем отдельно увеличить fontSize на 1.",
+      "expectation": "Текст разрешён; изменение fontSize даёт нарушение label-typography-baseline.",
+      "ruleIds": [
+        "component:web-core.radio.label-typography-baseline"
+      ]
+    }
+  ]
+}
