@@ -27,6 +27,10 @@
 | Checkbox | r2 | 2026-10-25T11:34:54.320Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Checkbox/packages/Checkbox.r2.draft.component-contract.zip>) |
 | Radio | r2 | 2026-10-25T11:34:54.320Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Radio/packages/Radio.r2.draft.component-contract.zip>) |
 | IconButton | r2 | 2026-10-25T11:34:54.320Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/IconButton/packages/IconButton.r2.draft.component-contract.zip>) |
+| CheckboxGroup | r1 | 2026-10-25T13:05:18.357Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/CheckboxGroup/packages/CheckboxGroup.r1.draft.component-contract.zip>) |
+| RadioGroup | r1 | 2026-10-25T13:05:18.357Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/RadioGroup/packages/RadioGroup.r1.draft.component-contract.zip>) |
+| Skeleton | r1 | 2026-10-25T13:05:18.357Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Skeleton/packages/Skeleton.r1.draft.component-contract.zip>) |
+| Divider | r1 | 2026-10-25T13:05:18.357Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/Divider/packages/Divider.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 

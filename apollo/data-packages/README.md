@@ -1,3 +1,11 @@
+# Текущий пакет данных Apollo
+
+Текущий снимок: `9a224f6ea73fb3a41824a8e910bdff2d7ef12e5943f32f4cbedcdacff927435f`. В проверке доступны **24 контракта**: добавлены Draft r1 CheckboxGroup, RadioGroup, Skeleton и Divider (Corp). Прежние 20 контрактов, generation, runtime и skills сохранены.
+
+Четыре новых контракта подготовлены по полным историческим Athena-снимкам, пересобранным существующим normalizer/converter. Compile, ZIP/reopen и 62 synthetic проверки прошли; свежая Figma-приёмка ещё не выполнена. Рабочие Core/Proxy/plugin не менялись. После push владельца пакет устанавливается штатным обновлением Git-данных.
+
+## Предыдущая поставка
+
 # Контрактные данные Apollo
 
 Актуальный подготовленный снимок выбирает [current.json](current.json).
