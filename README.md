@@ -3,10 +3,8 @@
 Репозиторий общих данных дизайн-системы.
 
 Для дизайнеров и их агентов: [инструкция старта](DESIGNER_AGENT_START.md).
-Навыки анкетирования и документации компонентов (`corp-component-authoring`),
-паттернов (`redpol-md-format`) и контрактов (`apollo-contract-authoring`) входят
-в репозиторий: один источник в `.codex/skills/`, ссылки для Codex в
-`.agents/skills/` и для Claude в `.claude/skills/`.
+Включённые в репозиторий навыки и способы их подключения перечислены
+в [реестре навыков](#реестр-навыков).
 
 Текущие manual/facts, component-owned mappings и ZIP контрактов расположены
 в `JSONS/web/components/<library>/<component>`; отдельная mobile-web версия —
@@ -22,6 +20,46 @@
 - `CONTRACTS` — скомпилированные Apollo DS contracts, полученные из нормализованных Figma-каталогов в `JSONS`.
 
 JSON-отчёты проверок Apollo хранятся отдельно в `Ackedze/design-system_stats`.
+
+## Реестр навыков
+
+Навыки хранятся в этом репозитории вместе с относящимися к ним вопросниками,
+references и скриптами. Используйте репозиторную версию выбранного навыка.
+
+| Навык | Назначение | Инструкция |
+| --- | --- | --- |
+| `corp-component-authoring` | Аудит документации компонента, анкетирование владельца, формулирование правил и подготовка component package. Вопросник — внутри навыка. | [SKILL.md](.codex/skills/corp-component-authoring/SKILL.md) · [Вопросник](.codex/skills/corp-component-authoring/references/questionnaire.md) |
+| `redpol-md-format` | Подготовка и нормализация паттернов AB в десятисекционном формате; распределение правил между паттерном и компонентом. | [SKILL.md](.codex/skills/redpol-md-format/SKILL.md) |
+| `apollo-contract-authoring` | Подготовка и обновление Draft-контрактов Apollo, компиляция, проверка ZIP/reopen и сохранение eval. | [SKILL.md](.codex/skills/apollo-contract-authoring/SKILL.md) |
+| `figma-b2b-interface` | Сборка B2B-интерфейсов в Figma по компонентам, токенам, паттернам и примерам из `design-system_ab`. | [SKILL.md](.codex/skills/figma-b2b-interface/SKILL.md) |
+| `ab-generate-custom-landing` | Создание и изменение лендингов Альфа-Бизнеса по брифу, знаниям `ds-ai-hub` и библиотечным Promo-компонентам через Figma MCP. | [SKILL.md](apollo/skills/ab-generate-custom-landing/SKILL.md) |
+| `figma-layer-name-hygiene` | Подготовка плана осмысленных названий слоёв. Apollo проверяет и применяет выбранные переименования. | [SKILL.md](apollo/skills/figma-layer-name-hygiene/SKILL.md) · [Агентский цикл](apollo/skills/figma-layer-name-hygiene/run/SKILL.md) · [Пакет Apollo](apollo/skills/figma-layer-name-hygiene/README.md) |
+
+### Подключение
+
+- Откройте собственный checkout `design-system_ab` как рабочий проект агента.
+  Для трёх навыков авторинга — `corp-component-authoring`, `redpol-md-format`
+  и `apollo-contract-authoring` — в `.agents/skills/` (Codex) и `.claude/skills/`
+  (Claude) настроены относительные ссылки на единый источник в `.codex/skills/`.
+- Для остальных навыков явно укажите агенту путь к нужному `SKILL.md` из таблицы
+  и попросите прочитать его перед работой. Так же подключайте навык при работе
+  из соседнего checkout Apollo или Proxy; соседние репозитории не подключаются
+  автоматически.
+- Для работы в Figma нужны соответствующие доступы, Figma MCP и навыки его
+  инструментов. Генерация лендингов дополнительно требует доступного checkout
+  `ds-ai-hub` с нормативными источниками. Для helper контрактов задайте
+  `APOLLO_ROOT`, указывающий на собственный checkout Apollo с установленными
+  зависимостями. Точные требования описаны в выбранном навыке.
+- Пакет переименования доставляется и исполняется через Apollo/Proxy по
+  [порядку работы с каталогом навыков](apollo/skills/README.md). Его наличие
+  в Git само по себе не устанавливает исполнитель или карточку в плагин.
+
+Пример поручения агенту из корня репозитория:
+
+```text
+Прочитай apollo/skills/ab-generate-custom-landing/SKILL.md
+и используй этот навык для следующего брифа: …
+```
 
 ## Apollo Agent и Langflow
 
