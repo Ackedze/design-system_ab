@@ -17,8 +17,8 @@ function validate(root=path.resolve(__dirname,'..')){
  assert.equal(manifest.authoringIndex?.file,'../../JSONS/indexes/component-contracts.index.json');
  const index=JSON.parse(read('JSONS/indexes/component-contracts.index.json',manifest.authoringIndex));
  assert.equal(index.schemaVersion,'apollo.component-contract-sources.v1');assert.equal(index.pathBase,'design-system_ab');
- assert(Array.isArray(manifest.packages)&&manifest.packages.length>0&&manifest.packages.length<=32);
- assert(Array.isArray(index.entries)&&Array.isArray(index.dependencySources)&&index.entries.length+index.dependencySources.length<=32);
+ assert(Array.isArray(manifest.packages)&&manifest.packages.length>0&&manifest.packages.length<=64);
+ assert(Array.isArray(index.entries)&&Array.isArray(index.dependencySources)&&index.entries.length+index.dependencySources.length<=64);
  assert.equal(manifest.packages.length,index.entries.length);
  if(index.mappingSeed){
   const seed=index.mappingSeed;assert(/^[a-f0-9]{64}$/.test(seed.dataId),'Invalid mapping seed identity');

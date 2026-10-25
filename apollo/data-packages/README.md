@@ -1,5 +1,13 @@
 # Текущий пакет данных Apollo
 
+Текущий снимок: `3c9da969af9f1a6873df4d82e0383e4332b5eb30326ff47066a83cee5f224f40`. В проверке **28 контрактов**: добавлены Draft r1 Tag, FilterTag, TagGroup и Tooltip по свежим данным Athena от 25.10.2026. Прежние 24 контракта и 109 файлов payload сохранены точно; generation, runtime и skills прежние.
+
+Source/compile/ZIP-reopen и 108 synthetic проверок новых authoring правил прошли. В лаборатории подготовлены 16 экземпляров. Нативная приёмка Apollo ещё не выполнена. У TagGroup сравнение Size сохранено в legacy-правиле и проходит 6 локальных SLOT-примеров, но не включено в portable authoring IR. Все четыре пакета остаются Draft.
+
+[Отчёт поставки](3c9da969af9f1a6873df4d82e0383e4332b5eb30326ff47066a83cee5f224f40/delivery.json). После push владельца: штатное обновление Git-данных в миниаппе Proxy. Core/Proxy/plugin не пересобирались.
+
+## Предыдущий снимок: 24 контракта
+
 Текущий снимок: `9a224f6ea73fb3a41824a8e910bdff2d7ef12e5943f32f4cbedcdacff927435f`. В проверке доступны **24 контракта**: добавлены Draft r1 CheckboxGroup, RadioGroup, Skeleton и Divider (Corp). Прежние 20 контрактов, generation, runtime и skills сохранены.
 
 Четыре новых контракта подготовлены по полным историческим Athena-снимкам, пересобранным существующим normalizer/converter. Compile, ZIP/reopen и 62 synthetic проверки прошли; свежая Figma-приёмка ещё не выполнена. Рабочие Core/Proxy/plugin не менялись. После push владельца пакет устанавливается штатным обновлением Git-данных.

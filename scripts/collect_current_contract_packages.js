@@ -14,7 +14,7 @@ function renderReadme(manifest,catalog){
 async function collect(checkOnly=false,{root=destination,apolloRoot=process.env.APOLLO_ROOT||path.resolve(repo,'../../projects/Apollo')}={}){
  const core=require(path.join(apolloRoot,'packages/component-contract-core/dist/core.cjs'));
  const {readContractCatalog}=require(path.join(apolloRoot,'scripts/contract-catalog.cjs'));
- const catalog=readContractCatalog(root),manifest=catalog.manifest;
+ const catalog=readContractCatalog(root,{maxContracts:64}),manifest=catalog.manifest;
  assert(manifest,'A current package manifest is required.');
  for(let i=0;i<manifest.packages.length;i++){
   const entry=manifest.packages[i],archive=catalog.archives[i],entries=await core.readZip(archive.bytes);

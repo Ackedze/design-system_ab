@@ -31,6 +31,10 @@
 | RadioGroup | r1 | 2026-10-25T13:05:18.357Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/RadioGroup/packages/RadioGroup.r1.draft.component-contract.zip>) |
 | Skeleton | r1 | 2026-10-25T13:05:18.357Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Skeleton/packages/Skeleton.r1.draft.component-contract.zip>) |
 | Divider | r1 | 2026-10-25T13:05:18.357Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/Divider/packages/Divider.r1.draft.component-contract.zip>) |
+| Tag | r1 | 2026-10-25T18:23:59.448Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Tag/packages/Tag.r1.draft.component-contract.zip>) |
+| FilterTag | r1 | 2026-10-25T18:23:59.448Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/FilterTag/packages/FilterTag.r1.draft.component-contract.zip>) |
+| TagGroup | r1 | 2026-10-25T18:23:59.448Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/TagGroup/packages/TagGroup.r1.draft.component-contract.zip>) |
+| Tooltip | r1 | 2026-10-25T18:23:59.448Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Tooltip/packages/Tooltip.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
