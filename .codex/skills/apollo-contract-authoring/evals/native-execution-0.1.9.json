@@ -1,0 +1,56 @@
+{
+  "caseId": "NATIVE-EXECUTION-0.1.9",
+  "kind": "regression",
+  "status": "VERIFIED_TARGETED_CANDIDATE_NATIVE_PENDING",
+  "skillVersion": "0.1.9",
+  "evidence": "../../../../experiments/current-contract-packages/reports/rule-gaps-2026-10-26/eval.json",
+  "before": {
+    "captures": 79,
+    "beforeUncertain": 67,
+    "afterUncertain": 0,
+    "newViolations": [
+      {
+        "case": "TGR-03 · Size группы 40 / Tag 32",
+        "before": 0,
+        "after": 1
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "GEOMETRY-BOUNDS-002",
+      "cause": "Authoring height/width facts used geometry.*, native capture provides bounds.*.",
+      "fix": "Change constraint fact only; preserve capability, conditions and missing-measurement UNKNOWN.",
+      "tests": "native-authoring-regressions.test.js"
+    },
+    {
+      "id": "SLOT-SIZE-MAPPING-001",
+      "cause": "Existing propertyMapping resolved a fixed source member list; native SLOT content is dynamic.",
+      "fix": "Explicit slotContent family domain with typed SLOT, independent reference, source occurrence uniqueness, complete graph, neutral-wrapper frontier and INSTANCE boundaries. No membership/count rule inferred.",
+      "tests": "open-slot-property-mapping.test.js"
+    },
+    {
+      "id": "VISIBLE-LABEL-DETAIL-001",
+      "cause": "Hidden detail selector was empty, correctly remaining an execution gap. Existing visible-target policy did not support these self-local text/token constraints.",
+      "fix": "Narrow existing visible-target policy for these details; required quantity remains active.",
+      "tests": "visible-text-detail-policy.test.js"
+    },
+    {
+      "id": "EMPTY-TEXT-RESOLVED-VARIABLES-001",
+      "cause": "Observed empty TEXT raw font family/tracking differ from resolveForConsumer on the bound variable in the actual selected mode.",
+      "fix": "Capture singleton bound variables using actual consumer; preserve unbound/nonempty values, actual styles and spacing units. Ambiguous/unreadable/wrong type remains UNKNOWN.",
+      "tests": "empty-text-capture.test.js",
+      "observation": {
+        "path": ".local/apollo-contract-creation-2026-10-26/rule-gaps/SP10-FIGMA-RESOLUTION.json",
+        "sha256": "232cb3307b28cb7a078ecd2221d833b3beb61e5d4e9b5dfac8311228eace4acf",
+        "bytes": 980
+      },
+      "officialApi": [
+        "https://developers.figma.com/docs/plugins/api/Variable/",
+        "https://developers.figma.com/docs/plugins/api/TextNode/"
+      ]
+    }
+  ],
+  "newOperators": 0,
+  "liveAcceptance": "NOT_RUN_USER_ONLY"
+}

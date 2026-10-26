@@ -22,18 +22,18 @@
 | Indicator | r2 | 2026-10-22T21:46:36.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Indicator/packages/Indicator.r2.draft.component-contract.zip>) |
 | Switch | r1 | 2026-10-22T22:21:47.096Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Switch/packages/Switch.r1.draft.component-contract.zip>) |
 | Status | r3 | 2026-10-23T20:24:43.172Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Status/packages/Status.r3.draft.component-contract.zip>) |
-| Status & Property | r5 | 2026-10-26T08:30:51.213Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/Status%20&%20Property/packages/StatusProperty.r5.draft.component-contract.zip>) |
+| Status & Property | r6 | 2026-10-26T17:51:42.697Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/Status%20&%20Property/packages/StatusProperty.r6.draft.component-contract.zip>) |
 | StatusBadge | r2 | 2026-10-25T11:34:54.320Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/StatusBadge/packages/StatusBadge.r2.draft.component-contract.zip>) |
 | Checkbox | r3 | 2026-10-26T07:52:29.767Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Checkbox/packages/Checkbox.r3.draft.component-contract.zip>) |
 | Radio | r3 | 2026-10-26T07:52:29.853Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Radio/packages/Radio.r3.draft.component-contract.zip>) |
 | IconButton | r2 | 2026-10-25T11:34:54.320Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/IconButton/packages/IconButton.r2.draft.component-contract.zip>) |
 | CheckboxGroup | r2 | 2026-10-26T07:52:27.900Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/CheckboxGroup/packages/CheckboxGroup.r2.draft.component-contract.zip>) |
 | RadioGroup | r2 | 2026-10-26T07:52:27.989Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/RadioGroup/packages/RadioGroup.r2.draft.component-contract.zip>) |
-| Skeleton | r2 | 2026-10-26T07:52:29.916Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Skeleton/packages/Skeleton.r2.draft.component-contract.zip>) |
+| Skeleton | r3 | 2026-10-26T17:51:42.652Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Skeleton/packages/Skeleton.r3.draft.component-contract.zip>) |
 | Divider | r1 | 2026-10-25T13:05:18.357Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/Divider/packages/Divider.r1.draft.component-contract.zip>) |
-| Tag | r2 | 2026-10-26T07:52:26.169Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Tag/packages/Tag.r2.draft.component-contract.zip>) |
-| FilterTag | r2 | 2026-10-26T07:52:28.706Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/FilterTag/packages/FilterTag.r2.draft.component-contract.zip>) |
-| TagGroup | r2 | 2026-10-26T07:52:28.076Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/TagGroup/packages/TagGroup.r2.draft.component-contract.zip>) |
+| Tag | r3 | 2026-10-26T17:51:39.309Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Tag/packages/Tag.r3.draft.component-contract.zip>) |
+| FilterTag | r3 | 2026-10-26T17:51:41.376Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/FilterTag/packages/FilterTag.r3.draft.component-contract.zip>) |
+| TagGroup | r3 | 2026-10-26T17:51:42.850Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/TagGroup/packages/TagGroup.r3.draft.component-contract.zip>) |
 | Tooltip | r2 | 2026-10-26T07:52:28.655Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Tooltip/packages/Tooltip.r2.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
