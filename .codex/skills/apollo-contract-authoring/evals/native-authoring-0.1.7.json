@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "apollo.skill-behavior-regression.v1",
+  "skill": "apollo-contract-authoring",
+  "skillVersion": "0.1.7",
+  "date": "2026-10-26",
+  "regressionFamilies": [
+    "SLOT ownership and typed representation port",
+    "documented HUG/FILL without unlocking inner control",
+    "bounds namespace and UNKNOWN on missing dimensions",
+    "optional text target identity and known absence",
+    "standalone surface identity",
+    "Custom parent field constraints with child/token guard"
+  ],
+  "observations": [
+    {
+      "file": "apollo-v4-e4659b153f32.json",
+      "sha256": "b3b0b4ca5a7c9ce753d946c3ce064ecbc4998fbcc9b551e7a2fe361ea22186b7",
+      "captures": 139,
+      "before": {
+        "compliant": 10713,
+        "not-applicable": 5768,
+        "human-review": 4640,
+        "violation": 125
+      },
+      "after": {
+        "compliant": 10993,
+        "not-applicable": 10796,
+        "violation": 5
+      }
+    },
+    {
+      "file": "apollo-v4-77710291d0f9.json",
+      "sha256": "38b72beecee0b454229406c2cf492dde3ba077d26fc3b34a1807272ac7dcf175",
+      "captures": 57,
+      "before": {
+        "not-applicable": 1687,
+        "violation": 47,
+        "compliant": 5607,
+        "human-review": 1572
+      },
+      "after": {
+        "not-applicable": 3158,
+        "compliant": 5711,
+        "violation": 4
+      }
+    },
+    {
+      "file": "apollo-v4-be3a90ce2038.json",
+      "sha256": "b7deff5ebcb651851685492d6931db79cc93e83fa87d604fbb1d0279b07924dc",
+      "captures": 16,
+      "before": {
+        "compliant": 438,
+        "not-applicable": 270,
+        "violation": 12
+      },
+      "after": {
+        "compliant": 438,
+        "not-applicable": 278,
+        "violation": 4
+      }
+    }
+  ],
+  "producerNegativeControls": {
+    "passed": 18,
+    "total": 18
+  },
+  "portableRegressions": {
+    "repository": "Apollo",
+    "files": [
+      "packages/component-contract-core/tests/native-authoring-regressions.test.js",
+      "tests/area-ownership.test.js"
+    ],
+    "tests": 54,
+    "compatibilityTests": 113,
+    "runner": "node --test packages/component-contract-core/tests/native-authoring-regressions.test.js tests/area-ownership.test.js",
+    "coreSuite": 508,
+    "areaOwnership": 50,
+    "sourceLoaderRegressions": 12
+  },
+  "sourceLoader": {
+    "contracts": 28,
+    "stampTamperRejected": true,
+    "historicalDefect": "Compiled-only proof missed the installed main compiler; source-to-main-bundle regression retained."
+  },
+  "review": {
+    "independent": false
+  },
+  "nativeFigma": "NOT_RUN_USER_ONLY",
+  "productReady": false,
+  "evidence": "../../../../experiments/current-contract-packages/reports/native-repair-2026-10-26/eval.json",
+  "scopeClarification": "A token requirement is not permission to override child baseline: require explicit direct controlPath for exact field/target and an active identity-proven owner configuration."
+}
