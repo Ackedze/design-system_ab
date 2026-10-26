@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "apollo.contract-authoring-eval.v1",
+  "runId": "proxy-channel-parity-2026-10-26",
+  "caseId": "PROXY-DELIVERY-CHANNEL-PARITY-001",
+  "skill": {
+    "from": "0.1.7",
+    "version": "0.1.8"
+  },
+  "evidenceKind": "actual-installed-cli-plus-existing-reader-regression",
+  "review": {
+    "author": "Contract Creation",
+    "independent": false
+  },
+  "cases": [
+    {
+      "id": "stale-runtime-index",
+      "expected": "reject incompatible remote index; do not claim delivered",
+      "actual": "existing installed reader rejects old runtime index",
+      "status": "PASS"
+    },
+    {
+      "id": "matching-published-pair",
+      "expected": "real installed check accepts matching runtime/data/commit and does not install or restart",
+      "actual": {
+        "exitCode": 0,
+        "updateAvailable": false,
+        "sourceCommit": "da8d161ae1d066788405ee679c531680ea86cc9f",
+        "stateUnchanged": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "intentional-local-only",
+      "expected": "authoring/local adoption may complete; remote delivery stays PENDING_PUBLICATION; no automatic publication",
+      "actual": "instruction self-review only; no product policy implementation introduced",
+      "status": "PASS_INSTRUCTION_SELF_REVIEW"
+    },
+    {
+      "id": "menu-indicator",
+      "expected": "read actual indicator after ordinary menu check before claiming UI resolved",
+      "actual": "user deferred; no indicator colour claim",
+      "status": "NOT_RUN_USER_ONLY"
+    }
+  ],
+  "acceptedScope": [
+    "actual remote CLI parity",
+    "existing compatibility reader rejects stale index",
+    "conditional handoff guidance"
+  ],
+  "overall": "PARTIAL",
+  "gaps": [
+    "menu indicator colour NOT_RUN_USER_ONLY",
+    "compatibility of older runtime installations with current Git index not provided by this check"
+  ],
+  "productReady": false,
+  "evidence": [
+    {
+      "path": "actual-cli-check.json",
+      "sha256": "b0e69ec9d76cb444d3b6a0451e83b44529f7600a7450e95ed22edace377931b3",
+      "bytes": 2381
+    },
+    {
+      "path": "reader-controls.json",
+      "sha256": "4ab83102a7df428368303c877f48d4516d772a85ff460c52b33c94e3891232c9",
+      "bytes": 741
+    },
+    {
+      "path": "skill-routing.json",
+      "sha256": "fc867596ac7a8b3d53e6100e181b325149a5545d5d7afc2fb07347cca8708644",
+      "bytes": 556
+    }
+  ],
+  "observations": [
+    "One final network attempt failed with fetch failed; failure preserved, one retry passed. No network reliability fix is claimed.",
+    "Legacy workspace skill0.1.5 now routes to canonical0.1.8; prior bytes retained privately."
+  ]
+}
