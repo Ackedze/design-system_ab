@@ -35,10 +35,10 @@
 | FilterTag | r3 | 2026-10-26T17:51:41.376Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/FilterTag/packages/FilterTag.r3.draft.component-contract.zip>) |
 | TagGroup | r3 | 2026-10-26T17:51:42.850Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/TagGroup/packages/TagGroup.r3.draft.component-contract.zip>) |
 | Tooltip | r2 | 2026-10-26T07:52:28.655Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Tooltip/packages/Tooltip.r2.draft.component-contract.zip>) |
-| Input | r1 | 2026-10-26T20:40:39.480Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Input/packages/Input.r1.draft.component-contract.zip>) |
-| NumberInput | r1 | 2026-10-26T20:40:42.696Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/NumberInput/packages/NumberInput.r1.draft.component-contract.zip>) |
-| AmountInput | r1 | 2026-10-26T20:40:46.990Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/AmountInput/packages/AmountInput.r1.draft.component-contract.zip>) |
-| Select | r1 | 2026-10-26T20:40:50.752Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Select/packages/Select.r1.draft.component-contract.zip>) |
+| Input | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Input/packages/Input.r2.draft.component-contract.zip>) |
+| NumberInput | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/NumberInput/packages/NumberInput.r2.draft.component-contract.zip>) |
+| AmountInput | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/AmountInput/packages/AmountInput.r2.draft.component-contract.zip>) |
+| Select | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Select/packages/Select.r2.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
