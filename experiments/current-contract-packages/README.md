@@ -39,6 +39,10 @@
 | NumberInput | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/NumberInput/packages/NumberInput.r2.draft.component-contract.zip>) |
 | AmountInput | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/AmountInput/packages/AmountInput.r2.draft.component-contract.zip>) |
 | Select | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Select/packages/Select.r2.draft.component-contract.zip>) |
+| Text | r1 | 2026-10-27T09:08:57.232776+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Text/packages/Text.r1.draft.component-contract.zip>) |
+| List | r1 | 2026-10-27T09:08:57.232776+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-core/core/List/packages/List.r1.draft.component-contract.zip>) |
+| SegmentedControl | r1 | 2026-10-27T09:08:57.232776+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-core/core/SegmentedControl/packages/SegmentedControl.r1.draft.component-contract.zip>) |
+| Slider | r1 | 2026-10-27T09:08:57.232776+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Slider/packages/Slider.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
