@@ -59,13 +59,11 @@
         "web-corp.status-property"
       ],
       "predicateRules": [
-        "component:web-corp.status-property.style-follows-surface",
         "component:web-corp.status-property.shape-is-fixed-by-preset",
         "component:web-corp.status-property.nested-status-size-matches-preset",
         "component:web-corp.status-property.case-is-fixed-by-platform",
         "component:web-corp.status-property.label-is-required",
         "component:web-corp.status-property.hug-sizing-is-fixed",
-        "component:web-corp.status-property.fill-follows-effective-baseline",
         "component:web-corp.status-property.preset-root-visuals-follow-effective-baseline"
       ],
       "delegatedRules": [
@@ -98,57 +96,15 @@
           "effect": "allow-property-color"
         },
         {
-          "sourceRuleId": "component:web-corp.status-property.hover-and-tooltip-are-allowed",
-          "effect": "allow-hover-tooltip"
-        },
-        {
           "sourceRuleId": "component:web-corp.status-property.left-addon-is-configurable",
           "effect": "allow"
         }
       ],
       "contextOnlyRules": [
         {
-          "sourceRuleId": "component:web-corp.status-property.status-type-has-fixed-semantics",
-          "missingFacts": [
-            "text.semantic-role",
-            "status.semantic-type"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.status-property.custom-color-uses-contrasting-tokens",
-          "missingFacts": [
-            "appearance.contrast-ratio"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.status-property.maximum-two-properties",
-          "missingFacts": [
-            "composition.object-owner"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.status-property.maximum-one-status-per-object",
-          "missingFacts": [
-            "composition.object-owner"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.status-property.status-and-property-are-mutually-exclusive",
-          "missingFacts": [
-            "composition.object-owner"
-          ]
-        },
-        {
           "sourceRuleId": "component:web-corp.status-property.click-is-forbidden",
           "missingFacts": [
             "interaction.reactions"
-          ]
-        },
-        {
-          "sourceRuleId": "component:web-corp.status-property.property-text-limit",
-          "missingFacts": [
-            "text.max-lines",
-            "text.overflow"
           ]
         },
         {
@@ -160,10 +116,18 @@
           ]
         },
         {
-          "sourceRuleId": "component:web-corp.status-property.platform-version-must-match",
+          "sourceRuleId": "component:web-corp.status-property.label-character-limit",
           "missingFacts": [
-            "component.platform-generation"
-          ]
+            "manual.rules.predicateContour"
+          ],
+          "reason": "The source declares checkType=llm and provides no deterministic predicateContour."
+        },
+        {
+          "sourceRuleId": "component:web-corp.status-property.custom-color-token-binding",
+          "missingFacts": [
+            "manual.rules.predicateContour"
+          ],
+          "reason": "The source declares checkType=llm and provides no deterministic predicateContour."
         }
       ],
       "coverageGaps": [
