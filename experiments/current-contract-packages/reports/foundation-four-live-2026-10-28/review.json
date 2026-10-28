@@ -1,0 +1,2047 @@
+{
+  "schemaVersion": "apollo.contract-native-review.v1",
+  "status": "PARTIAL",
+  "evidenceKind": "user-supplied-apollo-native-area-report",
+  "originalReport": {
+    "path": "/Users/alexkukhta/Downloads/apollo-v4-7ec3ad16f068.json",
+    "sha256": "d915fb580ebe33028abb43d97eefb8624eb0878d8b843f7d9646e805d9f5dbbe",
+    "bytes": 15940463
+  },
+  "archivedReport": {
+    "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/foundation-four-live-2026-10-28/report.json.gz",
+    "sha256": "e84196ab220333d7b205d0a7ac0d99c2e570c35f6df49aa9c6679eb3a62433e6",
+    "bytes": 1018209
+  },
+  "release": {
+    "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+    "channel": "local-pilot"
+  },
+  "auditId": "7ec3ad16f06854f24cc297ea4ccbd43904a1bfadb3ef5dfe7bc5972611123921",
+  "timingMs": 22978,
+  "summary": [
+    {
+      "component": "Text",
+      "acceptanceCases": 5,
+      "violationExpectationsMatched": 5,
+      "executionCompleteCases": 0
+    },
+    {
+      "component": "List",
+      "acceptanceCases": 4,
+      "violationExpectationsMatched": 4,
+      "executionCompleteCases": 4
+    },
+    {
+      "component": "SegmentedControl",
+      "acceptanceCases": 10,
+      "violationExpectationsMatched": 10,
+      "executionCompleteCases": 0
+    },
+    {
+      "component": "Slider",
+      "acceptanceCases": 6,
+      "violationExpectationsMatched": 6,
+      "executionCompleteCases": 2
+    }
+  ],
+  "acceptanceCases": 25,
+  "knownGapCases": 1,
+  "expectedViolationsFound": 11,
+  "allExpectedViolationIdsMatch": true,
+  "areaCoverage": {
+    "scope": "available-component-contracts-in-selected-area",
+    "executionComplete": false,
+    "checkedComponents": 26,
+    "governedComponents": 34,
+    "notCheckedComponents": 37,
+    "discoveredComponents": 97,
+    "scanComplete": true,
+    "incompleteComponents": 20
+  },
+  "notCheckedByName": {
+    "Segment_40": 4,
+    "LeftAddon": 1,
+    "Pointer": 8,
+    "Dots": 1,
+    "Dot": 20,
+    "Pips": 2,
+    "Dots_Inverted": 1
+  },
+  "warnings": [
+    "SG-11 · SegmentedControl_40: 1 узлов instance не сопоставлены с reference baseline."
+  ],
+  "blockers": [
+    {
+      "id": "text-inapplicable-fields",
+      "cases": [
+        "TX-01",
+        "TX-02",
+        "TX-03",
+        "TX-04",
+        "TX-05"
+      ],
+      "observed": "Two empty selectors per Text case: owned-text.1.1 layout.mode and owned-text.1.11 appearance.radius. The TEXT target is present; these baseline fields are absent.",
+      "nextStep": "Correct authoring constraints for the actual TEXT capabilities; preserve meaningful baseline/style/token checks. No broad suppression of missing selectors."
+    },
+    {
+      "id": "slider-empty-text-scope",
+      "cases": [
+        "SL-01",
+        "SL-03",
+        "SL-04",
+        "SL-05"
+      ],
+      "observed": "Nine typography selectors have no visible subject. SL-01 and SL-03 snapshots contain no TEXT nodes; the same empty typography scope occurs in SL-04/SL-05.",
+      "nextStep": "Use a source-proven applicability condition for variants without visible text; keep real missing text evidence inconclusive."
+    },
+    {
+      "id": "segmented-control-mixed-direct-children",
+      "cases": [
+        "SG-02",
+        "SG-03",
+        "SG-04",
+        "SG-06",
+        "SG-09"
+      ],
+      "observed": "Both active count/Selected assertions return human-review, collection-members-do-not-cover-reference. Native reference has Segment instances and Divider frames. Current closed memberCollection requires every direct reference child to be an INSTANCE and a listed member.",
+      "nextStep": "Find a supported representation for the segment-only collection, or plan a narrowly scoped operator extension if the existing schema cannot express it. Do not treat decorative dividers as selectable segments or remove the assertions.",
+      "implementation": ".local/apollo-main/packages/component-contract-core/src/member-collections.ts:168"
+    },
+    {
+      "id": "segmented-control-inactive-collection-coverage",
+      "cases": [
+        "SG-01",
+        "SG-02",
+        "SG-03",
+        "SG-04",
+        "SG-05",
+        "SG-06",
+        "SG-07",
+        "SG-08",
+        "SG-09",
+        "SG-10",
+        "SG-11"
+      ],
+      "observed": "Inactive Capacity branches remain not-applicable but carry collection missing evidence; runtime includes them in uncertain coverage. This is distinct from the active branch failures.",
+      "nextStep": "Separate proven inactive branch diagnostics from active missing evidence in the scoped correction; never infer completeness from classification totals alone."
+    },
+    {
+      "id": "segment-contract-gap",
+      "cases": [
+        "SG-09"
+      ],
+      "observed": "The three-word label fixture remains an explicit non-acceptance gap. Nested Segment style/text constraints are not covered by the current parent Draft.",
+      "nextStep": "Prepare the separate Segment contract/dependency; preserve the existing coverage-map gap."
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "TX-01",
+      "component": "Text",
+      "nodeId": "14550:72720",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14550-72720",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 49,
+        "not-applicable": 14
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 2,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.text",
+        "contractHash": "d84456fd0a2d82b7120b7ab8ead11d55972569bdbf0fdd08afb7ae4d3e8440fb",
+        "manualSourceHash": "60cd4cd218d105e3dadd08ce941e02fd838b7db2b921dcd2c03de5b47b4cbe71",
+        "sourceHash": "48fff024177aeebdc162c91bec41778220e8454ca1f8fec6d59e67f22139bc32",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.text.owned-text.1.1",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.text.owned-text.1.11",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        }
+      ]
+    },
+    {
+      "caseId": "TX-02",
+      "component": "Text",
+      "nodeId": "14550:72725",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14550-72725",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 49,
+        "not-applicable": 14
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 2,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.text",
+        "contractHash": "d84456fd0a2d82b7120b7ab8ead11d55972569bdbf0fdd08afb7ae4d3e8440fb",
+        "manualSourceHash": "60cd4cd218d105e3dadd08ce941e02fd838b7db2b921dcd2c03de5b47b4cbe71",
+        "sourceHash": "48fff024177aeebdc162c91bec41778220e8454ca1f8fec6d59e67f22139bc32",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.text.owned-text.1.1",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.text.owned-text.1.11",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        }
+      ]
+    },
+    {
+      "caseId": "TX-03",
+      "component": "Text",
+      "nodeId": "14550:72730",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14550-72730",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.text.text-library-style.1.1"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.text.text-library-style.1.1"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 48,
+        "not-applicable": 14,
+        "violation": 1
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 2,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.text",
+        "contractHash": "d84456fd0a2d82b7120b7ab8ead11d55972569bdbf0fdd08afb7ae4d3e8440fb",
+        "manualSourceHash": "60cd4cd218d105e3dadd08ce941e02fd838b7db2b921dcd2c03de5b47b4cbe71",
+        "sourceHash": "48fff024177aeebdc162c91bec41778220e8454ca1f8fec6d59e67f22139bc32",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.text.owned-text.1.1",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.text.owned-text.1.11",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        }
+      ]
+    },
+    {
+      "caseId": "TX-04",
+      "component": "Text",
+      "nodeId": "14551:72726",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14551-72726",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.text.text-color-token.1.1"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.text.text-color-token.1.1"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 48,
+        "not-applicable": 14,
+        "violation": 1
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 2,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.text",
+        "contractHash": "d84456fd0a2d82b7120b7ab8ead11d55972569bdbf0fdd08afb7ae4d3e8440fb",
+        "manualSourceHash": "60cd4cd218d105e3dadd08ce941e02fd838b7db2b921dcd2c03de5b47b4cbe71",
+        "sourceHash": "48fff024177aeebdc162c91bec41778220e8454ca1f8fec6d59e67f22139bc32",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.text.owned-text.1.1",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.text.owned-text.1.11",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        }
+      ]
+    },
+    {
+      "caseId": "TX-05",
+      "component": "Text",
+      "nodeId": "14551:72731",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14551-72731",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.text.layer-properties-use-effective-baseline.1.13"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.text.layer-properties-use-effective-baseline.1.13"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 48,
+        "violation": 1,
+        "not-applicable": 14
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 2,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.text",
+        "contractHash": "d84456fd0a2d82b7120b7ab8ead11d55972569bdbf0fdd08afb7ae4d3e8440fb",
+        "manualSourceHash": "60cd4cd218d105e3dadd08ce941e02fd838b7db2b921dcd2c03de5b47b4cbe71",
+        "sourceHash": "48fff024177aeebdc162c91bec41778220e8454ca1f8fec6d59e67f22139bc32",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.text.owned-text.1.1",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.text.owned-text.1.11",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        }
+      ]
+    },
+    {
+      "caseId": "LI-01",
+      "component": "List",
+      "nodeId": "14551:72736",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14551-72736",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 117,
+        "not-applicable": 22
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": true,
+        "captureIncomplete": false,
+        "uncertain": 0,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.list",
+        "contractHash": "7feebc41a44d16aabdbacecfd48a3ba48474e3eb49753e7960bfb6b1484acfb0",
+        "manualSourceHash": "01d2592fc86cc74915d3f146e7bb1844e51f72d221ccd101b50036da7e242277",
+        "sourceHash": "7b1babf5ed505b381b86f5022504ed031b9603e8c0c0647f66bdb21f83cef53b",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": []
+    },
+    {
+      "caseId": "LI-02",
+      "component": "List",
+      "nodeId": "14552:72738",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-72738",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 139,
+        "not-applicable": 29
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": true,
+        "captureIncomplete": false,
+        "uncertain": 0,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.list",
+        "contractHash": "7feebc41a44d16aabdbacecfd48a3ba48474e3eb49753e7960bfb6b1484acfb0",
+        "manualSourceHash": "01d2592fc86cc74915d3f146e7bb1844e51f72d221ccd101b50036da7e242277",
+        "sourceHash": "7b1babf5ed505b381b86f5022504ed031b9603e8c0c0647f66bdb21f83cef53b",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": []
+    },
+    {
+      "caseId": "LI-03",
+      "component": "List",
+      "nodeId": "14552:72749",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-72749",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.list.layer-properties-use-effective-baseline.1.13"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.list.layer-properties-use-effective-baseline.1.13"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 116,
+        "violation": 1,
+        "not-applicable": 22
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": true,
+        "captureIncomplete": false,
+        "uncertain": 0,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.list",
+        "contractHash": "7feebc41a44d16aabdbacecfd48a3ba48474e3eb49753e7960bfb6b1484acfb0",
+        "manualSourceHash": "01d2592fc86cc74915d3f146e7bb1844e51f72d221ccd101b50036da7e242277",
+        "sourceHash": "7b1babf5ed505b381b86f5022504ed031b9603e8c0c0647f66bdb21f83cef53b",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": []
+    },
+    {
+      "caseId": "LI-04",
+      "component": "List",
+      "nodeId": "14552:72757",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-72757",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.list.layer-properties-use-effective-baseline.1.13"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.list.layer-properties-use-effective-baseline.1.13"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 138,
+        "not-applicable": 29,
+        "violation": 1
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": true,
+        "captureIncomplete": false,
+        "uncertain": 0,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.list",
+        "contractHash": "7feebc41a44d16aabdbacecfd48a3ba48474e3eb49753e7960bfb6b1484acfb0",
+        "manualSourceHash": "01d2592fc86cc74915d3f146e7bb1844e51f72d221ccd101b50036da7e242277",
+        "sourceHash": "7b1babf5ed505b381b86f5022504ed031b9603e8c0c0647f66bdb21f83cef53b",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": []
+    },
+    {
+      "caseId": "SG-01",
+      "component": "SegmentedControl",
+      "nodeId": "14552:72986",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-72986",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 23,
+        "not-applicable": 7
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 6,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-02",
+      "component": "SegmentedControl",
+      "nodeId": "14552:73247",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-73247",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 21,
+        "not-applicable": 7,
+        "human-review": 2
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 8,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-03",
+      "component": "SegmentedControl",
+      "nodeId": "14552:73538",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-73538",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 21,
+        "not-applicable": 7,
+        "human-review": 2
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 8,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-04",
+      "component": "SegmentedControl",
+      "nodeId": "14552:74799",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-74799",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 21,
+        "not-applicable": 7,
+        "human-review": 2
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 8,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-05",
+      "component": "SegmentedControl",
+      "nodeId": "14552:75093",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-75093",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 23,
+        "not-applicable": 7
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 6,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-06",
+      "component": "SegmentedControl",
+      "nodeId": "14552:75347",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-75347",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 21,
+        "not-applicable": 7,
+        "human-review": 2
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 8,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-07",
+      "component": "SegmentedControl",
+      "nodeId": "14552:75409",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-75409",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.segmented-control.single-selected.capacity-2.1.1"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.segmented-control.single-selected.capacity-2.1.1"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 22,
+        "not-applicable": 7,
+        "violation": 1
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 6,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-08",
+      "component": "SegmentedControl",
+      "nodeId": "14552:75458",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-75458",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.segmented-control.single-selected.capacity-2.1.1"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.segmented-control.single-selected.capacity-2.1.1"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 22,
+        "not-applicable": 7,
+        "violation": 1
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 6,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-09",
+      "component": "SegmentedControl",
+      "nodeId": "14552:75487",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-75487",
+      "acceptanceCase": false,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": null,
+      "classifications": {
+        "compliant": 21,
+        "not-applicable": 7,
+        "human-review": 2
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 8,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-2.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "human-review",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-members-do-not-cover-reference"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-10",
+      "component": "SegmentedControl",
+      "nodeId": "14552:75545",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-75545",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.segmented-control.layer-properties-use-effective-baseline.1.13"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.segmented-control.layer-properties-use-effective-baseline.1.13"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 22,
+        "violation": 1,
+        "not-applicable": 7
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 6,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SG-11",
+      "component": "SegmentedControl",
+      "nodeId": "14552:75566",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-75566",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 23,
+        "not-applicable": 7
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 6,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.segmented-control",
+        "contractHash": "061e5c79dd9e7268ba86813b61f5cf9a81bd4abf6182503a60f117dc136abb39",
+        "manualSourceHash": "e62be5f21ea93b4b0196290bed57f93078561ceb9993fb3e4fab00a16411f8da",
+        "sourceHash": "da92314c6e04652ffab6571a4534d57ef26f6fd43bbb5256962184b90a8e5c39",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.segment-count.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-3.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-4.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        },
+        {
+          "ruleId": "component:web-core.segmented-control.single-selected.capacity-5.1.1",
+          "classification": "not-applicable",
+          "reason": "logical all evaluated",
+          "collectionMissing": [
+            "collection-bindings-unresolved"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "SL-01",
+      "component": "Slider",
+      "nodeId": "14552:75749",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14552-75749",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 120,
+        "not-applicable": 41
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 9,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.slider",
+        "contractHash": "c87789640de1612a2729eaccc99babfbdbcfb1e10c3913d9ac0ace0383d8ade1",
+        "manualSourceHash": "cca2d459f52cda83ee4b3e5e4535dcdb75e8526f1a4bd172e31c3b52286efbd4",
+        "sourceHash": "a3b166148bdd8bbac2ab6bb3d5f48a62643c334bbcda800dafbf3245f3dea0bf",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.1",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.2",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.3",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.4",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.5",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.6",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.7",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.8",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.9",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        }
+      ]
+    },
+    {
+      "caseId": "SL-02",
+      "component": "Slider",
+      "nodeId": "14553:73034",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14553-73034",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 840,
+        "not-applicable": 290
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": true,
+        "captureIncomplete": false,
+        "uncertain": 0,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.slider",
+        "contractHash": "c87789640de1612a2729eaccc99babfbdbcfb1e10c3913d9ac0ace0383d8ade1",
+        "manualSourceHash": "cca2d459f52cda83ee4b3e5e4535dcdb75e8526f1a4bd172e31c3b52286efbd4",
+        "sourceHash": "a3b166148bdd8bbac2ab6bb3d5f48a62643c334bbcda800dafbf3245f3dea0bf",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": []
+    },
+    {
+      "caseId": "SL-03",
+      "component": "Slider",
+      "nodeId": "14553:73319",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14553-73319",
+      "acceptanceCase": true,
+      "expectedRuleIds": [],
+      "actualViolationRuleIds": [],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 714,
+        "not-applicable": 250
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 9,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.slider",
+        "contractHash": "c87789640de1612a2729eaccc99babfbdbcfb1e10c3913d9ac0ace0383d8ade1",
+        "manualSourceHash": "cca2d459f52cda83ee4b3e5e4535dcdb75e8526f1a4bd172e31c3b52286efbd4",
+        "sourceHash": "a3b166148bdd8bbac2ab6bb3d5f48a62643c334bbcda800dafbf3245f3dea0bf",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.1",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.2",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.3",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.4",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.5",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.6",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.7",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.8",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.9",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        }
+      ]
+    },
+    {
+      "caseId": "SL-04",
+      "component": "Slider",
+      "nodeId": "14553:73406",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14553-73406",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.slider.layer-properties-use-effective-baseline.1.13"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.slider.layer-properties-use-effective-baseline.1.13"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 119,
+        "violation": 1,
+        "not-applicable": 41
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 9,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.slider",
+        "contractHash": "c87789640de1612a2729eaccc99babfbdbcfb1e10c3913d9ac0ace0383d8ade1",
+        "manualSourceHash": "cca2d459f52cda83ee4b3e5e4535dcdb75e8526f1a4bd172e31c3b52286efbd4",
+        "sourceHash": "a3b166148bdd8bbac2ab6bb3d5f48a62643c334bbcda800dafbf3245f3dea0bf",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.1",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.2",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.3",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.4",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.5",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.6",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.7",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.8",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.9",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        }
+      ]
+    },
+    {
+      "caseId": "SL-05",
+      "component": "Slider",
+      "nodeId": "14553:74363",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14553-74363",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.slider.layer-properties-use-effective-baseline.1.2"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.slider.layer-properties-use-effective-baseline.1.2"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 119,
+        "not-applicable": 41,
+        "violation": 1
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": false,
+        "captureIncomplete": false,
+        "uncertain": 9,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.slider",
+        "contractHash": "c87789640de1612a2729eaccc99babfbdbcfb1e10c3913d9ac0ace0383d8ade1",
+        "manualSourceHash": "cca2d459f52cda83ee4b3e5e4535dcdb75e8526f1a4bd172e31c3b52286efbd4",
+        "sourceHash": "a3b166148bdd8bbac2ab6bb3d5f48a62643c334bbcda800dafbf3245f3dea0bf",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": [
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.1",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.2",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.3",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.4",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.5",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.6",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.7",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.8",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        },
+        {
+          "ruleId": "component:web-core.slider.visible-text-typography.1.9",
+          "classification": "not-applicable",
+          "reason": "selector matched no visible nodes",
+          "collectionMissing": []
+        }
+      ]
+    },
+    {
+      "caseId": "SL-06",
+      "component": "Slider",
+      "nodeId": "14553:74372",
+      "url": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=14553-74372",
+      "acceptanceCase": true,
+      "expectedRuleIds": [
+        "component:web-core.slider.layer-properties-use-effective-baseline.1.13"
+      ],
+      "actualViolationRuleIds": [
+        "component:web-core.slider.layer-properties-use-effective-baseline.1.13"
+      ],
+      "violationExpectationMatched": true,
+      "classifications": {
+        "compliant": 245,
+        "not-applicable": 81,
+        "violation": 1
+      },
+      "coverage": {
+        "scope": "compiled-predicate-execution",
+        "executionComplete": true,
+        "captureIncomplete": false,
+        "uncertain": 0,
+        "missingRules": [],
+        "pendingSources": [],
+        "nonExecutableRules": 0,
+        "incompleteDependencies": 0
+      },
+      "release": {
+        "id": "326eecbcdf6b0a55a9faefd784fa0691db822219ca3bea2f501d0bc664f87067",
+        "channel": "local-pilot",
+        "contractId": "web-core.slider",
+        "contractHash": "c87789640de1612a2729eaccc99babfbdbcfb1e10c3913d9ac0ace0383d8ade1",
+        "manualSourceHash": "cca2d459f52cda83ee4b3e5e4535dcdb75e8526f1a4bd172e31c3b52286efbd4",
+        "sourceHash": "a3b166148bdd8bbac2ab6bb3d5f48a62643c334bbcda800dafbf3245f3dea0bf",
+        "evaluationMode": "authoring-preview"
+      },
+      "uncertainEvaluations": []
+    }
+  ],
+  "inputPins": [
+    {
+      "path": "/Users/alexkukhta/Downloads/apollo-v4-7ec3ad16f068.json",
+      "sha256": "d915fb580ebe33028abb43d97eefb8624eb0878d8b843f7d9646e805d9f5dbbe",
+      "bytes": 15940463
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/foundation-four-drafts-2026-10-27/Text/test-cases.json",
+      "sha256": "a28877df9502dddb98fd229c612e0dc497febc12f54cd6670677ce9fab47220f",
+      "bytes": 6753
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/foundation-four-drafts-2026-10-27/Text/compiled.json",
+      "sha256": "23afe67cac012c9f7e19978a86afaca9590a20583f54a6f85190ce604e06b4ec",
+      "bytes": 269093
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/foundation-four-drafts-2026-10-27/List/test-cases.json",
+      "sha256": "9b7324b3b5afd4e02dff687bfcf366687f235f666187520830c2d7ebbc70e5f2",
+      "bytes": 9575
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/foundation-four-drafts-2026-10-27/List/compiled.json",
+      "sha256": "190b91f4f394636e99ee9e05e590caffd7a915838094735ff240e2efbff9255c",
+      "bytes": 149836
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/foundation-four-drafts-2026-10-27/SegmentedControl/test-cases.json",
+      "sha256": "9da6e7bac5a4d63d73d5a18117c91bbc7d3a316e9e6e2c0199c37a8e35e08e46",
+      "bytes": 50834
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/foundation-four-drafts-2026-10-27/SegmentedControl/compiled.json",
+      "sha256": "bfa34d2d09baa1c6e47d2132c66ccaf302cbfebd23ae28ceaecee52a399b2228",
+      "bytes": 578668
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/foundation-four-drafts-2026-10-27/Slider/test-cases.json",
+      "sha256": "d3a9092aebf95a05e04253a3631794623d4086e6055d448fff30e21a6a354420",
+      "bytes": 15665
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/shared/design-system_ab/experiments/current-contract-packages/reports/foundation-four-drafts-2026-10-27/Slider/compiled.json",
+      "sha256": "9f037e9c15e3fb64b53c3f7ba788adc1e587707d144b638c7944cc6389770221",
+      "bytes": 249317
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/.local/apollo-main/src/runtime.js",
+      "sha256": "c92333bfe36500a267842ac625dc5e7ff9db3874b799f5bb10c6b9fe202ef7fc",
+      "bytes": 9681
+    },
+    {
+      "path": "/Users/alexkukhta/Desktop/workplace/.local/apollo-main/packages/component-contract-core/src/member-collections.ts",
+      "sha256": "fa2f699b6b608f6f6a044a0e32cd341f4255e4eb1725adbc1897f069025fd5c6",
+      "bytes": 27950
+    }
+  ],
+  "productChanges": [],
+  "contractReadyChanged": false,
+  "freshApolloRun": false
+}
