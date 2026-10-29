@@ -1,0 +1,29 @@
+{
+  "scope": "Slider r3 data-only bindings",
+  "issues": [
+    {
+      "cause": "Read transport result106651 bytes exceeded48000-byte tool response limit",
+      "fix": "Four bounded source-read batches; no source truncation, no canvas mutation",
+      "evidence": "native-read-size-failure.json"
+    },
+    {
+      "cause": "Default source traversal omitted invisible descendants of Pips instances",
+      "fix": "Read all source children with skipInvisibleInstanceChildren=false; prepare rejects incomplete read mode; existing structural comparison must verify all24 variants",
+      "guardChanged": false
+    },
+    {
+      "cause": "Synthetic fixture omitted ownerComponentKey/mainId in occurrence source identity",
+      "fix": "Populate exact owner fields from independent native-private-mains evidence; keep correspondence guard unchanged"
+    },
+    {
+      "cause": "Test compared revision-dependent evaluationId/ruleRevision as if they were verdicts",
+      "fix": "Assert revision2→3 separately; compare every other evaluation field including classification and trace unchanged"
+    }
+  ],
+  "prevention": "prepare.py pins r2 archive and exact source identities; check.cjs requires24 complete correspondences,30 retained owned nodes, unchanged rules/semantic IR and six refusal controls",
+  "status": "FIXED_AND_CHECKED",
+  "owner": "General",
+  "engineChanged": false,
+  "nativeLive": "NOT_RUN_USER_ONLY",
+  "Ready": false
+}
