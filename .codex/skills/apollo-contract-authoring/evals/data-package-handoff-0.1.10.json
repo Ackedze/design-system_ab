@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "apollo.contract-authoring-eval.v1",
+  "caseId": "AUTHORING-DATA-PACKAGE-HANDOFF-001",
+  "skill": {
+    "from": "0.1.9",
+    "version": "0.1.10"
+  },
+  "reason": "Explicit owner workflow requirement: repack Proxy data after contract creation/change; current prepared package publication authorized separately.",
+  "review": {
+    "author": "Contract Creation",
+    "independent": false
+  },
+  "cases": [
+    {
+      "id": "mandatory-repack-after-contract-change",
+      "status": "PASS_INSTRUCTION_REVIEW",
+      "actual": "SKILL outcome includes common Proxy data package; one repack per batch; exact prepared package reused; no product rebuild."
+    },
+    {
+      "id": "expected-contract-delta-in-package",
+      "status": "PASS",
+      "actual": {
+        "count": 44,
+        "updated": [
+          {
+            "id": "web-core.options-list",
+            "revision": 2
+          },
+          {
+            "id": "web-core.segmented-control",
+            "revision": 3
+          }
+        ],
+        "added": [
+          "web-core.option-list-cell",
+          "web-core.option-list-frame",
+          "web-core.option-list-text"
+        ],
+        "untouchedExact": 39
+      }
+    },
+    {
+      "id": "existing-producer-and-protected-consumer",
+      "status": "PASS_REUSED_EXACT_PREPARED_EVIDENCE",
+      "evidence": "experiments/current-contract-packages/reports/options-list-segment-fix-2026-10-29/prepared/last-build.json",
+      "archive": "8dec3918521362d332e8ebc8a57d69dcddf2bea84a07ae4e3ad9900cdb14cd60"
+    },
+    {
+      "id": "public-archive-exact",
+      "status": "PASS",
+      "evidence": "experiments/current-contract-packages/reports/options-list-segment-fix-2026-10-29/publication/public-consumer.json"
+    },
+    {
+      "id": "publication-boundary",
+      "status": "PASS_INSTRUCTION_REVIEW",
+      "actual": "Repack mandatory; publication requires scope authorization; local working installation/manual Figma left to owner."
+    },
+    {
+      "id": "configured-channel",
+      "status": "SEPARATE_PUBLICATION_RECEIPT",
+      "evidence": "experiments/current-contract-packages/reports/options-list-segment-fix-2026-10-29/publication/RESULT.json",
+      "actual": "Real installed CLI check is recorded after channel push; false before owner update is not expected."
+    }
+  ],
+  "overall": "VERIFIED_INSTRUCTION_AND_EXACT_DATA44_REPACK_PUBLIC_ARCHIVE",
+  "productReady": false,
+  "evidence": [
+    {
+      "path": ".codex/skills/apollo-contract-authoring/SKILL.md",
+      "sha256": "c51cd9cb425acb143725c35ead86f6fb3d7f8bcc384a2ca659fcd76a4a9c6fd1",
+      "bytes": 11843
+    },
+    {
+      "path": ".codex/skills/apollo-contract-authoring/references/evals.md",
+      "sha256": "e9a8c0c5c870dc0c97d8653dbd6441b7598e8773a47541da3a500c6ddcdff191",
+      "bytes": 22643
+    },
+    {
+      "path": "experiments/current-contract-packages/reports/options-list-segment-fix-2026-10-29/prepared/last-build.json",
+      "sha256": "a8be9b82392c7914c7fcd51a22b371d8124abcd714e3bd344bb6d1dc2c345336",
+      "bytes": 935
+    },
+    {
+      "path": "experiments/current-contract-packages/reports/options-list-segment-fix-2026-10-29/publication/public-consumer.json",
+      "sha256": "c97448f0bcaaef143b4eff3e5691b4af31d5b95f6c37bc1967706930e3ee2b31",
+      "bytes": 455
+    }
+  ],
+  "remaining": [
+    "Owner installation and Figma acceptance; no native UI indicator colour claim."
+  ]
+}
