@@ -42,7 +42,12 @@
 | Text | r2 | 2026-10-28T15:27:56.549Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Text/packages/Text.r2.draft.component-contract.zip>) |
 | List | r1 | 2026-10-27T09:08:57.232776+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-core/core/List/packages/List.r1.draft.component-contract.zip>) |
 | SegmentedControl | r2 | 2026-10-28T15:27:56.563Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/SegmentedControl/packages/SegmentedControl.r2.draft.component-contract.zip>) |
-| Slider | r2 | 2026-10-28T15:27:56.557Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Slider/packages/Slider.r2.draft.component-contract.zip>) |
+| Slider | r3 | 2026-10-28T23:59:37.619Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Slider/packages/Slider.r3.draft.component-contract.zip>) |
+| PureCell | r1 | 2026-10-29T00:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/wrappers/PureCell/packages/PureCell.r1.draft.component-contract.zip>) |
+| OptionsList | r1 | 2026-10-29T00:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/OptionsList/packages/OptionsList.r1.draft.component-contract.zip>) |
+| SelectWithTags | r1 | 2026-10-29T00:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/SelectWithTags/packages/SelectWithTags.r1.draft.component-contract.zip>) |
+| SliderInput | r1 | 2026-10-29T00:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/SliderInput/packages/SliderInput.r1.draft.component-contract.zip>) |
+| Segment | r1 | 2026-10-28T22:52:37.290Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Segment/packages/Segment.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
