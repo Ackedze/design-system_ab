@@ -26518,7 +26518,7 @@
               "StatusBadge"
             ]
           },
-          "ruleText": "Status используется для состояния страницы, заголовком которой является TitleView с View=xLarge. TitleStatus является опциональным статусным блоком, доступным только при включённом свойстве Status у того же TitleView. TitleAddon и TitleAddonXL используются как опциональные функциональные элементы рядом с заголовком. Не считай отсутствие опционального слота нарушением."
+          "ruleText": "Status используется для состояния страницы, заголовком которой является TitleView с View=xLarge. TitleStatus является опциональным статусным блоком. TitleAddon и TitleAddonXL используются как опциональные функциональные элементы рядом с заголовком. Не считай отсутствие опционального слота нарушением."
         },
         {
           "ruleId": "component:web-corp.title-view.status-and-title-status-color-match",
@@ -26753,9 +26753,10 @@
           }
         },
         {
-          "ruleId": "component:web-corp.title-view.title-status-requires-status",
-          "severity": "error",
-          "source": "component-contract",
+          "ruleId": "component:web-corp.title-view.title-status-may-be-standalone",
+          "severity": "info",
+          "source": "pattern-link",
+          "patternRuleId": "rule:components.title-view.title-status-may-be-standalone",
           "appliesTo": "component.properties.TitleStatus|component.properties.Status",
           "checkType": "deterministic",
           "matchKind": "composition_rule",
@@ -26769,93 +26770,12 @@
               "TitleStatus": true
             }
           },
-          "requiredVariant": {
-            "Status": true
-          },
-          "ruleText": "В View=xLarge TitleStatus может использоваться только при включённом свойстве Status у того же TitleView. Для Large, Medium и Small слот TitleStatus недоступен и сохранённое скрытое значение свойства не оценивается.",
+          "ruleText": "TitleStatus может использоваться самостоятельно. Отсутствие верхнего Status при видимом TitleStatus не является нарушением.",
           "ruleKind": "design-rule",
           "authority": {
             "status": "active",
             "provenance": "design-system-author",
-            "revision": 2
-          },
-          "predicateContour": {
-            "schemaVersion": "apollo.contour-definition.v1",
-            "kind": "fact-domain",
-            "select": {
-              "from": "selection-root",
-              "traverse": "self-and-descendants",
-              "where": [
-                {
-                  "predicate": "equals",
-                  "actual": {
-                    "fact": "type"
-                  },
-                  "expected": {
-                    "literal": "INSTANCE"
-                  }
-                },
-                {
-                  "predicate": "one-of",
-                  "actual": {
-                    "fact": "component.identity"
-                  },
-                  "expected": {
-                    "literal": [
-                      "web-corp.title-view",
-                      "web-corp.title-view-mobile"
-                    ]
-                  }
-                },
-                {
-                  "predicate": "equals",
-                  "actual": {
-                    "fact": "ownership.contour.isRoot"
-                  },
-                  "expected": {
-                    "literal": true
-                  }
-                },
-                {
-                  "predicate": "equals",
-                  "actual": {
-                    "fact": "component.properties.TitleStatus"
-                  },
-                  "expected": {
-                    "literal": true
-                  }
-                },
-                {
-                  "predicate": "equals",
-                  "actual": {
-                    "fact": "component.properties.View"
-                  },
-                  "expected": {
-                    "literal": "xLarge"
-                  }
-                }
-              ]
-            },
-            "actual": {
-              "fact": "component.properties.Status"
-            },
-            "allowedValues": [
-              true
-            ],
-            "presentation": {
-              "schemaVersion": "apollo.predicate-presentation.v1",
-              "title": "TitleStatus включён без Status",
-              "observed": "У TitleView включён TitleStatus, но свойство Status имеет значение {{actual}}.",
-              "expectation": "В View=xLarge TitleStatus может использоваться только при Status=true у того же TitleView.",
-              "action": "Включить свойство Status у TitleView или отключить TitleStatus."
-            },
-            "scope": {
-              "platform": [
-                "desktop",
-                "mobile-web"
-              ]
-            },
-            "unknownPolicy": "not-evaluable"
+            "revision": 3
           }
         },
         {

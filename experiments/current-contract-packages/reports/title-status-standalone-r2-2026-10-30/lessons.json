@@ -1,0 +1,17 @@
+[
+  {
+    "kind": "harness-correction",
+    "fact": "README formatting differed from the plain-text assumption; assertion stopped before writing README.",
+    "evidence": "FIRST-FAILURE.json",
+    "cause": "Unverified exact Markdown string",
+    "resolution": "Grounded exact line, used the actual formatted text; sources compiled and roundtripped.",
+    "guard": "Preimage pins and exact assertion preserved. No engine/source guard weakened."
+  },
+  {
+    "kind": "configuration-refusal",
+    "fact": "Producer rejected positional config and an output directory nested in its source input.",
+    "evidence": "PACKAGING-CONFIG-RECOVERY.json",
+    "resolution": "Use --config and isolated output; copy finished bytes to the canonical run folder.",
+    "guard": "Producer output/source separation unchanged. No package built before correction."
+  }
+]

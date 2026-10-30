@@ -100,6 +100,9 @@
     },
     "corpFour32": {
       "path": "products/ab/components/corporate-system-message/instructions.md"
+    },
+    "titleViewPattern": {
+      "path": "products/ab/patterns/title-view.md"
     }
   },
   "entries": [
@@ -4921,18 +4924,24 @@
     {
       "apolloRuleId": "component:web-corp.title-view.component-properties-are-first-class",
       "apolloSource": "JSONS/web/components/web-corp/TitleView/contract.manual.json",
-      "relation": "technical-only",
+      "relation": "semantic-support",
       "enforcementScope": "TitleView / target.root / {\"variants\":\"all\",\"modes\":\"all\",\"platforms\":[\"desktop\",\"mobile-web\"],\"scopeStatus\":\"confirmed\",\"conditionSubject\":\"component-root\"}",
       "hubEvidence": [
         {
           "kind": "technical-only",
           "reason": "Generated API/baseline from exact Athena export; local enforced scope and source norms outside this scope are retained in coverage-map."
+        },
+        {
+          "kind": "named-rule",
+          "document": "titleViewPattern",
+          "ruleId": "rule:components.title-view.title-status-may-be-standalone",
+          "heading": "Разрешай TitleStatus без верхнего Status"
         }
       ],
       "review": {
         "status": "verified",
         "reviewedAt": "2026-10-30",
-        "basis": "Source/IR correspondence and existing d058 compile/ZIP/source checks only; no Ready or fresh native acceptance."
+        "basis": "Source/IR correspondence and existing d058 compile/ZIP/source checks only; no Ready or fresh native acceptance. Owner permits standalone TitleStatus; permission merged into existing API policy."
       }
     },
     {
@@ -5251,6 +5260,25 @@
         "status": "verified",
         "reviewedAt": "2026-10-30",
         "basis": "Source/IR correspondence and existing d058 compile/ZIP/source checks only; no Ready or fresh native acceptance."
+      }
+    },
+    {
+      "apolloRuleId": "component:web-corp.title-view.title-status-may-be-standalone",
+      "apolloSource": "JSONS/web/components/web-corp/TitleView/rules.json",
+      "relation": "semantic-support",
+      "enforcementScope": "TitleStatus independent BOOLEAN through existing component:web-corp.title-view.component-properties-are-first-class",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "titleViewPattern",
+          "ruleId": "rule:components.title-view.title-status-may-be-standalone",
+          "heading": "Разрешай TitleStatus без верхнего Status"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-10-30",
+        "basis": "Direct owner decision and matching hub Rule26. Policy-only permission, no duplicate IR or Ready claim."
       }
     }
   ],

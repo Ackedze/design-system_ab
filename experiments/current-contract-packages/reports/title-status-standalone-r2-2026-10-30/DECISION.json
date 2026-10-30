@@ -1,0 +1,163 @@
+{
+  "owner": {
+    "verifiedHumanTurn": "01a18a1b-e644-7690-b174-4755fcdc3816",
+    "verifiedHumanMessageId": "01a18a1b-e820-7271-a627-a716658fff1a",
+    "question": "В свежем rules.json TitleView требует Status=true при TitleStatus=true. В инструкции ds-ai-hub TitleStatus разрешён самостоятельно. Какое правило принимаем?",
+    "answer": "TitleStatus можно использовать самостоятельно"
+  },
+  "acceptedRule": {
+    "ruleId": "component:web-corp.title-view.title-status-may-be-standalone",
+    "severity": "info",
+    "source": "pattern-link",
+    "patternRuleId": "rule:components.title-view.title-status-may-be-standalone",
+    "appliesTo": "component.properties.TitleStatus|component.properties.Status",
+    "checkType": "deterministic",
+    "matchKind": "composition_rule",
+    "conditions": {
+      "components": [
+        "[D] TitleView",
+        "[M] TitleView"
+      ],
+      "componentProperties": {
+        "View": "xLarge",
+        "TitleStatus": true
+      }
+    },
+    "ruleText": "TitleStatus может использоваться самостоятельно. Отсутствие верхнего Status при видимом TitleStatus не является нарушением.",
+    "ruleKind": "design-rule",
+    "authority": {
+      "status": "active",
+      "provenance": "design-system-author",
+      "revision": 3
+    }
+  },
+  "retiredRule": {
+    "ruleId": "component:web-corp.title-view.title-status-requires-status",
+    "severity": "error",
+    "source": "component-contract",
+    "appliesTo": "component.properties.TitleStatus|component.properties.Status",
+    "checkType": "deterministic",
+    "matchKind": "composition_rule",
+    "conditions": {
+      "components": [
+        "[D] TitleView",
+        "[M] TitleView"
+      ],
+      "componentProperties": {
+        "View": "xLarge",
+        "TitleStatus": true
+      }
+    },
+    "requiredVariant": {
+      "Status": true
+    },
+    "ruleText": "В View=xLarge TitleStatus может использоваться только при включённом свойстве Status у того же TitleView. Для Large, Medium и Small слот TitleStatus недоступен и сохранённое скрытое значение свойства не оценивается.",
+    "ruleKind": "design-rule",
+    "authority": {
+      "status": "active",
+      "provenance": "design-system-author",
+      "revision": 2
+    },
+    "predicateContour": {
+      "schemaVersion": "apollo.contour-definition.v1",
+      "kind": "fact-domain",
+      "select": {
+        "from": "selection-root",
+        "traverse": "self-and-descendants",
+        "where": [
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "type"
+            },
+            "expected": {
+              "literal": "INSTANCE"
+            }
+          },
+          {
+            "predicate": "one-of",
+            "actual": {
+              "fact": "component.identity"
+            },
+            "expected": {
+              "literal": [
+                "web-corp.title-view",
+                "web-corp.title-view-mobile"
+              ]
+            }
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "ownership.contour.isRoot"
+            },
+            "expected": {
+              "literal": true
+            }
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "component.properties.TitleStatus"
+            },
+            "expected": {
+              "literal": true
+            }
+          },
+          {
+            "predicate": "equals",
+            "actual": {
+              "fact": "component.properties.View"
+            },
+            "expected": {
+              "literal": "xLarge"
+            }
+          }
+        ]
+      },
+      "actual": {
+        "fact": "component.properties.Status"
+      },
+      "allowedValues": [
+        true
+      ],
+      "presentation": {
+        "schemaVersion": "apollo.predicate-presentation.v1",
+        "title": "TitleStatus включён без Status",
+        "observed": "У TitleView включён TitleStatus, но свойство Status имеет значение {{actual}}.",
+        "expectation": "В View=xLarge TitleStatus может использоваться только при Status=true у того же TitleView.",
+        "action": "Включить свойство Status у TitleView или отключить TitleStatus."
+      },
+      "scope": {
+        "platform": [
+          "desktop",
+          "mobile-web"
+        ]
+      },
+      "unknownPolicy": "not-evaluable"
+    }
+  },
+  "route": "existing-public-api-policy",
+  "manualRuleId": "component:web-corp.title-view.component-properties-are-first-class",
+  "semanticLimitsPreserved": [
+    "slot-availability-by-view",
+    "status-and-title-status-color-match"
+  ],
+  "previousVersion": {
+    "manual": {
+      "path": "JSONS/web/components/web-corp/TitleView/history/r1.contract.manual.json",
+      "sha256": "125470828b85d55e7f613650f532a3775b3c68cfdf150bf7b4ab592aa574f91f",
+      "bytes": 19454
+    },
+    "facts": {
+      "path": "JSONS/web/components/web-corp/TitleView/variant-evidence.json",
+      "sha256": "d7fed2d59352bacf1396c74abea2fd2788ca8c33113dcf80b4cca21827f5d3a8",
+      "bytes": 287027
+    },
+    "archive": {
+      "path": "JSONS/web/components/web-corp/TitleView/packages/TitleView.r1.draft.component-contract.zip",
+      "sha256": "ca47be168fae66f0303483858293e3c7798cdca7e6b6df5faf30e73270a89989",
+      "bytes": 2756582
+    }
+  }
+}
