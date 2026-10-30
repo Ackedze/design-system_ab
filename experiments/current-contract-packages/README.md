@@ -53,11 +53,11 @@
 | OptionListText | r1 | 2026-10-29T00:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/OptionsList/parts/Text/packages/OptionListText.r1.draft.component-contract.zip>) |
 | ScrollBar | r1 | 2026-10-29T18:30:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/ScrollBar/packages/ScrollBar.r1.draft.component-contract.zip>) |
 | SwapControl | r1 | 2026-10-29T18:30:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/SwapControl/packages/SwapControl.r1.draft.component-contract.zip>) |
-| FilterCompanySelect | r2 | 2026-10-30T10:55:43.255Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/packages/FilterCompanySelect.r2.draft.component-contract.zip>) |
-| TitleView | r3 | 2026-10-30T10:52:47.931Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/TitleView/packages/TitleView.r3.draft.component-contract.zip>) |
-| CorporateSystemMessage | r2 | 2026-10-30T10:52:47.931Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CorporateSystemMessage/packages/CorporateSystemMessage.r2.draft.component-contract.zip>) |
-| ResultScreen | r1 | 2026-10-29T22:13:57.864Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/ResultScreen/packages/ResultScreen.r1.draft.component-contract.zip>) |
-| FilterCompanySelectMulti | r1 | 2026-10-29T22:13:58.332Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/parts/Multi/packages/FilterCompanySelectMulti.r1.draft.component-contract.zip>) |
+| FilterCompanySelect | r3 | 2026-10-30T21:27:31.459Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/packages/FilterCompanySelect.r3.draft.component-contract.zip>) |
+| TitleView | r4 | 2026-10-30T21:27:32.402Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/TitleView/packages/TitleView.r4.draft.component-contract.zip>) |
+| CorporateSystemMessage | r3 | 2026-10-30T21:27:32.663Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CorporateSystemMessage/packages/CorporateSystemMessage.r3.draft.component-contract.zip>) |
+| ResultScreen | r2 | 2026-10-30T21:27:33.723Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/ResultScreen/packages/ResultScreen.r2.draft.component-contract.zip>) |
+| FilterCompanySelectMulti | r2 | 2026-10-30T21:27:32.008Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/parts/Multi/packages/FilterCompanySelectMulti.r2.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
