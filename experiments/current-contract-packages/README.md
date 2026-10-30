@@ -53,9 +53,9 @@
 | OptionListText | r1 | 2026-10-29T00:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/OptionsList/parts/Text/packages/OptionListText.r1.draft.component-contract.zip>) |
 | ScrollBar | r1 | 2026-10-29T18:30:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/ScrollBar/packages/ScrollBar.r1.draft.component-contract.zip>) |
 | SwapControl | r1 | 2026-10-29T18:30:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/SwapControl/packages/SwapControl.r1.draft.component-contract.zip>) |
-| FilterCompanySelect | r1 | 2026-10-29T22:13:54.976Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/packages/FilterCompanySelect.r1.draft.component-contract.zip>) |
-| TitleView | r2 | 2026-10-30T00:12:51.687Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/TitleView/packages/TitleView.r2.draft.component-contract.zip>) |
-| CorporateSystemMessage | r1 | 2026-10-29T22:13:56.294Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CorporateSystemMessage/packages/CorporateSystemMessage.r1.draft.component-contract.zip>) |
+| FilterCompanySelect | r2 | 2026-10-30T10:55:43.255Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/packages/FilterCompanySelect.r2.draft.component-contract.zip>) |
+| TitleView | r3 | 2026-10-30T10:52:47.931Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/TitleView/packages/TitleView.r3.draft.component-contract.zip>) |
+| CorporateSystemMessage | r2 | 2026-10-30T10:52:47.931Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CorporateSystemMessage/packages/CorporateSystemMessage.r2.draft.component-contract.zip>) |
 | ResultScreen | r1 | 2026-10-29T22:13:57.864Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/ResultScreen/packages/ResultScreen.r1.draft.component-contract.zip>) |
 | FilterCompanySelectMulti | r1 | 2026-10-29T22:13:58.332Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/parts/Multi/packages/FilterCompanySelectMulti.r1.draft.component-contract.zip>) |
 
