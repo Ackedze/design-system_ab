@@ -16,7 +16,7 @@
 | BenefitsBlock | r4 | 2026-10-08T17:46:31.559536+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/BenefitsBlock/packages/BenefitsBlock.component-contract.zip>) |
 | PromoCard | r3 | 2026-10-07T13:01:12.597Z | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/PromoCard/packages/PromoCard.component-contract.zip>) |
 | Link | r8 | 2026-10-20T21:20:30.319Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/Link/packages/Link.r8.candidate.component-contract.zip>) |
-| IconView | r11 | 2026-10-20T20:14:08.002Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/IconView/packages/IconView.r11.candidate.component-contract.zip>) |
+| IconView | r12 | 2026-10-30T15:00:00Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/IconView/packages/IconView.r12.draft.component-contract.zip>) |
 | BackgroundPlate | r7 | 2026-10-20T11:41:14.000Z | Ready | [ZIP](<../../JSONS/web/components/web-corp/BackgroundPlate/packages/BackgroundPlate.r7.component-contract.zip>) |
 | PaymentMaskedNumber | r4 | 2026-10-21T12:23:12.203Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/PaymentMaskedNumber/packages/PaymentMaskedNumber.r4.draft.component-contract.zip>) |
 | Indicator | r2 | 2026-10-22T21:46:36.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Indicator/packages/Indicator.r2.draft.component-contract.zip>) |
@@ -38,7 +38,7 @@
 | Input | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Input/packages/Input.r2.draft.component-contract.zip>) |
 | NumberInput | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/NumberInput/packages/NumberInput.r2.draft.component-contract.zip>) |
 | AmountInput | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/AmountInput/packages/AmountInput.r2.draft.component-contract.zip>) |
-| Select | r2 | 2026-10-27T05:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Select/packages/Select.r2.draft.component-contract.zip>) |
+| Select | r3 | 2026-10-30T15:00:00Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Select/packages/Select.r3.draft.component-contract.zip>) |
 | Text | r2 | 2026-10-28T15:27:56.549Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Text/packages/Text.r2.draft.component-contract.zip>) |
 | List | r1 | 2026-10-27T09:08:57.232776+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-core/core/List/packages/List.r1.draft.component-contract.zip>) |
 | SegmentedControl | r3 | 2026-10-29T00:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/SegmentedControl/packages/SegmentedControl.r3.draft.component-contract.zip>) |
