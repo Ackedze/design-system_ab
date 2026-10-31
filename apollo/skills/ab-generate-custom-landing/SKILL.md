@@ -2,21 +2,30 @@
 name: ab-generate-custom-landing
 description: Создаёт и точечно изменяет лендинги Альфа-Бизнеса в Figma по пользовательскому брифу, знаниям ds-ai-hub и Promo-компонентам. Уточняет существенные неоднозначности, подбирает библиотечные ассеты и выдаёт отчёт о расходе токенов, источниках и гэпах.
 metadata:
-  version: "0.2.6"
+  version: "0.3.0"
 ---
 
 # Лендинг Альфа-Бизнеса по брифу
 
 Результат — редактируемый макет из библиотечных instances, сохранённая
-спецификация, фактический readback, скриншоты и отчёт. Этот пакет запускается
-в Codex через Figma MCP. Карточка Apollo и исполнитель Proxy в него не входят.
+спецификация, фактический readback, скриншоты и отчёт. Канонический исходник —
+`design-system_ab/apollo/skills/ab-generate-custom-landing`. Локальный Codex
+и Apollo/Proxy используют одну процедуру. Установленную копию отдельно не редактируют.
+
+До работы выбери адаптер. Локальный Codex читает подключённые репозитории
+и сохраняет артефакты в папку прогона. Apollo/Proxy читает установленный пакет
+по индексу ресурсов: [references/proxy.md](references/proxy.md). На машине
+дизайнера не нужны checkout, shell или Python: хранение и usage ведёт host.
 
 ## Начало и источники
 
-1. Создай отдельную папку прогона вне активного навыка. Сохрани исходный запрос
-   дословно в `brief.txt`; начни учёт: `python3 scripts/run_report.py start RUN --brief brief.txt`.
-2. Найди checkout `ds-ai-hub`, прочитай его `AGENTS.md`, `README.md`,
-   `products/ab/manifest.json`. Рабочий источник — этот хаб. Главный паттерн —
+1. Сохрани исходный запрос дословно, начни spec и журнал источников. Локальный
+   Codex создаёт папку вне навыка: `brief.txt`, затем `python3 scripts/run_report.py
+   start RUN --brief brief.txt`. В Proxy эти артефакты и фактический usage ведёт
+   host; второй счётчик и запуск локального helper не нужны.
+2. Найди `ds-ai-hub` в подключённом checkout либо в индексе установленного
+   пакета Proxy. Прочитай его `AGENTS.md`, `README.md`, `products/ab/manifest.json`
+   по доступным адресам. Рабочий источник — этот хаб. Главный паттерн —
    `products/ab/patterns/landing-pages.md` («Правила проектирования лендингов»).
    Для выбора стилизации по подтверждённому сегменту прочитай
    `products/ab/patterns/business-segment-styles.md`; учитывай его область
@@ -164,11 +173,13 @@ after и проверь соседние bounds. Обнови spec, readback, с
 Проверенные размеры, mobile, интерактивность и full predicate coverage
 различай явно; непроверенное — NOT_RUN. Не называй самопроверку независимой.
 
-Сохрани `result.json` и вызови `python3 scripts/run_report.py finish RUN
+В локальном Codex сохрани `result.json` и вызови `python3 scripts/run_report.py finish RUN
 --status completed|needs-input|interrupted --result result.json`. При наличии
 реальных счётчиков передай `--usage usage.json`; иначе отчёт обозначит оценку
 из учтённого текстового объёма, а недоступный полный расход — UNKNOWN.
-Не выдумывай точный расход и не складывай накопительные session totals.
+В Proxy сохраняй spec/result через host: он записывает фактический usage CLI
+и отчёт. Не дублируй его оценкой Python. Не выдумывай точный расход
+и не складывай накопительные session totals.
 Показывай отчёт также при блокировке или остановке.
 
 Передай пользователю ссылку на Figma root, состояние MVP/результата, расход

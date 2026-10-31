@@ -21,6 +21,8 @@
 - `.codex/skills/redpol-md-format/` — авторинг и форматирование паттернов AB.
 - `.codex/skills/apollo-contract-authoring/` — Draft manual, Core compile,
   ZIP/reopen и eval; для helper явно укажи свой checkout Apollo в `APOLLO_ROOT`.
+- `apollo/skills/ab-generate-custom-landing/` — генерация и правка лендингов;
+  один исходник для локального Codex и поставки Apollo/Proxy.
 
 `.agents/skills/` и `.claude/skills/` ссылаются на эти же каталоги; не создавай
 расходящиеся копии. Новым участникам — [инструкция старта](DESIGNER_AGENT_START.md).

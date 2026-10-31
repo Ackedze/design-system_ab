@@ -38,16 +38,17 @@ references и скриптами. Используйте репозиторну�
 ### Подключение
 
 - Откройте собственный checkout `design-system_ab` как рабочий проект агента.
-  Для трёх навыков авторинга — `corp-component-authoring`, `redpol-md-format`
+  Для навыков авторинга — `corp-component-authoring`, `redpol-md-format`
   и `apollo-contract-authoring` — в `.agents/skills/` (Codex) и `.claude/skills/`
   (Claude) настроены относительные ссылки на единый источник в `.codex/skills/`.
+  Лендинг подключён теми же каталогами к `apollo/skills/ab-generate-custom-landing`.
 - Для остальных навыков явно укажите агенту путь к нужному `SKILL.md` из таблицы
   и попросите прочитать его перед работой. Так же подключайте навык при работе
   из соседнего checkout Apollo или Proxy; соседние репозитории не подключаются
   автоматически.
 - Для работы в Figma нужны соответствующие доступы, Figma MCP и навыки его
-  инструментов. Генерация лендингов дополнительно требует доступного checkout
-  `ds-ai-hub` с нормативными источниками. Для helper контрактов задайте
+  инструментов. Локальный сценарий лендингов читает checkout
+  `ds-ai-hub`; адаптер Proxy читает закреплённые нормы из установленного пакета данных. Для helper контрактов задайте
   `APOLLO_ROOT`, указывающий на собственный checkout Apollo с установленными
   зависимостями. Точные требования описаны в выбранном навыке.
 - Пакет переименования доставляется и исполняется через Apollo/Proxy по
@@ -180,3 +181,8 @@ node scripts/convert_figma_catalogs_to_contracts.js --self-test
 ```bash
 node --test scripts/convert-legacy-variant-ids.test.js
 ```
+
+Навык лендингов также обнаруживается через `.agents/skills/ab-generate-custom-landing` и
+`.claude/skills/ab-generate-custom-landing`: обе ссылки ведут в каноническую папку
+`apollo/skills/ab-generate-custom-landing`. Proxy получает этот же навык через пакет данных;
+подключение новых инструкций требует совместимого кода/runtime.
