@@ -1,0 +1,574 @@
+{
+  "schemaVersion": "apollo.component-contract.manual.v2-experimental",
+  "documentType": "component-contract-manual",
+  "component": {
+    "componentId": "web.spacing-component",
+    "familyId": "web.spacing-component",
+    "contractId": "web.spacing-component",
+    "family": "Spacing",
+    "layer": "core",
+    "library": "Spacing",
+    "platform": "universal",
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "lifecycle": "active",
+    "componentKey": "d87c34e9e898529e807141865c2d4ae0883e5a8f"
+  },
+  "semantics": {
+    "purpose": "Библиотечные горизонтальные и вертикальные отступы.",
+    "useWhen": [],
+    "doNotUseWhen": [],
+    "relatedComponentIds": [],
+    "keywords": [
+      "spacing"
+    ]
+  },
+  "representations": [
+    {
+      "id": "web.spacing-component.figma.spacinghorizontal",
+      "kind": "figma",
+      "platform": "universal",
+      "surface": "horizontal",
+      "status": "draft",
+      "locator": {
+        "componentKey": "d87c34e9e898529e807141865c2d4ae0883e5a8f",
+        "name": "↔ SpacingHorizontal",
+        "fileKey": "jwnALtzlec2G32sbfjJiMp"
+      }
+    },
+    {
+      "id": "web.spacing-component.figma.spacingvertical",
+      "kind": "figma",
+      "platform": "universal",
+      "surface": "vertical",
+      "status": "draft",
+      "locator": {
+        "componentKey": "2038eba49b808faf3f35b4c9e57166f366e2660b",
+        "name": "↕ SpacingVertical",
+        "fileKey": "jwnALtzlec2G32sbfjJiMp"
+      }
+    }
+  ],
+  "semanticApi": [
+    {
+      "id": "size",
+      "kind": "state",
+      "valueType": "enum",
+      "description": "Native VARIANT Size",
+      "bindings": [
+        {
+          "representationId": "web.spacing-component.figma.spacinghorizontal",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        },
+        {
+          "representationId": "web.spacing-component.figma.spacingvertical",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        }
+      ],
+      "domain": [
+        "1",
+        "2",
+        "4",
+        "6",
+        "8",
+        "12",
+        "16",
+        "20",
+        "24",
+        "32",
+        "40",
+        "48",
+        "56",
+        "64",
+        "72",
+        "80",
+        "96",
+        "128",
+        "256",
+        "Fill"
+      ]
+    },
+    {
+      "id": "direction",
+      "kind": "layout",
+      "valueType": "enum",
+      "domain": [
+        "horizontal",
+        "vertical"
+      ],
+      "description": "Read-only direction of the identity-proven Spacing representation.",
+      "bindings": [
+        {
+          "representationId": "web.spacing-component.figma.spacinghorizontal",
+          "path": "representation.surface",
+          "transform": "identity"
+        },
+        {
+          "representationId": "web.spacing-component.figma.spacingvertical",
+          "path": "representation.surface",
+          "transform": "identity"
+        }
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "id": "rules",
+      "kind": "guideline",
+      "path": "rules.json",
+      "status": "verified",
+      "projection": "source"
+    }
+  ],
+  "examples": [],
+  "decisions": [],
+  "generation": {
+    "profiles": [],
+    "instructions": [
+      "Draft для проверки Figma; генерационный mapping и Ready этой задачей не принимаются."
+    ]
+  },
+  "source": {
+    "kind": "athena-package",
+    "importedFiles": [
+      "contract.generated.json",
+      "contract.overrides.json",
+      "rules.json",
+      "composition-contract.json",
+      "agent-context.json",
+      "examples.json",
+      "audit-mapping.json",
+      "native-api.json"
+    ],
+    "sourceHash": "ea1495df56ea98e0867c26597bf28da0919cb50e4dce268b44c23ad5fc39a556",
+    "importedAt": "2026-11-01T20:31:18.489Z"
+  },
+  "targets": [
+    {
+      "id": "target.root",
+      "semanticRole": "root",
+      "label": "Spacing",
+      "lineage": [
+        "web.spacing-component"
+      ],
+      "pathHint": "Spacing",
+      "nameHint": "Spacing",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "web.spacing-component.figma.spacinghorizontal",
+          "pathHint": "↔ SpacingHorizontal",
+          "nameHint": "↔ SpacingHorizontal"
+        },
+        {
+          "representationId": "web.spacing-component.figma.spacingvertical",
+          "pathHint": "↕ SpacingVertical",
+          "nameHint": "↕ SpacingVertical"
+        }
+      ]
+    }
+  ],
+  "controlPorts": [],
+  "rules": [
+    {
+      "id": "component:web.spacing-component.component-properties-are-first-class",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component-properties",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "Size"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "rationale": "Spacing: публичные свойства настраиваются через штатный API; ручное оформление проверяется отдельно.",
+      "message": "Spacing: публичные свойства настраиваются через штатный API; ручное оформление проверяется отдельно.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.spacing-component"
+      },
+      "execution": {
+        "route": "policy-only"
+      },
+      "sourceRefs": [
+        "rules.json#component:web.spacing-component.component-properties-are-first-class"
+      ]
+    },
+    {
+      "id": "component:web.spacing-component.cross-axis-height",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "geometry.height",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "target": "target.root"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.direction": "horizontal"
+        }
+      },
+      "severity": "info",
+      "rationale": "↔ SpacingHorizontal: разрешено растягивать вверх и вниз.",
+      "message": "↔ SpacingHorizontal: разрешено растягивать вверх и вниз.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.spacing-component"
+      },
+      "execution": {
+        "route": "policy-only"
+      },
+      "sourceRefs": [
+        "contract.generated.json#spacing-horizontal.universal.docs.description"
+      ]
+    },
+    {
+      "id": "component:web.spacing-component.selected-size-width",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "geometry.width",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "bounds.width"
+        }
+      ],
+      "applicability": {
+        "variants": {
+          "Size": [
+            "1",
+            "12",
+            "128",
+            "16",
+            "2",
+            "20",
+            "24",
+            "256",
+            "32",
+            "4",
+            "40",
+            "48",
+            "56",
+            "6",
+            "64",
+            "72",
+            "8",
+            "80",
+            "96"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.direction": "horizontal"
+        }
+      },
+      "severity": "warning",
+      "rationale": "↔ SpacingHorizontal: числовой Size задаёт ширину отступа; поперечное растяжение не меняет выбранный размер.",
+      "message": "↔ SpacingHorizontal: числовой Size задаёт ширину отступа; поперечное растяжение не меняет выбранный размер.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.spacing-component"
+      },
+      "execution": {
+        "route": "predicate"
+      },
+      "sourceRefs": [
+        "rules.json#component:web.spacing-component.layer-properties-use-effective-baseline"
+      ]
+    },
+    {
+      "id": "component:web.spacing-component.cross-axis-width",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "geometry.width",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "direct",
+          "target": "target.root"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.direction": "vertical"
+        }
+      },
+      "severity": "info",
+      "rationale": "↕ SpacingVertical: разрешено растягивать влево и вправо.",
+      "message": "↕ SpacingVertical: разрешено растягивать влево и вправо.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.spacing-component"
+      },
+      "execution": {
+        "route": "policy-only"
+      },
+      "sourceRefs": [
+        "contract.generated.json#spacing-vertical.universal.docs.description"
+      ]
+    },
+    {
+      "id": "component:web.spacing-component.selected-size-height",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "geometry.height",
+      "permission": "constrained",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "bounds.height"
+        }
+      ],
+      "applicability": {
+        "variants": {
+          "Size": [
+            "1",
+            "12",
+            "128",
+            "16",
+            "2",
+            "20",
+            "24",
+            "256",
+            "32",
+            "4",
+            "40",
+            "48",
+            "56",
+            "6",
+            "64",
+            "72",
+            "8",
+            "80",
+            "96"
+          ]
+        },
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed",
+        "context": {
+          "semanticApi.direction": "vertical"
+        }
+      },
+      "severity": "warning",
+      "rationale": "↕ SpacingVertical: числовой Size задаёт высоту отступа; поперечное растяжение не меняет выбранный размер.",
+      "message": "↕ SpacingVertical: числовой Size задаёт высоту отступа; поперечное растяжение не меняет выбранный размер.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.spacing-component"
+      },
+      "execution": {
+        "route": "predicate"
+      },
+      "sourceRefs": [
+        "rules.json#component:web.spacing-component.layer-properties-use-effective-baseline"
+      ]
+    },
+    {
+      "id": "component:web.spacing-component.layer-properties-use-effective-baseline",
+      "targetId": "target.root",
+      "targetScope": "self-and-descendants",
+      "capability": "component.baseline",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.mode"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.top"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.right"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.bottom"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.left"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.itemSpacing"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.primaryAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.counterAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.fill"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.stroke"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.opacity"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.radius"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.fillStyleId"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.strokeStyleId"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.strokeWeight"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.strokeAlign"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.dashPattern"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.effects"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.effectStyleId"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.blendMode"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "warning",
+      "rationale": "Spacing: внутренний Auto Layout и оформление сохраняют независимый эталон выбранного варианта и вложенной настройки.",
+      "message": "Spacing: внутренний Auto Layout и оформление сохраняют независимый эталон выбранного варианта и вложенной настройки.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web.spacing-component"
+      },
+      "execution": {
+        "route": "predicate"
+      },
+      "sourceRefs": [
+        "rules.json#component:web.spacing-component.layer-properties-use-effective-baseline"
+      ],
+      "remediationIntent": "restore-effective-baseline",
+      "propertyApplicability": {
+        "appearance.strokeWeight": "stroke-present-either@1",
+        "layout.itemSpacing": "flow-gap-either@1",
+        "layout.padding.top": "auto-layout-padding-either@1",
+        "layout.padding.right": "auto-layout-padding-either@1",
+        "layout.padding.bottom": "auto-layout-padding-either@1",
+        "layout.padding.left": "auto-layout-padding-either@1",
+        "layout.primaryAxisAlignItems": "flow-alignment-either@1",
+        "layout.counterAxisAlignItems": "flow-alignment-either@1"
+      }
+    }
+  ],
+  "metadata": {
+    "ruleOwnershipVersion": 1,
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "revision": 1,
+    "createdAt": "2026-11-01T20:31:18.489Z",
+    "updatedAt": "2026-11-01T20:31:18.489Z",
+    "publicRepresentationBoundaryVersion": 1
+  },
+  "componentDependencies": []
+}

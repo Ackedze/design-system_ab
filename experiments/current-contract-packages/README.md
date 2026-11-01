@@ -62,6 +62,10 @@
 | Attach | r1 | 2026-11-01T14:57:08.905Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/Attach/packages/Attach.r1.draft.component-contract.zip>) |
 | CardImage | r2 | 2026-11-01T20:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CardImage/packages/CardImage.r2.draft.component-contract.zip>) |
 | Accordion | r1 | 2026-11-01T14:57:08.905Z | Draft | [ZIP](<../../JSONS/web/components/web-core/wrappers/Accordion/packages/Accordion.r1.draft.component-contract.zip>) |
+| Spacing | r1 | 2026-11-01T20:31:18.489Z | Draft | [ZIP](<../../JSONS/web/components/Spacing%20component/packages/Spacing.r1.draft.component-contract.zip>) |
+| ProgressBar | r1 | 2026-11-01T19:57:09.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/progressbars/ProgressBar/packages/ProgressBar.r1.draft.component-contract.zip>) |
+| Dropzone | r1 | 2026-11-01T19:57:09.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/Dropzone/packages/Dropzone.r1.draft.component-contract.zip>) |
+| FileUploadItem | r1 | 2026-11-01T20:55:42.312Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/FileUploadItem/packages/FileUploadItem.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 

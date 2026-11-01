@@ -1,0 +1,326 @@
+{
+  "schemaVersion": "apollo.component-contract.manual.v2-experimental",
+  "documentType": "component-contract-manual",
+  "component": {
+    "componentId": "web-core.progress-bar",
+    "familyId": "web-core.progress-bar",
+    "contractId": "web-core.progress-bar",
+    "family": "ProgressBar",
+    "layer": "core",
+    "library": "Web _ Core ProgressBars",
+    "platform": "universal",
+    "platforms": [
+      "desktop",
+      "mobile-web"
+    ],
+    "lifecycle": "active",
+    "componentKey": "13145c0119da23352a256c184e9735f3e07faa91"
+  },
+  "semantics": {
+    "purpose": "Линейный индикатор прогресса Core.",
+    "useWhen": [],
+    "doNotUseWhen": [],
+    "relatedComponentIds": [],
+    "keywords": [
+      "progressbar"
+    ]
+  },
+  "representations": [
+    {
+      "id": "web-core.progress-bar.figma.progressbar",
+      "kind": "figma",
+      "platform": "universal",
+      "surface": "control",
+      "status": "draft",
+      "locator": {
+        "componentKey": "13145c0119da23352a256c184e9735f3e07faa91",
+        "name": "ProgressBar",
+        "fileKey": "kuet6sJd4irsHK8ea6kQZZ"
+      }
+    },
+    {
+      "id": "web-core.progress-bar.figma.progressbar-inverted",
+      "kind": "figma",
+      "platform": "universal",
+      "surface": "control",
+      "status": "draft",
+      "locator": {
+        "componentKey": "2a944e3a3e251f1db3c7905cc9d783a00d6aa7d7",
+        "name": "ProgressBar_Inverted",
+        "fileKey": "kuet6sJd4irsHK8ea6kQZZ"
+      }
+    }
+  ],
+  "semanticApi": [
+    {
+      "id": "size",
+      "kind": "state",
+      "valueType": "enum",
+      "description": "Native VARIANT Size",
+      "bindings": [
+        {
+          "representationId": "web-core.progress-bar.figma.progressbar",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        },
+        {
+          "representationId": "web-core.progress-bar.figma.progressbar-inverted",
+          "path": "component.properties.Size",
+          "transform": "identity"
+        }
+      ],
+      "domain": [
+        "4px",
+        "8px"
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "id": "rules",
+      "kind": "guideline",
+      "path": "rules.json",
+      "status": "verified",
+      "projection": "source"
+    }
+  ],
+  "examples": [],
+  "decisions": [],
+  "generation": {
+    "profiles": [],
+    "instructions": [
+      "Draft для проверки Figma; генерационный mapping и Ready этой задачей не принимаются."
+    ]
+  },
+  "source": {
+    "kind": "athena-package",
+    "importedFiles": [
+      "contract.generated.json",
+      "contract.overrides.json",
+      "rules.json",
+      "composition-contract.json",
+      "agent-context.json",
+      "examples.json",
+      "audit-mapping.json",
+      "native-api.json"
+    ],
+    "sourceHash": "96f2944001661a8600aee65f4594df6672137ff5dad8cb67b15e73dd0a6a5f3d",
+    "importedAt": "2026-11-01T19:57:09.826Z"
+  },
+  "targets": [
+    {
+      "id": "target.root",
+      "semanticRole": "root",
+      "label": "ProgressBar",
+      "lineage": [
+        "web-core.progress-bar"
+      ],
+      "pathHint": "ProgressBar",
+      "nameHint": "ProgressBar",
+      "resolution": "resolved",
+      "representationHints": [
+        {
+          "representationId": "web-core.progress-bar.figma.progressbar",
+          "pathHint": "ProgressBar",
+          "nameHint": "ProgressBar"
+        },
+        {
+          "representationId": "web-core.progress-bar.figma.progressbar-inverted",
+          "pathHint": "ProgressBar_Inverted",
+          "nameHint": "ProgressBar_Inverted"
+        }
+      ]
+    }
+  ],
+  "controlPorts": [],
+  "rules": [
+    {
+      "id": "component:web-core.progress-bar.component-properties-are-first-class",
+      "targetId": "target.root",
+      "targetScope": "self",
+      "capability": "component-properties",
+      "permission": "allowed",
+      "controlPaths": [
+        {
+          "kind": "host-property",
+          "property": "Size"
+        }
+      ],
+      "constraints": [],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "info",
+      "rationale": "ProgressBar: публичные свойства настраиваются через штатный API; ручное оформление проверяется отдельно.",
+      "message": "ProgressBar: публичные свойства настраиваются через штатный API; ручное оформление проверяется отдельно.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-core.progress-bar"
+      },
+      "execution": {
+        "route": "policy-only"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-core.progress-bar.component-properties-are-first-class"
+      ]
+    },
+    {
+      "id": "component:web-core.progress-bar.layer-properties-use-effective-baseline",
+      "targetId": "target.root",
+      "targetScope": "self-and-descendants",
+      "capability": "component.baseline",
+      "permission": "forbidden",
+      "controlPaths": [],
+      "constraints": [
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.mode"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.top"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.right"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.bottom"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.padding.left"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.itemSpacing"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.primaryAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.counterAxisAlignItems"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.sizingHorizontal"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "layout.sizingVertical"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.fill"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.stroke"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.opacity"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.radius"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.fillStyleId"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.strokeStyleId"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.strokeWeight"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.strokeAlign"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.dashPattern"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.effects"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.effectStyleId"
+        },
+        {
+          "type": "propertyForbidden",
+          "fact": "appearance.blendMode"
+        }
+      ],
+      "applicability": {
+        "variants": "all",
+        "modes": "all",
+        "platforms": [
+          "desktop",
+          "mobile-web",
+          "universal"
+        ],
+        "conditionSubject": "component-root",
+        "scopeStatus": "confirmed"
+      },
+      "severity": "error",
+      "rationale": "ProgressBar: внутренний Auto Layout и оформление сохраняют независимый эталон выбранного варианта и вложенной настройки.",
+      "message": "ProgressBar: внутренний Auto Layout и оформление сохраняют независимый эталон выбранного варианта и вложенной настройки.",
+      "status": "draft",
+      "owner": "design-system-authors",
+      "ownership": {
+        "kind": "component",
+        "ownerId": "web-core.progress-bar"
+      },
+      "execution": {
+        "route": "predicate"
+      },
+      "sourceRefs": [
+        "rules.json#component:web-core.progress-bar.layer-properties-use-effective-baseline"
+      ],
+      "remediationIntent": "restore-effective-baseline",
+      "propertyApplicability": {
+        "appearance.strokeWeight": "stroke-present-either@1",
+        "layout.itemSpacing": "flow-gap-either@1",
+        "layout.padding.top": "auto-layout-padding-either@1",
+        "layout.padding.right": "auto-layout-padding-either@1",
+        "layout.padding.bottom": "auto-layout-padding-either@1",
+        "layout.padding.left": "auto-layout-padding-either@1",
+        "layout.primaryAxisAlignItems": "flow-alignment-either@1",
+        "layout.counterAxisAlignItems": "flow-alignment-either@1"
+      }
+    }
+  ],
+  "metadata": {
+    "ruleOwnershipVersion": 1,
+    "owners": {
+      "generated": "athena-cli",
+      "manual": "design-system-authors",
+      "runtime": "apollo-runtime"
+    },
+    "revision": 1,
+    "createdAt": "2026-11-01T19:57:09.826Z",
+    "updatedAt": "2026-11-01T19:57:09.826Z",
+    "publicRepresentationBoundaryVersion": 1
+  },
+  "componentDependencies": []
+}
