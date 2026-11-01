@@ -18,7 +18,7 @@
 | Link | r8 | 2026-10-20T21:20:30.319Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/Link/packages/Link.r8.candidate.component-contract.zip>) |
 | IconView | r12 | 2026-10-30T15:00:00Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/IconView/packages/IconView.r12.draft.component-contract.zip>) |
 | BackgroundPlate | r7 | 2026-10-20T11:41:14.000Z | Ready | [ZIP](<../../JSONS/web/components/web-corp/BackgroundPlate/packages/BackgroundPlate.r7.component-contract.zip>) |
-| PaymentMaskedNumber | r4 | 2026-10-21T12:23:12.203Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/PaymentMaskedNumber/packages/PaymentMaskedNumber.r4.draft.component-contract.zip>) |
+| PaymentMaskedNumber | r5 | 2026-11-01T20:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/PaymentMaskedNumber/packages/PaymentMaskedNumber.r5.draft.component-contract.zip>) |
 | Indicator | r2 | 2026-10-22T21:46:36.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Indicator/packages/Indicator.r2.draft.component-contract.zip>) |
 | Switch | r1 | 2026-10-22T22:21:47.096Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Switch/packages/Switch.r1.draft.component-contract.zip>) |
 | Status | r3 | 2026-10-23T20:24:43.172Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Status/packages/Status.r3.draft.component-contract.zip>) |
@@ -60,7 +60,7 @@
 | FilterCompanySelectMulti | r2 | 2026-10-30T21:27:32.008Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/parts/Multi/packages/FilterCompanySelectMulti.r2.draft.component-contract.zip>) |
 | ActionButton | r1 | 2026-11-01T14:57:08.905Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/ActionButton/packages/ActionButton.r1.draft.component-contract.zip>) |
 | Attach | r1 | 2026-11-01T14:57:08.905Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/Attach/packages/Attach.r1.draft.component-contract.zip>) |
-| CardImage | r1 | 2026-11-01T15:11:24.321Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CardImage/packages/CardImage.r1.draft.component-contract.zip>) |
+| CardImage | r2 | 2026-11-01T20:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CardImage/packages/CardImage.r2.draft.component-contract.zip>) |
 | Accordion | r1 | 2026-11-01T14:57:08.905Z | Draft | [ZIP](<../../JSONS/web/components/web-core/wrappers/Accordion/packages/Accordion.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
