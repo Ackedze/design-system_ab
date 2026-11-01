@@ -58,6 +58,10 @@
 | CorporateSystemMessage | r3 | 2026-10-30T21:27:32.663Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CorporateSystemMessage/packages/CorporateSystemMessage.r3.draft.component-contract.zip>) |
 | ResultScreen | r2 | 2026-10-30T21:27:33.723Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/ResultScreen/packages/ResultScreen.r2.draft.component-contract.zip>) |
 | FilterCompanySelectMulti | r2 | 2026-10-30T21:27:32.008Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/parts/Multi/packages/FilterCompanySelectMulti.r2.draft.component-contract.zip>) |
+| ActionButton | r1 | 2026-11-01T14:57:08.905Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/ActionButton/packages/ActionButton.r1.draft.component-contract.zip>) |
+| Attach | r1 | 2026-11-01T14:57:08.905Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/Attach/packages/Attach.r1.draft.component-contract.zip>) |
+| CardImage | r1 | 2026-11-01T15:11:24.321Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CardImage/packages/CardImage.r1.draft.component-contract.zip>) |
+| Accordion | r1 | 2026-11-01T14:57:08.905Z | Draft | [ZIP](<../../JSONS/web/components/web-core/wrappers/Accordion/packages/Accordion.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
