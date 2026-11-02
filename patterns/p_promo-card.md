@@ -15,6 +15,7 @@
 - tags: promo-card, promo, offer, image, bento, web-corp-promo
 - figmaLink: none
 - relatedPatterns:
+  - ptrn:components.bento-grid
   - ptrn:media.images-and-formats
   - ptrn:components.background-plate
   - ptrn:controls.buttons-and-button-groups
@@ -30,6 +31,8 @@
 - `[M] PromoCard` для Mobile Web при ширине меньше `768 px`.
 
 `BottomContent`, `ButtonGroup`, `ContentWrapper` и `ImageContainer*` являются служебными частями и отдельно не используются.
+
+Выбор и наполнение готовой сетки из PromoCard описаны в [паттерне BentoGrid](p_bento-grid.md) со статусом Draft. Он задаёт композицию группы и не заменяет правила самой карточки.
 
 ## Section 2: Когда использовать
 

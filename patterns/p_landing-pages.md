@@ -8,18 +8,27 @@
 - platforms: desktop, mobileweb, adaptive
 - locale: ru-RU
 - owner: Editorial / Design System
-- status: active
-- updatedAt: 2026-10-16
+- status: draft
+- updatedAt: 2026-11-02
 - sourceType: design-guideline
 - tags: landing, promo, alfa-business, promo-main-block, benefits, content, footer, modal, mobileweb, editorial
 - figmaLink: none
 - relatedPatterns:
   - ptrn:components.corporate-page
+  - ptrn:layout.draft-layout
+  - ptrn:visual.business-segment-styles
+  - ptrn:components.bento-grid
 - sections: 10
 
 ## Section 1: Определение
 
 Лендинг в Альфа-Бизнесе — отдельная страница или модальное окно, задача которого довести пользователя до одного конкретного действия: оставить заявку, купить, подписаться, перейти к подключению или выполнить другой целевой шаг.
+
+Для отдельной страницы сначала собери [черновой лейаут](p_draft-layout.md): один платформенный CorporateContent и всё содержимое лендинга в его Body. Модальное окно использует собственный контейнер по своему паттерну.
+
+Для выбора Appearance, палитр и библиотечных иллюстраций по аудитории используй [паттерн сегментов бизнеса и их стилей](p_business-segment-styles.md). Он объединяет применимые нормы и отделяет настройки промо-блоков от фона страницы; неподтверждённые соответствия отмечены явно.
+
+Для группы самостоятельных коротких сообщений рассмотри [готовые композиции BentoGrid](p_bento-grid.md). Draft-паттерн помогает выбрать вариант по числу и приоритетам сообщений; формат шагов и другие специализированные блоки выбираются по задаче секции.
 
 Вся структура лендинга — главный блок, бенефиты, основной контент, форма, оффер и футер — подчинена одной цели: повысить вероятность целевого действия и закрыть вопросы пользователя до начала пользования продуктом, не перегружая страницу лишней информацией.
 
@@ -59,7 +68,7 @@
 8. Контент строится по системной сетке и gutter текущего разрешения.
 9. Цвета берутся из `033 :: Promo Colors`, с ограничениями по месту использования.
 10. Футер всегда находится в конце лендинга и не переносится в основной контент.
-11. Compact-вид используется на разрешениях меньше `1024 px`.
+11. Compact-вид используется при viewport `≤1024 px`.
 12. Редактура лендинга должна быть такой же системной, как визуальная сборка.
 
 ## Section 5: Структура текста
@@ -143,18 +152,20 @@ Promo-компоненты поддерживают нужную визуаль�
 - checkType: deterministic
 - autofix: no
 
-Главный блок лендинга всегда содержит один основной элемент — `PromoMainBlock`.
+Hero-зона лендинга всегда расположена первой и содержит ровно один `PromoMainBlock`. Это правило одинаково для отдельной страницы и модального лендинга: во втором случае считается порядок внутри контента модальной сущности.
 
 #### Правильно
 
 ```text
-Hero -> PromoMainBlock
+First hero -> exactly one PromoMainBlock
 ```
 
 #### Неправильно
 
 ```text
+До PromoMainBlock расположен другой контентный блок.
 Hero собран вручную из текстового блока, картинки и кнопки.
+В hero расположены два PromoMainBlock.
 ```
 
 #### Почему
@@ -170,6 +181,8 @@ Hero собран вручную из текстового блока, карт�
 - autofix: no
 
 На отдельной странице цвет главного блока настраивается только токенами из `033 :: Promo Colors`. Не используйте `promo-pale` и `promo-muted`. `promo-vibrant` допускается, но не рекомендуется.
+
+Граница этого правила — главный блок. Его палитра не определяет фон всей страницы: фон CorporateContent задаётся собственным системным mode, а внешний layout-каркас остаётся прозрачным.
 
 #### Правильно
 
@@ -226,6 +239,8 @@ Rounded separator before content
 - autofix: no
 
 Для сегментов СБ/КИБ в главном блоке используется `promo-classic` и `Appearance=dark`. В контенте СБ/КИБ допустимы только нейтральные токены из `033 :: Promo Colors`, например `promo-classic` или `promo-gravel`. Цветные токены запрещены.
+
+Это требования к оформлению соответствующих блоков, а не команда залить страницу чёрным. Не переносите `promo-classic` на page root или CorporateContent; page background следует [базовому лейауту](p_draft-layout.md) и контракту CorporateContent.
 
 #### Правильно
 
@@ -736,7 +751,7 @@ FAQ
 
 Форма завершает продажу, а FAQ должен быть предсказуемым и редакционно аккуратным.
 
-### Rule 24: Используй compact-вид меньше 1024 px
+### Rule 24: Используй compact-вид при viewport не больше 1024 px
 
 - ruleId: rule:landing-pages.alfa-business.compact-under-1024
 - severity: error
@@ -744,7 +759,7 @@ FAQ
 - checkType: deterministic
 - autofix: no
 
-Compact-вид используется на разрешениях меньше `1024 px`. Compact-настройки индивидуальны для каждого компонента и пресета лендинга; исключения — `PromoTableView` и компоненты из `Web Corp Components`.
+Compact-вид используется при viewport `≤1024 px`. Compact-настройки индивидуальны для каждого компонента и пресета лендинга; исключения — `PromoTableView` и компоненты из `Web Corp Components`. Для PromoMainBlock правило относится только к desktop; у mobile root свойства Compact нет.
 
 #### Правильно
 
@@ -762,7 +777,79 @@ Viewport 768 px -> Compact=false во всех блоках
 
 Compact-вид уменьшает типографику, отступы и плотность блоков для узких разрешений.
 
-### Rule 25: Используй Promo Radius для BackgroundPlateSlot на лендинге
+### Rule 25: Выбирай Appearance по сегменту лендинга
+
+- ruleId: rule:landing-pages.alfa-business.hero-appearance-by-segment
+- severity: error
+- appliesTo: component, page.segment
+- checkType: llm
+- autofix: partial
+
+Appearance — публичный параметр PromoMainBlock, а не тема всей страницы: для сегмента ММБ используется `Light`, для КИБ — `Dark`. Значение одинаково передаётся в D/M-версии главного блока. Оно не задаёт фон CorporateContent и не разрешает перекрашивать остальные области лендинга.
+
+#### Правильно
+
+```text
+Segment: ММБ -> Appearance=Light
+Segment: КИБ -> Appearance=Dark
+```
+
+#### Неправильно
+
+```text
+Segment: КИБ -> Appearance=Light
+Appearance выбран как пользовательская тема
+```
+
+### Rule 26: Показывай Holding только в режиме холдинга
+
+- ruleId: rule:landing-pages.alfa-business.hero-holding-context
+- severity: error
+- appliesTo: component, user.context
+- checkType: llm
+- autofix: no
+
+Holding в `[D] PromoMainBlock` показывается только пользователю в режиме холдинга. На MobileWeb Holding пока отсутствует и не переносится с desktop.
+
+#### Правильно
+
+```text
+Desktop + режим холдинга -> Holding допустим
+MobileWeb -> Holding отсутствует
+```
+
+#### Неправильно
+
+```text
+Обычный пользователь -> Holding показан
+MobileWeb -> вручную добавлен desktop Holding
+```
+
+### Rule 27: Выноси mobile-действия в fixed ButtonStack
+
+- ruleId: rule:landing-pages.alfa-business.mobile-hero-actions-button-stack
+- severity: error
+- appliesTo: mobile.actions, layout.position
+- checkType: deterministic
+- autofix: partial
+
+Если у PromoMainBlock есть действия, на MobileWeb скрой внутренний ButtonGroup и используй отдельный `🔒 [M] ButtonStack`. ButtonStack фиксируется у нижней границы страницы, а в модальном сценарии — у нижней границы модальной сущности. Состав, назначение, label и порядок действий сохраняются относительно desktop.
+
+#### Правильно
+
+```text
+PromoMainBlock.ButtonGroup=False
+ButtonStack: fixed bottom=0
+```
+
+#### Неправильно
+
+```text
+Mobile PromoMainBlock использует только internal ButtonGroup
+ButtonStack прокручивается вместе с hero-контентом
+```
+
+### Rule 28: Используй Promo Radius для BackgroundPlateSlot на лендинге
 
 - ruleId: rule:components.background-plate.promo-slot-radius-collection
 - severity: error
@@ -929,7 +1016,7 @@ Page content: promo-muted
 - Проверять `promo-classic` + `Appearance=dark` для СБ/КИБ.
 - Проверять hero-типографику только в главном блоке.
 - Проверять внешнее скругление `24 px` и вложенные радиусы не больше `24 px`.
-- Проверять compact-вид на разрешениях меньше `1024 px`.
+- Проверять compact-вид при viewport `≤1024 px`; учитывать отсутствие Compact у mobile PromoMainBlock.
 - Проверять расположение футера в конце лендинга.
 
 ### Словарные проверки

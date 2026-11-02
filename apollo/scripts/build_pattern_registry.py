@@ -45,6 +45,11 @@ ROUTING = {
         "categories": ["benefits", "promo", "card"],
         "aliases": ["карточка преимущества", "преимущества", "benefit card"],
     },
+    "p_bento-grid.md": {
+        "components": ["BentoGrid", "PromoCard"],
+        "categories": ["bento-grid", "promo", "composition"],
+        "aliases": ["бенто", "бенто-сетка", "готовая промокомпозиция", "bento grid"],
+    },
     "p_border-radius.md": {
         "components": [],
         "categories": ["border-radius", "corners", "visual"],
@@ -74,6 +79,11 @@ ROUTING = {
             "overflow действий",
         ],
     },
+    "p_business-segment-styles.md": {
+        "components": ["PromoMainBlock", "BenefitsBlock", "ImageView"],
+        "categories": ["business-segment", "appearance", "promo"],
+        "aliases": ["стиль сегмента", "сегменты бизнеса", "ММБ", "СБ", "КИБ"],
+    },
     "p_content-card-wrapper.md": {
         "components": ["ContentCardWrapper"],
         "categories": ["content-card", "card", "wrapper"],
@@ -96,6 +106,11 @@ ROUTING = {
         "components": ["CorporatePage", "CorporateContent", "GridAndCols"],
         "categories": ["page", "page-template", "layout"],
         "aliases": ["корпоративная страница", "шаблон страницы", "corporate page"],
+    },
+    "p_draft-layout.md": {
+        "components": ["CorporateContent", "Section", "GridAndCols"],
+        "categories": ["draft-layout", "grid", "page"],
+        "aliases": ["черновой лейаут", "каркас страницы", "сетка черновика", "draft layout"],
     },
     "p_faq.md": {
         "components": ["FAQ", "Accordion"],

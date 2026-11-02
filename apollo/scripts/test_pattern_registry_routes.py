@@ -16,6 +16,8 @@ EXPECTED_COMPONENT_ROUTES = {
     "ButtonsGroup": "p_buttons-and-buttons-group.md",
     "BackgroundPlate": "p_background-plate.md",
     "BenefitCard": "p_benefit-card.md",
+    "BentoGrid": "p_bento-grid.md",
+    "CorporateContent": "p_draft-layout.md",
     "FileUpload": "p_file-upload.md",
     "FilterBar": "p_filter-bar.md",
     "IconView": "p_images_format.md",
@@ -85,6 +87,18 @@ def main() -> int:
             f"missing={sorted(pattern_files - source_files)}, "
             f"stale={sorted(source_files - pattern_files)}"
         )
+
+    landing_dependencies = {
+        "ptrn:components.bento-grid": "p_bento-grid.md",
+        "ptrn:layout.draft-layout": "p_draft-layout.md",
+        "ptrn:visual.business-segment-styles": "p_business-segment-styles.md",
+    }
+    landing_text = (ROOT / "patterns/p_landing-pages.md").read_text(encoding="utf-8")
+    for pattern_id, source_file in landing_dependencies.items():
+        if not any(route["patternId"] == pattern_id and route["sourceFile"] == source_file for route in routes):
+            raise SystemExit(f"Missing landing dependency route: {pattern_id}")
+        if f"]({source_file})" not in landing_text:
+            raise SystemExit(f"Landing pattern does not link to {source_file}")
 
     for component, expected_file in EXPECTED_COMPONENT_ROUTES.items():
         actual_files = component_routes.get(component, [])
