@@ -68,6 +68,10 @@
 | FileUploadItem | r1 | 2026-11-01T20:55:42.312Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/FileUploadItem/packages/FileUploadItem.r1.draft.component-contract.zip>) |
 | FileUploadItemLeftAddon | r1 | 2026-11-02T10:02:07.528Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/FileUploadItemLeftAddon/packages/FileUploadItemLeftAddon.r1.draft.component-contract.zip>) |
 | FileUploadItemRightAddon | r1 | 2026-11-02T10:02:07.528Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/FileUploadItemRightAddon/packages/FileUploadItemRightAddon.r1.draft.component-contract.zip>) |
+| BarItem | r1 | 2026-11-02T17:26:33.874Z | Draft | [ZIP](<../../JSONS/web/components/web-core/progressbars/SteppedProgressBar/parts/BarItem/packages/BarItem.r1.draft.component-contract.zip>) |
+| SteppedProgressBar | r1 | 2026-11-02T17:26:33.874Z | Draft | [ZIP](<../../JSONS/web/components/web-core/progressbars/SteppedProgressBar/packages/SteppedProgressBar.r1.draft.component-contract.zip>) |
+| CircularProgressBar | r1 | 2026-11-02T17:26:33.874Z | Draft | [ZIP](<../../JSONS/web/components/web-core/progressbars/CircularProgressBar/packages/CircularProgressBar.r1.draft.component-contract.zip>) |
+| HatchingProgressBar | r1 | 2026-11-02T17:26:33.874Z | Draft | [ZIP](<../../JSONS/web/components/web-core/progressbars/HatchingProgressBar/packages/HatchingProgressBar.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 

@@ -1,0 +1,51 @@
+{
+  "status": "PREPARED_NOT_PLACED_IN_FIGMA",
+  "cases": [
+    {
+      "id": "BI-01",
+      "component": "BarItem",
+      "parameters": {
+        "View": "Color"
+      },
+      "mutation": null,
+      "expected": {
+        "violations": 0,
+        "unknown": 0
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "BI-02",
+      "component": "BarItem",
+      "parameters": "Тот же экземпляр и штатный вариант",
+      "mutation": {
+        "target": "root",
+        "property": "opacity",
+        "value": 0.5
+      },
+      "expected": {
+        "classification": "violation",
+        "ruleId": "component:web-core.bar-item.layer-properties-use-effective-baseline.1.13"
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "BI-03-RESET",
+      "component": "BarItem",
+      "parameters": "Восстановить opacity из независимого эталона",
+      "mutation": "RESET target opacity",
+      "expected": {
+        "classification": "conformant",
+        "ruleId": "component:web-core.bar-item.layer-properties-use-effective-baseline.1.13"
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    }
+  ],
+  "specialCases": [
+    {
+      "component": "BarItem",
+      "case": "View Blank/Color и оба представления Default/Inverted",
+      "expected": "0 нарушений при библиотечной конфигурации"
+    }
+  ]
+}

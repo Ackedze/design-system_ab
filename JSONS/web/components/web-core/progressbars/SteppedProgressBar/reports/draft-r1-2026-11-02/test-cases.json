@@ -1,0 +1,53 @@
+{
+  "status": "PREPARED_NOT_PLACED_IN_FIGMA",
+  "cases": [
+    {
+      "id": "STP-01",
+      "component": "SteppedProgressBar",
+      "parameters": {
+        "✎ Description#443:0": "Шаг X из Y: desctiption",
+        "Steps#5643:3": "open slot",
+        "Description": "False"
+      },
+      "mutation": null,
+      "expected": {
+        "violations": 0,
+        "unknown": 0
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "STP-02",
+      "component": "SteppedProgressBar",
+      "parameters": "Тот же экземпляр и штатный вариант",
+      "mutation": {
+        "target": "root",
+        "property": "opacity",
+        "value": 0.5
+      },
+      "expected": {
+        "classification": "violation",
+        "ruleId": "component:web-core.stepped-progress-bar.layer-properties-use-effective-baseline.1.13"
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "STP-03-RESET",
+      "component": "SteppedProgressBar",
+      "parameters": "Восстановить opacity из независимого эталона",
+      "mutation": "RESET target opacity",
+      "expected": {
+        "classification": "conformant",
+        "ruleId": "component:web-core.stepped-progress-bar.layer-properties-use-effective-baseline.1.13"
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    }
+  ],
+  "specialCases": [
+    {
+      "component": "SteppedProgressBar",
+      "case": "Description True с публичным текстом; заменить содержимое Steps на произвольный объект",
+      "expected": "0 ошибок родителя из-за содержимого Slot; известный вложенный BarItem проверяется независимо"
+    }
+  ]
+}

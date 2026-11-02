@@ -1,0 +1,49 @@
+{
+  "status": "PREPARED_NOT_PLACED_IN_FIGMA",
+  "cases": [
+    {
+      "id": "HP-01",
+      "component": "HatchingProgressBar",
+      "parameters": {},
+      "mutation": null,
+      "expected": {
+        "violations": 0,
+        "unknown": 0
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "HP-02",
+      "component": "HatchingProgressBar",
+      "parameters": "Тот же экземпляр и штатный вариант",
+      "mutation": {
+        "target": "root",
+        "property": "opacity",
+        "value": 0.5
+      },
+      "expected": {
+        "classification": "violation",
+        "ruleId": "component:web-core.hatching-progress-bar.layer-properties-use-effective-baseline.1.13"
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "HP-03-RESET",
+      "component": "HatchingProgressBar",
+      "parameters": "Восстановить opacity из независимого эталона",
+      "mutation": "RESET target opacity",
+      "expected": {
+        "classification": "conformant",
+        "ruleId": "component:web-core.hatching-progress-bar.layer-properties-use-effective-baseline.1.13"
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    }
+  ],
+  "specialCases": [
+    {
+      "component": "HatchingProgressBar",
+      "case": "Разные ширины заполнения и штриховки",
+      "expected": "Сначала проверить семантику источников и независимый baseline; не превращать значение примера в новую норму"
+    }
+  ]
+}

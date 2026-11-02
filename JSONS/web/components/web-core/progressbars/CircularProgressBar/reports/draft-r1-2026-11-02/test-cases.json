@@ -1,0 +1,52 @@
+{
+  "status": "PREPARED_NOT_PLACED_IN_FIGMA",
+  "cases": [
+    {
+      "id": "CP-01",
+      "component": "CircularProgressBar",
+      "parameters": {
+        "Content#96449:0": true,
+        "Size": "144"
+      },
+      "mutation": null,
+      "expected": {
+        "violations": 0,
+        "unknown": 0
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "CP-02",
+      "component": "CircularProgressBar",
+      "parameters": "Тот же экземпляр и штатный вариант",
+      "mutation": {
+        "target": "root",
+        "property": "opacity",
+        "value": 0.5
+      },
+      "expected": {
+        "classification": "violation",
+        "ruleId": "component:web-core.circular-progress-bar.layer-properties-use-effective-baseline.1.13"
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    },
+    {
+      "id": "CP-03-RESET",
+      "component": "CircularProgressBar",
+      "parameters": "Восстановить opacity из независимого эталона",
+      "mutation": "RESET target opacity",
+      "expected": {
+        "classification": "conformant",
+        "ruleId": "component:web-core.circular-progress-bar.layer-properties-use-effective-baseline.1.13"
+      },
+      "status": "NOT_RUN_USER_ONLY"
+    }
+  ],
+  "specialCases": [
+    {
+      "component": "CircularProgressBar",
+      "case": "Все8Size; Content true/false; выбранный Content Type",
+      "expected": "0 UNKNOWN в полном графе при доступных точных bindings; изменения текста не фиксируют содержимое"
+    }
+  ]
+}
