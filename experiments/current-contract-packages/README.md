@@ -16,7 +16,7 @@
 | BenefitsBlock | r4 | 2026-10-08T17:46:31.559536+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/BenefitsBlock/packages/BenefitsBlock.component-contract.zip>) |
 | PromoCard | r3 | 2026-10-07T13:01:12.597Z | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/PromoCard/packages/PromoCard.component-contract.zip>) |
 | Link | r8 | 2026-10-20T21:20:30.319Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/Link/packages/Link.r8.candidate.component-contract.zip>) |
-| IconView | r12 | 2026-10-30T15:00:00Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/IconView/packages/IconView.r12.draft.component-contract.zip>) |
+| IconView | r13 | 2026-11-02T10:02:07.528Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/IconView/packages/IconView.r13.draft.component-contract.zip>) |
 | BackgroundPlate | r7 | 2026-10-20T11:41:14.000Z | Ready | [ZIP](<../../JSONS/web/components/web-corp/BackgroundPlate/packages/BackgroundPlate.r7.component-contract.zip>) |
 | PaymentMaskedNumber | r5 | 2026-11-01T20:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/PaymentMaskedNumber/packages/PaymentMaskedNumber.r5.draft.component-contract.zip>) |
 | Indicator | r2 | 2026-10-22T21:46:36.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Indicator/packages/Indicator.r2.draft.component-contract.zip>) |
@@ -66,6 +66,8 @@
 | ProgressBar | r1 | 2026-11-01T19:57:09.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/progressbars/ProgressBar/packages/ProgressBar.r1.draft.component-contract.zip>) |
 | Dropzone | r1 | 2026-11-01T19:57:09.826Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/Dropzone/packages/Dropzone.r1.draft.component-contract.zip>) |
 | FileUploadItem | r1 | 2026-11-01T20:55:42.312Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/FileUploadItem/packages/FileUploadItem.r1.draft.component-contract.zip>) |
+| FileUploadItemLeftAddon | r1 | 2026-11-02T10:02:07.528Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/FileUploadItemLeftAddon/packages/FileUploadItemLeftAddon.r1.draft.component-contract.zip>) |
+| FileUploadItemRightAddon | r1 | 2026-11-02T10:02:07.528Z | Draft | [ZIP](<../../JSONS/web/components/web-core/fileupload/FileUploadItemRightAddon/packages/FileUploadItemRightAddon.r1.draft.component-contract.zip>) |
 
 Ready относится только к `statusScope` конкретного пакета. Размещение файлов не меняет нормы, версии, готовность или область приёмки.
 
