@@ -1,0 +1,364 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "Onboarding Tooltip — desktop-компонент онбординга, который помогает пользователю освоить изменившийся или неочевидный интерфейс после крупного обновления или запуска полезной функции.",
+  "components": [
+    {
+      "figmaName": "Onboarding Tooltip",
+      "figmaKey": "c9a8db25e3fb6bc7907464f81547a6295816c59b",
+      "purpose": "Пошагово знакомит пользователя с изменившимся или неочевидным desktop-интерфейсом.",
+      "useWhen": [
+        "После крупного обновления нужно показать новое расположение блоков.",
+        "Полезная функция существует, но её точка входа неочевидна."
+      ],
+      "doNotUseWhen": [
+        "Интерфейс понятен без отдельного обучения.",
+        "Нужно показать обычную короткую подсказку Tooltip или Hint.",
+        "Сценарий предназначен для mobile-web: там используется BottomSheet."
+      ],
+      "relationship": "Единственный публичный корень семейства; TooltipTail, Pips, Close, Onboarding footer и Text content являются внутренними частями.",
+      "status": "approved"
+    }
+  ],
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "criticalBaselines",
+      "body": [
+        "Используй Onboarding Tooltip только на desktop от 768 px.",
+        "На mobile-web переноси onboarding-сценарий в BottomSheet.",
+        "Публичным компонентом является только Onboarding Tooltip.",
+        "👻 TooltipTail, Pips, Close, Onboarding footer и Text content являются служебными частями и не используются отдельно.",
+        "Title, Subtitle, Close и как минимум одна кнопка обязательны.",
+        "Onboarding может запускаться автоматически или по триггерному событию; повторный запуск определяется бизнес-логикой.",
+        "Tail Direction и Tail Position выбираются по расположению связанного элемента; хвост должен указывать на объект или область.",
+        "В одношаговом onboarding Pips скрыты. В многошаговом Pips обязательны на каждом шаге, их число совпадает с числом шагов, выбран только один Pip; Pips неинтерактивны.",
+        "Используй одну или две кнопки Size=40, Shape=Rectangular, SingleIcon=False, без addons и с DisabledState=False: Primary обязательна, Secondary опциональна.",
+        "Кнопки могут переключать шаги, выполнять навигацию или завершать onboarding.",
+        "Subhead опционален; Subhead, Title, Subtitle и labels кнопок редактируются по контексту.",
+        "Рекомендуемые максимумы: Subhead 20 символов, Title 30, Subtitle 90, label кнопки 10; превышение является warning.",
+        "В одном onboarding допускается не более десяти шагов.",
+        "Close завершает текущий onboarding без подтверждения; его нельзя скрывать или заменять.",
+        "Tooltip может перекрывать другие элементы управления, но не связанный объект или область. Целевой объект может оставаться интерактивным.",
+        "Subhead, Title и Subtitle содержат только обычный текст без ссылок, списков и rich text.",
+        "Tooltip должен полностью помещаться в viewport; при нехватке места меняй Tail Direction или Tail Position.",
+        "У компонента нет loading, disabled, error и interrupted states.",
+        "Во время onboarding остальной интерфейс заблокирован; целевой объект может оставаться интерактивным.",
+        "Действие целевого объекта может перевести onboarding на следующий шаг или завершить его.",
+        "В одношаговом и на первом шаге показывай только Primary; на промежуточных — Secondary назад и Primary далее; на последнем — Primary завершить.",
+        "Одновременно показывай только один Onboarding Tooltip; следующий шаг заменяет предыдущий tooltip.",
+        "Закрытие доступно только через Close или финальное Primary-действие. Esc и клик вне компонента не закрывают onboarding.",
+        "Subhead остаётся в одну строку и обрезается многоточием; Title и Subtitle переносятся без truncation; label кнопки остаётся в одну строку.",
+        "Блокирующий слой с выделенной целевой областью обязателен и является частью композиции onboarding.",
+        "Onboarding Tooltip можно использовать поверх Modal и Drawer, если цель расположена внутри поверхности.",
+        "Не запускай onboarding без существующего видимого целевого объекта внутри viewport.",
+        "Порядок шагов, переходы между страницами, повторный запуск и пропуск через Close определяются бизнес-логикой.",
+        "Ширина, padding, spacing, radius, fill, typography, opacity и effects сохраняются по effective baseline; высота зависит от контента.",
+        "Паттерн Tooltip и Hint описывает выбор и применение обычных Tooltip/Hint, а не контракт Onboarding Tooltip.",
+        "Не переноси ограничения обычных Tooltip/Hint, включая лимиты 70 и 200 символов, на Onboarding Tooltip без отдельного exact rule.",
+        "Не придумывай лимиты текста, число шагов, правила кнопок или настройки хвоста, пока они не подтверждены отдельным exact rule."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "agentInstructions",
+      "body": [
+        "Не выводи нарушение из примера: используй только exact component rule или отдельное применимое pattern rule.",
+        "Не смешивай Onboarding Tooltip с обычными Tooltip и Hint. Лимиты 70 и 200 символов к onboarding не относятся.",
+        "Изменения Tail Direction и Tail Position являются штатными component properties. Оценивай их только вместе с расположением целевого объекта и не называй нарушением без composition evidence.",
+        "Переключение Selected между Pips является штатной настройкой текущего шага, если выбран ровно один Pip и количество Pips совпадает с количеством шагов.",
+        "Для вложенных кнопок используй exact rules Onboarding Tooltip: Size=40, Shape=Rectangular, SingleIcon=False, DisabledState=False; Button 1 остаётся Primary, Button 2 — Secondary.",
+        "Изменения Size, Color или Style встроенной иконки Close трактуй как нарушение её фиксированного baseline.",
+        "Изменения width, padding, spacing, radius, fill, typography, opacity и effects трактуй как нарушения effective baseline, если они зафиксированы Apollo как layer customization.",
+        "Наличие overlay, доступность целевого объекта, попадание в viewport и корректность порядка шагов требуют composition/prototype evidence; не подтверждай их только по atomic diff."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "ruleHighlights",
+      "body": [
+        "component:web-corp.onboarding-tooltip.public-root-only",
+        "component:web-corp.onboarding-tooltip.desktop-only",
+        "component:web-corp.onboarding-tooltip.required-anatomy",
+        "component:web-corp.onboarding-tooltip.scenario-purpose",
+        "component:web-corp.onboarding-tooltip.trigger-model",
+        "component:web-corp.onboarding-tooltip.tail-points-to-target",
+        "component:web-corp.onboarding-tooltip.pips-match-steps",
+        "component:web-corp.onboarding-tooltip.button-configuration",
+        "component:web-corp.onboarding-tooltip.primary-button-role-is-fixed",
+        "component:web-corp.onboarding-tooltip.secondary-button-role-is-fixed",
+        "component:web-corp.onboarding-tooltip.editable-content",
+        "component:web-corp.onboarding-tooltip.content-length-recommendations",
+        "component:web-corp.onboarding-tooltip.maximum-ten-steps",
+        "component:web-corp.onboarding-tooltip.close-is-required-and-fixed",
+        "component:web-corp.onboarding-tooltip.close-icon-configuration-is-fixed",
+        "component:web-corp.onboarding-tooltip.target-must-remain-visible",
+        "component:web-corp.onboarding-tooltip.visuals-follow-effective-baseline",
+        "component:web-corp.onboarding-tooltip.plain-text-content-only",
+        "component:web-corp.onboarding-tooltip.must-fit-viewport",
+        "component:web-corp.onboarding-tooltip.default-state-only",
+        "component:web-corp.onboarding-tooltip.blocks-outside-interaction",
+        "component:web-corp.onboarding-tooltip.step-button-model",
+        "component:web-corp.onboarding-tooltip.single-visible-tooltip",
+        "component:web-corp.onboarding-tooltip.dismiss-methods",
+        "component:web-corp.onboarding-tooltip.text-overflow-model",
+        "component:web-corp.onboarding-tooltip.blocking-overlay-required",
+        "component:web-corp.onboarding-tooltip.target-must-be-available",
+        "component:web-corp.onboarding-tooltip.temporary-surfaces-allowed",
+        "component:web-corp.onboarding-tooltip.flow-is-business-logic"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "internalOnly",
+      "body": [
+        "👻 TooltipTail",
+        "Pips",
+        "Close",
+        "Onboarding footer",
+        "Text content"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "allowedOverrides",
+      "body": {
+        "text": [
+          "Subhead",
+          "Title",
+          "Subtitle",
+          "Button label"
+        ],
+        "componentProperties": [
+          "Tail Direction",
+          "Tail Position",
+          "Pips.Selected"
+        ],
+        "composition": [
+          "optional Subhead visibility",
+          "Button visibility while one Primary button remains visible",
+          "Pips visibility for single-step or multi-step onboarding"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "forbiddenOverrides",
+      "body": [
+        "standalone internal component",
+        "Onboarding Tooltip [D] on mobile-web",
+        "hidden Title",
+        "hidden Subtitle",
+        "hidden Close",
+        "zero visible buttons",
+        "tail not pointing to the target object or area",
+        "Pips count different from onboarding step count",
+        "more than one selected Pip",
+        "visible Pips in single-step onboarding",
+        "hidden Pips in multi-step onboarding",
+        "more than one simultaneous Onboarding Tooltip",
+        "dismiss by Escape or outside click",
+        "more than ten onboarding steps",
+        "more than two visible buttons",
+        "button size other than 40",
+        "button configuration without Primary",
+        "interactive Pips",
+        "button Shape other than Rectangular",
+        "button SingleIcon=true",
+        "button addon",
+        "button DisabledState=true",
+        "hidden or replaced Close",
+        "Onboarding Tooltip covering its target object",
+        "Onboarding Tooltip clipped by the viewport",
+        "link, list or rich text in content",
+        "loading, disabled, error or interrupted state",
+        "interaction with the interface outside the target object",
+        "missing blocking overlay or target highlight",
+        "launch without an existing visible target inside the viewport",
+        "truncated Title or Subtitle",
+        "multiline Button label",
+        "manual width",
+        "manual padding or spacing",
+        "manual radius or fill",
+        "manual typography",
+        "manual opacity or effects"
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "compositionPolicy",
+      "body": {
+        "purpose": "Помочь пользователю разобраться в изменившемся или неочевидном интерфейсе, например после крупного обновления или при запуске полезной функции с неочевидной точкой входа.",
+        "platform": {
+          "desktop": "Используй Onboarding Tooltip на desktop от 768 px.",
+          "mobileWeb": "Не используй Onboarding Tooltip [D]. Переноси onboarding-сценарий в BottomSheet."
+        },
+        "requiredContent": {
+          "title": true,
+          "subtitle": true,
+          "close": true,
+          "minimumVisibleButtons": 1
+        },
+        "trigger": {
+          "allowed": [
+            "automatic",
+            "trigger-event"
+          ],
+          "repeatLaunch": "business-logic"
+        },
+        "tail": {
+          "directionAndPositionSelectedByDesigner": true,
+          "mustPointTo": "target object or target area"
+        },
+        "steps": {
+          "singleStepAllowed": true,
+          "maximum": 10,
+          "singleStep": {
+            "pipsVisible": false,
+            "buttons": [
+              "Primary"
+            ]
+          },
+          "multiStep": {
+            "pipsCountMatchesStepCount": true,
+            "exactlyOneSelectedPip": true,
+            "pipsInteractive": false,
+            "pipsRequiredOnEveryStep": true,
+            "firstStepButtons": [
+              "Primary"
+            ],
+            "intermediateStepButtons": [
+              "Secondary: previous",
+              "Primary: next"
+            ],
+            "lastStepButtons": [
+              "Primary: finish"
+            ]
+          }
+        },
+        "buttons": {
+          "minimum": 1,
+          "maximum": 2,
+          "primaryRequired": true,
+          "secondaryOptional": true,
+          "size": 40,
+          "shape": "Rectangular",
+          "singleIcon": false,
+          "addons": false,
+          "disabledState": false,
+          "actions": [
+            "switch onboarding step",
+            "navigate",
+            "finish onboarding"
+          ]
+        },
+        "text": {
+          "subheadRequired": false,
+          "editable": [
+            "Subhead",
+            "Title",
+            "Subtitle",
+            "Button label"
+          ],
+          "recommendedMaximumCharacters": {
+            "Subhead": 20,
+            "Title": 30,
+            "Subtitle": 90,
+            "Button label": 10
+          },
+          "limitSeverity": "warning",
+          "format": "plain text only",
+          "linksAllowed": false,
+          "listsAllowed": false,
+          "richTextAllowed": false,
+          "overflow": {
+            "Subhead": "single line with ellipsis",
+            "Title": "wrap without truncation",
+            "Subtitle": "wrap without truncation",
+            "Button label": "single line"
+          }
+        },
+        "interaction": {
+          "close": {
+            "required": true,
+            "action": "finish-current-onboarding-without-confirmation",
+            "visibilityChangeAllowed": false,
+            "iconReplacementAllowed": false
+          },
+          "overlap": {
+            "otherControlsMayBeCovered": true,
+            "targetObjectMayBeCovered": false
+          },
+          "targetMayRemainInteractive": true,
+          "targetActionMayAdvanceOrFinish": true,
+          "outsideTargetInteractionBlocked": true,
+          "blockingOverlay": {
+            "required": true,
+            "targetAreaHighlighted": true,
+            "partOfComponentComposition": true
+          },
+          "simultaneousTooltipsMaximum": 1,
+          "nextStepReplacesPreviousTooltip": true,
+          "dismissMethods": [
+            "Close",
+            "final Primary action"
+          ],
+          "escapeDismissAllowed": false,
+          "outsideClickDismissAllowed": false,
+          "supportedStates": [
+            "default"
+          ],
+          "unsupportedStates": [
+            "loading",
+            "disabled",
+            "error",
+            "interrupted"
+          ]
+        },
+        "placement": {
+          "mustFitViewport": true,
+          "viewportClippingAllowed": false,
+          "insufficientSpaceResolution": "change Tail Direction or Tail Position",
+          "allowedTemporarySurfaces": [
+            "Modal",
+            "Drawer"
+          ],
+          "targetPreconditions": {
+            "exists": true,
+            "visible": true,
+            "insideViewport": true,
+            "onboardingMustNotStartWhenMissing": true
+          }
+        },
+        "flowOwnership": {
+          "stepOrder": "business-logic",
+          "crossPageNavigation": "business-logic",
+          "skipThroughClose": "business-logic"
+        },
+        "visualBaseline": {
+          "fixed": [
+            "width",
+            "padding",
+            "spacing",
+            "radius",
+            "fill",
+            "typography",
+            "opacity",
+            "effects"
+          ],
+          "height": "Hug; determined by content"
+        },
+        "internalParts": {
+          "standaloneUsageAllowed": false,
+          "parts": [
+            "👻 TooltipTail",
+            "Pips",
+            "Close",
+            "Onboarding footer",
+            "Text content"
+          ]
+        },
+        "effectiveBaseline": "Сравнивай вложенные части с effective baseline выбранных Tail Direction и Tail Position."
+      }
+    }
+  ]
+}

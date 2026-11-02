@@ -1,0 +1,182 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "Button — семейство action controls. Apollo должен трактовать изменения Button variant как component property changes, а ручные изменения style/token/layout как layer customizations.",
+  "includes": [
+    "[D] Button",
+    "[D] Button_Inverted",
+    "[M] Button",
+    "[M] Button_Inverted",
+    "scheduled Corporate Button variants",
+    "Addon part components"
+  ],
+  "publicApi": {
+    "variantProperties": {
+      "View": {
+        "kind": "component-property",
+        "description": "Визуальный style/state кнопки.",
+        "values": [
+          "Primary",
+          "Secondary",
+          "Transparent",
+          "Text",
+          "Accent",
+          "Outlined"
+        ]
+      },
+      "Size": {
+        "kind": "component-property",
+        "description": "Состояние высоты/size кнопки.",
+        "values": [
+          "32",
+          "40",
+          "48",
+          "56",
+          "64",
+          "72"
+        ]
+      },
+      "Shape": {
+        "kind": "component-property",
+        "description": "Состояние формы углов.",
+        "values": [
+          "Rectangular",
+          "Rounded"
+        ]
+      },
+      "SingleIcon": {
+        "kind": "component-property",
+        "description": "Переключает кнопку в icon-only/single-icon visual state.",
+        "values": [
+          "False",
+          "True"
+        ]
+      },
+      "DisabledState": {
+        "kind": "component-property",
+        "description": "Состояние компонента disabled/enabled.",
+        "values": [
+          "False",
+          "True"
+        ]
+      }
+    }
+  },
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "publicComponentProperties",
+      "body": {
+        "variant.View": [
+          "Primary",
+          "Secondary",
+          "Transparent",
+          "Text",
+          "Accent",
+          "Outlined"
+        ],
+        "variant.Size": [
+          "32",
+          "40",
+          "48",
+          "56",
+          "64",
+          "72"
+        ],
+        "variant.Shape": [
+          "Rectangular",
+          "Rounded"
+        ],
+        "variant.SingleIcon": [
+          "False",
+          "True"
+        ],
+        "variant.DisabledState": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "ruleReferences",
+      "body": [
+        "component:web-core.button.variant-state-is-component-property",
+        "component:web-core.button.manual-fill-is-layer-property",
+        "component:web-core.button.label-text-style-locked",
+        "component:web-core.button.desktop-safe-variants",
+        "component:web-core.button.desktop-hint-restricted"
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "exampleInterpretations",
+      "body": [
+        {
+          "case": "variant.View Primary -> Accent",
+          "agentShouldSay": "Apollo нашёл component property customization: view primary -> accent.",
+          "agentShouldNotSay": "Fill изменился с Primary color, если Apollo дополнительно не показывает явное layer fill change."
+        },
+        {
+          "case": "variant.View Primary -> Accent plus manual fill",
+          "agentShouldSay": "Покажи оба изменения: view primary -> accent и fill от Accent baseline -> actual custom value.",
+          "agentShouldNotSay": "Сравнивать ручной fill с Primary baseline."
+        },
+        {
+          "case": "Label styles.text changed",
+          "agentShouldSay": "Apollo нашёл нарушение Button contract: text style на Label или Hint должен совпадать с effective Button baseline.",
+          "agentShouldNotSay": "Это только изменение состояния компонента или разрешённая layer customization."
+        }
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "appliesTo",
+      "body": {
+        "generatedContract": "contract.generated.json",
+        "rawCatalog": "Web _ Core -- Button.json"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "anatomySemantics",
+      "body": {
+        "root": {
+          "path": "<variant root>",
+          "scope": "component-root",
+          "designerEditable": false,
+          "notes": "Root layout, radius и fill управляются component variant properties и design tokens."
+        },
+        "label": {
+          "path": "Text / Label",
+          "scope": "content-layer",
+          "designerEditable": "content-only",
+          "notes": "Text content можно менять. Text style и fill являются layer parameters и обычно должны оставаться под управлением variant."
+        },
+        "hint": {
+          "path": "Text / Hint",
+          "scope": "content-layer",
+          "designerEditable": "content-only",
+          "notes": "Hint присутствует в структуре компонента, но desktop-использование ограничено pattern rules."
+        },
+        "leftAddon": {
+          "path": "LeftAddon / LeftAddon",
+          "scope": "slot-instance",
+          "designerEditable": "variant-property-only",
+          "notes": "Вложенный addon instance. Его variant properties являются slot configuration, а не свободной layer styling."
+        },
+        "rightAddon": {
+          "path": "RightAddon / RightAddon",
+          "scope": "slot-instance",
+          "designerEditable": "variant-property-only",
+          "notes": "Вложенный addon instance. Его variant properties являются slot configuration, а не свободной layer styling."
+        },
+        "paintMe": {
+          "path": "*/PaintMe",
+          "scope": "internal-layer",
+          "designerEditable": false,
+          "notes": "Внутренний paint target. Ручные изменения fill нужно трактовать как layer customization."
+        }
+      }
+    }
+  ]
+}

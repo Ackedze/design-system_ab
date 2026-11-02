@@ -1,0 +1,109 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-tag",
+  "import": "@alfalab/core-components/tag",
+  "version": "10.1.1",
+  "component": "Tag",
+  "description": "Многофункциональный контрол. Используется в составе групп и других компонентов.",
+  "props": [
+    {
+      "name": "breakpoint",
+      "type": "number",
+      "default": "1024",
+      "description": "Контрольная точка, с нее начинается desktop версия"
+    },
+    {
+      "name": "client",
+      "type": "\"desktop\" | \"mobile\"",
+      "description": "Версия, которая будет использоваться при серверном рендеринге"
+    },
+    {
+      "name": "defaultMatchMediaValue",
+      "type": "boolean | (() => boolean)",
+      "default": "client === undefined ? undefined : client === 'desktop'",
+      "description": "Значение по-умолчанию для хука useMatchMedia\n@deprecated Используйте client"
+    },
+    {
+      "name": "onClick",
+      "type": "((event: MouseEvent<HTMLButtonElement, MouseEvent>, payload: { checked: boolean; name?: string | undefined; }) => void)",
+      "description": "Обработчик нажатия"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Дочерние элементы.\n@description Отображение зависит от переданного `Component` (например, вариант с `IndicatorTag` может не показывать текст, если так заложено в компоненте)."
+    },
+    {
+      "name": "checked",
+      "type": "boolean",
+      "description": "Отображение кнопки в отмеченном (зажатом) состоянии"
+    },
+    {
+      "name": "size",
+      "type": "32 | 40 | 48 | 56 | 64 | 72",
+      "description": "Размер компонента"
+    },
+    {
+      "name": "Component",
+      "type": "ComponentType",
+      "description": "Компонент для рендера разметки тега (по умолчанию — внутренний Tag)."
+    },
+    {
+      "name": "childrenClassName",
+      "type": "string",
+      "description": "Дополнительный класс для обёртки children"
+    },
+    {
+      "name": "leftAddons",
+      "type": "ReactNode",
+      "description": "Слот слева\n@description При кастомном `Component` (например, `IndicatorTag`) прокидывается в его разметку."
+    },
+    {
+      "name": "rightAddons",
+      "type": "ReactNode",
+      "description": "Слот справа"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "childrenRef",
+      "type": "RefObject<HTMLSpanElement>",
+      "description": "ref на children"
+    },
+    {
+      "name": "colors",
+      "type": "\"default\" | \"inverted\"",
+      "description": "Набор цветов для компонента"
+    },
+    {
+      "name": "variant",
+      "type": "\"default\" | \"alt\"",
+      "description": "@deprecated данный проп больше не используется, временно оставлен для обратной совместимости\nИспользуйте props shape и view\nВариант тега"
+    },
+    {
+      "name": "shape",
+      "type": "\"rounded\" | \"rectangular\"",
+      "description": "Форма тега"
+    },
+    {
+      "name": "view",
+      "type": "\"outlined\" | \"filled\" | \"transparent\"",
+      "default": "outlined",
+      "description": "Стиль тега"
+    },
+    {
+      "name": "allowBackdropBlur",
+      "type": "boolean",
+      "description": "Включает размытие фона для некоторых вариантов тега\n@description Может привести к просадке fps и другим багам. Старайтесь не размещать слишком много заблюреных элементов на одной странице."
+    },
+    {
+      "name": "indicatorProps",
+      "type": "IndicatorProps",
+      "description": "Свойства индикатора (бейдж с числом или точкой).\n@description Режим с индикатором задаётся пропом `Component` (например, `IndicatorTag`)."
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

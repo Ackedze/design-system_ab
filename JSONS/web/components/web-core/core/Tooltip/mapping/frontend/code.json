@@ -1,0 +1,186 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-tooltip",
+  "import": "@alfalab/core-components/tooltip",
+  "version": "9.0.16",
+  "component": "Tooltip",
+  "description": "Используется для отображения дополнительной информации.",
+  "props": [
+    {
+      "name": "content",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Контент тултипа"
+    },
+    {
+      "name": "position",
+      "type": "Position",
+      "description": "Позиционирование тултипа"
+    },
+    {
+      "name": "onOpenDelay",
+      "type": "number",
+      "description": "Задержка перед открытием тултипа"
+    },
+    {
+      "name": "onCloseDelay",
+      "type": "number",
+      "description": "Задержка перед закрытием тултипа"
+    },
+    {
+      "name": "trigger",
+      "type": "Trigger",
+      "description": "Событие, по которому происходит открытие тултипа"
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "Если `true`, то тултип будет открыт"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "children",
+      "type": "ReactElement<any, string | JSXElementConstructor<any>>",
+      "required": true,
+      "description": "Дочерние элементы тултипа.\nПри срабатывании событий на них, тултип будет открываться"
+    },
+    {
+      "name": "offset",
+      "type": "[number, number]",
+      "description": "Смещение тултипа"
+    },
+    {
+      "name": "getPortalContainer",
+      "type": "(() => HTMLElement)",
+      "description": "Функция, возвращающая контейнер, в который будет рендериться тултип"
+    },
+    {
+      "name": "arrowClassName",
+      "type": "string",
+      "description": "Дополнительный класс для стрелочки"
+    },
+    {
+      "name": "contentClassName",
+      "type": "string",
+      "description": "Дополнительный класс для контента"
+    },
+    {
+      "name": "popoverClassName",
+      "type": "string",
+      "description": "Дополнительный класс для поповера"
+    },
+    {
+      "name": "targetClassName",
+      "type": "string",
+      "description": "Дополнительный класс для обертки над дочерними элементами"
+    },
+    {
+      "name": "view",
+      "type": "\"tooltip\" | \"hint\"",
+      "description": "Вид тултипа"
+    },
+    {
+      "name": "updatePopover",
+      "type": "MutableRefObject<(() => void) | undefined>",
+      "description": "Хранит функцию, с помощью которой можно обновить положение компонента"
+    },
+    {
+      "name": "zIndex",
+      "type": "number",
+      "description": "z-index компонента"
+    },
+    {
+      "name": "targetRef",
+      "type": "MutableRefObject<HTMLElement | null>",
+      "description": "Реф для обертки над дочерними элементами"
+    },
+    {
+      "name": "fallbackPlacements",
+      "type": "Position[]",
+      "description": "Если тултип не помещается в переданной позиции (position), он попробует открыться в другой позиции,\nпо очереди для каждой позиции из этого списка.\nЕсли не передавать, то тултип открывается в противоположном направлении от переданного position."
+    },
+    {
+      "name": "preventOverflow",
+      "type": "boolean",
+      "description": "Запрещает тултипу менять свою позицию, если он не влезает в видимую область."
+    },
+    {
+      "name": "availableHeight",
+      "type": "boolean | (() => Element | null | undefined)",
+      "description": "Позволяет тултипу подствраивать свою высоту под границы экрана, если из-за величины контента он выходит за рамки видимой области экрана"
+    },
+    {
+      "name": "anchor",
+      "type": "RefElement",
+      "description": "Элемент, относительно которого будет позиционировать тултип."
+    },
+    {
+      "name": "colors",
+      "type": "\"default\" | \"inverted\"",
+      "description": "Набор цветов для компонента"
+    },
+    {
+      "name": "useAnchorWidth",
+      "type": "boolean",
+      "description": "Использовать ширину родительского элемента"
+    },
+    {
+      "name": "withTransition",
+      "type": "boolean",
+      "description": "Показывать тултип с анимацией"
+    },
+    {
+      "name": "targetTag",
+      "type": "\"div\" | \"span\"",
+      "default": "div",
+      "description": "Тэг для target обертки"
+    },
+    {
+      "name": "onTargetClick",
+      "type": "((event: MouseEvent<HTMLElement, MouseEvent>) => void)",
+      "description": "Обработчик клика по целевому элементу\nСобытие всплытия останавливается до вызова этого обработчика"
+    },
+    {
+      "name": "onOpen",
+      "type": "((event?: MouseEvent<HTMLElement, MouseEvent> | undefined) => void)",
+      "description": "Обработчик открытия"
+    },
+    {
+      "name": "onClose",
+      "type": "((event?: MouseEvent<HTMLElement, MouseEvent> | undefined) => void)",
+      "description": "Обработчик закрытия"
+    },
+    {
+      "name": "actionButtonTitle",
+      "type": "string",
+      "description": "Заголовок кнопки в футере"
+    },
+    {
+      "name": "bottomSheetProps",
+      "type": "Partial<BottomSheetProps>",
+      "description": "Дополнительные пропсы компонента BottomSheet"
+    },
+    {
+      "name": "breakpoint",
+      "type": "number",
+      "default": "1024",
+      "description": "Контрольная точка, с нее начинается desktop версия"
+    },
+    {
+      "name": "client",
+      "type": "\"desktop\" | \"mobile\"",
+      "description": "Версия, которая будет использоваться при серверном рендеринге"
+    },
+    {
+      "name": "defaultMatchMediaValue",
+      "type": "boolean | (() => boolean)",
+      "default": "client === undefined ? undefined : client === 'desktop'",
+      "description": "Значение по-умолчанию для хука useMatchMedia\n@deprecated Используйте client"
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

@@ -1,0 +1,333 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "arui-private",
+  "import": "arui-private/onboarding-tooltip",
+  "version": "80.10.0",
+  "component": "OnboardingTooltip",
+  "description": "Если нужен всего один онборднинг в приложении можно использовать этот компонент.\nЕсли онбордингов становится больше, то лучше воспользоваться провайдером.\nТултип самостоятельно скролится до нужного места",
+  "exports": [
+    "OnboardingTooltip"
+  ],
+  "props": [
+    {
+      "name": "adjustCloser",
+      "type": "boolean",
+      "description": "Изменение отступов крестика под вид тултипа"
+    },
+    {
+      "name": "anchor",
+      "type": "HTMLElement",
+      "description": "Элемент, относительно которого будет позиционировать тултип."
+    },
+    {
+      "name": "arrowClassName",
+      "type": "string",
+      "description": "Дополнительный класс для стрелочки"
+    },
+    {
+      "name": "availableHeight",
+      "type": "boolean | (() => Element)",
+      "description": "Позволяет тултипу подствраивать свою высоту под границы экрана, если из-за величины контента он выходит за рамки видимой области экрана"
+    },
+    {
+      "name": "borderRadius",
+      "type": "number",
+      "description": "Скругление углов хайлайтера"
+    },
+    {
+      "name": "children",
+      "type": "ReactElement<unknown, string | JSXElementConstructor<any>>",
+      "required": true,
+      "description": "Содержимое\nДочерние элементы тултипа.\nПри срабатывании событий на них, тултип будет открываться"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "clickableHighlightZone",
+      "type": "boolean",
+      "description": "Возможность клика на подствеченную область"
+    },
+    {
+      "name": "colors",
+      "type": "\"default\" | \"inverted\"",
+      "values": [
+        "default",
+        "inverted"
+      ],
+      "description": "Набор цветов для компонента"
+    },
+    {
+      "name": "contentClassName",
+      "type": "string",
+      "description": "Дополнительный класс для контента"
+    },
+    {
+      "name": "currentSlide",
+      "type": "number",
+      "description": "Индекс текущей активной страницы онбординга"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "description",
+      "type": "string | number"
+    },
+    {
+      "name": "disableScroll",
+      "type": "boolean",
+      "description": "Отключает подскрол к отслеживаемому элементу"
+    },
+    {
+      "name": "fallbackPlacements",
+      "type": "Position[]",
+      "description": "Если тултип не помещается в переданной позиции (position), он попробует открыться в другой позиции,\nпо очереди для каждой позиции из этого списка.\nЕсли не передавать, то тултип открывается в противоположном направлении от переданного position."
+    },
+    {
+      "name": "getPortalContainer",
+      "type": "() => HTMLElement",
+      "description": "Функция, возвращающая контейнер, в который будет рендериться тултип"
+    },
+    {
+      "name": "highlighterClassName",
+      "type": "string",
+      "description": "Дополнительный класс на хайлайтере"
+    },
+    {
+      "name": "leftOffset",
+      "type": "number",
+      "description": "Смещение хайлайтера по вертикали"
+    },
+    {
+      "name": "nextButtonRightAddon",
+      "type": "ReactNode",
+      "description": "Аддон для кнопки перехода к следующему слайду"
+    },
+    {
+      "name": "nextButtonText",
+      "type": "string | number",
+      "description": "Текст кнопки переключения следующего или конечно онбординга"
+    },
+    {
+      "name": "offset",
+      "type": "[number, number]",
+      "description": "Смещение тултипа"
+    },
+    {
+      "name": "onboardingItemChildren",
+      "type": "ReactNode",
+      "description": "Дополнительные элементы в тултип онбординга"
+    },
+    {
+      "name": "onClickNext",
+      "type": "(event?: MouseEvent<Element, MouseEvent>) => void",
+      "description": "Обработчик нажатия кнопки показа следующего онбординга или закрытия если онобрдинг последний на странице"
+    },
+    {
+      "name": "onClickNextSecondary",
+      "type": "(event?: MouseEvent<Element, MouseEvent>) => void",
+      "description": "Обработчик нажатия кнопки показа следующего онбординга или закрытия если онобрдинг последний на странице, но для второй кнопки"
+    },
+    {
+      "name": "onClickPips",
+      "type": "(index: number) => void",
+      "description": "Обработчик нажатия на пипку"
+    },
+    {
+      "name": "onClickPrev",
+      "type": "(event?: MouseEvent<Element, MouseEvent>) => void",
+      "description": "Обработчик нажатия кнопки показа предыдущего онбординга"
+    },
+    {
+      "name": "onClose",
+      "type": "((event?: MouseEvent<Element, MouseEvent>, place?: \"next\" | \"cross\") => void) & (() => void)",
+      "description": "Обработчик закрытия в случае нажатия на крестик\nОбработчик закрытия тултипа"
+    },
+    {
+      "name": "onCloseDelay",
+      "type": "number",
+      "description": "Задержка перед закрытием тултипа"
+    },
+    {
+      "name": "onOpen",
+      "type": "() => void",
+      "description": "Обработчик открытия тултипа"
+    },
+    {
+      "name": "onOpenDelay",
+      "type": "number",
+      "description": "Задержка перед открытием тултипа"
+    },
+    {
+      "name": "onTargetClick",
+      "type": "(event: MouseEvent<HTMLElement, MouseEvent>) => void",
+      "description": "Обработчик клика по целевому элементу\nСобытие всплытия останавливается до вызова этого обработчика"
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "Если `true`, то тултип будет открыт"
+    },
+    {
+      "name": "padding",
+      "type": "number[]",
+      "description": "Отступы хайлайтера"
+    },
+    {
+      "name": "popoverClassName",
+      "type": "string",
+      "description": "Дополнительный класс для поповера"
+    },
+    {
+      "name": "position",
+      "type": "Position",
+      "values": [
+        "bottom",
+        "top",
+        "right",
+        "left",
+        "top-start",
+        "top-end",
+        "bottom-start",
+        "bottom-end",
+        "right-start",
+        "right-end",
+        "left-start",
+        "left-end"
+      ],
+      "description": "Позиционирование тултипа"
+    },
+    {
+      "name": "prevButtonLeftAddon",
+      "type": "ReactNode",
+      "description": "Аддон для кнопки перехода к предыдущему слайду"
+    },
+    {
+      "name": "prevButtonText",
+      "type": "string | number",
+      "description": "Текст кнопки переключения на предыдущий онбординг"
+    },
+    {
+      "name": "preventOverflow",
+      "type": "boolean",
+      "description": "Запрещает тултипу менять свою позицию, если он не влезает в видимую область."
+    },
+    {
+      "name": "primaryButtonView",
+      "type": "\"text\" | \"primary\" | \"secondary\" | \"transparent\" | \"accent\" | \"outlined\"",
+      "values": [
+        "text",
+        "primary",
+        "secondary",
+        "transparent",
+        "accent",
+        "outlined"
+      ]
+    },
+    {
+      "name": "scrollContainer",
+      "type": "RefObject<HTMLElement>",
+      "description": "Контейнер, в котором будет происходит подскролл к отслеживаемому элементу"
+    },
+    {
+      "name": "scrollingTooltipMargin",
+      "type": "number",
+      "description": "Верхний отступ для скроллига"
+    },
+    {
+      "name": "subhead",
+      "type": "string | number"
+    },
+    {
+      "name": "targetClassName",
+      "type": "string",
+      "description": "Дополнительный класс для обертки над дочерними элементами"
+    },
+    {
+      "name": "targetRef",
+      "type": "MutableRefObject<HTMLElement>",
+      "description": "Реф для обертки над дочерними элементами"
+    },
+    {
+      "name": "targetTag",
+      "type": "\"div\" | \"span\"",
+      "values": [
+        "div",
+        "span"
+      ],
+      "default": "div",
+      "description": "Тэг для target обертки"
+    },
+    {
+      "name": "title",
+      "type": "string | number"
+    },
+    {
+      "name": "tooltipContent",
+      "type": "ComponentType<{ onClickNext: (event: MouseEvent<Element, MouseEvent>) => void; onClickNextSecondary: (event: MouseEvent<Element, MouseEvent>) => void; onClickPrev: (event: MouseEvent<...>) => void; primaryButtonView?: \"text\" | ... 4 more ... | \"outlined\"; }>",
+      "description": "Компонент с содержимым тултипа онбординга"
+    },
+    {
+      "name": "topOffset",
+      "type": "number",
+      "description": "Смещение хайлайтера по горизонтали"
+    },
+    {
+      "name": "totalSlides",
+      "type": "number",
+      "description": "Количество страниц в онбординге"
+    },
+    {
+      "name": "trigger",
+      "type": "Trigger",
+      "values": [
+        "click",
+        "hover"
+      ],
+      "description": "Событие, по которому происходит открытие тултипа"
+    },
+    {
+      "name": "updatePopover",
+      "type": "MutableRefObject<() => void>",
+      "description": "Хранит функцию, с помощью которой можно обновить положение компонента"
+    },
+    {
+      "name": "useAnchorWidth",
+      "type": "boolean",
+      "description": "Использовать ширину родительского элемента"
+    },
+    {
+      "name": "view",
+      "type": "\"tooltip\" | \"hint\"",
+      "values": [
+        "tooltip",
+        "hint"
+      ],
+      "description": "Вид тултипа"
+    },
+    {
+      "name": "visible",
+      "type": "boolean",
+      "required": true,
+      "description": "Управление видимостью компонента"
+    },
+    {
+      "name": "withTransition",
+      "type": "boolean",
+      "description": "Показывать тултип с анимацией"
+    },
+    {
+      "name": "zIndex",
+      "type": "number",
+      "description": "z-index компонента"
+    }
+  ],
+  "status": {
+    "lifecycle": "active"
+  }
+}

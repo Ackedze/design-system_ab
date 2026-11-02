@@ -1,0 +1,353 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "Активный канонический Figma-only пресет для группы из трёх или четырёх BenefitCard на лендинге. Desktop-пресет управляет Capacity, View и Compact; mobile-web — Capacity.",
+  "publicApi": {
+    "figmaRoots": [
+      "🔒 [D] Benefits",
+      "🔒 [M] Benefits"
+    ],
+    "codeExports": [],
+    "figmaOnly": true,
+    "lifecycle": "active",
+    "plannedReplacement": false,
+    "generationPolicy": "instantiate preset root by component key for Capacity 3 or 4"
+  },
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "usageGuidance",
+      "body": [
+        "Используй Benefits только на лендингах и только для группы из трёх или четырёх BenefitCard.",
+        "Для трёх или четырёх карточек создавай экземпляр 🔒 [D] Benefits или 🔒 [M] Benefits по component key.",
+        "Если карточек меньше трёх или больше четырёх, не используй Benefits: собери отдельные BenefitCard вручную.",
+        "Capacity должен точно совпадать с числом вложенных карточек: 3 → три, 4 → четыре.",
+        "Для 🔒 [D] Benefits используй Compact=True при viewport 1024 px и меньше и Compact=False при viewport больше 1024 px.",
+        "Compact=False размещает desktop-карточки в одну строку с gap 24 px; Compact=True использует gap 16 px, а четыре карточки перестраивает в 2 × 2.",
+        "View=Page задаёт baseline base-bg-alt, View=Modal — modal-bg. Поверхности Border и Colored разрешены как ручные альтернативы.",
+        "Mobile Benefits используется в Page и Modal без собственного View; surface context наследуется от host и вложенных BenefitCard.",
+        "При адаптации сохраняй одинаковые Capacity, порядок и содержимое карточек между desktop и mobile-web.",
+        "Порядок карточек можно менять, если перестановка синхронно повторена на desktop и mobile-web.",
+        "Background, CardAxis, Compact и GraphicPosition вложенных BenefitCard можно менять, но их значения должны совпадать у всех карточек одной группы.",
+        "Title, Subtitle, Graphic и BottomContent могут различаться; применяй к каждой карточке правила ptrn:components.benefit-card.",
+        "Все карточки группы используют один тип поверхности. У карточек общего типа Border или Colored могут различаться цвета заливки и обводки, но они должны быть привязаны к разрешённым токенам BackgroundPlate. Дополнительного ограничения по сегментной палитре нет.",
+        "Loading/Skeleton включается или выключается одновременно у всех карточек группы.",
+        "Не заменяй вложенную BenefitCard через instance swap.",
+        "Сам Benefits не имеет общего действия. Карточки могут вести к разным целям, но должны быть либо все кликабельными, либо все некликабельными.",
+        "Корень Benefits использует Fill по ширине и Hug по высоте; все карточки пресета имеют одинаковую высоту.",
+        "Gap, padding, axis и wrap принадлежат пресету и должны совпадать с effective baseline."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "criticalBaselines",
+      "body": [
+        {
+          "ruleId": "component:web.benefits.capacity-matches-card-count",
+          "baseline": "Benefits содержит ровно 3 или 4 BenefitCard согласно Capacity."
+        },
+        {
+          "ruleId": "component:web.benefits.desktop-compact-required-at-1024",
+          "baseline": "Desktop viewport ≤1024 px требует Compact=True, viewport >1024 px — Compact=False."
+        },
+        {
+          "ruleId": "component:web.benefits.nested-card-settings-are-uniform",
+          "baseline": "Background, CardAxis, Compact и GraphicPosition одинаковы у всех вложенных BenefitCard; исключение относится только к fill/stroke поверхностей Border и Colored."
+        },
+        {
+          "ruleId": "component:web.benefits.responsive-content-parity",
+          "baseline": "Desktop и mobile-web сохраняют Capacity, порядок и содержимое карточек."
+        },
+        {
+          "ruleId": "component:web.benefits.surface-type-is-uniform",
+          "baseline": "Все карточки группы используют один тип поверхности; только цвета общего Border или Colored могут различаться."
+        },
+        {
+          "ruleId": "component:web.benefits.fill-width-hug-height",
+          "baseline": "Benefits использует Fill по ширине и Hug по высоте, а все карточки пресета имеют одинаковую высоту."
+        },
+        {
+          "ruleId": "component:web.benefits.loading-state-is-uniform",
+          "baseline": "Loading/Skeleton синхронизирован для всех карточек группы."
+        },
+        {
+          "ruleId": "component:web.benefits.surface-colors-use-background-plate-tokens",
+          "baseline": "Разные fill/stroke Border или Colored остаются token-bound по контракту BackgroundPlate."
+        },
+        {
+          "ruleId": "component:web.benefits.nested-benefit-card-instance-swap-forbidden",
+          "baseline": "Внутри платформенного Benefits остаются штатные [D]/[M] BenefitCard."
+        },
+        {
+          "ruleId": "component:web.benefits.clickability-is-uniform",
+          "baseline": "Контейнер не имеет действия; кликабельность единообразна для всех карточек, а их целевые действия могут различаться."
+        }
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "ruleHighlights",
+      "body": [
+        "component:web.benefits.figma-only-landing-preset",
+        "component:web.benefits.capacity-matches-card-count",
+        "component:web.benefits.desktop-compact-required-at-1024",
+        "component:web.benefits.view-selects-surface-baseline",
+        "component:web.benefits.nested-card-settings-are-editable",
+        "component:web.benefits.nested-card-settings-are-uniform",
+        "component:web.benefits.mobile-surface-inherits-host",
+        "component:web.benefits.responsive-content-parity",
+        "component:web.benefits.content-inherits-benefit-card",
+        "component:web.benefits.surface-type-is-uniform",
+        "component:web.benefits.fill-width-hug-height",
+        "component:web.benefits.cards-have-equal-height",
+        "component:web.benefits.layout-is-preset-owned",
+        "component:web.benefits.manual-reorder-preserves-responsive-parity",
+        "component:web.benefits.loading-state-is-uniform",
+        "component:web.benefits.surface-colors-use-background-plate-tokens",
+        "component:web.benefits.nested-benefit-card-instance-swap-forbidden",
+        "component:web.benefits.clickability-is-uniform"
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "agentInstructions",
+      "body": [
+        "Не требуй Code Connect или runtime API для Benefits: это Figma-only пресет.",
+        "Не считай отличие вложенной BenefitCard от исходного preset baseline нарушением, если настраиваемые свойства согласованы во всей группе.",
+        "Перед оценкой fill/stroke проверь, относится ли поверхность к разрешённым Border или Colored.",
+        "Не требуй одинакового контента у карточек; проверяй каждую карточку по правилам BenefitCard.",
+        "Не смешивай разрешение разных цветов Border/Colored с разрешением разных типов поверхности.",
+        "Не разрешай raw fill/stroke только потому, что цвета Border или Colored могут различаться.",
+        "Не допускай частичный loading/Skeleton внутри одной группы.",
+        "Не предлагай ручную сборку для трёх или четырёх карточек, если Benefits технически доступен.",
+        "Не требуй одинаковых action targets: проверяй только единообразие наличия действия и контракт каждой BenefitCard.",
+        "Cross-platform parity оценивай только при наличии парных desktop/mobile evidence; иначе проси ручную проверку.",
+        "Не выводи дополнительных ограничений интерактивности без exact BenefitCard rule."
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "variantSemantics",
+      "body": {
+        "Capacity": "Точное число вложенных BenefitCard: только 3 или 4.",
+        "Compact": "Desktop layout mode: viewport ≤1024 px требует True, viewport >1024 px требует False. False — одна строка с gap 24 px; True — gap 16 px и сетка 2 × 2 для Capacity=4.",
+        "View": "Desktop surface context: Page задаёт base-bg-alt, Modal — modal-bg; Border и Colored разрешены как ручные альтернативы."
+      }
+    },
+    {
+      "area": "api",
+      "topic": "nestedBenefitCardPolicy",
+      "body": {
+        "inheritRulesFrom": "ptrn:components.benefit-card",
+        "perCardContentMayDiffer": true,
+        "editableProperties": [
+          "Background",
+          "CardAxis",
+          "Compact",
+          "GraphicPosition"
+        ],
+        "uniformAcrossPreset": true,
+        "uniformSurfaceType": true,
+        "instanceSwapAllowed": false,
+        "allowedPerCardVisualDifferences": {
+          "surfaceTypes": [
+            "Border",
+            "Colored"
+          ],
+          "properties": [
+            "fill",
+            "stroke"
+          ],
+          "tokenBindingRequired": true,
+          "additionalSegmentPaletteRestriction": false
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "responsivePolicy",
+      "body": {
+        "desktopRoot": "🔒 [D] Benefits",
+        "mobileRoot": "🔒 [M] Benefits",
+        "preserveAcrossPlatforms": [
+          "Capacity",
+          "card order",
+          "card content"
+        ],
+        "manualReorderAllowed": true,
+        "reorderMustBeMirroredAcrossPlatforms": true,
+        "mobileSurfaceContext": "inherited from host and nested BenefitCard settings"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "sizing",
+      "body": {
+        "horizontal": "Fill",
+        "vertical": "Hug",
+        "equalCardHeightAcrossPreset": true
+      }
+    },
+    {
+      "area": "api",
+      "topic": "layoutOwnership",
+      "body": {
+        "owner": "Benefits preset",
+        "manualChangesAllowed": false,
+        "properties": [
+          "gap",
+          "padding",
+          "axis",
+          "wrap"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "loadingPolicy",
+      "body": {
+        "uniformAcrossPreset": true,
+        "inheritPerCardRulesFrom": "ptrn:components.benefit-card"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "interactionPolicy",
+      "body": {
+        "containerAction": false,
+        "uniformClickabilityAcrossCards": true,
+        "perCardActionMayDiffer": true,
+        "inheritPerCardRulesFrom": "ptrn:components.benefit-card"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "manualCompositionFallback",
+      "body": {
+        "allowed": true,
+        "onlyWhenCardCountOutsidePresetRange": true,
+        "supportedPresetRange": [
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "compositionPolicy",
+      "body": {
+        "usage": {
+          "context": "landing pages",
+          "minimumCards": 3,
+          "maximumCards": 4,
+          "outsideRangeAllowed": false,
+          "manualBenefitCardCompositionAllowedOutsideRange": true
+        },
+        "capacity": {
+          "3": {
+            "requiredBenefitCards": 3
+          },
+          "4": {
+            "requiredBenefitCards": 4
+          },
+          "manualAddOrRemoveAllowed": false
+        },
+        "desktopLayout": {
+          "Compact=False": {
+            "arrangement": "single-row",
+            "gap": 24
+          },
+          "Compact=True": {
+            "gap": 16,
+            "Capacity=3": "single-row",
+            "Capacity=4": "2x2"
+          },
+          "compactByViewport": {
+            "viewport<=1024": true,
+            "viewport>1024": false
+          }
+        },
+        "desktopSurface": {
+          "View=Page": "base-bg-alt baseline",
+          "View=Modal": "modal-bg baseline",
+          "allowedAlternatives": [
+            "Border",
+            "Colored"
+          ]
+        },
+        "mobileSurface": {
+          "supportedContexts": [
+            "Page",
+            "Modal"
+          ],
+          "viewPropertyExposed": false,
+          "surfaceContextSource": "host container and nested BenefitCard settings"
+        },
+        "responsiveParity": {
+          "breakpointRule": "rule:layout.adaptive-alfa-business.breakpoints",
+          "preserve": [
+            "Capacity",
+            "card order",
+            "card content"
+          ],
+          "manualReorderAllowed": true,
+          "reorderMustBeMirroredAcrossPlatforms": true
+        },
+        "sizing": {
+          "horizontal": "Fill",
+          "vertical": "Hug",
+          "equalCardHeightAcrossPreset": true
+        },
+        "layoutOwnership": {
+          "owner": "Benefits preset",
+          "manualChangesAllowed": false,
+          "properties": [
+            "gap",
+            "padding",
+            "axis",
+            "wrap"
+          ]
+        },
+        "nestedBenefitCards": {
+          "inheritRulesFrom": "ptrn:components.benefit-card",
+          "perCardContentMayDiffer": true,
+          "editableProperties": [
+            "Background",
+            "CardAxis",
+            "Compact",
+            "GraphicPosition"
+          ],
+          "uniformProperties": [
+            "Background",
+            "CardAxis",
+            "Compact",
+            "GraphicPosition"
+          ],
+          "uniformSurfaceType": true,
+          "allowedPerCardVisualDifferences": {
+            "surfaceTypes": [
+              "Border",
+              "Colored"
+            ],
+            "properties": [
+              "fill",
+              "stroke"
+            ],
+            "tokenBindingRequired": true,
+            "additionalSegmentPaletteRestriction": false
+          }
+        },
+        "loading": {
+          "uniformAcrossPreset": true,
+          "mixedLoadingStateAllowed": false,
+          "inheritPerCardRulesFrom": "ptrn:components.benefit-card"
+        },
+        "interaction": {
+          "containerAction": false,
+          "uniformClickabilityAcrossCards": true,
+          "perCardActionMayDiffer": true,
+          "inheritPerCardRulesFrom": "ptrn:components.benefit-card"
+        }
+      }
+    }
+  ]
+}

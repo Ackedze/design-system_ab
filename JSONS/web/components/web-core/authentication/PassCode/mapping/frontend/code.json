@@ -1,0 +1,91 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-pass-code",
+  "import": "@alfalab/core-components/pass-code",
+  "version": "4.0.10",
+  "component": "PassCode",
+  "description": "Компонент для авторизации пользователя с помощью цифрового ключа.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "Код"
+    },
+    {
+      "name": "onChange",
+      "type": "(code: string) => void",
+      "required": true,
+      "description": "Обработчик изменения кода"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "error",
+      "type": "boolean",
+      "description": "Отображение ошибки ввода"
+    },
+    {
+      "name": "success",
+      "type": "boolean",
+      "description": "Отображение успешного ввода"
+    },
+    {
+      "name": "leftAddons",
+      "type": "ReactNode",
+      "description": "Слот слева"
+    },
+    {
+      "name": "rightAddons",
+      "type": "ReactNode",
+      "description": "Слот справа"
+    },
+    {
+      "name": "rightAddonsTitle",
+      "type": "string",
+      "description": "Заголовок для правого слота"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования.\nДля враппера используется модификатор -wrapper, ошибки -error,\nсообщения над клавиатурой -message, блока с кодом -input-progress,\nблока с цифрами -keypad"
+    },
+    {
+      "name": "breakpoint",
+      "type": "number",
+      "default": "1024",
+      "description": "Контрольная точка, с нее начинается desktop версия"
+    },
+    {
+      "name": "client",
+      "type": "\"desktop\" | \"mobile\"",
+      "description": "Версия, которая будет использоваться при серверном рендеринге"
+    },
+    {
+      "name": "defaultMatchMediaValue",
+      "type": "boolean | (() => boolean)",
+      "default": "client === undefined ? undefined : client === 'desktop'",
+      "description": "Значение по-умолчанию для хука useMatchMedia\n@deprecated Используйте client"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Отключает ввод и удаление кода"
+    },
+    {
+      "name": "maxCodeLength",
+      "type": "number",
+      "default": "10",
+      "description": "Максимально возможная длина кода"
+    },
+    {
+      "name": "codeLength",
+      "type": "number",
+      "description": "Длина кода"
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

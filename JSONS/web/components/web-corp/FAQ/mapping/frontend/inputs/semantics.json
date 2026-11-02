@@ -1,0 +1,186 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "FAQ показывает от двух до восьми вопросов в аккордеоне. Promo-версии предназначены только для promo-страниц, универсальная версия — для продуктовых desktop и mobile-web страниц.",
+  "patternRefs": [
+    "faq",
+    "link"
+  ],
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "usageGuidance",
+      "body": [
+        "Используй [D][Promo] FAQ на desktop promo-страницах, [M][Promo] FAQ на mobile-web promo-страницах и FAQ на продуктовых desktop или mobile-web страницах.",
+        "FAQItem является служебной частью FAQ и не используется отдельно.",
+        "Не смешивай семейства FAQ и FAQItem и не заменяй вложенные части через instance swap.",
+        "Показывай не менее двух вопросов. Рекомендуемый максимум — восемь вопросов в одной категории.",
+        "Если вопросов больше восьми, раздели их по категориям и покажи категории в отдельных табах; в каждой категории оставляй не больше восьми вопросов.",
+        "По умолчанию все вопросы закрыты. Одновременно может быть открыт только один FAQItem; открытие нового закрывает предыдущий.",
+        "Повторный клик по открытому вопросу закрывает его. Полностью закрытое состояние допустимо.",
+        "Вся строка вопроса кликабельна; иконка раскрытия фиксирована.",
+        "Вопрос и ответ обязательны. Вопрос ограничен 120 символами, ответ — 800 символами.",
+        "Перенос вопроса на несколько строк разрешён.",
+        "Ссылки допустимы только внутри ответа и должны соответствовать контракту Link.",
+        "Можно менять текст, видимость и порядок вопросов и использовать Open для демонстрации одного раскрытого пункта.",
+        "Promo-поверхности и разделители универсального FAQ нельзя отключать или заменять.",
+        "FAQ использует Fill по ширине и Hug по высоте; внешнюю ширину можно ограничивать сеткой страницы.",
+        "Отступы, интервалы, скругления, заливки, обводки, разделители, типографика, opacity, эффекты и иконка раскрытия должны соответствовать effective baseline."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "contentGuidance",
+      "body": {
+        "question": "Обязательный текст без ссылки, не более 120 символов; перенос строк разрешён.",
+        "answer": "Обязательный текстовый контент не более 800 символов; разрешены абзацы, списки и ссылки.",
+        "links": "Только в ответе и по правилам компонента Link."
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "ruleHighlights",
+      "body": [
+        "component:web-corp.faq.public-roots-only",
+        "component:web-corp.faq.family-must-match-host",
+        "component:web-corp.faq.platform-version-must-match",
+        "component:web-corp.faq.minimum-two-items",
+        "component:web-corp.faq.maximum-eight-per-category",
+        "component:web-corp.faq.single-open-item",
+        "component:web-corp.faq.default-state-is-closed",
+        "component:web-corp.faq.question-and-answer-required",
+        "component:web-corp.faq.question-length-limit",
+        "component:web-corp.faq.answer-length-limit",
+        "component:web-corp.faq.links-only-in-answer",
+        "component:web-corp.faq.visuals-follow-effective-baseline",
+        "component:web-corp.faq.surface-is-fixed-by-family",
+        "component:web-corp.faq.fill-hug-sizing",
+        "component:web-corp.faq.entire-question-row-is-clickable",
+        "component:web-corp.faq.instance-swap-forbidden"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "internalOnly",
+      "body": [
+        "[D][Promo] FAQItem",
+        "[M][Promo] FAQItem",
+        "FAQItem",
+        "🔩 AccordionHeader",
+        "🔩 AccordionControl",
+        "🔩 AccordionBody"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "allowedOverrides",
+      "body": {
+        "text": [
+          "question",
+          "answer",
+          "answer links"
+        ],
+        "componentProperties": [
+          "FAQItem.Open"
+        ],
+        "composition": [
+          "FAQItem visibility",
+          "FAQItem order",
+          "duplicate matching FAQItem up to 8 per category"
+        ],
+        "layout": [
+          "outer container width according to page grid"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "forbiddenOverrides",
+      "body": [
+        "standalone FAQItem",
+        "cross-family instance swap",
+        "manual typography",
+        "manual fill or stroke",
+        "manual padding or gap",
+        "manual radius",
+        "manual divider",
+        "manual control icon",
+        "manual opacity or effects",
+        "surface replacement"
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "compositionPolicy",
+      "body": {
+        "familyMatrix": {
+          "[D][Promo] FAQ": "[D][Promo] FAQItem",
+          "[M][Promo] FAQ": "[M][Promo] FAQItem",
+          "FAQ": "FAQItem"
+        },
+        "crossFamilyCompositionAllowed": false,
+        "platforms": {
+          "[D][Promo] FAQ": "desktop promo pages only",
+          "[M][Promo] FAQ": "mobile-web promo pages only",
+          "FAQ": "desktop and mobile-web product pages"
+        },
+        "items": {
+          "minimum": 2,
+          "recommendedMaximum": 8,
+          "overMaximum": "warning: divide questions into categories and render each category in a separate tab",
+          "maximumPerCategory": 8,
+          "visibilityChangeAllowed": true,
+          "manualReorderAllowed": true,
+          "duplicateAllowedWithinMaximum": true
+        },
+        "accordion": {
+          "defaultOpenItems": 0,
+          "maximumOpenItems": 1,
+          "openingItemClosesPrevious": true,
+          "clickingOpenItemClosesIt": true,
+          "allClosedAllowed": true,
+          "clickTarget": "entire-question-row",
+          "controlIcon": "fixed"
+        },
+        "content": {
+          "questionRequired": true,
+          "answerRequired": true,
+          "questionMaxCharacters": 120,
+          "answerMaxCharacters": 800,
+          "limitViolationSeverity": "error",
+          "questionLineWrapAllowed": true,
+          "questionLinksAllowed": false,
+          "answerContent": "textual content including paragraphs, lists and links",
+          "answerLinksAllowed": true,
+          "answerLinksContract": "Link"
+        },
+        "sizing": {
+          "horizontal": "Fill",
+          "vertical": "Hug",
+          "outerWidthMayFollowPageGrid": true
+        },
+        "surfaces": {
+          "[D][Promo] FAQ": "built-in [D][Promo] BackgroundPlate",
+          "[M][Promo] FAQ": "built-in [M][Promo] BackgroundPlate",
+          "FAQ": "no background plate; built-in dividers"
+        },
+        "visualBaseline": {
+          "manualChangesAllowed": false,
+          "properties": [
+            "padding",
+            "gap",
+            "radius",
+            "fill",
+            "stroke",
+            "divider",
+            "typography",
+            "control icon",
+            "opacity",
+            "effects"
+          ],
+          "baseline": "effective baseline"
+        },
+        "instanceSwapAllowed": false
+      }
+    }
+  ]
+}

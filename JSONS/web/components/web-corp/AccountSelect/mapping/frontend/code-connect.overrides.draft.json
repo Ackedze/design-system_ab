@@ -1,0 +1,37 @@
+{
+  "$schema": "hub/code-connect.overrides.draft@1",
+  "description": "ЧЕРНОВИК: сборка его не читает. Проверь записи и прими: node tools/code-connect-drafts.mjs --accept <id> [--min high].",
+  "generatedAt": "2026-10-13",
+  "properties": [
+    {
+      "figma": "SelectType",
+      "react": "multiple",
+      "values": {
+        "Single": false,
+        "Multi": true
+      },
+      "confidence": "high",
+      "reason": "multiple наследуется от core Select"
+    }
+  ],
+  "figmaOnly": [
+    {
+      "property": "Grouped",
+      "workaround": "Группировка счетов определяется данными accounts",
+      "confidence": "medium",
+      "reason": "Нет пропа grouped; группы строятся из данных"
+    },
+    {
+      "property": "Presets",
+      "workaround": "Формат строки счёта (name / name + sum / number) задаётся данными accounts и accountNumberFirst",
+      "confidence": "medium",
+      "reason": "Пресеты отображения — производная от данных"
+    },
+    {
+      "property": "Type",
+      "workaround": "Тип строки счёта задаётся данными; SwapMe и ❌ Number — нарушение паттерна account-select",
+      "confidence": "medium",
+      "reason": "AccountItem — внутренняя часть списка"
+    }
+  ]
+}

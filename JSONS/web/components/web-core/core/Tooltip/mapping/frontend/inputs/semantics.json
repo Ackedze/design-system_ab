@@ -1,0 +1,48 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "Tooltip содержит два сценария подсказок: View=Tooltip для самостоятельного контекстного пояснения и View=Hint для короткого объяснения значения связанного элемента.",
+  "patternRefs": [
+    "tooltip-hint"
+  ],
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "usageGuidance",
+      "body": [
+        "Используй View=Tooltip для подсказки на Info-иконку, сложный термин, механику, состояние, ошибку или предупреждение.",
+        "Используй View=Hint для короткого ответа на вопросы «Что это?», «Что сделать?» или «Что внутри?» у иконки, кнопки, графического элемента или обрезанного текста.",
+        "Если пользователь поймёт интерфейс без подсказки, компонент не нужен.",
+        "Критически важную информацию показывай сразу на странице, а не внутри подсказки.",
+        "На mobile-web и mobile подсказка должна отображаться как Bottom Sheet с кнопкой «Понятно»."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "contentGuidance",
+      "body": [
+        "Tooltip должен быть коротким и самостоятельным, рекомендуется до 200 символов.",
+        "Hint должен быть максимально коротким, рекомендуется до 70 символов.",
+        "В Hint не используются точка в конце, ссылки, списки, несколько абзацев и bold-выделение.",
+        "В Tooltip не повторяется термин, рядом с которым стоит подсказка."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "ruleHighlights",
+      "body": [
+        {
+          "ruleId": "component:web-core.tooltip.default-colors-only",
+          "message": "Допустимо только Colors=Default; Colors=Inverted считается нарушением."
+        },
+        {
+          "ruleId": "rule:controls.tooltip-hint.show-critical-info-inline",
+          "message": "Важную информацию нельзя прятать в Tooltip или Hint."
+        },
+        {
+          "ruleId": "rule:controls.tooltip-hint.no-onboarding-in-tooltip",
+          "message": "Для обучения новой функции используй Onboarding Hint, а не обычный Tooltip."
+        }
+      ]
+    }
+  ]
+}

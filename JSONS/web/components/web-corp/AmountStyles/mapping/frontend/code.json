@@ -1,0 +1,110 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "arui-private",
+  "import": "arui-private/corporate-amount",
+  "version": "80.10.0",
+  "component": "CorporateAmount",
+  "exports": [
+    "CorporateAmount"
+  ],
+  "props": [
+    {
+      "name": "amount",
+      "type": "{ readonly amount?: number; readonly currency?: { readonly code?: number; readonly mnemonicCode?: string; readonly minorUnits?: number; readonly unicodeSymbol?: string; readonly fullName?: string; }; }",
+      "required": true
+    },
+    {
+      "name": "data-test-id",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "theme",
+      "type": "ThemeType",
+      "values": [
+        "alfa-on-color",
+        "alfa-on-white",
+        "grey"
+      ],
+      "description": "Тема"
+    },
+    {
+      "name": "bold",
+      "type": "\"full\" | \"major\" | \"none\"",
+      "values": [
+        "full",
+        "major",
+        "none"
+      ],
+      "description": "Управление жирностью\n@deprecated Используйте проп {@link AmountProps.fontWeight }",
+      "from": "@alfalab/core-components-amount"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс",
+      "from": "@alfalab/core-components-amount"
+    },
+    {
+      "name": "codeFormat",
+      "type": "\"letter\" | \"symbolic\"",
+      "values": [
+        "letter",
+        "symbolic"
+      ],
+      "description": "Формат отображения кода валюты",
+      "from": "@alfalab/core-components-amount"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования",
+      "from": "@alfalab/core-components-amount"
+    },
+    {
+      "name": "fontWeight",
+      "type": "\"bold\" | \"medium\" | { readonly major: \"bold\" | \"medium\"; }",
+      "description": "Управление жирностью",
+      "from": "@alfalab/core-components-amount"
+    },
+    {
+      "name": "rightAddons",
+      "type": "ReactNode",
+      "description": "Слот справа",
+      "from": "@alfalab/core-components-amount"
+    },
+    {
+      "name": "showPlus",
+      "type": "boolean",
+      "description": "Показывать значок + для положительных значений",
+      "from": "@alfalab/core-components-amount"
+    },
+    {
+      "name": "transparentMinor",
+      "type": "boolean",
+      "description": "Делает минорную часть полупрозрачной",
+      "from": "@alfalab/core-components-amount"
+    },
+    {
+      "name": "trimZero",
+      "type": "boolean",
+      "default": "false",
+      "description": "Обрезать ноль в минорной части. Например: 1.70 -> 1.7",
+      "from": "@alfalab/core-components-amount"
+    },
+    {
+      "name": "view",
+      "type": "\"default\" | \"withZeroMinorPart\"",
+      "values": [
+        "default",
+        "withZeroMinorPart"
+      ],
+      "description": "default - не отображаем копейки, если их значение 0\nwithZeroMinorPart - отображаем копейки, даже если их значение равно 0",
+      "from": "@alfalab/core-components-amount"
+    }
+  ],
+  "status": {
+    "lifecycle": "deprecated",
+    "since": "2024-09-30"
+  }
+}

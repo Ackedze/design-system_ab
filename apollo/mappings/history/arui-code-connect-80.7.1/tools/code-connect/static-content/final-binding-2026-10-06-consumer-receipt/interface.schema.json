@@ -1,0 +1,501 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Stage1 interface definitions only. No actual pins, request, vectors or receipt. Raw byte checks, coverage, trust and finite-order rules are enforced in code; choose the relevant $defs entry.",
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^/",
+          "description": "Normalized absolute path; runtime also rejects traversal, duplicates and backslashes."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "outputPin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "inputHash",
+        "planHash",
+        "contentHash",
+        "observationHash"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^/",
+          "description": "Normalized absolute path; runtime also rejects traversal, duplicates and backslashes."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "inputHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "planHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "contentHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "observationHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "vector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "phase",
+        "files",
+        "buildInputs"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "apollo.static-review-consumer-vector.v1-draft"
+        },
+        "phase": {
+          "enum": [
+            "preselection",
+            "final"
+          ]
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "buildInputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "runId",
+        "accepted",
+        "executionAllowed",
+        "generationPlanHash",
+        "vectorPin",
+        "c0ArchivePin",
+        "configPin",
+        "buildManifestPin",
+        "versions",
+        "approvedChanges",
+        "newFiles",
+        "cases"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "apollo.static-final-binding-request.v1-draft"
+        },
+        "runId": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+        },
+        "accepted": {
+          "const": false
+        },
+        "executionAllowed": {
+          "const": false
+        },
+        "generationPlanHash": {
+          "type": "null"
+        },
+        "vectorPin": {
+          "$ref": "#/$defs/pin"
+        },
+        "c0ArchivePin": {
+          "$ref": "#/$defs/pin"
+        },
+        "configPin": {
+          "$ref": "#/$defs/pin"
+        },
+        "buildManifestPin": {
+          "$ref": "#/$defs/pin"
+        },
+        "versions": {
+          "type": "object",
+          "required": [
+            "core",
+            "apolloV4"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "approvedChanges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "beforeSha256",
+              "afterSha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^/",
+                "description": "Normalized absolute path; runtime also rejects traversal, duplicates and backslashes."
+              },
+              "beforeSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "afterSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        },
+        "newFiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "cases": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "spec"
+            ],
+            "properties": {
+              "id": {
+                "enum": [
+                  "supported",
+                  "unsupported-view",
+                  "unsupported-priority"
+                ]
+              },
+              "spec": {
+                "type": "object",
+                "description": "Actual closed static v1 spec, validated by the unchanged producer and Generation. This schema does not replace runtime validation."
+              }
+            }
+          }
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "status",
+        "accepted",
+        "executionAllowed",
+        "generationPlanHash",
+        "baselineVectorPin",
+        "producer",
+        "preselection",
+        "selection",
+        "final",
+        "closurePins",
+        "additions"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "apollo.static-review-consumer-binding.v1-draft"
+        },
+        "status": {
+          "const": "draft"
+        },
+        "accepted": {
+          "const": false
+        },
+        "executionAllowed": {
+          "const": false
+        },
+        "generationPlanHash": {
+          "type": "null"
+        },
+        "baselineVectorPin": {
+          "$ref": "#/$defs/pin"
+        },
+        "producer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "manifestPin",
+            "basisPin",
+            "artifactDigest",
+            "outputs"
+          ],
+          "properties": {
+            "manifestPin": {
+              "$ref": "#/$defs/pin"
+            },
+            "basisPin": {
+              "$ref": "#/$defs/pin"
+            },
+            "artifactDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "outputs": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "$ref": "#/$defs/outputPin"
+              }
+            }
+          }
+        },
+        "preselection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vectorPin",
+            "configArchivePin",
+            "configPath",
+            "configSha256"
+          ],
+          "properties": {
+            "vectorPin": {
+              "$ref": "#/$defs/pin"
+            },
+            "configArchivePin": {
+              "$ref": "#/$defs/pin"
+            },
+            "configPath": {
+              "type": "string",
+              "pattern": "^/",
+              "description": "Normalized absolute path; runtime also rejects traversal, duplicates and backslashes."
+            },
+            "configSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "selection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "configPin",
+            "manifestPin",
+            "reportPin"
+          ],
+          "properties": {
+            "configPin": {
+              "$ref": "#/$defs/pin"
+            },
+            "manifestPin": {
+              "$ref": "#/$defs/pin"
+            },
+            "reportPin": {
+              "$ref": "#/$defs/pin"
+            }
+          }
+        },
+        "final": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vectorPin",
+            "buildManifestPin",
+            "runtimePins"
+          ],
+          "properties": {
+            "vectorPin": {
+              "$ref": "#/$defs/pin"
+            },
+            "buildManifestPin": {
+              "$ref": "#/$defs/pin"
+            },
+            "runtimePins": {
+              "type": "array",
+              "minItems": 6,
+              "maxItems": 6,
+              "items": {
+                "$ref": "#/$defs/pin"
+              }
+            }
+          }
+        },
+        "closurePins": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "additions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "role",
+              "pin"
+            ],
+            "properties": {
+              "role": {
+                "enum": [
+                  "producer",
+                  "basis",
+                  "output",
+                  "request",
+                  "config-archive",
+                  "preselection-vector"
+                ]
+              },
+              "pin": {
+                "$ref": "#/$defs/pin"
+              }
+            }
+          }
+        }
+      }
+    },
+    "localContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "roots",
+        "requestPin",
+        "baselineVectorPin",
+        "baselineManifestPin",
+        "baselineReportPin",
+        "toolPins",
+        "immutablePins",
+        "manifestPin",
+        "reportPin",
+        "receiptPin"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": "apollo.static-final-binding-local-context.v1-draft"
+        },
+        "roots": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "workspace",
+            "producer",
+            "generation"
+          ],
+          "properties": {
+            "workspace": {
+              "type": "string",
+              "pattern": "^/",
+              "description": "Normalized absolute path; runtime also rejects traversal, duplicates and backslashes."
+            },
+            "producer": {
+              "type": "string",
+              "pattern": "^/",
+              "description": "Normalized absolute path; runtime also rejects traversal, duplicates and backslashes."
+            },
+            "generation": {
+              "type": "string",
+              "pattern": "^/",
+              "description": "Normalized absolute path; runtime also rejects traversal, duplicates and backslashes."
+            }
+          }
+        },
+        "requestPin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/pin"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "baselineVectorPin": {
+          "$ref": "#/$defs/pin"
+        },
+        "baselineManifestPin": {
+          "$ref": "#/$defs/pin"
+        },
+        "baselineReportPin": {
+          "$ref": "#/$defs/pin"
+        },
+        "toolPins": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "immutablePins": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "manifestPin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/pin"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reportPin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/pin"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "receiptPin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/pin"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

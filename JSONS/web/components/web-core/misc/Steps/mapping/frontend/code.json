@@ -1,0 +1,119 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-steps",
+  "import": "@alfalab/core-components/steps",
+  "version": "3.0.8",
+  "component": "Steps",
+  "description": "Используется для разделения сложной формы или анкеты на последовательные шаги.",
+  "props": [
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "defaultActiveStep",
+      "type": "number",
+      "default": 1,
+      "description": "Активный шаг, указанный по умолчанию"
+    },
+    {
+      "name": "activeStep",
+      "type": "number",
+      "description": "Активный шаг"
+    },
+    {
+      "name": "isMarkCompletedSteps",
+      "type": "boolean",
+      "default": true,
+      "description": "Управление возможностью отключения пометки пройденного шага"
+    },
+    {
+      "name": "checkIsStepDisabled",
+      "type": "((stepNumber: number) => boolean)",
+      "description": "Кастомный метод для управления состоянием disabled шага и\nвозможностью перехода на этот шаг\n@param stepNumber - номер шага\n@return Флаг состояния disabled"
+    },
+    {
+      "name": "checkIsStepError",
+      "type": "((stepNumber: number) => boolean)",
+      "description": "Кастомный метод для управления состоянием шага error\n@param stepNumber - номер шага\n@return Флаг состояния error"
+    },
+    {
+      "name": "checkIsStepCriticalError",
+      "type": "((stepNumber: number) => boolean)",
+      "description": "Кастомный метод для управления состоянием шага criticalError\n@param stepNumber - номер шага\n@return Флаг состояния error"
+    },
+    {
+      "name": "checkIsStepWarning",
+      "type": "((stepNumber: number) => boolean)",
+      "description": "Кастомный метод для управления состоянием шага warning\n@param stepNumber - номер шага\n@return Флаг состояния warning"
+    },
+    {
+      "name": "checkIsStepWaiting",
+      "type": "((stepNumber: number) => boolean)",
+      "description": "Кастомный метод для управления состоянием шага waiting\n@param stepNumber - номер шага\n@return Флаг состояния waiting"
+    },
+    {
+      "name": "checkIsStepPositive",
+      "type": "((stepNumber: number) => boolean)",
+      "description": "Кастомный метод для управления состоянием шага positive\n@param stepNumber - номер шага\n@return Флаг состояния positive"
+    },
+    {
+      "name": "checkIsStepCustom",
+      "type": "((stepNumber: number) => StepIndicatorProps | null)",
+      "description": "Кастомный метод для установки кастомного индикатора шага\n@param stepNumber - номер шага\n@return Объект StepIndicatorProps { className, content, iconColor } или null"
+    },
+    {
+      "name": "onChange",
+      "type": "((stepNumber: number) => void)",
+      "description": "Обработчик клика на шаг\n@param stepNumber - номер активного шага"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Дочерние элементы"
+    },
+    {
+      "name": "isVerticalAlign",
+      "type": "boolean",
+      "default": false,
+      "description": "Управление ориентацией компонента"
+    },
+    {
+      "name": "ordered",
+      "type": "boolean",
+      "default": true,
+      "description": "Управление отображением номера шага"
+    },
+    {
+      "name": "interactive",
+      "type": "boolean",
+      "default": true,
+      "description": "Включение / отключение интерактивности шагов"
+    },
+    {
+      "name": "fullWidth",
+      "type": "boolean",
+      "default": false,
+      "description": "Растягивание шагов на всю ширину блока для вертикальной ориентации"
+    },
+    {
+      "name": "minSpaceBetweenSteps",
+      "type": "8 | 16 | 24 | 32",
+      "default": 24,
+      "description": "Минимальное расстояние между шагами для горизонтального расположения компонента\n@description Значение 8 устарело и будет удалено в будущих версиях. Используйте 16, 24 или 32."
+    },
+    {
+      "name": "completedDashColor",
+      "type": "string",
+      "description": "Цвет тире выполненного шага"
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

@@ -1,0 +1,438 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "FileUpload используется для прикрепления одного или нескольких файлов в форме, контентном блоке, модальном окне или Mobile Web-сценарии. Для рекомендаций используй exact component rules и pattern rules; не выводи дизайн-запреты только из сгенерированного контекста.",
+  "patternRefs": [
+    "file-upload"
+  ],
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "usageGuidance",
+      "body": [
+        "Primary применяй для загрузки файла непосредственно в форме.",
+        "Secondary применяй внутри информационного блока или раздела страницы.",
+        "Публичными компонентами являются только [D] FileUpload и [M] FileUpload. [D]/[M] Attach — служебные части и не используются отдельно.",
+        "State=Disable запрещает загрузку новых файлов, но сохраняет взаимодействие с уже загруженными файлами.",
+        "При валидации обязательного блока без файлов весь FileUpload принимает State=Error. Ошибки отдельных FileUploadItem независимы и могут различаться. Общая ошибка и ошибки отдельных файлов не отображаются одновременно.",
+        "Снимай общий State=Error только после успешной повторной валидации блока.",
+        "Процесс загрузки файла показывай через FileUploadItem Preset=Uploading.",
+        "Подробные состояния и внутренняя модель FileUploadItem будут описаны в отдельном пакете документов; не придумывай дополнительные правила FileUploadItem из структуры FileUpload.",
+        "Скачать и удалить файл можно во всех состояниях. Повторная загрузка доступна только в Error и Default.",
+        "В State=Disable Border не используется.",
+        "Border доступен только в [D] FileUpload: в View=Primary и View=Secondary, кроме State=Disable. В [M] FileUpload Border запрещён.",
+        "Файлы располагаются в порядке загрузки; менять порядок вручную нельзя.",
+        "Показывай полный список загруженных файлов: не сворачивай его и не скрывай отдельные элементы.",
+        "При расчёте лимита учитывай все элементы списка, включая Uploading и Error.",
+        "«Ещё N» показывает число дополнительных допустимых расширений, а не скрытые загруженные файлы.",
+        "Counter «Всего файлов N» показывает общее количество элементов списка, включая Uploading и Error.",
+        "Counter рекомендуется показывать при единовременной загрузке более 50 файлов.",
+        "Настраивай вложенный TitleView только через параметры, разрешённые контрактом TitleView соответствующего размера. Title обязателен, Subtitle можно скрыть.",
+        "[D] и [M] FileUpload должны иметь Fill по ширине и Hug по высоте.",
+        "Layout и визуальные стили FileUpload/FileUploadItem следуют effective baseline и не меняются вручную.",
+        "Разрешённые text overrides: Title, Subtitle, число N в Counter, File extension, название файла и значения внутри квадратных скобок.",
+        "Скрывай или добавляй части FileUpload только через предусмотренные свойства компонента.",
+        "На desktop вся область Dropzone кликабельна и открывает системный выбор файла; также доступен drag-and-drop, компонент имеет подложку.",
+        "На Mobile Web системный выбор файла открывается только по нажатию на кнопку; отдельной подложки у FileUpload нет.",
+        "Модальный сценарий подходит для массовой загрузки или когда нужна дополнительная информация о процессе загрузки.",
+        "После достижения максимального количества файлов Dropzone остаётся видимым, а весь FileUpload переходит в State=Disable.",
+        "После удаления файла из Disable возвращай FileUpload в Default только если сценарий допускает дальнейшую загрузку и количество элементов стало меньше лимита.",
+        "В пустом состоянии скрывай FilesGroup и Counter.",
+        "Если ожидается больше 50 файлов за раз, рекомендуй счётчик общего количества элементов списка.",
+        "Для действий с файлами используй иконки и tooltip, не текстовые кнопки."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "contentGuidance",
+      "body": {
+        "formatNames": "Пиши форматы без точки: docx, xls, pdf.",
+        "formatList": "Если форматов больше трёх, показывай первые три и ', ещё N'.",
+        "singleFileLimit": "Не больше N МБ",
+        "multiFileCountLimit": "До N МБ каждый, всего — не больше M файлов",
+        "multiFileTotalSizeLimit": "До N МБ каждый, всего — не больше M МБ",
+        "requiredFileError": "Прикрепите файл",
+        "sizeError": "Нужен файл не больше N МБ",
+        "formatError": "Нужен docx, xls или pdf / Формат не подходит",
+        "formatAndSizeError": "Нужен pdf, png или jpg не больше N МБ",
+        "uploadFailureError": "Не получилось загрузить, попробуйте ещё раз"
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "ruleHighlights",
+      "body": [
+        "component:web-corp.file-upload.constraints-visible-before-upload",
+        "component:web-corp.file-upload.single-file-disables-file-upload",
+        "component:web-corp.file-upload.disable-file-upload-at-max-files",
+        "component:web-corp.file-upload.format-names-without-dot",
+        "component:web-corp.file-upload.max-three-formats-before-more",
+        "component:web-corp.file-upload.file-actions-use-icons",
+        "component:web-corp.file-upload.public-roots-only",
+        "component:web-corp.file-upload.view-semantics",
+        "component:web-corp.file-upload.disable-blocks-new-upload-only",
+        "component:web-corp.file-upload.slots-use-component-properties",
+        "component:web-corp.file-upload.platform-interaction-and-surface",
+        "component:web-corp.file-upload.block-and-item-errors-are-separate",
+        "component:web-corp.file-upload.uploading-uses-file-item-preset",
+        "component:web-corp.file-upload.file-actions-follow-state",
+        "component:web-corp.file-upload.disable-hides-border",
+        "component:web-corp.file-upload.text-overrides-are-limited",
+        "component:web-corp.file-upload.file-item-details-are-delegated",
+        "component:web-corp.file-upload.file-order-follows-upload",
+        "component:web-corp.file-upload.more-counts-extensions-only",
+        "component:web-corp.file-upload.counter-counts-all-list-items",
+        "component:web-corp.file-upload.visuals-follow-effective-baseline",
+        "component:web-corp.file-upload.error-clears-after-successful-validation",
+        "component:web-corp.file-upload.border-platform-matrix",
+        "component:web-corp.file-upload.title-view-follows-own-contract",
+        "component:web-corp.file-upload.fill-hug-sizing",
+        "component:web-corp.file-upload.file-list-is-always-expanded",
+        "component:web-corp.file-upload.desktop-dropzone-is-clickable",
+        "component:web-corp.file-upload.title-required-subtitle-optional",
+        "component:web-corp.file-upload.root-and-file-errors-are-exclusive",
+        "component:web-corp.file-upload.limit-counts-all-list-items",
+        "component:web-corp.file-upload.mobile-selection-uses-button-only",
+        "component:web-corp.file-upload.empty-state-hides-file-list"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "publicBoundary",
+      "body": {
+        "publicComponents": [
+          {
+            "name": "[D] FileUpload",
+            "platform": "desktop"
+          },
+          {
+            "name": "[M] FileUpload",
+            "platform": "mobile-web"
+          }
+        ],
+        "internalComponents": [
+          "[D] Attach",
+          "[M] Attach"
+        ],
+        "standaloneUseOfInternalComponentsAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "viewPolicy",
+      "body": {
+        "Primary": "Самостоятельный блок загрузки файлов.",
+        "Secondary": "Блок загрузки, расположенный внутри другого блока или поверхности."
+      }
+    },
+    {
+      "area": "api",
+      "topic": "statePolicy",
+      "body": {
+        "Default": "Доступна загрузка новых файлов.",
+        "Error": {
+          "blockValidation": "При валидации обязательного блока без файлов весь FileUpload принимает Error.",
+          "reset": "State=Error снимается только после успешной повторной валидации блока.",
+          "fileValidation": "Каждый FileUploadItem может иметь собственный тип ошибки независимо от других файлов.",
+          "rootAndFileErrorsMayCoexist": false
+        },
+        "Disable": {
+          "newUploadAllowed": false,
+          "existingFileInteractionsAllowed": true,
+          "Border": false
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "fileItemPolicy",
+      "body": {
+        "detailedContract": "Отдельный пакет документов FileUploadItem.",
+        "uploadingState": {
+          "component": "FileUploadItem",
+          "Preset": "Uploading"
+        },
+        "actions": {
+          "download": [
+            "Default",
+            "Error",
+            "Disable",
+            "Uploading"
+          ],
+          "delete": [
+            "Default",
+            "Error",
+            "Disable",
+            "Uploading"
+          ],
+          "retry": [
+            "Default",
+            "Error"
+          ]
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "fileListPolicy",
+      "body": {
+        "order": "upload-order",
+        "manualReorderAllowed": false,
+        "display": "full-list",
+        "collapseAllowed": false,
+        "hiddenFilesAllowed": false,
+        "limitCount": "all-list-items-including-uploading-and-error"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "moreExtensionsPolicy",
+      "body": {
+        "meaning": "Количество дополнительных допустимых расширений файлов.",
+        "appliesToUploadedFilesCount": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "counterPolicy",
+      "body": {
+        "label": "Всего файлов",
+        "value": "Общее количество элементов списка, включая Uploading и Error.",
+        "visibility": "Рекомендуется показывать при единовременной загрузке более 50 файлов."
+      }
+    },
+    {
+      "area": "api",
+      "topic": "titleViewPolicy",
+      "body": {
+        "configuration": "Используй только параметры, разрешённые контрактом TitleView соответствующего размера.",
+        "Title": "required",
+        "Subtitle": "optional"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "sizingPolicy",
+      "body": {
+        "desktop": {
+          "horizontal": "Fill",
+          "vertical": "Hug"
+        },
+        "mobile-web": {
+          "horizontal": "Fill",
+          "vertical": "Hug"
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "visualBaselinePolicy",
+      "body": {
+        "manualChangesAllowed": false,
+        "properties": [
+          "padding",
+          "gap",
+          "radius",
+          "fill",
+          "stroke",
+          "typography",
+          "icon size"
+        ],
+        "baseline": "effective baseline"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "textOverridePolicy",
+      "body": {
+        "allowed": [
+          "Title",
+          "Subtitle",
+          "Counter.N",
+          "File extension",
+          "file name",
+          "values inside square brackets"
+        ],
+        "examples": [
+          "До [20] МБ каждый, всего — не больше [5] файлов",
+          "До [30] МБ каждый, всего — не больше [10] файлов"
+        ],
+        "otherTextOverridesAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "slotPolicy",
+      "body": {
+        "visibilityAndPresence": "Управляются только штатными свойствами компонента.",
+        "manualDetachOrLayerVisibilityOverrideAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "platformPolicy",
+      "body": {
+        "desktop": {
+          "component": "[D] FileUpload",
+          "fileSelection": [
+            "system-picker",
+            "drag-and-drop"
+          ],
+          "dropzoneClickTarget": "entire-dropzone",
+          "backgroundSurface": true,
+          "Border": {
+            "allowedViews": [
+              "Primary",
+              "Secondary"
+            ],
+            "forbiddenStates": [
+              "Disable"
+            ]
+          }
+        },
+        "mobile-web": {
+          "component": "[M] FileUpload",
+          "fileSelection": [
+            "system-picker"
+          ],
+          "fileSelectionClickTarget": "attach-button-only",
+          "dragAndDropAllowed": false,
+          "backgroundSurface": false,
+          "Border": false
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "maxFilesPolicy",
+      "body": {
+        "whenListItemsReachLimit": {
+          "componentState": "Disable",
+          "dropzoneVisible": true
+        },
+        "afterFileDeletion": {
+          "componentState": "Default",
+          "condition": "Сценарий допускает дальнейшую загрузку и количество элементов списка стало меньше лимита."
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "emptyStatePolicy",
+      "body": {
+        "FilesGroup": false,
+        "Counter": false
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "compositionPolicy",
+      "body": {
+        "views": {
+          "Primary": "standalone",
+          "Secondary": "inside-another-block"
+        },
+        "disableState": {
+          "newUploadAllowed": false,
+          "existingFileInteractionsAllowed": true,
+          "Border": false
+        },
+        "validation": {
+          "block": "required block with zero files -> root State=Error",
+          "reset": "root State=Error -> Default only after successful repeated block validation",
+          "file": "each FileUploadItem owns its independent error type",
+          "rootAndFileErrorsMayCoexist": false
+        },
+        "fileItem": {
+          "detailedContract": "separate FileUploadItem package",
+          "uploading": "FileUploadItem Preset=Uploading",
+          "actions": {
+            "download": "all states",
+            "delete": "all states",
+            "retry": [
+              "Default",
+              "Error"
+            ]
+          }
+        },
+        "fileList": {
+          "order": "upload-order",
+          "manualReorderAllowed": false,
+          "display": "full-list",
+          "collapseAllowed": false,
+          "limitCount": "all list items including Uploading and Error"
+        },
+        "moreExtensions": {
+          "meaning": "additional allowed file extensions",
+          "appliesToUploadedFilesCount": false
+        },
+        "counter": {
+          "label": "Всего файлов",
+          "value": "all list items including Uploading and Error",
+          "visibility": "recommended for batches over 50 files"
+        },
+        "titleView": {
+          "configuration": "use only parameters allowed by the TitleView contract for the current size",
+          "Title": "required",
+          "Subtitle": "optional"
+        },
+        "sizing": {
+          "desktop": "Fill/Hug",
+          "mobile-web": "Fill/Hug"
+        },
+        "visualBaseline": {
+          "manualChangesAllowed": false,
+          "properties": [
+            "padding",
+            "gap",
+            "radius",
+            "fill",
+            "stroke",
+            "typography",
+            "icon size"
+          ],
+          "baseline": "effective baseline"
+        },
+        "textOverrides": {
+          "allowed": [
+            "Title",
+            "Subtitle",
+            "Counter.N",
+            "File extension",
+            "file name",
+            "values inside square brackets"
+          ],
+          "otherTextOverridesAllowed": false
+        },
+        "slotVisibility": "component-properties-only",
+        "platforms": {
+          "desktop": {
+            "fileSelection": [
+              "system-picker",
+              "drag-and-drop"
+            ],
+            "dropzoneClickTarget": "entire-dropzone",
+            "backgroundSurface": true,
+            "Border": "allowed in Primary and Secondary except State=Disable"
+          },
+          "mobile-web": {
+            "fileSelection": [
+              "system-picker"
+            ],
+            "fileSelectionClickTarget": "attach-button-only",
+            "backgroundSurface": false,
+            "Border": false
+          }
+        },
+        "maxFiles": {
+          "componentState": "Disable",
+          "dropzoneVisible": true,
+          "returnToDefaultAfterDeletion": "only when the scenario allows further uploads and list count is below the limit"
+        },
+        "emptyState": {
+          "FilesGroup": false,
+          "Counter": false
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,639 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "AmountStyles предоставляет Figma-only presets AmountHeadline для крупных акцентных сумм и AmountParagraph для таблиц, списков, карточек и второстепенных значений. Operation является внутренней частью и не используется отдельно.",
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "availability",
+      "body": {
+        "figmaOnlyPresets": [
+          "🔒 [D] AmountHeadline",
+          "🔒 [M] AmountHeadline",
+          "🔒 AmountParagraph"
+        ],
+        "codeExports": [],
+        "internalOnly": [
+          "Operation"
+        ]
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "partDefaults",
+      "body": {
+        "Major": "required",
+        "Minor": true,
+        "Currency": true,
+        "Operation": false,
+        "Addon": false
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "contentPolicy",
+      "body": {
+        "editableTextLayers": [
+          "Major",
+          "Minor",
+          "Currency"
+        ],
+        "requiredLayers": [
+          "Major"
+        ],
+        "addonComponents": [
+          "IconView",
+          "StatusBadge"
+        ],
+        "addonMaxHeight": "Line-height текстовой части Amount.",
+        "addonColorPolicy": "IconView и StatusBadge сохраняют собственные контекстные цвета и не обязаны совпадать с цветом текстовых частей Amount."
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "anatomyPolicy",
+      "body": {
+        "fixedOrder": "Operation → Major → Minor → Currency → Addon",
+        "reorderAllowed": false
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "usagePolicy",
+      "body": {
+        "AmountInput": "Внутри AmountInput используется Web Core Amount; контракт Web Corp AmountStyles к нему не применяется."
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "currencyPolicy",
+      "body": {
+        "allowedTypes": "Любой штатный Type.",
+        "customPurpose": "Type=Custom используется для отсутствующего в штатных Type кода валюты или символа."
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "responsivePolicy",
+      "body": {
+        "desktopHeadline": "🔒 [D] AmountHeadline используется только на desktop.",
+        "mobileWebHeadline": "🔒 [M] AmountHeadline используется только на mobile-web.",
+        "paragraph": "🔒 AmountParagraph применяется на desktop и mobile-web."
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "valueFormatPolicy",
+      "body": {
+        "locale": "ru-RU",
+        "minorDigits": "Один или два знака.",
+        "moreThanTwoMinorDigits": "Округлить до двух знаков.",
+        "majorMaxCharacters": "13 без учёта математических пробелов между разрядами.",
+        "zero": "0 или 0,00.",
+        "unknown": "Не используй Amount; выведи отдельным текстовым элементом длинное тире —.",
+        "negativeParentheses": false
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "valueDomainPolicy",
+      "body": {
+        "allowed": "Денежные суммы и балансы.",
+        "points": "Поддерживаются компонентом, но требуют отдельного паттерна.",
+        "excluded": "Проценты и произвольные числовые величины с единицами."
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "publicComponentProperties",
+      "body": {
+        "AmountParagraph.variant.Style": [
+          "Paragraph 14/20",
+          "Action 14/20",
+          "Accent 14/20",
+          "Action 16/24",
+          "Action 16/20",
+          "Paragraph 16/24",
+          "Paragraph 16/20",
+          "Accent 16/24",
+          "Accent 16/20"
+        ],
+        "AmountHeadline.variant.Style": [
+          "Headline 18/22",
+          "Headline 22/26",
+          "Headline 30/36",
+          "Headline 40/48",
+          "Headline 48/52",
+          "Headline 16/20",
+          "Headline 20/28",
+          "Headline 26/32",
+          "Headline 34/40"
+        ],
+        "Operation.variant.Negative": [
+          "True",
+          "False"
+        ]
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "semanticOwnership",
+      "body": [
+        {
+          "leafLayer": "Minus",
+          "semanticOwner": "AmountParagraph / Operation",
+          "meaning": "operation sign"
+        },
+        {
+          "leafLayer": "Major",
+          "semanticOwner": "AmountParagraph / Amount",
+          "meaning": "major amount part"
+        },
+        {
+          "leafLayer": "Minor",
+          "semanticOwner": "AmountParagraph / Amount",
+          "meaning": "minor amount part"
+        },
+        {
+          "leafLayer": "Currency",
+          "semanticOwner": "AmountParagraph / Amount",
+          "meaning": "currency part"
+        }
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "ruleReferences",
+      "body": [
+        "component:web-corp.amount-styles.style-is-component-property",
+        "component:web-corp.amount-styles.locked-components-are-figma-only-presets",
+        "component:web-corp.amount-styles.operation-is-internal",
+        "component:web-corp.amount-styles.parts-default-visibility",
+        "component:web-corp.amount-styles.major-is-required",
+        "component:web-corp.amount-styles.math-space-is-required",
+        "component:web-corp.amount-styles.math-minus-is-required",
+        "component:web-corp.amount-styles.addon-uses-supported-components",
+        "component:web-corp.amount-styles.addon-does-not-exceed-text-line-height",
+        "component:web-corp.amount-styles.parts-share-color",
+        "component:web-corp.amount-styles.addon-keeps-own-contextual-colors",
+        "component:web-corp.amount-styles.positive-color-context",
+        "component:web-corp.amount-styles.contextual-color-token-is-allowed",
+        "component:web-corp.amount-styles.opacity-is-forbidden",
+        "component:web-corp.amount-styles.style-is-context-controlled",
+        "component:web-corp.amount-styles.geometry-follows-effective-baseline",
+        "component:web-corp.amount-styles.currency-type-is-component-property",
+        "component:web-corp.amount-styles.negative-uses-primary",
+        "component:web-corp.amount-styles.table-align-right",
+        "component:web-corp.amount-styles.table-weight-follows-role",
+        "component:web-corp.amount-styles.table-currency-not-duplicated",
+        "component:web-corp.amount-styles.table-bulk-actions-neutral",
+        "component:web-corp.amount-styles.steps-use-regular",
+        "component:web-corp.amount-styles.side-panel-matches-source",
+        "component:web-corp.amount-styles.amount-stays-on-one-line",
+        "component:web-corp.amount-styles.has-no-own-system-states",
+        "component:web-corp.amount-styles.clickability-is-context-controlled",
+        "component:web-corp.amount-styles.manual-interactive-decoration-is-forbidden",
+        "component:web-corp.amount-styles.amount-input-uses-core-amount",
+        "component:web-corp.amount-styles.optional-parts-can-coexist",
+        "component:web-corp.amount-styles.container-provides-single-line-width",
+        "component:web-corp.amount-styles.addon-action-matches-amount",
+        "component:web-corp.amount-styles.minor-has-one-or-two-digits",
+        "component:web-corp.amount-styles.zero-format",
+        "component:web-corp.amount-styles.unknown-value-uses-separate-placeholder",
+        "component:web-corp.amount-styles.ru-format",
+        "component:web-corp.amount-styles.round-to-two-minor-digits",
+        "component:web-corp.amount-styles.fixed-part-order",
+        "component:web-corp.amount-styles.monetary-values-only",
+        "component:web-corp.amount-styles.major-max-13-digits",
+        "component:web-corp.amount-styles.operation-negative-is-part-property",
+        "component:web-corp.amount-styles.parts-share-text-style",
+        "component:web-corp.amount-styles.manual-operation-sign-fill-is-layer-property",
+        "component:web-corp.amount-styles.manual-amount-text-fill-is-layer-property",
+        "component:web-corp.amount-styles.manual-text-style-is-layer-property"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "availability",
+      "body": {
+        "figmaOnlyPresets": [
+          "🔒 [D] AmountHeadline",
+          "🔒 [M] AmountHeadline",
+          "🔒 AmountParagraph"
+        ],
+        "codeExports": [],
+        "internalOnly": [
+          "Operation"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "partDefaults",
+      "body": {
+        "Major": "required",
+        "Minor": true,
+        "Currency": true,
+        "Operation": false,
+        "Addon": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "contentPolicy",
+      "body": {
+        "editableTextLayers": [
+          "Major",
+          "Minor",
+          "Currency"
+        ],
+        "requiredLayers": [
+          "Major"
+        ],
+        "addon": {
+          "allowedComponents": [
+            "IconView",
+            "StatusBadge"
+          ],
+          "configuration": "nested-component-properties",
+          "maxHeight": "text-line-height",
+          "oversizeAllowed": false,
+          "keepsOwnContextualColors": true
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "anatomyPolicy",
+      "body": {
+        "fixedOrder": [
+          "Operation",
+          "Major",
+          "Minor",
+          "Currency",
+          "Addon"
+        ],
+        "reorderAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "usagePolicy",
+      "body": {
+        "AmountInput": {
+          "embeddedComponent": "Web Core / Amount",
+          "usesCorpAmountStylesContract": false
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "visualPolicy",
+      "body": {
+        "sharedColorLayers": [
+          "Operation",
+          "Minus",
+          "Major",
+          "Minor",
+          "Currency"
+        ],
+        "positiveTokenContexts": [
+          "table",
+          "table-list"
+        ],
+        "contextualTokensAllowed": true,
+        "manualWholeAmountColorOverrideAllowed": true,
+        "requireSameTokenForAllTextParts": true,
+        "opacityOverridesAllowed": false,
+        "leafTextStyleOverridesAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "layoutPolicy",
+      "body": {
+        "baseline": "current-style-effective-baseline",
+        "manualOverridesAllowed": false,
+        "singleLine": true,
+        "containerProvidesWidth": true,
+        "overflowBehavior": "clip-by-container"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "responsivePolicy",
+      "body": {
+        "desktop": {
+          "channel": "desktop",
+          "headlinePreset": "🔒 [D] AmountHeadline"
+        },
+        "mobileWeb": {
+          "channel": "mobile-web",
+          "headlinePreset": "🔒 [M] AmountHeadline"
+        },
+        "paragraphPreset": "🔒 AmountParagraph",
+        "paragraphChannels": [
+          "desktop",
+          "mobile-web"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "statePolicy",
+      "body": {
+        "ownStates": [],
+        "skeleton": "future-pattern"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "interactionPolicy",
+      "body": {
+        "clickable": true,
+        "dependsOnContext": true,
+        "interactiveAddonAllowed": true,
+        "addonActionMustMatchAmount": true,
+        "manualUnderlineAllowed": false,
+        "manualBackgroundAllowed": false,
+        "hoverState": "future-rule"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "optionalPartsPolicy",
+      "body": {
+        "canCoexist": true
+      }
+    },
+    {
+      "area": "api",
+      "topic": "valueFormatPolicy",
+      "body": {
+        "locale": "ru-RU",
+        "decimalSeparator": ",",
+        "groupSeparator": "mathematical-space",
+        "negativeSign": "mathematical-minus",
+        "parenthesesForNegative": false,
+        "minorDigits": [
+          1,
+          2
+        ],
+        "moreThanTwoMinorDigits": "round-to-two",
+        "majorMaxCharactersExcludingGroupSeparators": 13,
+        "zeroFormats": [
+          "0",
+          "0,00"
+        ],
+        "unknownValue": {
+          "useAmount": false,
+          "replacement": "—",
+          "replacementType": "separate-text-element"
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "valueDomainPolicy",
+      "body": {
+        "allowed": [
+          "money",
+          "balance"
+        ],
+        "points": "separate-pattern",
+        "percentagesAllowed": false,
+        "arbitraryUnitsAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "currencyPolicy",
+      "body": {
+        "allowedTypes": "all-component-types",
+        "customPurpose": "Код валюты или символ, отсутствующий среди штатных Type."
+      }
+    },
+    {
+      "area": "api",
+      "topic": "contextPolicies",
+      "body": {
+        "table": {
+          "alignment": "right",
+          "primaryWeight": "Medium",
+          "secondaryWeight": "Regular",
+          "hideCurrencyWhenDeclaredInHeader": true,
+          "currencyRuleSeverity": "error"
+        },
+        "TableBulkActions": {
+          "operationVisible": false,
+          "positiveColorAllowed": false
+        },
+        "steps": {
+          "recommendedWeight": "Regular",
+          "ruleSeverity": "warning"
+        },
+        "sidePanel": {
+          "format": "match-source-page",
+          "required": true
+        }
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "componentRoles",
+      "body": [
+        {
+          "componentName": "🔒 [D] AmountHeadline",
+          "role": "figma-only-preset",
+          "platform": "desktop",
+          "purpose": "Крупное акцентное отображение суммы.",
+          "standaloneInFigma": true,
+          "codeExport": false
+        },
+        {
+          "componentName": "🔒 [M] AmountHeadline",
+          "role": "figma-only-preset",
+          "platform": "mobile-web",
+          "purpose": "Крупное акцентное отображение суммы.",
+          "standaloneInFigma": true,
+          "codeExport": false
+        },
+        {
+          "componentName": "🔒 AmountParagraph",
+          "role": "figma-only-preset",
+          "platform": "universal",
+          "purpose": "Отображение суммы в таблицах, списках, карточках и второстепенных значениях.",
+          "standaloneInFigma": true,
+          "codeExport": false
+        },
+        {
+          "componentName": "Operation",
+          "role": "internal-component",
+          "platform": "universal",
+          "standaloneInFigma": false,
+          "codeExport": false
+        }
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "partDefaults",
+      "body": {
+        "Major": "required",
+        "Minor": true,
+        "Currency": true,
+        "Operation": false,
+        "Addon": false
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "slots",
+      "body": [
+        {
+          "slot": "Addon",
+          "required": false,
+          "defaultVisible": false,
+          "allowedComponents": [
+            "IconView",
+            "StatusBadge"
+          ],
+          "configurationPolicy": "Используй штатные параметры выбранного вложенного компонента.",
+          "maxHeight": "text-line-height",
+          "oversizeAllowed": false,
+          "keepsOwnContextualColors": true
+        }
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "anatomyPolicy",
+      "body": {
+        "fixedOrder": [
+          "Operation",
+          "Major",
+          "Minor",
+          "Currency",
+          "Addon"
+        ],
+        "reorderAllowed": false
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "usagePolicy",
+      "body": {
+        "AmountInput": {
+          "embeddedComponent": "Web Core / Amount",
+          "usesThisContract": false
+        }
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "layoutPolicy",
+      "body": {
+        "baseline": "current-style-effective-baseline",
+        "manualOverridesAllowed": false,
+        "singleLine": true,
+        "containerProvidesWidth": true,
+        "insufficientWidth": "clip-by-container",
+        "protectedProperties": [
+          "layout.direction",
+          "layout.itemSpacing",
+          "layout.alignment",
+          "layout.sizing"
+        ]
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "optionalPartsPolicy",
+      "body": {
+        "parts": [
+          "Operation",
+          "Minor",
+          "Currency",
+          "Addon"
+        ],
+        "canCoexist": true
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "valuePolicy",
+      "body": {
+        "domains": [
+          "money",
+          "balance"
+        ],
+        "points": "separate-pattern",
+        "majorMaxCharactersExcludingGroupSeparators": 13,
+        "fractionDigits": {
+          "displayed": [
+            1,
+            2
+          ],
+          "moreThanTwo": "round-to-two"
+        }
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "interactionPolicy",
+      "body": {
+        "amountCanBeClickable": true,
+        "interactiveAddonAllowed": true,
+        "addonActionMustMatchAmount": true,
+        "manualUnderlineAllowed": false,
+        "manualBackgroundAllowed": false,
+        "hoverState": "future-rule"
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "semanticOwners",
+      "body": [
+        {
+          "owner": "AmountParagraph / Operation",
+          "targetPathPattern": "Operation / Minus",
+          "leafLayer": "Minus",
+          "properties": [
+            "fill",
+            "styles.text"
+          ],
+          "reason": "Minus — paint-bearing text layer для знака операции суммы."
+        },
+        {
+          "owner": "AmountParagraph / Amount",
+          "targetPathPattern": "Amount / Major / Major",
+          "leafLayer": "Major",
+          "properties": [
+            "fill",
+            "styles.text"
+          ],
+          "reason": "Major — paint-bearing text layer для major-части суммы."
+        },
+        {
+          "owner": "AmountParagraph / Amount",
+          "targetPathPattern": "Amount / Minor / Minor",
+          "leafLayer": "Minor",
+          "properties": [
+            "fill",
+            "styles.text"
+          ],
+          "reason": "Minor — paint-bearing text layer для minor-части суммы."
+        },
+        {
+          "owner": "AmountParagraph / Amount",
+          "targetPathPattern": "Amount / Currency / Currency",
+          "leafLayer": "Currency",
+          "properties": [
+            "fill",
+            "styles.text"
+          ],
+          "reason": "Currency — paint-bearing text layer для currency-части суммы."
+        }
+      ]
+    }
+  ]
+}

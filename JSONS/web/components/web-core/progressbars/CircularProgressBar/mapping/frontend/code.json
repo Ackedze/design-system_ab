@@ -1,0 +1,145 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-circular-progress-bar",
+  "import": "@alfalab/core-components/circular-progress-bar",
+  "version": "5.0.9",
+  "component": "CircularProgressBar",
+  "description": "Используется для отображения прогресса.",
+  "props": [
+    {
+      "name": "value",
+      "type": "number | { timer: number; counting?: \"forward\" | \"backward\" | undefined; onFinish?: (() => void) | undefined; }",
+      "required": true,
+      "description": "Уровень прогресса, %"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "title",
+      "type": "ReactNode",
+      "default": "isObject(valueFromProps) ? null : `${valueFromProps}`",
+      "description": "Основной текст"
+    },
+    {
+      "name": "contentColor",
+      "type": "string",
+      "default": "secondary",
+      "description": "Цвет контента"
+    },
+    {
+      "name": "titleColor",
+      "type": "string",
+      "description": "Цвет заголовка\nПриоритет выше чем у `contentColor`"
+    },
+    {
+      "name": "subtitleColor",
+      "type": "string",
+      "description": "Цвет подзаголовка\nПриоритет выше чем у `contentColor`"
+    },
+    {
+      "name": "subtitle",
+      "type": "ReactNode",
+      "description": "Дополнительный текст"
+    },
+    {
+      "name": "titleComplete",
+      "type": "ReactNode",
+      "description": "Основной текст при 100%"
+    },
+    {
+      "name": "subtitleComplete",
+      "type": "ReactNode",
+      "description": "Дополнительный текст при 100%"
+    },
+    {
+      "name": "view",
+      "type": "\"positive\" | \"negative\"",
+      "default": "positive",
+      "description": "Цвет заполнения"
+    },
+    {
+      "name": "size",
+      "type": "ComponentSize",
+      "default": 64,
+      "description": "Размер (144 — 144×144px, 128 — 128×128px, 80 — 80×80px, 64 — 64×64px, 48 — 48×48px, 24 — 24×24px, 16 — 16×16px)"
+    },
+    {
+      "name": "stroke",
+      "type": "boolean",
+      "default": true,
+      "description": "Наличие желоба"
+    },
+    {
+      "name": "fillComplete",
+      "type": "boolean",
+      "description": "Заливка при 100%"
+    },
+    {
+      "name": "completeTextColor",
+      "type": "\"primary\" | \"positive\" | \"negative\" | \"primary-inverted\"",
+      "description": "Цвет текста при 100%"
+    },
+    {
+      "name": "completeIconColor",
+      "type": "\"tertiary\" | \"positive\" | \"negative\" | \"primary-inverted\"",
+      "default": "tertiary",
+      "description": "Цвет иконки при 100%"
+    },
+    {
+      "name": "icon",
+      "type": "ElementType<{ className?: string | undefined; }>",
+      "description": "Компонент иконки"
+    },
+    {
+      "name": "iconComplete",
+      "type": "ElementType<{ className?: string | undefined; }>",
+      "description": "Компонент иконки при 100%"
+    },
+    {
+      "name": "direction",
+      "type": "\"clockwise\" | \"counter-clockwise\"",
+      "default": "clockwise",
+      "description": "Направление прогресса (clockwise - по часовой стрелке, counter-clockwise - против часовой стрелки)"
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "description": "Высота компонента, min = 16; max = 144\nиспользовать совместно с size:\n144 от 144\n128 от 128 до 143\n80 от 80 до 127\n64 от 64 до 79\n48 от 48 до 63\n24 от 24 до 47\n16 от 16 до 23"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Id компонента для тестов"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Дочерние элементы"
+    },
+    {
+      "name": "progressStrokeColor",
+      "type": "string",
+      "description": "Цвет прогресса"
+    },
+    {
+      "name": "circleColor",
+      "type": "string",
+      "description": "Цвет заливки внутри круга"
+    },
+    {
+      "name": "strokeColor",
+      "type": "string",
+      "description": "Цвет желоба"
+    },
+    {
+      "name": "directionType",
+      "type": "\"desc\" | \"asc\"",
+      "default": "asc",
+      "description": "Направление заполнения круга"
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

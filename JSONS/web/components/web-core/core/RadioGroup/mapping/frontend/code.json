@@ -1,0 +1,104 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-radio-group",
+  "import": "@alfalab/core-components/radio-group",
+  "version": "6.0.7",
+  "component": "RadioGroup",
+  "description": "Используется для выбора одного значения из нескольких доступных.",
+  "props": [
+    {
+      "name": "onChange",
+      "type": "((event: ChangeEvent<Element> | MouseEvent<Element, MouseEvent>, payload: { value: string; name?: string | undefined; }) => void)",
+      "description": "Обработчик изменения значения 'checked' одного из дочерних компонентов"
+    },
+    {
+      "name": "onBlur",
+      "type": "((event: FocusEvent<HTMLInputElement, Element>) => void)",
+      "description": "Обработчик блюра."
+    },
+    {
+      "name": "onFocus",
+      "type": "((event: FocusEvent<HTMLInputElement, Element>) => void)",
+      "description": "Обработчик фокуса."
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Дочерние элементы. Ожидаются компоненты `Radio` или `Tag`"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "label",
+      "type": "ReactNode",
+      "description": "Заголовок группы"
+    },
+    {
+      "name": "direction",
+      "type": "Direction",
+      "description": "Направление"
+    },
+    {
+      "name": "type",
+      "type": "RadioGroupType",
+      "description": "Тип компонента"
+    },
+    {
+      "name": "radioListClassName",
+      "type": "string",
+      "description": "Дополнительный класс для списка радио элементов"
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "description": "Отображение ошибки"
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "description": "Текст подсказки снизу"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Управление возможностью изменения состояния 'checked' дочерних компонентов Radio | Tag"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Атрибут name для всех дочерних компонентов"
+    },
+    {
+      "name": "value",
+      "type": "string | null",
+      "description": "Value выбранного дочернего элемента"
+    },
+    {
+      "name": "breakpoint",
+      "type": "number",
+      "default": "1024",
+      "description": "Контрольная точка, с нее начинается desktop версия"
+    },
+    {
+      "name": "client",
+      "type": "\"desktop\" | \"mobile\"",
+      "description": "Версия, которая будет использоваться при серверном рендеринге"
+    },
+    {
+      "name": "defaultMatchMediaValue",
+      "type": "boolean | (() => boolean)",
+      "default": "client === undefined ? undefined : client === 'desktop'",
+      "description": "Значение по-умолчанию для хука useMatchMedia\n@deprecated Используйте client"
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

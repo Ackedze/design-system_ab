@@ -1,0 +1,80 @@
+{
+  "$schema": "hub/code-connect.overrides.draft@1",
+  "description": "ЧЕРНОВИК: сборка его не читает. Проверь записи и прими: node tools/code-connect-drafts.mjs --accept <id> [--min high].",
+  "generatedAt": "2026-10-13",
+  "properties": [
+    {
+      "figma": "Presets",
+      "figmaComponent": "[M] NavigationBar",
+      "values": {
+        "Home": {
+          "showHomeBar": true
+        },
+        "Page": {
+          "showPageBar": true
+        }
+      },
+      "confidence": "high",
+      "reason": "showHomeBar / showPageBar переключают режим NavigationBar"
+    },
+    {
+      "figma": "Content",
+      "figmaComponent": "LeftAddon",
+      "values": {
+        "Back": {
+          "showBackButton": true
+        },
+        "Logo": {
+          "showLogo": true
+        },
+        "None": {}
+      },
+      "confidence": "high",
+      "reason": "showBackButton / showLogo"
+    },
+    {
+      "figma": "Content",
+      "figmaComponent": "CenteredMainSlot",
+      "values": {
+        "None": {},
+        "Title": {
+          "pageBarTitle": "Заголовок"
+        },
+        "Title + Subtitle": {
+          "pageBarTitle": "Заголовок",
+          "pageBarSubtitle": "Подзаголовок"
+        }
+      },
+      "confidence": "medium",
+      "reason": "pageBarTitle / pageBarSubtitle; тексты — пример"
+    }
+  ],
+  "figmaOnly": [
+    {
+      "property": "Content",
+      "figmaComponent": "RightAddon",
+      "workaround": "Правый слот передаётся ReactNode через rightAddons",
+      "confidence": "medium",
+      "reason": "rightAddons: ReactNode"
+    },
+    {
+      "property": "Content",
+      "figmaComponent": "BottomAddon",
+      "workaround": "Нижний слот — дочерние элементы (children)",
+      "confidence": "low",
+      "reason": "Предположение: BottomAddon рендерится из children"
+    },
+    {
+      "property": "Active Tab",
+      "workaround": "selectedTabId = id таба из tabBarOptions",
+      "confidence": "medium",
+      "reason": "Id табов задаёт продукт"
+    },
+    {
+      "property": "BackgroundColor",
+      "workaround": "Фон шапки не управляется пропом",
+      "confidence": "low",
+      "reason": "Нет пропа фона у CorporateAppHeaderMobile"
+    }
+  ]
+}

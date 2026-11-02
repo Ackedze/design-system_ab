@@ -1,0 +1,52 @@
+{
+  "$schema": "hub/code-connect.overrides@1",
+  "description": "Авторский маппинг Figma → React. Побеждает автоматическое сопоставление tools/lib/code-connect.mjs.",
+  "reviewedAt": "2026-07-23",
+  "properties": [
+    {
+      "figma": "Position",
+      "react": "level",
+      "values": {
+        "Level 1 (outer)": "outer",
+        "Level 2 (inner)": "inner"
+      }
+    },
+    {
+      "figma": "Type",
+      "react": "view",
+      "values": {
+        "Border": "border",
+        "Colored": "colored",
+        "Primary": "primary",
+        "Secondary": "secondary"
+      }
+    },
+    {
+      "figma": "Skeleton",
+      "react": "showSkeleton",
+      "values": {
+        "False": false,
+        "True": true
+      }
+    },
+    {
+      "figma": "BackgroundColor",
+      "react": "backgroundColor",
+      "values": {
+        "base-bg (white)": "base-bg",
+        "base-bg-alt (gray)": "base-bg-alt"
+      },
+      "note": "Figma contract also has 'modal-bg (white)' and 'modal-bg-alt (gray)' — no React mapping for these"
+    }
+  ],
+  "figmaOnly": [
+    {
+      "property": "[D][Promo] / [M][Promo] variants",
+      "workaround": "promo: boolean"
+    },
+    {
+      "property": "BackgroundColor: 'modal-bg (white)' / 'modal-bg-alt (gray)'",
+      "workaround": "No direct prop; covered by context/theme"
+    }
+  ]
+}

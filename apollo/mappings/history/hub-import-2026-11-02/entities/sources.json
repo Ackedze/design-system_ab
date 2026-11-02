@@ -1,0 +1,45 @@
+{
+  "$schema": "hub/sources@1",
+  "description": "Авторский файл хаба: источники данных и их приоритет. Источник выше по списку побеждает: менее приоритетный адаптер не перезаписывает его файлы, а только дополняет недостающее.",
+  "priority": [
+    "design-system-ab",
+    "ds-ai-hub",
+    "core-components",
+    "arui-private"
+  ],
+  "sources": {
+    "design-system-ab": {
+      "adapter": "adapters/design-system-ab",
+      "provides": "Figma-контракты компонентов, правила, кейсы, паттерны, Figma Variables"
+    },
+    "ds-ai-hub": {
+      "adapter": "adapters/ds-ai-hub",
+      "provides": "Паттерны и правила паттернов, которых нет в design-system_ab"
+    },
+    "core-components": {
+      "adapter": "adapters/core-components",
+      "provides": "CSS-переменные (bundle/corp.css), npm-пакеты и API примитивов",
+      "tokens": {
+        "bundle": "corp",
+        "extraFiles": [
+          "colors-decorative.css",
+          "colors-decorative-dark.css",
+          "colors-monochrome.css",
+          "colors-monochrome-dark.css",
+          "colors-promo.css",
+          "colors-promo-dark.css",
+          "colors-sequential.css",
+          "colors-sequential-dark.css",
+          "colors-qualitative.css",
+          "colors-qualitative-dark.css",
+          "colors-pfm.css"
+        ],
+        "note": "Бандл, который подключает arui-private, плюс палитры, которые продукты подключают отдельно. Альтернативные бренды (indigo, go, x5, students, brand) переопределяют те же имена и сюда не входят."
+      }
+    },
+    "arui-private": {
+      "adapter": "adapters/arui-private",
+      "provides": "Код corp/promo-компонентов: экспорты, пропсы (react-docgen-typescript), lifecycle из component-lifecycle.json"
+    }
+  }
+}

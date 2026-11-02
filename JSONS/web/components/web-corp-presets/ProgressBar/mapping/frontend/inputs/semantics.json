@@ -1,0 +1,77 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "ProgressBar показывает прогресс по денежной цели или состояние лимита. В семействе есть две смысловые версии: Goal для движения к цели и Limit для лимитов, порогов и риска.",
+  "patternRefs": [
+    "progress-bar"
+  ],
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "usageGuidance",
+      "body": [
+        "Используй ProgressBar :: Goal, когда шкала показывает движение к целевому значению: накоплено, осталось, цель достигнута.",
+        "Используй ProgressBar :: Limit, когда шкала показывает лимит, доступный объём, порог, риск превышения или отсутствие лимита.",
+        "Для desktop применяй [D] ProgressBar, для mobile-web применяй [M] ProgressBar.",
+        "Не собирай progress bar вручную из текста, линии и AmountParagraph; используй готовый preset-компонент.",
+        "Смысловое состояние задаётся через variant.State, а не ручной перекраской fill или text styles."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "contentGuidance",
+      "body": [
+        "Label должен называть показатель.",
+        "Caption должен содержать основную сумму и дополнительное значение, связанные с той же шкалой.",
+        "Hint должен кратко пояснять условие, срок, остаток или контекст расчёта.",
+        "Не прячь ключевое значение только в Hint: основная сумма и смысл показателя должны быть видны в Label и Caption."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "variantGuidance",
+      "body": [
+        {
+          "component": "ProgressBar :: Goal",
+          "states": [
+            "Start",
+            "First",
+            "Second",
+            "End",
+            "Disabled"
+          ],
+          "meaning": "Состояния движения к цели."
+        },
+        {
+          "component": "ProgressBar :: Limit",
+          "states": [
+            "None",
+            "In progress",
+            "Attention",
+            "Risk",
+            "Full",
+            "Disabled"
+          ],
+          "meaning": "Состояния лимита, предупреждения, риска, полного использования или отсутствия лимита."
+        }
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "ruleHighlights",
+      "body": [
+        {
+          "ruleId": "component:web.progress-bar.public-presets-only",
+          "message": "ProgressBar используется только как готовый preset Goal или Limit; ручная сборка не допускается."
+        },
+        {
+          "ruleId": "component:web.progress-bar.platform-version-match",
+          "message": "Версия [D] предназначена для desktop, версия [M] — для mobile-web."
+        },
+        {
+          "ruleId": "component:web.progress-bar.visual-style-from-state",
+          "message": "Визуальная семантика должна задаваться variant.State, а не ручной перекраской внутренних слоёв."
+        }
+      ]
+    }
+  ]
+}

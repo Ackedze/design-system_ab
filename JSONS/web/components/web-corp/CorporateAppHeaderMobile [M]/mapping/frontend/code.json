@@ -1,0 +1,165 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "arui-private",
+  "import": "arui-private/corporate-app-header-mobile",
+  "version": "80.10.0",
+  "component": "CorporateAppHeaderMobile",
+  "exports": [
+    "CorporateAppHeaderMobile",
+    "CorporateAppHeaderMobileAddon",
+    "OPTIONS"
+  ],
+  "props": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Дочерние элементы"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "contextRoot",
+      "type": "string",
+      "default": "''",
+      "description": "Рут адрес приложения"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "homeBarLabel",
+      "type": "string",
+      "default": "''",
+      "description": "Лейбл HomeBar"
+    },
+    {
+      "name": "isLoading",
+      "type": "boolean",
+      "default": "false",
+      "description": "Отобразить скелетон"
+    },
+    {
+      "name": "isNavBarHidden",
+      "type": "boolean",
+      "default": "false",
+      "description": "Завязанный на хедеры флаг отображения NavBar"
+    },
+    {
+      "name": "isTrackingMetrics",
+      "type": "boolean",
+      "default": "false",
+      "description": "Писать ли метрики"
+    },
+    {
+      "name": "navBarClassName",
+      "type": "string",
+      "description": "Классы для Navbar"
+    },
+    {
+      "name": "onBackButtonClick",
+      "type": "(event?: MouseEvent<Element, MouseEvent>) => void",
+      "description": "Обработчик на клик по кнопке \"Назад\""
+    },
+    {
+      "name": "onChangeTab",
+      "type": "(event: MouseEvent<Element, MouseEvent>, tabId: SelectedId) => void",
+      "description": "Вызывается при переключении табов Tabbar\n@param event\n@param tabId"
+    },
+    {
+      "name": "onHomeBarLabelClick",
+      "type": "(event?: MouseEvent<Element, MouseEvent>) => void",
+      "description": "Обработчик на клик по лейблу"
+    },
+    {
+      "name": "pageBarSubtitle",
+      "type": "string",
+      "description": "Подзаголовок для PageBar"
+    },
+    {
+      "name": "pageBarTitle",
+      "type": "string",
+      "description": "Заголовок для PageBar"
+    },
+    {
+      "name": "profile",
+      "type": "CorporateProfile",
+      "description": "Профиль пользователя"
+    },
+    {
+      "name": "rightAddons",
+      "type": "ReactNode",
+      "description": "Слот справа"
+    },
+    {
+      "name": "selectedCustomer",
+      "type": "CorporateCustomer",
+      "description": "`eqId` выбранной компании"
+    },
+    {
+      "name": "selectedTabId",
+      "type": "SelectedId",
+      "default": "'/dashboard'",
+      "description": "Id активного таба"
+    },
+    {
+      "name": "showBackButton",
+      "type": "boolean",
+      "default": "true",
+      "description": "Отобразить кнопку \"Назад\""
+    },
+    {
+      "name": "showHomeBar",
+      "type": "boolean",
+      "default": "false",
+      "description": "Отобразить HomeBar"
+    },
+    {
+      "name": "showLogo",
+      "type": "boolean",
+      "default": "true",
+      "description": "Отобразить логотип Альфа-Банк"
+    },
+    {
+      "name": "showPageBar",
+      "type": "boolean",
+      "default": "false",
+      "description": "Отобразить PageBar"
+    },
+    {
+      "name": "showStickyBar",
+      "type": "boolean",
+      "default": "false",
+      "description": "Отобразить StickyBar"
+    },
+    {
+      "name": "showTabbar",
+      "type": "boolean",
+      "default": "true",
+      "description": "Отобразить Tabbar"
+    },
+    {
+      "name": "tabBarClassName",
+      "type": "string",
+      "description": "Классы для Tabbar"
+    },
+    {
+      "name": "tabBarContainerClassName",
+      "type": "string",
+      "description": "Классы для контейнера Tabbar"
+    },
+    {
+      "name": "tabBarOptions",
+      "type": "OptionType[]",
+      "default": "[\n    {\n        id: 'dashboard',\n        title: 'Главный',\n        icon: NavigationHomeMIcon,\n        href: '/dashboard',\n    },\n    {\n        id: 'statement',\n        title: 'История',\n        icon: NavigationHistoryMIcon,\n        href: '/statement',\n    },\n    {\n        id: 'payment-hub',\n        title: 'Платежи',\n        icon: NavigationPaymentMIcon,\n        href: '/payment-hub',\n    },\n    {\n        id: 'showcase',\n        title: 'Сервисы',\n        icon: NavigationMarketplaceMIcon,\n        href: '/showcase',\n        filterOption: ({ isCompanyBlocked, isBankCustomerType }) =>\n            !isCompanyBlocked && !isBankCustomerType,\n    },\n    {\n        id: 'chat',\n        title: 'Связь',\n        icon: NavigationChatMIcon,\n        href: '/chat',\n    },\n]",
+      "description": "Опции навигационных элементов Tabbar"
+    }
+  ],
+  "status": {
+    "lifecycle": "active"
+  }
+}

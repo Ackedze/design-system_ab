@@ -1,0 +1,128 @@
+{
+  "exampleStatus": "synthetic-local-projection",
+  "status": "availability-pass",
+  "targetProduct": "apollo-v4",
+  "fullContractParity": "not-confirmed",
+  "prepared": {
+    "mappingId": "arui-private.corporate-content.desktop",
+    "import": "arui-private/corporate-content",
+    "export": "CorporateContent",
+    "props": {},
+    "children": [
+      {
+        "mappingId": "arui-private.buttons-group.desktop",
+        "import": "arui-private/button-group",
+        "export": "ButtonGroup",
+        "props": {
+          "size": 56,
+          "primaryFirst": true,
+          "maxVisibleButtons": 4,
+          "elements": [
+            {
+              "children": "Отправить",
+              "disabled": false,
+              "onClick": {
+                "handlerRef": "onSend"
+              },
+              "dataTestId": "send"
+            },
+            {
+              "children": "Отменить",
+              "disabled": false,
+              "onClick": {
+                "handlerRef": "onCancel"
+              },
+              "dataTestId": "cancel"
+            }
+          ]
+        },
+        "gaps": [
+          {
+            "id": "BG-AUTO-OVERFLOW",
+            "description": "No overflow prop. Count and measured width can hide actions even when Figma Overflow=false; voluntary Figma overflow has no exact mapping.",
+            "sources": [
+              "src/button-group/button-group.tsx",
+              "src/button-group/utils/calculate-hidden-elements.ts"
+            ]
+          },
+          {
+            "id": "BG-OVERFLOW-ACTIONS",
+            "description": "Default hidden options preserve children/disabled but do not forward onClick/action identity/icon/disabled reason. Explicit mapElementToPickerOption and picker event routing need a parity profile.",
+            "sources": [
+              "src/button-group/utils/get-picker-button-options.ts",
+              "src/button-group/typings.ts"
+            ]
+          },
+          {
+            "id": "BG-OVERFLOW-ORDER",
+            "description": "Hidden indexes/options keep original ascending order; contract requests nearest-to-SingleIcon then right-to-left transfer. No automatic equivalence.",
+            "sources": [
+              "src/button-group/utils/calculate-hidden-elements.ts",
+              "src/button-group/utils/get-picker-button-options.ts"
+            ]
+          },
+          {
+            "id": "BG-MOBILE",
+            "description": "Code supports runtime <768 but shows only the first action plus PickerButton; no mobile authoring contract in this input and no two-visible-action parity.",
+            "sources": [
+              "src/utils/use-corp-is-desktop.ts",
+              "src/button-group/utils/calculate-hidden-elements.ts"
+            ]
+          },
+          {
+            "id": "BG-SIZE-BINDINGS",
+            "description": "Code/root Size supports 32/40/48/56. Accepted authoring evidence requires occurrence binding/live acceptance for non-56 variants; current mapping route covers 56.",
+            "sources": [
+              "shared/design-system_ab/experiments/current-contract-packages/ButtonsGroup.component-contract.zip"
+            ]
+          },
+          {
+            "id": "BG-VISIBILITY-PORT",
+            "description": "Code Connect handle has no documented native visible property. Group template requires locked occurrence visibility and event inputs from NEXT-03; no guessing from names/order.",
+            "sources": [
+              "tools/code-connect/ButtonsGroup.figma.ts"
+            ]
+          }
+        ],
+        "requiresRuntimeWidthFit": true
+      }
+    ],
+    "gaps": [
+      {
+        "id": "CC-GEOMETRY",
+        "description": "Figma root is vertical AutoLayout; code .corporate-content is row flex. Body→children is confirmed, composition geometry is not.",
+        "sources": [
+          "src/corporate-content/corporate-content.css"
+        ]
+      },
+      {
+        "id": "CC-PADDING",
+        "description": "Figma desktop baseline 40/52/64/52 at 1600+ differs from code horizontal desktop-l padding 50. Code vertical defaults are gap3xl/gap5xl; Core tokens are not locally resolved.",
+        "sources": [
+          "src/corporate-content/corporate-content.css",
+          "src/corporate-content/constants.ts",
+          "src/vars.css"
+        ]
+      },
+      {
+        "id": "CC-SURFACE",
+        "description": "Figma BackgroundPlate Color page modes have no direct prop. theme/context uses alfa-on-white/alfa-on-color/grey; do not equate them with white/grey page modes.",
+        "sources": [
+          "src/cn/cn.ts",
+          "src/theme-provider/theme-provider.tsx"
+        ]
+      }
+    ]
+  },
+  "lock": {
+    "registryVersion": "1.0.0",
+    "registryDigest": "bf7834d4f4b89b187476dc80dd84c93c9130562e88c552073a3343e53e2abad0",
+    "codeVersion": "80.7.1",
+    "codeCommit": "c037d0c322ea9774a9c251400d76d41222819b87",
+    "contracts": {
+      "arui-private.buttons-group.desktop": "214d9cc0c16a4b7c56e3a69e9151e0d5a36d3d9d05e947bf2122d0e53eb3743a",
+      "arui-private.corporate-content.desktop": "281159400f53164d58c4302b8f3fcecc32da3aff573bb8dd949e9072cd8bc8de",
+      "arui-private.corporate-content.mobile-web": "7bcabd8ec7659bf1992720b312f42c5e93bfd3c1ee936c445cf916c70f2e6925"
+    }
+  }
+}

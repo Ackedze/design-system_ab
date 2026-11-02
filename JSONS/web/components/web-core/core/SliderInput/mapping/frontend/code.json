@@ -1,0 +1,304 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-slider-input",
+  "import": "@alfalab/core-components/slider-input",
+  "version": "11.1.6",
+  "component": "SliderInput",
+  "description": "Используется для указания значения из заданного диапазона.",
+  "props": [
+    {
+      "name": "size",
+      "type": "48 | 56 | 64 | 72",
+      "default": 48,
+      "description": "Размер компонента\n@description s, m, l, xl deprecated, используйте вместо них 48, 56, 64, 72 соответственно"
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "default": 0,
+      "description": "Мин. допустимое число"
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": 100,
+      "description": "Макс. допустимое число"
+    },
+    {
+      "name": "steps",
+      "type": "ReactNode[]",
+      "default": "[]",
+      "description": "Массив подписей к слайдеру"
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "default": 1,
+      "description": "Шаг (должен нацело делить отрезок между мин и макс)"
+    },
+    {
+      "name": "pips",
+      "type": "Pips",
+      "description": "Отображение подписей\nhttps://refreshless.com/nouislider/pips/"
+    },
+    {
+      "name": "range",
+      "type": "RangeOptions",
+      "description": "Настройка шагов\nhttps://refreshless.com/nouislider/pips/#section-range"
+    },
+    {
+      "name": "value",
+      "type": "string | number",
+      "description": "Значение инпута"
+    },
+    {
+      "name": "sliderValue",
+      "type": "number",
+      "description": "Значение слайдера"
+    },
+    {
+      "name": "info",
+      "type": "ReactNode",
+      "description": "Дополнительная информация в правой части поля"
+    },
+    {
+      "name": "Input",
+      "type": "ComponentType<Omit<InputProps, \"value\" | \"defaultValue\" | \"onChange\">>",
+      "default": "forwardRef<HTMLInputElement, InputProps>(\n    (\n        {\n            breakpoint,\n            client,\n            defaultMatchMediaValue = client === undefined ? undefined : client === 'desktop',\n            ...restProps\n        },\n        ref,\n    ) => {\n        const isDesktop = useIsDesktop(breakpoint, defaultMatchMediaValue);\n\n        const Component = isDesktop ? InputDesktop : InputMobile;\n\n        return <Component ref={ref} {...restProps} />;\n    },\n)",
+      "description": "Компонент поля ввода"
+    },
+    {
+      "name": "customInputProps",
+      "type": "Record<string, unknown>",
+      "default": "{}",
+      "description": "Кастомные пропсы для поля ввода"
+    },
+    {
+      "name": "inputClassName",
+      "type": "string",
+      "description": "Класс для инпута"
+    },
+    {
+      "name": "sliderClassName",
+      "type": "string",
+      "description": "Класс для слайдера"
+    },
+    {
+      "name": "stepsClassName",
+      "type": "string",
+      "description": "Класс для шагов"
+    },
+    {
+      "name": "onChange",
+      "type": "OnChangeType",
+      "description": "Обработчик изменения значения через слайдер или поле ввода"
+    },
+    {
+      "name": "onInputChange",
+      "type": "OnInputChangeType",
+      "description": "Обработчик ввода"
+    },
+    {
+      "name": "onSliderChange",
+      "type": "((payload: { value: number; }) => void)",
+      "description": "Обработчик изменения слайдера"
+    },
+    {
+      "name": "onSliderStart",
+      "type": "(() => void)",
+      "description": "Обработчик начала перетаскивания ползунка"
+    },
+    {
+      "name": "onSliderEnd",
+      "type": "(() => void)",
+      "description": "Обработчик окончания перетаскивания ползунка"
+    },
+    {
+      "name": "dots",
+      "type": "boolean",
+      "default": "false",
+      "description": "Включение/отключение отображения точек на слайдере"
+    },
+    {
+      "name": "dotsSlider",
+      "type": "\"step\" | \"custom\"",
+      "default": "'step'",
+      "description": "Тип отображения точек на слайдере: 'step' - по шагу, 'custom' - произвольные"
+    },
+    {
+      "name": "customDots",
+      "type": "number[]",
+      "description": "Массив значений для произвольного размещения точек"
+    },
+    {
+      "name": "showPipsDots",
+      "type": "boolean",
+      "default": "false",
+      "description": "Показывать точки для pips-значений вместе с customDots в режиме dotsSlider='custom'"
+    },
+    {
+      "name": "pipsLabel",
+      "type": "PipsLabelMode",
+      "default": "'all'",
+      "description": "Отображение подписи под точками:\n- all: подпись для всех точек\n- pipsOnly: подпись только для pips-значений\n- customPipsOnly: подпись только для customDots\n- none: подписи отключены"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "bold",
+      "type": "boolean",
+      "default": true,
+      "description": "Жирность текста"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "description": "Начальное значение поля"
+    },
+    {
+      "name": "onClick",
+      "type": "((event: MouseEvent<HTMLDivElement, MouseEvent>) => void)",
+      "description": "Обработчик клика по полю"
+    },
+    {
+      "name": "onMouseDown",
+      "type": "((event: MouseEvent<HTMLDivElement, MouseEvent>) => void)",
+      "description": "Обработчик MouseDown по полю"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "onMouseUp",
+      "type": "((event: MouseEvent<HTMLDivElement, MouseEvent>) => void)",
+      "description": "Обработчик MouseUp по полю"
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "description": "Растягивает компонент на ширину контейнера"
+    },
+    {
+      "name": "clear",
+      "type": "boolean",
+      "description": "Крестик для очистки поля"
+    },
+    {
+      "name": "colors",
+      "type": "\"default\" | \"inverted\"",
+      "description": "Набор цветов для компонента"
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "description": "Отображение ошибки"
+    },
+    {
+      "name": "success",
+      "type": "boolean",
+      "description": "Отображение иконки успеха"
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "description": "Текст подсказки"
+    },
+    {
+      "name": "label",
+      "type": "ReactNode",
+      "description": "Лейбл компонента"
+    },
+    {
+      "name": "labelView",
+      "type": "\"inner\" | \"outer\"",
+      "description": "Вид лейбла внутри / снаружи"
+    },
+    {
+      "name": "wrapperRef",
+      "type": "Ref<HTMLDivElement>",
+      "description": "Ref для обертки input"
+    },
+    {
+      "name": "leftAddons",
+      "type": "ReactNode",
+      "description": "Слот слева"
+    },
+    {
+      "name": "rightAddons",
+      "type": "ReactNode",
+      "description": "Слот справа"
+    },
+    {
+      "name": "leftAddonsProps",
+      "type": "HTMLAttributes<HTMLDivElement>",
+      "description": "Свойства для обертки левых аддонов"
+    },
+    {
+      "name": "rightAddonsProps",
+      "type": "HTMLAttributes<HTMLDivElement>",
+      "description": "Свойства для обертки правых аддонов"
+    },
+    {
+      "name": "fieldClassName",
+      "type": "string",
+      "description": "Дополнительный класс для поля"
+    },
+    {
+      "name": "labelClassName",
+      "type": "string",
+      "description": "Дополнительный класс для лейбла"
+    },
+    {
+      "name": "addonsClassName",
+      "type": "string",
+      "description": "Дополнительный класс для аддонов"
+    },
+    {
+      "name": "focusedClassName",
+      "type": "string",
+      "description": "Класс, который будет установлен при фокусе"
+    },
+    {
+      "name": "filledClassName",
+      "type": "string",
+      "description": "Класс, который будет установлен, если в поле есть значение"
+    },
+    {
+      "name": "onClear",
+      "type": "((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)",
+      "description": "Обработчик нажатия на кнопку очистки"
+    },
+    {
+      "name": "disableUserInput",
+      "type": "boolean",
+      "description": "Запрещает ввод с клавиатуры"
+    },
+    {
+      "name": "fontWeight",
+      "type": "\"bold\" | \"medium\" | \"regular\"",
+      "description": "Вес шрифта инпута, в том числе плейсхолдера"
+    },
+    {
+      "name": "breakpoint",
+      "type": "number",
+      "default": "1024",
+      "description": "Контрольная точка, с нее начинается desktop версия"
+    },
+    {
+      "name": "client",
+      "type": "\"desktop\" | \"mobile\"",
+      "description": "Версия, которая будет использоваться при серверном рендеринге"
+    },
+    {
+      "name": "defaultMatchMediaValue",
+      "type": "boolean | (() => boolean)",
+      "description": "Значение по-умолчанию для хука useMatchMedia\n@deprecated Используйте client"
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

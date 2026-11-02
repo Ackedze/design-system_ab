@@ -1,0 +1,24 @@
+{
+  "$schema": "hub/code-connect.overrides@1",
+  "description": "Авторский маппинг Figma → React. Побеждает автоматическое сопоставление tools/lib/code-connect.mjs.",
+  "reviewedAt": "2026-10-13",
+  "components": [
+    { "figma": "[D] TableView :: Horizontal", "props": { "direction": "horizontal" } },
+    { "figma": "TableView :: Vertical", "props": { "direction": "vertical" } }
+  ],
+  "properties": [
+    {
+      "figma": "Compact",
+      "react": "view",
+      "values": { "False": "common", "True": "compact" },
+      "note": "Булево Compact в Figma — enum view в коде"
+    }
+  ],
+  "figmaOnly": [
+    { "property": "Presets", "figmaComponent": "Row", "workaround": "Структура данных: Row Header → headerCells[], Row Body → элементы rows[]" },
+    { "property": "Skeleton", "figmaComponent": "Row", "workaround": "Нет API скелетона у TableView: скелетоны собираются внутри ячеек" },
+    { "property": "Type", "figmaComponent": "RightAddon", "workaround": "Иконка ячейки передаётся ReactNode через titleAddon" },
+    { "property": "Presets", "figmaComponent": "Title", "workaround": "Содержимое ячейки (Account/Amount/Property/Status/Text) передаётся ReactNode через titleContent" },
+    { "property": "Presets", "figmaComponent": "Subtitle", "workaround": "Подзаголовок ячейки передаётся ReactNode в составе titleContent" }
+  ]
+}

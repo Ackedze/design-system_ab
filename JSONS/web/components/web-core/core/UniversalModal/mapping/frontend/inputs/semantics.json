@@ -1,0 +1,24 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "criticalBaselines",
+      "body": [
+        "Заголовок модального окна задаётся через активную конфигурацию [D] UniversalModalHeader и его declared title/MiddleSlot content. Не дублируй заголовок ручным Text-узлом в BodyContent.",
+        "BodyContent должен иметь width=Fill и height=Hug. Fixed height допустима только при фактическом overflow и явно выбранном scroll-сценарии.",
+        "Scrollbar в [D] UniversalModalBody выключен, когда body-content полностью помещается в доступную высоту. Его включают только при подтверждённом вертикальном overflow.",
+        "Overlap у [D] UniversalModalHeader и [D] UniversalModalFooter выключен в нескроллируемом modal. Он включается только когда scroll-content действительно заезжает под фиксированные header или footer."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "agentInstructions",
+      "body": [
+        "Перед сборкой модального окна прочитай component properties Header, Body и Footer; при наличии системного title preset используй его вместо ручной типографики.",
+        "Не оставляй Scrollbar, Overlap или fixed height как значения по умолчанию: проверь фактическую высоту body-content после наполнения слотa.",
+        "Для confirm-flow проверяй три состояния: entry action, confirmation и result; все action controls и menu/popover должны быть активными библиотечными компонентами."
+      ]
+    }
+  ]
+}

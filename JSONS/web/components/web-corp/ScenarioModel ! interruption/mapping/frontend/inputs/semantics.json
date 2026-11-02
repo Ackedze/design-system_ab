@@ -1,0 +1,433 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "Figma-only desktop-пресет для предупреждения о прерывании незавершённого сценария при реальном риске потери данных.",
+  "patternRefs": [
+    "interruption-scenario"
+  ],
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "implementation",
+      "body": {
+        "figmaOnly": true,
+        "codeImplementation": "none",
+        "codeConnect": "not-applicable"
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "textRecipe",
+      "body": {
+        "recipeId": "recipe:web-corp.scenario-model-interruption.texts",
+        "Default": {
+          "title": "Выйти без сохранения?",
+          "consequenceTemplates": [
+            "Придётся [создавать] [сущность] заново",
+            "Придётся [вносить изменения] заново"
+          ],
+          "actions": [
+            "Выйти",
+            "Остаться"
+          ]
+        },
+        "SaveAs": {
+          "title": "Сохранить [сущность]?",
+          "consequence": "Вы сможете вернуться к [ней] позже",
+          "actions": [
+            "Сохранить и выйти",
+            "Выйти без сохранения"
+          ]
+        }
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "usageGuidance",
+      "body": [
+        "Для генерации используй только 🔒 ScenarioModel ! interruption.",
+        "ModalDesktopHeader, ModalDesktopBody и ModalDesktopFooter являются служебными секциями и отдельно не используются.",
+        "Не используй deprecated root ❌ ScenarioModel ! interruption; замени его активным public root.",
+        "На mobile-web вместо этого desktop-пресета используй PopUpSheet по ptrn:flow.interruption-scenario.",
+        "Type=Default описывает выход без сохранения; Type=SaveAs — сохранение перед выходом.",
+        "Header, Body и Footer должны использовать одинаковый Type.",
+        "Исходное состояние — Default; для SaveAs синхронно переключай Type у всех трёх вложенных секций.",
+        "Public root уже является готовой модальной поверхностью и не требует дополнительного Modal-wrapper.",
+        "Все три секции обязательны и не могут быть скрыты.",
+        "Редактируй только placeholder-фрагменты в []; подписи кнопок и текст вне placeholder фиксированы.",
+        "Placeholder допускают другие действия и сущности, если конструкция адаптирована к контексту модального окна и грамматически согласована.",
+        "В Type=SaveAs чекбокс «Запомнить выбор» по умолчанию скрыт, а при отображении — не выбран.",
+        "Текст чекбокса «Запомнить выбор» фиксирован; пользователь может менять выбор, а сохранённое решение должно быть обратимым.",
+        "У пресета нет отдельных loading и error состояний.",
+        "Крестик обязателен и возвращает пользователя в текущий сценарий, как действие «Остаться».",
+        "Footer всегда содержит две кнопки в фиксированном порядке: Primary, затем Secondary, по text recipe выбранного Type.",
+        "Клик вне модального окна и Escape, если поддерживаются продуктом, работают как «Остаться».",
+        "Не меняй внешнюю ширину или sizing; высота определяется контентом.",
+        "Специальных ограничений символов или строк нет; текст должен оставаться кратким по паттерну.",
+        "Компонент полностью наследует правила ptrn:flow.interruption-scenario."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "criticalBaselines",
+      "body": [
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.public-root-only",
+          "baseline": "Единственный public root — 🔒 ScenarioModel ! interruption."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.type-must-match",
+          "baseline": "Type у Header, Body и Footer совпадает."
+        },
+        {
+          "ruleId": "component:web-corp.scenario-model-interruption.desktop-only",
+          "baseline": "ScenarioModel ! interruption применяется только на desktop."
+        }
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "agentInstructions",
+      "body": [
+        "Не объявляй служебные modal-секции публичными компонентами, даже если raw помечает их role=main.",
+        "Не рекомендуй deprecated root ❌ ScenarioModel ! interruption для новых макетов.",
+        "Не утверждай, что desktop-пресет адаптируется на mobile-web; для mobile-web нужен PopUpSheet.",
+        "Не выводи обязательность чекбокса «Запомнить выбор»: в Type=SaveAs он опционален.",
+        "Не предлагай переписывать фиксированную часть шаблонов или подписи кнопок.",
+        "Не ограничивай placeholder только сущностями из примеров: допускай контекстную подстановку при сохранении конструкции.",
+        "Не выдумывай loading или error состояния для пресета.",
+        "Не меняй порядок, View или количество кнопок Footer.",
+        "Не предлагай ручное изменение ширины или внешнего sizing.",
+        "Не ищи code implementation или Code Connect: это Figma-only пресет без аналога в коде.",
+        "Не оборачивай public root в дополнительный Modal-контейнер.",
+        "Не предлагай instance swap, скрытие секций или ручную визуальную кастомизацию.",
+        "Критичность повышай только по exact component rule или применимому rule из ptrn:flow.interruption-scenario."
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "internalOnly",
+      "body": [
+        "🔒 ModalDesktopHeader ! interruption",
+        "🔒 ModalDesktopBody ! interruption",
+        "🔒 ModalDesktopFooter ! interruption"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "deprecated",
+      "body": [
+        {
+          "name": "❌ ScenarioModel ! interruption",
+          "key": "dc196cbf57106333a445224f891563cf21d9aa7f",
+          "generationStatus": "forbidden",
+          "replacement": "🔒 ScenarioModel ! interruption"
+        }
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "publicBoundary",
+      "body": {
+        "publicRoots": [
+          "🔒 ScenarioModel ! interruption"
+        ],
+        "internalStandaloneAllowed": false,
+        "desktopOnly": true,
+        "mobileWebAlternative": "PopUpSheet по ptrn:flow.interruption-scenario"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "implementation",
+      "body": {
+        "figmaOnly": true,
+        "codeImplementation": "none",
+        "codeConnect": "not-applicable",
+        "additionalModalWrapperRequired": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "variantSemantics",
+      "body": {
+        "Type=Default": "Выход без сохранения: последствие потери данных и действия «Выйти» и «Остаться».",
+        "Type=SaveAs": "Сохранение перед выходом: последствие, опциональный чекбокс «Запомнить выбор» и действия «Сохранить и выйти» и «Выйти без сохранения».",
+        "initial": "Default",
+        "publicRootProperty": false,
+        "generatorInstruction": "Переключай Type синхронно у вложенных Header, Body и Footer.",
+        "consistency": "Header, Body и Footer внутри public root используют одинаковое значение Type."
+      }
+    },
+    {
+      "area": "api",
+      "topic": "anatomy",
+      "body": {
+        "requiredParts": [
+          "🔒 ModalDesktopHeader ! interruption",
+          "🔒 ModalDesktopBody ! interruption",
+          "🔒 ModalDesktopFooter ! interruption"
+        ],
+        "partsMayBeHidden": false,
+        "closeControlRequired": true,
+        "closeControlAction": "Отменить прерывание и вернуться в текущий сценарий; семантически соответствует действию «Остаться»."
+      }
+    },
+    {
+      "area": "api",
+      "topic": "contentModel",
+      "body": {
+        "editable": [
+          "placeholder-фрагменты, заключённые в []"
+        ],
+        "fixed": [
+          "текст вне placeholder-фрагментов",
+          "подписи кнопок"
+        ],
+        "templates": {
+          "Default.title": "Выйти без сохранения?",
+          "Default.consequence": "Придётся [создавать]+[сущность] / [вносить изменения] заново",
+          "Default.actions": [
+            "Выйти",
+            "Остаться"
+          ],
+          "SaveAs.title": "Сохранить [сущность]?",
+          "SaveAs.consequence": "Вы сможете вернуться к [ней] позже",
+          "SaveAs.actions": [
+            "Сохранить и выйти",
+            "Выйти без сохранения"
+          ]
+        },
+        "placeholderPolicy": "Подставляй другие действия и сущности по контексту появления модального окна, сохраняя конструкцию шаблона и грамматическое согласование.",
+        "defaultConsequenceExamples": [
+          "Придётся создавать платёж заново",
+          "Придётся редактировать заявку заново"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "textRecipe",
+      "body": {
+        "recipeId": "recipe:web-corp.scenario-model-interruption.texts",
+        "sourcePattern": "ptrn:flow.interruption-scenario",
+        "Default": {
+          "title": {
+            "template": "Выйти без сохранения?",
+            "editable": false,
+            "mismatchSeverity": "error"
+          },
+          "consequence": {
+            "templates": [
+              "Придётся [создавать] [сущность] заново",
+              "Придётся [вносить изменения] заново"
+            ],
+            "editableParts": [
+              "[создавать]",
+              "[сущность]",
+              "[вносить изменения]"
+            ],
+            "contextualAdaptationRequired": true,
+            "mismatchSeverity": "error"
+          },
+          "actions": [
+            {
+              "order": 1,
+              "label": "Выйти",
+              "view": "Primary"
+            },
+            {
+              "order": 2,
+              "label": "Остаться",
+              "view": "Secondary"
+            }
+          ]
+        },
+        "SaveAs": {
+          "title": {
+            "template": "Сохранить [сущность]?",
+            "editableParts": [
+              "[сущность]"
+            ],
+            "mismatchSeverity": "error"
+          },
+          "consequence": {
+            "template": "Вы сможете вернуться к [ней] позже",
+            "editableParts": [
+              "[ней]"
+            ],
+            "mustAgreeWithEntity": true,
+            "mismatchSeverity": "error"
+          },
+          "actions": [
+            {
+              "order": 1,
+              "label": "Сохранить и выйти",
+              "view": "Primary"
+            },
+            {
+              "order": 2,
+              "label": "Выйти без сохранения",
+              "view": "Secondary"
+            }
+          ]
+        },
+        "specialLengthLimits": false,
+        "lengthGuidance": "Сохраняй текст кратким по ptrn:flow.interruption-scenario; отдельных лимитов символов или строк нет."
+      }
+    },
+    {
+      "area": "api",
+      "topic": "rememberChoice",
+      "body": {
+        "availableFor": "Type=SaveAs",
+        "visibleByDefault": false,
+        "selectedByDefaultWhenVisible": false,
+        "label": "Запомнить выбор",
+        "labelEditable": false,
+        "userCanToggle": true,
+        "savedChoiceMustBeReversible": true,
+        "visibleByDefaultDeviationSeverity": "warning",
+        "selectedByDefaultDeviationSeverity": "warning"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "states",
+      "body": {
+        "loading": "not-supported",
+        "error": "not-supported"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "interaction",
+      "body": {
+        "closeControl": "stay-in-scenario",
+        "outsideClickWhenSupported": "stay-in-scenario",
+        "escapeWhenSupported": "stay-in-scenario"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "sizing",
+      "body": {
+        "externalWidth": "preset-owned",
+        "externalWidthEditable": false,
+        "height": "content-driven",
+        "manualSizingChangesAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "allowedOverrides",
+      "body": {
+        "text": [
+          "только placeholder-фрагменты в []"
+        ],
+        "visibility": [
+          "чекбокс «Запомнить выбор» в Type=SaveAs"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "forbiddenOverrides",
+      "body": [
+        "скрытие Header, Body или Footer",
+        "instance swap",
+        "изменение состава секций",
+        "изменение типов или стилей кнопок",
+        "изменение layout, padding или gap",
+        "ручные цвета",
+        "ручная типографика"
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "compositionPolicy",
+      "body": {
+        "platform": "desktop",
+        "requiredParts": [
+          "🔒 ModalDesktopHeader ! interruption",
+          "🔒 ModalDesktopBody ! interruption",
+          "🔒 ModalDesktopFooter ! interruption"
+        ],
+        "requiredPartsMayBeHidden": false,
+        "typeValues": [
+          "Default",
+          "SaveAs"
+        ],
+        "initialType": "Default",
+        "typeOwnedByPublicRoot": false,
+        "generatorSetsNestedType": true,
+        "typeMustMatchAcrossParts": true,
+        "closeControl": {
+          "required": true,
+          "action": "stay-in-scenario",
+          "equivalentActionLabel": "Остаться"
+        },
+        "dismissActions": {
+          "outsideClickWhenSupported": "stay-in-scenario",
+          "escapeWhenSupported": "stay-in-scenario"
+        },
+        "footer": {
+          "buttonsRequired": 2,
+          "Default": [
+            {
+              "order": 1,
+              "label": "Выйти",
+              "view": "Primary"
+            },
+            {
+              "order": 2,
+              "label": "Остаться",
+              "view": "Secondary"
+            }
+          ],
+          "SaveAs": [
+            {
+              "order": 1,
+              "label": "Сохранить и выйти",
+              "view": "Primary"
+            },
+            {
+              "order": 2,
+              "label": "Выйти без сохранения",
+              "view": "Secondary"
+            }
+          ]
+        },
+        "rememberChoice": {
+          "availableForType": "SaveAs",
+          "visibleByDefault": false,
+          "selectedByDefaultWhenVisible": false,
+          "label": "Запомнить выбор",
+          "labelEditable": false,
+          "interactive": true,
+          "savedChoiceMustBeReversible": true
+        },
+        "states": {
+          "loading": false,
+          "error": false
+        },
+        "instanceSwapAllowed": false,
+        "sizing": {
+          "externalWidth": "preset-owned",
+          "externalWidthEditable": false,
+          "height": "content-driven",
+          "manualSizingChangesAllowed": false
+        },
+        "mobileWebComposition": "Используй PopUpSheet по ptrn:flow.interruption-scenario вместо ScenarioModel ! interruption."
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "hostIntegration",
+      "body": {
+        "publicRootIsCompleteModalSurface": true,
+        "additionalModalContainerRequired": false,
+        "additionalWrapperRequired": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,1762 @@
+{
+  "$schema": "hub/taxonomy@1",
+  "description": "Авторский файл хаба: идентичность и классификация сущностей. Адаптеры его только читают. Новые пакеты источника без записи здесь импортируются не будут — адаптер выведет их список.",
+  "libraries": {
+    "core": "@alfalab/core-components — атомарные компоненты (read-only для хаба)",
+    "corp": "arui-private — корпоративные компоненты Альфа-Бизнеса",
+    "promo": "arui-private — промо-компоненты (лендинги, маркетинг)",
+    "preset": "Figma-пресеты корпоративных экранов",
+    "limited": "Ограниченные компоненты: не подключать в новые продукты",
+    "helper": "Служебные Figma-компоненты (сетка, документация); нужны только для распознавания макетов"
+  },
+  "levels": {
+    "primitive": "Атомарный компонент core-components",
+    "component": "Самостоятельный переиспользуемый компонент",
+    "composite": "Собирается из нескольких компонентов",
+    "helper": "Вне иерархии: служебный Figma-компонент"
+  },
+  "categories": {
+    "action": "Действия",
+    "input": "Ввод данных",
+    "layout": "Раскладка",
+    "feedback": "Обратная связь",
+    "data": "Отображение данных",
+    "overlay": "Оверлеи",
+    "navigation": "Навигация",
+    "media": "Медиа",
+    "calendar": "Календари",
+    "upload": "Загрузка файлов"
+  },
+  "entities": [
+    {
+      "id": "core.accordion",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core.accordion",
+        "core-components": "@alfalab/core-components-accordion"
+      }
+    },
+    {
+      "id": "core.action-button",
+      "level": "primitive",
+      "library": "core",
+      "category": "action",
+      "sources": {
+        "design-system-ab": "web-core.action-button",
+        "core-components": "@alfalab/core-components-action-button"
+      }
+    },
+    {
+      "id": "core.alert",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "core-components": "@alfalab/core-components-alert"
+      }
+    },
+    {
+      "id": "core.amount",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "design-system-ab": "web-core.amount",
+        "core-components": "@alfalab/core-components-amount"
+      }
+    },
+    {
+      "id": "core.amount-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.amount-input",
+        "core-components": "@alfalab/core-components-amount-input"
+      }
+    },
+    {
+      "id": "core.attach",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.attach",
+        "core-components": "@alfalab/core-components-attach"
+      }
+    },
+    {
+      "id": "core.badge",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "core-components": "@alfalab/core-components-badge"
+      }
+    },
+    {
+      "id": "core.bank-card",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "design-system-ab": "web-core.bank-card",
+        "core-components": "@alfalab/core-components-bank-card"
+      }
+    },
+    {
+      "id": "core.base-modal",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "core-components": "@alfalab/core-components-base-modal"
+      }
+    },
+    {
+      "id": "core.bottom-sheet",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "design-system-ab": "web-core.bottom-sheet",
+        "core-components": "@alfalab/core-components-bottom-sheet"
+      }
+    },
+    {
+      "id": "core.button",
+      "level": "primitive",
+      "library": "core",
+      "category": "action",
+      "sources": {
+        "design-system-ab": "web-core.button",
+        "core-components": "@alfalab/core-components-button"
+      }
+    },
+    {
+      "id": "core.calendar",
+      "level": "primitive",
+      "library": "core",
+      "category": "calendar",
+      "sources": {
+        "design-system-ab": "web-core.calendar",
+        "core-components": "@alfalab/core-components-calendar"
+      }
+    },
+    {
+      "id": "core.calendar-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-calendar-input"
+      }
+    },
+    {
+      "id": "core.calendar-range",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-calendar-range"
+      }
+    },
+    {
+      "id": "core.calendar-with-skeleton",
+      "level": "primitive",
+      "library": "core",
+      "category": "calendar",
+      "sources": {
+        "core-components": "@alfalab/core-components-calendar-with-skeleton"
+      }
+    },
+    {
+      "id": "core.card-image",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "core-components": "@alfalab/core-components-card-image"
+      }
+    },
+    {
+      "id": "core.carousel",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core.carousel",
+        "core-components": "@alfalab/core-components-carousel"
+      }
+    },
+    {
+      "id": "core.cdn-icon",
+      "level": "primitive",
+      "library": "core",
+      "category": "media",
+      "sources": {
+        "core-components": "@alfalab/core-components-cdn-icon"
+      }
+    },
+    {
+      "id": "core.chart",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "core-components": "@alfalab/core-components-chart"
+      }
+    },
+    {
+      "id": "core.checkbox",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.checkbox",
+        "core-components": "@alfalab/core-components-checkbox"
+      }
+    },
+    {
+      "id": "core.checkbox-group",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.checkbox-group",
+        "core-components": "@alfalab/core-components-checkbox-group"
+      }
+    },
+    {
+      "id": "core.circular-progress-bar",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.circular-progress-bar",
+        "core-components": "@alfalab/core-components-circular-progress-bar"
+      }
+    },
+    {
+      "id": "core.code-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.code-input",
+        "core-components": "@alfalab/core-components-code-input"
+      }
+    },
+    {
+      "id": "core.collapse",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "core-components": "@alfalab/core-components-collapse"
+      }
+    },
+    {
+      "id": "core.comment",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "design-system-ab": "web-core.comment",
+        "core-components": "@alfalab/core-components-comment"
+      }
+    },
+    {
+      "id": "core.confirmation",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "design-system-ab": "web-core.confirmation",
+        "core-components": "@alfalab/core-components-confirmation"
+      }
+    },
+    {
+      "id": "core.custom-button",
+      "level": "primitive",
+      "library": "core",
+      "category": "action",
+      "sources": {
+        "design-system-ab": "web-core.custom-button",
+        "core-components": "@alfalab/core-components-custom-button"
+      }
+    },
+    {
+      "id": "core.custom-picker-button",
+      "level": "primitive",
+      "library": "core",
+      "category": "action",
+      "sources": {
+        "core-components": "@alfalab/core-components-custom-picker-button"
+      }
+    },
+    {
+      "id": "core.date-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-date-input"
+      }
+    },
+    {
+      "id": "core.date-range-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-date-range-input"
+      }
+    },
+    {
+      "id": "core.date-time-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-date-time-input"
+      }
+    },
+    {
+      "id": "core.divider",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core.divider",
+        "core-components": "@alfalab/core-components-divider"
+      }
+    },
+    {
+      "id": "core.drawer",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "core-components": "@alfalab/core-components-drawer"
+      }
+    },
+    {
+      "id": "core.dropzone",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.dropzone",
+        "core-components": "@alfalab/core-components-dropzone"
+      }
+    },
+    {
+      "id": "core.file-upload-item",
+      "level": "primitive",
+      "library": "core",
+      "category": "upload",
+      "sources": {
+        "design-system-ab": "web-core.file-upload-item",
+        "core-components": "@alfalab/core-components-file-upload-item"
+      }
+    },
+    {
+      "id": "core.file-upload-item-v1",
+      "level": "primitive",
+      "library": "core",
+      "sources": {
+        "design-system-ab": "web-core.file-upload-item-v1",
+        "core-components": "@alfalab/core-components-file-upload-item-v1"
+      }
+    },
+    {
+      "id": "core.filter-tag",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.filter-tag",
+        "core-components": "@alfalab/core-components-filter-tag"
+      }
+    },
+    {
+      "id": "core.form-control",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-form-control"
+      }
+    },
+    {
+      "id": "core.gallery",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core.gallery",
+        "core-components": "@alfalab/core-components-gallery"
+      }
+    },
+    {
+      "id": "core.gap",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "core-components": "@alfalab/core-components-gap"
+      }
+    },
+    {
+      "id": "core.grid",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "core-components": "@alfalab/core-components-grid"
+      }
+    },
+    {
+      "id": "core.hatching-progress-bar",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.hatching-progress-bar",
+        "core-components": "@alfalab/core-components-hatching-progress-bar"
+      }
+    },
+    {
+      "id": "core.icon-button",
+      "level": "primitive",
+      "library": "core",
+      "category": "action",
+      "sources": {
+        "design-system-ab": "web-core.icon-button",
+        "core-components": "@alfalab/core-components-icon-button"
+      }
+    },
+    {
+      "id": "core.icon-view",
+      "level": "primitive",
+      "library": "core",
+      "category": "media",
+      "sources": {
+        "design-system-ab": "web-core.icon-view",
+        "core-components": "@alfalab/core-components-icon-view"
+      }
+    },
+    {
+      "id": "core.indicator",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.indicator",
+        "core-components": "@alfalab/core-components-indicator"
+      }
+    },
+    {
+      "id": "core.input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.input",
+        "core-components": "@alfalab/core-components-input"
+      }
+    },
+    {
+      "id": "core.input-autocomplete",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-input-autocomplete"
+      }
+    },
+    {
+      "id": "core.international-phone-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.international-phone-input",
+        "core-components": "@alfalab/core-components-international-phone-input"
+      }
+    },
+    {
+      "id": "core.link",
+      "level": "primitive",
+      "library": "core",
+      "category": "navigation",
+      "sources": {
+        "design-system-ab": "web-core.link",
+        "core-components": "@alfalab/core-components-link"
+      }
+    },
+    {
+      "id": "core.list",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "design-system-ab": "web-core.list",
+        "core-components": "@alfalab/core-components-list"
+      }
+    },
+    {
+      "id": "core.list-header",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "core-components": "@alfalab/core-components-list-header"
+      }
+    },
+    {
+      "id": "core.loader",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "core-components": "@alfalab/core-components-loader"
+      }
+    },
+    {
+      "id": "core.markdown",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "design-system-ab": "web-core.markdown",
+        "core-components": "@alfalab/core-components-markdown"
+      }
+    },
+    {
+      "id": "core.masked-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-masked-input"
+      }
+    },
+    {
+      "id": "core.master-input",
+      "level": "primitive",
+      "library": "core",
+      "sources": {
+        "design-system-ab": "web-core.master-input"
+      }
+    },
+    {
+      "id": "core.modal",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "design-system-ab": "web-core.modal",
+        "core-components": "@alfalab/core-components-modal"
+      }
+    },
+    {
+      "id": "core.navigation-bar",
+      "level": "primitive",
+      "library": "core",
+      "category": "navigation",
+      "sources": {
+        "design-system-ab": "web-core-navigation.navigation-bar",
+        "core-components": "@alfalab/core-components-navigation-bar"
+      }
+    },
+    {
+      "id": "core.notification",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.notification",
+        "core-components": "@alfalab/core-components-notification"
+      }
+    },
+    {
+      "id": "core.notification-manager",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "core-components": "@alfalab/core-components-notification-manager"
+      }
+    },
+    {
+      "id": "core.number-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.number-input",
+        "core-components": "@alfalab/core-components-number-input"
+      }
+    },
+    {
+      "id": "core.options-list",
+      "level": "primitive",
+      "library": "core",
+      "sources": {
+        "design-system-ab": "web-core.options-list"
+      }
+    },
+    {
+      "id": "core.page-indicator",
+      "level": "primitive",
+      "library": "core",
+      "category": "navigation",
+      "sources": {
+        "design-system-ab": "web-core-navigation.page-indicator",
+        "core-components": "@alfalab/core-components-page-indicator"
+      }
+    },
+    {
+      "id": "core.pagination",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core-navigation.pagination",
+        "core-components": "@alfalab/core-components-pagination"
+      }
+    },
+    {
+      "id": "core.pass-code",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.pass-code",
+        "core-components": "@alfalab/core-components-pass-code"
+      }
+    },
+    {
+      "id": "core.password-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-password-input"
+      }
+    },
+    {
+      "id": "core.pattern-lock",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.pattern-lock",
+        "core-components": "@alfalab/core-components-pattern-lock"
+      }
+    },
+    {
+      "id": "core.phone-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-phone-input"
+      }
+    },
+    {
+      "id": "core.picker-button",
+      "level": "primitive",
+      "library": "core",
+      "category": "action",
+      "sources": {
+        "core-components": "@alfalab/core-components-picker-button"
+      }
+    },
+    {
+      "id": "core.plate",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core.plate",
+        "core-components": "@alfalab/core-components-plate"
+      }
+    },
+    {
+      "id": "core.popover",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "core-components": "@alfalab/core-components-popover"
+      }
+    },
+    {
+      "id": "core.popup-sheet",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "design-system-ab": "web-core.popup-sheet",
+        "core-components": "@alfalab/core-components-popup-sheet"
+      }
+    },
+    {
+      "id": "core.product-cover",
+      "level": "primitive",
+      "library": "core",
+      "category": "media",
+      "sources": {
+        "design-system-ab": "web-core.product-cover",
+        "core-components": "@alfalab/core-components-product-cover"
+      }
+    },
+    {
+      "id": "core.progress-bar",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.progress-bar",
+        "core-components": "@alfalab/core-components-progress-bar"
+      }
+    },
+    {
+      "id": "core.pure-cell",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core.pure-cell",
+        "core-components": "@alfalab/core-components-pure-cell"
+      }
+    },
+    {
+      "id": "core.radio",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.radio",
+        "core-components": "@alfalab/core-components-radio"
+      }
+    },
+    {
+      "id": "core.radio-group",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.radio-group",
+        "core-components": "@alfalab/core-components-radio-group"
+      }
+    },
+    {
+      "id": "core.scrollbar",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core.scroll-bar",
+        "core-components": "@alfalab/core-components-scrollbar"
+      }
+    },
+    {
+      "id": "core.segmented-control",
+      "level": "primitive",
+      "library": "core",
+      "category": "navigation",
+      "sources": {
+        "design-system-ab": "web-core.segmented-control",
+        "core-components": "@alfalab/core-components-segmented-control"
+      }
+    },
+    {
+      "id": "core.select",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.select",
+        "core-components": "@alfalab/core-components-select"
+      }
+    },
+    {
+      "id": "core.select-with-tags",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.select-with-tags",
+        "core-components": "@alfalab/core-components-select-with-tags"
+      }
+    },
+    {
+      "id": "core.side-panel",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "design-system-ab": "web-core.side-panel",
+        "core-components": "@alfalab/core-components-side-panel"
+      }
+    },
+    {
+      "id": "core.skeleton",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.skeleton",
+        "core-components": "@alfalab/core-components-skeleton"
+      }
+    },
+    {
+      "id": "core.slider",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.slider",
+        "core-components": "@alfalab/core-components-slider"
+      }
+    },
+    {
+      "id": "core.slider-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.slider-input",
+        "core-components": "@alfalab/core-components-slider-input"
+      }
+    },
+    {
+      "id": "core.sortable-list",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.sortable-list",
+        "core-components": "@alfalab/core-components-sortable-list"
+      }
+    },
+    {
+      "id": "core.space",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "core-components": "@alfalab/core-components-space"
+      }
+    },
+    {
+      "id": "core.spinner",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.spinner",
+        "core-components": "@alfalab/core-components-spinner"
+      }
+    },
+    {
+      "id": "core.stack",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "core-components": "@alfalab/core-components-stack"
+      }
+    },
+    {
+      "id": "core.status",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.status",
+        "core-components": "@alfalab/core-components-status"
+      }
+    },
+    {
+      "id": "core.status-badge",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.status-badge",
+        "core-components": "@alfalab/core-components-status-badge"
+      }
+    },
+    {
+      "id": "core.stepped-progress-bar",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.stepped-progress-bar",
+        "core-components": "@alfalab/core-components-stepped-progress-bar"
+      }
+    },
+    {
+      "id": "core.steps",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core.steps",
+        "core-components": "@alfalab/core-components-steps"
+      }
+    },
+    {
+      "id": "core.switch",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.switch",
+        "core-components": "@alfalab/core-components-switch"
+      }
+    },
+    {
+      "id": "core.system-message",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.system-message",
+        "core-components": "@alfalab/core-components-system-message"
+      }
+    },
+    {
+      "id": "core.tab-bar",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core-navigation.tabbar",
+        "core-components": "@alfalab/core-components-tab-bar"
+      }
+    },
+    {
+      "id": "core.table",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "core-components": "@alfalab/core-components-table"
+      }
+    },
+    {
+      "id": "core.tabs",
+      "level": "primitive",
+      "library": "core",
+      "category": "layout",
+      "sources": {
+        "design-system-ab": "web-core-navigation.tabs",
+        "core-components": "@alfalab/core-components-tabs"
+      }
+    },
+    {
+      "id": "core.tag",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "design-system-ab": "web-core.tag",
+        "core-components": "@alfalab/core-components-tag"
+      }
+    },
+    {
+      "id": "core.tag-group",
+      "level": "primitive",
+      "library": "core",
+      "sources": {
+        "design-system-ab": "web-core.tag-group"
+      }
+    },
+    {
+      "id": "core.text",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "design-system-ab": "web-core.text",
+        "core-components": "@alfalab/core-components-text"
+      }
+    },
+    {
+      "id": "core.textarea",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-textarea"
+      }
+    },
+    {
+      "id": "core.time-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "core-components": "@alfalab/core-components-time-input"
+      }
+    },
+    {
+      "id": "core.toast",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "design-system-ab": "web-core.toast",
+        "core-components": "@alfalab/core-components-toast"
+      }
+    },
+    {
+      "id": "core.toast-plate",
+      "level": "primitive",
+      "library": "core",
+      "category": "feedback",
+      "sources": {
+        "core-components": "@alfalab/core-components-toast-plate"
+      }
+    },
+    {
+      "id": "core.tooltip",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "design-system-ab": "web-core.tooltip",
+        "core-components": "@alfalab/core-components-tooltip"
+      }
+    },
+    {
+      "id": "core.typography",
+      "level": "primitive",
+      "library": "core",
+      "category": "data",
+      "sources": {
+        "core-components": "@alfalab/core-components-typography"
+      }
+    },
+    {
+      "id": "core.underlay",
+      "level": "primitive",
+      "library": "core",
+      "sources": {
+        "design-system-ab": "web-core.underlay",
+        "core-components": "@alfalab/core-components-underlay"
+      }
+    },
+    {
+      "id": "core.universal-date-input",
+      "level": "primitive",
+      "library": "core",
+      "category": "input",
+      "sources": {
+        "design-system-ab": "web-core.universal-date-input",
+        "core-components": "@alfalab/core-components-universal-date-input"
+      }
+    },
+    {
+      "id": "core.universal-modal",
+      "level": "primitive",
+      "library": "core",
+      "category": "overlay",
+      "sources": {
+        "design-system-ab": "web-core.universal-modal",
+        "core-components": "@alfalab/core-components-universal-modal"
+      }
+    },
+    {
+      "id": "core.web-view",
+      "level": "primitive",
+      "library": "core",
+      "sources": {
+        "design-system-ab": "web-core.web-view"
+      }
+    },
+    {
+      "id": "corp.amount-styles",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.amount-styles",
+        "arui-private": "corporate-amount"
+      }
+    },
+    {
+      "id": "corp.background-plate",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.background-plate",
+        "arui-private": "background-plate"
+      }
+    },
+    {
+      "id": "corp.banner-wrapper-mobile",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.banner-wrapper-mobile",
+        "arui-private": "banner-wrapper-mobile"
+      }
+    },
+    {
+      "id": "corp.card-image",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.card-image",
+        "arui-private": "card-image"
+      }
+    },
+    {
+      "id": "corp.content-card-wrapper",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.content-card-wrapper",
+        "arui-private": "content-card-wrapper"
+      }
+    },
+    {
+      "id": "corp.corporate-content",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.corporate-content",
+        "arui-private": "corporate-content"
+      }
+    },
+    {
+      "id": "corp.corporate-topbar",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.corporate-topbar",
+        "arui-private": "corporate-topbar"
+      }
+    },
+    {
+      "id": "corp.divider",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.divider",
+        "arui-private": "divider"
+      }
+    },
+    {
+      "id": "corp.faq",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.faq",
+        "arui-private": "faq"
+      }
+    },
+    {
+      "id": "corp.file-upload",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.file-upload",
+        "arui-private": "file-upload"
+      }
+    },
+    {
+      "id": "corp.holding-plate",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.holding-plate"
+      }
+    },
+    {
+      "id": "corp.isle-block",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.isle-block"
+      }
+    },
+    {
+      "id": "corp.navigation-card-view",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.navigation-card-view",
+        "arui-private": "navigation-card-view"
+      }
+    },
+    {
+      "id": "corp.payment-masked-number",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.payment-masked-number",
+        "arui-private": "payment-masked-number"
+      }
+    },
+    {
+      "id": "corp.result-screen",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.result-screen",
+        "arui-private": "result-screen"
+      }
+    },
+    {
+      "id": "corp.status-property",
+      "name": "StatusProperty",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.status-property"
+      }
+    },
+    {
+      "id": "corp.title-view",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.title-view",
+        "arui-private": "title-view"
+      }
+    },
+    {
+      "id": "corp.title-view-mobile",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.title-view-mobile",
+        "arui-private": "title-view-mobile"
+      }
+    },
+    {
+      "id": "corp.widget-plate",
+      "level": "component",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.widget-plate",
+        "arui-private": "widget-plate"
+      }
+    },
+    {
+      "id": "limited.hub-page",
+      "level": "component",
+      "library": "limited",
+      "restricted": true,
+      "sources": {
+        "design-system-ab": "web.hub-page",
+        "arui-private": "hub-page"
+      }
+    },
+    {
+      "id": "limited.neuro-chat",
+      "level": "component",
+      "library": "limited",
+      "restricted": true,
+      "sources": {
+        "design-system-ab": "web.neuro-chat",
+        "arui-private": "neuro-chat"
+      }
+    },
+    {
+      "id": "limited.neuro-logo",
+      "level": "component",
+      "library": "limited",
+      "restricted": true,
+      "sources": {
+        "design-system-ab": "web.neuro-logo",
+        "arui-private": "neuro-logo"
+      }
+    },
+    {
+      "id": "limited.onboarding-personalization-page",
+      "name": "OnboardingPersonalizationPage",
+      "level": "component",
+      "library": "limited",
+      "restricted": true,
+      "sources": {
+        "design-system-ab": "web.onboarding-personalization-page",
+        "arui-private": "onboarding-personalization"
+      }
+    },
+    {
+      "id": "limited.spotlight-bar",
+      "name": "SpotlightBar",
+      "level": "component",
+      "library": "limited",
+      "restricted": true,
+      "sources": {
+        "design-system-ab": "web.spotlight-bar"
+      }
+    },
+    {
+      "id": "limited.spotlight-input",
+      "level": "component",
+      "library": "limited",
+      "restricted": true,
+      "sources": {
+        "design-system-ab": "web.spotlight-input",
+        "arui-private": "spotlight-input"
+      }
+    },
+    {
+      "id": "limited.spotlight-menu",
+      "name": "SpotlightMenu",
+      "level": "component",
+      "library": "limited",
+      "restricted": true,
+      "sources": {
+        "design-system-ab": "web.spotlight-menu"
+      }
+    },
+    {
+      "id": "limited.spotlight-page",
+      "level": "component",
+      "library": "limited",
+      "restricted": true,
+      "sources": {
+        "design-system-ab": "web.spotlight-page",
+        "arui-private": "spotlight-page"
+      }
+    },
+    {
+      "id": "promo.benefit-card",
+      "level": "component",
+      "library": "promo",
+      "sources": {
+        "design-system-ab": "web.benefit-card",
+        "arui-private": "benefit-card"
+      }
+    },
+    {
+      "id": "promo.bento-grid",
+      "level": "component",
+      "library": "promo",
+      "sources": {
+        "design-system-ab": "web.bento-grid"
+      }
+    },
+    {
+      "id": "promo.content-block",
+      "level": "component",
+      "library": "promo",
+      "sources": {
+        "design-system-ab": "web.content-block"
+      }
+    },
+    {
+      "id": "promo.footer",
+      "level": "component",
+      "library": "promo",
+      "sources": {
+        "design-system-ab": "web.footer",
+        "arui-private": "footer"
+      }
+    },
+    {
+      "id": "promo.promo-card",
+      "level": "component",
+      "library": "promo",
+      "sources": {
+        "design-system-ab": "web.promo-card",
+        "arui-private": "promo-card"
+      }
+    },
+    {
+      "id": "promo.promo-main-block",
+      "level": "component",
+      "library": "promo",
+      "sources": {
+        "design-system-ab": "web.promo-main-block",
+        "arui-private": "promo-main-block"
+      }
+    },
+    {
+      "id": "promo.promo-table-view",
+      "level": "component",
+      "library": "promo",
+      "sources": {
+        "design-system-ab": "web.promo-table-view",
+        "arui-private": "promo-table-view"
+      }
+    },
+    {
+      "id": "corp.account-select",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.account-select",
+        "arui-private": "corporate-account-select"
+      }
+    },
+    {
+      "id": "corp.button-group",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.buttons-group",
+        "arui-private": "button-group"
+      }
+    },
+    {
+      "id": "corp.button-stack",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.button-stack"
+      }
+    },
+    {
+      "id": "corp.card-swiper-mobile",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.card-swiper-mobile",
+        "arui-private": "card-swiper-mobile"
+      }
+    },
+    {
+      "id": "corp.chat",
+      "name": "Chat",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.сhat",
+        "arui-private": "chat"
+      }
+    },
+    {
+      "id": "corp.corporate-app-header-mobile",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.corporate-app-header-mobile",
+        "arui-private": "corporate-app-header-mobile"
+      }
+    },
+    {
+      "id": "corp.corporate-app-header-new",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.corporate-app-header-new",
+        "arui-private": "corporate-app-header-new"
+      }
+    },
+    {
+      "id": "corp.corporate-system-message",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.corporate-system-message",
+        "arui-private": "corporate-system-message"
+      }
+    },
+    {
+      "id": "corp.date-range-picker",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.data-range-picker",
+        "arui-private": "date-range-picker"
+      }
+    },
+    {
+      "id": "corp.filter-bar",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.filter-bar",
+        "arui-private": "filter-bar"
+      }
+    },
+    {
+      "id": "corp.filter-company-select",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.filter-company-select",
+        "arui-private": "filter-company-select"
+      }
+    },
+    {
+      "id": "corp.filter-company-select-universal-modal",
+      "name": "FilterCompanySelectUniversalModal",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.filter-company-select-universal-modal"
+      }
+    },
+    {
+      "id": "corp.filters-block",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.filters-block",
+        "arui-private": "filters-block"
+      }
+    },
+    {
+      "id": "corp.hub-menu",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.hub-menu",
+        "arui-private": "hub-menu"
+      }
+    },
+    {
+      "id": "corp.onboarding-hint",
+      "name": "OnboardingHint",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.onboarding-hint",
+        "arui-private": "onboarding-hint"
+      }
+    },
+    {
+      "id": "corp.onboarding-tooltip",
+      "name": "OnboardingTooltip",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.onboarding-tooltip",
+        "arui-private": "onboarding-tooltip"
+      }
+    },
+    {
+      "id": "corp.pagination",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.pagination",
+        "arui-private": "pagination"
+      }
+    },
+    {
+      "id": "corp.payment-control",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.payment-control",
+        "arui-private": "payment-control-mobile"
+      }
+    },
+    {
+      "id": "corp.scenario-model-interruption",
+      "name": "ScenarioModelInterruption",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.scenario-model-interruption"
+      }
+    },
+    {
+      "id": "corp.table-basic",
+      "name": "TableBasic",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.table-basic-d",
+        "arui-private": "table"
+      }
+    },
+    {
+      "id": "corp.table-bulk-actions",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.table-bulk-actions",
+        "arui-private": "corporate-table-bulk-actions"
+      }
+    },
+    {
+      "id": "corp.table-view",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.table-view",
+        "arui-private": "table-view"
+      }
+    },
+    {
+      "id": "corp.table-wide",
+      "name": "TableWide",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.table-wide-d",
+        "arui-private": "table"
+      }
+    },
+    {
+      "id": "corp.tabs-view",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.tabs-view",
+        "arui-private": "tabs-view"
+      }
+    },
+    {
+      "id": "corp.voc",
+      "level": "composite",
+      "library": "corp",
+      "sources": {
+        "design-system-ab": "web-corp.voc",
+        "arui-private": "voc"
+      }
+    },
+    {
+      "id": "preset.body-header",
+      "level": "composite",
+      "library": "preset",
+      "sources": {
+        "design-system-ab": "web.body-header"
+      }
+    },
+    {
+      "id": "preset.forms",
+      "level": "composite",
+      "library": "preset",
+      "sources": {
+        "design-system-ab": "web.forms"
+      }
+    },
+    {
+      "id": "preset.header",
+      "level": "composite",
+      "library": "preset",
+      "sources": {
+        "design-system-ab": "web.header",
+        "arui-private": "header"
+      }
+    },
+    {
+      "id": "preset.helpbook",
+      "level": "composite",
+      "library": "preset",
+      "sources": {
+        "design-system-ab": "web.helpbook"
+      }
+    },
+    {
+      "id": "preset.neurohelper",
+      "level": "composite",
+      "library": "preset",
+      "sources": {
+        "design-system-ab": "web.neurohelper"
+      }
+    },
+    {
+      "id": "preset.progress-bar",
+      "level": "composite",
+      "library": "preset",
+      "sources": {
+        "design-system-ab": "web.progress-bar"
+      }
+    },
+    {
+      "id": "preset.subscription",
+      "level": "composite",
+      "library": "preset",
+      "sources": {
+        "design-system-ab": "web.subscription"
+      }
+    },
+    {
+      "id": "promo.benefits",
+      "level": "composite",
+      "library": "promo",
+      "sources": {
+        "design-system-ab": "web.benefits"
+      }
+    },
+    {
+      "id": "promo.benefits-block",
+      "level": "composite",
+      "library": "promo",
+      "sources": {
+        "design-system-ab": "web.benefits-block",
+        "arui-private": "benefit-block"
+      }
+    },
+    {
+      "id": "helper.colors-text",
+      "name": "ColorsText",
+      "level": "helper",
+      "library": "helper",
+      "sources": {
+        "design-system-ab": "web.colors-text"
+      }
+    },
+    {
+      "id": "helper.comments",
+      "level": "helper",
+      "library": "helper",
+      "sources": {
+        "design-system-ab": "web.comments"
+      }
+    },
+    {
+      "id": "helper.corp-helpers",
+      "name": "CorpHelpers",
+      "level": "helper",
+      "library": "helper",
+      "sources": {
+        "design-system-ab": "web-corp.helpers"
+      }
+    },
+    {
+      "id": "helper.cursor",
+      "level": "helper",
+      "library": "helper",
+      "sources": {
+        "design-system-ab": "web.cursor"
+      }
+    },
+    {
+      "id": "helper.documentation",
+      "level": "helper",
+      "library": "helper",
+      "sources": {
+        "design-system-ab": "web.documentation"
+      }
+    },
+    {
+      "id": "helper.page-markdown",
+      "name": "PageMarkdown",
+      "level": "helper",
+      "library": "helper",
+      "sources": {
+        "design-system-ab": "web.page-markdown"
+      }
+    },
+    {
+      "id": "helper.spacing-component",
+      "name": "SpacingComponent",
+      "level": "helper",
+      "library": "helper",
+      "sources": {
+        "design-system-ab": "web.spacing-component"
+      }
+    }
+  ]
+}

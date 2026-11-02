@@ -1,0 +1,399 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "Главный промо-блок с ключевым сообщением, изображением и CTA. Сценарное размещение задаёт landing-page pattern.",
+  "publicApi": {
+    "roots": [
+      "[D] PromoMainBlock",
+      "[M] PromoMainBlock"
+    ],
+    "internalFamilies": [
+      "[D] ButtonGroup",
+      "[M] ButtonGroup",
+      "[D] SwapMe",
+      "[M] SwapMe",
+      "[D] LightOverlay",
+      "[M] LightOverlay",
+      "[D] DarkOverlay",
+      "[M] DarkOverlay"
+    ]
+  },
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "usageGuidance",
+      "body": [
+        "Используй только [D] PromoMainBlock и [M] PromoMainBlock.",
+        "Первый/единственный hero, Appearance по сегменту, Holding-контекст и fixed mobile ButtonStack проверяет landing-page pattern.",
+        "На desktop View=Page относится к странице, View=Modal — к modal container; mobile root общий.",
+        "На desktop используй Compact=True только при viewport <=1024 px; у mobile свойства Compact нет.",
+        "Соблюдай матрицу Background: D Page=False, D Modal=True, M=True.",
+        "Appearance не является темой; его связь с сегментом задаёт landing-page pattern.",
+        "На desktop BlurEffect=True обязателен и для Page, и для Modal; у mobile свойства нет.",
+        "Title, Subtitle и ImageContainer обязательны.",
+        "Status опционален: показывай 1–3 StatusBadge по их полному контракту; 2–3 статуса дают warning, больше 3 — error.",
+        "Holding поддерживается только на desktop и наследует FilterCompanySelect/AccountSelect.",
+        "Bottom slot опционален: Text или один финальный компонент; SwapMe запрещён, содержимое сохраняется D/M.",
+        "Desktop CTA можно скрыть; иначе используй Primary, Secondary или оба действия без изменения baseline порядка, View и параметров.",
+        "На mobile скрывай внутренний ButtonGroup; видимый raw ButtonGroup даёт warning, отдельный ButtonStack размещает landing-page pattern.",
+        "Сохраняй порядок D: Status → Title/Holding → Subtitle → Bottom → actions; M: Status → Title → Subtitle → Bottom.",
+        "Title ограничен 40 символами/2 строками, Subtitle — 120 символами/3 строками.",
+        "Изображение обязательно бери из Corp Image Library с Crop=Center, Size=534; Segment соответствует контексту, а asset одинаков для D/M.",
+        "Не меняй вручную размеры/позицию ImageContainer, crop, fade, высоты блока, gap или padding.",
+        "LightOverlay/DarkOverlay и их Presets выбираются автоматически из Appearance.",
+        "Между D/M сохраняй текст, тип и количество StatusBadge; casing D=True/M=False принадлежит пресетам.",
+        "Не создавай loading/error/disabled/skeleton и не назначай interaction контейнеру или изображению.",
+        "PromoMainBlock активен и каноничен, без replacement/legacy.",
+        "Между D/M сохраняй контент, один image asset, Status, Bottom slot, действия и Appearance; Holding/View/Compact/BlurEffect desktop-only, Background следует матрице."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "ruleHighlights",
+      "body": [
+        "background-matrix",
+        "desktop-compact-under-1024",
+        "desktop-blur-required",
+        "required-content",
+        "status-count-and-contract",
+        "holding-desktop-only",
+        "bottom-slot-final-content",
+        "desktop-actions-follow-baseline",
+        "mobile-internal-button-group-warning",
+        "content-order-by-platform",
+        "text-limits",
+        "image-source-and-settings",
+        "layout-is-component-owned",
+        "overlay-is-derived",
+        "container-noninteractive",
+        "responsive-parity"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "usage",
+      "body": {
+        "purpose": "Главный промо-блок с ключевым сообщением, изображением и CTA.",
+        "scenarioOwner": "ptrn:pages.landing.alfa-business",
+        "scenarioOwnedRules": [
+          "first-and-single",
+          "Appearance-by-segment",
+          "Holding-context",
+          "mobile-ButtonStack-placement"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "variantSemantics",
+      "body": {
+        "View": {
+          "Page": "page context",
+          "Modal": "inside modal container",
+          "mobileExposed": false
+        },
+        "Compact": {
+          "desktopOnly": true,
+          "requiredWhen": [
+            "viewport<=1024"
+          ]
+        },
+        "Appearance": {
+          "isTheme": false,
+          "Light": "light colored surface for MMB segment",
+          "Dark": "dark surface for KIB segment"
+        },
+        "Background": {
+          "desktopPage": "False",
+          "desktopModal": "True",
+          "mobileWeb": "True"
+        },
+        "BlurEffect": {
+          "effect": "clips image at lower edge and adds fade",
+          "requiredOnDesktop": true,
+          "mobileExposed": false
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "contentModel",
+      "body": {
+        "required": [
+          "Title",
+          "Subtitle",
+          "ImageContainer"
+        ],
+        "status": {
+          "optional": true,
+          "count": {
+            "minWhenVisible": 1,
+            "recommended": 1,
+            "warningWhen": [
+              2,
+              3
+            ],
+            "max": 3
+          },
+          "componentContract": "StatusBadge",
+          "platformPresetCasing": {
+            "desktopUppercase": true,
+            "mobileUppercase": false,
+            "manualAlignmentRequired": false
+          }
+        },
+        "holding": {
+          "optional": true,
+          "platform": "desktop",
+          "contextOwnedBy": "ptrn:pages.landing.alfa-business",
+          "componentContract": "FilterCompanySelect/AccountSelect",
+          "preserveAcrossPlatforms": false
+        },
+        "bottomSlot": {
+          "optional": true,
+          "allowedContent": [
+            "plain text",
+            "arbitrary component"
+          ],
+          "forbiddenFinalPlaceholder": "SwapMe",
+          "preserveAcrossPlatforms": true
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "actionPolicy",
+      "body": {
+        "optional": true,
+        "desktopAllowed": [
+          "Primary only",
+          "Secondary only",
+          "Primary + Secondary",
+          "hidden"
+        ],
+        "desktopBaselineProtected": [
+          "button order",
+          "button View",
+          "button component properties"
+        ],
+        "mobilePreset": "🔒 [M] ButtonStack",
+        "mobilePresetStatus": "figma-only; placement is scenario-owned",
+        "rawMobileButtonGroupVisibleSeverity": "warning"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "textLimits",
+      "body": {
+        "Title": {
+          "characters": 40,
+          "lines": 2
+        },
+        "Subtitle": {
+          "characters": 120,
+          "lines": 3
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "imagePolicy",
+      "body": {
+        "required": true,
+        "source": "Corp Image Library",
+        "Crop": "Center",
+        "Size": "534",
+        "Segment": "match page segment and Appearance"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "overlayPolicy",
+      "body": {
+        "selectionSource": "Appearance",
+        "manualSelectionAllowed": false,
+        "internalFamilies": [
+          "LightOverlay",
+          "DarkOverlay"
+        ],
+        "manualPresetChangeAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "layoutOwnership",
+      "body": {
+        "desktopOrder": [
+          "Status",
+          "Title/Holding",
+          "Subtitle",
+          "Bottom slot",
+          "actions"
+        ],
+        "mobileOrder": [
+          "Status",
+          "Title",
+          "Subtitle",
+          "Bottom slot"
+        ],
+        "componentOwned": [
+          "ImageContainer size",
+          "ImageContainer position",
+          "image crop",
+          "fade",
+          "block height",
+          "gap",
+          "padding",
+          "internal order"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "loadingPolicy",
+      "body": {
+        "supportedStates": []
+      }
+    },
+    {
+      "area": "api",
+      "topic": "interactionPolicy",
+      "body": {
+        "containerClickable": false,
+        "imageClickable": false,
+        "interactiveRegions": [
+          "CTA",
+          "Holding",
+          "interactive Bottom slot content"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "lifecycle",
+      "body": {
+        "status": "active",
+        "canonical": true,
+        "replacement": null,
+        "legacyVariants": []
+      }
+    },
+    {
+      "area": "api",
+      "topic": "responsivePolicy",
+      "body": {
+        "preserveAcrossPlatforms": [
+          "content",
+          "image",
+          "Status",
+          "Bottom slot",
+          "actions",
+          "Appearance"
+        ],
+        "desktopOnly": [
+          "View",
+          "Compact",
+          "BlurEffect",
+          "Holding"
+        ],
+        "sameImageAsset": true,
+        "platformBackground": {
+          "desktopPage": "False",
+          "desktopModal": "True",
+          "mobileWeb": "True"
+        }
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "publicBoundary",
+      "body": {
+        "publicRoots": [
+          "[D] PromoMainBlock",
+          "[M] PromoMainBlock"
+        ],
+        "internalOnly": [
+          "ButtonGroup",
+          "SwapMe",
+          "LightOverlay",
+          "DarkOverlay"
+        ]
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "compositionPolicy",
+      "body": {
+        "scenarioOwner": "ptrn:pages.landing.alfa-business",
+        "desktopViewContexts": {
+          "Page": "page",
+          "Modal": "modal container"
+        },
+        "mobileViewContext": "shared root for page and modal",
+        "responsiveParity": [
+          "content",
+          "image",
+          "Status",
+          "Bottom slot",
+          "actions",
+          "Appearance"
+        ],
+        "platformBackground": {
+          "desktopPage": "False",
+          "desktopModal": "True",
+          "mobileWeb": "True"
+        },
+        "desktopContentOrder": [
+          "Status",
+          "Title/Holding",
+          "Subtitle",
+          "Bottom slot",
+          "actions"
+        ],
+        "mobileContentOrder": [
+          "Status",
+          "Title",
+          "Subtitle",
+          "Bottom slot"
+        ],
+        "mobileActions": {
+          "preset": "🔒 [M] ButtonStack",
+          "figmaOnly": true,
+          "placementOwner": "ptrn:pages.landing.alfa-business",
+          "rawButtonGroupVisibleSeverity": "warning"
+        },
+        "image": {
+          "required": true,
+          "source": "Corp Image Library",
+          "Crop": "Center",
+          "Size": "534",
+          "Segment": "page segment and Appearance"
+        },
+        "sameImageAcrossPlatforms": true,
+        "holding": {
+          "desktopOnly": true,
+          "mobileSupported": false
+        },
+        "bottomSlot": {
+          "forbiddenFinalPlaceholder": "SwapMe",
+          "preserveAcrossPlatforms": true
+        },
+        "desktopActions": {
+          "preserveBaseline": [
+            "order",
+            "View",
+            "component properties"
+          ]
+        },
+        "overlaySelection": "internal and derived from Appearance",
+        "containerClickable": false,
+        "imageClickable": false,
+        "optionalRegions": [
+          "Status",
+          "Holding",
+          "Bottom slot",
+          "actions"
+        ]
+      }
+    }
+  ]
+}

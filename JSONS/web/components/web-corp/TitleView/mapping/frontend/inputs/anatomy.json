@@ -1,0 +1,326 @@
+{
+  "$schema": "hub/facet.anatomy@1",
+  "uses": [
+    {
+      "entity": "core.button",
+      "figmaName": "[D] Button",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] TitleView"
+      ],
+      "occurrences": 4
+    },
+    {
+      "entity": "corp.filter-company-select",
+      "figmaName": "[D] FilterCompanySelect_Single",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] TitleView",
+        "[M] TitleView"
+      ],
+      "occurrences": 2
+    },
+    {
+      "entity": "core.button",
+      "figmaName": "[M] Button",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[M] TitleView"
+      ],
+      "occurrences": 2
+    },
+    {
+      "entity": "core.icon-view",
+      "figmaName": "IconView",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] RightAddon",
+        "[D] RightAddonXL",
+        "[M] RightAddon",
+        "[M] RightAddonXL"
+      ],
+      "occurrences": 4
+    },
+    {
+      "entity": "core.link",
+      "figmaName": "Link",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] RightAddon",
+        "[D] RightAddonXL",
+        "[M] RightAddon",
+        "[M] RightAddonXL"
+      ],
+      "occurrences": 4
+    },
+    {
+      "entity": "core.status-badge",
+      "figmaName": "StatusBadge",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] TitleAddon",
+        "[D] TitleAddonXL",
+        "[M] TitleAddon",
+        "[M] TitleAddonXL"
+      ],
+      "occurrences": 4
+    }
+  ],
+  "parts": [
+    {
+      "entity": "corp.title-view",
+      "figmaName": "[D] RightAddonXL",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] TitleView"
+      ],
+      "occurrences": 1
+    },
+    {
+      "entity": "corp.title-view",
+      "figmaName": "[D] TitleAddonXL",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] TitleView"
+      ],
+      "occurrences": 1
+    },
+    {
+      "entity": "corp.title-view",
+      "figmaName": "[D] TitleStatus",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] TitleView"
+      ],
+      "occurrences": 1
+    },
+    {
+      "entity": "corp.title-view",
+      "figmaName": "[M] RightAddonXL",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[M] TitleView"
+      ],
+      "occurrences": 1
+    },
+    {
+      "entity": "corp.title-view",
+      "figmaName": "[M] TitleAddonXL",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[M] TitleView"
+      ],
+      "occurrences": 1
+    },
+    {
+      "entity": "corp.title-view",
+      "figmaName": "[M] TitleStatus",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[M] TitleView"
+      ],
+      "occurrences": 1
+    },
+    {
+      "figmaName": "StatusPreset",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] TitleView",
+        "[M] TitleView"
+      ],
+      "occurrences": 2
+    }
+  ],
+  "constraints": [
+    {
+      "id": "title-view.status.composition",
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "hosts": [
+        "[D] TitleView",
+        "[M] TitleView"
+      ],
+      "select": {
+        "entities": [
+          "corp.status-property"
+        ],
+        "figmaNames": [
+          "StatusPreset",
+          "🔒 [D] StatusPreset",
+          "🔒 [M] StatusPreset"
+        ],
+        "visibility": "visible"
+      },
+      "checks": [
+        {
+          "id": "status-size",
+          "rule": "corp.title-view#status-size-24",
+          "op": "propertyDomain",
+          "property": "Size",
+          "values": [
+            "24"
+          ],
+          "message": "StatusPreset внутри TitleView должен использовать Size=24",
+          "expectation": "Верхний Status внутри TitleView должен использовать Size=24.",
+          "action": "Установить StatusPreset значение Size=24."
+        }
+      ]
+    },
+    {
+      "id": "title-view.button-group.composition",
+      "platforms": [
+        "desktop",
+        "mobile-web"
+      ],
+      "hosts": [
+        "[D] TitleView",
+        "[M] TitleView"
+      ],
+      "select": {
+        "entities": [
+          "core.button"
+        ],
+        "figmaNames": [
+          "[D] Button",
+          "[M] Button"
+        ],
+        "visibility": "visible"
+      },
+      "checks": [
+        {
+          "id": "button-count",
+          "rule": "corp.title-view#button-group-max-four-actions",
+          "op": "countBetween",
+          "min": 0,
+          "max": 4,
+          "message": "В Button group внутри TitleView рекомендуется не больше четырёх действий",
+          "expectation": "В TitleView рекомендуется показывать не больше четырёх действий.",
+          "action": "Оставить до четырёх действий, остальные перенести в PickerButton."
+        },
+        {
+          "id": "allowed-views",
+          "rule": "corp.title-view#button-group-allowed-views",
+          "op": "propertyDomain",
+          "property": "View",
+          "values": [
+            "Primary",
+            "Secondary"
+          ],
+          "message": "В Button group внутри TitleView допускаются только View=Primary и View=Secondary",
+          "expectation": "В TitleView допускаются только кнопки View=Primary и View=Secondary.",
+          "action": "Изменить View кнопки на Primary или Secondary."
+        },
+        {
+          "id": "primary-position",
+          "rule": "corp.title-view#button-group-single-primary-action",
+          "op": "valuePosition",
+          "property": "View",
+          "message": "Primary-кнопка внутри TitleView необязательна, но может быть только первой",
+          "expectation": "В TitleView может быть только одна Primary-кнопка и только на первом месте.",
+          "action": "Оставить первую целевую кнопку Primary, остальные изменить на Secondary."
+        },
+        {
+          "id": "single-icon-position",
+          "rule": "corp.title-view#button-group-single-icon-position",
+          "op": "valuePosition",
+          "property": "SingleIcon",
+          "message": "SingleIcon внутри TitleView допускается только у последней кнопки и только один раз",
+          "expectation": "SingleIcon допускается только у одной последней кнопки группы.",
+          "action": "Оставить SingleIcon=True только у последней кнопки."
+        }
+      ]
+    },
+    {
+      "id": "title-view.desktop-button-size.composition",
+      "platforms": [
+        "desktop"
+      ],
+      "hosts": [
+        "[D] TitleView"
+      ],
+      "select": {
+        "entities": [
+          "core.button"
+        ],
+        "figmaNames": [
+          "[D] Button"
+        ],
+        "visibility": "visible"
+      },
+      "checks": [
+        {
+          "id": "button-size",
+          "rule": "corp.title-view#button-size-desktop",
+          "op": "propertyDomain",
+          "property": "Size",
+          "values": [
+            "56"
+          ],
+          "message": "Button внутри [D] TitleView должен использовать Size=56",
+          "expectation": "Кнопки внутри [D] TitleView должны использовать Size=56.",
+          "action": "Установить кнопке Size=56."
+        }
+      ]
+    },
+    {
+      "id": "title-view.mobile-button-size.composition",
+      "platforms": [
+        "mobile-web"
+      ],
+      "hosts": [
+        "[M] TitleView"
+      ],
+      "select": {
+        "entities": [
+          "core.button"
+        ],
+        "figmaNames": [
+          "[M] Button"
+        ],
+        "visibility": "visible"
+      },
+      "checks": [
+        {
+          "id": "button-size",
+          "rule": "corp.title-view#button-size-mobile",
+          "op": "propertyDomain",
+          "property": "Size",
+          "values": [
+            "48"
+          ],
+          "message": "Button внутри [M] TitleView должен использовать Size=48",
+          "expectation": "Кнопки внутри [M] TitleView должны использовать Size=48.",
+          "action": "Установить кнопке Size=48."
+        }
+      ]
+    }
+  ]
+}

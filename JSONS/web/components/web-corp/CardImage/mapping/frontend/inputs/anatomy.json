@@ -1,0 +1,144 @@
+{
+  "$schema": "hub/facet.anatomy@1",
+  "uses": [
+    {
+      "entity": "helper.corp-helpers",
+      "figmaName": "Cover",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "🔩 CardItem"
+      ],
+      "occurrences": 1
+    }
+  ],
+  "parts": [
+    {
+      "entity": "corp.card-image",
+      "figmaName": "🔩 CardItem",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "CardImage"
+      ],
+      "occurrences": 1
+    },
+    {
+      "entity": "corp.card-image",
+      "figmaName": "CardItem",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "CardImage"
+      ],
+      "occurrences": 1
+    },
+    {
+      "figmaName": "power-button-circle",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "🔩 State"
+      ],
+      "occurrences": 1
+    },
+    {
+      "entity": "corp.card-image",
+      "figmaName": "State",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "🔩 CardItem"
+      ],
+      "occurrences": 1
+    },
+    {
+      "entity": "corp.card-image",
+      "figmaName": "UserData",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "🔩 CardItem"
+      ],
+      "occurrences": 1
+    }
+  ],
+  "constraints": [
+    {
+      "id": "card-image.silver-line-large",
+      "hosts": [
+        "CardImage"
+      ],
+      "select": {
+        "figmaNames": [
+          "SilverLine",
+          "🔩 SilverLine"
+        ],
+        "visibility": "visible"
+      },
+      "checks": [
+        {
+          "id": "silver-line-type",
+          "op": "propertyDomain",
+          "property": "Type",
+          "values": [
+            "complex"
+          ],
+          "message": "CardImage 264x164 и 212x132 используют SilverLine Type=complex"
+        }
+      ]
+    },
+    {
+      "id": "card-image.silver-line-medium-small",
+      "hosts": [
+        "CardImage"
+      ],
+      "select": {
+        "figmaNames": [
+          "SilverLine",
+          "🔩 SilverLine"
+        ],
+        "visibility": "visible"
+      },
+      "checks": [
+        {
+          "id": "silver-line-type",
+          "op": "propertyDomain",
+          "property": "Type",
+          "values": [
+            "simple"
+          ],
+          "message": "CardImage 68x42 и 44x28 используют SilverLine Type=simple"
+        }
+      ]
+    },
+    {
+      "id": "card-image.silver-line-xs",
+      "hosts": [
+        "CardImage"
+      ],
+      "select": {
+        "figmaNames": [
+          "SilverLine",
+          "🔩 SilverLine"
+        ],
+        "visibility": "visible"
+      },
+      "checks": [
+        {
+          "id": "silver-line-hidden",
+          "op": "countBetween",
+          "min": 0,
+          "max": 0,
+          "message": "CardImage 24x16 не показывает SilverLine"
+        }
+      ]
+    }
+  ]
+}

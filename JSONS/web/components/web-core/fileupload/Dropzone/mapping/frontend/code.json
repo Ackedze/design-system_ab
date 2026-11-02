@@ -1,0 +1,80 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-dropzone",
+  "import": "@alfalab/core-components/dropzone",
+  "version": "6.0.2",
+  "component": "Dropzone",
+  "description": "Используется для прикрепления файлов.",
+  "props": [
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "contentClassName",
+      "type": "string",
+      "description": "Дополнительный класс для контента"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "default": "Перетащите файлы",
+      "description": "Подпись для заглушки"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Заблокированное состояние"
+    },
+    {
+      "name": "error",
+      "type": "boolean",
+      "default": false,
+      "description": "Состояние ошибки"
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "default": false,
+      "description": "Растягивать ли компонент на всю ширину"
+    },
+    {
+      "name": "Overlay",
+      "type": "ComponentType<OverlayProps>",
+      "default": "({ text = 'Перетащите файлы', visible = false }) => (\n    <div\n        className={cn(styles.overlay, {\n            [styles.visible]: visible,\n        })}\n    >\n        <ContainerMIcon />\n        <span className={styles.text}>{text}</span>\n    </div>\n)",
+      "description": "Компонент оверлея"
+    },
+    {
+      "name": "onDrop",
+      "type": "((files: File[]) => void)",
+      "description": "Обработчик события 'drop'"
+    },
+    {
+      "name": "onDragOver",
+      "type": "((event: DragEvent<HTMLElement>) => void)",
+      "description": "Обработчик события 'dragover'"
+    },
+    {
+      "name": "onDragLeave",
+      "type": "((event: DragEvent<HTMLElement>) => void)",
+      "description": "Обработчик события 'dragleave'"
+    },
+    {
+      "name": "onDragEnter",
+      "type": "((event: DragEvent<HTMLElement>) => void)",
+      "description": "Обработчик события 'dragenter'"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Дочерние элементы."
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

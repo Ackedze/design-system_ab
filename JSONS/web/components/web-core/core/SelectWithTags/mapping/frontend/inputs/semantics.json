@@ -1,0 +1,218 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "SelectWithTags — семейство компонентов типа select/autocomplete с tag/value part components. Apollo должен трактовать изменения состояния select как component property changes, tag/value configuration как slot/part configuration, а ручные visual changes как layer customizations.",
+  "includes": [
+    "[D] SelectWithTags",
+    "[D] SelectWithTags_Inverted",
+    "[M] SelectWithTags",
+    "[M] SelectWithTags_Inverted",
+    "🔄 [D][Corporate] SelectWithTags",
+    "🔄 [D][Corporate] SelectWithTags_Inverted",
+    "🔄 [M][AO] SelectWithTags",
+    "🔄 [M][AO] SelectWithTags_Inverted",
+    "🔩 Tag",
+    "🔩 Tag_Inverted",
+    "🔩 TagControl",
+    "🔩 TagControl_Inverted",
+    "🔩 Value"
+  ],
+  "publicApi": {
+    "variantProperties": {
+      "Size": {
+        "kind": "component-property",
+        "values": [
+          "48",
+          "56",
+          "64",
+          "72"
+        ]
+      },
+      "FilledState": {
+        "kind": "component-property",
+        "values": [
+          "False",
+          "True"
+        ]
+      },
+      "ActiveState": {
+        "kind": "component-property",
+        "values": [
+          "False",
+          "True"
+        ]
+      },
+      "DisabledState": {
+        "kind": "component-property",
+        "values": [
+          "False",
+          "True"
+        ]
+      },
+      "ErrorState": {
+        "kind": "component-property",
+        "values": [
+          "False",
+          "True"
+        ]
+      },
+      "DisabledStateTag": {
+        "kind": "component-property",
+        "values": [
+          "False",
+          "True"
+        ]
+      },
+      "Collapsed": {
+        "kind": "component-property",
+        "values": [
+          "False",
+          "True"
+        ]
+      }
+    }
+  },
+  "patternRefs": [
+    "input-fields"
+  ],
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "publicComponentProperties",
+      "body": {
+        "variant.Size": [
+          "48",
+          "56",
+          "64",
+          "72"
+        ],
+        "variant.FilledState": [
+          "False",
+          "True"
+        ],
+        "variant.ActiveState": [
+          "False",
+          "True"
+        ],
+        "variant.DisabledState": [
+          "False",
+          "True"
+        ],
+        "variant.ErrorState": [
+          "False",
+          "True"
+        ],
+        "variant.DisabledStateTag": [
+          "False",
+          "True"
+        ],
+        "variant.Collapsed": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "anatomy",
+      "body": [
+        "Label / Label",
+        "Field",
+        "Field / LeftAddons",
+        "Field / Content / Placeholder",
+        "Field / RightAddons / Arrow_Down",
+        "Hint / HintMessage",
+        "Tag",
+        "TagControl",
+        "Value"
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "exampleInterpretations",
+      "body": [
+        {
+          "case": "state plus manual visual override",
+          "agentShouldSay": "Покажи оба изменения и сравни layer property с baseline текущего состояния.",
+          "agentShouldNotSay": "Сравнивать ручной layer override с исходным reference baseline."
+        }
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "ruleReferences",
+      "body": [
+        "component:web-core.select-with-tags.variant-state-is-component-property",
+        "component:web-core.select-with-tags.manual-field-visual-is-layer-property",
+        "component:web-core.select-with-tags.manual-tag-visual-is-layer-property",
+        "component:web-core.select-with-tags.input-text-pattern-rules"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "appliesTo",
+      "body": {
+        "generatedContract": "contract.generated.json",
+        "rawCatalog": "Web _ Core -- SelectWithTags.json"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "anatomySemantics",
+      "body": {
+        "root": {
+          "path": "<variant root>",
+          "scope": "component-root",
+          "designerEditable": false,
+          "notes": "Root layout/visibility управляется component variant properties."
+        },
+        "keyNodes": {
+          "Label / Label": {
+            "path": "Label / Label",
+            "scope": "content-layer",
+            "designerEditable": "content-only"
+          },
+          "Field": {
+            "path": "Field",
+            "scope": "visual-or-slot-layer",
+            "designerEditable": "variant-property-or-token-controlled"
+          },
+          "Field / LeftAddons": {
+            "path": "Field / LeftAddons",
+            "scope": "visual-or-slot-layer",
+            "designerEditable": "variant-property-or-token-controlled"
+          },
+          "Field / Content / Placeholder": {
+            "path": "Field / Content / Placeholder",
+            "scope": "content-layer",
+            "designerEditable": "content-only"
+          },
+          "Field / RightAddons / Arrow_Down": {
+            "path": "Field / RightAddons / Arrow_Down",
+            "scope": "visual-or-slot-layer",
+            "designerEditable": "variant-property-or-token-controlled"
+          },
+          "Hint / HintMessage": {
+            "path": "Hint / HintMessage",
+            "scope": "content-layer",
+            "designerEditable": "content-only"
+          },
+          "Tag": {
+            "path": "Tag",
+            "scope": "visual-or-slot-layer",
+            "designerEditable": "variant-property-or-token-controlled"
+          },
+          "TagControl": {
+            "path": "TagControl",
+            "scope": "visual-or-slot-layer",
+            "designerEditable": "variant-property-or-token-controlled"
+          },
+          "Value": {
+            "path": "Value",
+            "scope": "visual-or-slot-layer",
+            "designerEditable": "variant-property-or-token-controlled"
+          }
+        }
+      }
+    }
+  ]
+}

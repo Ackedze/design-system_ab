@@ -1,0 +1,42 @@
+{
+  "$schema": "hub/code-connect.overrides.draft@1",
+  "description": "ЧЕРНОВИК: сборка его не читает. Проверь записи и прими: node tools/code-connect-drafts.mjs --accept <id> [--min high].",
+  "generatedAt": "2026-10-13",
+  "properties": [
+    {
+      "figma": "View",
+      "react": "singleFieldView",
+      "values": {
+        "Compact": "compact",
+        "FilterTag": "filterTag",
+        "Select": "default"
+      },
+      "confidence": "high",
+      "reason": "singleFieldView: default | compact | filterTag"
+    },
+    {
+      "figma": "ShowFirstCompany",
+      "react": "showFirstCompanyCaption",
+      "values": {
+        "False": false,
+        "True": true
+      },
+      "confidence": "medium",
+      "reason": "Паттерн требует ShowFirstCompany=False; в коде — подпись первой компании"
+    }
+  ],
+  "figmaOnly": [
+    {
+      "property": "Selected",
+      "workaround": "Выбранность задаётся пропом selected (данные), а не флагом",
+      "confidence": "medium",
+      "reason": "selected: OptionShape | OptionShape[]"
+    },
+    {
+      "property": "SelectedState",
+      "workaround": "Выбранность задаётся пропом selected (данные), а не флагом",
+      "confidence": "medium",
+      "reason": "CompactTag — внутренняя часть"
+    }
+  ]
+}

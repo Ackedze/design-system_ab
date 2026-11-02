@@ -1,0 +1,531 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "arui-private",
+  "import": "arui-private/corporate-account-select",
+  "version": "80.10.0",
+  "component": "CorporateAccountSelect",
+  "description": "Компонент выпадающего списка счетов",
+  "exports": [
+    "CorporateAccountSelect"
+  ],
+  "props": [
+    {
+      "name": "accountNumberFirst",
+      "type": "boolean",
+      "description": "Позволяет поставить номер счета вначале в опциях"
+    },
+    {
+      "name": "accounts",
+      "type": "AccountType[]",
+      "required": true,
+      "default": "[]",
+      "description": "Список счетов для выбора"
+    },
+    {
+      "name": "bottomSheetProps",
+      "type": "Omit<Partial<BottomSheetProps>, \"bottomAddons\"> & { bottomAddons?: ReactNode | ((flatOptions: OptionShape[]) => ReactNode); }",
+      "description": "Пропсы для компонента BottomSheet в мобильной версии компонента"
+    },
+    {
+      "name": "breakpoint",
+      "type": "number",
+      "default": "1024",
+      "description": "Контрольная точка, с нее начинается desktop версия"
+    },
+    {
+      "name": "checkmarkPosition",
+      "type": "\"before\" | \"after\"",
+      "values": [
+        "before",
+        "after"
+      ],
+      "default": "'before'",
+      "description": "Позиция чекбокса \"Выбрать все\" в Header"
+    },
+    {
+      "name": "client",
+      "type": "\"mobile\" | \"desktop\"",
+      "values": [
+        "mobile",
+        "desktop"
+      ],
+      "description": "Версия, которая будет использоваться при серверном рендеринге"
+    },
+    {
+      "name": "collapsedCount",
+      "type": "boolean",
+      "description": "Позволяет отобразить выбранные значения в коротком виде"
+    },
+    {
+      "name": "cropHeightByNumberOfVisibleOptions",
+      "type": "boolean",
+      "description": "Позволяет установить фиксированую высоту в зависимости от количества отображаемых опции\n\nИспользовать только при групповых опциях"
+    },
+    {
+      "name": "data-test-id",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "defaultMatchMediaValue",
+      "type": "boolean | (() => boolean)",
+      "description": "Значение по-умолчанию для хука useMatchMedia\n@deprecated Используйте client"
+    },
+    {
+      "name": "defaultOpenGroupOptions",
+      "type": "boolean",
+      "description": "Позволяет раскрыть групповые опции по умолчанию"
+    },
+    {
+      "name": "fieldSize",
+      "type": "40 | 48 | 56 | 64 | 72",
+      "values": [
+        40,
+        48,
+        56,
+        64,
+        72
+      ],
+      "description": "Дополнительные пропс для управления размером кастомного поля компонента"
+    },
+    {
+      "name": "fieldView",
+      "type": "\"select\" | \"filterTag\"",
+      "values": [
+        "select",
+        "filterTag"
+      ],
+      "description": "Компонента поля, может быть в виде инпута либо тега"
+    },
+    {
+      "name": "hideCollapseButtonInGroupedOption",
+      "type": "boolean",
+      "description": "Позволяет убрать кнопку для схлопывания опций в группе"
+    },
+    {
+      "name": "hideSelectedAccountName",
+      "type": "boolean",
+      "default": "false",
+      "description": "Показ скрытие названия счета"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "default": "false",
+      "description": "Состояние загрузки"
+    },
+    {
+      "name": "loadingError",
+      "type": "boolean",
+      "default": "false",
+      "description": "Состояние ошибки при загрузке"
+    },
+    {
+      "name": "maxValues",
+      "type": "number",
+      "description": "Количество одновременно отображаемых значений"
+    },
+    {
+      "name": "numberOfVisibleTags",
+      "type": "number",
+      "default": "3",
+      "description": "Колличество видимых тегов перед скрытием"
+    },
+    {
+      "name": "onChange",
+      "type": "(value: string | string[]) => void",
+      "default": "null",
+      "description": "Обработчик изменения значения"
+    },
+    {
+      "name": "onDeleteTag",
+      "type": "(tag: string) => void",
+      "description": "Дополнительный обработчик на удаление тега"
+    },
+    {
+      "name": "onTagClick",
+      "type": "(tag: string) => void",
+      "default": "null",
+      "description": "Обработчик клика по тегу во множественном выборе"
+    },
+    {
+      "name": "otherOptions",
+      "type": "OptionShape[]",
+      "default": "[]",
+      "description": "Список дополнительных вариантов выбора"
+    },
+    {
+      "name": "selected",
+      "type": "string | string[]",
+      "required": true,
+      "default": "[]",
+      "description": "Выбранные счета (счёт)"
+    },
+    {
+      "name": "shape",
+      "type": "\"rounded\" | \"rectangular\"",
+      "values": [
+        "rounded",
+        "rectangular"
+      ],
+      "description": "Форма тега"
+    },
+    {
+      "name": "showArrow",
+      "type": "boolean",
+      "description": "Позволяет скрыть шеврон"
+    },
+    {
+      "name": "showClear",
+      "type": "boolean",
+      "description": "Показывать кнопку 'Сбросить' в футере мобильного компонента\nПоказывать кнопку очистки"
+    },
+    {
+      "name": "showSelectAll",
+      "type": "boolean",
+      "description": "Показывать пункт \"Выбрать все\"\nПоказывать выбрать все"
+    },
+    {
+      "name": "showSelectedInTags",
+      "type": "boolean",
+      "description": "Позволяет управлять отображением выбранных счетов во множественном выборе в виде тегов или упрощенно"
+    },
+    {
+      "name": "view",
+      "type": "\"filled\" | \"outlined\" | \"muted\"",
+      "values": [
+        "filled",
+        "outlined",
+        "muted"
+      ],
+      "description": "Стиль тега"
+    },
+    {
+      "name": "withOverdraft",
+      "type": "boolean",
+      "default": "false",
+      "description": "Передавать баланс с овердрафтом или без"
+    },
+    {
+      "name": "withVirtualOptionsList",
+      "type": "boolean",
+      "description": "Позволяет отобразить опции в виртуальном списке"
+    },
+    {
+      "name": "allowUnselect",
+      "type": "boolean",
+      "description": "Позволяет снять выбранное значение",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "description": "Растягивает компонент на ширину контейнера",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "circularNavigation",
+      "type": "boolean",
+      "description": "При навигации с клавиатуры переходить от последнего пункта меню к первому и наоборот.",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "clear",
+      "type": "boolean",
+      "description": "Флаг, показать крестик для очистки поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "closeOnSelect",
+      "type": "boolean",
+      "description": "Закрывать меню после выбора?",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования.\nДля пункта меню используется модификатор -option, компонента поиска -search,\nкомпонента выпадающего меню -options-list, компонента BottomSheet -bottom-sheet,\nкомпонента поля -field, компонета FormControl -field-form-control",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "Начальное состояние селекта",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Управление возможностью выбора значения",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "environment",
+      "type": "Environment",
+      "default": "window",
+      "description": "Контекст окружения для downshift.js",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "description": "Отображение ошибки",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "Field",
+      "type": "ComponentType<FieldProps>",
+      "description": "Компонент поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "fieldClassName",
+      "type": "string",
+      "description": "Дополнительный класс для поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "fieldProps",
+      "type": "unknown",
+      "description": "Пропсы, которые будут прокинуты в компонент поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "groupOptionProps",
+      "type": "AnyObject",
+      "description": "Пропсы, которые будут прокинуты в компонент группового пункта меню",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "description": "Подсказка под полем",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Атрибут id",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "label",
+      "type": "ReactNode",
+      "description": "Лейбл поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "labelView",
+      "type": "\"outer\" | \"inner\"",
+      "values": [
+        "outer",
+        "inner"
+      ],
+      "description": "Вид лейбла внутри / снаружи",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "limitDynamicOptionGroupSize",
+      "type": "boolean",
+      "description": "Ограничение динамического размера группы вариантов выбора",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "multiple",
+      "type": "boolean",
+      "description": "Возможность выбрать несколько значений",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Атрибут name",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "nativeSelect",
+      "type": "boolean",
+      "description": "Рендерит нативный селект вместо выпадающего меню. (на десктопе использовать только с multiple=false)",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "onBlur",
+      "type": "(event: FocusEvent<HTMLDivElement | HTMLInputElement, Element>) => void",
+      "description": "Обработчик блюра поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "onClear",
+      "type": "(event: MouseEvent<HTMLButtonElement, MouseEvent>) => void",
+      "description": "Обработчик нажатия на крестик для очистки поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "onFocus",
+      "type": "(event: FocusEvent<HTMLDivElement | HTMLInputElement, Element>) => void",
+      "description": "Обработчик фокуса поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "onOpen",
+      "type": "(payload: { open?: boolean; name?: string; }) => void",
+      "description": "Обработчик открытия\\закрытия селекта",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "onScroll",
+      "type": "(event: MouseEvent<HTMLDivElement, MouseEvent>) => void",
+      "description": "Обработчик скрола",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "Управление открытием",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "optionClassName",
+      "type": "string",
+      "description": "Дополнительный класс для пункта меню",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "optionGroupClassName",
+      "type": "string",
+      "description": "Дополнительный класс для компонента группы пунктов",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "optionProps",
+      "type": "unknown",
+      "description": "Пропсы, которые будут прокинуты в компонент пункта меню",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "optionsListClassName",
+      "type": "string",
+      "description": "Дополнительный класс выпадающего меню",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "optionsListProps",
+      "type": "unknown",
+      "description": "Пропсы, которые будут прокинуты в компонент списка",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "optionsListWidth",
+      "type": "\"content\" | \"field\"",
+      "values": [
+        "content",
+        "field"
+      ],
+      "description": "Управляет шириной выпадающего меню.\nШирину определяет контент, либо ширина равна ширине поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "optionsSize",
+      "type": "40 | 48 | 56 | 64 | 72",
+      "values": [
+        40,
+        48,
+        56,
+        64,
+        72
+      ],
+      "description": "Размер пунктов меню\n@deprecated Управление размером пунктов меню через отдельный проп не поддерживается дизайн-контрактом. Размер пункта должен определяться его контентом.",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "description": "Плейсхолдер поля",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "popoverPosition",
+      "type": "Position",
+      "values": [
+        "bottom",
+        "top",
+        "right",
+        "left",
+        "top-start",
+        "top-end",
+        "bottom-start",
+        "bottom-end",
+        "right-start",
+        "right-end",
+        "left-start",
+        "left-end"
+      ],
+      "description": "Позиционирование выпадающего списка",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "popoverProps",
+      "type": "Omit<PopoverProps, \"className\" | \"dataTestId\" | \"open\" | \"preventFlip\" | \"position\" | \"zIndex\" | \"update\" | \"anchorElement\">",
+      "description": "Дополнительные пропсы для Popover",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "popperClassName",
+      "type": "string",
+      "description": "Дополнительный класс для поповера",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "preventFlip",
+      "type": "boolean",
+      "description": "Запрещает поповеру менять свою позицию.\nНапример, если места снизу недостаточно,то он все равно будет показан снизу",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "searchProps",
+      "type": "{ componentProps?: SearchProps; accessor?: (option: OptionShape) => string; filterFn?: (optionText: string, search: string) => boolean; value?: string; onChange?: (value: string) => void; filterGroup?: boolean; groupAccessor?: (group: GroupShape) => string; }",
+      "description": "Настройки поиска",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "showEmptyOptionsList",
+      "type": "boolean",
+      "description": "Показывать OptionsList, если он пустой",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "showSearch",
+      "type": "boolean",
+      "default": "true",
+      "description": "Включает отображение поиска\nВозможность использовать селект как input-autocomplete\nПоказ скрытие поиска",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "updatePopover",
+      "type": "MutableRefObject<() => void>",
+      "description": "Хранит функцию, с помощью которой можно обновить положение поповера",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "valueSeparator",
+      "type": "string",
+      "description": "Кастомный разделитель выбранных пунктов (Работает когда не прокинут valueRenderer)",
+      "from": "@alfalab/core-components-select"
+    },
+    {
+      "name": "zIndexPopover",
+      "type": "number",
+      "description": "z-index поповера",
+      "from": "@alfalab/core-components-select"
+    }
+  ],
+  "status": {
+    "lifecycle": "active"
+  }
+}

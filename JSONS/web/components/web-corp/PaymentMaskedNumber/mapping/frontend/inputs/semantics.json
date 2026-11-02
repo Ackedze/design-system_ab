@@ -1,0 +1,308 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "PaymentMaskedNumber отображает номер банковского счёта или карты на desktop и mobile-web. Создавай только публичный PaymentMaskedNumber; Major, Minor, RightAddon и SwapMe являются внутренними частями.",
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "publicBoundary",
+      "body": {
+        "publicRoots": [
+          "PaymentMaskedNumber"
+        ],
+        "internalOnly": [
+          "Major",
+          "Minor",
+          "RightAddon",
+          "SwapMe"
+        ]
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "contentPolicy",
+      "body": {
+        "accountMajorPattern": "5-3-1-4-3",
+        "cardMajorPattern": "4-4-4",
+        "minorDigits": 4,
+        "groupSeparator": "U+205F",
+        "maskMajor": "·· ",
+        "maskCharacters": [
+          "U+00B7",
+          "U+00B7",
+          "U+2009"
+        ]
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "addonPolicy",
+      "body": {
+        "defaultVisible": false,
+        "placeholder": "SwapMe",
+        "placeholderAllowedInFinalDesign": false,
+        "allowedSwapComponents": "context-defined",
+        "gapPx": 4,
+        "maxHeight": "number.lineHeight"
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "typographyPolicy",
+      "body": {
+        "preserveEffectiveBaselinePair": true,
+        "publishedTextStyleRequired": true,
+        "rawTypographyAllowed": false
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "overflowPolicy",
+      "body": {
+        "maxLines": 1,
+        "mode": "ellipsis-before-minor",
+        "preserveLastDigits": 4
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "statesAndInteraction",
+      "body": {
+        "ownStates": [],
+        "clickability": "context-defined"
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "criticalBaselines",
+      "body": [
+        "Используй математический пробел U+205F; обычный пробел является error.",
+        "При маскировании сохраняй Minor из четырёх последних цифр и Major `·· `.",
+        "Major и Minor могут использовать любой общий цветовой токен, но их token binding обязан совпадать.",
+        "Major и Minor сохраняют effective-baseline text styles как пару; raw typography является error.",
+        "Если Addon показан, замени SwapMe; сохрани gap 4 px и высоту не больше line-height номера.",
+        "В узком контейнере сохраняй одну строку, штатный ellipsis и последние четыре цифры Minor."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "agentInstructions",
+      "body": [
+        "Не требуй default-цвет: синхронная смена Major и Minor на другой токен разрешена.",
+        "Не разрешай raw-цвет или разные токены у Major и Minor.",
+        "Не предлагай вставлять Major, Minor, RightAddon или SwapMe отдельно.",
+        "Не ограничивай набор swap-компонентов Addon без отдельного правила сценария; запрещено только оставлять служебный SwapMe.",
+        "Не утверждай, что PaymentMaskedNumber или Addon обязательно кликабельны либо обязательно статичны: это определяется контекстом.",
+        "Не придумывай собственные loading, disabled или error состояния PaymentMaskedNumber.",
+        "Не называй context-only правила Addon geometry и overflow автоматически проверенными текущим Apollo."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "ruleReferences",
+      "body": [
+        "component:web-corp.payment-masked-number.public-root-only",
+        "component:web-corp.payment-masked-number.unmasked-major-format",
+        "component:web-corp.payment-masked-number.mask-format",
+        "component:web-corp.payment-masked-number.minor-last-four-digits",
+        "component:web-corp.payment-masked-number.parts-share-color-token",
+        "component:web-corp.payment-masked-number.addon-uses-final-component",
+        "component:web-corp.payment-masked-number.addon-geometry",
+        "component:web-corp.payment-masked-number.typography-follows-effective-pair",
+        "component:web-corp.payment-masked-number.text-style-binding-required",
+        "component:web-corp.payment-masked-number.narrow-overflow-preserves-last-four",
+        "component:web-corp.payment-masked-number.interaction-and-states-are-contextual"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "publicBoundary",
+      "body": {
+        "publicRoots": [
+          "PaymentMaskedNumber"
+        ],
+        "internalRoots": [
+          "Major",
+          "Minor",
+          "RightAddon",
+          "SwapMe"
+        ],
+        "internalStandaloneAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "usage",
+      "body": {
+        "purpose": "Отображение номера банковского счёта или номера карты.",
+        "platforms": [
+          "desktop",
+          "mobile-web"
+        ],
+        "platformSpecificRoots": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "numberFormat",
+      "body": {
+        "account": {
+          "majorPattern": "5-3-1-4-3",
+          "minorDigits": 4
+        },
+        "card": {
+          "majorPattern": "4-4-4",
+          "minorDigits": 4
+        },
+        "groupSeparator": {
+          "character": " ",
+          "unicode": "U+205F",
+          "ordinarySpaceAllowed": false
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "masking",
+      "body": {
+        "property": "Major.Mask Number",
+        "enabledValue": "True",
+        "majorValue": "·· ",
+        "majorCharacters": [
+          "U+00B7",
+          "U+00B7",
+          "U+2009"
+        ],
+        "preserveLastDigits": 4,
+        "sameForAccountAndCard": true
+      }
+    },
+    {
+      "area": "api",
+      "topic": "visualPolicy",
+      "body": {
+        "majorAndMinorColor": "Any design-system color token is allowed when both parts use the same token binding.",
+        "rawColorAllowed": false,
+        "differentPartColorsAllowed": false,
+        "effectiveBaselineColorRequired": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "addon",
+      "body": {
+        "defaultVisible": false,
+        "swapAllowed": true,
+        "allowedSwapComponents": "context-defined",
+        "placeholderComponent": "SwapMe",
+        "placeholderAllowedInFinalDesign": false,
+        "gapPx": 4,
+        "maxHeight": "number.lineHeight"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "typography",
+      "body": {
+        "policy": "preserve-effective-baseline-pair",
+        "layers": [
+          "Major",
+          "Minor"
+        ],
+        "publishedTextStyleRequired": true,
+        "rawTypographyAllowed": false,
+        "independentPartChangeAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "overflow",
+      "body": {
+        "maxLines": 1,
+        "mode": "ellipsis-before-minor",
+        "preserveLastDigits": 4,
+        "manualShorteningAllowed": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "statesAndInteraction",
+      "body": {
+        "ownStates": [],
+        "unsupportedStates": [
+          "loading",
+          "disabled",
+          "error"
+        ],
+        "clickability": "context-defined",
+        "rootMayBeInteractive": true,
+        "addonMayBeInteractive": true
+      }
+    },
+    {
+      "area": "api",
+      "topic": "ruleSource",
+      "body": {
+        "repository": "core-ds/ds-ai-hub",
+        "path": "products/ab/patterns/payment-masked-number.md",
+        "status": "owner-approved-full-semantic-draft"
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "publicRoots",
+      "body": [
+        "PaymentMaskedNumber"
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "internalOnly",
+      "body": [
+        "Major",
+        "Minor",
+        "RightAddon",
+        "SwapMe"
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "ownership",
+      "body": {
+        "hostOwns": [
+          "Major",
+          "Minor",
+          "Addon visibility",
+          "Addon gap",
+          "number formatting",
+          "typography pair",
+          "single-line overflow"
+        ],
+        "internalStandaloneAllowed": false
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "slots",
+      "body": {
+        "Addon": {
+          "defaultVisible": false,
+          "swapAllowed": true,
+          "allowedComponents": "context-defined",
+          "placeholder": "SwapMe",
+          "placeholderAllowedInFinalDesign": false,
+          "gapPx": 4,
+          "maxHeight": "number.lineHeight"
+        }
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "overflow",
+      "body": {
+        "maxLines": 1,
+        "preserveMinorDigits": 4,
+        "mode": "ellipsis-before-minor"
+      }
+    }
+  ]
+}

@@ -1,0 +1,353 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "Мобильный контрол ввода суммы для платёжных и переводных сценариев. Он фиксируется внизу viewport и при фокусе располагается над системной цифровой клавиатурой.",
+  "code": {
+    "status": "exists-unverified"
+  },
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "platforms",
+      "body": [
+        "mobile-web"
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "publicRoot",
+      "body": {
+        "name": "[M] PaymentControl",
+        "key": "bd58cd9ec1fa8169e6c334c1ee9e4a974eefa86d"
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "requiredInternalComponents",
+      "body": [
+        {
+          "name": "[M] Amount",
+          "key": "d04a931ce171beecabb1be7b18cd34506bc2981d",
+          "standaloneUse": "forbidden"
+        },
+        {
+          "name": "[M] Hint",
+          "key": "d27233755497bc8580b3a12812a83700c33a4e37",
+          "standaloneUse": "forbidden"
+        }
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "instructions",
+      "body": [
+        "Используй только актуальный [M] PaymentControl. Deprecated-компонент ❌ PaymentControl запрещён.",
+        "Не используй старые экземпляры ❌ PaymentControl в Figma-разделах Anatomy и Properties как источник контракта: это ошибка документации. Ориентируйся на live-примеры и текущий component set.",
+        "Закрепляй контрол внизу viewport на всю ширину; он не должен скроллиться вместе с контентом.",
+        "При фокусе размещай контрол непосредственно над системной цифровой клавиатурой.",
+        "Не скрывай и не удаляй [M] Amount или [M] Hint и не используй их отдельно.",
+        "Состояния переключаются автоматически: Empty, Active, ActiveFilled, Filled, DisabledEmpty, DisabledFilled, ErrorFilled.",
+        "В ErrorFilled сохраняй фокус и открытую клавиатуру; после исправления значения переходи в ActiveFilled.",
+        "Действие продолжения показывай только в ActiveFilled и Filled. Не меняй параметры Button или action IconView.",
+        "Amount наследует Core Amount: валюту, minor и addon разрешено настраивать по продуктовому сценарию.",
+        "Hint и error-текст занимают одну строку с ellipsis; текст Hint не кликабелен.",
+        "Инфоиконка опциональна и имеет отдельную hit area. По нажатию открывай [M] BottomSheet по модели мобильного Tooltip.",
+        "В ErrorFilled инфоиконка скрыта по умолчанию, но допустима, если ошибке нужна расширенная расшифровка.",
+        "Не добавляй Loading, Skeleton или Success и не переопределяй фон, типографику, цвета, отступы, размеры, позицию или внутреннюю геометрию."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "stateTransitions",
+      "body": {
+        "focus-empty": "Active",
+        "focus-filled": "ActiveFilled",
+        "blur-filled": "Filled",
+        "disable-empty": "DisabledEmpty",
+        "disable-filled": "DisabledFilled",
+        "invalid-filled": "ErrorFilled",
+        "correct-invalid-value-while-focused": "ActiveFilled"
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "redpolicy",
+      "body": {
+        "pattern": "ptrn:controls.input-fields",
+        "rules": [
+          "rule:controls.input-fields.human-error-message",
+          "rule:controls.input-fields.concrete-format-constraints"
+        ]
+      }
+    },
+    {
+      "area": "usage",
+      "topic": "documentationEvidence",
+      "body": {
+        "staleSections": [
+          "Anatomy",
+          "Properties"
+        ],
+        "staleComponent": "❌ PaymentControl",
+        "normative": false,
+        "currentComponent": "[M] PaymentControl"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "purpose",
+      "body": "Мобильный контрол ввода суммы для платёжных и переводных сценариев. Закрепляется у нижнего края viewport и при фокусе располагается непосредственно над системной цифровой клавиатурой."
+    },
+    {
+      "area": "api",
+      "topic": "platforms",
+      "body": [
+        "mobile-web"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "layout",
+      "body": {
+        "position": "fixed-bottom",
+        "scrollsWithContent": false,
+        "width": "fill-viewport",
+        "focusedKeyboardRelation": "directly-above-system-numeric-keyboard"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "requiredParts",
+      "body": [
+        "[M] Amount",
+        "[M] Hint"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "stateMachine",
+      "body": {
+        "transitions": [
+          {
+            "event": "focus-empty",
+            "to": "Active"
+          },
+          {
+            "event": "focus-filled",
+            "to": "ActiveFilled"
+          },
+          {
+            "event": "blur-filled",
+            "to": "Filled"
+          },
+          {
+            "event": "disable-empty",
+            "to": "DisabledEmpty"
+          },
+          {
+            "event": "disable-filled",
+            "to": "DisabledFilled"
+          },
+          {
+            "event": "invalid-filled",
+            "to": "ErrorFilled"
+          },
+          {
+            "event": "correct-invalid-value-while-focused",
+            "to": "ActiveFilled"
+          }
+        ],
+        "errorFilled": {
+          "keepsFocus": true,
+          "keepsKeyboardOpen": true
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "amount",
+      "body": {
+        "inherits": "Core Amount",
+        "allowedCustomizations": [
+          "currency",
+          "minor-part-visibility",
+          "addon"
+        ],
+        "constraintsSource": "Core Amount and product business logic"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "hint",
+      "body": {
+        "required": true,
+        "editableFor": [
+          "limits",
+          "commission",
+          "other-product-explanations",
+          "error-message"
+        ],
+        "maxLines": 1,
+        "overflow": "ellipsis",
+        "textClickable": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "infoIcon",
+      "body": {
+        "optional": true,
+        "hiddenByDefaultInErrorFilled": true,
+        "mayBeVisibleInErrorFilled": true,
+        "errorFilledVisibilityCondition": "error requires fuller explanation",
+        "interactiveInDisabled": true,
+        "interaction": "mobile Tooltip behavior",
+        "opens": "[M] BottomSheet",
+        "separateHitArea": true
+      }
+    },
+    {
+      "area": "api",
+      "topic": "continueAction",
+      "body": {
+        "visibleInStates": [
+          "ActiveFilled",
+          "Filled"
+        ],
+        "hiddenInStates": [
+          "Empty",
+          "Active",
+          "DisabledEmpty",
+          "DisabledFilled",
+          "ErrorFilled"
+        ],
+        "action": "proceed-to-next-step",
+        "buttonAndIconViewPropertiesImmutable": true
+      }
+    },
+    {
+      "area": "api",
+      "topic": "unsupportedStates",
+      "body": [
+        "Loading",
+        "Skeleton",
+        "Success"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "deprecated",
+      "body": {
+        "component": "❌ PaymentControl",
+        "key": "a4bbfdbd9c6c5f39225532008bea45c75b02c84e",
+        "usage": "forbidden",
+        "mustNotMergeWithCurrentPackage": true
+      }
+    },
+    {
+      "area": "api",
+      "topic": "documentationEvidence",
+      "body": {
+        "staleFigmaSections": [
+          "Anatomy",
+          "Properties"
+        ],
+        "staleComponentName": "❌ PaymentControl",
+        "interpretation": "documentation error; non-normative",
+        "liveExamplesUse": "[M] PaymentControl"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "implementation",
+      "body": {
+        "implementationStatus": "exists-unverified",
+        "package": null,
+        "exports": [],
+        "codeConnect": "not-configured",
+        "packageImportApi": "[VERIFY]"
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "publicRoot",
+      "body": "[M] PaymentControl"
+    },
+    {
+      "area": "composition",
+      "topic": "requiredChildren",
+      "body": [
+        {
+          "componentName": "[M] Amount",
+          "role": "required-internal",
+          "visibleInAllStates": true,
+          "standaloneUse": "forbidden",
+          "inherits": "Core Amount",
+          "allowedCustomizations": [
+            "currency",
+            "minor-part-visibility",
+            "addon"
+          ]
+        },
+        {
+          "componentName": "[M] Hint",
+          "role": "required-internal",
+          "visibleInAllStates": true,
+          "standaloneUse": "forbidden",
+          "text": {
+            "maxLines": 1,
+            "overflow": "ellipsis",
+            "clickable": false
+          },
+          "infoIcon": {
+            "optional": true,
+            "separateHitArea": true,
+            "interactiveInDisabled": true,
+            "hiddenByDefaultInErrorFilled": true,
+            "mayBeVisibleInErrorFilled": true,
+            "errorFilledVisibilityCondition": "error requires fuller explanation",
+            "interactionModel": "mobile Tooltip",
+            "opens": "[M] BottomSheet"
+          }
+        }
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "continueAction",
+      "body": {
+        "visibleInStates": [
+          "ActiveFilled",
+          "Filled"
+        ],
+        "hiddenInStates": [
+          "Empty",
+          "Active",
+          "DisabledEmpty",
+          "DisabledFilled",
+          "ErrorFilled"
+        ],
+        "buttonAndIconViewPropertiesImmutable": true
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "layout",
+      "body": {
+        "position": "fixed-bottom",
+        "width": "fill-viewport",
+        "scrollsWithContent": false,
+        "whenFocused": "directly-above-system-numeric-keyboard"
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "deprecatedExclusion",
+      "body": {
+        "componentName": "❌ PaymentControl",
+        "componentKey": "a4bbfdbd9c6c5f39225532008bea45c75b02c84e",
+        "mustNotAppear": true,
+        "mustNotMerge": true
+      }
+    }
+  ]
+}

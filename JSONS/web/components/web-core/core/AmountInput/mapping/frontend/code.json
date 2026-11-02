@@ -1,0 +1,254 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-amount-input",
+  "import": "@alfalab/core-components/amount-input",
+  "version": "9.2.8",
+  "component": "AmountInput",
+  "description": "Используется для ввода сумм.",
+  "props": [
+    {
+      "name": "size",
+      "type": "40 | 48 | 56 | 64 | 72",
+      "default": "48",
+      "description": "Размер компонента"
+    },
+    {
+      "name": "onClick",
+      "type": "((event: MouseEvent<HTMLDivElement, MouseEvent>) => void)",
+      "description": "Обработчик клика по полю"
+    },
+    {
+      "name": "onMouseDown",
+      "type": "((event: MouseEvent<HTMLDivElement, MouseEvent>) => void)",
+      "description": "Обработчик MouseDown по полю"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "onMouseUp",
+      "type": "((event: MouseEvent<HTMLDivElement, MouseEvent>) => void)",
+      "description": "Обработчик MouseUp по полю"
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "description": "Растягивает компонент на ширину контейнера"
+    },
+    {
+      "name": "clear",
+      "type": "boolean",
+      "default": false,
+      "description": "Крестик для очистки поля"
+    },
+    {
+      "name": "colors",
+      "type": "\"default\" | \"inverted\"",
+      "default": "default",
+      "description": "Набор цветов для компонента"
+    },
+    {
+      "name": "error",
+      "type": "ReactNode",
+      "description": "Отображение ошибки"
+    },
+    {
+      "name": "success",
+      "type": "boolean",
+      "description": "Отображение иконки успеха"
+    },
+    {
+      "name": "hint",
+      "type": "ReactNode",
+      "description": "Текст подсказки"
+    },
+    {
+      "name": "label",
+      "type": "ReactNode",
+      "description": "Лейбл компонента"
+    },
+    {
+      "name": "labelView",
+      "type": "\"inner\" | \"outer\"",
+      "description": "Вид лейбла внутри / снаружи"
+    },
+    {
+      "name": "wrapperRef",
+      "type": "Ref<HTMLDivElement>",
+      "description": "Ref для обертки input"
+    },
+    {
+      "name": "leftAddons",
+      "type": "ReactNode",
+      "description": "Слот слева"
+    },
+    {
+      "name": "rightAddons",
+      "type": "ReactNode",
+      "description": "Слот справа"
+    },
+    {
+      "name": "leftAddonsProps",
+      "type": "HTMLAttributes<HTMLDivElement>",
+      "description": "Свойства для обертки левых аддонов"
+    },
+    {
+      "name": "rightAddonsProps",
+      "type": "HTMLAttributes<HTMLDivElement>",
+      "description": "Свойства для обертки правых аддонов"
+    },
+    {
+      "name": "bottomAddons",
+      "type": "ReactNode",
+      "description": "Слот под инпутом"
+    },
+    {
+      "name": "fieldClassName",
+      "type": "string",
+      "description": "Дополнительный класс для поля"
+    },
+    {
+      "name": "inputClassName",
+      "type": "string",
+      "description": "Дополнительный класс инпута"
+    },
+    {
+      "name": "labelClassName",
+      "type": "string",
+      "description": "Дополнительный класс для лейбла"
+    },
+    {
+      "name": "addonsClassName",
+      "type": "string",
+      "description": "Дополнительный класс для аддонов"
+    },
+    {
+      "name": "focusedClassName",
+      "type": "string",
+      "description": "Класс, который будет установлен при фокусе"
+    },
+    {
+      "name": "filledClassName",
+      "type": "string",
+      "description": "Класс, который будет установлен, если в поле есть значение"
+    },
+    {
+      "name": "onClear",
+      "type": "((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)",
+      "description": "Обработчик нажатия на кнопку очистки"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования.\nДля FormControl используется модификатор -form-control"
+    },
+    {
+      "name": "disableUserInput",
+      "type": "boolean",
+      "description": "Запрещает ввод с клавиатуры"
+    },
+    {
+      "name": "bold",
+      "type": "boolean",
+      "default": true,
+      "description": "Жирный текст\n@deprecated Используйте {@link BaseInputProps.fontWeight }"
+    },
+    {
+      "name": "fontWeight",
+      "type": "\"bold\" | \"medium\" | \"regular\"",
+      "description": "Вес шрифта инпута, в том числе плейсхолдера"
+    },
+    {
+      "name": "breakpoint",
+      "type": "number",
+      "default": "1024",
+      "description": "Контрольная точка, с нее начинается desktop версия"
+    },
+    {
+      "name": "client",
+      "type": "\"desktop\" | \"mobile\"",
+      "description": "Версия, которая будет использоваться при серверном рендеринге"
+    },
+    {
+      "name": "defaultMatchMediaValue",
+      "type": "boolean | (() => boolean)",
+      "description": "Значение по-умолчанию для хука useMatchMedia\n@deprecated Используйте client"
+    },
+    {
+      "name": "value",
+      "type": "string | number | null",
+      "description": "Денежное значение в минорных единицах"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string | number | null",
+      "description": "Значение по-умолчанию в минорных единицах"
+    },
+    {
+      "name": "codeFormat",
+      "type": "\"letter\" | \"symbolic\"",
+      "default": "symbolic",
+      "description": "Формат отображения кода валюты"
+    },
+    {
+      "name": "view",
+      "type": "\"default\" | \"withZeroMinorPart\"",
+      "default": "default",
+      "description": "default - не отображаем копейки, если их значение 0\nwithZeroMinorPart - отображаем копейки, даже если их значение равно 0"
+    },
+    {
+      "name": "currency",
+      "type": "\"ALL\" | \"AFN\" | \"ARS\" | \"AWG\" | \"AUD\" | \"AZN\" | \"BSD\" | \"BBD\" | \"BYN\" | \"BZD\" | \"BMD\" | \"BOB\" | \"BOV\" | \"BAM\" | \"BWP\" | \"BGN\" | \"BRL\" | \"BND\" | \"KHR\" | \"CAD\" | \"KYD\" | \"CLP\" | \"CNY\" | ... 157 more ...",
+      "default": "RUR",
+      "description": "Валюта"
+    },
+    {
+      "name": "suffix",
+      "type": "string | null",
+      "default": "RUR",
+      "description": "Дополнительный закрепленный текст справа от основного значения. (по умолчанию — символ валюты)"
+    },
+    {
+      "name": "integerLength",
+      "type": "number",
+      "default": 9,
+      "description": "Максимальное число знаков до запятой\nmax 15"
+    },
+    {
+      "name": "minority",
+      "type": "number",
+      "default": 100,
+      "description": "Минорные единицы"
+    },
+    {
+      "name": "integersOnly",
+      "type": "boolean",
+      "default": false,
+      "description": "Позволяет вводить только целые значения"
+    },
+    {
+      "name": "positiveOnly",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "onChange",
+      "type": "((e: ChangeEvent<HTMLInputElement> | null, payload: { value: number | null; valueString: string; }) => void)",
+      "description": "Обработчик события изменения значения"
+    },
+    {
+      "name": "transparentMinor",
+      "type": "boolean",
+      "default": true,
+      "description": "Делает минорную часть полупрозрачной"
+    },
+    {
+      "name": "stepper",
+      "type": "{ step: number; min?: number | undefined; max?: number | undefined; }",
+      "description": "Добавляет компонент \"Stepper\" в правый аддон"
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

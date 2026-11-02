@@ -1,0 +1,53 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-system-message",
+  "import": "@alfalab/core-components/system-message",
+  "version": "4.0.6",
+  "component": "SystemMessage",
+  "props": [
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "fullHeight",
+      "type": "boolean",
+      "description": "Растянуть контент на всю доступную высоту."
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования.\nДля слотов используются одноименные модификаторы (-graphic, -title и тд)"
+    },
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "required": true,
+      "description": "Дочерние элементы."
+    },
+    {
+      "name": "padding",
+      "type": "PaddingType",
+      "description": "Отступы."
+    },
+    {
+      "name": "breakpoint",
+      "type": "number",
+      "default": "1024",
+      "description": "Контрольная точка, с нее начинается desktop версия"
+    },
+    {
+      "name": "client",
+      "type": "\"desktop\" | \"mobile\"",
+      "description": "Версия, которая будет использоваться при серверном рендеринге"
+    },
+    {
+      "name": "defaultMatchMediaValue",
+      "type": "boolean | (() => boolean)",
+      "default": "client === undefined ? undefined : client === 'desktop'",
+      "description": "Значение по-умолчанию для хука useMatchMedia\n@deprecated Используйте client"
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}

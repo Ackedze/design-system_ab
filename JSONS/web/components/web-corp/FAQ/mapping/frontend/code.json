@@ -1,0 +1,83 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "arui-private",
+  "import": "arui-private/faq",
+  "version": "80.10.0",
+  "component": "FAQ",
+  "exports": [
+    "FAQ"
+  ],
+  "props": [
+    {
+      "name": "additionalAnswerTextProps",
+      "type": "TextProps",
+      "default": "{}",
+      "description": "Дополнительные пропсы для компонента Typography.Text для ответа"
+    },
+    {
+      "name": "additionalQuestionTextProps",
+      "type": "TextProps",
+      "default": "{}",
+      "description": "Дополнительные пропсы для компонента Typography.Text для вопроса"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "hideBorderForItems",
+      "type": "string[]",
+      "description": "Позволяет отключить бордеры у каждого отдельного аккордиона (указывается id из items)"
+    },
+    {
+      "name": "hideBorders",
+      "type": "boolean",
+      "description": "Позволяет отключить бордеры у всех аккордионов"
+    },
+    {
+      "name": "isAccordion",
+      "type": "boolean",
+      "description": "Флаг, отвечает за схлопывание остальных вопросов при открытии нового"
+    },
+    {
+      "name": "items",
+      "type": "FAQItemType[]",
+      "required": true,
+      "description": "Массив с вопросами и ответами"
+    },
+    {
+      "name": "onItemClick",
+      "type": "(id: string) => void",
+      "description": "Дополнительный обработчик клика на вопрос"
+    },
+    {
+      "name": "preExpanded",
+      "type": "string | string[]",
+      "description": "Изначально открытый пункт или пункты (указывается id из items)"
+    },
+    {
+      "name": "promo",
+      "type": "boolean",
+      "default": "false",
+      "description": "Режим Promo"
+    },
+    {
+      "name": "promoBackground",
+      "type": "\"base-bg-alt\" | \"base-bg\"",
+      "values": [
+        "base-bg-alt",
+        "base-bg"
+      ],
+      "description": "Цвет FAQ плашек в Promo режиме"
+    }
+  ],
+  "status": {
+    "lifecycle": "active"
+  }
+}

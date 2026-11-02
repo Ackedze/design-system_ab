@@ -1,0 +1,169 @@
+{
+  "$schema": "hub/facet.anatomy@1",
+  "uses": [
+    {
+      "entity": "core.button",
+      "figmaName": "[D] Button",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[D] ButtonsGroup"
+      ],
+      "occurrences": 4
+    },
+    {
+      "entity": "core.button",
+      "figmaName": "[M] Button",
+      "roles": [
+        "internal-instance"
+      ],
+      "inHosts": [
+        "[M] ButtonsGroup"
+      ],
+      "occurrences": 2
+    }
+  ],
+  "constraints": [
+    {
+      "id": "buttons-group.desktop-composition",
+      "platforms": [
+        "desktop"
+      ],
+      "hosts": [
+        "[D] ButtonsGroup"
+      ],
+      "select": {
+        "entities": [
+          "core.button"
+        ],
+        "figmaNames": [
+          "[D] Button"
+        ],
+        "visibility": "visible"
+      },
+      "checks": [
+        {
+          "id": "button-count",
+          "rule": "corp.button-group#button-count",
+          "op": "countBetween",
+          "min": 2,
+          "max": 4,
+          "message": "В desktop ButtonsGroup должно быть от двух до четырёх видимых кнопок",
+          "expectation": "В desktop ButtonsGroup должно быть от двух до четырёх видимых кнопок.",
+          "action": "Оставить в группе от двух до четырёх видимых кнопок; лишние действия перенести в overflow."
+        },
+        {
+          "id": "allowed-views",
+          "rule": "corp.button-group#allowed-views",
+          "op": "propertyDomain",
+          "property": "View",
+          "values": [
+            "Primary",
+            "Secondary"
+          ],
+          "message": "В ButtonsGroup допускаются только View=Primary и View=Secondary",
+          "expectation": "Внутри ButtonsGroup допускаются только View=Primary и View=Secondary.",
+          "action": "Изменить View вложенной кнопки на Primary или Secondary."
+        },
+        {
+          "id": "uniform-size",
+          "rule": "corp.button-group#uniform-size",
+          "op": "propertyEqualsHost",
+          "property": "Size",
+          "message": "Размер каждой кнопки должен совпадать с Size группы",
+          "expectation": "Size каждой кнопки должен совпадать с Size группы: {{expected}}.",
+          "action": "Установить вложенной кнопке Size группы."
+        },
+        {
+          "id": "primary-position",
+          "rule": "corp.button-group#primary-position",
+          "op": "valuePosition",
+          "property": "View",
+          "message": "Primary-кнопка необязательна; если она есть, то может быть только первой и только одной",
+          "expectation": "Primary-кнопка необязательна, но может быть только одной и только первой.",
+          "action": "Переместить Primary-кнопку на первое место или изменить лишние Primary-кнопки на Secondary."
+        },
+        {
+          "id": "single-icon-position",
+          "rule": "corp.button-group#single-icon-position",
+          "op": "valuePosition",
+          "property": "SingleIcon",
+          "message": "При Overflow=true SingleIcon допускается только у последней кнопки и только один раз",
+          "expectation": "При Overflow=true только последняя кнопка может иметь SingleIcon=true.",
+          "action": "Оставить SingleIcon=true только у последней кнопки группы."
+        }
+      ]
+    },
+    {
+      "id": "buttons-group.mobile-composition",
+      "platforms": [
+        "mobile-web"
+      ],
+      "hosts": [
+        "[M] ButtonsGroup"
+      ],
+      "select": {
+        "entities": [
+          "core.button"
+        ],
+        "figmaNames": [
+          "[M] Button"
+        ],
+        "visibility": "visible"
+      },
+      "checks": [
+        {
+          "id": "button-count",
+          "rule": "corp.button-group#button-count.mobile",
+          "op": "countBetween",
+          "min": 2,
+          "max": 2,
+          "message": "В mobile-web ButtonsGroup должно быть ровно две видимые кнопки",
+          "expectation": "В mobile-web ButtonsGroup должно быть ровно две видимые кнопки.",
+          "action": "Оставить в группе две видимые кнопки; остальные действия перенести в overflow."
+        },
+        {
+          "id": "allowed-views",
+          "rule": "corp.button-group#allowed-views.mobile",
+          "op": "propertyDomain",
+          "property": "View",
+          "values": [
+            "Primary",
+            "Secondary"
+          ],
+          "message": "В ButtonsGroup допускаются только View=Primary и View=Secondary",
+          "expectation": "Внутри ButtonsGroup допускаются только View=Primary и View=Secondary.",
+          "action": "Изменить View вложенной кнопки на Primary или Secondary."
+        },
+        {
+          "id": "uniform-size",
+          "rule": "corp.button-group#uniform-size.mobile",
+          "op": "propertyEqualsHost",
+          "property": "Size",
+          "message": "Размер каждой кнопки должен совпадать с Size группы",
+          "expectation": "Size каждой кнопки должен совпадать с Size группы: {{expected}}.",
+          "action": "Установить вложенной кнопке Size группы."
+        },
+        {
+          "id": "primary-position",
+          "rule": "corp.button-group#primary-position.mobile",
+          "op": "valuePosition",
+          "property": "View",
+          "message": "Primary-кнопка необязательна; если она есть, то может быть только первой и только одной",
+          "expectation": "Primary-кнопка необязательна, но может быть только одной и только первой.",
+          "action": "Переместить Primary-кнопку на первое место или изменить лишние Primary-кнопки на Secondary."
+        },
+        {
+          "id": "single-icon-position",
+          "rule": "corp.button-group#single-icon-position.mobile",
+          "op": "valuePosition",
+          "property": "SingleIcon",
+          "message": "При Overflow=true SingleIcon допускается только у последней кнопки и только один раз",
+          "expectation": "При Overflow=true только последняя кнопка может иметь SingleIcon=true.",
+          "action": "Оставить SingleIcon=true только у последней кнопки группы."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+// url=https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=62786-48893
+// source=src/button-group/button-group.tsx
+// component=ButtonGroup
+import figma from 'figma';
+
+const instance = figma.selectedInstance;
+const size = instance.getEnum('Size', {'32': 32, '40': 40, '48': 48, '56': 56});
+const overflow = instance.getEnum('Overflow', {'false': false, 'true': true});
+
+// Handle APIs do not prove native visibility or business handlers. NEXT-03 must
+// supply these from a locked plan/capture; an absent port must never emit four
+// guessed actions. This template is context-required and is not published.
+const binding = figma.batch.buttonsGroupBinding as {
+    visibleOccurrenceIds?: string[];
+    handlersByOccurrenceId?: Record<string, string>;
+    identityByOccurrenceId?: Record<string, {symbolId: string; componentSetKey: string}>;
+} | undefined;
+if (overflow !== false) throw new Error('OVERFLOW_PARITY_GAP: arui-private/ButtonGroup has automatic overflow, no overflow prop');
+if (size !== 56) throw new Error('UNVERIFIED_FIGMA_OCCURRENCES: this bridge currently covers Size=56');
+if (!binding?.visibleOccurrenceIds?.length || binding.visibleOccurrenceIds.length > 4) {
+    throw new Error('MISSING_VISIBILITY_EVIDENCE: provide one to four verified direct occurrence IDs');
+}
+if (new Set(binding.visibleOccurrenceIds).size !== binding.visibleOccurrenceIds.length) throw new Error('DUPLICATE_OCCURRENCE');
+const direct = instance.children.filter(n => n.type === 'INSTANCE');
+const order = direct.filter(n => n.type === 'INSTANCE' && binding.visibleOccurrenceIds!.includes(n.id)).map(n => n.type === 'INSTANCE' ? n.id : '');
+if (order.some((id, index) => id !== binding.visibleOccurrenceIds![index])) throw new Error('OCCURRENCE_ORDER_MISMATCH');
+const children = binding.visibleOccurrenceIds.map(id => direct.find(n => n.type === 'INSTANCE' && n.id === id));
+if (children.some(n => !n || n.type !== 'INSTANCE' || n.name !== '[D] Button')) throw new Error('UNPROVEN_CHILD_IDENTITY');
+let primaryFirst = false;
+function action(index: number) {
+    const button = children[index];
+    if (!button) return undefined;
+    if (button.type !== 'INSTANCE') throw new Error('UNPROVEN_CHILD_IDENTITY');
+    const identity = binding?.identityByOccurrenceId?.[button.id];
+    if (!identity || identity.symbolId !== button.symbolId || identity.componentSetKey !== 'f9979d6cc8598aec25f721e0a45b7eef2eeb0088') throw new Error('UNPROVEN_CHILD_IDENTITY');
+    const view = button.getEnum('View', {'Primary': 'primary', 'Secondary': 'secondary'});
+    const childSize = button.getEnum('Size', {'32': 32, '40': 40, '48': 48, '56': 56});
+    const singleIcon = button.getEnum('SingleIcon', {'False': false, 'True': true});
+    if (!view || childSize !== size || singleIcon !== false) throw new Error('UNSUPPORTED_BUTTON_STATE');
+    if (button.getBoolean('LeftAddon') || button.getBoolean('RightAddon') || button.getBoolean('Hint') || !button.getBoolean('Label')) throw new Error('UNMAPPED_BUTTON_CONTENT');
+    if (view === 'primary' && index !== 0) throw new Error('PRIMARY_ORDER_GAP');
+    if (index === 0) primaryFirst = view === 'primary';
+    const label = button.getString('✎ Label');
+    if (!label.trim()) throw new Error('MISSING_ACTION_LABEL');
+    const disabled = button.getEnum('DisabledState', {'False': false, 'True': true});
+    if (disabled === undefined) throw new Error('UNSUPPORTED_DISABLED_STATE');
+    const handler = binding?.handlersByOccurrenceId?.[button.id];
+    if (!handler || !/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(handler)) throw new Error('MISSING_EVENT_BINDING');
+    return figma.code`{ children: ${JSON.stringify(label)}, disabled: ${String(disabled)}, onClick: ${handler} },`;
+}
+const action1 = action(0), action2 = action(1), action3 = action(2), action4 = action(3);
+export default {
+    example: figma.code`<ButtonGroup size={${String(size)}} primaryFirst={${String(primaryFirst)}} maxVisibleButtons={4} elements={[${action1}${action2}${action3}${action4}]} />`,
+    imports: ['import { ButtonGroup } from "arui-private/button-group";'],
+    id: 'web-corp.buttons-group.arui-private.desktop',
+    metadata: {nestable: true, props: {
+        componentId: 'web-corp.buttons-group', contractId: 'buttons-group.desktop',
+        figmaRepresentationId: 'web-corp.buttons-group.figma.desktop',
+        codeRepresentationId: 'web-corp.buttons-group.code.arui-private.desktop',
+        codeRepresentationStatus: 'draft', targetProduct: 'apollo-v4',
+        mappingStatus: 'context-required', fullContractParity: 'not-confirmed',
+        gapIds: ['BG-AUTO-OVERFLOW','BG-OVERFLOW-ACTIONS','BG-OVERFLOW-ORDER','BG-VISIBILITY-PORT'],
+    }},
+};

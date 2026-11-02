@@ -1,0 +1,335 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "Onboarding Hint — desktop-компонент для знакомства пользователя с новой или изменившейся функцией. Для обычного краткого пояснения элемента интерфейса используй Hint.",
+  "components": [
+    {
+      "figmaName": "Onboarding Hint",
+      "figmaKey": "cdb832111bbc0efc2c6d215db6b4eed1e1d02e51",
+      "purpose": "Познакомить пользователя с новой или изменившейся функцией.",
+      "status": "approved"
+    },
+    {
+      "figmaName": "Tail",
+      "figmaKey": "55308b6713348e69272d9005cfb00ae22515db5e",
+      "purpose": "Указывает на связанный с Onboarding Hint объект или область.",
+      "status": "approved"
+    }
+  ],
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "criticalBaselines",
+      "body": [
+        "Onboarding Hint [D] используется только на desktop от 768 px; на mobile-web используется BottomSheet.",
+        "Title, одна кнопка, Close и Tail обязательны, скрывать их нельзя.",
+        "Title содержит не более 70 символов.",
+        "Встроенная кнопка использует Size=32, View=Text, Shape=Rectangular, SingleIcon=False, DisabledState=False, без addons.",
+        "Кнопка может завершить hint как результат действия или запустить связанную функцию.",
+        "Hint может запускаться автоматически или по триггерному событию; повторный показ определяется бизнес-логикой.",
+        "Tail должен указывать на связанный объект или область.",
+        "Hint не перекрывает связанный объект; объект остаётся видимым и интерактивным.",
+        "Самостоятельно прервать hint можно только через Close без подтверждения. Esc и клик снаружи не закрывают hint.",
+        "Высота всегда Hug; ширину разрешено менять; остальные визуальные параметры соответствуют effective baseline.",
+        "Hint полностью помещается во viewport и может использоваться поверх Modal или Drawer.",
+        "Title содержит только обычный текст, без ссылок, списков и rich text.",
+        "Close соответствует effective baseline и не может быть заменён.",
+        "Вложенная иконка Close использует Type=icon-20; её fill соответствует effective baseline; glyph использует Size=20, Color=False и Style=Thinline.",
+        "Допустимо только обычное состояние, без loading, disabled и error.",
+        "Одновременно отображается только один hint; его нельзя запускать без видимого объекта внутри viewport.",
+        "Hint не блокирует взаимодействие с остальным интерфейсом.",
+        "Title переносится на новые строки без truncation.",
+        "Label кнопки можно менять по контексту; действуют общие правила Button.",
+        "Внутри hint интерактивны только Button и Close; связанный внешний объект остаётся интерактивным.",
+        "Tail Direction и Tail Position выбираются по расположению цели.",
+        "Onboarding Hint является одиночной подсказкой и не собирается в последовательный flow.",
+        "В компоненте всегда ровно одна кнопка.",
+        "В конце Title можно поставить точку; правило обычного Hint о запрете точки здесь не применяется.",
+        "Hint показывается без backdrop, затемнения и spotlight.",
+        "Контент относится только к знакомству с функцией, а не к ошибкам, ограничениям или последствиям.",
+        "Результат выполненного действия показывается через Toast, Notification или CorporateStatusScreen.",
+        "Рекомендуемая ширина Onboarding Hint — 360 px, максимальная — 420 px."
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "agentInstructions",
+      "body": [
+        "Не называй любое использование Onboarding Hint нарушением: сначала проверь платформу, обязательную анатомию и exact component rules.",
+        "Не придумывай ограничения на действие кнопки: допустимы закрытие hint и запуск связанной функции.",
+        "Не переноси правила многошагового Onboarding Tooltip на Onboarding Hint без отдельного правила.",
+        "Не запрещай ручное изменение ширины: это разрешённая настройка.",
+        "Не предлагай закрытие по Esc или клику снаружи.",
+        "Не требуй blocking overlay: Onboarding Hint не блокирует остальной интерфейс.",
+        "Не придумывай loading, disabled или error states.",
+        "Не запрещай перенос Title и не требуй truncation.",
+        "Не считай изменение label кнопки нарушением само по себе.",
+        "Не предлагай сделать кликабельной всю поверхность hint.",
+        "Не превращай несколько Onboarding Hint в многошаговый onboarding.",
+        "Не применяй к Onboarding Hint правило no-final-dot-in-hint.",
+        "Не предлагай backdrop или spotlight.",
+        "Не используй Onboarding Hint как замену Toast, Notification или CorporateStatusScreen.",
+        "Не запрещай ширину от 360 до 420 px: 360 px является рекомендацией, а нарушением считается только значение больше 420 px."
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "internalOnly",
+      "body": [
+        "Tail"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "allowedOverrides",
+      "body": {
+        "text": [
+          "Title",
+          "Button label"
+        ],
+        "componentProperties": [
+          "Tail Direction",
+          "Tail Position"
+        ],
+        "layerProperties": [
+          "layout.width up to 420 px"
+        ],
+        "behavior": [
+          "Button closes Onboarding Hint",
+          "Button launches the related function",
+          "automatic trigger",
+          "event trigger",
+          "repeat launch defined by business logic",
+          "Button and Close interaction",
+          "external target remains interactive"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "forbiddenOverrides",
+      "body": [
+        "standalone Tail",
+        "Onboarding Hint [D] on mobile-web",
+        "hidden Title",
+        "hidden Button",
+        "more than one Button",
+        "hidden Close",
+        "hidden Tail",
+        "Title longer than 70 characters",
+        "button Size other than 32",
+        "button View other than Text",
+        "button Shape other than Rectangular",
+        "button SingleIcon=true",
+        "button DisabledState=true",
+        "button addon",
+        "link, list or rich text in Title",
+        "replaced Close icon",
+        "changed Close configuration",
+        "Close Icon Type other than icon-20",
+        "manual Close Icon fill",
+        "Close glyph Size other than 20",
+        "Close glyph Color other than False",
+        "Close glyph Style other than Thinline",
+        "loading, disabled or error state",
+        "more than one simultaneous Onboarding Hint",
+        "launch without a visible target inside the viewport",
+        "blocking the rest of the interface",
+        "Title truncation or ellipsis",
+        "clickable whole hint surface",
+        "clickable Title",
+        "clickable Tail",
+        "sequential flow made from several Onboarding Hint instances",
+        "backdrop, dimming or spotlight",
+        "error, restriction, consequence or critical information as Title content",
+        "action result shown in Onboarding Hint",
+        "Tail not pointing to the target object or area",
+        "Onboarding Hint covering its target object",
+        "non-interactive target object",
+        "dismiss by Escape or outside click",
+        "non-Hug height",
+        "manual padding or spacing",
+        "manual radius, fill or stroke",
+        "manual typography",
+        "manual opacity or effects",
+        "Onboarding Hint clipped by the viewport",
+        "layout.width greater than 420 px"
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "compositionPolicy",
+      "body": {
+        "purpose": "Познакомить пользователя с новой или изменившейся функцией.",
+        "platform": {
+          "desktop": "Используй Onboarding Hint на desktop от 768 px.",
+          "mobileWeb": "Используй BottomSheet вместо Onboarding Hint [D]."
+        },
+        "requiredContent": {
+          "title": true,
+          "button": true,
+          "close": true,
+          "tail": true,
+          "visibilityChangeAllowed": false
+        },
+        "text": {
+          "titleMaximumCharacters": 70,
+          "format": "plain text only",
+          "finalDotAllowed": true,
+          "linksAllowed": false,
+          "listsAllowed": false,
+          "richTextAllowed": false,
+          "overflow": {
+            "Title": "wrap without truncation"
+          },
+          "editable": [
+            "Title",
+            "Button label"
+          ]
+        },
+        "button": {
+          "required": true,
+          "minimum": 1,
+          "maximum": 1,
+          "size": 32,
+          "view": "Text",
+          "shape": "Rectangular",
+          "singleIcon": false,
+          "disabledState": false,
+          "addons": false,
+          "allowedActions": [
+            "close-hint",
+            "launch-related-function"
+          ]
+        },
+        "trigger": {
+          "allowed": [
+            "automatic",
+            "trigger-event"
+          ],
+          "repeatLaunch": "business-logic"
+        },
+        "tail": {
+          "directionAndPositionSelectedByDesigner": true,
+          "mustPointTo": "target object or target area"
+        },
+        "interaction": {
+          "targetMayBeCovered": false,
+          "targetMustRemainVisible": true,
+          "targetMustRemainInteractive": true,
+          "standaloneDismissMethod": "Close",
+          "closeRequiresConfirmation": false,
+          "escapeDismissAllowed": false,
+          "outsideClickDismissAllowed": false
+        },
+        "interactiveParts": {
+          "insideHint": [
+            "Button",
+            "Close"
+          ],
+          "wholeSurfaceClickable": false,
+          "titleClickable": false,
+          "tailClickable": false,
+          "externalTargetRemainsInteractive": true
+        },
+        "close": {
+          "required": true,
+          "replacementAllowed": false,
+          "effectiveBaseline": {
+            "Size": "24",
+            "TransparentBg": "False",
+            "View": "Primary",
+            "Icon.Type": "icon-20",
+            "Icon.Fill": "effective-baseline",
+            "Icon.Glyph.Size": "20",
+            "Icon.Glyph.Color": "False",
+            "Icon.Glyph.Style": "Thinline"
+          },
+          "nestedPaths": {
+            "icon": [
+              "Content / Cross / 🔩 Icon",
+              "Content / Cross / Icon"
+            ],
+            "iconPaint": [
+              "Content / Cross / 🔩 Icon / Fixer / PaintMe",
+              "Content / Cross / Icon / Fixer / PaintMe"
+            ],
+            "glyph": [
+              "Content / Cross / 🔩 Icon / Fixer / PaintMe / cross",
+              "Content / Cross / Icon / Fixer / PaintMe / cross"
+            ]
+          }
+        },
+        "states": {
+          "supported": [
+            "default"
+          ],
+          "unsupported": [
+            "loading",
+            "disabled",
+            "error"
+          ]
+        },
+        "composition": {
+          "maximumSimultaneousHints": 1,
+          "sequentialFlowAllowed": false,
+          "blockingOverlayRequired": false,
+          "backdropAllowed": false,
+          "dimmingAllowed": false,
+          "spotlightAllowed": false,
+          "outsideInterfaceInteractionBlocked": false
+        },
+        "contentScope": {
+          "allowed": [
+            "introduction to a new function",
+            "introduction to a changed function"
+          ],
+          "forbidden": [
+            "error",
+            "restriction",
+            "action consequence",
+            "critical information",
+            "action result"
+          ],
+          "actionResultComponents": [
+            "Toast",
+            "Notification",
+            "CorporateStatusScreen"
+          ]
+        },
+        "visualBaseline": {
+          "width": {
+            "recommended": 360,
+            "maximum": 420,
+            "unit": "px",
+            "contextualChangeAllowed": true
+          },
+          "height": "Hug",
+          "fixed": [
+            "padding",
+            "spacing",
+            "radius",
+            "fill",
+            "stroke",
+            "typography",
+            "opacity",
+            "effects"
+          ]
+        },
+        "placement": {
+          "mustFitViewport": true,
+          "viewportClippingAllowed": false,
+          "allowedTemporarySurfaces": [
+            "Modal",
+            "Drawer"
+          ],
+          "targetPreconditions": {
+            "visible": true,
+            "insideViewport": true,
+            "hintMustNotStartWhenUnavailable": true
+          }
+        },
+        "effectiveBaseline": "Сравнивай вложенные части с effective baseline выбранных Tail Direction и Tail Position."
+      }
+    }
+  ]
+}

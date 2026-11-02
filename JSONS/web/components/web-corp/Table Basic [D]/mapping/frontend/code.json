@@ -1,0 +1,205 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "arui-private",
+  "import": "arui-private/table",
+  "version": "80.10.0",
+  "component": "table",
+  "exports": [
+    "isTableDividedRow",
+    "isTableGroupedRow",
+    "table"
+  ],
+  "props": [
+    {
+      "name": "buttonRowProps",
+      "type": "ButtonRowProps",
+      "description": "Пропсы для кнопки подрузки"
+    },
+    {
+      "name": "checkboxAddonForRows",
+      "type": "Record<string, ReactNode>",
+      "description": "Аддоны для строк (объект в формате rowsId: addon)"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Дополнительный класс"
+    },
+    {
+      "name": "columns",
+      "type": "TableColumn[]",
+      "required": true,
+      "description": "Данные для колонок"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Уникальный идентификатор для систем автоматического тестирования"
+    },
+    {
+      "name": "defaultAllGroupsExpanded",
+      "type": "boolean",
+      "description": "Начальное состояние групп:\n- false — все свёрнуты (по умолчанию),\n- true — все развёрнуты."
+    },
+    {
+      "name": "defaultColumnWidth",
+      "type": "number",
+      "description": "Дефолтная ширина колонки"
+    },
+    {
+      "name": "disableStickyScroll",
+      "type": "boolean",
+      "description": "Выключить прилипание скролла ко вьюпорту"
+    },
+    {
+      "name": "emptyTableButtonLabel",
+      "type": "string",
+      "description": "Текст кнопки для статусного экрана когда все колонки скрыты"
+    },
+    {
+      "name": "gaps",
+      "type": "number",
+      "description": "Кастомные отступы у таблицы"
+    },
+    {
+      "name": "headerCheckboxTooltipContent",
+      "type": "ReactNode",
+      "description": "Тултип Checkbox'а строки в заголовке"
+    },
+    {
+      "name": "horizontalBarClassName",
+      "type": "string",
+      "description": "Дополнительный класс контейнера горизонтальной полосы прокрутки."
+    },
+    {
+      "name": "isHeaderCheckboxChecked",
+      "type": "boolean",
+      "description": "Выбран ли Checkbox в заголовке"
+    },
+    {
+      "name": "isHeaderCheckboxDisabled",
+      "type": "boolean",
+      "description": "Управление дизейблом Checkbox'а в заголовке"
+    },
+    {
+      "name": "isHeaderCheckboxIndeterminate",
+      "type": "boolean",
+      "description": "Управление неопределенным состоянием Checkbox'а в заголовке"
+    },
+    {
+      "name": "mode",
+      "type": "Mode",
+      "values": [
+        "basic",
+        "wide"
+      ],
+      "required": true,
+      "description": "Режим таблицы"
+    },
+    {
+      "name": "onboardings",
+      "type": "CorporateTableOnboardings",
+      "description": "Онбординги"
+    },
+    {
+      "name": "onChangeColumnsPosition",
+      "type": "(columns: TableColumn[]) => void",
+      "description": "Обработчик для смены порядка столбцов в таблице"
+    },
+    {
+      "name": "onCheckboxChange",
+      "type": "({ row, isHeaderCheckbox, }: { row?: { rowId: string | number; childrenIds?: (string | number)[]; parentId?: string | number; position: number; parentPosition?: number; }; isHeaderCheckbox: boolean; }) => void",
+      "description": "При использовании данного пропа появятся чекбоксы в начале каждой строки и заголовка,\nпри его вызове в коллбэк будет проброшен id строки и булевое значение, указывающие на\nто что клик был по чекбоксу в хедере"
+    },
+    {
+      "name": "onColumnsChange",
+      "type": "(columns: TableColumn[]) => void",
+      "required": true,
+      "description": "Хэндлер для изменения данных о коллонках"
+    },
+    {
+      "name": "onCustomAlignAllColumns",
+      "type": "() => void",
+      "description": "Обработчик при клике на сброс ширины всех столбцов"
+    },
+    {
+      "name": "onCustomAlignColumn",
+      "type": "(field: string) => void",
+      "description": "Обработчик при клике на сброс ширины столбца"
+    },
+    {
+      "name": "onEmptyTableStatusScreenButtonClick",
+      "type": "() => void",
+      "description": "Обработчик при клике на статусный экран когда все колонки скрыты"
+    },
+    {
+      "name": "onHorizontalTableScroll",
+      "type": "UIEventHandler<HTMLDivElement>",
+      "description": "Обработчик горозинотального скролла таблицы"
+    },
+    {
+      "name": "onModeChange",
+      "type": "(mode: Mode) => void",
+      "description": "Хэндлер для изменения данных о коллонках"
+    },
+    {
+      "name": "onPickerButtonChange",
+      "type": "(selectPayload: BaseSelectChangePayload, row: { rowId: string | number; childrenIds?: (string | number)[]; parentId?: string | number; position: number; parentPosition?: number; }) => void",
+      "description": "При использовании данного пропа появится отдельный столбец в конце таблицы с PickerButton`ами\nсодержащими действия для данной строки (настроить PickerButton можно через PickerButtonProps\nв объекте строки) в коллбэк будет проброшен базовый payload PickerButton`а, а так же\nобязательно поле row содержащее информацию о данной строке"
+    },
+    {
+      "name": "onRowClick",
+      "type": "(event: MouseEvent<HTMLElement, MouseEvent>, rowId: string) => void",
+      "description": "Обработчик клика на строчку"
+    },
+    {
+      "name": "onSort",
+      "type": "(sortedColumns: [string, SortingStatuses]) => void",
+      "description": "Обработчик сортировки"
+    },
+    {
+      "name": "pagination",
+      "type": "ReactNode | ((wrapper: HTMLElement) => ReactNode)",
+      "description": "Слот для пагинации"
+    },
+    {
+      "name": "rows",
+      "type": "(TableRow | TableGroupedRow | TableStackedRow)[]",
+      "required": true,
+      "description": "Данные для строк"
+    },
+    {
+      "name": "systemMessage",
+      "type": "ReactElement<CorporateSystemMessageProps, string | JSXElementConstructor<any>>",
+      "description": "Слот для systemMessage"
+    },
+    {
+      "name": "systemMessageView",
+      "type": "\"full\" | \"content\"",
+      "values": [
+        "full",
+        "content"
+      ],
+      "description": "Тип отображения статусного экрана"
+    },
+    {
+      "name": "topbar",
+      "type": "ReactNode",
+      "description": "Слот для верхней панели"
+    },
+    {
+      "name": "withoutActionsRow",
+      "type": "boolean",
+      "default": "false",
+      "description": "Отключает все действия со строкой"
+    },
+    {
+      "name": "wrapper",
+      "type": "boolean",
+      "description": "Оборачивает таблицу в стилизованный контейнер"
+    }
+  ],
+  "status": {
+    "lifecycle": "active"
+  }
+}

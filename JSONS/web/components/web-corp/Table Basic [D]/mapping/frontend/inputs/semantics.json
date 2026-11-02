@@ -1,0 +1,650 @@
+{
+  "$schema": "hub/facet.semantics@1",
+  "summary": "Table Basic [D] — семейство более воздушных таблиц до пяти столбцов с поддержкой двух текстовых слотов в одной ячейке.",
+  "components": [
+    {
+      "figmaName": "[D] BodyRow :: Basic",
+      "figmaKey": "aca58bac6a6137109081a0f7289424b5a240d0fd",
+      "purpose": "Строка данных для воздушной desktop-таблицы Basic с количеством столбцов до пяти.",
+      "useWhen": [
+        "Нужно собрать строку простой таблицы без горизонтального скролла."
+      ],
+      "doNotUseWhen": [
+        "Таблица требует большого количества столбцов, горизонтального скролла или функциональной группировки."
+      ],
+      "relationship": "Основная строка Table Basic; после добавления наполняется библиотечными Basic-ячейками.",
+      "status": "approved"
+    },
+    {
+      "figmaName": "[D] BodyCell :: Basic",
+      "figmaKey": "04acf0fa2142daa01998e1a39d18167a64a64a9a",
+      "purpose": "Обычная ячейка Table Basic для основного и опционального дополнительного текста или статусного пресета.",
+      "useWhen": [
+        "В строке Basic нужно показать основное значение и при необходимости второй текстовый слой."
+      ],
+      "doNotUseWhen": [
+        "Колонка предназначена только для выбора строки или действия."
+      ],
+      "relationship": "Контентная ячейка внутри [D] BodyRow :: Basic.",
+      "status": "approved"
+    },
+    {
+      "figmaName": "[D] BodyControlCell :: Basic",
+      "figmaKey": "ca7c11e04c35a747c05c91eeb65fff6b24929194",
+      "purpose": "Служебная ячейка строки Table Basic для выбора строки или другого предусмотренного контролла.",
+      "useWhen": [
+        "Строке Basic нужен фиксированный control-столбец."
+      ],
+      "doNotUseWhen": [
+        "В колонке отображаются обычные данные или действия над строкой."
+      ],
+      "relationship": "Фиксированная control-ячейка внутри [D] BodyRow :: Basic; её ширина не настраивается вручную.",
+      "status": "approved"
+    },
+    {
+      "figmaName": "[D] BodyActionCell :: Basic",
+      "figmaKey": "b6c7356c0b97488d7f63568ecc3e3d9c5e28f919",
+      "purpose": "Служебная ячейка строки Table Basic для предусмотренного действия над объектом.",
+      "useWhen": [
+        "У строки Basic должно быть действие в отдельной фиксированной колонке."
+      ],
+      "doNotUseWhen": [
+        "Действие относится ко всей таблице или является обычным значением строки."
+      ],
+      "relationship": "Фиксированная action-ячейка внутри [D] BodyRow :: Basic.",
+      "status": "approved"
+    },
+    {
+      "figmaName": "[D] GroupDivider :: Basic",
+      "figmaKey": "be454edabe88cea4ec38e4402ca31af920d1cba6",
+      "purpose": "Визуальный заголовок или разделитель группы строк в Table Basic без вложенной функциональной группировки.",
+      "useWhen": [
+        "Нужно визуально разделить последовательность строк или подписать их группу."
+      ],
+      "doNotUseWhen": [
+        "Нужна раскрываемая или иерархическая группировка данных."
+      ],
+      "relationship": "Опциональная строка-разделитель Table Basic; не создаёт отдельный уровень структуры данных.",
+      "status": "approved"
+    }
+  ],
+  "publicApi": {
+    "components": {
+      "[D] GroupDivider :: Basic": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Skeleton": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "🔄 Chevron": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Open": [
+            "False",
+            "True"
+          ],
+          "Presets": [
+            "Down Chevron",
+            "Right Chevron"
+          ]
+        }
+      },
+      "🔄 Sorting": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Active": [
+            "False",
+            "True"
+          ],
+          "Presets": [
+            "Max -> Min",
+            "Min -> Max",
+            "Not selected"
+          ]
+        }
+      },
+      "🔄 HeadControl": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "Checkbox",
+            "SwapMe"
+          ]
+        }
+      },
+      "🔄 [D] HeadActionCell": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "Controls",
+            "None"
+          ]
+        }
+      },
+      "🔄 [D] HeadControlCell": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "Controls",
+            "None"
+          ],
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "🔄 [D] HeadCell": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "None",
+            "Title"
+          ],
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "🔄 [D] BodyCell": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "Status",
+            "Text"
+          ],
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "🔄 [D] BodyActionCell": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "Actions",
+            "None"
+          ],
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "🔄 [D] BodyControlCell": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "Controls",
+            "None"
+          ],
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "🔒 [D] BodyCell": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "CardImage",
+            "IconView",
+            "Status",
+            "Text"
+          ],
+          "Skeleton": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "[D] BodyCell :: Basic": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "Status",
+            "Text"
+          ],
+          "Skeleton": [
+            "False",
+            "True"
+          ]
+        }
+      },
+      "[D] BodyControlCell :: Basic": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "Controls",
+            "None"
+          ],
+          "Skeleton": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "[D] BodyActionCell :: Basic": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "None",
+            "PickerButton"
+          ],
+          "Skeleton": [
+            "false",
+            "true"
+          ]
+        }
+      },
+      "GraphicsSkeleton": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "CardImage",
+            "IconView"
+          ]
+        }
+      },
+      "Graphics": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "CardImage",
+            "IconView",
+            "SwipeMe"
+          ]
+        }
+      },
+      "RightAddon": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "IconCustom",
+            "IconPrimary",
+            "IconSecondary",
+            "IconTertiary",
+            "Indicator",
+            "None",
+            "StatusBadge",
+            "SwapMe"
+          ]
+        }
+      },
+      "LeftAddon": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "IconCustom",
+            "IconPrimary",
+            "IconSecondary",
+            "IconTertiary",
+            "Indicator",
+            "IndicatorDot",
+            "None",
+            "StatusBadge",
+            "SwapMe"
+          ]
+        }
+      },
+      "Text": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Accent": [
+            "False",
+            "True"
+          ],
+          "Presets": [
+            "Account",
+            "Amount",
+            "Link",
+            "Text"
+          ]
+        }
+      },
+      "Control": {
+        "kind": "component-family-member",
+        "variantProperties": {
+          "Presets": [
+            "Checkbox",
+            "IconButton",
+            "SwapMe"
+          ]
+        }
+      }
+    }
+  },
+  "guidance": [
+    {
+      "area": "usage",
+      "topic": "ruleReferences",
+      "body": [
+        {
+          "file": "rules.json",
+          "componentKey": "web-corp.table-basic-d"
+        },
+        {
+          "file": "composition-contract.json",
+          "componentKey": "web-corp.table-basic-d"
+        },
+        {
+          "file": "audit-mapping.json",
+          "componentKey": "web-corp.table-basic-d"
+        }
+      ]
+    },
+    {
+      "area": "usage",
+      "topic": "agentGuidance",
+      "body": [
+        "Используй exact pattern или component-contract rule до повышения критичности.",
+        "Считай Table Basic detached-композицией из [D] HeadRow :: Universal, [D] BodyRow :: Basic и соответствующих библиотечных ячеек.",
+        "Проверяй лимит в пять столбцов и наличие CorporateTopbar, HeaderRow, BodyRow и Pagination внутри [D] BackgroundPlateSlot; TableView к этой сборке не относится.",
+        "Считай Text 2 опциональным слотом с контекстным содержимым; control/action-ячейки и высота строк сохраняют effective baseline.",
+        "Компоненты с префиксом 🔄 относятся к старой версии и крайне не рекомендуются для новых макетов.",
+        "Служебные элементы таблицы нельзя рекомендовать для отдельного использования.",
+        "Для вложенных слоёв используй effective baseline семейства Table Basic."
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "appliesTo",
+      "body": {
+        "generatedContract": "contract.generated.json",
+        "rawCatalog": "Web _ Corp Components -- Table _ _ Basic [D].json"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "assemblyPolicy",
+      "body": {
+        "workflow": "detached-rows-with-library-cells",
+        "headerRow": "[D] HeadRow :: Universal",
+        "bodyRow": "[D] BodyRow :: Basic",
+        "designerSteps": [
+          "Добавить [D] HeadRow :: Universal и [D] BodyRow :: Basic.",
+          "Детачить строки.",
+          "Добавить нужные библиотечные ячейки из [D] HeadCells :: Universal и [D] BodyCells :: Basic.",
+          "Подобрать ширину каждой ячейки в detached-композиции."
+        ],
+        "requiredSurroundingComponents": [
+          "CorporateTopbar",
+          "HeaderRow",
+          "BodyRow",
+          "Pagination",
+          "[D] BackgroundPlateSlot"
+        ],
+        "unrelatedComponents": [
+          "TableView"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "usagePolicy",
+      "body": {
+        "cellTextSlots": 2,
+        "secondTextSlotRequired": false,
+        "secondTextSlotContent": "context-dependent",
+        "maxColumns": 5,
+        "supportsHorizontalScroll": false,
+        "supportsManyColumns": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "geometryPolicy",
+      "body": {
+        "rowHeight": "effective-baseline-only",
+        "columnWidth": {
+          "designerEditable": true,
+          "headAndBodyMustMatch": true,
+          "horizontalOverflowAllowed": false,
+          "compensateWithinAvailableWidth": true
+        },
+        "fixedWidthCells": [
+          "[D] BodyControlCell :: Basic",
+          "[D] BodyActionCell :: Basic",
+          "[D] HeadActionCell",
+          "[D] HeadControlCell"
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "statePolicy",
+      "body": {
+        "sorting": {
+          "enabledByContext": true,
+          "maxActiveColumns": 1,
+          "initialState": "product-defined"
+        },
+        "skeleton": {
+          "defaultScope": "whole-table",
+          "partialRowOrCellLoadingAllowed": true
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "interactionPolicy",
+      "body": {
+        "wholeRowClickable": true,
+        "selectAllScope": "current-page",
+        "headControlRequiredWhenSelectable": true
+      }
+    },
+    {
+      "area": "api",
+      "topic": "columnControlPolicy",
+      "body": {
+        "required": true,
+        "interactiveColumnMinWidth": 160,
+        "pinningAllowed": false,
+        "sortingActionsVisibleOnlyForSortableColumns": true
+      }
+    },
+    {
+      "area": "api",
+      "topic": "bottomBlockPolicy",
+      "body": {
+        "component": "Pagination",
+        "alwaysPresent": true,
+        "singlePagePreset": "None",
+        "selectedRowsPreset": "BulkActions",
+        "stickyOnVerticalOverflow": true,
+        "scrollbar": false,
+        "bulkActions": {
+          "standaloneTableBulkActionsAllowed": false,
+          "maxActionButtons": 4,
+          "actions": "context-dependent for selected rows"
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "actionCellPolicy",
+      "body": {
+        "allowedContent": [
+          "one Button",
+          "PickerButton",
+          "Presets=None"
+        ],
+        "arbitraryInstanceSwap": false
+      }
+    },
+    {
+      "area": "api",
+      "topic": "contentPolicy",
+      "body": {
+        "arbitraryInstanceSwap": false,
+        "contentSelection": "component-supported presets only",
+        "supportedPresetsAllowed": true,
+        "emptyOrErrorState": {
+          "component": "CorporateSystemMessage",
+          "replaces": "BodyRow only",
+          "preserves": [
+            "CorporateTopbar",
+            "[D] HeadRow :: Universal",
+            "Pagination"
+          ]
+        }
+      }
+    },
+    {
+      "area": "api",
+      "topic": "allowedLayerOverrides",
+      "body": [
+        "characters",
+        "alignment in HeadCell and BodyCell",
+        "width of ordinary HeadCell and matching BodyCell without horizontal scroll"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "forbiddenLayerOverrides",
+      "body": [
+        "typography",
+        "fill",
+        "stroke",
+        "opacity",
+        "padding",
+        "spacing",
+        "radius",
+        "row height",
+        "width of ControlCell and ActionCell"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "visualStatePolicy",
+      "body": {
+        "hover": "effective-baseline",
+        "selected": "effective-baseline",
+        "disabled": "effective-baseline"
+      }
+    },
+    {
+      "area": "api",
+      "topic": "paginationPolicy",
+      "body": {
+        "rowsPerPageUserEditable": true,
+        "allowedRowsPerPage": [
+          10,
+          25,
+          50,
+          100
+        ]
+      }
+    },
+    {
+      "area": "api",
+      "topic": "linkedPatterns",
+      "body": [
+        "ptrn:tables.data-formatting",
+        "ptrn:controls.buttons-and-button-groups"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "lifecyclePolicy",
+      "body": {
+        "scheduledPrefix": "🔄",
+        "status": "legacy",
+        "recommendation": "Крайне не рекомендуется использовать в новых макетах."
+      }
+    },
+    {
+      "area": "api",
+      "topic": "internalComponents",
+      "body": [
+        "ActionButton",
+        "Control",
+        "Graphics",
+        "GraphicsSkeleton",
+        "LeftAddon",
+        "RightAddon",
+        "Text",
+        "🔄 Chevron",
+        "🔄 HeadControl",
+        "🔄 Sorting"
+      ]
+    },
+    {
+      "area": "api",
+      "topic": "anatomySemantics",
+      "body": {
+        "root": {
+          "path": "<variant root>",
+          "scope": "component-root",
+          "designerEditable": false
+        },
+        "rows": {
+          "path": "*Row*",
+          "scope": "table-row",
+          "designerEditable": "component-properties-and-content"
+        },
+        "cells": {
+          "path": "*Cell*",
+          "scope": "table-cell",
+          "designerEditable": "component-properties-and-content"
+        },
+        "addOns": {
+          "path": "*Addon*",
+          "scope": "cell-addon",
+          "designerEditable": "component-properties-through-instance"
+        }
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "forbiddenOverrides",
+      "body": [
+        "arbitrary instance swap",
+        "width of ControlCell and ActionCell",
+        "row height",
+        "typography",
+        "fill",
+        "stroke",
+        "opacity",
+        "padding",
+        "spacing",
+        "radius"
+      ]
+    },
+    {
+      "area": "composition",
+      "topic": "compositionPolicy",
+      "body": {
+        "workflow": "detach [D] HeadRow :: Universal and [D] BodyRow :: Basic, then add library cells",
+        "requiredComponents": [
+          "CorporateTopbar",
+          "[D] HeadRow :: Universal",
+          "[D] BodyRow :: Basic",
+          "Pagination",
+          "[D] BackgroundPlateSlot"
+        ],
+        "equalFillWidth": true,
+        "maxColumns": 5,
+        "horizontalScroll": false,
+        "emptyOrErrorBodyReplacement": "CorporateSystemMessage"
+      }
+    },
+    {
+      "area": "composition",
+      "topic": "allowedOverrides",
+      "body": [
+        "characters",
+        "variant.* supported by component",
+        "alignment in HeadCell and BodyCell",
+        "width of ordinary HeadCell and matching BodyCell without horizontal scroll"
+      ]
+    }
+  ]
+}

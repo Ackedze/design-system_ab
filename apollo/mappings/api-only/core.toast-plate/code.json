@@ -1,0 +1,113 @@
+{
+  "$schema": "hub/facet.code@1",
+  "package": "@alfalab/core-components-toast-plate",
+  "import": "@alfalab/core-components/toast-plate",
+  "version": "9.1.5",
+  "component": "ToastPlate",
+  "props": [
+    {
+      "name": "titleClassName",
+      "type": "string",
+      "description": "Дополнительный класс для заголовка"
+    },
+    {
+      "name": "contentClassName",
+      "type": "string",
+      "description": "Дополнительный класс для контентной области"
+    },
+    {
+      "name": "actionSectionClassName",
+      "type": "string",
+      "description": "Дополнительный класс для области с кнопкой действия"
+    },
+    {
+      "name": "boldTitle",
+      "type": "boolean",
+      "description": "Жирный заголовок"
+    },
+    {
+      "name": "badge",
+      "type": "StatusBadgeViews",
+      "description": "Вид бэйджа"
+    },
+    {
+      "name": "leftAddons",
+      "type": "ReactNode",
+      "description": "Слот слева, заменяет стандартную иконку"
+    },
+    {
+      "name": "actionButton",
+      "type": "ReactNode",
+      "description": "Кнопка действия"
+    },
+    {
+      "name": "dataTestId",
+      "type": "string",
+      "description": "Идентификатор для систем автоматизированного тестирования"
+    },
+    {
+      "name": "hasCloser",
+      "type": "boolean",
+      "description": "Управляет отображением кнопки закрытия уведомления\n@deprecated Используйте пропс `closerProps`"
+    },
+    {
+      "name": "closerWrapperClassName",
+      "type": "string",
+      "description": "Доп. класс враппера кнопки \"закрыть\".\n@deprecated Используйте пропс `closerProps`"
+    },
+    {
+      "name": "closerClassName",
+      "type": "string",
+      "description": "Доп. класс кнопки \"закрыть\".\n@deprecated Используйте пропс `closerProps`"
+    },
+    {
+      "name": "closerProps",
+      "type": "{Object}",
+      "default": "{{ hasCloser: false, closerWrapperClassName: undefined, closerClassName: undefined, divider: true, view: 'primary' }}",
+      "description": "Параметры кнопки закрытия\n@property {boolean} [hasCloser] - Управляет отображением кнопки закрытия уведомления\n@property {string} [closerWrapperClassName] - Дополнительный класс враппера кнопки \"закрыть\"\n@property {string} [closerClassName] - Дополнительный класс кнопки \"закрыть\"\n@property {boolean} [divider] - Показывать разделитель\n@property {import('@alfalab/core-components-icon-button').IconButtonProps['view']} [view] - Вид кнопки закрытия"
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "description": "Растягивает компонент на ширину контейнера"
+    },
+    {
+      "name": "onClose",
+      "type": "((event?: MouseEvent<HTMLButtonElement, MouseEvent> | undefined) => void)",
+      "description": "Обработчик клика по крестику"
+    },
+    {
+      "name": "getBadgeIcons",
+      "type": "Partial<Record<StatusBadgeViews, Partial<Record<StatusBadgeSizes, StatusBadgeIcon>>>>",
+      "description": "Функция, с помощью которой можно переопределить иконки в StatusBadge"
+    },
+    {
+      "name": "colors",
+      "type": "\"default\" | \"inverted\"",
+      "description": "Набор цветов для компонента"
+    },
+    {
+      "name": "bottomButtonPosition",
+      "type": "boolean",
+      "description": "Положение кнопки под заголовком компонента"
+    },
+    {
+      "name": "breakpoint",
+      "type": "number",
+      "default": "1024",
+      "description": "Контрольная точка, с нее начинается desktop версия"
+    },
+    {
+      "name": "client",
+      "type": "\"desktop\" | \"mobile\"",
+      "description": "Версия, которая будет использоваться при серверном рендеринге"
+    },
+    {
+      "name": "defaultMatchMediaValue",
+      "type": "boolean | (() => boolean)",
+      "default": "client === undefined ? undefined : client === 'desktop'",
+      "description": "Значение по-умолчанию для хука useMatchMedia\n@deprecated Используйте client"
+    }
+  ],
+  "propsSource": "core-components-mcp v50.20.0"
+}
