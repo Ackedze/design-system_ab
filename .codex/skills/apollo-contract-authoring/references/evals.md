@@ -115,6 +115,29 @@ Rationale или формулировки не доказывают самост
 
 ## Цикл обучения
 
+### Полный граф выбранной области
+
+После изменения ownership, swap/Slot или привязки вложенной части сохрани и
+повтори полный area-report, а не только именованные корневые кейсы. Сверь каждый
+`selection.components[].nodeId` с отдельной проверкой, доказанным владельцем
+или разрешённой внешней границей. `contract-not-found`, неполная проверка ребёнка
+и `coverage.uncertain` остаются пробелами, даже если корневые кейсы PASS.
+
+При replay восстанавливай сохранённый `ownerContext` с exact parent contract,
+snapshot и nodeMap. Standalone-прогон ребёнка теряет родительский эталон.
+Reference-only repin не считается ремонтом: проверь ложные baseline violations
+и скрытые/альтернативные ветви. При расхождении хешей сначала проверь exact
+inputs и среду исполнения; отличие Node replay от Figma не доказывает дефект Core.
+
+После Core replay выполни `node scripts/check_area_report.cjs <full-report.json>`
+из каталога навыка. Helper проверяет полноту учёта и результаты отчёта; он не
+исполняет Core и не доказывает native identity вместо producer. Разрешённый
+Slot payload остаётся `boundary-only/unverified`; отсутствие проверок его
+внутренностей нельзя переименовать в compliant. Для новой партии сравни также
+сохранённую предыдущую секцию и ожидаемые RuleID нарушений.
+
+Регрессия: [full-area-coverage-0.1.11.json](../evals/full-area-coverage-0.1.11.json).
+
 ### Native capture и загрузка source
 
 Подтверждённые регрессии 26.10.2026 выявили разрыв между корректным IR и фактическим
