@@ -27,12 +27,26 @@
 Не читай все компоненты. Обязательно читай constraints, applicability и public
 boundary именно выбранного семейства. Сверь актуальный опубликованный key/API.
 
-Если хаб направляет в `design-system_ab`, выбирай текущий пакет из
-`experiments/current-contract-packages/manifest.json`, проверь ZIP hash и прочитай
-нужный `contract.manual.json` внутри ZIP. Сохрани путь ZIP и конкретной извлечённой
-копии. При отсутствии пакета используй обозначенный хабом manual/catalog
-и пометь fallback. Не считай generated inventory самостоятельным нормативным
-разрешением. Конфликт источников фиксируй, а не разрешай молча.
+Если хаб направляет в `design-system_ab`, различай два маршрута.
+
+- В локальном Codex выбирай текущий пакет из
+  `experiments/current-contract-packages/manifest.json`, проверь ZIP hash и прочитай
+  нужный `contract.manual.json` внутри ZIP. Сохрани путь ZIP и извлечённой копии.
+- В Proxy используй установленный `contracts/manifest.json`: выбери запись
+  `contracts[]` по component identity, платформе и published key; её `file`
+  разрешается с префиксом `contracts/`. Это source-envelope JSON. Сначала прочитай
+  его keys, затем `path=["manual"]` и нужные дочерние разделы через reader.
+  Сохрани release ID, точный resource ID, SHA, revision и прочитанные JSON paths.
+  Большой manual читай по разделам; наличие файла или чтение одной identity
+  не означает полного чтения применимых норм. `compiledCache` не заменяет manual.
+
+Hub `JSONS/apollo/indexes/componentContractIndex.json` разрешает keys и legacy
+artifacts rules/composition/generated. Это другой индекс, а не автоматический
+переход к manual. Для выбранного компонента без установленного manual используй
+обозначенные хабом инструкции, adapter, cookbook и каталог с явной меткой fallback.
+Не требуй у пользователя shell/ZIP в Proxy и не объявляй отсутствующими все нормы
+из-за недоступности ZIP-маршрута. Generated inventory не является самостоятельным
+нормативным разрешением. Конфликт источников фиксируй, а не разрешай молча.
 
 Различай прямое противоречие и более узкое совместимое условие. Если выбранная
 конфигурация удовлетворяет обоим источникам, сохрани их расхождение и продолжай
