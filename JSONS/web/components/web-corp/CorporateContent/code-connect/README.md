@@ -1,7 +1,8 @@
 # CorporateContent — Code Connect
 
-Подготовлено 03.11.2026 для Desktop и Mobile Web. Статус: шаблоны подготовлены
-и локально проверены; публикация и проверка исполнения в Figma не выполнялись.
+Подготовлено 03.11.2026 для Desktop и Mobile Web. Статус на 04.11.2026:
+шаблоны локально проверены; попытка публикации через MCP не установила
+исполняемые шаблоны. Владелец выбрал публикацию через CLI; её результат ожидается.
 
 | Платформа | Шаблон | Опубликованный Figma key | Body property identity |
 | --- | --- | --- | --- |
@@ -76,6 +77,22 @@ Figma предоставляет только Body SLOT. Остальные Reac
 | Исполнение новых шаблонов в Figma/MCP, browser/визуальная эквивалентность | NOT_RUN |
 | Публикация Code Connect | NOT_RUN |
 
+04.11.2026 выполнены fresh context/readback и официальный parse тех же двух
+шаблонов. Desktop сохранил прежнюю связь: запись через MCP отклонена с
+`Component is already mapped to code`. Для Mobile появилась только ссылка
+на исходник. После bulk-записи оба root возвращают `hasTemplate=false` и
+fallback-вёрстку `DCorporateContent` / `MCorporateContent`, без публичного
+import. Отдельный метод записи Mobile также отказал из-за существующей связи.
+Причина, по которой bulk-запись не сохранила переданный шаблон, не установлена.
+Публикация исполняемых шаблонов **не подтверждена**.
+
+Владелец выбрал официальный CLI `publish --force` с этим узким конфигом,
+чтобы заменить конфликтующие UI-created связи. После его запуска требуется
+повторное чтение обоих узлов: `hasTemplate=true`, настоящий public import,
+`CorporateContent` и Body → `children`. До readback задачу не закрывать.
+Локальные evidence и инструкция: workspace
+`.local/corporate-content-code-connect-publish-2026-11-04/{BEFORE.json,ATTEMPT.json,PUBLISH.md}`.
+
 Distribution 80.7.1 — существующая локальная селективная сборка
 `arui-private/tools/code-connect/frontend-host/.work/source/dist`, а не новая
 проверка опубликованного 81.1.0. Новые файлы не установлены в Proxy/runtime.
@@ -101,7 +118,7 @@ node --test JSONS/web/components/web-corp/CorporateContent/code-connect/Corporat
 разрешает настоящий public import в выбранном SDK через стандартный resolver.
 Без `ARUI_SDK_NODE_MODULES` API-тест будет явно SKIP.
 
-Следующий шаг — повторить API-проверку на целевом опубликованном SDK, затем
-отдельно опубликовать эти два шаблона и прочитать результат в Figma/MCP.
-Текущее чтение Desktop показало прежнюю связь с `hasTemplate=false`; у Mobile
-Web root связи не было. Эти сведения не подтверждают работу новых шаблонов.
+Следующий шаг — получить результат CLI-публикации владельца и прочитать оба
+шаблона в Figma/MCP. Проверка API на целевом опубликованном SDK 81.1.0 остаётся
+отдельной открытой задачей. Текущий `hasTemplate=false` не подтверждает работу
+новых шаблонов.

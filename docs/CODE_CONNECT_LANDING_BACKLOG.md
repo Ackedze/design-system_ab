@@ -1,7 +1,8 @@
 # Code Connect для компонентов лендингов
 
-Дата: 03.11.2026. Статус: очередь сформирована; CC-LND-01 подготовлен локально,
-остальные задачи запланированы. Публикация CC-LND-01 ещё не выполнена.
+Обновлено: 04.11.2026. Статус: очередь сформирована; CC-LND-01 подготовлен локально,
+остальные задачи запланированы. CLI-публикацию CC-LND-01 выполняет владелец;
+результат и последующая проверка Figma/MCP ожидаются.
 Ответственный за Corp/Promo — Code Connect; за Core — команда Core.
 
 Цель — обеспечить перевод библиотечных компонентов лендинга в корректный React
@@ -27,7 +28,7 @@ Desktop и Mobile Web проверяются отдельно; наличие de
 
 | ID | Приоритет | Компонент Figma | Что подготовить | Начальная точка реализации |
 | --- | --- | --- | --- | --- |
-| CC-LND-01 | P0 | CorporateContent | **Подготовлены D/M-шаблоны и локальные проверки 03.11.2026.** [Файлы и результат](../JSONS/web/components/web-corp/CorporateContent/code-connect/README.md). Body → `children`; целевой опубликованный SDK 81.1.0, публикация и фактическое исполнение новых шаблонов Figma/MCP ещё не проверены. | `src/corporate-content/`; новые component-owned `code-connect/` и `mobile-web/code-connect/` |
+| CC-LND-01 | P0 | CorporateContent | **Подготовлены D/M-шаблоны и локальные проверки 03.11.2026.** [Файлы и результат](../JSONS/web/components/web-corp/CorporateContent/code-connect/README.md). 04.11 MCP-попытка не установила шаблоны: оба root `hasTemplate=false`; у Mobile появилась source-ссылка. Владелец выбрал CLI-публикацию; затем требуется фактический readback. Целевой опубликованный SDK 81.1.0 ещё не проверен. | `src/corporate-content/`; новые component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-02 | P0 | PromoMainBlock | D/M, Page/Modal, заголовок, описание, графика, стоимость, состояния и действия; только поддерживаемые платформой настройки. | `src/promo-main-block/` |
 | CC-LND-03 | P0 | BenefitCard | D/M, текст, графика, поверхность, loading и кликабельность; вложенные Link/IconView и передача контента. | `src/benefit-card/` |
 | CC-LND-04 | P0 | BenefitsBlock | Проверить соответствие Figma BenefitsBlock ↔ код BenefitBlock; D/M, Text/List/Steps, изображение, CTA и поверхность. | `src/benefit-block/` |
