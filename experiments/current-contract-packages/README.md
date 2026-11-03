@@ -15,7 +15,7 @@
 | BenefitCard | r16 | 2026-10-20T21:20:30.429Z | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/BenefitCard/packages/BenefitCard.r16.candidate.component-contract.zip>) |
 | BenefitsBlock | r4 | 2026-10-08T17:46:31.559536+00:00 | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/BenefitsBlock/packages/BenefitsBlock.component-contract.zip>) |
 | PromoCard | r3 | 2026-10-07T13:01:12.597Z | Draft | [ZIP](<../../JSONS/web/components/web-corp-promo/PromoCard/packages/PromoCard.component-contract.zip>) |
-| Link | r8 | 2026-10-20T21:20:30.319Z | Ready | [ZIP](<../../JSONS/web/components/web-core/core/Link/packages/Link.r8.candidate.component-contract.zip>) |
+| Link | r9 | 2026-11-03T00:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/Link/packages/Link.r9.candidate.component-contract.zip>) |
 | IconView | r13 | 2026-11-02T10:02:07.528Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/IconView/packages/IconView.r13.draft.component-contract.zip>) |
 | BackgroundPlate | r7 | 2026-10-20T11:41:14.000Z | Ready | [ZIP](<../../JSONS/web/components/web-corp/BackgroundPlate/packages/BackgroundPlate.r7.component-contract.zip>) |
 | PaymentMaskedNumber | r5 | 2026-11-01T20:00:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/PaymentMaskedNumber/packages/PaymentMaskedNumber.r5.draft.component-contract.zip>) |
@@ -54,7 +54,7 @@
 | ScrollBar | r1 | 2026-10-29T18:30:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/ScrollBar/packages/ScrollBar.r1.draft.component-contract.zip>) |
 | SwapControl | r1 | 2026-10-29T18:30:00.000Z | Draft | [ZIP](<../../JSONS/web/components/web-core/core/SwapControl/packages/SwapControl.r1.draft.component-contract.zip>) |
 | FilterCompanySelect | r3 | 2026-10-30T21:27:31.459Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/packages/FilterCompanySelect.r3.draft.component-contract.zip>) |
-| TitleView | r4 | 2026-10-30T21:27:32.402Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/TitleView/packages/TitleView.r4.draft.component-contract.zip>) |
+| TitleView | r5 | 2026-11-03T20:04:35.871Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/TitleView/packages/TitleView.r5.draft.component-contract.zip>) |
 | CorporateSystemMessage | r3 | 2026-10-30T21:27:32.663Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/CorporateSystemMessage/packages/CorporateSystemMessage.r3.draft.component-contract.zip>) |
 | ResultScreen | r2 | 2026-10-30T21:27:33.723Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/ResultScreen/packages/ResultScreen.r2.draft.component-contract.zip>) |
 | FilterCompanySelectMulti | r2 | 2026-10-30T21:27:32.008Z | Draft | [ZIP](<../../JSONS/web/components/web-corp/FilterCompanySelect/parts/Multi/packages/FilterCompanySelectMulti.r2.draft.component-contract.zip>) |

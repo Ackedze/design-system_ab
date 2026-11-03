@@ -32,7 +32,9 @@ for (const component of raw.components.filter(c => ['[D] TitleView', '[M] TitleV
         const rep = contract.facts.representations.find(r => r.locator.componentKey === component.key), selection = { contractId: entry.id, componentId: entry.componentId, revision: entry.revision, representationId: rep.id, componentKey: variant.key, variantKey: variant.key };
         try {
             const response = resolve({ releaseId: index.id, selection }, root), prepared = catalog.buildCatalogReference(response, contract, { releaseId: index.id, selection }), witnesses = prepared.resourceRequirements.map(r => Object.assign({ kind: r.kind, sourceId: r.sourceId, sourceKey: r.sourceKey, consumerId: r.sourceId, consumerKey: r.sourceKey }, r.kind === 'collection' ? { consumerModes: prepared.sourceResources.collection[r.sourceId].modes } : {})), baseline = catalog.applyCatalogResourceRemap(prepared, witnesses), actual = copy(baseline.snapshot);
-            actual.variantReference = copy(baseline.variantReference);
+            const swapKeys=Object.fromEntries(Object.entries(prepared.sourceResources.component).map(([id,r])=>[id,r.key]));
+            actual.source.swapComponentKeys=swapKeys;baseline.snapshot.source.swapComponentKeys=swapKeys;
+            actual.variantReference = require(B+'/packages/component-contract-core/dist/core.cjs').captureVariantReference(baseline.snapshot,variant.key,component.key,prepared.definedProperties);
             const materialized = catalog.materializeCatalogBaseline(actual, baseline.snapshot), result = runtime.auditContractSnapshot(materialized.snapshot, contract, { evaluationMode: 'authoring-preview' });
             const row = { id: rep.platform + '-' + variant.name, platform: rep.platform, variant: variant.name, key: variant.key, nodes: actual.nodes.length, evaluations: result.engine.evaluations.length, classifications: result.engine.evaluations.reduce((m, e) => (m[e.classification] = (m[e.classification] || 0) + 1, m), {}), violations: result.engine.evaluations.filter(e => e.classification === 'violation').map(e => ({ rule: e.ruleId, node: e.subjectNodeId, trace: e.trace })), unknown: result.engine.evaluations.filter(e => e.classification === 'human-review').map(e => ({ rule: e.ruleId, node: e.subjectNodeId, trace: e.trace })) };
             cases.push(row);
@@ -71,7 +73,7 @@ function different(v, fact) { if (fact.endsWith('styleId') || fact.endsWith('Sty
 } return null; }
 const results = [];
 for (const platform of ['desktop', 'mobile-web'])
-    for (const rule of contract.rules) {
+    for (const rule of contract.rules.filter(r=>!r.ruleId.includes('.status-and-title-status-color-match.')&&!r.ruleId.includes('.desktop-button-accent-excluded.'))) {
         let result = { platform, ruleId: rule.ruleId, rule: rule.presentation.title, status: 'NO_ELIGIBLE_CONTROL' }, attempts = [];
         const options = inputs.filter(i => i.actual.context.platform === platform).sort((a, b) => Number(a.actual.nodes[0].component.properties.Skeleton === 'True') - Number(b.actual.nodes[0].component.properties.Skeleton === 'True') || a.actual.nodes.length - b.actual.nodes.length);
         outer: for (const input of options) {
@@ -117,7 +119,7 @@ for (const platform of ['desktop', 'mobile-web'])
         results.push(result);
     }
 fs.writeFileSync(R + '/RULE-CONTROLS.json', JSON.stringify({ evidenceKind: 'offline-engine-controls-not-live-Figma-parity', results }, null, 2) + '\n');
-assert.equal(results.filter(r => r.status === 'VIOLATION_DETECTED').length, 84, 'Every condition needs a negative control on both platforms');
+assert.equal(results.filter(r => r.status === 'VIOLATION_DETECTED').length, 84, 'All42 baseline/text conditions need a negative control on both platforms; usage rules are checked by verify-usage.cjs');
 const rows = [];
 for (const input of inputs) {
     const props = input.baseline.snapshot.nodes[0].component, booleans = Object.keys(props.propertyTypes).filter(k => props.propertyTypes[k] === 'BOOLEAN'), total = 2 ** booleans.length, errors = new Map();

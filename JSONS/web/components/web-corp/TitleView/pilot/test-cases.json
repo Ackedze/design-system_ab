@@ -1,16 +1,16 @@
 {
   "schemaVersion": "apollo.catalog-pilot-test-suite.v1",
   "contractId": "web-corp.title-view",
-  "revision": 4,
-  "manualSourceHash": "6e764f4419f2c458c9c6bca84a789e2aa2df47a644505acacc660ee2dcb74fe9",
+  "revision": 5,
+  "manualSourceHash": "89e75b1b9dd83d3f7d6e237316d68084a5db25267bae41a28066671dc7089fde",
   "referenceMechanisms": [
     "live-library",
     "catalog-pilot"
   ],
   "sourceVariants": 16,
-  "compiledConditions": 42,
+  "compiledConditions": 52,
   "booleanConfigurations": 3072,
-  "negativeControls": 84,
+  "negativeControls": 100,
   "executionStatus": "PREPARED_OWNER_MANUAL_PENDING",
   "manualBy": "owner",
   "cases": [
@@ -3279,6 +3279,26 @@
       "kind": "GUARD",
       "scenario": "repeat",
       "expected": "reject unproved evidence or cancel; never silently pass or fall back to live reference"
+    },
+    {
+      "id": "TVP-R5-COMPLEX-USAGE",
+      "kind": "USAGE",
+      "platform": "desktop",
+      "figma": "https://www.figma.com/design/I3MsagXR8Tz2eZcGtIgUk8/Workshop?node-id=9103-61981",
+      "rule": "Если одновременно видимы Status и TitleStatus, Type должны совпадать. На Desktop нормальная Button в TitleView не использует View=Accent.",
+      "ruleIds": [
+        "component:web-corp.title-view.status-and-title-status-color-match.neutral.1.1",
+        "component:web-corp.title-view.desktop-button-accent-excluded.button-1.1.1",
+        "component:web-core.button.label-text-style-locked.1.1"
+      ],
+      "setup": "Актуальный библиотечный xLarge/Skeleton=False; Status и TitleStatus видимы. На устаревшем импортированном API сохранить drift как UNKNOWN; сначала отдельная копия и обновление экземпляра владельцем.",
+      "mutations": [
+        "Status Type=Neutral, TitleStatus Type=Processing",
+        "Первая видимая Button View=Accent",
+        "Изменить текстовый стиль Label первой Button"
+      ],
+      "expected": "Два usage нарушения r5; Button typography проверяется собственным контрактом при наличии независимого эталона. Остальные UNKNOWN не скрываются.",
+      "reset": "Type обоих Approved; Button Primary; библиотечный текстовый стиль."
     }
   ],
   "knownGaps": [
@@ -3287,5 +3307,8 @@
     "Configured nested swaps/variants and mode combinations outside proved source projection remain incomplete; no rendered geometry is inferred.",
     "Only TV03 has prior owner field parity; offline source tests do not prove all native outcomes."
   ],
-  "individualRuleCases": 168
+  "individualRuleCases": 168,
+  "baselineNegativeControls": 84,
+  "usageNegativeControls": 16,
+  "usageRunner": "verify-usage.cjs"
 }
