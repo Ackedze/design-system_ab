@@ -17,6 +17,9 @@
 Включённые в репозиторий навыки и способы их подключения перечислены
 в [реестре навыков](#реестр-навыков).
 
+План подготовки связей для лендингов: [бэклог Code Connect](docs/CODE_CONNECT_LANDING_BACKLOG.md)
+— Corp/Promo-компоненты, Figma-пресеты и зависимости от командного Code Connect Core.
+
 Текущие manual/facts, component-owned mappings и ZIP контрактов расположены
 в `JSONS/web/components/<library>/<component>`; отдельная mobile-web версия —
 во вложенной папке. [Source index](JSONS/indexes/component-contracts.index.json)
