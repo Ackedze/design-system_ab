@@ -10,6 +10,8 @@ Raw Figma catalog остаётся source of truth:
 
 ## Файлы
 
+- `code-connect/` — [опубликованные Code Connect Desktop и Mobile Web, проверки и ограничения](code-connect/README.md).
+- `figma.config.json` — узкий конфиг только для двух public root templates этого компонента.
 - `contract.generated.json` — сгенерированный compact contract, извлечённый из raw Figma catalog.
 - `contract.overrides.json` — semantic layer, заполняемый вручную.
 - `composition-contract.json` — context владения internal instances.

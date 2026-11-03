@@ -1,8 +1,8 @@
 # Code Connect для компонентов лендингов
 
-Обновлено: 04.11.2026. Статус: CC-LND-01 опубликован и проверен через Figma MCP,
-остальные задачи запланированы. Проверка опубликованного SDK 81.1.0 и полная
-визуальная эквивалентность CorporateContent остаются отдельными открытыми областями.
+Обновлено: 04.11.2026. Статус: CC-LND-01 и CC-LND-02 опубликованы и проверены
+через Figma MCP; остальные задачи запланированы. Опубликованный SDK 81.1.0,
+полная визуальная эквивалентность и явные source gaps остаются открытыми областями.
 Ответственный за Corp/Promo — Code Connect; за Core — команда Core.
 
 Цель — обеспечить перевод библиотечных компонентов лендинга в корректный React
@@ -29,7 +29,7 @@ Desktop и Mobile Web проверяются отдельно; наличие de
 | ID | Приоритет | Компонент Figma | Что подготовить | Начальная точка реализации |
 | --- | --- | --- | --- | --- |
 | CC-LND-01 | P0 | CorporateContent | **D/M Code Connect опубликован и проверен 04.11.2026.** [Файлы и результат](../JSONS/web/components/web-corp/CorporateContent/code-connect/README.md). CLI validation/upload PASS; оба root `hasTemplate=true`, public import и Body → `children` подтверждены фактическим MCP исполнением. Реальные snippets: strict types PASS на локальном distribution 80.7.1. Опубликованный SDK 81.1.0 и browser/полная визуальная эквивалентность ещё не проверены. | `src/corporate-content/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
-| CC-LND-02 | P0 | PromoMainBlock | D/M, Page/Modal, заголовок, описание, графика, стоимость, состояния и действия; только поддерживаемые платформой настройки. | `src/promo-main-block/` |
+| CC-LND-02 | P0 | PromoMainBlock | **D/M опубликованы и проверены 04.11.2026.** [Файлы, 20/20 MCP результатов и ограничения](../JSONS/web/components/web-corp-promo/PromoMainBlock/code-connect/README.md). 14 тестов PASS, 576 fixture-состояний; actual snippets проверены по source API 81.1.0. Изображение, callbacks, statuses и Holding требуют typed app context. Secondary-only отклоняется до source fix; полный SDK/browser ещё не проверены. | `src/promo-main-block/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-03 | P0 | BenefitCard | D/M, текст, графика, поверхность, loading и кликабельность; вложенные Link/IconView и передача контента. | `src/benefit-card/` |
 | CC-LND-04 | P0 | BenefitsBlock | Проверить соответствие Figma BenefitsBlock ↔ код BenefitBlock; D/M, Text/List/Steps, изображение, CTA и поверхность. | `src/benefit-block/` |
 | CC-LND-05 | P0 | BackgroundPlate, включая Promo | Разделить семейства и варианты; поверхность, скругления и слот содержимого сопоставлять с фактическим API. | `src/background-plate/` |
@@ -41,6 +41,12 @@ Desktop и Mobile Web проверяются отдельно; наличие de
 | CC-LND-11 | P1 | Section | Content/Isle → реальные `children`/`sidebar`; адаптивный порядок областей; подтвердить Figma identity и платформенную применимость. | `src/section/` |
 | CC-LND-12 | P1 | FileUpload | D/M, состояние root и файлов, Attach/Dropzone/FileUploadItem; upload adapter и callbacks — контекст приложения. | `src/file-upload/` |
 | CC-LND-13 | P1 | Divider | Подтвердить нужное семейство разделителя лендинга, D/M и публичный API; использовать в композиции футера/модального контента. | `src/divider/` |
+
+- [ ] **CC-LND-02-SOURCE-01 · P0.** Отдельно исправить Secondary-only в
+  `arui-private/src/promo-main-block/components/buttons-group/promo-main-block-buttons-group.tsx`:
+  Secondary читает `primaryButtonProps.loading`, когда Primary отсутствует.
+  Ошибка воспроизведена source-тестом; шаблоны до исправления явно отказывают.
+  Эта запись не назначает запись в source или публикацию `arui-private`.
 
 ## Пресеты и незакрытое соответствие Footer
 
