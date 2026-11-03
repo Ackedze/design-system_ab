@@ -111,3 +111,14 @@ download/upload. Cross-file imageHash без проверки blob и ренде
 его факты проверяются отдельно от визуального качества. При отсутствующем
 подходящем компоненте/ассете или ограничении MCP сохраняй named gap и влияние
 на результат. Пользователь выбирает изменение брифа; навык не меняет его сам.
+
+
+## Адресуемая справка Proxy
+
+API symbols находятся в `workflow/figma-use/references/plugin-api-standalone.symbols.json`:
+читай `symbols` → имя типа → offset/limit в указанном sourceResource. Индекс привязан
+к SHA именно поставленных typings. Ссылки на компоненты/variables, validation/recovery
+и componentization также поставлены как отдельные workflow resources; читай применимый
+раздел перед операцией, не все документы в planning. Для конкретного изображения
+сначала подтверди library source и поддержанный маршрут импорта/переноса и рендер;
+imageHash или отсутствие отдельного download tool сами по себе не доказывают успех/отказ.
