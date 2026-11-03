@@ -1,8 +1,8 @@
 # Code Connect для компонентов лендингов
 
-Обновлено: 04.11.2026. Статус: очередь сформирована; CC-LND-01 подготовлен локально,
-остальные задачи запланированы. CLI-публикацию CC-LND-01 выполняет владелец;
-результат и последующая проверка Figma/MCP ожидаются.
+Обновлено: 04.11.2026. Статус: CC-LND-01 опубликован и проверен через Figma MCP,
+остальные задачи запланированы. Проверка опубликованного SDK 81.1.0 и полная
+визуальная эквивалентность CorporateContent остаются отдельными открытыми областями.
 Ответственный за Corp/Promo — Code Connect; за Core — команда Core.
 
 Цель — обеспечить перевод библиотечных компонентов лендинга в корректный React
@@ -23,12 +23,12 @@ Desktop и Mobile Web проверяются отдельно; наличие de
 
 Пути `src/...` ниже относятся к `arui-private` и служат начальной точкой
 проверки реализации. Они не заменяют подтверждённый публичный import.
-Задачи открыты, кроме явно отмеченного этапа подготовки. Найденные ранее
+Задачи открыты, кроме явно отмеченных завершённых этапов. Найденные ранее
 `.figma.ts` — материал для проверки, а не автоматически принятые связи нового формата.
 
 | ID | Приоритет | Компонент Figma | Что подготовить | Начальная точка реализации |
 | --- | --- | --- | --- | --- |
-| CC-LND-01 | P0 | CorporateContent | **Подготовлены D/M-шаблоны и локальные проверки 03.11.2026.** [Файлы и результат](../JSONS/web/components/web-corp/CorporateContent/code-connect/README.md). 04.11 MCP-попытка не установила шаблоны: оба root `hasTemplate=false`; у Mobile появилась source-ссылка. Владелец выбрал CLI-публикацию; затем требуется фактический readback. Целевой опубликованный SDK 81.1.0 ещё не проверен. | `src/corporate-content/`; новые component-owned `code-connect/` и `mobile-web/code-connect/` |
+| CC-LND-01 | P0 | CorporateContent | **D/M Code Connect опубликован и проверен 04.11.2026.** [Файлы и результат](../JSONS/web/components/web-corp/CorporateContent/code-connect/README.md). CLI validation/upload PASS; оба root `hasTemplate=true`, public import и Body → `children` подтверждены фактическим MCP исполнением. Реальные snippets: strict types PASS на локальном distribution 80.7.1. Опубликованный SDK 81.1.0 и browser/полная визуальная эквивалентность ещё не проверены. | `src/corporate-content/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-02 | P0 | PromoMainBlock | D/M, Page/Modal, заголовок, описание, графика, стоимость, состояния и действия; только поддерживаемые платформой настройки. | `src/promo-main-block/` |
 | CC-LND-03 | P0 | BenefitCard | D/M, текст, графика, поверхность, loading и кликабельность; вложенные Link/IconView и передача контента. | `src/benefit-card/` |
 | CC-LND-04 | P0 | BenefitsBlock | Проверить соответствие Figma BenefitsBlock ↔ код BenefitBlock; D/M, Text/List/Steps, изображение, CTA и поверхность. | `src/benefit-block/` |

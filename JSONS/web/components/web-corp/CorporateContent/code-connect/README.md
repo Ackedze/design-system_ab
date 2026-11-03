@@ -1,8 +1,9 @@
 # CorporateContent — Code Connect
 
-Подготовлено 03.11.2026 для Desktop и Mobile Web. Статус на 04.11.2026:
-шаблоны локально проверены; попытка публикации через MCP не установила
-исполняемые шаблоны. Владелец выбрал публикацию через CLI; её результат ожидается.
+Подготовлено 03.11.2026 для Desktop и Mobile Web. **Опубликовано и проверено
+через Figma MCP 04.11.2026.** Официальный CLI установил оба шаблона; оба root
+возвращают `hasTemplate=true`, public import и рабочий пример Body → `children`.
+[Receipt публикации и фактический readback](publication/2026-11-04.json).
 
 | Платформа | Шаблон | Опубликованный Figma key | Body property identity |
 | --- | --- | --- | --- |
@@ -77,25 +78,37 @@ Figma предоставляет только Body SLOT. Остальные Reac
 | Исполнение новых шаблонов в Figma/MCP, browser/визуальная эквивалентность | NOT_RUN |
 | Публикация Code Connect | NOT_RUN |
 
-04.11.2026 выполнены fresh context/readback и официальный parse тех же двух
-шаблонов. Desktop сохранил прежнюю связь: запись через MCP отклонена с
-`Component is already mapped to code`. Для Mobile появилась только ссылка
-на исходник. После bulk-записи оба root возвращают `hasTemplate=false` и
-fallback-вёрстку `DCorporateContent` / `MCorporateContent`, без публичного
-import. Отдельный метод записи Mobile также отказал из-за существующей связи.
-Причина, по которой bulk-запись не сохранила переданный шаблон, не установлена.
-Публикация исполняемых шаблонов **не подтверждена**.
+04.11.2026 опубликованы те же два шаблона через официальный CLI 1.4.9
+`publish --force` с узким конфигом компонента. Server validation PASS,
+загрузка 2 шаблонов PASS. Fresh Figma MCP возвращает для каждого root:
 
-Владелец выбрал официальный CLI `publish --force` с этим узким конфигом,
-чтобы заменить конфликтующие UI-created связи. После его запуска требуется
-повторное чтение обоих узлов: `hasTemplate=true`, настоящий public import,
-`CorporateContent` и Body → `children`. До readback задачу не закрывать.
-Локальные evidence и инструкция: workspace
-`.local/corporate-content-code-connect-publish-2026-11-04/{BEFORE.json,ATTEMPT.json,PUBLISH.md}`.
+```tsx
+import { CorporateContent } from 'arui-private/corporate-content';
+import type { ReactNode } from 'react';
+
+function Example({ children }: { children: ReactNode }) {
+    return <CorporateContent>{children}</CorporateContent>;
+}
+```
+
+У обоих root `hasTemplate=true`, label `React`, source URL совпадает с
+подготовленным шаблоном. Возвращённые MCP примеры отдельно прошли strict
+typecheck через public import локального distribution 80.7.1: 2 PASS,
+0 diagnostics. Публикация и исполнение Code Connect подтверждены; browser
+и полное визуальное соответствие остаются NOT_RUN.
+
+Первоначальная MCP-запись не установила шаблоны (`hasTemplate=false`);
+причина не установлена. CLI `--force` заменил конфликтующие UI-created связи.
+Исторические ответы и текущий результат сохранены отдельно в workspace
+`.local/corporate-content-code-connect-publish-2026-11-04/`:
+`BEFORE.json`, `ATTEMPT.json`, `cli-publish-input.json`, `publish.log`,
+`AFTER-CLI.json`, `ACTUAL-SNIPPET-TYPES.json`. Файл токена не входит в receipt
+или репозиторий.
 
 Distribution 80.7.1 — существующая локальная селективная сборка
 `arui-private/tools/code-connect/frontend-host/.work/source/dist`, а не новая
-проверка опубликованного 81.1.0. Новые файлы не установлены в Proxy/runtime.
+проверка опубликованного 81.1.0. Поставка данных Proxy/Apollo этой публикацией
+не обновлялась.
 При подготовке были исправлены параметры TypeScript-проверки:
 `esModuleInterop=true` необходим для штатного `import figma from 'figma'`.
 
@@ -118,7 +131,6 @@ node --test JSONS/web/components/web-corp/CorporateContent/code-connect/Corporat
 разрешает настоящий public import в выбранном SDK через стандартный resolver.
 Без `ARUI_SDK_NODE_MODULES` API-тест будет явно SKIP.
 
-Следующий шаг — получить результат CLI-публикации владельца и прочитать оба
-шаблона в Figma/MCP. Проверка API на целевом опубликованном SDK 81.1.0 остаётся
-отдельной открытой задачей. Текущий `hasTemplate=false` не подтверждает работу
-новых шаблонов.
+Проверка API на целевом опубликованном SDK 81.1.0 и browser/визуальная проверка
+остаются отдельными открытыми задачами. Успешная публикация не изменяет
+прежние contract source pins и Draft/Ready.
