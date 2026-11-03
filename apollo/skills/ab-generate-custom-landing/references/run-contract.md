@@ -20,7 +20,7 @@
   "facts": [{"id": "fact-1", "quote": "дословный фрагмент", "source": "brief.txt"}],
   "decisions": [{"id": "decision-1", "value": "ответ", "source": "user message"}],
   "questions": [{"id": "question-1", "question": "вопрос", "dependsOn": ["hero"], "status": "open"}],
-  "sections": [{"id": "hero", "role": "оффер", "factIds": ["fact-1"], "component": null, "props": {}, "assets": [], "rules": [], "nodeId": null}],
+  "sections": [{"id": "hero", "role": "оффер", "factIds": ["fact-1"], "contentShape": {"items": 3, "textFields": 3, "media": "icon"}, "structurePlan": null, "contentPlan": null, "sourceIds": [], "nodeId": null}],
   "customBlocks": []
 }
 ```
@@ -28,6 +28,12 @@
 Это пример формы, а не утверждённая структура страницы. Добавляй сведения,
 которые нужны текущему прогону. В `questions` нет фиксированного списка.
 Композиционные предложения не записываются как ответы пользователя.
+
+В staged Proxy foundation.plan, section.structurePlan и section.contentPlan
+заполняются узкими source-bound дельтами текущего этапа после независимого
+readback. Facts, роли и contentShape сохраняются из принятого общего плана.
+Структурная проверка каркаса и проверка наполнения — отдельные результаты;
+все каркасы завершаются до первого content unit.
 
 ## Учёт файлов по мере работы (локальный Codex)
 
