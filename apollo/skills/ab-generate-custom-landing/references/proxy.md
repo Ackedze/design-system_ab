@@ -58,6 +58,16 @@ Unread package не считается отсутствующим. Structure с�
   kind=component/image; asset selection range присутствует в реально прочитанных
   sources. FactIds ссылаются на принятые spec.facts; не придумывай условия.
 
+Target — конкретный ID узла назначения из независимо прочитанного дерева
+(предпочтительно) либо native name, уникальный внутри активной секции. Для текста
+это реальный TEXT; для ассета — стабильный SLOT/container или сам asset node.
+Имя публичного порта без наблюдаемого узла не является подтверждённой привязкой.
+Host сохраняет разрешённые IDs/types в contentPlan.targets до записи. Проверяй
+текст именно на назначенном TEXT, asset именно внутри назначенного slot/container.
+Перестановка Title/CTA или двух изображений, неоднозначное/чужое назначение,
+один target для двух полей или один witness для двух targets не завершают unit.
+При смене/удалении целевого узла сначала заново подготовь привязку по readback.
+
 Proxy допускает дельту после неизменного независимого readback. Она пополняет
 только foundation.plan, активный structurePlan или contentPlan. Business facts,
 порядок, contentShape, чужие блоки и полный spec этой дельтой не меняются.
@@ -110,7 +120,7 @@ visualReviews без полного spec. Missing image/font или critical UNK
   ограничения сохраняются. Не обходи отсутствие нормы или недоступный источник.
 - Пиши маленькими API-скриптами, до двух MCP calls за проход. Неизвестный outcome
   сначала требует независимого чтения сохранённых узлов. После ошибки/Stop
-  сохраняются история, partial root, принятные планы и точный stage.
+  сохраняются история, partial root, принятые планы и точный stage.
 - Техническую append-only API находку активного structure/content unit можно
   сохранить через прежний tool-free technicalPatch и unchanged readback;
   это не замена props/контента/брифа. ApiObservations остаются agent-report.
