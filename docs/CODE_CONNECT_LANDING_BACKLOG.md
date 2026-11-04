@@ -1,6 +1,6 @@
 # Code Connect для компонентов лендингов
 
-Обновлено: 04.11.2026. Статус: CC-LND-01–CC-LND-11 и CC-LND-13 опубликованы и проверены
+Обновлено: 05.11.2026. Статус: CC-LND-01–CC-LND-11 и CC-LND-13 опубликованы и проверены
 через Figma MCP; остальные задачи запланированы. Опубликованный SDK 81.1.0,
 полная визуальная эквивалентность и явные source gaps остаются открытыми областями.
 Ответственный за Corp/Promo — Code Connect; за Core — команда Core.
@@ -126,6 +126,23 @@ Desktop и Mobile Web проверяются отдельно; наличие de
 | CC-LND-15 | P1 | BentoGrid | Композиция PromoCard по выбранному D/M-пресету; сохранить сообщения и порядок. Не создавать вымышленный компонент `BentoGrid`. Известные ограничения вариантов брать из паттерна. |
 | CC-LND-16 | P1 | ButtonStack [M] | Нижняя зона действий из mobile-кнопок и допустимых дополнений; позиционирование, резерв места и сценарий приложения задаются явно. Отдельный runtime export не подтверждён. |
 | CC-LND-17 | P0 | Footer страницы / модального лендинга | Установить, что соответствует Figma-футеру: поддерживаемый компонент или композиция формы, FAQ, файлов и разделителей. Найденный `src/footer/footer.tsx` помечен deprecated; его нельзя автоматически связать с `🔒 [D] Footer`. После проверки выбрать компонентный шаблон либо рецепт композиции. |
+
+## Дополнительные компоненты по отдельному поручению
+
+Эти компоненты добавлены владельцем 05.11.2026 по конкретным Figma-ссылкам.
+Их включение не означает обязательного использования в лендингах.
+
+| ID | Компонент | Статус |
+| --- | --- | --- |
+| CC-EXT-01 | Onboarding Hint | **Опубликован и проверен.** [Файлы и отчёт](../JSONS/web/components/web-corp/Onboarding%20Hint%20%5BD%5D/code-connect/README.md). Default export `arui-private/onboarding-hint`; 12 вариантов + set native preview, 7 групп тестов. Настоящий anchor, visible, callbacks и dataTestId задаёт приложение. Source использует TooltipDesktop; browser/mobile/полный SDK отдельно не проверены. |
+| CC-EXT-02 | Onboarding Tooltip | **Опубликован и проверен.** [Файлы и отчёт](../JSONS/web/components/web-corp/Onboarding%20Tooltip%20%5BD%5D/code-connect/README.md). Named OnboardingTooltip из `arui-private/onboarding-tooltip`; 12 вариантов + set preview, 7 групп тестов. Сохраняются тексты, placement и zero-based выбранный шаг; нужны real anchor/visible/navigation callbacks. API проверен через точные props projections; полный strict implementation check с текущим host дал 13 диагностик, успешная сборка SDK не заявлена. |
+
+- [ ] **CC-EXT-02-SOURCE-01 · P1.** Согласовать Previous в Onboarding Tooltip:
+  все текущие Figma masters показывают Previous при выбранном первом pip,
+  а source OnboardingFooter скрывает Previous при currentSlide=0. Сниппеты
+  сохраняют индекс и предупреждают `PREVIOUS_BUTTON_SOURCE_GAP`. Также source
+  скрывает Pips при totalSlides=1. Запись не разрешает изменение или публикацию
+  arui-private и не меняет норму/Draft/Ready.
 
 ## Core: переиспользование командного Code Connect
 
