@@ -1,16 +1,14 @@
 # BackgroundPlate — Code Connect
 
-Статус: **native CLI preview проверен; публикация заблокирована сетью**.
-Все шесть set и 18 root variants прошли preview. 128 адаптированных Style probes
-дали 70 допустимых сниппетов и 58 ожидаемых отказов modal-фона. Все 88 допустимых
-примеров прошли source API typecheck. Это read-only preview, не публикация.
+Статус: **опубликовано и проверено через Figma MCP 04.11.2026**.
+Шесть шаблонов regular, Promo и native Slot для Desktop / Mobile Web загружены
+официальным CLI с полной валидацией. Фактический readback подтвердил собственный
+непустой snippet для всех 18 вариантов и шести запросов component set.
+Все 24 MCP snippets со всеми возвращёнными imports прошли strict source API check.
 
-Попытки publish остановились на получении node info из Figma File API до upload:
-сначала HTTP 503, затем connect timeout/fetch failed. По одному семейству также
-не опубликовано ни одного шаблона. Node диагностировал UND_ERR_CONNECT_TIMEOUT
-к api.figma.com:443; curl — SSL timeout. Причина недоступности сети не установлена.
-Повторный запуск публикации уже разрешён пользователем; требуется восстановить
-доступ к API, новое разрешение на публикацию не нужно.
+До публикации выполнены 146 native preview cases: 18 корневых вариантов и
+128 адаптированных Style probes. Получены 88 допустимых сниппетов и 58 ожидаемых
+отказов modal-фона; все допустимые примеры прошли source API typecheck.
 
 | Семейство | Desktop | Mobile Web |
 | --- | --- | --- |
@@ -95,13 +93,19 @@ probes. Последние меняют только selected root/level, отд
 preview выявил, что getSlot принимает display name `Slot`, а не полный property
 key; вызов и fixture исправлены, повторный preview прошёл.
 
-Ожидают завершения: публикация шести canonical файлов и собственный непустой
-snippet с корректными imports при MCP readback 18 вариантов и шести set.
-[Проверенные native preview результаты](publication/2026-11-04.preview-results.json)
-и [актуальный отчёт](publication/2026-11-04.preview-verified.json) сохранены рядом.
-Предыдущий `2026-11-04.pending.json` сохраняет историческое состояние подготовки.
-Browser/SDK проверка и Ready/публикация Apollo не заявлены. Контракты, ZIP и
-прежние mapping/seals остаются без изменений.
+Публикация шести canonical файлов выполнена с CLI validation PASS и upload PASS.
+MCP readback: 18/18 вариантов, 6/6 запросов set; hasTemplate=true и собственные
+непустые snippets с правильным Desktop/Mobile import. Временные внутренние и
+транспортные ошибки MCP устранены повторным чтением только неуспешных запросов.
+Проверка типов включает все фактически возвращённые imports, без исключений.
+
+[Финальный receipt с pins](publication/2026-11-04.json),
+[фактические опубликованные snippets/imports](publication/2026-11-04.snippets.json),
+[read-only preview результаты](publication/2026-11-04.preview-results.json).
+Предыдущие `2026-11-04.pending.json` и `2026-11-04.preview-verified.json`
+сохраняют исторические этапы подготовки и сетевой блокировки, а не текущие pins.
+Browser/установленный SDK 81.1.0 и Ready/публикация Apollo не заявлены.
+Контракты, ZIP и прежние mapping/seals остаются без изменений.
 
 Локальный запуск из папки компонента:
 
