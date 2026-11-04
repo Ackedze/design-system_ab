@@ -23,7 +23,7 @@ function render(fileIndex, changes = {}, variantIndex = 0) {
                 return handle(name, { ...node.props, ...changes.style });
             },
             getSlot(name) {
-                calls.push({ method: 'getSlot', name }); assert.equal(file.slot, true); assert.equal(name, 'Slot#136328:0');
+                calls.push({ method: 'getSlot', name }); assert.equal(file.slot, true); assert.equal(name, 'Slot');
                 return Object.hasOwn(changes, 'slot') ? changes.slot : [];
             },
         };

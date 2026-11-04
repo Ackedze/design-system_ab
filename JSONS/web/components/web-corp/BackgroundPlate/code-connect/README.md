@@ -1,9 +1,16 @@
 # BackgroundPlate — Code Connect
 
-Статус: **подготовлено, локальные проверки PASS; ещё не опубликовано**.
-Официальный CLI preview дважды не был запущен из-за тайм-аута автоматической
-проверки разрешения. Публикация и проверка фактических MCP snippets ожидают
-продолжения. Прежние связи Figma сохранены.
+Статус: **native CLI preview проверен; публикация заблокирована сетью**.
+Все шесть set и 18 root variants прошли preview. 128 адаптированных Style probes
+дали 70 допустимых сниппетов и 58 ожидаемых отказов modal-фона. Все 88 допустимых
+примеров прошли source API typecheck. Это read-only preview, не публикация.
+
+Попытки publish остановились на получении node info из Figma File API до upload:
+сначала HTTP 503, затем connect timeout/fetch failed. По одному семейству также
+не опубликовано ни одного шаблона. Node диагностировал UND_ERR_CONNECT_TIMEOUT
+к api.figma.com:443; curl — SSL timeout. Причина недоступности сети не установлена.
+Повторный запуск публикации уже разрешён пользователем; требуется восстановить
+доступ к API, новое разрешение на публикацию не нужно.
 
 | Семейство | Desktop | Mobile Web |
 | --- | --- | --- |
@@ -39,7 +46,7 @@ snapshot. Публичные exports проверены в реальных leaf
 | Padding/axis/gap/alignment Slot | обязательный typed `layoutProps` приложения |
 
 У обычных и Promo roots нет SLOT. Содержимое приложения не извлекается из
-декоративного Style Level. У Slot есть настоящий `Slot#136328:0`; вложенные
+декоративного Style Level. У Slot есть настоящий `Slot#136328:0`; runtime `getSlot` принимает короткое имя `Slot`. Вложенные
 Code Connect sections сохраняются, неподдержанный непрозрачный контент требует
 ReactNode, несколько таких областей — ReactNode[]. Пустой SLOT передаёт `{null}`:
 это пустое содержимое, а не выдуманный компонент.
@@ -82,12 +89,19 @@ Core/React types. Это source API projection, а не установленны
 Apollo и не добавляет nativeAuditFactsV1. [Тесты](BackgroundPlate.test.cjs),
 [source API checker](check-source-api.cjs).
 
-Ожидают выполнения: official preview шести set; 18 root variant previews;
-128 read-only адаптированных Style probes (включая ожидаемые modal отказы);
-публикация ровно шести canonical файлов; непустой собственный snippet и корректный
-import при MCP readback 18 вариантов и запросов шести set. Browser/SDK проверка
-и Ready/публикация Apollo не заявлены. Контракты, ZIP и прежние mapping/seals
-остаются без изменений.
+Выполнены official preview шести set, 18 root variants и 128 read-only Style
+probes. Последние меняют только selected root/level, отдельно не публикуются.
+58 modal-отказов проверены по конкретной ошибке BackgroundColor. Первый native
+preview выявил, что getSlot принимает display name `Slot`, а не полный property
+key; вызов и fixture исправлены, повторный preview прошёл.
+
+Ожидают завершения: публикация шести canonical файлов и собственный непустой
+snippet с корректными imports при MCP readback 18 вариантов и шести set.
+[Проверенные native preview результаты](publication/2026-11-04.preview-results.json)
+и [актуальный отчёт](publication/2026-11-04.preview-verified.json) сохранены рядом.
+Предыдущий `2026-11-04.pending.json` сохраняет историческое состояние подготовки.
+Browser/SDK проверка и Ready/публикация Apollo не заявлены. Контракты, ZIP и
+прежние mapping/seals остаются без изменений.
 
 Локальный запуск из папки компонента:
 

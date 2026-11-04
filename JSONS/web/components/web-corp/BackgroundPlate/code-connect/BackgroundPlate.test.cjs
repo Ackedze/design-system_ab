@@ -33,6 +33,7 @@ test('all 18 native root variants preserve platform, family, level and content i
             assert.ok(r.imports[0].includes(`/background-plate/${file.desktop ? 'desktop' : 'mobile'}`));
             assert.equal(r.metadata.props.family, file.slot ? 'slot' : file.promo ? 'promo' : 'regular');
             assert.equal(r.calls.some((c) => c.method === 'getSlot'), file.slot);
+            if (file.slot) { assert.equal(family.definitions['Slot#136328:0'].type, 'SLOT'); assert.equal(r.calls.find((c) => c.method === 'getSlot').name, 'Slot'); }
             assert.equal(output.includes('{null}'), file.slot); assert.equal(output.includes("children: Props['children']"), !file.slot);
             assert.doesNotMatch(output, /\[object Object\]|\.png|https?:|backgroundColor="modal-/);
             if (file.slot) assert.match(output, /layoutProps: \{ paddings\?: Props\['paddings'\]; style: Pick/);
@@ -95,6 +96,15 @@ test('all fixture examples and saved native snippets match actual source API; ne
     skip: (!sourceRoot || !sdkModules) && 'set ARUI_SOURCE_ROOT and ARUI_SDK_NODE_MODULES',
 }, () => {
     assert.deepEqual(checkSnippets(snippets, { sourceRoot, sdkModules }), []);
+    const previews = JSON.parse(fs.readFileSync(path.join(__dirname, 'publication/2026-11-04.preview-results.json'))).results;
+    assert.equal(previews.length, 146); assert.equal(previews.filter((r) => r.success).length, 88);
+    for (const r of previews.filter((r) => !r.success)) assert.match(r.error, /BackgroundColor/);
+    const native = previews.filter((r) => r.success).map((r) => {
+        assert.ok(r.snippet.trim());
+        const desktop = r.snippet.includes('typeof BackgroundPlateDesktop');
+        return { code: r.snippet, imports: [`import { ${desktop ? 'BackgroundPlateDesktop' : 'BackgroundPlateMobile'} } from 'arui-private/background-plate/${desktop ? 'desktop' : 'mobile'}';`, "import { BackgroundPlateView } from 'arui-private/background-plate';", "import type { ComponentProps, ReactNode } from 'react';"] };
+    });
+    assert.deepEqual(checkSnippets(native, { sourceRoot, sdkModules }), []);
     const published = path.join(__dirname, 'publication/2026-11-04.snippets.json');
     if (fs.existsSync(published)) {
         const rows = JSON.parse(fs.readFileSync(published)).readbacks;

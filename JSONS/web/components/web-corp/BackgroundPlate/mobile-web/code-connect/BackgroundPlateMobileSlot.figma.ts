@@ -65,7 +65,7 @@ const parameters: string[] = [];
 let content;
 let contentCount = 0;
 if (isSlot) {
-    const body = slotContent(instance.getSlot('Slot#136328:0'));
+    const body = slotContent(instance.getSlot('Slot'));
     content = body.example.length ? body.example : figma.code`{null}`;
     contentCount = body.contextCount;
     if (contentCount) { names.push('children'); parameters.push(`children: ${contentCount > 1 ? 'ReactNode[]' : 'ReactNode'}`); }
