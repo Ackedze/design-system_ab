@@ -1,6 +1,6 @@
 # Code Connect для компонентов лендингов
 
-Обновлено: 04.11.2026. Статус: CC-LND-01, CC-LND-02 и CC-LND-03 опубликованы и проверены
+Обновлено: 04.11.2026. Статус: CC-LND-01, CC-LND-02, CC-LND-03 и CC-LND-04 опубликованы и проверены
 через Figma MCP; остальные задачи запланированы. Опубликованный SDK 81.1.0,
 полная визуальная эквивалентность и явные source gaps остаются открытыми областями.
 Ответственный за Corp/Promo — Code Connect; за Core — команда Core.
@@ -31,7 +31,7 @@ Desktop и Mobile Web проверяются отдельно; наличие de
 | CC-LND-01 | P0 | CorporateContent | **D/M Code Connect опубликован и проверен 04.11.2026.** [Файлы и результат](../JSONS/web/components/web-corp/CorporateContent/code-connect/README.md). CLI validation/upload PASS; оба root `hasTemplate=true`, public import и Body → `children` подтверждены фактическим MCP исполнением. Реальные snippets: strict types PASS на локальном distribution 80.7.1. Опубликованный SDK 81.1.0 и browser/полная визуальная эквивалентность ещё не проверены. | `src/corporate-content/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-02 | P0 | PromoMainBlock | **D/M опубликованы и проверены 04.11.2026.** [Файлы, 20/20 MCP результатов и ограничения](../JSONS/web/components/web-corp-promo/PromoMainBlock/code-connect/README.md). 14 тестов PASS, 576 fixture-состояний; actual snippets проверены по source API 81.1.0. Изображение, callbacks, statuses и Holding требуют typed app context. Secondary-only отклоняется до source fix; полный SDK/browser ещё не проверены. | `src/promo-main-block/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-03 | P0 | BenefitCard | **D/M опубликованы и проверены 04.11.2026.** [Файлы, 32/32 MCP сниппета и ограничения](../JSONS/web/components/web-corp-promo/BenefitCard/code-connect/README.md). 11 тестов PASS, 144 synthetic nested-state cases, CLI preview 32/32; фактические snippets/imports проверены по source API 81.1.0. Ассеты, href/addons и действие требуют typed app context. Compact Desktop Title расходится с source; SDK/browser ещё не проверены. | `src/benefit-card/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
-| CC-LND-04 | P0 | BenefitsBlock | Проверить соответствие Figma BenefitsBlock ↔ код BenefitBlock; D/M, Text/List/Steps, изображение, CTA и поверхность. | `src/benefit-block/` |
+| CC-LND-04 | P0 | BenefitsBlock | **D/M опубликованы и проверены 04.11.2026.** [Файлы, 20/20 MCP вариантов и ограничения](../JSONS/web/components/web-corp-promo/BenefitsBlock/code-connect/README.md). React exports — BenefitBlockDesktop/Mobile. 11 тестов PASS, 180 synthetic preset/CTA combinations, 20 root + 12 adapted nested native previews; MCP snippets со всеми imports проверены по source API 81.1.0. Изображение, CTA, Colored и числовой HeightCustom требуют app context. TitleAddon=StatusBadge не поддерживается React API; SDK/browser ещё не проверены. | `src/benefit-block/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-05 | P0 | BackgroundPlate, включая Promo | Разделить семейства и варианты; поверхность, скругления и слот содержимого сопоставлять с фактическим API. | `src/background-plate/` |
 | CC-LND-06 | P0 | TitleView | D/M, заголовок/подзаголовок, addons, статусы, действия и loading; определить правильный mobile export. | `src/title-view/`; отдельно проверить `src/title-view-mobile/` |
 | CC-LND-07 | P0 | ButtonsGroup / ButtonGroup | Подтвердить identity и название export; порядок и подписи кнопок через настоящий API, addons и overflow. Перепроверить существующий шаблон. | `src/button-group/`; `tools/code-connect/ButtonsGroup.figma.ts` |
@@ -54,6 +54,12 @@ Desktop и Mobile Web проверяются отдельно; наличие de
   source-тест подтвердил, что `titleView='secondary'` снаружи не действует.
   Code Connect предупреждает о расхождении. Запись не меняет контракт,
   не разрешает правку/публикацию `arui-private` и не подтверждает visual parity.
+
+- [ ] **CC-LND-04-SOURCE-01 · P1.** Согласовать представление TitleAddon=StatusBadge
+  из нормы BenefitsBlock с публичным API `arui-private/benefit-block`: сейчас
+  доступен только `title: string`, TitleView с addon не используется. Code Connect
+  явно отклоняет такую конфигурацию. Запись не разрешает правку/публикацию
+  `arui-private` и не меняет норму или Draft/Ready.
 
 ## Пресеты и незакрытое соответствие Footer
 
