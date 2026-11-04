@@ -1,6 +1,6 @@
 # Code Connect для компонентов лендингов
 
-Обновлено: 04.11.2026. Статус: CC-LND-01–CC-LND-07 опубликованы и проверены
+Обновлено: 04.11.2026. Статус: CC-LND-01–CC-LND-08 опубликованы и проверены
 через Figma MCP; остальные задачи запланированы. Опубликованный SDK 81.1.0,
 полная визуальная эквивалентность и явные source gaps остаются открытыми областями.
 Ответственный за Corp/Promo — Code Connect; за Core — команда Core.
@@ -35,7 +35,7 @@ Desktop и Mobile Web проверяются отдельно; наличие de
 | CC-LND-05 | P0 | BackgroundPlate, включая Promo | **Шесть D/M шаблонов regular, Promo и native Slot опубликованы и проверены 04.11.2026.** [Файлы и отчёт](../JSONS/web/components/web-corp/BackgroundPlate/code-connect/README.md). CLI validation/upload PASS; MCP 18/18 вариантов и 6/6 запросов set; все imports/snippets проверены по source API 81.1.0. 7 тестов PASS; native preview: 88 допустимых сниппетов и 58 ожидаемых modal-отказов. Colored/children/Slot layout требуют явного app context; SDK/browser ещё не проверены. | `src/background-plate/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-06 | P0 | TitleView | **D/M опубликованы и проверены 04.11.2026.** [Файлы и отчёт](../JSONS/web/components/web-corp/TitleView/code-connect/README.md). Корректные exports `title-view/desktop` и `title-view/mobile`; отдельный `title-view-mobile` не изменён. CLI validation/upload PASS; MCP 16/16 вариантов + 2 set; 28 native previews, 8 тестов и 256 Boolean combinations PASS. Семантика tag, реальные компании/действия, addons и underlying Skeleton data требуют app context; SDK/browser/editable ещё не проверены. | `src/title-view/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-07 | P0 | ButtonsGroup / ButtonGroup | **D/M опубликованы и проверены 04.11.2026.** [Файлы и отчёт](../JSONS/web/components/web-corp/ButtonGroup%20%5BD%5D/code-connect/README.md). Единый responsive export `ButtonGroup` из `arui-private/button-group`, breakpoint 768. CLI validation/upload PASS; 16 MCP вариантов и оба set subtree, 18 native previews, 10 тестов PASS. Порядок/labels/disabled/addons сохранены; ширина, callbacks, mapper и полный список скрытых действий требуют app context. Mobile Overflow=false расходится с source; SDK/browser ещё не проверены. Старый custom bridge не используется. | `src/button-group/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
-| CC-LND-08 | P0 | FAQ, включая Promo | Корень и items; вопрос/ответ, rich content, идентификаторы и раскрытие через настоящий API; вложенный Accordion не заменяет связь FAQ. | `src/faq/` |
+| CC-LND-08 | P0 | FAQ, включая Promo | **Шесть связей опубликованы и проверены 04.11.2026:** общий responsive FAQ/FAQItem и Promo D/M roots/items. [Файлы и отчёт](../JSONS/web/components/web-corp/FAQ/code-connect/README.md). Публичный export — `FAQ` из `arui-private/faq`; standalone item — FAQ с одним пунктом. 13 тестов, 12 native previews; начальное раскрытие, borders, порядок и видимые тексты сохранены. ID/isAccordion, отсутствующие ответы и rich ReactNode задаёт приложение. Native отсутствие nested metadata покрыто без ослабления identity/error guards. SDK/browser ещё не проверены. | `src/faq/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-09 | P1 | PromoCard | D/M, графика/текст, размер, CTA и состояния; сохранить связь карточки внутри BentoGrid. | `src/promo-card/` |
 | CC-LND-10 | P1 | PromoTableView | D/M, заголовки, строки/ячейки, статусы, цены и действия; данные и callbacks задаются явно. | `src/promo-table-view/` |
 | CC-LND-11 | P1 | Section | Content/Isle → реальные `children`/`sidebar`; адаптивный порядок областей; подтвердить Figma identity и платформенную применимость. | `src/section/` |
@@ -81,6 +81,13 @@ Desktop и Mobile Web проверяются отдельно; наличие de
   keys. Полный список действий, ширина и фактический dispatch проверяются в
   приложении; maxVisibleButtons включает picker slot. Запись не разрешает
   изменение или публикацию `arui-private`.
+
+- [ ] **CC-LND-08-SOURCE-01 · P1.** Согласовать скрытый BackgroundPlate у
+  standalone Promo FAQItem masters с `arui-private/faq`: source всегда рисует
+  плашку при promo=true. В Promo FAQ roots фон видим и public promoBackground
+  соответствует base-bg-alt Desktop / base-bg Mobile. Шаблоны item предупреждают
+  о расхождении; visual parity не подтверждена. Запись не разрешает изменение
+  или публикацию `arui-private` и не меняет Draft/Ready.
 
 ## Пресеты и незакрытое соответствие Footer
 
