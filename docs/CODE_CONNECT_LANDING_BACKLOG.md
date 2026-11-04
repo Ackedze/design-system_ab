@@ -136,6 +136,13 @@ Desktop и Mobile Web проверяются отдельно; наличие de
 | --- | --- | --- |
 | CC-EXT-01 | Onboarding Hint | **Опубликован и проверен.** [Файлы и отчёт](../JSONS/web/components/web-corp/Onboarding%20Hint%20%5BD%5D/code-connect/README.md). Default export `arui-private/onboarding-hint`; 12 вариантов + set native preview, 7 групп тестов. Настоящий anchor, visible, callbacks и dataTestId задаёт приложение. Source использует TooltipDesktop; browser/mobile/полный SDK отдельно не проверены. |
 | CC-EXT-02 | Onboarding Tooltip | **Опубликован и проверен.** [Файлы и отчёт](../JSONS/web/components/web-corp/Onboarding%20Tooltip%20%5BD%5D/code-connect/README.md). Named OnboardingTooltip из `arui-private/onboarding-tooltip`; 12 вариантов + set preview, 7 групп тестов. Сохраняются тексты, placement и zero-based выбранный шаг; нужны real anchor/visible/navigation callbacks. API проверен через точные props projections; полный strict implementation check с текущим host дал 13 диагностик, успешная сборка SDK не заявлена. |
+| CC-EXT-03 | TabsView Desktop / Mobile Web | **Опубликован и проверен.** [Файлы и отчёт](../JSONS/web/components/web-corp/TabsView/code-connect/README.md). Публичный responsive TabsView из `arui-private/tabs-view`, breakpoint 768. Четыре варианта normal/Skeleton и два set native preview; четыре прямых MCP snippets, 8 групп тестов. Set-level MCP lookup — timeout; отсутствие связи не утверждается. Типы API проверены с точной Base props projection; browser и полный SDK отдельно не проверены. |
+
+- [ ] **CC-EXT-03-SOURCE-01 · P1.** Согласовать синхронизацию selection в TabsView:
+  activePrimaryTab и activeSecondaryTabId инициализируют внутренний state,
+  последующие изменения props source не синхронизирует. Snippets сохраняют
+  `INITIAL_SELECTION_SOURCE_GAP`; реальные source handlers и callbacks проверены.
+  Не менять arui-private, норму или Draft/Ready в рамках публикации Code Connect.
 
 - [ ] **CC-EXT-02-SOURCE-01 · P1.** Согласовать Previous в Onboarding Tooltip:
   все текущие Figma masters показывают Previous при выбранном первом pip,

@@ -1,0 +1,154 @@
+{
+  "date": "2026-11-05",
+  "fileKey": "NrzEFUSTXgzOUmsfYym0xD",
+  "sessionId": "f16fbc41-703c-4be4-9725-1dd0b3c4e6c6",
+  "readbacks": [
+    {
+      "queryNodeId": "57470:18411",
+      "platform": "desktop",
+      "properties": {
+        "Skeleton": "false"
+      },
+      "componentName": "TabsView",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/tabs-view/tabs-view.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { TabsView } from 'arui-private/tabs-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof TabsView>;\ntype SecondaryData = Pick<Props['tabs'][number], 'secondaryTabProps' | 'activeSecondaryTabId'>;\n// INITIAL_SELECTION_SOURCE_GAP: activePrimaryTab и activeSecondaryTabId инициализируют внутренний state; последующие изменения props source не синхронизирует.\nfunction Example({ ids, secondaryByPrimary, dataTestId, onMainTabChange, onSecondaryTabChange }: {\n    ids: { primary: [string, string, string]; secondary: [string, string, string, string]; };\n    secondaryByPrimary?: Record<string, SecondaryData>;\n    \n    dataTestId: NonNullable<Props['dataTestId']>; onMainTabChange: NonNullable<Props['onMainTabChange']>;\n    onSecondaryTabChange: NonNullable<Props['onSecondaryTabChange']>;\n}) {\n    const validIds = (values: unknown[]) => values.every(id => typeof id === 'string' && id.trim().length > 0) && new Set(values).size === values.length;\n    if (!dataTestId.trim()) throw new Error('Нужен dataTestId приложения');\n    if (!validIds(ids.primary) || !validIds(ids.secondary)) throw new Error('Нужны уникальные непустые ID вкладок');\n    for (const [owner, group] of Object.entries(secondaryByPrimary ?? {})) {\n        if (!ids.primary.includes(owner) || owner === ids.primary[0]) throw new Error('Вторичная группа должна принадлежать другой известной primary вкладке');\n        if (group.secondaryTabProps?.length && (!validIds(group.secondaryTabProps.map(t=>t.id)) || (group.activeSecondaryTabId !== undefined && !group.secondaryTabProps.some(t=>t.id===group.activeSecondaryTabId)))) throw new Error('Некорректные ID secondary группы');\n    }\n    const actualTabs: Props['tabs'] = [{\n    \n    mainTabProps: { id: ids.primary[0], title: \"TabPrimary 1\", disabled: false,  },\n    secondaryTabProps: [{ id: ids.secondary[0], title: \"TabSecondary 1\", disabled: false,  },{ id: ids.secondary[1], title: \"TabSecondary 2\", disabled: false,  },{ id: ids.secondary[2], title: \"TabSecondary 3\", disabled: false,  },{ id: ids.secondary[3], title: \"TabSecondary 4\", disabled: false,  },], activeSecondaryTabId: ids.secondary[0],\n},{\n    ...secondaryByPrimary?.[ids.primary[1]],\n    mainTabProps: { id: ids.primary[1], title: \"TabPrimary 2\", disabled: false,  },\n    \n},{\n    ...secondaryByPrimary?.[ids.primary[2]],\n    mainTabProps: { id: ids.primary[2], title: \"TabPrimary 3\", disabled: false,  },\n    \n},];\n    return <TabsView tabs={actualTabs} activePrimaryTab={ids.primary[0]}\n        additionalMainTabsWrapperProps={{ showSkeleton: false }}\n        additionalSecondaryTabsWrapperProps={{ showSkeleton: false }}\n        dataTestId={dataTestId} onMainTabChange={onMainTabChange}\n        onSecondaryTabChange={onSecondaryTabChange}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "102669:84578",
+      "platform": "desktop",
+      "properties": {
+        "Skeleton": "true"
+      },
+      "componentName": "TabsView",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/tabs-view/tabs-view.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { TabsView } from 'arui-private/tabs-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof TabsView>;\ntype SecondaryData = Pick<Props['tabs'][number], 'secondaryTabProps' | 'activeSecondaryTabId'>;\n// INITIAL_SELECTION_SOURCE_GAP: activePrimaryTab и activeSecondaryTabId инициализируют внутренний state; последующие изменения props source не синхронизирует.\nfunction Example({ tabs, activePrimaryTab, dataTestId, onMainTabChange, onSecondaryTabChange }: {\n    tabs: Props['tabs']; activePrimaryTab: NonNullable<Props['activePrimaryTab']>;\n    \n    \n    dataTestId: NonNullable<Props['dataTestId']>; onMainTabChange: NonNullable<Props['onMainTabChange']>;\n    onSecondaryTabChange: NonNullable<Props['onSecondaryTabChange']>;\n}) {\n    const validIds = (values: unknown[]) => values.every(id => typeof id === 'string' && id.trim().length > 0) && new Set(values).size === values.length;\n    if (!dataTestId.trim()) throw new Error('Нужен dataTestId приложения');\n    if (tabs.length !== 3 || !validIds(tabs.map(t=>t.mainTabProps.id))) throw new Error('Нужны реальные tabs с устойчивыми уникальными ID');\n    const current = tabs.find(t=>t.mainTabProps.id===activePrimaryTab);\n    if (!current) throw new Error('activePrimaryTab должен существовать');\n    if (current.secondaryTabProps?.length !== 4 || !validIds(current.secondaryTabProps.map(t=>t.id)) || !current.secondaryTabProps.some(t=>t.id===current.activeSecondaryTabId)) throw new Error('Нужны реальные secondary tabs и выбранный ID');\n    const actualTabs = tabs;\n    return <TabsView tabs={actualTabs} activePrimaryTab={activePrimaryTab}\n        additionalMainTabsWrapperProps={{ showSkeleton: true }}\n        additionalSecondaryTabsWrapperProps={{ showSkeleton: true }}\n        dataTestId={dataTestId} onMainTabChange={onMainTabChange}\n        onSecondaryTabChange={onSecondaryTabChange}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "58009:264806",
+      "platform": "mobile-web",
+      "properties": {
+        "Skeleton": "false"
+      },
+      "componentName": "TabsView",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/tabs-view/tabs-view.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { TabsView } from 'arui-private/tabs-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof TabsView>;\ntype SecondaryData = Pick<Props['tabs'][number], 'secondaryTabProps' | 'activeSecondaryTabId'>;\n// INITIAL_SELECTION_SOURCE_GAP: activePrimaryTab и activeSecondaryTabId инициализируют внутренний state; последующие изменения props source не синхронизирует.\nfunction Example({ ids, secondaryByPrimary, dataTestId, onMainTabChange, onSecondaryTabChange }: {\n    ids: { primary: [string, string, string]; secondary: [string, string, string, string]; };\n    secondaryByPrimary?: Record<string, SecondaryData>;\n    \n    dataTestId: NonNullable<Props['dataTestId']>; onMainTabChange: NonNullable<Props['onMainTabChange']>;\n    onSecondaryTabChange: NonNullable<Props['onSecondaryTabChange']>;\n}) {\n    const validIds = (values: unknown[]) => values.every(id => typeof id === 'string' && id.trim().length > 0) && new Set(values).size === values.length;\n    if (!dataTestId.trim()) throw new Error('Нужен dataTestId приложения');\n    if (!validIds(ids.primary) || !validIds(ids.secondary)) throw new Error('Нужны уникальные непустые ID вкладок');\n    for (const [owner, group] of Object.entries(secondaryByPrimary ?? {})) {\n        if (!ids.primary.includes(owner) || owner === ids.primary[0]) throw new Error('Вторичная группа должна принадлежать другой известной primary вкладке');\n        if (group.secondaryTabProps?.length && (!validIds(group.secondaryTabProps.map(t=>t.id)) || (group.activeSecondaryTabId !== undefined && !group.secondaryTabProps.some(t=>t.id===group.activeSecondaryTabId)))) throw new Error('Некорректные ID secondary группы');\n    }\n    const actualTabs: Props['tabs'] = [{\n    \n    mainTabProps: { id: ids.primary[0], title: \"TabPrimary 1\", disabled: false,  },\n    secondaryTabProps: [{ id: ids.secondary[0], title: \"TabSecondary 1\", disabled: false,  },{ id: ids.secondary[1], title: \"TabSecondary 2\", disabled: false,  },{ id: ids.secondary[2], title: \"TabSecondary 3\", disabled: false,  },{ id: ids.secondary[3], title: \"TabSecondary 4\", disabled: false,  },], activeSecondaryTabId: ids.secondary[0],\n},{\n    ...secondaryByPrimary?.[ids.primary[1]],\n    mainTabProps: { id: ids.primary[1], title: \"TabPrimary 2\", disabled: false,  },\n    \n},{\n    ...secondaryByPrimary?.[ids.primary[2]],\n    mainTabProps: { id: ids.primary[2], title: \"TabPrimary 3\", disabled: false,  },\n    \n},];\n    return <TabsView tabs={actualTabs} activePrimaryTab={ids.primary[0]}\n        additionalMainTabsWrapperProps={{ showSkeleton: false }}\n        additionalSecondaryTabsWrapperProps={{ showSkeleton: false }}\n        dataTestId={dataTestId} onMainTabChange={onMainTabChange}\n        onSecondaryTabChange={onSecondaryTabChange}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "102669:97045",
+      "platform": "mobile-web",
+      "properties": {
+        "Skeleton": "true"
+      },
+      "componentName": "TabsView",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/tabs-view/tabs-view.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { TabsView } from 'arui-private/tabs-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof TabsView>;\ntype SecondaryData = Pick<Props['tabs'][number], 'secondaryTabProps' | 'activeSecondaryTabId'>;\n// INITIAL_SELECTION_SOURCE_GAP: activePrimaryTab и activeSecondaryTabId инициализируют внутренний state; последующие изменения props source не синхронизирует.\nfunction Example({ tabs, activePrimaryTab, dataTestId, onMainTabChange, onSecondaryTabChange }: {\n    tabs: Props['tabs']; activePrimaryTab: NonNullable<Props['activePrimaryTab']>;\n    \n    \n    dataTestId: NonNullable<Props['dataTestId']>; onMainTabChange: NonNullable<Props['onMainTabChange']>;\n    onSecondaryTabChange: NonNullable<Props['onSecondaryTabChange']>;\n}) {\n    const validIds = (values: unknown[]) => values.every(id => typeof id === 'string' && id.trim().length > 0) && new Set(values).size === values.length;\n    if (!dataTestId.trim()) throw new Error('Нужен dataTestId приложения');\n    if (tabs.length !== 3 || !validIds(tabs.map(t=>t.mainTabProps.id))) throw new Error('Нужны реальные tabs с устойчивыми уникальными ID');\n    const current = tabs.find(t=>t.mainTabProps.id===activePrimaryTab);\n    if (!current) throw new Error('activePrimaryTab должен существовать');\n    if (current.secondaryTabProps?.length !== 4 || !validIds(current.secondaryTabProps.map(t=>t.id)) || !current.secondaryTabProps.some(t=>t.id===current.activeSecondaryTabId)) throw new Error('Нужны реальные secondary tabs и выбранный ID');\n    const actualTabs = tabs;\n    return <TabsView tabs={actualTabs} activePrimaryTab={activePrimaryTab}\n        additionalMainTabsWrapperProps={{ showSkeleton: true }}\n        additionalSecondaryTabsWrapperProps={{ showSkeleton: true }}\n        dataTestId={dataTestId} onMainTabChange={onMainTabChange}\n        onSecondaryTabChange={onSecondaryTabChange}\n    />;\n}"
+    }
+  ],
+  "setQueries": [
+    {
+      "queryNodeId": "102669:84577",
+      "status": "LOOKUP_TIMEOUT_NOT_ABSENCE",
+      "matchedOwnVariants": [],
+      "attempts": [
+        {
+          "content": [
+            {
+              "type": "text",
+              "text": "{}"
+            },
+            {
+              "type": "text",
+              "text": "Note: the Code Connect lookup timed out, so this response may be missing Code Connect data."
+            }
+          ],
+          "structuredContent": null,
+          "isError": false
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "text": "{}"
+            },
+            {
+              "type": "text",
+              "text": "Note: the Code Connect lookup timed out, so this response may be missing Code Connect data."
+            }
+          ],
+          "structuredContent": null,
+          "isError": false
+        }
+      ]
+    },
+    {
+      "queryNodeId": "102669:97044",
+      "status": "LOOKUP_TIMEOUT_NOT_ABSENCE",
+      "matchedOwnVariants": [],
+      "attempts": [
+        {
+          "content": [
+            {
+              "type": "text",
+              "text": "{}"
+            },
+            {
+              "type": "text",
+              "text": "Note: the Code Connect lookup timed out, so this response may be missing Code Connect data."
+            }
+          ],
+          "structuredContent": null,
+          "isError": false
+        },
+        {
+          "content": [
+            {
+              "type": "text",
+              "text": "{}"
+            },
+            {
+              "type": "text",
+              "text": "Note: the Code Connect lookup timed out, so this response may be missing Code Connect data."
+            }
+          ],
+          "structuredContent": null,
+          "isError": false
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Оба component-set MCP lookup вернули timeout дважды; наличие или отсутствие set-level snippet по этому результату не утверждается. Все четыре прямых variant snippets получены. Official native preview обоих sets успешен."
+  ]
+}
