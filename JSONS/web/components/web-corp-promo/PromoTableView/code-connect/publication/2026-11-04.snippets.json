@@ -1,0 +1,273 @@
+{
+  "fileKey": "IgMTjHSWHjRKY5HyQrDtbA",
+  "sessionId": "137362ae-5b02-4153-93f2-060065fcb5cf",
+  "readbacks": [
+    {
+      "queryNodeId": "4:9113",
+      "platform": "desktop",
+      "properties": {
+        "Axis": "Horizontal",
+        "Style preset": "Gray"
+      },
+      "componentName": "PromoTableViewDesktop",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/promo-table-view/promo-table-view-desktop.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { PromoTableViewDesktop } from 'arui-private/promo-table-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof PromoTableViewDesktop>;\ntype Body = Props['rows'][number]['cells'][number];\n// IDs и обработчики — данные приложения; цены сохраняются строками, а SwapMe передаётся как реальный ReactNode.\n// TABLE_STYLE_SOURCE_GAP: Source фиксирует Primary фон по платформе; Gray Desktop / White Mobile и per-row colors не настраиваются public API.\n// ROW_SURFACE_SOURCE_GAP: Source фиксирует Primary/Outer/background; выбранные row surface overrides не выражаются API.\nfunction Example({ ids, bindings, backgroundPlateBorder }: {\n    ids: { headers: [string, string, string, string]; rows: [{ id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }] };\n    bindings: { \"row-0:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-1:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-2:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick'] };\n    backgroundPlateBorder: NonNullable<Props['backgroundPlateBorder']>;\n}) {\n    const scopes = [ids.headers, [ids.rows[0].id, ids.rows[1].id, ids.rows[2].id], [ids.rows[0].first, ...ids.rows[0].cells, ids.rows[0].last], [ids.rows[1].first, ...ids.rows[1].cells, ids.rows[1].last], [ids.rows[2].first, ...ids.rows[2].cells, ids.rows[2].last]];\n    if (scopes.some(values => values.some(id => !id.trim()) || new Set(values).size !== values.length)) throw new Error('Table IDs must be nonempty and unique within their scope');\n    const firstCells: NonNullable<Props['firstCells']> = [];\n    const lastCells: NonNullable<Props['lastCells']> = [];\n    firstCells[0] = { id: ids.rows[0].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[1] = { id: ids.rows[1].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[2] = { id: ids.rows[2].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nlastCells[0] = { id: ids.rows[0].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-0:primary\"] },  } };\nlastCells[1] = { id: ids.rows[1].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-1:primary\"] },  } };\nlastCells[2] = { id: ids.rows[2].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-2:primary\"] },  } };\n\n    return <PromoTableViewDesktop\n        orientation=\"horizontal\"\n        \n        backgroundPlateBorder={backgroundPlateBorder}\n        headerCells={[{ id: ids.headers[0], content: \"Column Name\",  },{ id: ids.headers[1], content: \"Column Name\",  },{ id: ids.headers[2], content: \"Column Name\",  },{ id: ids.headers[3], content: \"Column Name\",  },]}\n        firstCells={firstCells}\n        lastCells={lastCells}\n        rows={[{ id: ids.rows[0].id, cells: [{ id: ids.rows[0].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[1].id, cells: [{ id: ids.rows[1].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[2].id, cells: [{ id: ids.rows[2].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },]}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "4:9124",
+      "platform": "desktop",
+      "properties": {
+        "Axis": "Horizontal",
+        "Style preset": "White"
+      },
+      "componentName": "PromoTableViewDesktop",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/promo-table-view/promo-table-view-desktop.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { PromoTableViewDesktop } from 'arui-private/promo-table-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof PromoTableViewDesktop>;\ntype Body = Props['rows'][number]['cells'][number];\n// IDs и обработчики — данные приложения; цены сохраняются строками, а SwapMe передаётся как реальный ReactNode.\nfunction Example({ ids, bindings, backgroundPlateBorder }: {\n    ids: { headers: [string, string, string, string]; rows: [{ id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }] };\n    bindings: { \"row-0:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-1:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-2:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick'] };\n    backgroundPlateBorder: NonNullable<Props['backgroundPlateBorder']>;\n}) {\n    const scopes = [ids.headers, [ids.rows[0].id, ids.rows[1].id, ids.rows[2].id], [ids.rows[0].first, ...ids.rows[0].cells, ids.rows[0].last], [ids.rows[1].first, ...ids.rows[1].cells, ids.rows[1].last], [ids.rows[2].first, ...ids.rows[2].cells, ids.rows[2].last]];\n    if (scopes.some(values => values.some(id => !id.trim()) || new Set(values).size !== values.length)) throw new Error('Table IDs must be nonempty and unique within their scope');\n    const firstCells: NonNullable<Props['firstCells']> = [];\n    const lastCells: NonNullable<Props['lastCells']> = [];\n    firstCells[0] = { id: ids.rows[0].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[1] = { id: ids.rows[1].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[2] = { id: ids.rows[2].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nlastCells[0] = { id: ids.rows[0].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-0:primary\"] },  } };\nlastCells[1] = { id: ids.rows[1].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-1:primary\"] },  } };\nlastCells[2] = { id: ids.rows[2].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-2:primary\"] },  } };\n\n    return <PromoTableViewDesktop\n        orientation=\"horizontal\"\n        \n        backgroundPlateBorder={backgroundPlateBorder}\n        headerCells={[{ id: ids.headers[0], content: \"Column Name\",  },{ id: ids.headers[1], content: \"Column Name\",  },{ id: ids.headers[2], content: \"Column Name\",  },{ id: ids.headers[3], content: \"Column Name\",  },]}\n        firstCells={firstCells}\n        lastCells={lastCells}\n        rows={[{ id: ids.rows[0].id, cells: [{ id: ids.rows[0].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[1].id, cells: [{ id: ids.rows[1].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[2].id, cells: [{ id: ids.rows[2].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },]}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "4:9135",
+      "platform": "desktop",
+      "properties": {
+        "Axis": "Vertical",
+        "Style preset": "Gray"
+      },
+      "componentName": "PromoTableViewDesktop",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/promo-table-view/promo-table-view-desktop.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { PromoTableViewDesktop } from 'arui-private/promo-table-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof PromoTableViewDesktop>;\ntype Body = Props['rows'][number]['cells'][number];\n// IDs и обработчики — данные приложения; цены сохраняются строками, а SwapMe передаётся как реальный ReactNode.\n// TABLE_STYLE_SOURCE_GAP: Source фиксирует Primary фон по платформе; Gray Desktop / White Mobile и per-row colors не настраиваются public API.\n// ROW_SURFACE_SOURCE_GAP: Source фиксирует Primary/Outer/background; выбранные row surface overrides не выражаются API.\nfunction Example({ ids, bindings, backgroundPlateBorder }: {\n    ids: { headers: [string, string, string, string]; rows: [{ id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }] };\n    bindings: { \"row-0:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-1:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-2:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick'] };\n    backgroundPlateBorder: NonNullable<Props['backgroundPlateBorder']>;\n}) {\n    const scopes = [ids.headers, [ids.rows[0].id, ids.rows[1].id, ids.rows[2].id], [ids.rows[0].first, ...ids.rows[0].cells, ids.rows[0].last], [ids.rows[1].first, ...ids.rows[1].cells, ids.rows[1].last], [ids.rows[2].first, ...ids.rows[2].cells, ids.rows[2].last], [ids.rows[0].first, ids.rows[1].first, ids.rows[2].first]];\n    if (scopes.some(values => values.some(id => !id.trim()) || new Set(values).size !== values.length)) throw new Error('Table IDs must be nonempty and unique within their scope');\n    const firstCells: NonNullable<Props['firstCells']> = [];\n    const lastCells: NonNullable<Props['lastCells']> = [];\n    firstCells[0] = { id: ids.rows[0].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[1] = { id: ids.rows[1].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[2] = { id: ids.rows[2].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nlastCells[0] = { id: ids.rows[0].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-0:primary\"] },  } };\nlastCells[1] = { id: ids.rows[1].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-1:primary\"] },  } };\nlastCells[2] = { id: ids.rows[2].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-2:primary\"] },  } };\n\n    return <PromoTableViewDesktop\n        orientation=\"vertical\"\n        direction=\"row\"\n        backgroundPlateBorder={backgroundPlateBorder}\n        headerCells={[{ id: ids.headers[0], content: \"Column Name\",  },{ id: ids.headers[1], content: \"Column Name\",  },{ id: ids.headers[2], content: \"Column Name\",  },{ id: ids.headers[3], content: \"Column Name\",  },]}\n        firstCells={firstCells}\n        lastCells={lastCells}\n        rows={[{ id: ids.rows[0].id, cells: [{ id: ids.rows[0].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[1].id, cells: [{ id: ids.rows[1].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[2].id, cells: [{ id: ids.rows[2].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },]}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "4:9142",
+      "platform": "desktop",
+      "properties": {
+        "Axis": "Vertical",
+        "Style preset": "White"
+      },
+      "componentName": "PromoTableViewDesktop",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/promo-table-view/promo-table-view-desktop.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { PromoTableViewDesktop } from 'arui-private/promo-table-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof PromoTableViewDesktop>;\ntype Body = Props['rows'][number]['cells'][number];\n// IDs и обработчики — данные приложения; цены сохраняются строками, а SwapMe передаётся как реальный ReactNode.\nfunction Example({ ids, bindings, backgroundPlateBorder }: {\n    ids: { headers: [string, string, string, string]; rows: [{ id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }] };\n    bindings: { \"row-0:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-1:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-2:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick'] };\n    backgroundPlateBorder: NonNullable<Props['backgroundPlateBorder']>;\n}) {\n    const scopes = [ids.headers, [ids.rows[0].id, ids.rows[1].id, ids.rows[2].id], [ids.rows[0].first, ...ids.rows[0].cells, ids.rows[0].last], [ids.rows[1].first, ...ids.rows[1].cells, ids.rows[1].last], [ids.rows[2].first, ...ids.rows[2].cells, ids.rows[2].last], [ids.rows[0].first, ids.rows[1].first, ids.rows[2].first]];\n    if (scopes.some(values => values.some(id => !id.trim()) || new Set(values).size !== values.length)) throw new Error('Table IDs must be nonempty and unique within their scope');\n    const firstCells: NonNullable<Props['firstCells']> = [];\n    const lastCells: NonNullable<Props['lastCells']> = [];\n    firstCells[0] = { id: ids.rows[0].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[1] = { id: ids.rows[1].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[2] = { id: ids.rows[2].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nlastCells[0] = { id: ids.rows[0].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-0:primary\"] },  } };\nlastCells[1] = { id: ids.rows[1].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-1:primary\"] },  } };\nlastCells[2] = { id: ids.rows[2].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-2:primary\"] },  } };\n\n    return <PromoTableViewDesktop\n        orientation=\"vertical\"\n        direction=\"row\"\n        backgroundPlateBorder={backgroundPlateBorder}\n        headerCells={[{ id: ids.headers[0], content: \"Column Name\",  },{ id: ids.headers[1], content: \"Column Name\",  },{ id: ids.headers[2], content: \"Column Name\",  },{ id: ids.headers[3], content: \"Column Name\",  },]}\n        firstCells={firstCells}\n        lastCells={lastCells}\n        rows={[{ id: ids.rows[0].id, cells: [{ id: ids.rows[0].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[1].id, cells: [{ id: ids.rows[1].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[2].id, cells: [{ id: ids.rows[2].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },]}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "4:9150",
+      "platform": "mobile-web",
+      "properties": {
+        "Axis": "Horizontal",
+        "Style preset": "Gray"
+      },
+      "componentName": "PromoTableViewMobile",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/promo-table-view/promo-table-view-mobile.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { PromoTableViewMobile } from 'arui-private/promo-table-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof PromoTableViewMobile>;\ntype Body = Props['rows'][number]['cells'][number];\n// IDs и обработчики — данные приложения; цены сохраняются строками, а SwapMe передаётся как реальный ReactNode.\nfunction Example({ ids, bindings, backgroundPlateBorder }: {\n    ids: { headers: [string, string, string, string]; rows: [{ id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }] };\n    bindings: { \"row-0:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-1:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-2:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick'] };\n    backgroundPlateBorder: NonNullable<Props['backgroundPlateBorder']>;\n}) {\n    const scopes = [ids.headers, [ids.rows[0].id, ids.rows[1].id, ids.rows[2].id], [ids.rows[0].first, ...ids.rows[0].cells, ids.rows[0].last], [ids.rows[1].first, ...ids.rows[1].cells, ids.rows[1].last], [ids.rows[2].first, ...ids.rows[2].cells, ids.rows[2].last]];\n    if (scopes.some(values => values.some(id => !id.trim()) || new Set(values).size !== values.length)) throw new Error('Table IDs must be nonempty and unique within their scope');\n    const firstCells: NonNullable<Props['firstCells']> = [];\n    const lastCells: NonNullable<Props['lastCells']> = [];\n    firstCells[0] = { id: ids.rows[0].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[1] = { id: ids.rows[1].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[2] = { id: ids.rows[2].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nlastCells[0] = { id: ids.rows[0].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-0:primary\"] },  } };\nlastCells[1] = { id: ids.rows[1].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-1:primary\"] },  } };\nlastCells[2] = { id: ids.rows[2].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-2:primary\"] },  } };\n\n    return <PromoTableViewMobile\n        orientation=\"horizontal\"\n        \n        backgroundPlateBorder={backgroundPlateBorder}\n        headerCells={[{ id: ids.headers[0], content: \"Column Name\",  },{ id: ids.headers[1], content: \"Column Name\",  },{ id: ids.headers[2], content: \"Column Name\",  },{ id: ids.headers[3], content: \"Column Name\",  },]}\n        firstCells={firstCells}\n        lastCells={lastCells}\n        rows={[{ id: ids.rows[0].id, cells: [{ id: ids.rows[0].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[1].id, cells: [{ id: ids.rows[1].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[2].id, cells: [{ id: ids.rows[2].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },]}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "4:9161",
+      "platform": "mobile-web",
+      "properties": {
+        "Axis": "Vertical",
+        "Style preset": "Gray"
+      },
+      "componentName": "PromoTableViewMobile",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/promo-table-view/promo-table-view-mobile.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { PromoTableViewMobile } from 'arui-private/promo-table-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof PromoTableViewMobile>;\ntype Body = Props['rows'][number]['cells'][number];\n// IDs и обработчики — данные приложения; цены сохраняются строками, а SwapMe передаётся как реальный ReactNode.\nfunction Example({ ids, bindings, backgroundPlateBorder }: {\n    ids: { headers: [string, string, string, string]; rows: [{ id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }] };\n    bindings: { \"row-0:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-1:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-2:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick'] };\n    backgroundPlateBorder: NonNullable<Props['backgroundPlateBorder']>;\n}) {\n    const scopes = [ids.headers, [ids.rows[0].id, ids.rows[1].id, ids.rows[2].id], [ids.rows[0].first, ...ids.rows[0].cells, ids.rows[0].last], [ids.rows[1].first, ...ids.rows[1].cells, ids.rows[1].last], [ids.rows[2].first, ...ids.rows[2].cells, ids.rows[2].last], [ids.rows[0].first, ids.rows[1].first, ids.rows[2].first]];\n    if (scopes.some(values => values.some(id => !id.trim()) || new Set(values).size !== values.length)) throw new Error('Table IDs must be nonempty and unique within their scope');\n    const firstCells: NonNullable<Props['firstCells']> = [];\n    const lastCells: NonNullable<Props['lastCells']> = [];\n    firstCells[0] = { id: ids.rows[0].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[1] = { id: ids.rows[1].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[2] = { id: ids.rows[2].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nlastCells[0] = { id: ids.rows[0].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-0:primary\"] },  } };\nlastCells[1] = { id: ids.rows[1].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-1:primary\"] },  } };\nlastCells[2] = { id: ids.rows[2].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-2:primary\"] },  } };\n\n    return <PromoTableViewMobile\n        orientation=\"vertical\"\n        direction=\"column\"\n        backgroundPlateBorder={backgroundPlateBorder}\n        headerCells={[{ id: ids.headers[0], content: \"Column Name\",  },{ id: ids.headers[1], content: \"Column Name\",  },{ id: ids.headers[2], content: \"Column Name\",  },{ id: ids.headers[3], content: \"Column Name\",  },]}\n        firstCells={firstCells}\n        lastCells={lastCells}\n        rows={[{ id: ids.rows[0].id, cells: [{ id: ids.rows[0].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[1].id, cells: [{ id: ids.rows[1].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[2].id, cells: [{ id: ids.rows[2].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },]}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "4:9168",
+      "platform": "mobile-web",
+      "properties": {
+        "Axis": "Horizontal",
+        "Style preset": "White"
+      },
+      "componentName": "PromoTableViewMobile",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/promo-table-view/promo-table-view-mobile.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { PromoTableViewMobile } from 'arui-private/promo-table-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof PromoTableViewMobile>;\ntype Body = Props['rows'][number]['cells'][number];\n// IDs и обработчики — данные приложения; цены сохраняются строками, а SwapMe передаётся как реальный ReactNode.\n// TABLE_STYLE_SOURCE_GAP: Source фиксирует Primary фон по платформе; Gray Desktop / White Mobile и per-row colors не настраиваются public API.\n// ROW_SURFACE_SOURCE_GAP: Source фиксирует Primary/Outer/background; выбранные row surface overrides не выражаются API.\nfunction Example({ ids, bindings, backgroundPlateBorder }: {\n    ids: { headers: [string, string, string, string]; rows: [{ id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }] };\n    bindings: { \"row-0:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-1:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-2:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick'] };\n    backgroundPlateBorder: NonNullable<Props['backgroundPlateBorder']>;\n}) {\n    const scopes = [ids.headers, [ids.rows[0].id, ids.rows[1].id, ids.rows[2].id], [ids.rows[0].first, ...ids.rows[0].cells, ids.rows[0].last], [ids.rows[1].first, ...ids.rows[1].cells, ids.rows[1].last], [ids.rows[2].first, ...ids.rows[2].cells, ids.rows[2].last]];\n    if (scopes.some(values => values.some(id => !id.trim()) || new Set(values).size !== values.length)) throw new Error('Table IDs must be nonempty and unique within their scope');\n    const firstCells: NonNullable<Props['firstCells']> = [];\n    const lastCells: NonNullable<Props['lastCells']> = [];\n    firstCells[0] = { id: ids.rows[0].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[1] = { id: ids.rows[1].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[2] = { id: ids.rows[2].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nlastCells[0] = { id: ids.rows[0].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-0:primary\"] },  } };\nlastCells[1] = { id: ids.rows[1].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-1:primary\"] },  } };\nlastCells[2] = { id: ids.rows[2].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-2:primary\"] },  } };\n\n    return <PromoTableViewMobile\n        orientation=\"horizontal\"\n        \n        backgroundPlateBorder={backgroundPlateBorder}\n        headerCells={[{ id: ids.headers[0], content: \"Column Name\",  },{ id: ids.headers[1], content: \"Column Name\",  },{ id: ids.headers[2], content: \"Column Name\",  },{ id: ids.headers[3], content: \"Column Name\",  },]}\n        firstCells={firstCells}\n        lastCells={lastCells}\n        rows={[{ id: ids.rows[0].id, cells: [{ id: ids.rows[0].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[1].id, cells: [{ id: ids.rows[1].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[2].id, cells: [{ id: ids.rows[2].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },]}\n    />;\n}"
+    },
+    {
+      "queryNodeId": "4:9179",
+      "platform": "mobile-web",
+      "properties": {
+        "Axis": "Vertical",
+        "Style preset": "White"
+      },
+      "componentName": "PromoTableViewMobile",
+      "source": "https://git.moscow.alfaintra.net/projects/EF/repos/arui-private/browse/src/promo-table-view/promo-table-view-mobile.tsx?at=4bf38e2be8589da705f991b4dcac0d41975dff3d",
+      "version": "unknown",
+      "label": "React",
+      "hasTemplate": true,
+      "snippetImports": [
+        "import { PromoTableViewMobile } from 'arui-private/promo-table-view';",
+        "import type { ComponentProps } from 'react';"
+      ],
+      "snippetNestedFunctions": [],
+      "snippet": "type Props = ComponentProps<typeof PromoTableViewMobile>;\ntype Body = Props['rows'][number]['cells'][number];\n// IDs и обработчики — данные приложения; цены сохраняются строками, а SwapMe передаётся как реальный ReactNode.\n// TABLE_STYLE_SOURCE_GAP: Source фиксирует Primary фон по платформе; Gray Desktop / White Mobile и per-row colors не настраиваются public API.\n// ROW_SURFACE_SOURCE_GAP: Source фиксирует Primary/Outer/background; выбранные row surface overrides не выражаются API.\nfunction Example({ ids, bindings, backgroundPlateBorder }: {\n    ids: { headers: [string, string, string, string]; rows: [{ id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }, { id: string; first: string; last: string; cells: [string, string, string] }] };\n    bindings: { \"row-0:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-1:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick']; \"row-2:primary\": NonNullable<Props['lastCells']>[number]['props']['primaryButtonProps']['onClick'] };\n    backgroundPlateBorder: NonNullable<Props['backgroundPlateBorder']>;\n}) {\n    const scopes = [ids.headers, [ids.rows[0].id, ids.rows[1].id, ids.rows[2].id], [ids.rows[0].first, ...ids.rows[0].cells, ids.rows[0].last], [ids.rows[1].first, ...ids.rows[1].cells, ids.rows[1].last], [ids.rows[2].first, ...ids.rows[2].cells, ids.rows[2].last], [ids.rows[0].first, ids.rows[1].first, ids.rows[2].first]];\n    if (scopes.some(values => values.some(id => !id.trim()) || new Set(values).size !== values.length)) throw new Error('Table IDs must be nonempty and unique within their scope');\n    const firstCells: NonNullable<Props['firstCells']> = [];\n    const lastCells: NonNullable<Props['lastCells']> = [];\n    firstCells[0] = { id: ids.rows[0].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[1] = { id: ids.rows[1].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nfirstCells[2] = { id: ids.rows[2].first, type: 'text-content', boldTitle: true, props: { title: \"Title\", subtitle: \"Subtitle\" } };\nlastCells[0] = { id: ids.rows[0].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-0:primary\"] },  } };\nlastCells[1] = { id: ids.rows[1].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-1:primary\"] },  } };\nlastCells[2] = { id: ids.rows[2].last, direction: \"row\", props: { primaryButtonProps: { label: \"Label\", onClick: bindings[\"row-2:primary\"] },  } };\n\n    return <PromoTableViewMobile\n        orientation=\"vertical\"\n        direction=\"column\"\n        backgroundPlateBorder={backgroundPlateBorder}\n        headerCells={[{ id: ids.headers[0], content: \"Column Name\",  },{ id: ids.headers[1], content: \"Column Name\",  },{ id: ids.headers[2], content: \"Column Name\",  },{ id: ids.headers[3], content: \"Column Name\",  },]}\n        firstCells={firstCells}\n        lastCells={lastCells}\n        rows={[{ id: ids.rows[0].id, cells: [{ id: ids.rows[0].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[0].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[1].id, cells: [{ id: ids.rows[1].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[1].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },{ id: ids.rows[2].id, cells: [{ id: ids.rows[2].cells[0], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[1], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },{ id: ids.rows[2].cells[2], type: 'text-content',  props: { title: \"Title\", subtitle: \"Subtitle\" } },] },]}\n    />;\n}"
+    }
+  ],
+  "setQueries": [
+    {
+      "queryNodeId": "4:9112",
+      "platform": "desktop",
+      "matchedVariants": 4,
+      "nodeIds": [
+        "4:9113",
+        "4:9124",
+        "4:9135",
+        "4:9142"
+      ],
+      "ownSetSnippetAsserted": false,
+      "allSnippetsMatchOwnVariantReadback": true,
+      "additionalUnrelatedEntries": {
+        "0:55": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:147": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:200": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:253": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:285": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:377": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:430": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:483": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:607": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:680": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:753": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:877": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:950": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        },
+        "0:1023": {
+          "componentName": null,
+          "source": "https://github.com/Dushart/Promo/blob/main/background-plate/components/background-plate-base/background-plate-base.tsx",
+          "version": "unknown",
+          "hasTemplate": false
+        }
+      }
+    },
+    {
+      "queryNodeId": "4:9149",
+      "platform": "mobile-web",
+      "matchedVariants": 4,
+      "nodeIds": [
+        "4:9150",
+        "4:9161",
+        "4:9168",
+        "4:9179"
+      ],
+      "ownSetSnippetAsserted": false,
+      "allSnippetsMatchOwnVariantReadback": true,
+      "additionalUnrelatedEntries": {}
+    }
+  ]
+}

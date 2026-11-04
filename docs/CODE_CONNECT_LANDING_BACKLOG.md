@@ -1,6 +1,6 @@
 # Code Connect для компонентов лендингов
 
-Обновлено: 04.11.2026. Статус: CC-LND-01–CC-LND-09 опубликованы и проверены
+Обновлено: 04.11.2026. Статус: CC-LND-01–CC-LND-10 опубликованы и проверены
 через Figma MCP; остальные задачи запланированы. Опубликованный SDK 81.1.0,
 полная визуальная эквивалентность и явные source gaps остаются открытыми областями.
 Ответственный за Corp/Promo — Code Connect; за Core — команда Core.
@@ -37,7 +37,7 @@ Desktop и Mobile Web проверяются отдельно; наличие de
 | CC-LND-07 | P0 | ButtonsGroup / ButtonGroup | **D/M опубликованы и проверены 04.11.2026.** [Файлы и отчёт](../JSONS/web/components/web-corp/ButtonGroup%20%5BD%5D/code-connect/README.md). Единый responsive export `ButtonGroup` из `arui-private/button-group`, breakpoint 768. CLI validation/upload PASS; 16 MCP вариантов и оба set subtree, 18 native previews, 10 тестов PASS. Порядок/labels/disabled/addons сохранены; ширина, callbacks, mapper и полный список скрытых действий требуют app context. Mobile Overflow=false расходится с source; SDK/browser ещё не проверены. Старый custom bridge не используется. | `src/button-group/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-08 | P0 | FAQ, включая Promo | **Шесть связей опубликованы и проверены 04.11.2026:** общий responsive FAQ/FAQItem и Promo D/M roots/items. [Файлы и отчёт](../JSONS/web/components/web-corp/FAQ/code-connect/README.md). Публичный export — `FAQ` из `arui-private/faq`; standalone item — FAQ с одним пунктом. 13 тестов, 12 native previews; начальное раскрытие, borders, порядок и видимые тексты сохранены. ID/isAccordion, отсутствующие ответы и rich ReactNode задаёт приложение. Native отсутствие nested metadata покрыто без ослабления identity/error guards. SDK/browser ещё не проверены. | `src/faq/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-09 | P1 | PromoCard | **D/M опубликованы и проверены 04.11.2026.** [Файлы и отчёт](../JSONS/web/components/web-corp-promo/PromoCard/code-connect/README.md). Реальные exports `PromoCardDesktop/Mobile` из `arui-private/promo-card`; 36 root variants + 2 set previews, 8 native CTA port probes, 11 тестов. Image/Bottom ReactNode и обработчики требуют app context; неизвестные CTA/style states отклоняются. Альтернативный Title переопределяется source leaf и получает warning; source accessibility, SDK/browser ещё требуют проверки. | `src/promo-card/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
-| CC-LND-10 | P1 | PromoTableView | D/M, заголовки, строки/ячейки, статусы, цены и действия; данные и callbacks задаются явно. | `src/promo-table-view/` |
+| CC-LND-10 | P1 | PromoTableView | **D/M опубликованы и проверены 04.11.2026.** [Файлы и отчёт](../JSONS/web/components/web-corp-promo/PromoTableView/code-connect/README.md). Реальные exports `PromoTableViewDesktop/Mobile` из `arui-private/promo-table-view`; восемь MCP root variants, два set queries, 10 native component previews и 24 cell port probes (22 PASS, два ожидаемых Secondary-only отказа). 14 тестов, 72 synthetic preset combinations и source API types PASS. Общие headers, порядок и sparse first/lastCells сохранены; IDs, callbacks, ReactNode и border задаёт приложение. Source background/CTA gaps отмечены; SDK/browser ещё не проверены. | `src/promo-table-view/`; component-owned `code-connect/` и `mobile-web/code-connect/` |
 | CC-LND-11 | P1 | Section | Content/Isle → реальные `children`/`sidebar`; адаптивный порядок областей; подтвердить Figma identity и платформенную применимость. | `src/section/` |
 | CC-LND-12 | P1 | FileUpload | D/M, состояние root и файлов, Attach/Dropzone/FileUploadItem; upload adapter и callbacks — контекст приложения. | `src/file-upload/` |
 | CC-LND-13 | P1 | Divider | Подтвердить нужное семейство разделителя лендинга, D/M и публичный API; использовать в композиции футера/модального контента. | `src/divider/` |
@@ -100,6 +100,19 @@ Desktop и Mobile Web проверяются отдельно; наличие de
   onClick передаётся в onKeyDown без фильтра клавиши. Source поведение проверено;
   браузерная/assistive приёмка и решение по библиотеке остаются открытыми.
   Запись не разрешает изменение или публикацию `arui-private`.
+
+- [ ] **CC-LND-10-SOURCE-01 · P1.** Согласовать фоновые состояния PromoTableView:
+  source фиксирует Primary BackgroundPlate и platform background context; Gray
+  Desktop / White Mobile, per-row surface overrides, выключенный Header background
+  и Skeleton не представлены API. Code Connect предупреждает о фоновых расхождениях
+  и отклоняет Skeleton. Запись не разрешает изменение или публикацию `arui-private`.
+
+- [ ] **CC-LND-10-SOURCE-02 · P1.** Согласовать LastCell API PromoTableView:
+  Primary обязателен, Secondary-only приводит к обращению к отсутствующему Primary;
+  size=48 и роли зафиксированы, disabled/Hint/addons/другой Shape недоступны.
+  Code Connect отклоняет неподдержанные состояния без фиктивной кнопки.
+  Source layout также требует согласованных общих headers; decoder проверяет
+  cardinality/соответствие до генерации. Запись не разрешает изменение библиотеки.
 
 ## Пресеты и незакрытое соответствие Footer
 
