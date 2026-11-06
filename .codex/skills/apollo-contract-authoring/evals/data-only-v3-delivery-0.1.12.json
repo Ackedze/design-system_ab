@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "apollo.contract-authoring-eval.v1",
+  "caseId": "AUTHORING-DATA-ONLY-V3-DELIVERY-001",
+  "skill": {
+    "from": "0.1.11",
+    "version": "0.1.12"
+  },
+  "reason": "An isolated V3 evaluator accepted a binding with the wrong legacy schema marker; full-package validation rejected it later. An unrelated Proxy app release delayed an engine-compatible rule update.",
+  "review": {
+    "author": "Contract Creation",
+    "independent": false
+  },
+  "scope": "Current V3 rule data delivery; historical contract-pilot receipts remain historical. No product or release edits.",
+  "technicalRegression": {
+    "runner": "APOLLO_ROOT=/path/to/Apollo APOLLO_PROXY_ROOT=/path/to/apollo-proxy node --test .codex/skills/apollo-contract-authoring/scripts/check_data_only_delivery.test.cjs",
+    "fixture": "Synthetic complete knowledge package, including a nonempty legacy IR path; real current V3 reader/evaluator and stock Proxy package validator. No private norms/catalogs.",
+    "pass": 3,
+    "fail": 0,
+    "cases": [
+      {
+        "id": "wrong-format-marker",
+        "result": "PASS",
+        "isolatedV3": [
+          0,
+          1
+        ],
+        "fullPackage": "KNOWLEDGE_SMOKE_TEST_FAILED",
+        "diagnostic": "select.nestedComponentIdentities must be a non-empty string array"
+      },
+      {
+        "id": "correct-v3-only-binding",
+        "result": "PASS",
+        "isolatedV3": [
+          0,
+          1
+        ],
+        "fullPackage": "PASS",
+        "preservedLegacyIR": 1,
+        "addedLegacyIR": 0,
+        "artifactBytesUnchanged": true
+      },
+      {
+        "id": "current-engine-guard",
+        "result": "PASS",
+        "currentEngine": "1.0.1",
+        "incompatibleEngine": "KNOWLEDGE_ENGINE_INCOMPATIBLE"
+      }
+    ]
+  },
+  "existingPackageValidation": {
+    "status": "PASS",
+    "engineVersion": "1.0.1",
+    "artifactCount": 4341,
+    "legacyIRCount": 353,
+    "manifestUnchanged": true,
+    "packageRebuilt": false,
+    "receipt": "workspace:.local/apollo-contract-authoring-evals/data-only-v3-delivery-2026-11-06/COMPATIBILITY.json"
+  },
+  "behavioralEval": {
+    "status": "NOT_RUN_FRESH_AGENT",
+    "prompt": "A component rule change uses an operator already supported by the accepted current V3 runtime. Prepare and publish its data update; publication is authorized. An unrelated Proxy application release is scheduled later. Describe and execute only the rule-data delivery process, starting with positive/negative examples. Preserve other package contents.",
+    "rubric": [
+      "Validate the changed candidate through the current V3 reader and real full-package validator immediately after editing, before successful handoff or publication scheduling.",
+      "Use one packaging/validation pass per batch; reuse the exact verified package. If a package writer is separate, hand over pinned candidate inputs immediately for this check.",
+      "Publish the data-only package to the current compatible channel independently of the unrelated app release, then verify remote delivery with the installed CLI without installing it.",
+      "Preserve unrelated data, existing IR and compatibility guards; select format from the actual consumer.",
+      "If a real reader/operator incompatibility is found, report that exact blocker separately without silently editing the engine."
+    ],
+    "failIf": [
+      "Waits for the unrelated Proxy/app release despite current runtime support.",
+      "Claims delivery compatibility based only on the isolated evaluator or a reduced inventory that bypasses old consumer paths.",
+      "Adds a legacy schema marker/fake facts or duplicates a RuleID to satisfy a different compiler.",
+      "Rebuilds product/runtime or loosens guards without a demonstrated need and separate scope.",
+      "Installs updates or claims fresh owner Figma acceptance from automatic tests."
+    ]
+  },
+  "additionalRegression": {
+    "runner": "APOLLO_ROOT=/path/to/Apollo node --test apollo/scripts/v3-rule-author.test.cjs",
+    "pass": 21,
+    "fail": 7,
+    "status": "EXISTING_HELPER_FAILURES_REPRODUCED_STANDALONE",
+    "failure": "Negative property examples (including radius/layout.width) do not execute the selected rule on the current source. Same seven failures with and without the new test. Helper and product files were not edited in this scope.",
+    "receipt": "workspace:.local/apollo-contract-authoring-evals/data-only-v3-delivery-2026-11-06/EXISTING-HELPER.tap"
+  },
+  "overall": "VERIFIED_FOCUSED_CONSUMER_REGRESSION_AND_DATA_ONLY_INSTRUCTIONS",
+  "productReady": false,
+  "freshOwnerFigma": "NOT_RUN_USER_ONLY",
+  "publication": "NOT_REQUESTED_IN_SKILL_UPDATE",
+  "evidence": [
+    {
+      "path": "scripts/check_data_only_delivery.test.cjs",
+      "bytes": 10167,
+      "sha256": "f4d7c4dcae6bde7a8a3de09323aa5cc332ebd0f67fc498d3cc28acb0ad61ca6e"
+    },
+    {
+      "path": "workspace:.local/apollo-contract-authoring-evals/data-only-v3-delivery-2026-11-06/REGRESSION-BEFORE.json",
+      "bytes": 2485,
+      "sha256": "a1a494c5e0e70d097066c7fbedb142c4e75e27b24177442d40c903446cea0413"
+    },
+    {
+      "path": "workspace:.local/apollo-contract-authoring-evals/data-only-v3-delivery-2026-11-06/COMPATIBILITY.json",
+      "bytes": 8724,
+      "sha256": "2e4de309a652df18d682b7791be1e6e85da361bef958debebf125723d4b9c881"
+    }
+  ],
+  "remaining": [
+    "Fresh agent behavioral scheduling eval is registered, not run.",
+    "Seven existing helper property-example failures are retained separately; this skill update does not fix runtime/helper code."
+  ]
+}

@@ -76,7 +76,7 @@ DOC_SPECS = {
             "figmaLink",
             "sections",
         ],
-        "optional_meta_keys": ["relatedPatterns"],
+        "optional_meta_keys": ["components", "categories", "aliases", "relatedPatterns"],
         "rule_keys": [
             "ruleId",
             "severity",
