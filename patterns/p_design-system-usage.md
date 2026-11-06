@@ -12,6 +12,9 @@
 - updatedAt: 2026-10-16
 - sourceType: owner-decision
 - tags: backgroundplate, composition, contracts
+- components: []
+- categories: ["design-system", "tokens", "platform"]
+- aliases: ["правила дизайн-системы", "токены библиотеки", "версия компонента"]
 - figmaLink: none
 - sections: 10
 

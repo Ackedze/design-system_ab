@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-15
 - sourceType: component-guideline
 - tags: table-view, data-view, content-table, horizontal-table, vertical-table, compact-table, titleview, columns, rows
+- components: ["TableView"]
+- categories: ["table-view", "data-view", "table"]
+- aliases: ["представление таблицы", "горизонтальная таблица", "вертикальная таблица"]
 - figmaLink: https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=60611-1657
 - relatedPatterns:
   - ptrn:tables.data-formatting

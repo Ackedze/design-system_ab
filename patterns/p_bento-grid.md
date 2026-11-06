@@ -13,6 +13,9 @@
 - updatedAt: 2026-11-02
 - sourceType: figma-analysis
 - tags: bento-grid, promo-card, promo, composition, hierarchy, adaptive
+- components: ["BentoGrid", "PromoCard"]
+- categories: ["bento-grid", "promo", "composition"]
+- aliases: ["бенто", "бенто-сетка", "готовая промокомпозиция", "bento grid"]
 - figmaLink: https://www.figma.com/design/IgMTjHSWHjRKY5HyQrDtbA/?node-id=4083-24428
 - relatedPatterns:
   - ptrn:components.promo-card

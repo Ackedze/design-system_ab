@@ -13,6 +13,9 @@
 - updatedAt: 2026-10-20
 - sourceType: component-guideline
 - tags: backgroundplate, background, plate, container, level, overlay, adaptive, skeleton, web-corp
+- components: ["BackgroundPlate", "Style Level 1"]
+- categories: ["background", "container", "surface"]
+- aliases: ["фоновая подложка", "уровень фона", "background plate"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:components.title-view

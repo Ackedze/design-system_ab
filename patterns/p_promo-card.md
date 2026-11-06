@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-20
 - sourceType: component-guideline
 - tags: promo-card, promo, offer, image, bento, web-corp-promo
+- components: ["PromoCard", "BentoGrid"]
+- categories: ["promo-card", "promo", "offer"]
+- aliases: ["промокарточка", "промо карточка", "карточка предложения", "promo card"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:components.bento-grid

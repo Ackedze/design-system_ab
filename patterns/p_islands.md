@@ -12,6 +12,9 @@
 - updatedAt: 2026-06-25
 - sourceType: design-guideline
 - tags: islands, right-column, secondary-content, layout, forms, view-pages, adaptive, background-plate
+- components: ["IsleBlock", "IsleHeader", "IsleContent", "IsleFooter"]
+- categories: ["islands", "secondary-content", "layout"]
+- aliases: ["островок", "островки", "правая колонка", "вторичный контент"]
 - figmaLink: https://www.figma.com/design/YsuykTQGGmL78O5PVJHQgb/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0----%D0%9E%D1%81%D1%82%D1%80%D0%BE%D0%B2%D0%BA%D0%B8-%D0%B2-%D0%90%D0%BB%D1%8C%D1%84%D0%B0-%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81?m=auto&t=yxdKGIY4gfsWChEc-7
 - sections: 10
 

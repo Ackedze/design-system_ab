@@ -12,6 +12,9 @@
 - updatedAt: 2026-07-22
 - sourceType: pdf-guideline
 - tags: tooltip, hint, подсказка, info-icon, ux-writing, adaptive, design-system
+- components: ["Tooltip", "Hint", "Onboarding Tooltip", "Onboarding Hint"]
+- categories: ["tooltip", "hint", "help"]
+- aliases: ["тултип", "хинт", "подсказка", "информационная подсказка"]
 - figmaLink: https://www.figma.com/design/BOOvg27B7EvF29kV3DgJyC/%E2%9C%85-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82----Tooltip-%D0%B8-Hint?m=auto&t=O3CL6g0roHsaVoKv-7
 - sections: 10
 

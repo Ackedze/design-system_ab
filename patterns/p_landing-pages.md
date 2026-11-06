@@ -12,6 +12,9 @@
 - updatedAt: 2026-11-02
 - sourceType: design-guideline
 - tags: landing, promo, alfa-business, promo-main-block, benefits, content, footer, modal, mobileweb, editorial
+- components: ["PromoMainBlock", "LandingPage"]
+- categories: ["landing", "promo", "editorial"]
+- aliases: ["лендинг", "лендинговая страница", "промо страница", "landing page"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:components.corporate-page

@@ -12,6 +12,9 @@
 - updatedAt: 2026-11-02
 - sourceType: owner-guideline
 - tags: draft-layout, grid-and-cols, corporate-content, body, section
+- components: ["CorporateContent", "Section", "GridAndCols"]
+- categories: ["draft-layout", "grid", "page"]
+- aliases: ["черновой лейаут", "каркас страницы", "сетка черновика", "draft layout"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:components.corporate-page

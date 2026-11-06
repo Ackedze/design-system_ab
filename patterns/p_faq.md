@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-20
 - sourceType: component-guideline
 - tags: faq, accordion, questions, answers, promo, adaptive, web-corp
+- components: ["FAQ", "Accordion"]
+- categories: ["faq", "questions", "accordion"]
+- aliases: ["частые вопросы", "вопросы и ответы", "аккордеон faq"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:components.link

@@ -13,6 +13,9 @@
 - updatedAt: 2026-08-20
 - sourceType: component-guideline
 - tags: contentcardwrapper, content-card, card, form, choice, slot, action, web-corp
+- components: ["ContentCardWrapper"]
+- categories: ["content-card", "card", "wrapper"]
+- aliases: ["контентная карточка", "обертка карточки", "content card wrapper"]
 - figmaLink: https://www.figma.com/design/7WJ21bqd9XKcS8JBN4rdeY/%E2%9C%85-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82----ContentCardWrapper?node-id=1-211
 - relatedPatterns:
   - ptrn:components.background-plate

@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-13
 - sourceType: component-guideline
 - tags: table-basic, table, basic-table, columns, sorting, pagination, bulk-actions, groupbar, web-corp
+- components: ["Table Basic [D]", "TableBasic"]
+- categories: ["table-basic", "table", "data-grid"]
+- aliases: ["базовая таблица", "простая таблица", "table basic"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:tables.data-formatting

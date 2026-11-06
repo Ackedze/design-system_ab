@@ -1,6 +1,6 @@
 {
   "schemaVersion": "apollo.rule-crosswalk.v2",
-  "description": "Проверенный мост между исполняемыми RuleID Apollo и человекочитаемыми источниками ds-ai-hub. Идентификаторы намеренно не дублируются: одно human-правило может иметь несколько технических реализаций, а часть технических правил не требует отдельной политики для человека.",
+  "description": "Мост между нормами ds-ai-hub и проверками Apollo. Для подтверждённой одинаковой нормы canonicalRuleId и apolloRuleId совпадают с RuleID хаба; технические проверки и исторические ID учитываются отдельно. Неперенесённые связи v2 сохраняются до отдельной сверки.",
   "documents": {
     "amountPattern": {
       "path": "products/ab/patterns/amount_component.md"
@@ -6328,6 +6328,35 @@
         "status": "verified",
         "reviewedAt": "2026-11-03",
         "basis": "Existing source norm; independent native source bindings and ordinary runtime positive/violation/hidden/UNKNOWN controls. Source/API drift remains incomplete; no fresh Figma/Ready claim."
+      }
+    },
+    {
+      "apolloRuleId": "rule:components.title-view.status-color-consistency",
+      "canonicalRuleId": "rule:components.title-view.status-color-consistency",
+      "legacyApolloRuleIds": [
+        "component:web-corp.title-view.status-and-title-status-color-match"
+      ],
+      "apolloSource": "JSONS/web/components/web-corp/TitleView/rules.json",
+      "relation": "exact",
+      "enforcementScope": "TitleView Desktop/MobileWeb; when both Status and TitleStatus are visible their Type values must agree.",
+      "hubEvidence": [
+        {
+          "kind": "named-rule",
+          "document": "titleViewPattern",
+          "heading": "Rule 6: Согласуй цвет Status и TitleStatus",
+          "ruleId": "rule:components.title-view.status-color-consistency"
+        }
+      ],
+      "executionSources": [
+        {
+          "kind": "v3-composition",
+          "path": "JSONS/web/components/web-corp/TitleView/composition-contract.json"
+        }
+      ],
+      "review": {
+        "status": "verified",
+        "reviewedAt": "2026-11-06",
+        "basis": "Owner requires identical normative IDs. Hub Rule6 and active rule express the same Type equality; current V3 data-only 0/1 comparator/report proof. Legacy ID retained as alias; no semantic change or new operator."
       }
     }
   ],

@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-15
 - sourceType: component-guideline
 - tags: tabs-view, tabs-primary, tabs-secondary, navigation, adaptive, mobile-web
+- components: ["TabsView", "TabsPrimary", "TabsSecondary"]
+- categories: ["tabs", "navigation", "view"]
+- aliases: ["табы", "вкладки", "навигация табами", "tabs view"]
 - figmaLink: https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components
 - sections: 10
 

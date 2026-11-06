@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-11
 - sourceType: component-guideline
 - tags: corporate-page, corporateappheadernew, content, page-template, wide-grid, grid-and-cols, body-slot, page-layout, adaptive
+- components: ["CorporatePage", "CorporateContent", "GridAndCols"]
+- categories: ["page", "page-template", "layout"]
+- aliases: ["корпоративная страница", "шаблон страницы", "corporate page"]
 - figmaLink: https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=47124-72335
 - relatedPatterns:
   - ptrn:components.corporate-app-navigation

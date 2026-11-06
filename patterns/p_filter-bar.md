@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-23
 - sourceType: figma-guideline+owner-interview
 - tags: filterbar, filters, search, filtering, presets, tables, lists
+- components: ["FilterBar", "FiltersBlock", "FilterCompanySelect"]
+- categories: ["filters", "filtering", "search"]
+- aliases: ["панель фильтров", "фильтры", "поиск и фильтрация", "filter bar"]
 - figmaLink: https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=151016-27699&p=f&t=RG0TDLM01YcZmfF5-11
 - relatedPatterns:
   - ptrn:controls.input-fields

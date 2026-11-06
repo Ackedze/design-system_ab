@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-composition-contract-registry",
-  "generatedAt": "2026-11-01T14:17:01.851Z",
+  "generatedAt": "2026-11-06T06:29:38.114Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -106053,6 +106053,51 @@
                   "expectation": "Кнопки внутри [M] TitleView должны использовать Size=48.",
                   "action": "Установить кнопке Size=48."
                 }
+              }
+            ]
+          },
+          {
+            "id": "rule:components.title-view",
+            "ruleKind": "design-rule",
+            "authority": {
+              "status": "active",
+              "provenance": "design-system-author",
+              "revision": 1
+            },
+            "scope": {
+              "platform": [
+                "desktop",
+                "mobile-web"
+              ]
+            },
+            "match": {
+              "hostComponentIdentities": [
+                "web-corp.title-view",
+                "web-corp.title-view-mobile"
+              ],
+              "hostComponentNames": [
+                "[D] TitleView",
+                "[M] TitleView"
+              ]
+            },
+            "select": {
+              "nestedComponentNames": [
+                "StatusPreset",
+                "🔒 [D] StatusPreset",
+                "🔒 [M] StatusPreset",
+                "[D] TitleStatus",
+                "[M] TitleStatus"
+              ],
+              "visibility": "visible",
+              "order": "document"
+            },
+            "constraints": [
+              {
+                "id": "status-color-consistency",
+                "ruleId": "rule:components.title-view.status-color-consistency",
+                "op": "propertyEqualsFirst",
+                "property": "Type",
+                "message": "Если одновременно используются Status и TitleStatus, их значения Type должны совпадать. Type определяет статусный цвет, поэтому разные значения Type создают несогласованное состояние."
               }
             ]
           }

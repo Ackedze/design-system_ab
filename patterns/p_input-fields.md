@@ -12,6 +12,9 @@
 - updatedAt: 2026-04-26
 - sourceType: editorial-guideline
 - tags: input, forms, labels, placeholders, hints, validation, errors
+- components: ["Input", "Field", "Select", "Textarea"]
+- categories: ["input", "fields", "controls"]
+- aliases: ["поле ввода", "поля ввода", "инпут", "лейбл поля", "валидация поля"]
 - figmaLink: https://www.figma.com/design/ibMoxyH6Xl2pC4lx2JJzu8/%D0%A2%D0%B5%D0%BA%D1%81%D1%82-%D0%B2-%D0%BF%D0%BE%D0%BB%D1%8F%D1%85-%D0%B2%D0%B2%D0%BE%D0%B4%D0%B0?node-id=2185-30521&t=aWU6NjN20eEmuDXG-0
 - sections: 10
 

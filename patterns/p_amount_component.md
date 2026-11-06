@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-22
 - sourceType: component-guideline
 - tags: amount, currency, numeric-data, tables, table-lists, side-panel, input, typography, color, formatting
+- components: ["Amount", "AmountStyles", "PaymentMaskedNumber"]
+- categories: ["amount", "currency", "numeric-data"]
+- aliases: ["сумма", "денежная сумма", "валюта", "формат суммы", "числовые данные"]
 - figmaLink: https://www.figma.com/design/VcHkzjFmNGCbKpO2YFCogJ/%E2%9C%85-%D0%9A%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82----Amount?m=auto&t=yxdKGIY4gfsWChEc-7
 - sections: 10
 

@@ -12,6 +12,9 @@
 - updatedAt: 2026-08-14
 - sourceType: design-guideline
 - tags: holding, company-selection, filter-company-select, title-view, filterblock, landing, forms, alfa-business
+- components: ["FilterCompanySelect", "HoldingPlate", "FilterBlock"]
+- categories: ["holding", "company-selection", "flow"]
+- aliases: ["режим холдинга", "выбор компании", "группа компаний", "контекст компании", "holding company selection"]
 - figmaLink: https://www.figma.com/design/5n2GGKZdHa0Vv4BQVmC55W/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0----%D0%A5%D0%BE%D0%BB%D0%B4%D0%B8%D0%BD%D0%B3-%D0%B2-%D0%90%D0%BB%D1%8C%D1%84%D0%B0-%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81?node-id=1-210
 - relatedPatterns:
   - ptrn:components.title-view

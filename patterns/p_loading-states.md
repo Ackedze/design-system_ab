@@ -12,6 +12,9 @@
 - updatedAt: 2026-10-16
 - sourceType: owner-decision
 - tags: backgroundplate, composition, contracts
+- components: ["BackgroundPlate"]
+- categories: ["loading", "skeleton", "states"]
+- aliases: ["состояние загрузки", "скелетон", "loading state"]
 - figmaLink: none
 - sections: 10
 

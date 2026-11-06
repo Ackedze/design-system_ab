@@ -12,6 +12,9 @@
 - updatedAt: 2026-07-04
 - sourceType: design-guideline
 - tags: wide-grid, grid, columns, layout, corporate-page, corporate-content, adaptive, breakpoints, gutter, modal
+- components: ["WideGrid", "GridAndCols"]
+- categories: ["wide-grid", "grid", "columns"]
+- aliases: ["широкая сетка", "сетка страницы", "колонки", "гаттер", "wide grid"]
 - figmaLink: https://www.figma.com/design/tgOwiMB5jMZt1FM6tnz0zL/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0----%D0%A8%D0%B8%D1%80%D0%BE%D0%BA%D0%B0%D1%8F-%D1%81%D0%B5%D1%82%D0%BA%D0%B0?node-id=1-211
 - relatedPatterns:
   - ptrn:components.corporate-page

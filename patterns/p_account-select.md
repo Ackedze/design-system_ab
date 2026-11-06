@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-16
 - sourceType: component-guideline
 - tags: account-select, accounts, option-list, single-select, multi-select, grouped
+- components: ["AccountSelect", "OptionList"]
+- categories: ["accounts", "choice", "select"]
+- aliases: ["выбор счета", "выбор счетов", "список счетов", "account select"]
 - figmaLink: https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=30810-131081
 - sections: 10
 

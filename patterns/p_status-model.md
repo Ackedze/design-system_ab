@@ -12,6 +12,9 @@
 - updatedAt: 2026-04-26
 - sourceType: editorial-guideline
 - tags: status, ux-writing, semantics, color, consistency
+- components: ["Status", "StatusPreset", "StatusBadge", "Status & Property"]
+- categories: ["status", "semantics", "ux-writing"]
+- aliases: ["статус", "статусная модель", "семантика статуса", "цвет статуса"]
 - figmaLink: https://www.figma.com/design/VD37NST0XNHNgoF3xxyA2p/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0-%3A%3A-%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%BD%D0%B0%D1%8F-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C?node-id=1-211
 - sections: 10
 

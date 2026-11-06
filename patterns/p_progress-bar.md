@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-29
 - sourceType: component-contract
 - tags: progress-bar, progress, goal, limit, amount, status, web-corp-presets
+- components: ["ProgressBar"]
+- categories: ["progress", "goal", "limit", "financial-data"]
+- aliases: ["прогресс", "прогресс-бар", "денежная цель", "лимит", "progress bar"]
 - figmaLink: none
 - sections: 10
 

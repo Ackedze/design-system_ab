@@ -13,6 +13,9 @@
 - updatedAt: 2026-10-19
 - sourceType: component-guideline
 - tags: benefit-card, benefits, promo, graphic, compact, responsive, web-corp-promo
+- components: ["BenefitCard", "Benefits", "BenefitsBlock"]
+- categories: ["benefits", "promo", "card"]
+- aliases: ["карточка преимущества", "преимущества", "benefit card"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:media.images-and-formats

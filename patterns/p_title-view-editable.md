@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-11
 - sourceType: component-guideline
 - tags: titleview, editable-title, page-header, edit, date, number, subtitle, adaptive, web-corp
+- components: ["TitleViewEditable", "EditableTitleView"]
+- categories: ["editable-title", "page-header", "editing"]
+- aliases: ["редактируемый заголовок", "редактируемый titleview", "editable title"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:components.title-view

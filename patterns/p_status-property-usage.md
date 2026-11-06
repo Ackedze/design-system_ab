@@ -12,6 +12,9 @@
 - updatedAt: 2026-10-24
 - sourceType: owner-decision
 - tags: status, property, color, contracts
+- components: ["Status & Property"]
+- categories: ["status", "property", "surface"]
+- aliases: ["status property", "статус и свойства", "оформление статуса"]
 - figmaLink: none
 - sections: 10
 

@@ -12,6 +12,9 @@
 - updatedAt: 2026-06-30
 - sourceType: catalog-derived-guideline
 - tags: border-radius, corners, surfaces, controls, cards, pills, web-core, web-corp
+- components: []
+- categories: ["border-radius", "corners", "visual"]
+- aliases: ["скругление", "скругления", "радиус", "радиусы", "углы"]
 - figmaLink: none
 - sections: 10
 

@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-13
 - sourceType: component-guideline
 - tags: table-wide, table, wide-table, columns, sorting, pinning, pagination, bulk-actions, web-corp
+- components: ["Table Wide [D]", "TableWide", "TableBulkActions"]
+- categories: ["table-wide", "table", "data-grid"]
+- aliases: ["широкая таблица", "таблица wide", "table wide", "массовые действия таблицы"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:tables.data-formatting

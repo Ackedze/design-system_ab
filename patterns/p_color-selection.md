@@ -12,6 +12,9 @@
 - updatedAt: 2026-10-24
 - sourceType: owner-decision
 - tags: status, property, color, contracts
+- components: ["Status & Property"]
+- categories: ["color", "tokens", "semantics"]
+- aliases: ["выбор цвета", "цветовой токен", "семантический цвет", "color selection"]
 - figmaLink: none
 - sections: 10
 

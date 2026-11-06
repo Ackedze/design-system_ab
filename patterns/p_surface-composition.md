@@ -12,6 +12,9 @@
 - updatedAt: 2026-10-16
 - sourceType: owner-decision
 - tags: backgroundplate, composition, contracts
+- components: ["BackgroundPlate", "BackgroundPlateSlot"]
+- categories: ["surface", "layout", "composition"]
+- aliases: ["композиция поверхностей", "уровни backgroundplate", "surface composition"]
 - figmaLink: none
 - sections: 10
 

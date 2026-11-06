@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-11
 - sourceType: component-guideline
 - tags: titleview, page-header, heading, subtitle, status, actions, title-addon, right-addon, skeleton, web-corp
+- components: ["TitleView", "TitleViewMobile"]
+- categories: ["title-view", "page-header", "heading"]
+- aliases: ["заголовок страницы", "шапка страницы", "title view", "подзаголовок страницы"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:components.title-view-editable

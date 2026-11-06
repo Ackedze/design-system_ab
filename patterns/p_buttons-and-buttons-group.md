@@ -12,6 +12,9 @@
 - updatedAt: 2026-07-22
 - sourceType: editorial-guideline
 - tags: buttons, button-group, hierarchy, action-labels, web-core
+- components: ["Button", "ButtonsGroup", "ButtonGroup", "ButtonStack", "PickerButton", "IconButton", "ActionButton", "CustomButton"]
+- categories: ["buttons", "button-group", "cta", "actions"]
+- aliases: ["кнопка", "кнопки", "кнопок", "группа кнопок", "группы кнопок", "групп кнопок", "иерархия действий", "главное действие", "overflow действий"]
 - figmaLink: https://www.figma.com/design/JzeK5OjfUevjNSP3bm7I19/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0-%3A%3A-%D0%9A%D0%BD%D0%BE%D0%BF%D0%BA%D0%B8-%D0%B8-%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D1%8B-%D0%BA%D0%BD%D0%BE%D0%BF%D0%BE%D0%BA?node-id=1-211&t=oV9kj05Y2jgCqBZ7-1
 - sections: 10
 

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "documentType": "apollo-component-rules-registry",
-  "generatedAt": "2026-11-01T14:17:01.851Z",
+  "generatedAt": "2026-11-06T06:29:38.114Z",
   "entries": [
     {
       "componentKey": "web-corp.filter-company-select-universal-modal",
@@ -19794,6 +19794,29 @@
           "ruleText": "Изменения variant/property в этом семействе компонентов являются component-property customizations. Показывай их отдельно от производных визуальных изменений layer."
         },
         {
+          "ruleId": "component:web-corp.status-property.layer-properties-use-effective-baseline",
+          "severity": "warning",
+          "source": "composition-contract",
+          "appliesTo": "layout.*|styles.text|fill|stroke|radius|opacity",
+          "checkType": "deterministic",
+          "matchKind": "exact_component_rule",
+          "target": {
+            "component": "Status & Property",
+            "layers": [
+              "[D] PropertyPreset",
+              "[D] StatusPreset",
+              "[M] PropertyPreset",
+              "[M] StatusPreset",
+              "🔒 [D] PropertyPreset",
+              "🔒 [D] StatusPreset",
+              "🔒 [M] PropertyPreset",
+              "🔒 [M] StatusPreset",
+              "Status & Property"
+            ]
+          },
+          "ruleText": "Изменения layer/style внутри этого семейства компонентов нужно сравнивать с effective baseline текущего component variant и nested owner context."
+        },
+        {
           "ruleId": "component:web-corp.status-property.lifecycle-context-is-informational",
           "severity": "info",
           "source": "component-contract",
@@ -26228,12 +26251,12 @@
             "treatAsViolation": true,
             "useEffectiveBaseline": true
           },
-          "ruleText": "Типографика Title и Subtitle фиксируется выбранным View компонента TitleView. Менять текстовый стиль заголовка или подзаголовка вручную запрещено.",
+          "ruleText": "Стили Title и Subtitle должны соответствовать выбранному библиотечному варианту TitleView. Ручная смена этих текстовых стилей запрещена.",
           "ruleKind": "design-rule",
           "authority": {
             "status": "active",
             "provenance": "design-system-author",
-            "revision": 1
+            "revision": 2
           },
           "predicateContour": {
             "schemaVersion": "apollo.contour-definition.v1",
@@ -26521,7 +26544,7 @@
           "ruleText": "Status используется для состояния страницы, заголовком которой является TitleView с View=xLarge. TitleStatus является опциональным статусным блоком. TitleAddon и TitleAddonXL используются как опциональные функциональные элементы рядом с заголовком. Не считай отсутствие опционального слота нарушением."
         },
         {
-          "ruleId": "component:web-corp.title-view.status-and-title-status-color-match",
+          "ruleId": "rule:components.title-view.status-color-consistency",
           "severity": "error",
           "ruleKind": "design-rule",
           "severityScope": "design",
@@ -26549,7 +26572,7 @@
           "authority": {
             "status": "active",
             "provenance": "design-system-author",
-            "revision": 1
+            "revision": 2
           },
           "predicateContour": {
             "schemaVersion": "apollo.contour-definition.v1",

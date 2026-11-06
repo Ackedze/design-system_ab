@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-04
 - sourceType: component-guideline
 - tags: header, side-menu, header-menu, navigation, corporate-app-header-new, desktop, adaptive, page, product-cells
+- components: ["CorporateAppHeaderNew", "CorporateAppHeaderMobile", "CorporateTopbar", "Header", "SideMenu", "HeaderMenu", "HubMenu"]
+- categories: ["navigation", "header", "side-menu"]
+- aliases: ["навигация приложения", "хедер", "боковое меню", "меню продукта"]
 - figmaLink: https://www.figma.com/design/NrzEFUSTXgzOUmsfYym0xD/Web----Corp-Components?node-id=68924-8054
 - relatedPatterns:
   - ptrn:layout.adaptive-alfa-business

@@ -12,6 +12,9 @@
 - updatedAt: 2026-11-02
 - sourceType: design-guideline
 - tags: business-segment, mmb, sb, kib, appearance, promo, image
+- components: ["PromoMainBlock", "BenefitsBlock", "ImageView"]
+- categories: ["business-segment", "appearance", "promo"]
+- aliases: ["стиль сегмента", "сегменты бизнеса", "ММБ", "СБ", "КИБ"]
 - figmaLink: none
 - relatedPatterns:
   - ptrn:landing-pages.alfa-business

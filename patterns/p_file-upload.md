@@ -13,6 +13,9 @@
 - updatedAt: 2026-07-16
 - sourceType: component-guideline
 - tags: file-upload, upload, attach, dropzone, documents, files, errors, adaptive, web-corp
+- components: ["FileUpload"]
+- categories: ["file-upload", "files", "documents"]
+- aliases: ["загрузка файла", "загрузка файлов", "прикрепить файл", "дропзона"]
 - figmaLink: none
 - sections: 10
 

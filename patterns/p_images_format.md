@@ -12,6 +12,9 @@
 - updatedAt: 2025-12-15
 - sourceType: design-guideline
 - tags: images, illustrations, landing, banners, iconview, advertising, image-size, safe-area, crop, png
+- components: ["IconView", "CardImage"]
+- categories: ["images", "illustrations", "media"]
+- aliases: ["изображение", "картинка", "иллюстрация", "формат изображения", "safe area"]
 - figmaLink: https://www.figma.com/design/1LivpO0kmX4O8kpow8Ehij/%E2%9C%85-%D0%AD%D1%82%D0%BE%D0%91%D0%B0%D0%B7%D0%B0----%D0%9A%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8%E2%80%A8%D0%B8-%D0%B8%D1%85-%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D1%8B?m=auto&t=yxdKGIY4gfsWChEc-7
 - sections: 10
 
