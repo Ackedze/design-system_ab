@@ -9,7 +9,7 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: draft
-- updatedAt: 2026-11-02
+- updatedAt: 2026-11-08
 - sourceType: design-guideline
 - tags: landing, promo, alfa-business, promo-main-block, benefits, content, footer, modal, mobileweb, editorial
 - components: ["PromoMainBlock", "LandingPage"]
@@ -155,12 +155,19 @@ Promo-компоненты поддерживают нужную визуаль�
 - checkType: deterministic
 - autofix: no
 
-Hero-зона лендинга всегда расположена первой и содержит ровно один `PromoMainBlock`. Это правило одинаково для отдельной страницы и модального лендинга: во втором случае считается порядок внутри контента модальной сущности.
+В пределах всего лендинга допускается ровно один `PromoMainBlock`, и он
+расположен первым — в hero-зоне. Ограничение считается по всей странице,
+включая основной контент, повторные офферы и финальный CTA, а не только внутри
+hero. Второй `PromoMainBlock` для финального призыва запрещён; используй другой
+подходящий специализированный компонент по его рецепту.
+
+Это правило одинаково для отдельной страницы и модального лендинга:
+в модалке считается всё содержимое этой модальной сущности.
 
 #### Правильно
 
 ```text
-First hero -> exactly one PromoMainBlock
+Entire landing -> exactly one PromoMainBlock, placed first as hero
 ```
 
 #### Неправильно
@@ -169,6 +176,7 @@ First hero -> exactly one PromoMainBlock
 До PromoMainBlock расположен другой контентный блок.
 Hero собран вручную из текстового блока, картинки и кнопки.
 В hero расположены два PromoMainBlock.
+Один PromoMainBlock расположен в hero, второй использован как финальный CTA.
 ```
 
 #### Почему
