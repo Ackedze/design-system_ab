@@ -135,13 +135,13 @@ test('legacy references retain one exact shared wrapper and reject selection of 
  f.first.mappings[0].source.mappingIds=['map1'];f.publish();assert.throws(()=>validate(f.root),/Legacy mapping IDs differ/);
 });
 
-test('offline source inventory accepts 34 records while refusing more than 64',t=>{
+test('offline source inventory accepts more than 64 records and validates the last source',t=>{
  const f=fixture(t),source=f.index.entries[0],manual=JSON.parse(fs.readFileSync(path.join(f.root,source.manual.path)));
- for(let revision=4;revision<36;revision++){
+ for(let revision=4;revision<67;revision++){
   const m=structuredClone(manual);m.metadata.revision=revision;
   f.index.dependencySources.push({...source,revision,manualSourceHash:revision.toString(16).padStart(64,'0'),manual:f.put(`JSONS/web/components/Dependency/history/r${revision}/contract.manual.json`,m)});
  }
- f.publish();assert.equal(validate(f.root).records.length,34);
- while(f.index.entries.length+f.index.dependencySources.length<=64)f.index.dependencySources.push(f.index.dependencySources[0]);
- f.publish();assert.throws(()=>validate(f.root));
+ f.publish();assert.equal(validate(f.root).records.length,65);
+ fs.appendFileSync(path.join(f.root,f.index.dependencySources.at(-1).manual.path),' ');
+ assert.throws(()=>validate(f.root),/Stale repository file/);
 });
