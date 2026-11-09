@@ -77,6 +77,17 @@ test('a shared mapping is stored once and referenced by both actual owners',t=>{
  second.mappingArtifacts=[artifact];f.publish();assert.equal(validate(f.root).records.length,2);
  assert.equal(first.mappingArtifacts[0].path,second.mappingArtifacts[0].path);
 });
+test('a previous revision mapping remains verified history and cannot be readmitted as current',t=>{
+ const f=fixture(t),entry=f.index.entries[0],manual=JSON.parse(fs.readFileSync(path.join(f.root,entry.manual.path)));
+ const previous=structuredClone(manual);previous.metadata.revision=2;
+ const artifact=retainedArtifact(f,entry,{kind:'figma-generic',relationship:'historical-contract',revision:2,folder:'history/r2',mapping:{semantic:{mappings:[{componentId:entry.componentId}]},manuals:[{manual:previous}]}});
+ f.publish();assert.equal(validate(f.root).records[0].manual.metadata.revision,3);
+ const current=f.put(path.posix.dirname(entry.manual.path)+'/mapping/figma-mapping.current.json',fs.readFileSync(path.join(f.root,artifact.path)));
+ entry.mappings=[{kind:'figma-generic',...current}];f.publish();
+ assert.throws(()=>validate(f.root),/Mapping manual differs from canonical source/);
+ delete entry.mappings;fs.appendFileSync(path.join(f.root,artifact.path),' ');f.publish();
+ assert.throws(()=>validate(f.root),/Stale repository file/);
+});
 test('relocation refuses foreign owners, invented admission, stale provenance and false revision labels',t=>{
  for(const kind of ['foreign','unbound-owner','admission','proof','missing-pin','historical','revision','manual','companion','location']){
   const f=fixture(t),entry=f.index.entries[0],artifact=retainedArtifact(f,entry);
