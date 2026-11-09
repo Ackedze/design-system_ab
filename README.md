@@ -20,12 +20,28 @@
 План подготовки связей для лендингов: [бэклог Code Connect](docs/CODE_CONNECT_LANDING_BACKLOG.md)
 — Corp/Promo-компоненты, Figma-пресеты и зависимости от командного Code Connect Core.
 
-Текущие manual/facts, component-owned mappings и ZIP контрактов расположены
+Исторические manual/facts, component-owned mappings и ZIP закрытого контрактного пилота расположены
 в `JSONS/web/components/<library>/<component>`; отдельная mobile-web версия —
 во вложенной папке. [Source index](JSONS/indexes/component-contracts.index.json)
 закрепляет источники и ссылки на один общий mapping seed, [коллекция ZIP](experiments/current-contract-packages/README.md)
 показывает revision и дату изменения manual. [Порядок работы](experiments/current-contract-packages/CONTRACT_AUTHORING_GUIDE.ru.md#рабочие-файлы-компонента-и-даты)
 отделяет исходники от неизменяемых исторических receipts и производной поставки Proxy.
+
+### CI текущей проверки и исторического архива
+
+На каждый push в `main` и каждый PR workflow **V3 rule validation** выполняет
+существующие тесты инструмента правил V3: авторинг, фактическое исполнение
+положительных/отрицательных примеров, селекторы и итоговый отчёт. Исходники
+исполнителя берутся из явно закреплённого коммита Apollo. Эти тесты не означают
+полного покрытия всех норм или приёмки макета в Figma. Полная автоматическая
+валидация плагина остаётся в workflow **Validate Apollo** репозитория Apollo.
+
+Проверки старых контрактных ZIP, manual, mapping и их pins сохранены в отдельном
+workflow **Archived contract integrity**, который запускается только вручную
+через Actions → Run workflow. Они проверяют историю закрытого пилота и не
+являются гейтом готовности V3. Проверка legacy-документов в этом workflow берёт
+изменения выбранного коммита относительно его родителя. Валидаторы, архивы и
+прежние результаты не удалены; контрактный пилот не возобновляется.
 
 Репозиторий является bootstrap-источником Apollo и хранит Web, token, style, icon, logotype и component-contract artifacts. Runtime читает `main/JSONS` через GitHub Pages: `https://ackedze.github.io/design-system_ab/JSONS/`. Это основной публичный delivery endpoint; `raw.githubusercontent.com` не используется из-за rate limits при массовой загрузке каталогов. Android/iOS ABM-каталоги вынесены в `Ackedze/desing-system_abm`; `JSONS/referenceSourcesMVP.json` подключает их raw manifest через `catalogManifests`. Новые ABM-файлы нельзя добавлять обратно в `JSONS/abm` или `JSONS/indexes/abm`.
 
