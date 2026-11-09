@@ -9,10 +9,10 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: draft
-- updatedAt: 2026-11-08
+- updatedAt: 2026-11-09
 - sourceType: design-guideline
 - tags: landing, promo, alfa-business, promo-main-block, benefits, content, footer, modal, mobileweb, editorial
-- components: ["PromoMainBlock", "LandingPage"]
+- components: ["PromoMainBlock", "LandingPage", "Benefits", "BenefitsBlock"]
 - categories: ["landing", "promo", "editorial"]
 - aliases: ["лендинг", "лендинговая страница", "промо страница", "landing page"]
 - figmaLink: none
@@ -881,6 +881,43 @@ BackgroundPlateSlot на promo-странице связан с [Promo] Backgrou
 #### Почему
 
 Это требование к сборке лендинга. Паспорт компонента содержит ссылку, а не второй активный запрет.
+
+### Rule 29: Отделяй преимущества от блока шагов интервалом 72 px
+
+- ruleId: rule:landing-pages.alfa-business.benefits-to-steps-gap
+- severity: error
+- appliesTo: screen
+- checkType: deterministic
+- autofix: no
+
+В desktop-лендинге отдельной страницей между блоком преимуществ `Benefits`
+и следующим за ним `BenefitsBlock` с пресетом `Steps` должен быть внешний
+вертикальный интервал `72 px`. Измеряй его между нижней границей блока
+преимуществ и верхней границей блока шагов после наполнения и пересчёта Auto Layout.
+
+`Gutter=24` относится к сетке и не задаёт этот внешний интервал. Сохраняй
+внутренние padding/gap библиотечных блоков и bindings контейнера. Размещай
+соседние блоки так, чтобы фактическое расстояние было `72 px`; не назначай
+один общий gap всем секциям и не меняй интервалы других пар без их нормы.
+Значение для mobile-web или модального лендинга этим правилом не определяется.
+
+#### Правильно
+
+```text
+Desktop page: Benefits.bottom -> 72 px -> BenefitsBlock / Steps.top
+```
+
+#### Неправильно
+
+```text
+Benefits -> 24 px -> BenefitsBlock / Steps, потому что Gutter=24
+Все секции получили одинаковый gap без проверки правил соседства.
+```
+
+#### Почему
+
+Преимущества и инструкция — самостоятельные смысловые блоки; внешний
+интервал между ними отличается от внутренних интервалов сетки.
 
 ## Section 7: Шаблоны
 
