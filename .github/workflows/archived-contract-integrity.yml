@@ -1,0 +1,31 @@
+name: Archived contract integrity
+
+# The manual-contract pilot is retired; retain its integrity checks on demand.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test repository integrity guards
+        run: node --test scripts/tests/component-package-integrity.test.js scripts/tests/legacy-component-scope.test.js
+      - name: Validate archived contract source and archive pins
+        run: node scripts/validate_current_contract_packages.cjs
+      - name: Validate legacy component documents changed in the selected commit
+        env:
+          BASE_REF: HEAD^
+        run: |
+          node .claude/skills/corp-component-authoring/scripts/validate-component-package.mjs \
+            --changed-from "$BASE_REF"

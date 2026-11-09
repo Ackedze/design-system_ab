@@ -1,29 +1,9 @@
-name: Component package validation
+name: V3 rule validation
 
 on:
   pull_request:
-    paths:
-      - "JSONS/web/components/**"
-      - "JSONS/indexes/component-contracts.index.json"
-      - "apollo/data-packages/**"
-      - "experiments/current-contract-packages/manifest.json"
-      - "experiments/current-contract-packages/draft-manifest.json"
-      - "scripts/**"
-      - "patterns/**"
-      - ".claude/skills/corp-component-authoring/**"
-      - ".github/workflows/component-package-validation.yml"
   push:
     branches: [main]
-    paths:
-      - "JSONS/web/components/**"
-      - "JSONS/indexes/component-contracts.index.json"
-      - "apollo/data-packages/**"
-      - "experiments/current-contract-packages/manifest.json"
-      - "experiments/current-contract-packages/draft-manifest.json"
-      - "scripts/**"
-      - "patterns/**"
-      - ".claude/skills/corp-component-authoring/**"
-      - ".github/workflows/component-package-validation.yml"
 
 permissions:
   contents: read
@@ -32,21 +12,23 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v5
         with:
-          fetch-depth: 0
-      - name: Node
-        uses: actions/setup-node@v4
+          path: shared/design-system_ab
+      - uses: actions/checkout@v5
+        with:
+          repository: Ackedze/apollo
+          ref: fba40a5f1a9be105ea77794cfd825d453f6981ba
+          path: projects/Apollo
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Test repository integrity guards
-        run: node --test scripts/tests/component-package-integrity.test.js scripts/tests/legacy-component-scope.test.js
-      - name: Validate current contract source and archive pins
-        run: node scripts/validate_current_contract_packages.cjs
-      - name: Validate changed legacy component documents
+          cache: npm
+          cache-dependency-path: projects/Apollo/package-lock.json
+      - run: npm ci
+        working-directory: projects/Apollo
+      - name: Test authoring, execution and reports with the V3 evaluators
         env:
-          BASE_REF: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
-        run: |
-          node .claude/skills/corp-component-authoring/scripts/validate-component-package.mjs \
-            --changed-from "$BASE_REF"
+          APOLLO_ROOT: ${{ github.workspace }}/projects/Apollo
+        run: node --test apollo/scripts/v3-rule-author.test.cjs
+        working-directory: shared/design-system_ab
