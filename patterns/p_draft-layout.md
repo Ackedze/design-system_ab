@@ -9,7 +9,7 @@
 - locale: ru-RU
 - owner: Design System / Product Design
 - status: draft
-- updatedAt: 2026-11-02
+- updatedAt: 2026-11-10
 - sourceType: owner-guideline
 - tags: draft-layout, grid-and-cols, corporate-content, body, section
 - components: ["CorporateContent", "Section", "GridAndCols"]
@@ -110,6 +110,8 @@ Root: Grid & Cols → нужный режим
 - autofix: partial
 
 Для одной колонки или последовательных блоков достаточно Body. Когда нужны системные области Content и Isle, используй `[D] Section` и наполни оба слота. Их колонки, Gutter и перестроение определяются [контрактом Section](../JSONS/web/components/web-corp/CorporateContent/README.md). На узких ширинах следуй его штатному режиму; не имитируй desktop-композицию ручными размерами.
+
+Для лендингов разрешение Section не применяется: размещай блоки в Body CorporateContent без Section по [паттерну лендингов](p_landing-pages.md).
 
 #### Правильно
 

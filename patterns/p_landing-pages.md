@@ -9,10 +9,10 @@
 - locale: ru-RU
 - owner: Editorial / Design System
 - status: draft
-- updatedAt: 2026-11-09
+- updatedAt: 2026-11-10
 - sourceType: design-guideline
 - tags: landing, promo, alfa-business, promo-main-block, benefits, content, footer, modal, mobileweb, editorial
-- components: ["PromoMainBlock", "LandingPage", "Benefits", "BenefitsBlock"]
+- components: ["PromoMainBlock", "LandingPage", "Benefits", "BenefitsBlock", "CorporateContent", "Section"]
 - categories: ["landing", "promo", "editorial"]
 - aliases: ["лендинг", "лендинговая страница", "промо страница", "landing page"]
 - figmaLink: none
@@ -511,20 +511,22 @@ Page content: raw fill
 - checkType: deterministic
 - autofix: no
 
-На Desktop между заголовком и контентом `40 px`, в compact-версии `32 px`; между заголовком и группой тегов `32 px`, в compact-версии `24 px`. В Mobile Web между заголовком и контентом `24 px`, между группой тегов и заголовком `20 px`.
+Для разрешённого кастомного контентного блока на Desktop расстояние между заголовком и содержимым составляет `40 px`, в Compact — `32 px`. Эти значения не задают внешние интервалы между блоками. Готовые библиотечные компоненты сохраняют интервалы по собственным рецептам.
+
+Остальные ранее установленные интервалы не пересматриваются: на Desktop между заголовком и группой тегов `32 px`, в compact-версии `24 px`; в Mobile Web между заголовком и контентом `24 px`, между группой тегов и заголовком `20 px`.
 
 #### Правильно
 
 ```text
-Desktop: title -> content 40 px
-Compact: title -> content 32 px
+Custom Desktop: title -> content 40 px
+Custom Compact: title -> content 32 px
 Mobile: title -> content 24 px
 ```
 
 #### Неправильно
 
 ```text
-Desktop: title -> content 18 px
+Custom Desktop: title -> content 18 px
 ```
 
 #### Почему
@@ -918,6 +920,84 @@ Benefits -> 24 px -> BenefitsBlock / Steps, потому что Gutter=24
 
 Преимущества и инструкция — самостоятельные смысловые блоки; внешний
 интервал между ними отличается от внутренних интервалов сетки.
+
+### Rule 30: Не используй Section для сборки лендинга
+
+- ruleId: rule:landing-pages.alfa-business.no-section
+- severity: error
+- appliesTo: screen
+- checkType: deterministic
+- autofix: no
+
+В лендингах не используй системный компонент Section для размещения контента. Все блоки находятся в Body платформенного CorporateContent. Общее разрешение Section для продуктовых страниц с Content и Isle на лендинги не распространяется.
+
+#### Правильно
+
+```text
+CorporateContent → Body → блоки лендинга
+```
+
+#### Неправильно
+
+```text
+CorporateContent → Body → Section → блоки лендинга
+```
+
+#### Почему
+
+Лендинг собирается в единой системной области Body; продуктовая схема Content и Isle не переносится на этот сценарий.
+
+### Rule 31: Отделяй главный блок от преимуществ интервалом 24 px
+
+- ruleId: rule:landing-pages.alfa-business.promomainblock-to-benefits-gap
+- severity: error
+- appliesTo: screen
+- checkType: deterministic
+- autofix: no
+
+В Desktop-лендинге на отдельной странице внешний вертикальный интервал между PromoMainBlock и следующим Benefits должен быть 24 px. Измеряй расстояние между фактическими границами наполненных блоков после пересчёта Auto Layout. Не переноси это значение на другие пары блоков, mobile-web или модальное окно.
+
+#### Правильно
+
+```text
+Desktop page: PromoMainBlock.bottom → 24 px → Benefits.top
+```
+
+#### Неправильно
+
+```text
+PromoMainBlock → Benefits: произвольный интервал или общий gap всех секций
+```
+
+#### Почему
+
+Этот стык имеет отдельную норму и не наследует gutter или интервал между другими секциями.
+
+### Rule 32: Не добавляй пустые Frame для внешних интервалов
+
+- ruleId: rule:landing-pages.alfa-business.no-empty-frame-spacers
+- severity: error
+- appliesTo: screen
+- checkType: manual
+- autofix: no
+
+При сборке Desktop-лендинга отдельной страницей не добавляй собственные пустые Frame для имитации расстояний. Интервалы задаются настройками разрешённой Auto Layout-композиции с сохранением анатомии компонентов и bindings. Штатные библиотечные Spacers и осмысленные композиционные контейнеры этим запретом не исключаются.
+
+#### Правильно
+
+```text
+Внешний интервал задан настройками допустимой Auto Layout-композиции; штатные библиотечные отступы сохранены.
+```
+
+#### Неправильно
+
+```text
+Между соседними блоками добавлен собственный пустой Frame только ради нужного расстояния.
+```
+
+#### Почему
+
+Синтетические пустые Frame скрывают причину интервала и затрудняют проверку фактического вертикального ритма.
 
 ## Section 7: Шаблоны
 
